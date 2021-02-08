@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/55/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/55/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/06/05/%E3%80%90.Net%E3%80%91%E9%98%B4%E5%8E%86%E8%BD%AC%E5%86%9C%E5%8E%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/06/05/%E3%80%90.Net%E3%80%91%E9%98%B4%E5%8E%86%E8%BD%AC%E5%86%9C%E5%8E%86/" class="post-title-link" itemprop="url">【.Net】阴历转农历</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-06-05 20:30:55" itemprop="dateCreated datePublished" datetime="2018-06-05T20:30:55+08:00">2018-06-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Globalization;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace ConsoleApplication1</span><br><span class="line">&#123;</span><br><span class="line">    public class BLDateHelper</span><br><span class="line">    &#123;</span><br><span class="line">        #region 年份，返回ArrayList类型</span><br><span class="line">        public ArrayList Year()</span><br><span class="line">        &#123;</span><br><span class="line">            ArrayList arraylist &#x3D; new ArrayList(210);</span><br><span class="line">            for (int i &#x3D; 1901; i &lt; 2101; i++)</span><br><span class="line">            &#123;</span><br><span class="line"></span><br><span class="line">                arraylist.Add(i);</span><br><span class="line">            &#125;</span><br><span class="line">            return arraylist;</span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line">        #region 公历月份，返回ArrayList类型</span><br><span class="line">        public ArrayList Month()</span><br><span class="line">        &#123;</span><br><span class="line">            ArrayList arraylist &#x3D; new ArrayList();</span><br><span class="line">            for (int i &#x3D; 1; i &lt;&#x3D; 12; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                arraylist.Add(i);</span><br><span class="line">            &#125;</span><br><span class="line">            return arraylist;</span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line">        #region 根据年月返回公历当月的天数</span><br><span class="line">        public int GetMonthCount(int year, int month)</span><br><span class="line">        &#123;</span><br><span class="line">            int count &#x3D; DateTime.DaysInMonth(year, month);</span><br><span class="line">            return count;</span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line">        #region 根据年月返回当年当月第一天星期几</span><br><span class="line">        &#x2F;&#x2F;2000-1-2为周日</span><br><span class="line">        &#x2F;&#x2F;返回以0为周日</span><br><span class="line">        public int FirstDayOfWeekOfMonth(int year, int month)</span><br><span class="line">        &#123;</span><br><span class="line">            DateTime jztime &#x3D; new DateTime(2000, 1, 2);</span><br><span class="line">            DateTime newtime &#x3D; new DateTime(year, month, 1);</span><br><span class="line">            TimeSpan ts;</span><br><span class="line">            int dayofweek &#x3D; 0;</span><br><span class="line">            if (jztime &lt; newtime)</span><br><span class="line">            &#123;</span><br><span class="line">                ts &#x3D; newtime - jztime;</span><br><span class="line">                dayofweek &#x3D; ts.Days % 7;</span><br><span class="line">                return dayofweek;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                ts &#x3D; jztime - newtime;</span><br><span class="line">                dayofweek &#x3D; (ts.Days) % 7;</span><br><span class="line">                return (7 - dayofweek) % 7;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line">        #region 根据年月日算星期几,返回string类型,方法二：(简捷)以一个基准日期，两日期相减算法</span><br><span class="line">        &#x2F;&#x2F;方法三</span><br><span class="line">        &#x2F;&#x2F;以一个基准日期，两日期相减算法</span><br><span class="line">        &#x2F;&#x2F;根据年月日算星期几,返回string类型</span><br><span class="line">        &#x2F;&#x2F;2000-1-1为星期六</span><br><span class="line">        public string GetWeekOfDay(int year, int month, int day)</span><br><span class="line">        &#123;</span><br><span class="line">            &#x2F;&#x2F;int runnian&#x3D;0;</span><br><span class="line">            DateTime jztime &#x3D; new DateTime(2000, 1, 1);</span><br><span class="line">            DateTime newtime &#x3D; new DateTime(year, month, day);</span><br><span class="line">            TimeSpan chatime;</span><br><span class="line">            int week;</span><br><span class="line">            string weekstr &#x3D; &quot;&quot;;</span><br><span class="line">            if (jztime &lt;&#x3D; newtime)</span><br><span class="line">            &#123;</span><br><span class="line">                chatime &#x3D; newtime - jztime;</span><br><span class="line">                week &#x3D; (chatime.Days + 1) % 7;</span><br><span class="line">                switch (week)</span><br><span class="line">                &#123;</span><br><span class="line">                    case 1:</span><br><span class="line">                        weekstr &#x3D; &quot;星期六&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 2:</span><br><span class="line">                        weekstr &#x3D; &quot;星期日&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 3:</span><br><span class="line">                        weekstr &#x3D; &quot;星期一&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 4:</span><br><span class="line">                        weekstr &#x3D; &quot;星期二&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 5:</span><br><span class="line">                        weekstr &#x3D; &quot;星期三&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 6:</span><br><span class="line">                        weekstr &#x3D; &quot;星期四&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 0:</span><br><span class="line">                        weekstr &#x3D; &quot;星期五&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                chatime &#x3D; jztime - newtime;</span><br><span class="line">                week &#x3D; (chatime.Days + 1) % 7;</span><br><span class="line">                switch (week)</span><br><span class="line">                &#123;</span><br><span class="line">                    case 1:</span><br><span class="line">                        weekstr &#x3D; &quot;星期六&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 2:</span><br><span class="line">                        weekstr &#x3D; &quot;星期五&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 3:</span><br><span class="line">                        weekstr &#x3D; &quot;星期四&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 4:</span><br><span class="line">                        weekstr &#x3D; &quot;星期三&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 5:</span><br><span class="line">                        weekstr &#x3D; &quot;星期二&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 6:</span><br><span class="line">                        weekstr &#x3D; &quot;星期一&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 0:</span><br><span class="line">                        weekstr &#x3D; &quot;星期日&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return weekstr;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line">        #region 根据公历日期返回农历日</span><br><span class="line">        public string GetNLMonth(int year, int month, int day)</span><br><span class="line">        &#123;</span><br><span class="line">            string[] monthname &#x3D; &#123; &quot;正月&quot;, &quot;二月&quot;, &quot;三月&quot;, &quot;四月&quot;, &quot;五月&quot;, &quot;六月&quot;, &quot;七月&quot;, &quot;八月&quot;, &quot;九月&quot;, &quot;十月&quot;, &quot;十一月&quot;, &quot;腊月&quot; &#125;;</span><br><span class="line">            ChineseLunisolarCalendar calendar &#x3D; new ChineseLunisolarCalendar();</span><br><span class="line">            DateTime datetime &#x3D; new DateTime(year, month, day);</span><br><span class="line"></span><br><span class="line">            int nlyear &#x3D; calendar.GetYear(datetime);</span><br><span class="line">            int nlmonth &#x3D; calendar.GetMonth(datetime);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;判断是否有闰月 ,leap&#x3D;0即没有闰月</span><br><span class="line">            int leapmonth &#x3D; calendar.GetLeapMonth(nlyear);</span><br><span class="line">            if (leapmonth &gt; 0)</span><br><span class="line">            &#123;</span><br><span class="line">                if (leapmonth &lt;&#x3D; nlmonth)</span><br><span class="line">                &#123;</span><br><span class="line">                    nlmonth--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return monthname[nlmonth - 1].ToString();</span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line">        #region 根据公历日期返回农历日</span><br><span class="line">        public string GetNLDay(int year, int month, int day)</span><br><span class="line">        &#123;</span><br><span class="line">            string[] nstr1 &#x3D; &#123; &quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;, &quot;五&quot;, &quot;六&quot;, &quot;七&quot;, &quot;八&quot;, &quot;九&quot;, &quot;十&quot; &#125;;</span><br><span class="line">            string[] nstr2 &#x3D; &#123; &quot;初&quot;, &quot;十&quot;, &quot;廿&quot;, &quot;卅&quot; &#125;;</span><br><span class="line">            string[] monthname &#x3D; &#123; &quot;正月&quot;, &quot;二月&quot;, &quot;三月&quot;, &quot;四月&quot;, &quot;五月&quot;, &quot;六月&quot;, &quot;七月&quot;, &quot;八月&quot;, &quot;九月&quot;, &quot;十月&quot;, &quot;十一月&quot;, &quot;腊月&quot; &#125;;</span><br><span class="line">            ChineseLunisolarCalendar calendar &#x3D; new ChineseLunisolarCalendar();</span><br><span class="line">            DateTime datetime &#x3D; new DateTime(year, month, day);</span><br><span class="line"></span><br><span class="line">            int nlyear &#x3D; calendar.GetYear(datetime);</span><br><span class="line">            int nlmonth &#x3D; calendar.GetMonth(datetime);</span><br><span class="line">            int nlday &#x3D; calendar.GetDayOfMonth(datetime);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;判断是否有闰月 ,leap&#x3D;0即没有闰月</span><br><span class="line">            int leapmonth &#x3D; calendar.GetLeapMonth(nlyear);</span><br><span class="line">            if (leapmonth &gt; 0)</span><br><span class="line">            &#123;</span><br><span class="line">                if (leapmonth &lt;&#x3D; nlmonth)</span><br><span class="line">                &#123;</span><br><span class="line">                    nlmonth--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (nlday &#x3D;&#x3D; 1)</span><br><span class="line">            &#123;</span><br><span class="line">                return monthname[nlmonth - 1].ToString();</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                if (nlday &gt; 1 &amp;&amp; nlday &lt;&#x3D; 10)</span><br><span class="line">                &#123;</span><br><span class="line">                    return nstr2[0].ToString() + nstr1[nlday - 1].ToString();</span><br><span class="line">                &#125;</span><br><span class="line">                else if (nlday &gt; 10 &amp;&amp; nlday &lt; 20)</span><br><span class="line">                &#123;</span><br><span class="line">                    return nstr2[1].ToString() + nstr1[nlday % 10 - 1].ToString();</span><br><span class="line">                &#125;</span><br><span class="line">                else if (nlday &#x3D;&#x3D; 20)</span><br><span class="line">                &#123;</span><br><span class="line">                    return &quot;二十&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">                else if (nlday &gt; 20 &amp;&amp; nlday &lt; 30)</span><br><span class="line">                &#123;</span><br><span class="line">                    return nstr2[2].ToString() + nstr1[nlday % 10 - 1].ToString();</span><br><span class="line">                &#125;</span><br><span class="line">                else if (nlday &#x3D;&#x3D; 30)</span><br><span class="line">                &#123;</span><br><span class="line">                    return &quot;三十&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    return &quot;卅一&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line">        #region 阳历转化为农历，返回string类型</span><br><span class="line">        &#x2F;&#x2F;ChineseLunisolarCalendar类能实现的日期为1901-2-19——2101-1-28</span><br><span class="line">        &#x2F;&#x2F;阳历转化为农历，返回string类型</span><br><span class="line">        &#x2F;&#x2F;以公元前2997年为中国历史上第一个甲子年</span><br><span class="line">        public string GetNLYear(int year, int month, int day)</span><br><span class="line">        &#123;</span><br><span class="line">            string datestr &#x3D; &quot;&quot;;</span><br><span class="line">            string[] gan &#x3D; &#123; &quot;甲&quot;, &quot;乙&quot;, &quot;丙&quot;, &quot;丁&quot;, &quot;戊&quot;, &quot;己&quot;, &quot;庚&quot;, &quot;辛&quot;, &quot;壬&quot;, &quot;癸&quot; &#125;;</span><br><span class="line">            string[] zhi &#x3D; &#123; &quot;子&quot;, &quot;丑&quot;, &quot;寅&quot;, &quot;卯&quot;, &quot;辰&quot;, &quot;巳&quot;, &quot;午&quot;, &quot;未&quot;, &quot;申&quot;, &quot;酉&quot;, &quot;戌&quot;, &quot;亥&quot; &#125;;</span><br><span class="line">            string[] shengxiao &#x3D; &#123; &quot;鼠&quot;, &quot;牛&quot;, &quot;虎&quot;, &quot;免&quot;, &quot;龙&quot;, &quot;蛇&quot;, &quot;马&quot;, &quot;羊&quot;, &quot;猴&quot;, &quot;鸡&quot;, &quot;狗&quot;, &quot;猪&quot; &#125;;</span><br><span class="line">            ChineseLunisolarCalendar calendar &#x3D; new ChineseLunisolarCalendar();</span><br><span class="line">            DateTime date &#x3D; new DateTime(year, month, day);</span><br><span class="line"></span><br><span class="line">            int nlyear &#x3D; calendar.GetYear(date);</span><br><span class="line">            int nlmonth &#x3D; calendar.GetMonth(date);</span><br><span class="line">            int nlday &#x3D; calendar.GetDayOfMonth(date);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;判断是否有闰月 ,leap&#x3D;0即没有闰月</span><br><span class="line">            int leapmonth &#x3D; calendar.GetLeapMonth(nlyear);</span><br><span class="line">            if (leapmonth &gt; 0)</span><br><span class="line">            &#123;</span><br><span class="line">                if (leapmonth &lt;&#x3D; nlmonth)</span><br><span class="line">                &#123;</span><br><span class="line">                    nlmonth--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;确定年份,基准1804为甲子年,鼠年</span><br><span class="line">            &#x2F;&#x2F;天干年</span><br><span class="line">            string zy &#x3D; &quot;&quot;;</span><br><span class="line">            &#x2F;&#x2F;地支年</span><br><span class="line">            string dy &#x3D; &quot;&quot;;</span><br><span class="line">            &#x2F;&#x2F;生肖年</span><br><span class="line">            string sxnian &#x3D; &quot;&quot;;</span><br><span class="line">            if (nlyear &gt; 3)</span><br><span class="line">            &#123;</span><br><span class="line">                int zhiyear &#x3D; (nlyear - 4) % 10;</span><br><span class="line">                int diyear &#x3D; (nlyear - 4) % 12;</span><br><span class="line">                zy &#x3D; gan[zhiyear];</span><br><span class="line">                dy &#x3D; zhi[diyear];</span><br><span class="line">                sxnian &#x3D; shengxiao[diyear];</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;转化的最终农历年</span><br><span class="line">            datestr &#x3D; zy + dy + &quot;(&quot; + nlyear + &quot;)&quot; + &quot;年&quot; + &quot;  生肖:&quot; + sxnian;</span><br><span class="line"></span><br><span class="line">            return datestr;</span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        public string GetNL(int year, int month, int day)</span><br><span class="line">        &#123;</span><br><span class="line">            string nlDay &#x3D; GetNLDay(year, month, day);</span><br><span class="line">            string nlMonth &#x3D; GetNLMonth(year, month, day);</span><br><span class="line">            string nlYear &#x3D; GetNLYear(year, month, day);</span><br><span class="line">            return nlYear + &quot; &quot; + nlMonth + &quot; &quot; + nlDay;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/05/30/%E3%80%90Python%E3%80%91%E8%BF%9E%E6%8E%A5SQLServer%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/30/%E3%80%90Python%E3%80%91%E8%BF%9E%E6%8E%A5SQLServer%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="post-title-link" itemprop="url">【Python】连接SQLServer数据库增删改查</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-05-30 17:46:01" itemprop="dateCreated datePublished" datetime="2018-05-30T17:46:01+08:00">2018-05-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Pymssql使用<br>麻烦的是，经常安装失败。需要先下载包，再在本地进行安装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pymssql</span><br></pre></td></tr></table></figure>
+<p>传送门：<a target="_blank" rel="noopener" href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pymssql">https://www.lfd.uci.edu/~gohlke/pythonlibs/#pymssql</a><br>可根据自己Python的版本来下载，之前安装Python3.7使用有些问题<br><img src="/images/20180530174102544.png" alt=""></p>
+<p>安装pymssql:<br><img src="/images/20180530174444228.png" alt=""></p>
+<p>pymssql对数据库的一些操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">import pymssql</span><br><span class="line"></span><br><span class="line"># server    数据库服务器名称或IP</span><br><span class="line"># user      用户名</span><br><span class="line"># password  密码</span><br><span class="line"># database  数据库名称</span><br><span class="line"></span><br><span class="line">server &#x3D; &quot;*******&quot;</span><br><span class="line">user &#x3D; &quot;sa&quot;</span><br><span class="line">password &#x3D; &quot;*******&quot;</span><br><span class="line">database &#x3D; &quot;Python&quot;</span><br><span class="line">conn &#x3D; pymssql.connect(server, user, password, database)</span><br><span class="line">cursor &#x3D; conn.cursor()</span><br><span class="line"></span><br><span class="line"># 新建表</span><br><span class="line">def CreateTable():</span><br><span class="line">    sql &#x3D; &quot;&quot;&quot;</span><br><span class="line">    IF OBJECT_ID(&#39;persons&#39;, &#39;U&#39;) IS NOT NULL DROP TABLE persons</span><br><span class="line">    CREATE TABLE persons (id INT NOT NULL identity(1,1),name VARCHAR(100),age int,PRIMARY KEY(id))</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    cursor.execute(sql)</span><br><span class="line">    conn.commit()</span><br><span class="line"></span><br><span class="line"># 批量插入数据</span><br><span class="line">def InsertData():</span><br><span class="line">    sql &#x3D; &quot;INSERT INTO persons(name,age) VALUES (%s, %d)&quot;</span><br><span class="line">    data &#x3D; [</span><br><span class="line">        (&#39;zhangsan&#39;, 15),</span><br><span class="line">        (&#39;lisi&#39;, 16),</span><br><span class="line">        (&#39;wangwu T.&#39;, 17)]</span><br><span class="line">    cursor.executemany(sql, data)</span><br><span class="line">    # 如果没有指定autocommit属性为True的话就需要调用commit()方法</span><br><span class="line">    conn.commit()</span><br><span class="line"></span><br><span class="line"># 删除操作</span><br><span class="line">def DeleteData():</span><br><span class="line">    sql &#x3D; &quot;delete persons where id&#x3D;5&quot;</span><br><span class="line">    cursor.execute(sql)</span><br><span class="line">    conn.commit()</span><br><span class="line"></span><br><span class="line"># 查询操作</span><br><span class="line">def SelectTable():</span><br><span class="line">    sql &#x3D; &quot;SELECT * FROM persons&quot;</span><br><span class="line">    cursor.execute(sql)</span><br><span class="line">    row &#x3D; cursor.fetchone()</span><br><span class="line">    while row:</span><br><span class="line">        print(&quot;ID&#x3D;%d, Name&#x3D;%s&quot; % (row[0], row[1]))</span><br><span class="line">        row &#x3D; cursor.fetchone()</span><br><span class="line">    # 也可以使用for循环来迭代查询结果</span><br><span class="line">    # for row in cursor:</span><br><span class="line">    #     print(&quot;ID&#x3D;%d, Name&#x3D;%s&quot; % (row[0], row[1]))</span><br><span class="line"></span><br><span class="line"># 修改操作</span><br><span class="line">def UpdateData():</span><br><span class="line">    sql &#x3D; &quot;update [persons] set name &#x3D;&#39;Python1&#39; where id&lt;3&quot;</span><br><span class="line">    cursor.execute(sql)</span><br><span class="line">    conn.commit()</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    # CreateTable()</span><br><span class="line">    InsertData()</span><br><span class="line">    DeleteData()</span><br><span class="line">    UpdateData()</span><br><span class="line">    SelectTable()</span><br><span class="line">    conn.close()</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    main()</span><br><span class="line"></span><br><span class="line"># 关闭连接</span><br></pre></td></tr></table></figure>
+<p>mssql_helper：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import pymssql</span><br><span class="line"></span><br><span class="line">class MSSQL:</span><br><span class="line">    def __init__(self,host,user,pwd,db): #类的构造函数，初始化数据库连接ip或者域名，以及用户名，密码，要连接的数据库名称</span><br><span class="line">        self.host&#x3D;host</span><br><span class="line">        self.user&#x3D;user</span><br><span class="line">        self.pwd&#x3D;pwd</span><br><span class="line">        self.db&#x3D;db</span><br><span class="line">    def __GetConnect(self):  #得到数据库连接信息函数， 返回: conn.cursor()</span><br><span class="line">        self.conn&#x3D;pymssql.connect(host&#x3D;self.host,user&#x3D;self.user,password&#x3D;self.pwd,database&#x3D;self.db,charset&#x3D;&#39;utf8&#39;)</span><br><span class="line">        cur&#x3D;self.conn.cursor()  #将数据库连接信息，赋值给cur。</span><br><span class="line">        if not cur:</span><br><span class="line">            return(NameError,&quot;连接数据库失败&quot;)</span><br><span class="line">        else:</span><br><span class="line">            return cur</span><br><span class="line"></span><br><span class="line">    #执行查询语句,返回的是一个包含tuple的list，list的元素是记录行，tuple的元素是每行记录的字段</span><br><span class="line">    def ExecQuery(self,sql):  #执行Sql语句函数，返回结果</span><br><span class="line">        cur &#x3D; self.__GetConnect()   #获得数据库连接信息</span><br><span class="line">        cur.execute(sql)  #执行Sql语句</span><br><span class="line">        resList &#x3D; cur.fetchall()  #获得所有的查询结果</span><br><span class="line">        #查询完毕后必须关闭连接</span><br><span class="line">        self.conn.close()   #返回查询结果</span><br><span class="line">        return resList</span><br><span class="line">    def ExecNonQuery(self,sql):</span><br><span class="line">        cur &#x3D; self.__GetConnect()</span><br><span class="line">        cur.execute(sql)</span><br><span class="line">        self.conn.commit()</span><br><span class="line">        self.conn.close()</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import mssql_helper</span><br><span class="line"></span><br><span class="line">server &#x3D; &quot;********&quot;</span><br><span class="line">user &#x3D; &quot;sa&quot;</span><br><span class="line">password &#x3D; &quot;*********&quot;</span><br><span class="line">database &#x3D; &quot;Python&quot;</span><br><span class="line"></span><br><span class="line">mssql &#x3D;&quot;&quot;</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    global mssql</span><br><span class="line">    mssql &#x3D; mssql_helper.MSSQL(server,user,password,database)</span><br><span class="line"></span><br><span class="line">def test():</span><br><span class="line">    rows &#x3D; mssql.ExecQuery(&quot;SELECT * FROM persons&quot;)    </span><br><span class="line">    print(rows)</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    main()</span><br><span class="line">    test()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/05/28/%E3%80%90Python%E3%80%91%E7%88%AC%E8%99%AB%E7%99%BB%E9%99%86%E5%B8%A6CookieToken/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/28/%E3%80%90Python%E3%80%91%E7%88%AC%E8%99%AB%E7%99%BB%E9%99%86%E5%B8%A6CookieToken/" class="post-title-link" itemprop="url">【Python】爬虫登陆带CookieToken</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-05-28 21:51:35" itemprop="dateCreated datePublished" datetime="2018-05-28T21:51:35+08:00">2018-05-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>用python写爬虫整的很方便，弄了个模拟登陆，登陆后带上token和cooke请求页面</p>
+<p>就拿gitlab练下手了，这个还是有一丢丢麻烦的</p>
+<p>一、登陆界面</p>
+<p>获取隐藏域中的token，构建表单的时候需要</p>
+<p><img src="/images/20180528213625200.png" alt=""></p>
+<p>获取到这个_gitlab_session，登陆校验时需要带着这个信息</p>
+<p><img src="/images/20180528213010934.png" alt=""></p>
+<p>准备好token和cookie，当然还需要一个能登陆用户名和密码</p>
+<p>二、登陆验证</p>
+<p>登陆验证就是构建表单，不知为何还要传一个utf-8参数</p>
+<p><img src="/images/20180528213428500.png" alt=""></p>
+<p>按说应该可以登陆进去的，但是….登陆进去后页面会重定向到一个界面。接着呢，只好看fiddle里抓包的信息</p>
+<p>之前一直以为没有登陆成功，其实已经登陆成功，但是请求需要登陆页面，还是会跳转到登陆界面。。</p>
+<p>原来登陆成功后会获取一个新的session，然后需要调整 Headers里面的信息</p>
+<p>再用这个headers去请求需要登陆的页面，发现都可以了</p>
+<p>代码如下，写得很随意：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;</span><br><span class="line">http:&#x2F;&#x2F;code.t-appagile.com&#x2F;users&#x2F;sign_in</span><br><span class="line"></span><br><span class="line">http:&#x2F;&#x2F;code.t-appagile.com&#x2F;users&#x2F;sign_in</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">import requests</span><br><span class="line">import json</span><br><span class="line">import string</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">login &#x3D; &quot;http:&#x2F;&#x2F;code.t-appagile.com&#x2F;users&#x2F;sign_in&quot;</span><br><span class="line">call &#x3D; &quot;http:&#x2F;&#x2F;code.t-appagile.com&#x2F;users&#x2F;auth&#x2F;ldapmain&#x2F;callback&quot;</span><br><span class="line"></span><br><span class="line">headers &#x3D; &#123;</span><br><span class="line">    &#39;Accept&#39;: &#39;text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,image&#x2F;apng,*&#x2F;*;q&#x3D;0.8&#39;,</span><br><span class="line">    &#39;Accept-Encoding&#39;: &#39;gzip, deflate&#39;,</span><br><span class="line">    &#39;Accept-Language&#39;: &#39;en-US,en;q&#x3D;0.9,zh-CN;q&#x3D;0.8,zh;q&#x3D;0.7&#39;,</span><br><span class="line">    &#39;Cache-Control&#39;: &#39;no-cache&#39;,</span><br><span class="line">    # &#39;Content-Length&#39;:&#39;183&#39;,</span><br><span class="line"></span><br><span class="line">    &#39;Content-Type&#39;: &#39;application&#x2F;x-www-form-urlencoded&#39;,</span><br><span class="line">    &#39;Cookie&#39;: &#39;&#39;,</span><br><span class="line">    &#39;Host&#39;: &#39;code.t-appagile.com&#39;,</span><br><span class="line">    &#39;Origin&#39;: &#39;http:&#x2F;&#x2F;code.t-appagile.com&#39;,</span><br><span class="line">    &#39;Proxy-Connection&#39;: &#39;keep-alive&#39;,</span><br><span class="line"></span><br><span class="line">    &#39;Referer&#39;: &#39;http:&#x2F;&#x2F;code.t-appagile.com&#x2F;users&#x2F;sign_in&#39;,</span><br><span class="line">    &#39;Upgrade-Insecure-Requests&#39;: &#39;1&#39;,</span><br><span class="line">    &#39;User-Agent&#39;: &#39;Mozilla&#x2F;5.0 (Windows NT 6.1; WOW64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;64.0.3282.186 Safari&#x2F;537.36&#39;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def HttpPost(apiUrl, data):</span><br><span class="line">    try:</span><br><span class="line">        global headers</span><br><span class="line">        r &#x3D; requests.post(apiUrl,headers&#x3D;headers, data&#x3D;data)</span><br><span class="line">        </span><br><span class="line">        cook &#x3D; r.request.headers[&quot;Cookie&quot;].split(&#39;&#x3D;&#39;)</span><br><span class="line">        lowCook &#x3D; headers[&quot;Cookie&quot;].split(&#39;&#x3D;&#39;)</span><br><span class="line"></span><br><span class="line">        newCook&#x3D;lowCook[0]+&#39;&#x3D;&#39;+lowCook[1]+&#39;&#x3D;&#39;+cook[2]</span><br><span class="line">        headers[&quot;Cookie&quot;] &#x3D; newCook</span><br><span class="line">        print(&quot;登陆成功：&quot;,newCook)</span><br><span class="line">        return r</span><br><span class="line">    except:</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">def HttpGet(apiUrl):</span><br><span class="line">    try:</span><br><span class="line">        global headers</span><br><span class="line">        r &#x3D; requests.get(apiUrl)</span><br><span class="line">        cook &#x3D; &quot;&quot;</span><br><span class="line">        for c in r.cookies:</span><br><span class="line">            cook +&#x3D; c.name + &quot;&#x3D;&quot;+c.value + &quot;;&quot;</span><br><span class="line"></span><br><span class="line">        headers[&quot;Cookie&quot;] &#x3D; cook</span><br><span class="line">        print(&quot;登陆前的：&quot;,cook)</span><br><span class="line">        </span><br><span class="line">        return r.text</span><br><span class="line">    except:</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">def HttpGetLcmm(apiUrl):</span><br><span class="line">    try:</span><br><span class="line">        r &#x3D; requests.get(apiUrl,headers&#x3D;headers)</span><br><span class="line">        return r.text</span><br><span class="line">    except:</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">res &#x3D; HttpGet(login)</span><br><span class="line">html &#x3D; BeautifulSoup(res,&quot;html.parser&quot;)</span><br><span class="line"></span><br><span class="line">token &#x3D; html.find_all(type&#x3D;&quot;hidden&quot;)[1][&quot;value&quot;]</span><br><span class="line"></span><br><span class="line">postData &#x3D;&#123;&#125;</span><br><span class="line">postData[&quot;utf8&quot;] &#x3D;&quot;✓&quot;</span><br><span class="line">postData[&quot;authenticity_token&quot;] &#x3D;token</span><br><span class="line">postData[&quot;username&quot;] &#x3D;&quot;你的账号&quot;</span><br><span class="line">postData[&quot;password&quot;] &#x3D;&quot;你的密码&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">res &#x3D; HttpPost(call,postData)</span><br><span class="line"></span><br><span class="line"># print(res.status_code)</span><br><span class="line"># print(res.text)</span><br><span class="line"># print(html)</span><br><span class="line"></span><br><span class="line">res &#x3D; HttpGetLcmm(&quot;http:&#x2F;&#x2F;code.t-appagile.com&#x2F;SI.Web&#x2F;lcmm-web&quot;)</span><br><span class="line">print(&#39;ok!&#39;)</span><br></pre></td></tr></table></figure>
+<p>发现，写模拟登陆需要很耐心，对比真实的http请求headers里面的信息，再去构建模拟请求的</p>
+<p>有时间再弄个有验证码的，应该也简单，毕竟都有验证码识别的Api了</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/54/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/54/">54</a><span class="page-number current">55</span><a class="page-number" href="/page/56/">56</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/56/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+   	鄂ICP备 -
+    <a target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow">17012779号</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22:07</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

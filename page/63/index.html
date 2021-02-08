@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/63/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/63/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/03/28/%E3%80%90.Net%E3%80%91%E5%B9%B3%E5%8F%B0%E4%B8%8BActiveMQ%E5%85%A5%E9%97%A8%E5%AE%9E%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/28/%E3%80%90.Net%E3%80%91%E5%B9%B3%E5%8F%B0%E4%B8%8BActiveMQ%E5%85%A5%E9%97%A8%E5%AE%9E%E4%BE%8B/" class="post-title-link" itemprop="url">【.Net】平台下ActiveMQ入门实例</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-28 10:15:06" itemprop="dateCreated datePublished" datetime="2018-03-28T10:15:06+08:00">2018-03-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转载自：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/madyina/p/4121458.html">http://www.cnblogs.com/madyina/p/4121458.html</a></p>
+<p>1.ActiveMQ简介</p>
+<p>先分析这么一个场景：当我们在网站上购物时，必须经过，下订单、发票创建、付款处理、订单履行、航运等。但是，当用户下单后，立即跳转到“感谢那您的订单” 页面。不仅如此，若果没有延迟，用户还会受到一封电子邮件。如果我们使用传统方式去实现，一般是对数据库操作一通，然后调用各种接口、各种服务等待各种响应，这样一来下个订单需要很久时间才能看到结果，如果某个环节出了问题，那这个订单结果一时半会是看不到了，对于现代电子商务来说，这是不能容忍的。 那么ActiveMQ久可以很好的解决这个问题：当用户下单后，有一个对ActiveMQ的调用，用来提交订单，然后系统就可以返回结果页面，而整个订单流程不会同步调用，后台JOB可以边聊天边跑。前台订单量很大的情况下每个订单也只需要调用一次，后台一下子处理不了？ 慢慢来，没人逼你，订单都在ActiveMQ中排队等待呢，他们可不会烦躁。 这个场景非常适合一种缓存队列，这种队列叫消息队列，很多产品都能实现这个功能，顺便回答下一个潜在的问题：他可比数据库操作快多了。</p>
+<p>本文就从基础开始一起学习下，本文系统运行环境：Window7 32位</p>
+<p>2.下载ActiveMQ</p>
+<p>官方网站下载地址：<a target="_blank" rel="noopener" href="http://activemq.apache.org/">http://activemq.apache.org/</a></p>
+<p>3.运行ActiveMQ</p>
+<p>解压缩apache-activemq-5.10.0-bin.zip，然后双击apache-activemq-5.10.0\bin\win32\activemq.bat运行ActiveMQ程序。</p>
+<p>看见控制台最后一行输出： “access to all MBeans is allowed” 证明启动成功。</p>
+<p>启动ActiveMQ以后，可以使用浏览器登陆：<a target="_blank" rel="noopener" href="http://localhost:8161/admin/">http://localhost:8161/admin/</a>验证， 默认用户名是：admin 密码是：admin</p>
+<p>（前提是安装好Java环境）</p>
+<p>同时下载.net版Dll：Apache.NMS-1.6.0-bin.zip和Apache.NMS.ActiveMQ-1.6.4-bin.zip</p>
+<p>都从这里下载：<a target="_blank" rel="noopener" href="http://archive.apache.org/dist/activemq/apache-nms/1.6.0/">http://archive.apache.org/dist/activemq/apache-nms/1.6.0/</a></p>
+<p>3.第一个ActiveMQ例子</p>
+<p>先使用C#编写一个消息源，也就是生产者：</p>
+<p>界面很简单，一个Lable，一个TextBox，一个Button，然后添加Apache.NMS.dll和Apache.NMS.ActiveMQ.dll引用，在上述另外2个下载包里面找，注意版本号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">public Form1()</span><br><span class="line">&#123;</span><br><span class="line">    InitializeComponent();</span><br><span class="line">    InitProducer();</span><br><span class="line">&#125;</span><br><span class="line">private IConnectionFactory factory;</span><br><span class="line"></span><br><span class="line">public void InitProducer()</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;初始化工厂，这里默认的URL是不需要修改的</span><br><span class="line">        factory &#x3D; new  ConnectionFactory(&quot;tcp:&#x2F;&#x2F;localhost:61616&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        lbMessage.Text &#x3D; &quot;初始化失败!!&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void btnConfirm_Click(object sender, EventArgs e)</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F;通过工厂建立连接</span><br><span class="line">    using (IConnection connection &#x3D; factory.CreateConnection())</span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;通过连接创建Session会话</span><br><span class="line">        using (ISession session &#x3D; connection.CreateSession())</span><br><span class="line">        &#123;</span><br><span class="line">            &#x2F;&#x2F;通过会话创建生产者，方法里面new出来的是MQ中的Queue</span><br><span class="line">            IMessageProducer prod &#x3D; session.CreateProducer(new Apache.NMS.ActiveMQ.Commands.ActiveMQQueue(&quot;firstQueue&quot;));</span><br><span class="line">            &#x2F;&#x2F;创建一个发送的消息对象</span><br><span class="line">            ITextMessage message &#x3D; prod.CreateTextMessage();</span><br><span class="line">            &#x2F;&#x2F;给这个对象赋实际的消息</span><br><span class="line">            message.Text &#x3D; txtMessage.Text;</span><br><span class="line">            &#x2F;&#x2F;设置消息对象的属性，这个很重要哦，是Queue的过滤条件，也是P2P消息的唯一指定属性</span><br><span class="line">            message.Properties.SetString(&quot;filter&quot;,&quot;demo&quot;);</span><br><span class="line">            &#x2F;&#x2F;生产者把消息发送出去，几个枚举参数MsgDeliveryMode是否长链，MsgPriority消息优先级别，发送最小单位，当然还有其他重载</span><br><span class="line">            prod.Send(message, MsgDeliveryMode.NonPersistent, MsgPriority.Normal, TimeSpan.MinValue);</span><br><span class="line">            lbMessage.Text &#x3D; &quot;发送成功!!&quot;;</span><br><span class="line">            txtMessage.Text &#x3D; &quot;&quot;;</span><br><span class="line">            txtMessage.Focus();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://images0.cnblogs.com/blog/16765/201411/252031270275841.jpg"><img src="https://images0.cnblogs.com/blog/16765/201411/252031275743741.jpg" alt="无标题"></a></p>
+<p>可以点击按钮发送一些消息，这些消息就被暂存到ActiveMQ中了，可以登录刚才要密码的那个网页去查看。</p>
+<p><a target="_blank" rel="noopener" href="https://images0.cnblogs.com/blog/16765/201411/252031284028854.png"><img src="https://images0.cnblogs.com/blog/16765/201411/252031290908010.png" alt="无标题2"></a></p>
+<p>然后编写接收端，也就是消费者：</p>
+<p>同样添加那2个DLL的引用，界面很简单只有一个Lable：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">public Form1()</span><br><span class="line">&#123;</span><br><span class="line">InitializeComponent();</span><br><span class="line">InitConsumer();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">public void InitConsumer()</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F;创建连接工厂</span><br><span class="line">    IConnectionFactory factory &#x3D; new ConnectionFactory(&quot;tcp:&#x2F;&#x2F;localhost:61616&quot;);</span><br><span class="line">    &#x2F;&#x2F;通过工厂构建连接</span><br><span class="line">    IConnection connection &#x3D; factory.CreateConnection();</span><br><span class="line">    &#x2F;&#x2F;这个是连接的客户端名称标识</span><br><span class="line">    connection.ClientId &#x3D; &quot;firstQueueListener&quot;;</span><br><span class="line">    &#x2F;&#x2F;启动连接，监听的话要主动启动连接</span><br><span class="line">    connection.Start();</span><br><span class="line">    &#x2F;&#x2F;通过连接创建一个会话</span><br><span class="line">    ISession session &#x3D; connection.CreateSession();</span><br><span class="line">    &#x2F;&#x2F;通过会话创建一个消费者，这里就是Queue这种会话类型的监听参数设置</span><br><span class="line">    IMessageConsumer consumer &#x3D; session.CreateConsumer(new Apache.NMS.ActiveMQ.Commands.ActiveMQQueue(&quot;firstQueue&quot;), &quot;filter&#x3D;&#39;demo&#39;&quot;);</span><br><span class="line">    &#x2F;&#x2F;注册监听事件</span><br><span class="line">    consumer.Listener +&#x3D; new MessageListener(consumer_Listener);</span><br><span class="line">    &#x2F;&#x2F;connection.Stop();</span><br><span class="line">    &#x2F;&#x2F;connection.Close();  </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void consumer_Listener(IMessage message)</span><br><span class="line">&#123;</span><br><span class="line">    ITextMessage msg &#x3D; (ITextMessage)message;</span><br><span class="line">    &#x2F;&#x2F;异步调用下，否则无法回归主线程</span><br><span class="line">    tbReceiveMessage.Invoke(new DelegateRevMessage(RevMessage),msg);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public delegate void DelegateRevMessage(ITextMessage message);</span><br><span class="line"></span><br><span class="line">public void RevMessage(ITextMessage message)</span><br><span class="line">&#123;</span><br><span class="line">    tbReceiveMessage.Text +&#x3D; string.Format(@&quot;接收到:&#123;0&#125;&#123;1&#125;&quot;, message.Text, Environment.NewLine);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一启动就会发现，这边已经接收到了这些消息，并且服务器端的已经被删除了。</p>
+<p><a target="_blank" rel="noopener" href="https://images0.cnblogs.com/blog/16765/201411/252031296995125.png"><img src="https://images0.cnblogs.com/blog/16765/201411/252031305127009.png" alt="无标题3"></a> 4.总结</p>
+<p>以上实现了一个p2p方式的消息队列，就是暂时存进去等待处理，处理完了这个消息就没了，保证送达，不会丢失，也不会被掉包。这种模式使用场合有限，而且客户只能有一个，属于快递形式，满足不了订单处理要求，原因很简单：黑名单检查环节获取了这个订单信息，审核环节就获取不到了，下一节我们一起学习“消息群发”，就是大喊一声，订单来了，大家开始忙吧…</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/03/27/%E3%80%90.Net%E3%80%91%E5%AF%B9%E8%B1%A1%E6%98%A0%E5%B0%84%E7%BB%84%E4%BB%B6Tiny%20Mapper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/27/%E3%80%90.Net%E3%80%91%E5%AF%B9%E8%B1%A1%E6%98%A0%E5%B0%84%E7%BB%84%E4%BB%B6Tiny%20Mapper/" class="post-title-link" itemprop="url">【.Net】对象映射组件Tiny Mapper</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-27 22:08:03" itemprop="dateCreated datePublished" datetime="2018-03-27T22:08:03+08:00">2018-03-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>阅读目录</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_label0">1.Tiny Mapper基本介绍</a> </li>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_label1">2.Tiny Mapper 基本使用</a> </li>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_label2">3.Tiny Mapper 指定配置使用</a> </li>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_label3">4.Tiny Mapper复杂类型使用</a> </li>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_label4">5.资源</a> 好久没有写文章，工作甚忙，但每日还是关注.NET领域的开源项目。五一休息，放松了一下之后，今天就给大家介绍一个轻量级的对象映射工具Tiny Mapper：号称是.NET平台最快的对象映射组件。那就一起看看呢。</li>
+</ul>
+<p>.NET开源目录：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/Bolg_Category_For_DotNet_OpenSource.html">【目录】本博客其他.NET开源项目文章目录</a></p>
+<p>本文原文地址：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html">http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html</a> </p>
+<p>临时更新：感谢@ <a target="_blank" rel="noopener" href="http://www.cnblogs.com/guomingfeng/">郭明锋</a>的意见，为了避免新手误解，这里说明一下，Tiny Mapper的映射关系在Bind的时候，其实是将映射关系保存在一个静态的私有字典中，大家在使用的时候可以不需要每次都配置或者Bind。方法比较灵活，例如：你可以在实体类中封装一个方法，在方法内部进行映射关系的配置；你还可以将系统所有的配置映射关系放在一起，在使用前初始化一次就可以了。</p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_labelTop">回到目录</a></p>
+<h1 id="1-Tiny-Mapper基本介绍"><a href="#1-Tiny-Mapper基本介绍" class="headerlink" title="1.Tiny Mapper基本介绍"></a>1.Tiny Mapper基本介绍</h1><p>Tiny Mapper是一个.net平台开源的对象映射组件。说到.NET平台的对象映射，大名鼎鼎的可能就是AutoMapper。那先看看Tiny Mapper的特点</p>
+<h2 id="1-1-难以置信的快速"><a href="#1-1-难以置信的快速" class="headerlink" title="1.1 难以置信的快速"></a>1.1 难以置信的快速</h2><p>这是Tiny Mapper标榜最大的特点之一：快。那究竟有多快，我们看看官方的测试截图，由于时间紧张，我没有进行测试对比，有空试试。</p>
+<p><img src="/images/79603-20160502210205607-1198482293.png" alt=""></p>
+<h2 id="1-2-非常容易使用"><a href="#1-2-非常容易使用" class="headerlink" title="1.2 非常容易使用"></a>1.2 非常容易使用</h2><p>使用TinyMapper非常简单，它的设计简单，使用NuGet包，可以快速安装使用，DLL也才50K大小不到，所以非常轻量级。</p>
+<h2 id="1-3-开源"><a href="#1-3-开源" class="headerlink" title="1.3 开源"></a>1.3 开源</h2><p>TinyMapper是一个开源项目，所以你可以参与更新和自己修改代码。 </p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_labelTop">回到目录</a></p>
+<h1 id="2-Tiny-Mapper-基本使用"><a href="#2-Tiny-Mapper-基本使用" class="headerlink" title="2.Tiny Mapper 基本使用"></a>2.Tiny Mapper 基本使用</h1><p>首先，通过NuGet下载安装Tiny Mapper，如下图：</p>
+<p><img src="/images/79603-20160502210218716-1100143577.png" alt=""></p>
+<p>然后添加引用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">using Nelibur.ObjectMapper;</span><br><span class="line"></span><br><span class="line">using Nelibur.ObjectMapper.Bindings;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class Person</span><br><span class="line">&#123;</span><br><span class="line">    public String Id &#123; get; set; &#125;</span><br><span class="line">    public String Name &#123; get; set; &#125;</span><br><span class="line">    public Int32 Age &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class PersonDto</span><br><span class="line">&#123;</span><br><span class="line">    public String Id &#123; get; set; &#125;</span><br><span class="line">    public String Name &#123; get; set; &#125;</span><br><span class="line">    public Int32 Age &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来，我们准备2个要相互映射的类型，Person和PersonDto，结构分别如下：</p>
+<p>那我们在代码例如如何把其中一个类Person的对象映射为PersonDto呢？看看Tiny Mapper的使用，很简单就2行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;最简单的2个类型之间的映射&lt;&#x2F;summary&gt;</span><br><span class="line">static void Test1()</span><br><span class="line">&#123;</span><br><span class="line">    TinyMapper.Bind&lt;Person,PersonDto&gt;();</span><br><span class="line">    &#x2F;&#x2F;实例化一个Person对象</span><br><span class="line">    var person &#x3D; new Person</span><br><span class="line">    &#123;</span><br><span class="line">        Id &#x3D; Guid.NewGuid().ToString(),</span><br><span class="line">        Name &#x3D; &quot;John&quot;,</span><br><span class="line">        Age &#x3D; 22</span><br><span class="line">    &#125;;  </span><br><span class="line">    &#x2F;&#x2F;映射</span><br><span class="line">    var personDto &#x3D; TinyMapper.Map&lt;PersonDto&gt;(person);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行看看结果：</p>
+<h1 id="3-Tiny-Mapper-指定配置使用"><a href="#3-Tiny-Mapper-指定配置使用" class="headerlink" title="3.Tiny Mapper 指定配置使用"></a>3.Tiny Mapper 指定配置使用</h1><p>有时候对象的字段名称并不一样，而且可能要忽略某些字段，这个时候就要使用更加灵活的配置了。</p>
+<p>看例子，为了演示，我们特意修改2个类型的字段名称不一样.如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Person</span><br><span class="line">&#123;</span><br><span class="line">    public String Id &#123; get; set; &#125;</span><br><span class="line">    public String Name &#123; get; set; &#125;</span><br><span class="line">    public Int32 Age &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class PersonDto</span><br><span class="line">&#123;</span><br><span class="line">    public String Id &#123; get; set; &#125;</span><br><span class="line">    &#x2F;&#x2F;注意这里的字段名称:UserName</span><br><span class="line">    public String UserName &#123; get; set; &#125;</span><br><span class="line">    public Int32 Age &#123; get; set; &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;使用配置项指定和忽略字段&lt;&#x2F;summary&gt;</span><br><span class="line">static void Test2()</span><br><span class="line">&#123;</span><br><span class="line">    TinyMapper.Bind&lt;Person, PersonDto&gt;(config &#x3D;&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        config.Ignore(x &#x3D;&gt; x.Id);&#x2F;&#x2F;忽略ID字段</span><br><span class="line">        config.Bind(x &#x3D;&gt; x.Name, y &#x3D;&gt; y.UserName);&#x2F;&#x2F;将源类型和目标类型的字段对应绑定起来</span><br><span class="line">        config.Bind(x &#x3D;&gt; x.Age, y &#x3D;&gt; y.Age);&#x2F;&#x2F;将源类型和目标类型的字段对应绑定起来</span><br><span class="line">    &#125;);</span><br><span class="line">    var person &#x3D; new Person</span><br><span class="line">    &#123;</span><br><span class="line">        Id &#x3D; Guid.NewGuid().ToString(),</span><br><span class="line">        Name &#x3D; &quot;John&quot;,</span><br><span class="line">        Age &#x3D; 22</span><br><span class="line">    &#125;;</span><br><span class="line">    var personDto &#x3D; TinyMapper.Map&lt;PersonDto&gt;(person);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看看效果如何？我们指定的Id字段忽略映射，以及将源对象的字段映射到目标对象的指定字段了: 映射代码和配置如下所示：</p>
+<p><img src="/images/79603-20160502210331091-1699905358.png" alt=""></p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_labelTop">回到目录</a></p>
+<h1 id="4-Tiny-Mapper复杂类型使用"><a href="#4-Tiny-Mapper复杂类型使用" class="headerlink" title="4.Tiny Mapper复杂类型使用"></a>4.Tiny Mapper复杂类型使用</h1><p>有时候对象的类型里面嵌套着对象，或者数组等等，其实这个时候的使用和上述完全一样，这里只是举个例子，大家看看而已：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class Person</span><br><span class="line">&#123;</span><br><span class="line">    public String Id &#123; get; set; &#125;</span><br><span class="line">    public String Name &#123; get; set; &#125;</span><br><span class="line">    public Int32 Age &#123; get; set; &#125;</span><br><span class="line">    public Address Address &#123; get; set; &#125;</span><br><span class="line">    public List&lt;String&gt; Emails &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class PersonDto</span><br><span class="line">&#123;</span><br><span class="line">    public String Id &#123; get; set; &#125;</span><br><span class="line">    public String UserName &#123; get; set; &#125;</span><br><span class="line">    public Int32 Age &#123; get; set; &#125;</span><br><span class="line">    public Address Address &#123; get; set; &#125;</span><br><span class="line">    public List&lt;String&gt; Emails &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public sealed class Address</span><br><span class="line">&#123;</span><br><span class="line">    public string Phone &#123; get; set; &#125;</span><br><span class="line">    public string Street &#123; get; set; &#125;</span><br><span class="line">    public string ZipCode &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;更复杂对象的映射例子&lt;&#x2F;summary&gt;</span><br><span class="line">static void Test3()</span><br><span class="line">&#123;</span><br><span class="line">    TinyMapper.Bind&lt;Person, PersonDto&gt;(config &#x3D;&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        config.Ignore(x &#x3D;&gt; x.Id);&#x2F;&#x2F;忽略ID字段</span><br><span class="line">        &#x2F;&#x2F;将源类型和目标类型的字段对应绑定起来</span><br><span class="line">        config.Bind(x &#x3D;&gt; x.Name, y &#x3D;&gt; y.UserName);</span><br><span class="line">        config.Bind(x &#x3D;&gt; x.Age, y &#x3D;&gt; y.Age);</span><br><span class="line">        config.Bind(x &#x3D;&gt; x.Address, y &#x3D;&gt; y.Address);</span><br><span class="line">        config.Bind(x &#x3D;&gt; x.Emails, y &#x3D;&gt; y.Emails);</span><br><span class="line">    &#125;);</span><br><span class="line">    var person &#x3D; new Person</span><br><span class="line">    &#123;</span><br><span class="line">        Id &#x3D; Guid.NewGuid().ToString(),</span><br><span class="line">        Name &#x3D; &quot;John&quot;,</span><br><span class="line">        Age &#x3D; 22,</span><br><span class="line">        Address &#x3D; new Address() &#123; Phone &#x3D; &quot;1880393&quot;, Street &#x3D; &quot;Shanghai&quot;, ZipCode &#x3D; &quot;121212&quot; &#125;,</span><br><span class="line">        Emails &#x3D; new List&lt;string&gt;() &#123; &quot;aaa@bb.com&quot;, &quot;acx@cc.com&quot; &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    var personDto &#x3D; TinyMapper.Map&lt;PersonDto&gt;(person);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果如下： 映射的代码和第3节类似：</p>
+<p><img src="/images/79603-20160502210339779-1813894770.png" alt=""> </p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_labelTop">回到目录</a></p>
+<h1 id="5-资源"><a href="#5-资源" class="headerlink" title="5.资源"></a>5.资源</h1><p>Tiny Mapper官方网站：<a target="_blank" rel="noopener" href="http://tinymapper.net/">http://tinymapper.net/</a></p>
+<p>github项目地址：<a target="_blank" rel="noopener" href="https://github.com/TinyMapper/TinyMapper">https://github.com/TinyMapper/TinyMapper</a></p>
+<p>本文使用的代码下载：<a target="_blank" rel="noopener" href="http://files.cnblogs.com/files/asxinyu/TinyMapperDemo.rar">TinyMapperDemo.rar</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/03/27/%E3%80%90.Net%E3%80%91%E9%9A%8F%E6%9C%BA%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/27/%E3%80%90.Net%E3%80%91%E9%9A%8F%E6%9C%BA%E6%95%B0/" class="post-title-link" itemprop="url">【.Net】随机数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-27 21:48:58" itemprop="dateCreated datePublished" datetime="2018-03-27T21:48:58+08:00">2018-03-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>几乎所有编程语言中都提供了”生成一个随机数”的方法，也就是调用这个方法会生成一个数，我们事先也不知道它生成什么数。比如在.Net中编写下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Random rand &#x3D; newRandom();</span><br><span class="line"></span><br><span class="line">Console.WriteLine(rand.Next());</span><br></pre></td></tr></table></figure>
+<p>运行后结果如下：</p>
+<p>Next()方法用来返回一个随机数。同样的代码你执行和我的结果很可能不一样，而且我多次运行的结果也很可能不一样，这就是随机数。</p>
+<p>一、陷阱</p>
+<p>看似很简单的东西，使用的时候有陷阱。我编写下面的代码想生成100个随机数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for(int i&#x3D;0;i&lt;100;i++)</span><br><span class="line">&#123;</span><br><span class="line">    Random rand &#x3D; new Random();</span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>太奇怪了，竟然生成的”随机数”有好多连续一样的，这算什么”随机数”呀。有人指点”把new Random()”放到for循环外面就可以了： <img src="/images/121103258593814.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Random rand &#x3D; newRandom();</span><br><span class="line">for(int i&#x3D;0;i&lt;100;i++)</span><br><span class="line">&#123;            </span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p>确实可以了！ </p>
+<p>二、这是为什么呢？</p>
+<p>这要从计算机中”随机数”产生的原理说起了。我们知道，计算机是很严格的，在确定的输入条件下，产生的结果是唯一确定的，不会每次执行的结果不一样。那么怎么样用软件实现产生看似不确定的随机数呢？</p>
+<p>生成随机数的算法有很多种，最简单也是最常用的就是 “线性同余法”： 第n+1个数=(第n个数*29+37) % 1000，其中%是”求余数”运算符。很多像我一样的人见了公式都头疼，我用代码解释一下吧，MyRand是一个自定义的生成随机数的类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class MyRand</span><br><span class="line"> &#123;</span><br><span class="line">    private int seed;</span><br><span class="line">    public MyRand(int seed)</span><br><span class="line">   &#123;</span><br><span class="line"></span><br><span class="line">    this.seed &#x3D; seed;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">  public int Next()</span><br><span class="line">   &#123;</span><br><span class="line">     int next &#x3D; (seed * 29 + 37) % 1000;</span><br><span class="line">     seed &#x3D; next;</span><br><span class="line">     return next;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MyRand rand &#x3D; newMyRand(51);</span><br><span class="line">for (int i &#x3D; 0; i &lt; 10; i++)</span><br><span class="line"> &#123;</span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>如下调用：</p>
+<p>执行结果如下：</p>
+<p><img src="/images/121103277182116.png" alt=""></p>
+<p>生成的数据是不是看起来”随机”了。简单解释一下这个代码：我们创建MyRand的一个对象，然后构造函数传递一个数51，这个数被赋值给seed，每次调用Next方法的时候根据(seed * 29 + 37) % 1000计算得到一个随机数，把这个随机数赋值给seed，然后把生成的随机数返回。这样下次再调用Next()的时候seed就不再是51，而是上次生成的随机数了，这样就看起来好像每一次生成的内容都很”随机”了。注意”%1000”取余预算的目的是保证生成的随机数不超过1000。 </p>
+<p>当然无论是你运行还是我每次运行，输出结果都是一样的随机数，因为根据给定的初始数据51，我们就可以依次推断下来下面生成的所有”随机数”是什么都可以算出来了。这个初始的数据51就被称为”随机数种子”，这一系列的516、1、66、951、616……数字被称为”随机数序列”。我们把51改成52，就会有这样的结果：</p>
+<p><img src="/images/121103284849515.png" alt=""></p>
+<p>三、楼主好人，跪求种子</p>
+<p>那么怎么可以使得每次运行程序的时候都生成不同的”随机数序列”呢？因为我们每次执行程序时候的时间很可能不一样，因此我们可以用当前时间做”随机数种子”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MyRand rand &#x3D; newMyRand(Environment.TickCount);</span><br><span class="line">for (int i &#x3D; 0; i &lt; 10; i++)</span><br><span class="line"> &#123;</span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>Environment.TickCount为”系统启动后经过的微秒数”。这样每次程序运行的时候Environment.TickCount都不大可能一样（靠手动谁能一微秒内启动两次程序呢），所以每次生成的随机数就不一样了。</p>
+<p><img src="/images/121103308127660.png" alt=""></p>
+<p>当然如果我们把new MyRand(Environment.TickCount)放到for循环中： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (int i &#x3D; 0; i &lt; 100; i++)</span><br><span class="line"> &#123;</span><br><span class="line">    MyRand rand &#x3D; newMyRand(Environment.TickCount);</span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/121103310465432.png" alt=""></p>
+<p>运行结果又变成”很多是连续”的了，原理很简单：由于for循环体执行很快，所以每次循环的时候Environment.TickCount很可能还和上次一样（两行简单的代码运行用不了一毫秒那么长事件），由于这次的”随机数种子”和上次的”随机数种子”一样，这样Next()生成的第一个”随机数”就一样了。从”-320”变成”-856”是因为运行到”-856”的时候时间过了一毫秒。 </p>
+<p>四、各语言的实现</p>
+<p>我们看到.Net的Random类有一个int类型参数的构造函数：</p>
+<p>public Random(int Seed)</p>
+<p>就是和我们写的MyRand一样接受一个”随机数种子”。而我们之前调用的无参构造函数就是给Random(int Seed)传递Environment.TickCount类进行构造的，代码如下：</p>
+<p>public Random() : this(Environment.TickCount)<br>{<br> }</p>
+<p>这下我们终于明白最开始的疑惑了。 </p>
+<p>同样道理，在C/C++中生成10个随机数不应该如下调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int i;</span><br><span class="line">for(i&#x3D;0;i&lt;10;i++)</span><br><span class="line">&#123;</span><br><span class="line">    srand( (unsigned)time( NULL ) );</span><br><span class="line">    printf(&quot;%d\n&quot;,rand());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而应该：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">srand( (unsigned)time( NULL ) ); &#x2F;&#x2F;把当前时间设置为&quot;随机数种子&quot;</span><br><span class="line">int i;</span><br><span class="line">for(i&#x3D;0;i&lt;10;i++)</span><br><span class="line">&#123;         </span><br><span class="line">    printf(&quot;%d\n&quot;,rand());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Java学习者可能会提出问题了，在Java低版本中，如下使用会像.Net、C/C++中一样产生相同的随机数： 五、”奇葩”的Java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for(int i&#x3D;0;i&lt;100;i++)</span><br><span class="line">&#123;</span><br><span class="line">    Random rand &#x3D; new Random();</span><br><span class="line">    System.out.println(rand.nextInt());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为低版本Java中Rand类的无参构造函数的实现同样是用当前时间做种子：</p>
+<p>public Random() { this(System.currentTimeMillis()); } </p>
+<p>但是在高版本的Java中，比如Java1.8中，上面的”错误”代码执行却是没问题的：</p>
+<p><img src="/images/121103313599760.png" alt=""></p>
+<p>为什么呢？我们来看一下这个Random无参构造函数的实现代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public Random()</span><br><span class="line">&#123;</span><br><span class="line">  this(seedUniquifier() ^ System.nanoTime());</span><br><span class="line">&#125;</span><br><span class="line">private static long seedUniquifier() &#123;</span><br><span class="line">for (;;) &#123;</span><br><span class="line">long current &#x3D; seedUniquifier.get();</span><br><span class="line">long next &#x3D; current * 181783497276652981L;</span><br><span class="line">if (seedUniquifier.compareAndSet(current, next))</span><br><span class="line">return next;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">privatestaticfinal AtomicLong seedUniquifier  &#x3D; new AtomicLong(8682522807148012L);</span><br></pre></td></tr></table></figure>
+<p>这里不再是使用当前时间来做”随机数种子”，而是使用System.nanoTime()这个纳秒级的时间量并且和采用原子量AtomicLong根据上次调用构造函数算出来的一个数做异或运算。关于这段代码的解释详细参考这篇文章《<a target="_blank" rel="noopener" href="http://t1174779123.iteye.com/blog/2037719">解密随机数生成器（2）——从java源码看线性同余算法</a>》</p>
+<p>最核心的地方就在于使用static变量AtomicLong来记录每次调用Random构造函数时使用的种子，下次再调用Random构造函数的时候避免和上次一样。</p>
+<p>六、高并发系统中的问题</p>
+<p>前面我们分析了，对于使用系统时间做”随机数种子”的随机数生成器，如果要产生多个随机数，那么一定要共享一个”随机数种子”才会避免生成的随机数短时间之内生成重复的随机数。但是在一些高并发的系统中一个不注意还会产生问题，比如一个网站在服务器端通过下面的方法生成验证码：</p>
+<p>Random rand = new Random();</p>
+<p>Int code = rand.Next();</p>
+<p>当网站并发量很大的时候，可能一个毫秒内会有很多个人请求验证码，这就会造成这几个人请求到的验证码是重复的，会给系统带来潜在的漏洞。</p>
+<p>再比如我今天看到的一篇文章《当随机不够随机：一个在线扑克游戏的教训》里面就提到了”由于随机数产生器的种子是基于服务器时钟的，黑客们只要将他们的程序与服务器时钟同步就能够将可能出现的乱序减少到只有 200,000 种。到那个时候一旦黑客知道 5 张牌，他就可以实时的对 200,000 种可能的乱序进行快速搜索，找到游戏中的那种。所以一旦黑客知道手中的两张牌和 3 张公用牌，就可以猜出转牌和河牌时会来什么牌，以及其他玩家的牌。” </p>
+<p>这种情况有如下几种解决方法：</p>
+<ol>
+<li>把Random对象作为一个全局实例（static）来使用。Java中Random是线程安全的（内部进行了加锁处理）；.Net中Random不是线程安全的，需要加锁处理。不过加锁会存在会造成处理速度慢的问题。而且由于初始的种子是确定的，所以攻击者存在着根据得到的若干随机数序列推测出”随机数种子”的可能性。</li>
+</ol>
+<ol start="3">
+<li>因为每次生成Guid的值都不样，网上有的文章说可以创建一个Guid计算它的HashCode或者MD5值的方式来做种子： new Random(Guid.NewGuid().GetHashCode()) 。但是我认为Guid的生成算法是确定的，在条件充足的情况下也是可以预测的，这样生成的随机数也有可预测的可能性。当然只是我的猜测，没经过理论的证明。</li>
+</ol>
+<ol start="5">
+<li><p>采用”真随机数发生器”，快看下一节分解！</p>
+<p>   七、真随机数发生器</p>
+</li>
+</ol>
+<p>根据我们之前的分析，我们知道这些所谓的随机数不是真的”随机”，只是看起来随机，因此被称为”伪随机算法”。在一些对随机要求高的场合会使用一些物理硬件采集物理噪声、宇宙射线、量子衰变等现实生活中的真正随机的物理参数来产生真正的随机数。</p>
+<p>当然也有聪明的人想到了不借助增加”随机数发生器”硬件的方法生成随机数。我们操作计算机时候鼠标的移动、敲击键盘的行为都是不可预测的，外界命令计算机什么时候要执行什么进程、处理什么文件、加载什么数据等也是不可预测的，因此导致的CPU运算速度、硬盘读写行为、内存占用情况的变化也是不可预测的。因此如果采集这些信息来作为随机数种子，那么生成的随机数就是不可预测的了。</p>
+<p>在Linux/Unix下可以使用”/dev/random”这个真随机数发生器，它的数据主来来自于硬件中断信息，不过产生随机数的速度比较慢。</p>
+<p>Windows下可以调用系统的CryptGenRandom()函数，它主要依据当前进程Id、当前线程Id、系统启动后的TickCount、当前时间、QueryPerformanceCounter返回的高性能计数器值、用户名、计算机名、CPU计数器的值等等来计算。和”/dev/random”一样CryptGenRandom()的生成速度也比较慢，而且消耗比较大的系统资源。</p>
+<p>当然.Net下也可以使用RNGCryptoServiceProvider 类（System.Security.Cryptography命名空间下）来生成真随机数，根据StackOverflow上一篇帖子介绍RNGCryptoServiceProvider 并不是对CryptGenRandom()函数的封装，但是和CryptGenRandom()原理类似。 </p>
+<p>八、总结</p>
+<p>有人可能会问：既然有”/dev/random” 、CryptGenRandom()这样的”真随机数发生器”，为什么还要提供、使用伪随机数这样的”假货”？因为前面提到了”/dev/random” 、CryptGenRandom()生成速度慢而且比较消耗性能。在对随机数的不可预测性要求低的场合，使用伪随机数算法即可，因为性能比较高。对于随机数的不可预测性要求高的场合就要使用真随机数发生器，真随机数发生器硬件设备需要考虑成本问题，而”/dev/random”、CryptGenRandom()则性能较差。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/62/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/62/">62</a><span class="page-number current">63</span><a class="page-number" href="/page/64/">64</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/64/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+   	鄂ICP备 -
+    <a target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow">17012779号</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22:07</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/23/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/23/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/01/04/%E3%80%90frp%E3%80%91%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/04/%E3%80%90frp%E3%80%91%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">【Frp】内网穿透相关配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-04 11:39:33" itemprop="dateCreated datePublished" datetime="2020-01-04T11:39:33+08:00">2020-01-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>frp下载：<a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/releases">https://github.com/fatedier/frp/releases</a></p>
+<h2 id="服务器端配置："><a href="#服务器端配置：" class="headerlink" title="服务器端配置："></a>服务器端配置：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port &#x3D; 17000</span><br><span class="line">vhost_http_port &#x3D; 8080</span><br><span class="line">#vhost_https_port &#x3D; 8080</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># dashboard admin</span><br><span class="line">dashboard_port &#x3D; 端口</span><br><span class="line">dashboard_user &#x3D; 账号</span><br><span class="line">dashboard_pwd &#x3D; 密码</span><br><span class="line"></span><br><span class="line">privilege_token &#x3D; sgdf@dsfd.df</span><br><span class="line">#authentication_timeout &#x3D; 60</span><br><span class="line">privilege_allow_ports &#x3D; 10000-20000</span><br><span class="line"></span><br><span class="line">max_pool_count &#x3D; 10</span><br><span class="line">subdomain_host &#x3D; 你的域名.com</span><br><span class="line">log_file &#x3D; .&#x2F;frps.log</span><br><span class="line">log_level &#x3D; info</span><br><span class="line">log_max_days &#x3D; 7</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>服务端配置账号：</p>
+<p><img src="/images/20200104113139598.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line"># token 和客户端配置的 accesstoken保持一致，不一致无法保持连接</span><br><span class="line">token&#x3D;raspberrypi*密码</span><br><span class="line"># 服务截止日期</span><br><span class="line">expirydate&#x3D;2020-10-01</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="客户端配置："><a href="#客户端配置：" class="headerlink" title="客户端配置："></a>客户端配置：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr &#x3D; 公网ip </span><br><span class="line">server_port &#x3D; 17000</span><br><span class="line"></span><br><span class="line">privilege_token &#x3D; 对应服务器的token</span><br><span class="line">pool_count &#x3D; 2</span><br><span class="line">log_file &#x3D; .&#x2F;frpc.log</span><br><span class="line">log_level &#x3D; info</span><br><span class="line">log_max_days &#x3D; 10</span><br><span class="line"></span><br><span class="line">#访问用户，与服务端用户配置文件名一致</span><br><span class="line">user&#x3D;raspberrypi</span><br><span class="line"># 与服务端用户配置文件中的token保持一致</span><br><span class="line">accesstoken&#x3D;raspberrypi****</span><br><span class="line"></span><br><span class="line"># [项目名称]，保持唯一,其余参考官方配置文件</span><br><span class="line"># [pi] </span><br><span class="line"># type &#x3D; http</span><br><span class="line"># local_port &#x3D; 80</span><br><span class="line"># 域名前缀为xx,结合服务端的域名，完整的网址为xx.***.***.com</span><br><span class="line"># subdomain &#x3D; pi</span><br><span class="line"># use_encryption &#x3D; true</span><br><span class="line"># use_compression &#x3D; true </span><br><span class="line"></span><br><span class="line">[ssh]</span><br><span class="line">type &#x3D; tcp</span><br><span class="line">local_port &#x3D; 22</span><br><span class="line">remote_port &#x3D; 10022</span><br><span class="line">use_encryption &#x3D; true</span><br><span class="line">use_compression &#x3D; true</span><br><span class="line"></span><br><span class="line">[web1]</span><br><span class="line">type &#x3D; tcp</span><br><span class="line">local_port &#x3D; 80</span><br><span class="line">local_ip &#x3D; 127.0.0.1</span><br><span class="line">remote_port &#x3D; 10080</span><br><span class="line"></span><br><span class="line">[web2]</span><br><span class="line">type &#x3D; tcp</span><br><span class="line">local_port &#x3D; 8080</span><br><span class="line">local_ip &#x3D; 127.0.0.1</span><br><span class="line">remote_port &#x3D; 18080</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line">type &#x3D; tcp</span><br><span class="line">local_port &#x3D; 3306</span><br><span class="line">local_ip &#x3D; 127.0.0.1</span><br><span class="line">remote_port &#x3D; 13306</span><br><span class="line"></span><br><span class="line">[redis]</span><br><span class="line">type &#x3D; tcp</span><br><span class="line">local_port &#x3D; 6379</span><br><span class="line">local_ip &#x3D; 127.0.0.1</span><br><span class="line">remote_port &#x3D; 16379</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="使用-Systemd-设置-frp-开机启动："><a href="#使用-Systemd-设置-frp-开机启动：" class="headerlink" title="使用 Systemd 设置 frp 开机启动："></a>使用 Systemd 设置 frp 开机启动：</h2><p>Systemd 配置文件在  <code>/lib/systemd/system/</code>  目录下，不同类型的文件使用不同的后缀，如：  <code>.service</code>   <code>.socket</code>   <code>.timer</code>  。</p>
+<p>常用命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">systemctl status frps.service       # 查看 frps 服务状态</span><br><span class="line">systemctl cat frps.service          # 查看 frps 服务配置</span><br><span class="line">sudo systemctl start frps.service   # 启动 frps 服务</span><br><span class="line">sudo systemctl stop frps.service    # 停止 frps 服务</span><br><span class="line">sudo systemctl daemon-reload        # 重新加载配置，修改 systemd 配置执行</span><br><span class="line">sudo systemctl enable frps.service  # 设置开机启动，根据 install 建立软链</span><br><span class="line">sudo systemctl disable frps.service # 取消开机启动，根据 install 移除软链</span><br><span class="line"></span><br><span class="line">man systemd.directives              # 查看帮助</span><br><span class="line">man systemd.service</span><br><span class="line">man systemd.unit</span><br></pre></td></tr></table></figure>
+
+<h2 id="frps-Systemd-配置文件"><a href="#frps-Systemd-配置文件" class="headerlink" title="frps Systemd 配置文件"></a>frps Systemd 配置文件</h2><p>创建  <code>/lib/systemd/system/frpc.service</code>  文件，配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;frps server daemon</span><br><span class="line">Documentation&#x3D;https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp</span><br><span class="line">After&#x3D;network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;frps -c &#x2F;usr&#x2F;local&#x2F;etc&#x2F;frps.ini</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">User&#x3D;nobody</span><br><span class="line">Group&#x3D;nogroup</span><br><span class="line">WorkingDirectory&#x3D;&#x2F;tmp</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">RestartSec&#x3D;60s</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>[Unit]</code>  </li>
+<li><code>After</code>  在网络就绪后启动服务，关于网络就绪 <a target="_blank" rel="noopener" href="https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget">NetworkTarget</a>  </li>
+<li><code>[Service]</code>  </li>
+<li><code>ExecStart</code>  启动时执行的命令 </li>
+<li><code>Type</code>  simple 执行 ExecStart 指定的命令，启动主进程，还有很多其他类别 </li>
+<li><code>User</code>  执行命令的用户为 nobody </li>
+<li><code>Group</code>  执行命令的组为 nogroup </li>
+<li><code>WorkingDirectory</code>  命令的工作目录 </li>
+<li><code>Restart</code>  失败后尝试重启，失败是根据退出状态码进行判断的 </li>
+<li><code>RestartSec</code>  失败 60s 后尝试重启  </li>
+<li><code>[Install]</code>  </li>
+<li><code>WantedBy</code>  执行  <code>systemctl enable frps</code>  命令，会在  <code>/etc/systemd/system/multi-user.target.wants/frps.service</code>  目录下创建一个软链  添加或修改配置后需要执行  <code>sudo systemctl daemon-reload</code>  重新加载配置，执行  <code>sudo systemctl enable frps.service</code>  之后会开机启动。</li>
+</ul>
+<h2 id="fprc-配置文件"><a href="#fprc-配置文件" class="headerlink" title="fprc 配置文件"></a>fprc 配置文件</h2><p>创建  <code>/lib/systemd/system/frpc.service</code>  文件，配置和 frps 类似：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;frpc server daemon</span><br><span class="line">Documentation&#x3D;https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp</span><br><span class="line">After&#x3D;network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;frpc -c &#x2F;usr&#x2F;local&#x2F;etc&#x2F;frpc.ini</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">User&#x3D;nobody</span><br><span class="line">Group&#x3D;nogroup</span><br><span class="line">WorkingDirectory&#x3D;&#x2F;tmp</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">RestartSec&#x3D;60s</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+<p>添加或修改配置后需要执行  <code>sudo systemctl daemon-reload</code>  重新加载配置，执行  <code>sudo systemctl enable frpc.service</code>  之后会开机启动。</p>
+<h2 id="frp后台运行和停止"><a href="#frp后台运行和停止" class="headerlink" title="frp后台运行和停止"></a>frp后台运行和停止</h2><p>centos<br>1.运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup .&#x2F;frps -c frps.ini &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<p>或者客户端:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup .&#x2F;frpc -c .&#x2F;frpc.ini &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>2.停止<br>先找到这个进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ps -aux|grep frp| grep -v grep</span><br><span class="line">root      3600  0.1  0.1 110188  9484 pts&#x2F;0    Sl   15:04   0:00 .&#x2F;frpc -c .&#x2F;frpc.ini</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>执行之后如果显示这样则成功了</p>
+<p>然后kill -9 进程号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 3600</span><br></pre></td></tr></table></figure>
+<p>转自：<a target="_blank" rel="noopener" href="https://notfound.cn/posts/systemd-frp/">https://notfound.cn/posts/systemd-frp/</a></p>
+<p>转自：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000017911165">https://segmentfault.com/a/1190000017911165</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/12/14/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8NLog%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%E5%88%B0%E6%96%87%E4%BB%B6%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/14/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8NLog%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%E5%88%B0%E6%96%87%E4%BB%B6%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">【.Net Core】使用NLog记录日志到文件和数据库</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-14 11:55:45" itemprop="dateCreated datePublished" datetime="2019-12-14T11:55:45+08:00">2019-12-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>NLog 记录日志是微软官方推荐使用。</p>
+<p>接下来，通过配置日志记录到文件和Sql Server数据库。</p>
+<p>第一步：首先添加包NLog.Config （可通过微软添加包命令Install-Package 包名进行添加，也可以通过管理NuGet程序包进行添加），添加成功后会生成NLog.config配置文件。并对该配置文件进行配置。详细配置可参考Git上 NLog说明。</p>
+<p>以下是我个人配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot; ?&gt;</span><br><span class="line">&lt;nlog xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.nlog-project.org&#x2F;schemas&#x2F;NLog.xsd&quot;</span><br><span class="line">      xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">      xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;www.nlog-project.org&#x2F;schemas&#x2F;NLog.xsd NLog.xsd&quot;</span><br><span class="line">      autoReload&#x3D;&quot;true&quot;</span><br><span class="line">      throwExceptions&#x3D;&quot;false&quot;</span><br><span class="line">      internalLogLevel&#x3D;&quot;Warn&quot;   </span><br><span class="line">      internalLogFile&#x3D;&quot;Logs&#x2F;nlog-internal.log&quot;&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;!--internalLogLevel&#x3D;&quot;Off&quot;--&gt;</span><br><span class="line">  &lt;!-- optional, add some variables</span><br><span class="line">  https:&#x2F;&#x2F;github.com&#x2F;nlog&#x2F;NLog&#x2F;wiki&#x2F;Configuration-file#variables</span><br><span class="line">  --&gt;</span><br><span class="line">  &lt;variable name&#x3D;&quot;myvar&quot; value&#x3D;&quot;myvalue&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!--</span><br><span class="line">  See https:&#x2F;&#x2F;github.com&#x2F;nlog&#x2F;nlog&#x2F;wiki&#x2F;Configuration-file</span><br><span class="line">  for information on customizing logging rules and outputs.</span><br><span class="line">   --&gt;</span><br><span class="line">  &lt;targets&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--</span><br><span class="line">    add your targets here</span><br><span class="line">    See https:&#x2F;&#x2F;github.com&#x2F;nlog&#x2F;NLog&#x2F;wiki&#x2F;Targets for possible targets.</span><br><span class="line">    See https:&#x2F;&#x2F;github.com&#x2F;nlog&#x2F;NLog&#x2F;wiki&#x2F;Layout-Renderers for the possible layout renderers.</span><br><span class="line">    --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--</span><br><span class="line">    Write events to a file with the date in the filename.</span><br><span class="line">    &lt;target xsi:type&#x3D;&quot;File&quot; name&#x3D;&quot;f&quot; fileName&#x3D;&quot;$&#123;basedir&#125;&#x2F;logs&#x2F;$&#123;shortdate&#125;.log&quot;</span><br><span class="line">            layout&#x3D;&quot;$&#123;longdate&#125; $&#123;uppercase:$&#123;level&#125;&#125; $&#123;message&#125;&quot; &#x2F;&gt;</span><br><span class="line">    --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- write logs to file --&gt;</span><br><span class="line">    &lt;target xsi:type&#x3D;&quot;File&quot; name&#x3D;&quot;allfile&quot; fileName&#x3D;&quot;Logs&#x2F;$&#123;date:format&#x3D;yyyyMM&#125;&#x2F;nlog-all-$&#123;shortdate&#125;.log&quot;</span><br><span class="line">             layout&#x3D;&quot;$&#123;longdate&#125;|$&#123;event-properties:item&#x3D;EventId.Id&#125;|$&#123;uppercase:$&#123;level&#125;&#125;|$&#123;logger&#125; $&#123;newline&#125;$&#123;message&#125; $&#123;exception&#125; $&#123;newline&#125;&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;target xsi:type&#x3D;&quot;File&quot; name&#x3D;&quot;ownFile-web&quot; fileName&#x3D;&quot;Logs&#x2F;$&#123;date:format&#x3D;yyyyMM&#125;&#x2F;nlog-own-$&#123;shortdate&#125;.log&quot;</span><br><span class="line">             layout&#x3D;&quot;$&#123;longdate&#125;|$&#123;event-properties:item&#x3D;EventId.Id&#125;|$&#123;uppercase:$&#123;level&#125;&#125;|$&#123;logger&#125; $&#123;newline&#125;$&#123;message&#125; $&#123;exception&#125; $&#123;newline&#125; --- |url: $&#123;aspnet-request-url&#125;|action: $&#123;aspnet-mvc-action&#125;&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;target xsi:type&#x3D;&quot;Null&quot; name&#x3D;&quot;blackhole&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;target xsi:type&#x3D;&quot;Database&quot; name&#x3D;&quot;database&quot;&gt;</span><br><span class="line">      &lt;connectionString&gt;$&#123;var:connectionString&#125;&lt;&#x2F;connectionString&gt;</span><br><span class="line">      &lt;commandText&gt;</span><br><span class="line">        insert into syslogs (Application,Levels,Operatingtime,Operatingaddress,Userid,Logger,Callsite,Requesturl,Referrerurl,Action,Message,Exception)</span><br><span class="line">        values (@application,@levels,@operatingtime,@operatingaddress,@userid,@logger,@callSite,@requesturl,@referrerurl,@action,@message,@exception);</span><br><span class="line">      &lt;&#x2F;commandText&gt;</span><br><span class="line">      &lt;parameter name&#x3D;&quot;@application&quot; layout&#x3D;&quot;WebApi&quot; &#x2F;&gt;</span><br><span class="line">      &lt;parameter name&#x3D;&quot;@levels&quot; layout&#x3D;&quot;$&#123;level&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;parameter name&#x3D;&quot;@operatingTime&quot; layout&#x3D;&quot;$&#123;date&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;parameter name&#x3D;&quot;@operatingaddress&quot; layout&#x3D;&quot;$&#123;aspnet-Request-IP&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;parameter name&#x3D;&quot;@userid&quot; layout&#x3D;&quot;1&quot; &#x2F;&gt;</span><br><span class="line">      &lt;parameter name&#x3D;&quot;@logger&quot; layout&#x3D;&quot;$&#123;logger&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;parameter name&#x3D;&quot;@callSite&quot; layout&#x3D;&quot;$&#123;callsite&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;parameter name&#x3D;&quot;@requesturl&quot; layout&#x3D;&quot;$&#123;aspnet-request-url&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;parameter name&#x3D;&quot;@referrerurl&quot; layout&#x3D;&quot;$&#123;aspnet-request&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;parameter name&#x3D;&quot;@action&quot; layout&#x3D;&quot;$&#123;aspnet-mvc-action&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;parameter name&#x3D;&quot;@message&quot; layout&#x3D;&quot;$&#123;message&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;parameter name&#x3D;&quot;@exception&quot; layout&#x3D;&quot;$&#123;exception:tostring&#125;&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;target&gt;</span><br><span class="line">    </span><br><span class="line">  &lt;&#x2F;targets&gt;</span><br><span class="line"></span><br><span class="line">  &lt;rules&gt;</span><br><span class="line">    &lt;!-- add your logging rules here --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--</span><br><span class="line">    Write all events with minimal level of Debug (So Debug, Info, Warn, Error and Fatal, but not Trace)  to &quot;f&quot;</span><br><span class="line">    &lt;logger name&#x3D;&quot;*&quot; minlevel&#x3D;&quot;Debug&quot; writeTo&#x3D;&quot;f&quot; &#x2F;&gt;</span><br><span class="line">    --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--All logs, including from Microsoft--&gt;</span><br><span class="line">    &lt;!--minlevel 改为Trace 跟踪全部 Error 只捕获异常--&gt;</span><br><span class="line">    &lt;logger name&#x3D;&quot;*&quot; minlevel&#x3D;&quot;Error&quot; writeTo&#x3D;&quot;allfile&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--Skip Microsoft logs and so log only own logs--&gt;</span><br><span class="line">    &lt;logger name&#x3D;&quot;Microsoft.*&quot; minlevel&#x3D;&quot;Trace&quot; writeTo&#x3D;&quot;blackhole&quot; final&#x3D;&quot;true&quot; &#x2F;&gt;</span><br><span class="line">    &lt;logger name&#x3D;&quot;*&quot; minlevel&#x3D;&quot;Trace&quot; writeTo&#x3D;&quot;ownFile-web&quot; &#x2F;&gt;</span><br><span class="line">    &lt;logger name&#x3D;&quot;*&quot; minlevel&#x3D;&quot;Trace&quot; writeTo&#x3D;&quot;database&quot; &#x2F;&gt;    </span><br><span class="line">    </span><br><span class="line">  &lt;&#x2F;rules&gt;</span><br><span class="line">&lt;&#x2F;nlog&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;!--增加引用</span><br><span class="line">&lt;PackageReference Include&#x3D;&quot;NLog.Extensions.Logging&quot; Version&#x3D;&quot;1.2.1&quot; &#x2F;&gt;</span><br><span class="line">&lt;PackageReference Include&#x3D;&quot;NLog.Web.AspNetCore&quot; Version&#x3D;&quot;4.6.0&quot; &#x2F;&gt;--&gt;</span><br><span class="line"></span><br><span class="line">NLog.config</span><br></pre></td></tr></table></figure>
+<p>说明：targets 中有一节点为Database，是配置将日志写入数据库中，注意需要在数据库中添加该记录日志表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;ConnectionStrings&quot;: &#123;</span><br><span class="line">    &quot;DefaultConnection&quot;: &quot;Data Source&#x3D;192.168.30.133;Initial Catalog&#x3D;Test;User ID&#x3D;sa;Password&#x3D;123456;Trusted_Connection&#x3D;True;MultipleActiveResultSets&#x3D;true;Integrated Security&#x3D;false;&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;Logging&quot;: &#123;</span><br><span class="line">    &quot;LogLevel&quot;: &#123;</span><br><span class="line">      &quot;Default&quot;: &quot;Warning&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;AllowedHosts&quot;: &quot;*&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">appsettings.json</span><br></pre></td></tr></table></figure>
+<p>第二步：添加包NLog.Web.AspNetCore，在Program.cs中的WebHost加入”.UseNLog()”（该属于程序集NLog.Web，需要添加引用using NLog.Web;）,即为添加nlog.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">using Microsoft.AspNetCore;</span><br><span class="line">using Microsoft.AspNetCore.Hosting;</span><br><span class="line">using NLog.Web;</span><br><span class="line"></span><br><span class="line">namespace WebApi</span><br><span class="line">&#123;</span><br><span class="line">    public class Program</span><br><span class="line">    &#123;</span><br><span class="line">        public static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            CreateWebHostBuilder(args).Build().Run();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public static IWebHostBuilder CreateWebHostBuilder(string[] args) &#x3D;&gt;</span><br><span class="line">            WebHost.CreateDefaultBuilder(args)</span><br><span class="line">                .UseStartup&lt;Startup&gt;()</span><br><span class="line">                .UseNLog(); &#x2F;&#x2F;加入nlog日志</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Program.cs</span><br></pre></td></tr></table></figure>
+<p>第三步：在Startup.cs中的Configure方法中添加记日志代码，即需要加载的配置文件和配置日志写入数据库连接字符串代码。注意：为避免中文乱码问题需要添加System.Text.Encoding.CodePages包。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public void Configure(IApplicationBuilder app, IHostingEnvironment env)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    #region Nlog记日志</span><br><span class="line">    &#x2F;&#x2F;将日志记录到数据库                 config&#x2F;NLog.config</span><br><span class="line">    NLog.LogManager.LoadConfiguration(&quot;nlog.config&quot;).GetCurrentClassLogger();       NLog.LogManager.Configuration.Variables[&quot;connectionString&quot;] &#x3D; Configuration.GetConnectionString(&quot;DefaultConnection&quot;);   Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);  &#x2F;&#x2F;避免日志中的中文输出乱码</span><br><span class="line">    #endregion</span><br><span class="line"></span><br><span class="line">    if (env.IsDevelopment())</span><br><span class="line">        app.UseDeveloperExceptionPage();</span><br><span class="line">    else</span><br><span class="line">        app.UseHsts();</span><br><span class="line">    app.UseHttpsRedirection();</span><br><span class="line">    app.UseMvc();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Configure方法</span><br></pre></td></tr></table></figure>
+<p>第四步：使用微软推荐的方式在在构造方法中将将日志对象注入。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class UsersController : Controller</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 日志对象</span><br><span class="line">    &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">    private readonly ILogger logger;    </span><br><span class="line">      public UsersController(ILoggerFactory loggerFactory)</span><br><span class="line">    &#123;</span><br><span class="line">        this.logger &#x3D; loggerFactory.CreateLogger&lt;UsersController&gt;();</span><br><span class="line"></span><br><span class="line">        #region 测试日志</span><br><span class="line">        logger.LogTrace(&quot;开发阶段调试，可能包含敏感程序数据&quot;, 1);</span><br><span class="line">        logger.LogDebug(&quot;开发阶段短期内比较有用，对调试有益。&quot;);</span><br><span class="line">        logger.LogInformation(&quot;你访问了首页。跟踪程序的一般流程。&quot;);</span><br><span class="line">        logger.LogWarning(&quot;警告信息！因程序出现故障或其他不会导致程序停止的流程异常或意外事件。&quot;);</span><br><span class="line">        logger.LogError(&quot;错误信息。因某些故障停止工作&quot;);</span><br><span class="line">        logger.LogCritical(&quot;程序或系统崩溃、遇到灾难性故障！！！&quot;);</span><br><span class="line">        #endregion</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">构造方法中注入</span><br></pre></td></tr></table></figure>
+<p>所有工作完成，运行程序。在配置NLog路径下生成日志文件，同时，在数据库中生成日志。</p>
+<p><img src="/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvODI0NDkxLzIwMTgxMC84MjQ0OTEtMjAxODEwMTQyMjAzMTg3NjAtMTA2ODU3MTEzNy5wbmc.png" alt="">)<img src="/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvODI0NDkxLzIwMTgxMC84MjQ0OTEtMjAxODEwMTQyMjAzMjM1NjQtMTE2MTQ2MDk3NS5wbmc.png" alt=""></p>
+<p>MySql的问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#1楼 2019-04-30 14:35 3369</span><br><span class="line">你好，我这边使用Pomelo.EntityFrameworkCore.MySql连接mysql，dbProvider&#x3D;&quot;Pomelo.EntityFrameworkCore.MySql&quot;，可以向文件中写入日志，但是无法向数据库中写入日志</span><br><span class="line">支持(0) 反对(0)</span><br><span class="line">  修改 删除#2楼 2019-12-10 18:03 占位符,😐!</span><br><span class="line">@ 3369</span><br><span class="line">还得安装下：MySql.Data</span><br><span class="line">这个还是：dbProvider&#x3D;&quot;MySql.Data.MySqlClient.MySqlConnection, MySql.Data&quot;，</span><br><span class="line">不知道有没有更好的方法</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/12/14/%E3%80%90angular%E3%80%91%E8%B0%83%E7%94%A8API%E4%BD%BF%E7%94%A8Cookie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/14/%E3%80%90angular%E3%80%91%E8%B0%83%E7%94%A8API%E4%BD%BF%E7%94%A8Cookie/" class="post-title-link" itemprop="url">【Angular】调用API使用Cookie</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-14 11:11:20" itemprop="dateCreated datePublished" datetime="2019-12-14T11:11:20+08:00">2019-12-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>  在用angular2调用后台接口的时候，遇到了两个问题1、请求头没有cookies;2、对两次请求，node后端都开了一个新的线程。对于这两个问题，其实我认为解决了请求头cookie的问题，后面的问题自然解决。对于cookie有什么作用，为什么要有这个cookie，看下图前后端请求模式。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSdGQ?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSdEk?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSdFg?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p>不难看出，这个cookie是获取session会话中信息的凭证，只有向后台传送匹配的cookie，才能得到相应的信息，否则将创建新的session。</p>
+<p>到这里，来看下XMLHttpRequest.withCredentials这个属性，度娘解释如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">XMLHttpRequest.withCredentials  属性是一个Boolean类型，它指示了是否该使用类似cookies,authorization headers(头部授权)或者TLS客户端证书这一类资格证书来创建一个跨站点访问控制（cross-site Access-Control）请求。在同一个站点下使用withCredentials属性是无效的。</span><br><span class="line"></span><br><span class="line">此外，这个指示也会被用做响应中cookies 被忽视的标示。默认值是false。</span><br><span class="line"></span><br><span class="line">如果在发送来自其他域的XMLHttpRequest请求之前，未设置withCredentials 为true，那么就不能为它自己的域设置cookie值。而通过设置withCredentials 为true获得的第三方cookies，将会依旧享受同源策略，因此不能被通过document.cookie或者从头部相应请求的脚本等访问。</span><br></pre></td></tr></table></figure>
+<p>angular2中http显然也是基于xml的请求，必定有这个属性。再看下http接口的请求接口说明。默认情况下，一般浏览器的CORS跨域请求都是不会发送cookie等认证信息到服务端的，除非指定了xhr.withCredentials = true，但是只有客户端单方面的设置了这个值还不行，服务端也需要同意才可以，所以服务端也需要设置好返回头Access-Control-Allow-Credentials: true；还有一点要注意的，返回头Access-Control-Allow-Origin的值不能为星号，必须是指定的域，否则cookie等认证信息也是发送不了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Interface Details</span><br><span class="line"></span><br><span class="line">url : string</span><br><span class="line">method : string|RequestMethod</span><br><span class="line">search : string|URLSearchParams|&#123;[key: string]: any | any[]&#125;</span><br><span class="line">params : string|URLSearchParams|&#123;[key: string]: any | any[]&#125;</span><br><span class="line">headers : Headers</span><br><span class="line">body : any</span><br><span class="line">withCredentials : boolean</span><br><span class="line">responseType : ResponseContentType</span><br></pre></td></tr></table></figure>
+<p>问题找到了，就是这货！再修改下请求代码</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSeGE?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p>再来看下请求头信息</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSeDg?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSeWI?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p>显然，请求头都已经被加上了cookie，而且这个cookie都是匹配的，看似没什么问题，但是再看看请求接口的response，没有任何信息，但后台明显有返回信息，而且这个response并非每次都不返回任何信息，存在偶然性。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSemc?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p>到这里，明显就出现了另一个问题，就是跨域，看看浏览器的console信息就知道了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XMLHttpRequest cannot load http:&#x2F;&#x2F;neil.com:8090&#x2F;api&#x2F;send. The value of the &#39;Access-Control-Allow-Origin&#39; header in the response must not be the wildcard &#39;*&#39; when the request&#39;s credentials mode is &#39;include&#39;. Origin &#39;http:&#x2F;&#x2F;localhost:4200&#39; is therefore not allowed access. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.</span><br></pre></td></tr></table></figure>
+<p>到这里，问题清晰了，只要解决跨域问题，整个流程就跑通。网上也有很多办法处理跨域，但如果不想用jsonp呢，那只能从服务器上动刀子。查了些资料，最靠普的无非在服务端加上request头部设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;设置跨域访问</span><br><span class="line">app.all(&#39;*&#39;, function (req, res, next) &#123;</span><br><span class="line">    res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;http:&#x2F;&#x2F;neil.com:4200&quot;);   &#x2F;&#x2F;设置跨域访问</span><br><span class="line">    res.header(&#39;Access-Control-Allow-Credentials&#39;, &#39;true&#39;);</span><br><span class="line">    res.header(&#39;Access-Control-Allow-Methods&#39;, &#39;GET, POST, PUT, DELETE, OPTIONS&#39;);</span><br><span class="line">    res.header(&#39;Access-Control-Allow-Headers&#39;, &#39;Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With&#39;);</span><br><span class="line">    res.header(&quot;Content-Type&quot;, &quot;application&#x2F;x-www-form-urlencoded&quot;);</span><br><span class="line">    next();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里说明下，‘Access-Control-Allow-Origin’必须设置请求侧的域名，不然无法跨域，不能解决问题。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSQXg?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p>现在，问题已经全部处理。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+   	鄂ICP备 -
+    <a target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow">17012779号</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22:07</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

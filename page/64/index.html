@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/64/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/64/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/03/25/%E3%80%90Centos%E3%80%91%E9%83%A8%E7%BD%B2%E6%B1%89%E5%8C%96%E7%89%88GitLab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/25/%E3%80%90Centos%E3%80%91%E9%83%A8%E7%BD%B2%E6%B1%89%E5%8C%96%E7%89%88GitLab/" class="post-title-link" itemprop="url">【CentOS】部署汉化版Gitlab</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-25 19:51:03" itemprop="dateCreated datePublished" datetime="2018-03-25T19:51:03+08:00">2018-03-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">Linux知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/straycats/p/7637373.html">https://www.cnblogs.com/straycats/p/7637373.html</a> </p>
+<p>实测可行！</p>
+<p>===============================================</p>
+<p>2017/11/12_第6次修改 ccb_warlock</p>
+<p>更新说明：</p>
+<p>2017/11/12：五中增加管理员账号的内容</p>
+<p>2017/11/8：修复3.6中命令错误的问题；</p>
+<p>2017/10/20：3.4中增加“途径2：从官方获取RPM包后上传到/root目录下”的内容；4.5中增加安装patch的命令；2.2中增加git clone老版本的命令；</p>
+<p>2017/10/18：在“环境准备”中增加硬件环境的描述；</p>
+<p>2017/10/9：增加3.5的内容；</p>
+<p>=============================================== </p>
+<p>作为公司层面使用gitlab，进行维护时一定要考虑升级、备份、迁移/恢复的事情，代码安全是研发部门的重心之一，故我也整理了下面的内容供维护人员参考。 </p>
+<p>升级：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/straycats/p/7707359.html">http://www.cnblogs.com/straycats/p/7707359.html</a><br>本地备份：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/straycats/p/7671204.html">http://www.cnblogs.com/straycats/p/7671204.html</a><br>远程备份：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/straycats/p/7672692.html">http://www.cnblogs.com/straycats/p/7672692.html</a><br>迁移/恢复：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/straycats/p/7702271.html">http://www.cnblogs.com/straycats/p/7702271.html</a></p>
+<p>gitlab接触了一段时间，觉得是一个很不错的开源产品（gitlab的社区版），值得我整理一篇部署教程作为记录。</p>
+<h2 id="安装全程选择的用户为root。"><a href="#安装全程选择的用户为root。" class="headerlink" title="安装全程选择的用户为root。"></a>安装全程选择的用户为root。</h2><p>一、环境准备<br>操作系统：centos7（minimal，<a target="_blank" rel="noopener" href="http://www.centos.org下载的包是CentOS-7-x86_64-Minimal-1708.iso）">www.centos.org下载的包是CentOS-7-x86_64-Minimal-1708.iso）</a><br>CPU：2核<br>内存：6G<br>说明：硬件根据我查到的资料(<a target="_blank" rel="noopener" href="http://www.cnblogs.com/gnool/p/6128546.html">http://www.cnblogs.com/gnool/p/6128546.html</a>)，结合使用人数的考虑，故选择了2核6G的配置，实际配置时需要根据gitlab使用人数的负载来决定硬件配置。</p>
+<p>1.1 更换阿里yum（个人习惯）</p>
+<p>步骤：</p>
+<p>1）下载wget </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y wget</span><br></pre></td></tr></table></figure>
+<p>2）备份默认的yum</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv &#x2F;etc&#x2F;yum.repos.d &#x2F;etc&#x2F;yum.repos.d.backup</span><br></pre></td></tr></table></figure>
+<p>3）设置新的yum目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir &#x2F;etc&#x2F;yum.repos.d</span><br></pre></td></tr></table></figure>
+<p>4）下载阿里yum配置到该目录中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo</span><br></pre></td></tr></table></figure>
+<p>5）重建缓存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+<p>6）升级所有包（改变软件设置和系统设置，系统版本内核都升级，故需要几分钟耐心等待）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update -y</span><br></pre></td></tr></table></figure>
+<p>1.2 安装vim（个人习惯）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y vim </span><br></pre></td></tr></table></figure>
+<hr>
+<p>二、获取gitlab汉化包（要部署非汉化版，可以跳过这一块内容）<br>说明：gitlab中文社区版的项目，v7-v8.8是由Larry Li发起的“GitLab 中文社区版项目”（<a target="_blank" rel="noopener" href="https://gitlab.com/larryli/gitlab），从">https://gitlab.com/larryli/gitlab），从</a> v8.9 之后，@xhang 开始继续该汉化项目（<a target="_blank" rel="noopener" href="https://gitlab.com/xhang/gitlab）。">https://gitlab.com/xhang/gitlab）。</a></p>
+<p>2.1 安装git</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y git </span><br></pre></td></tr></table></figure>
+<p>2.2 克隆获取汉化版本库<br>下载最新的汉化包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;gitlab.com&#x2F;xhang&#x2F;gitlab.git </span><br></pre></td></tr></table></figure>
+<p>如果是要下载老版本的汉化包，需要加上老版本的分支，比如今天已经是10.0.4，我依旧想下载10.0.2，可以运行下面的语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;gitlab.com&#x2F;xhang&#x2F;gitlab.git -b v10.0.2-zh </span><br></pre></td></tr></table></figure>
+<p>2.3 查看该汉化补丁的版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat gitlab&#x2F;VERSION </span><br></pre></td></tr></table></figure>
+<p>我安装的时候正好是国庆，最新的版本才刚出，所以汉化版为10.0.2，故我选择原版也安装10.0.2。<br><img src="/images/901201-20171008141753746-1168496902.png" alt=""></p>
+<hr>
+<p>三、部署社区版gitlab</p>
+<p>3.1 安装gitlab的依赖项</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y curl openssh-server openssh-clients postfix cronie policycoreutils-python</span><br></pre></td></tr></table></figure>
+<p>// 10.x以后开始依赖policycoreutils-python，我之前在使用9.x时还没有依赖该项。</p>
+<p>3.2 启动postfix，并设置为开机启动 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start postfix</span><br><span class="line">systemctl enable postfix </span><br></pre></td></tr></table></figure>
+<p>3.3 设置防火墙 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --add-service&#x3D;http --permanent</span><br><span class="line">firewall-cmd --reload </span><br></pre></td></tr></table></figure>
+<p>3.4 获取gitlab的rpm包</p>
+<p>途径1：通过清华开源镜像站</p>
+<p>查看清华开源镜像站，有我需要的10.0.2的rpm包。</p>
+<p><img src="/images/901201-20171008142452840-154152191.png" alt=""><br>获取rpm包 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;gitlab-ce&#x2F;yum&#x2F;el7&#x2F;gitlab-ce-10.0.2-ce.0.el7.x86_64.rpm </span><br></pre></td></tr></table></figure>
+<p>途径2：从官方获取RPM包后上传到/root目录下</p>
+<p>官方下载：<a target="_blank" rel="noopener" href="https://packages.gitlab.com/gitlab/gitlab-ce/">https://packages.gitlab.com/gitlab/gitlab-ce/</a></p>
+<p>因为要在centos7上安装版本10.0.2的gitlab，故找到gitlab-ce-10.0.2-ce.0.el7.x86_64.rpm下载到本地后，通过Bitvise SSH Client工具将rpm包上传到gitlab虚拟机的/root目录下。</p>
+<p>说明：从下载速度和方便程度来说，走清华的镜像站的方式更优，但是我2017/10/20想下载gitlab10.0.4时，发现清华的镜像站最新只有10.0.3，故在增补“途径2”获取最新的安装包。</p>
+<p>3.5 安装rpm包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -i gitlab-ce-10.0.2-ce.0.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<p><img src="/images/901201-20171008142634168-1176466712.png" alt=""><br>根据提示，继续执行指令配置gitlab。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure </span><br></pre></td></tr></table></figure>
+<p>3.6 修改配置文件gitlab.rb</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;gitlab&#x2F;gitlab.rb</span><br></pre></td></tr></table></figure>
+<p>将external_url变量的地址修改为gitlab所在centos的ip地址。（因为我这台centos是16.5，故配成图中的地址）。</p>
+<p><img src="/images/901201-20171009183831371-1529709149.png" alt=""></p>
+<p>因为修改了配置文件，故需要重新加载配置内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br><span class="line">gitlab-ctl restart </span><br></pre></td></tr></table></figure>
+<p>3.7 查看gitlab版本 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head -1 &#x2F;opt&#x2F;gitlab&#x2F;version-manifest.txt </span><br></pre></td></tr></table></figure>
+<hr>
+<p>四、覆盖汉化包</p>
+<p>4.1 停止gitlab服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl stop </span><br></pre></td></tr></table></figure>
+<p>4.2 切换到gitlab汉化包所在的目录（即步骤二获取的汉化版gitlab） </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;root&#x2F;gitlab </span><br></pre></td></tr></table></figure>
+<p>4.3 比较汉化标签和原标签，导出 patch 用的 diff 文件到/root下 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff v10.0.2 v10.0.2-zh &gt; ..&#x2F;10.0.2-zh.diff </span><br></pre></td></tr></table></figure>
+<p>4.4 回到/root目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd </span><br></pre></td></tr></table></figure>
+<p>4.5 将10.0.2-zh.diff作为补丁更新到gitlab中 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install patch -y</span><br><span class="line">patch -d &#x2F;opt&#x2F;gitlab&#x2F;embedded&#x2F;service&#x2F;gitlab-rails -p1 &lt; 10.0.2-zh.diff </span><br></pre></td></tr></table></figure>
+<p>4.6 启动gitlab</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl start </span><br></pre></td></tr></table></figure>
+<p>4.7 重新配置gitlab </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure </span><br></pre></td></tr></table></figure>
+<hr>
+<p>五、设置管理员密码</p>
+<p>管理员账号登录的用户名：root</p>
+<p>（虽然登录后管理员的用户名为Administrator，但是实际登录的用户名是root）</p>
+<p>方法一：网页方式</p>
+<p>浏览器访问gitlab所在的ip，输入密码后点击 “Change your password”（如果进行汉化，点击“修改密码”）。</p>
+<p><img src="/images/901201-20171008160130871-391254302.png" alt=""></p>
+<p><img src="/images/901201-20171008160210778-2027065574.png" alt=""></p>
+<p>方法二：指令方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-rails console production</span><br></pre></td></tr></table></figure>
+<p>稍等一会后会出现</p>
+<p><img src="/images/901201-20171008160302559-34936248.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">irb(main):001:0&gt; user &#x3D; User.where(id: 1).first     &#x2F;&#x2F; id为1的是超级管理员</span><br><span class="line">irb(main):002:0&gt;user.password &#x3D; &#39;yourpassword&#39;      &#x2F;&#x2F; 密码必须至少8个字符</span><br><span class="line">irb(main):003:0&gt;user.save!                          &#x2F;&#x2F; 如没有问题 返回true</span><br><span class="line">exit                                                &#x2F;&#x2F; 退出 </span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/01/11/%E3%80%90Angular%E3%80%91i18n%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB%E3%80%81%E8%B8%A9%E8%BF%87%E7%9A%84%E5%9D%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/01/11/%E3%80%90Angular%E3%80%91i18n%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB%E3%80%81%E8%B8%A9%E8%BF%87%E7%9A%84%E5%9D%91/" class="post-title-link" itemprop="url">【Angular】i18n的技术分享、踩过的坑</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-11 09:31:57" itemprop="dateCreated datePublished" datetime="2018-01-11T09:31:57+08:00">2018-01-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yangfantianxia/p/7878823.html">https://www.cnblogs.com/yangfantianxia/p/7878823.html</a></p>
+<p>1.安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install @ngx-translate&#x2F;core --save</span><br><span class="line">npm install @ngx-translate&#x2F;http-loader　</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.配置（文本背景部分为该模块新增的）~app.module.ts </span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import &#123; TranslateModule, TranslateLoader &#125; from &#39;@ngx-translate&#x2F;core&#39;;</span><br><span class="line">import &#123; TranslateHttpLoader &#125; from &#39;@ngx-translate&#x2F;http-loader&#39;;</span><br><span class="line">import &#123; I18nComponent &#125; from &#39;.&#x2F;i18n.component&#39;</span><br><span class="line">import &#123; HttpClientModule ,HttpClient&#125; from &#39;@angular&#x2F;common&#x2F;http&#39;;</span><br><span class="line"></span><br><span class="line">export function createTranslateHttpLoader(http: HttpClient) &#123;</span><br><span class="line"></span><br><span class="line">return new TranslateHttpLoader(http, &#39;&#x2F;app&#x2F;assets&#x2F;i18n&#x2F;&#39;, &#39;.json&#39;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">imports: [</span><br><span class="line">　　　　BrowserModule,</span><br><span class="line">　　　　FormsModule, &#x2F;&#x2F; &lt;-- import the FormsModule before binding with [(ngModel)]</span><br><span class="line">　　　　ReactiveFormsModule,</span><br><span class="line">　　　　AppRoutingModule,&#x2F;&#x2F;路由模块</span><br><span class="line">　　　　CommonModule,</span><br><span class="line">　　　　FileUploadModule,</span><br><span class="line">　　　　HttpClientModule,</span><br><span class="line">　　　　TranslateModule.forRoot(&#123;</span><br><span class="line">　　　　　　　　loader: &#123;</span><br><span class="line">　　　　　　　　　　　　　　provide: TranslateLoader,</span><br><span class="line">　　　　　　　　　　　　　　useFactory: (createTranslateHttpLoader),</span><br><span class="line">　　　　　　　　　　　　　　deps: [HttpClient]</span><br><span class="line">　　　　　　　　　　　　&#125;</span><br><span class="line">　　　　　　　　&#125;)</span><br><span class="line">　　　　　　],</span><br></pre></td></tr></table></figure>
+<p><img src="/images/1119175-20171122132104086-1554958578.png" alt=""></p>
+<p>3.组件部分(i18n.component.ts)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, OnInit &#125; from &#39;@angular&#x2F;core&#39;;</span><br><span class="line">import &#123; TranslateService &#125; from &#39;@ngx-translate&#x2F;core&#39;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">moduleId: module.id,</span><br><span class="line">selector: &#39;my-app&#39;,</span><br><span class="line">templateUrl: &#39;i18n.component.html&#39;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export class I18nComponent implements OnInit &#123;</span><br><span class="line">constructor(private translateService: TranslateService) &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ngOnInit() &#123;</span><br><span class="line">　　　　this.translateService.addLangs([&quot;ch&quot;, &quot;en&quot;]);</span><br><span class="line">　　　　this.translateService.setDefaultLang(&quot;ch&quot;);</span><br><span class="line">　　　　const browserLang &#x3D; this.translateService.getBrowserLang();</span><br><span class="line">　　　　this.translateService.use(browserLang.match(&#x2F;ch|en&#x2F;) ? browserLang : &#39;ch&#39;);</span><br><span class="line">　　　　&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.i18n.component.html</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;span&gt; hello dih&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;h1&gt;&#123;&#123; &#39;hello&#39; | translate &#125;&#125;&lt;&#x2F;h1&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<p>5.创建需要翻译的json语言 （注意：该路径是app.module中的调用的路径）</p>
+<p><img src="/images/1119175-20171122132554993-2051411379.png" alt=""></p>
+<p>en.json</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   &quot;hello&quot;: &quot;the word is hello&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>ch.json </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   &quot;hello&quot;: &quot;你好&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/1119175-20171122132744618-638931169.png" alt=""></p>
+<p>通过以上配置即可完成i18n国际化语言的转化，但是还有些坑需要自己踩。。。。</p>
+<p>以下是通过自己的实战经验解决的问题，也许能帮助大家，往下看</p>
+<p>1.bug1  (GET <a target="_blank" rel="noopener" href="http://localhost:3000/@ngx-translate/core">http://localhost:3000/@ngx-translate/core</a> 404 (Not Found))</p>
+<p>解决方案如下：</p>
+<ol>
+<li>需要在systemjs.config.js中添加</li>
+</ol>
+<p>‘@ngx-translate/core’: ‘npm:@ngx-translate/core/bundles/core.umd.js’,</p>
+<p>‘@ngx-translate/http-loader’: ‘npm:@ngx-translate/http-loader/bundles/http-loader.umd.js’,</p>
+<p>2.bu2(http 404 (Not Found))</p>
+<p>解决方案如下：</p>
+<p>1.在app.module.ts中把http换成HttpClient，上面的已经修改后的</p>
+<p>2.需要在systemjs.config.js中添加@angular/common/http</p>
+<p><img src="/images/1119175-20171122133626383-1717906023.png" alt=""></p>
+<p>3.bug3 (tslib 404 not found)</p>
+<p>解决方案如下：</p>
+<p>1.在systemjs.config.js中添加以下配置</p>
+<p>path:新增’npm:’: ‘<a target="_blank" rel="noopener" href="https://unpkg.com/&#39;">https://unpkg.com/&#39;</a></p>
+<p>map新增’tslib’: ‘npm:<a href="mailto:tslib@1.6.1">tslib@1.6.1</a>‘</p>
+<p><img src="/images/1119175-20171122134119602-950587199.png" alt=""></p>
+<p><img src="/images/1119175-20171122134129336-1026600323.png" alt=""></p>
+<p>通过以上配置，即可根据浏览器语言设置来加载国际化语言了</p>
+<p>英文如下：</p>
+<p><img src="/images/1119175-20171122134301993-793327597.png" alt=""></p>
+<p>中文如下：</p>
+<p><img src="/images/1119175-20171122135226321-1033771349.png" alt=""></p>
+<p>谷歌浏览器<del>高级</del>语言<del>移动顶部</del>保存<del>刷新F5</del>语言</p>
+<p><img src="/images/1119175-20171122134416430-1093387188.png" alt=""></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/01/03/%E3%80%90Angular%E3%80%91%E4%BD%BF%E7%94%A8Html2Canvas%E5%B0%86%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%87%BA%E4%B8%BA%E5%9B%BE%E7%89%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/01/03/%E3%80%90Angular%E3%80%91%E4%BD%BF%E7%94%A8Html2Canvas%E5%B0%86%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%87%BA%E4%B8%BA%E5%9B%BE%E7%89%87/" class="post-title-link" itemprop="url">【Angular】使用Html2Canvas将数据导出为图片</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-01-03 14:32:19" itemprop="dateCreated datePublished" datetime="2018-01-03T14:32:19+08:00">2018-01-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转自：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000012477096">https://segmentfault.com/a/1190000012477096</a></p>
+<p>1、安装html2canvas</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save html2canvas</span><br></pre></td></tr></table></figure>
+<p>官方网站</p>
+<p><a target="_blank" rel="noopener" href="https://html2canvas.hertzen.com/">https://html2canvas.hertzen.com/</a></p>
+<p>2、在需要的组件中引入html2canvas</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 导入整个模块的内容</span><br><span class="line">import * as html2canvas from &#39;html2canvas&#39;;</span><br></pre></td></tr></table></figure>
+<p>3、定义方法，将数据转换为canvas</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; #mainTable是数据表格的id</span><br><span class="line">takeScreenShot() &#123;</span><br><span class="line">        &#x2F;&#x2F; 使用html2canvas插件，将数据源中的数据转换成画布。</span><br><span class="line">        html2canvas(document.querySelector(&quot;#mainTable&quot;)).then(canvas &#x3D;&gt; &#123;</span><br><span class="line">            &#x2F;&#x2F; 修改生成的宽度</span><br><span class="line">            canvas.style.width &#x3D; &quot;1000px&quot;;</span><br><span class="line">            console.log(canvas, &quot;生成的画布文件&quot;);</span><br><span class="line">            this.canvasImg &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#x2F;&#x2F; 然后给初始化的public canvasImg: any &#x3D; &quot;&quot;; 复制，他就是图片地址。</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 展示图片</span><br><span class="line">&lt;img src&#x3D;&quot;&#123;&#123;canvasImg&#125;&#125;&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<p>4、将图片下载到本地，定义转换图片格式方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; filename: 文件名称， content: canvas图片流地址</span><br><span class="line">downloadFile(filename, content) &#123;</span><br><span class="line">    var base64Img &#x3D; content;</span><br><span class="line">    var oA &#x3D; document.createElement(&#39;a&#39;);</span><br><span class="line">    oA.href &#x3D; base64Img;</span><br><span class="line">    oA.download &#x3D; filename;</span><br><span class="line">    var event &#x3D; document.createEvent(&#39;MouseEvents&#39;);</span><br><span class="line">    event.initMouseEvent(&#39;click&#39;, true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);</span><br><span class="line">    oA.dispatchEvent(event);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 方法调用</span><br><span class="line">saveImgLocal() &#123;</span><br><span class="line">    this.downloadFile(&quot;导出图片&quot;, this.canvasImg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>5、下载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button label&#x3D;&quot;下载&quot; pButton (click)&#x3D;&quot;saveImgLocal()&quot;&gt;&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+<p>6、设置画布大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var shareContent &#x3D; document.getElementById(&quot;mainTable&quot;);&#x2F;&#x2F;需要截图的包裹的（原生的）DOM 对象</span><br><span class="line">    var width &#x3D; shareContent.offsetWidth; &#x2F;&#x2F;获取dom 宽度</span><br><span class="line">    var height &#x3D; shareContent.offsetHeight; &#x2F;&#x2F;获取dom 高度</span><br><span class="line">    var canvas &#x3D; document.createElement(&quot;canvas&quot;); &#x2F;&#x2F;创建一个canvas节点</span><br><span class="line">    var scale &#x3D; 1; &#x2F;&#x2F;定义任意放大倍数 支持小数</span><br><span class="line">    canvas.width &#x3D; width * scale; &#x2F;&#x2F;定义canvas 宽度 * 缩放</span><br><span class="line">    canvas.height &#x3D; height * scale; &#x2F;&#x2F;定义canvas高度 *缩放</span><br><span class="line">    canvas.getContext(&quot;2d&quot;).scale(scale, scale); &#x2F;&#x2F;获取context,设置scale</span><br><span class="line">    var opts &#x3D; &#123;</span><br><span class="line">        scale: scale, &#x2F;&#x2F; 添加的scale 参数</span><br><span class="line">        canvas: canvas, &#x2F;&#x2F;自定义 canvas</span><br><span class="line">        logging: true, &#x2F;&#x2F;日志开关</span><br><span class="line">        width: width, &#x2F;&#x2F;dom 原始宽度</span><br><span class="line">        height: height &#x2F;&#x2F;dom 原始高度</span><br><span class="line">    &#125;;</span><br><span class="line">    html2canvas(shareContent, opts).then(canvas &#x3D;&gt; &#123;</span><br><span class="line">        this.canvasImg &#x3D; canvas.toDataURL(&quot;image&#x2F;png&quot;);</span><br><span class="line">        console.log(canvas)</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/63/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/63/">63</a><span class="page-number current">64</span><a class="page-number" href="/page/65/">65</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/65/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+   	鄂ICP备 -
+    <a target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow">17012779号</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22:07</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

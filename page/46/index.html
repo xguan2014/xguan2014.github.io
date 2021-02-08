@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/46/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/46/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/09/15/%E3%80%90DIY%E3%80%91%E5%A4%9A%E8%AF%AD%E8%A8%80%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/15/%E3%80%90DIY%E3%80%91%E5%A4%9A%E8%AF%AD%E8%A8%80%E5%8C%96/" class="post-title-link" itemprop="url">【DIY】Ionic多语言化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-15 14:43:19" itemprop="dateCreated datePublished" datetime="2018-09-15T14:43:19+08:00">2018-09-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DIY%E7%A8%8B%E5%BA%8F/" itemprop="url" rel="index"><span itemprop="name">DIY程序</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>好久没碰ionic这个坑了，前两天突然想整个APP玩下，正好把这一套回顾下</p>
+<p>版本号：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">v8.10.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ionic -v</span><br><span class="line">4.1.2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cordova -v</span><br><span class="line">8.0.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\gx_143&gt;ng -v</span><br><span class="line"></span><br><span class="line">    _                      _                 ____ _     ___</span><br><span class="line">  &#x2F; \   _ __   __ _ _   _| | __ _ _ __     &#x2F; ___| |   |_ _|</span><br><span class="line">  &#x2F; △ \ | &#39;_ \ &#x2F; _&#96; | | | | |&#x2F; _&#96; | &#39;__|   | |   | |    | |</span><br><span class="line">&#x2F; ___ \| | | | (_| | |_| | | (_| | |      | |___| |___ | |</span><br><span class="line">&#x2F;_&#x2F;   \_\_| |_|\__, |\__,_|_|\__,_|_|       \____|_____|___|</span><br><span class="line">              |___&#x2F;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Angular CLI: 6.2.2</span><br><span class="line">Node: 8.10.0</span><br><span class="line">OS: win32 x64</span><br><span class="line">Angular:</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">Package                      Version</span><br><span class="line">------------------------------------------------------</span><br><span class="line">@angular-devkit&#x2F;architect    0.8.2</span><br><span class="line">@angular-devkit&#x2F;core         0.8.2</span><br><span class="line">@angular-devkit&#x2F;schematics   0.8.2</span><br><span class="line">@schematics&#x2F;angular          0.8.2</span><br><span class="line">@schematics&#x2F;update           0.8.2</span><br><span class="line">rxjs                         6.2.2</span><br><span class="line">typescript                   2.9.2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yarn -v</span><br><span class="line">1.9.4</span><br></pre></td></tr></table></figure>
+<p>版本不一致是产生坑的很大一个原因！</p>
+<p>一、创建项目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ionic start demo tabs</span><br></pre></td></tr></table></figure>
+<p><img src="/images/20180915140046833.png" alt=""></p>
+<p>二、package.json中的”@ionic/app-scripts”: “3.2.0”,改成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;devDependencies&quot;: &#123;</span><br><span class="line">  &quot;@ionic&#x2F;app-scripts&quot;: &quot;3.1.6&quot;,</span><br><span class="line">  &quot;typescript&quot;: &quot;2.6.2&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save @ionic&#x2F;app-scripts@3.1.6</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>使用npm安装ngx-translate模块<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save @ngx-translate&#x2F;core@8.0.0</span><br><span class="line">npm install --save @ngx-translate&#x2F;http-loader@^2.0.0</span><br></pre></td></tr></table></figure>
+最好是带上版本号，不然可能不兼容！</li>
+</ol>
+<p>3、在项目中导入支持的包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import &#123; TranslateHttpLoader &#125; from &#39;@ngx-translate&#x2F;http-loader&#39;;</span><br><span class="line">import &#123; HttpClient, HttpClientModule &#125; from &#39;@angular&#x2F;common&#x2F;http&#39;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;导出加载函数</span><br><span class="line">export function HttpLoaderFactory(http: HttpClient) &#123;</span><br><span class="line">  return new TranslateHttpLoader(http, &#39;.&#x2F;assets&#x2F;i18n&#x2F;&#39;, &#39;.json&#39;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4、功能设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">imports: [</span><br><span class="line">  BrowserModule,</span><br><span class="line">  IonicModule.forRoot(MyApp),</span><br><span class="line">  HttpClientModule,</span><br><span class="line">  TranslateModule.forRoot(&#123;</span><br><span class="line">    loader: &#123;</span><br><span class="line">      provide: TranslateLoader,</span><br><span class="line">      useFactory: HttpLoaderFactory,</span><br><span class="line">      deps: [HttpClient]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+<p>5、在assets文件夹下新建i18n文件夹，并且新建两个语言的json文件。<br>比如zh-CN.json和en.json<br><img src="/images/20180915143646423.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;zh-CN.json</span><br><span class="line">&#123;</span><br><span class="line">  &quot;welcome&quot;: &quot;欢迎使用本应用&quot;,</span><br><span class="line">    &quot;hello&quot;: &quot;你好&quot;,</span><br><span class="line">      &quot;get-lang&quot;: &quot;获取语言类型&quot;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;en.json</span><br><span class="line">&#123;</span><br><span class="line">  &quot;welcome&quot;: &quot;welcome to this app&quot;,</span><br><span class="line">    &quot;hello&quot;: &quot;Hola&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>json文件是key-value形式的，key值代表要翻译的字符串，value值为特定语言的翻译结果，不用语言的文件一般key值是相同的，只是value值不同。</p>
+<p>6、然后在相应的组件中使用Translate服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private translate: TranslateService) &#123;</span><br><span class="line">  platform.ready().then(() &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F; Okay, so the platform is ready and our plugins are available.</span><br><span class="line">    &#x2F;&#x2F; Here you can do any higher level native things you might need.</span><br><span class="line">    statusBar.styleDefault();</span><br><span class="line">    splashScreen.hide();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;添加语言支持</span><br><span class="line">  translate.addLangs([&#39;zh-CN&#39;, &#39;en&#39;]);</span><br><span class="line">  &#x2F;&#x2F;设置默认语言，一般在无法匹配的时候使用</span><br><span class="line">  translate.setDefaultLang(&#39;zh-CN&#39;);</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F;获取当前浏览器环境的语言比如en、 zh</span><br><span class="line">  let broswerLang &#x3D; translate.getBrowserLang();</span><br><span class="line">  translate.use(broswerLang.match(&#x2F;en|zh-CN&#x2F;) ? broswerLang : &#39;zh-CN&#39;);</span><br><span class="line">&#125;</span><br><span class="line">changeLang(lang) &#123;</span><br><span class="line">  console.log(lang);</span><br><span class="line">  this.translate.use(lang);</span><br><span class="line">&#125;</span><br><span class="line">toggleLang() &#123;</span><br><span class="line">  console.log(this.translate.getBrowserLang());</span><br><span class="line">  &#x2F;&#x2F;获取语言风格，相当于更详细的语言类型，比如zh-CN、zh-TW、en-US</span><br><span class="line">  console.log(this.translate.getBrowserCultureLang());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 7、示例模板：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &lt;h2&gt;&#123;&#123; title | translate &#125;&#125;&lt;&#x2F;h2&gt;</span><br><span class="line">  &lt;label&gt;</span><br><span class="line">    &#123;&#123; &#39;hello&#39; | translate &#125;&#125;</span><br><span class="line">    &lt;select #langSelect (change)&#x3D;&quot;changeLang(langSelect.value)&quot;&gt;</span><br><span class="line">      &lt;option *ngFor&#x3D;&quot;let lang of translate.getLangs()&quot; [value]&#x3D;&quot;lang&quot; [selected]&#x3D;&quot;lang &#x3D;&#x3D;&#x3D; translate.currentLang&quot;&gt;&#123;&#123;</span><br><span class="line">        lang &#125;&#125;&lt;&#x2F;option&gt;</span><br><span class="line">    &lt;&#x2F;select&gt;</span><br><span class="line">  &lt;&#x2F;label&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&lt;button (click)&#x3D;&quot;toggleLang()&quot;&gt;&#123;&#123;&#39;get-lang&#39; | translate&#125;&#125;&lt;&#x2F;button&gt;</span><br></pre></td></tr></table></figure>
+<p>8、效果：</p>
+<p><img src="/images/20180915144050158.png" alt=""> <img src="/images/20180915144115689.png" alt=""></p>
+<p>使用方式和angularjs1中的ng-translate类似，使用translate管道。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ionic cordova platform add android</span><br><span class="line"></span><br><span class="line">ionic cordova build android </span><br></pre></td></tr></table></figure>
+<p>参考：Angular2国际化</p>
+<p>作者：小孩真笨</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/72f7c5ffb4f6">https://www.jianshu.com/p/72f7c5ffb4f6</a></p>
+<p>來源：简书</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/09/13/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91JavaScript%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%95%B0%E7%BB%84%E6%8B%B7%E8%B4%9D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/13/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91JavaScript%E5%AF%B9%E8%B1%A1%E5%92%8C%E6%95%B0%E7%BB%84%E6%8B%B7%E8%B4%9D/" class="post-title-link" itemprop="url">【前端】JavaScript对象和数组拷贝</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-13 14:03:30" itemprop="dateCreated datePublished" datetime="2018-09-13T14:03:30+08:00">2018-09-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="作者：无亦情"><a href="#作者：无亦情" class="headerlink" title="作者：无亦情"></a>作者：无亦情</h2><p>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/12b1fa8bb768">https://www.jianshu.com/p/12b1fa8bb768</a>   </p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文要解决的问题：</p>
+<ul>
+<li>为什么会有深拷贝（deep clone）和浅拷贝（shallow clone）的存在 </li>
+<li>理解 JavaScript 中深拷贝和浅拷贝的区别 </li>
+<li>JavaScript 拷贝对象的注意事项 </li>
+<li>JavaScript 拷贝对象和数组的实现方法 部分代码可在这里找到：<a target="_blank" rel="noopener" href="https://link.jianshu.com?t=https://github.com/chhpt/JavaScript-Exploration/tree/master/shallow-and-deep-copy">Github</a>。如果发现错误，欢迎指出。</li>
+</ul>
+<h2 id="一，-理解问题原因所在"><a href="#一，-理解问题原因所在" class="headerlink" title="一， 理解问题原因所在"></a>一， 理解问题原因所在</h2><p>JavaScript 中的数据类型可以分为两种：基本类型值（Number, Boolean, String, NULL, Undefined）和引用类型值（Array, Object, Date, RegExp, Function)。 基本类型值指的是简单的数据段，而引用类型值指那些可能由多个值构成的对象。</p>
+<p><strong>基本数据类型是按值访问的</strong>，因为可以直接操作保存在变量中的实际的值。引用类型的值是保存在内存中的对象，与其他语言不同，JavaScript 不允许直接访问内存中的位置，也就是说不能直接操作对象的内存空间。在操作对象时，实际上是在<strong>操作对象的引用</strong>而不是实际的对象。 为此，引用类型的值是按引用访问的。</p>
+<p>除了保存的方式不同之外，在从一个变量向另一个变量复制基本类型值和引用类型值时，也存在不同：</p>
+<ul>
+<li>如果从一个变量向另一个变量复制基本类型的值，会在变量对象上创建一个新值，然后把该值复制到为新变量分配的位置上。 </li>
+<li>当从一个变量向另一个变量复制引用类型的值时，同样也会将存储在变量对象中的值复制一份放到为新变量分配的空间中。不同的是，这个值的副本实际上是一个指针，而这个指针指向存储在堆中的一个对象。复制操作结束后，两个变量实际上将引用同一个对象。因此，改变其中一个变量，就会影响另一个变量。 看下面的代码：</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本类型值复制</span></span><br><span class="line"><span class="keyword">var</span> string1 = <span class="string">&#x27;base type&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> string2 = string1;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引用类型值复制</span></span><br><span class="line"><span class="keyword">var</span> object1 = &#123;<span class="attr">a</span>: <span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> object2 = object1;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>下图可以表示两种类型的变量的复制结果：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2634562-d166da6a0ae12b27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt=""></p>
+<p>至此，我们应该理解：在 JavaScript 中直接复制对象实际上是对引用的复制，会导致两个变量引用同一个对象，对任一变量的修改都会反映到另一个变量上，这是一切问题的原因所在。</p>
+<h2 id="二，-深拷贝和浅拷贝的区别"><a href="#二，-深拷贝和浅拷贝的区别" class="headerlink" title="二， 深拷贝和浅拷贝的区别"></a>二， 深拷贝和浅拷贝的区别</h2><p>理解了 JavaScript 中拷贝对象的问题后，我们就可以讲讲深拷贝和浅拷贝的区别了。考虑这种情况，你需要复制一个对象，这个对象的某个属性还是一个对象，比如这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> object1 = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  obj: &#123;</span><br><span class="line">    b: <span class="string">&#x27;string&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><p><code>浅拷贝</code> 存在两种情况：</p>
+<ul>
+<li>直接拷贝对象，也就是拷贝引用，两个变量 <code>object1</code>  和  <code>object2</code>  之间还是会相互影响。 </li>
+<li>只是简单的拷贝对象的第一层属性，基本类型值不再相互影响，但是对其内部的引用类型值，拷贝的任然是是其引用，内部的引用类型值还是会相互影响。 </li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 最简单的浅拷贝</span></span><br><span class="line"><span class="keyword">var</span> object2 = object1;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 拷贝第一层属性</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowClone</span>(<span class="params">source</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!source || <span class="keyword">typeof</span> source !== <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> targetObj = source.constructor === <span class="built_in">Array</span> ? [] : &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> keys <span class="keyword">in</span> source) &#123;</span><br><span class="line">        <span class="keyword">if</span> (source.hasOwnProperty(keys)) &#123;</span><br><span class="line">            <span class="comment">// 简单的拷贝属性</span></span><br><span class="line">            targetObj[keys] = source[keys];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> targetObj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> object3 = shallowClone(object1);</span><br><span class="line"><span class="comment">// 改变原对象的属性</span></span><br><span class="line">object1.a = <span class="number">2</span>;</span><br><span class="line">object1.obj.b = <span class="string">&#x27;newString&#x27;</span>;</span><br><span class="line"><span class="comment">// 比较</span></span><br><span class="line"><span class="built_in">console</span>.log(object2.a); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(object2.obj.b); <span class="comment">// &#x27;newString&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(object3.a); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(object3.obj.b); <span class="comment">// &#x27;newString&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>浅拷贝存在许多问题，需要我们注意：</p>
+<ul>
+<li>只能拷贝可枚举的属性。 </li>
+<li>所生成的 <code>拷贝对象</code> 的原型与 <code>原对象</code> 的原型不同，拷贝对象只是 Object 的一个实例。 </li>
+<li>原对象从它的原型继承的属性也会被拷贝到新对象中，就像是原对象的属性一样，无法区分。 </li>
+<li>属性的描述符（descriptor）无法被复制，一个只读的属性在拷贝对象中可能会是可写的。 </li>
+<li>如果属性是对象的话，原对象的属性会与拷贝对象的属性会指向一个对象，会彼此影响。 不能理解这些概念？可以看看下面的代码：</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = <span class="string">&#x27;parent&#x27;</span>;</span><br><span class="line">  <span class="built_in">this</span>.a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = <span class="string">&#x27;child&#x27;</span>;</span><br><span class="line">  <span class="built_in">this</span>.b = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.prototype = <span class="keyword">new</span> Parent();</span><br><span class="line"><span class="keyword">var</span> child1 = <span class="keyword">new</span> Child();</span><br><span class="line"><span class="comment">// 更改 child1 的 name 属性的描述符</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(child1, <span class="string">&#x27;name&#x27;</span>, &#123;</span><br><span class="line">  writable: <span class="literal">false</span>,</span><br><span class="line">  value: <span class="string">&#x27;Mike&#x27;</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 拷贝对象</span></span><br><span class="line"><span class="keyword">var</span> child2 = shallowClone(child1);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Object &#123;value: &quot;Nicholas&quot;, writable: false, enumerable: true, configurable: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(child1, <span class="string">&#x27;name&#x27;</span>)); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里新对象的 name 属性的描述符已经发生了变化</span></span><br><span class="line"><span class="comment">// Object &#123;value: &quot;Nicholas&quot;, writable: true, enumerable: true, configurable: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(child2, <span class="string">&#x27;name&#x27;</span>)); </span><br><span class="line"></span><br><span class="line">child1.name = <span class="string">&#x27;newName&#x27;</span>; <span class="comment">// 严格模式下报错</span></span><br><span class="line">child2.name = <span class="string">&#x27;newName&#x27;</span>; <span class="comment">// 可以赋值</span></span><br><span class="line"><span class="built_in">console</span>.log(child1.name); <span class="comment">//  Mike</span></span><br><span class="line"><span class="built_in">console</span>.log(child2.name); <span class="comment">// newName</span></span><br></pre></td></tr></table></figure>
+<p>上面的代码通过构造函数  <code>Child</code>  构造一个对象  <code>child1</code> ，这个对象的原型是  <code>Parent</code> 。并且修改了  <code>child1</code>  的  <code>name</code>  属性的描述符，设置  <code>writable</code>  为  <code>false</code> ，也就是这个属性不能再被修改。如果要直接给  <code>child1.name</code>  赋值，在严格模式下会报错，在非严格模式则会赋值失败（但不会报错）。</p>
+<p>我们调用前面提到的浅拷贝函数  <code>shallowClone</code>  来拷贝  <code>child1</code>  对象，生成了新的对象  <code>child2</code> ，输出  <code>child2</code>  的  <code>name</code>  属性的描述符，我们可以发现  <code>child2</code>  的  <code>name</code>  属性的描述符与  <code>child1</code>  已经不一样了（变成了可写的）。通过开启调试模式，查看  <code>child1</code>  和  <code>child2</code>  的原型，我们也会发现它们的原型也是不同的：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2634562-6439cb5abff5e31e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/702/format/webp" alt=""></p>
+<p><code>child1</code>  的原型是  <code>Parent</code> ，而  <code>child2</code>  的原型则是  <code>Object</code> 。</p>
+<p>通过上面的例子和简短的说明，我们可以大致理解浅拷贝存在的一些问题，在实际使用过程中也能有自己的判断。</p>
+<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><p><code>深拷贝</code> 就是将对象的属性递归的拷贝到一个新的对象上，两个对象有不同的地址，不同的引用，也包括对象里的对象属性（如 object1 中的 obj 属性），两个变量之间完全独立。</p>
+<h3 id="没有银弹-根据实际需求"><a href="#没有银弹-根据实际需求" class="headerlink" title="没有银弹 - 根据实际需求"></a>没有银弹 - 根据实际需求</h3><p>既然浅拷贝有那么多问题，我们为什么还要说浅拷贝？一来是深拷贝的完美实现不那么容易（甚至不存在），而且可能存在性能问题，二来是有些时候的确不需要深拷贝，那么我们也就没必要纠结于与深拷贝和浅拷贝了，没有必要跟自己过不去不是？</p>
+<p>一句话：根据自己的实际需选择不同的方法。</p>
+<h2 id="三，-实现对象和数组浅拷贝"><a href="#三，-实现对象和数组浅拷贝" class="headerlink" title="三， 实现对象和数组浅拷贝"></a>三， 实现对象和数组浅拷贝</h2><h3 id="对象浅拷贝"><a href="#对象浅拷贝" class="headerlink" title="对象浅拷贝"></a>对象浅拷贝</h3><p>前面已经介绍了对象的两种浅拷贝方式，这里就不做说明了。下面介绍其他的几种方式</p>
+<ol>
+<li>使用 Object.assign 方法</li>
+</ol>
+<p><code>Object.assign()</code>  用于将一个或多个源对象中的所有 <code>可枚举的属性</code> 值复制到目标对象。 <code>Object.assign()</code>  只是浅拷贝，类似上文提到的  <code>shallowClone</code>  方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> object1 = &#123;</span><br><span class="line">  a: <span class="number">1</span>,</span><br><span class="line">  obj: &#123;</span><br><span class="line">    b: <span class="string">&#x27;string&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 浅拷贝</span></span><br><span class="line"><span class="keyword">var</span> copy = <span class="built_in">Object</span>.assign(&#123;&#125;, object1);</span><br><span class="line"><span class="comment">// 改变原对象属性</span></span><br><span class="line">object1.a = <span class="number">2</span>;</span><br><span class="line">object1.obj.b = <span class="string">&#x27;newString&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(copy.a); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(copy.obj.b); <span class="comment">// `newString`</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>使用 Object.getOwnPropertyNames 拷贝不可枚举的属性</li>
+</ol>
+<p><code>Object.getOwnPropertyNames()</code>  返回由对象属性组成的一个数组，包括不可枚举的属性（除了使用 Symbol 的属性）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowCopyOwnProperties</span>(<span class="params"> source </span>)  </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> target = &#123;&#125; ;</span><br><span class="line">    <span class="keyword">var</span> keys = <span class="built_in">Object</span>.getOwnPropertyNames( original ) ;</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span> ; i &lt; keys.length ; i ++ ) &#123;</span><br><span class="line">        target[ keys[ i ] ] = source[ keys[ i ] ] ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>使用 Object.getPrototypeOf 和 Object.getOwnPropertyDescriptor 拷贝原型与描述符</li>
+</ol>
+<p>如果我们需要拷贝原对象的原型和描述符，我们可以使用  <code>Object.getPrototypeOf</code>  和  <code>Object.getOwnPropertyDescriptor</code>  方法分别获取原对象的原型和描述符，然后使用  <code>Object.create</code>  和  <code>Object.defineProperty</code>  方法，根据原型和属性的描述符创建新的对象和对象的属性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowCopy</span>(<span class="params"> source </span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 用 source 的原型创建一个对象</span></span><br><span class="line">    <span class="keyword">var</span> target = <span class="built_in">Object</span>.create( <span class="built_in">Object</span>.getPrototypeOf( source )) ;</span><br><span class="line">    <span class="comment">// 获取对象的所有属性</span></span><br><span class="line">    <span class="keyword">var</span> keys = <span class="built_in">Object</span>.getOwnPropertyNames( source ) ;</span><br><span class="line">    <span class="comment">// 循环拷贝对象的所有属性</span></span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span> ; i &lt; keys.length ; i ++ ) &#123;</span><br><span class="line">        <span class="comment">// 用原属性的描述符创建新的属性</span></span><br><span class="line">        <span class="built_in">Object</span>.defineProperty( target , keys[ i ] , <span class="built_in">Object</span>.getOwnPropertyDescriptor( source , keys[ i ])) ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="数组浅拷贝"><a href="#数组浅拷贝" class="headerlink" title="数组浅拷贝"></a>数组浅拷贝</h3><p>同上，数组也可以直接复制或者遍历数组的元素直接复制达到浅拷贝的目的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">1</span>, <span class="string">&#x27;string&#x27;</span>, &#123;<span class="attr">a</span>: <span class="number">1</span>,<span class="attr">b</span>: <span class="number">2</span>, <span class="attr">obj</span>: &#123;<span class="attr">c</span>: <span class="number">3</span>&#125;&#125;];</span><br><span class="line"><span class="comment">// 直接复制</span></span><br><span class="line"><span class="keyword">var</span> array1 = array;</span><br><span class="line"><span class="comment">// 遍历直接复制</span></span><br><span class="line"><span class="keyword">var</span> array2 = [];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> array) &#123;</span><br><span class="line">  array2[key] = array[key];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 改变原数组元素</span></span><br><span class="line">array[<span class="number">1</span>] = <span class="string">&#x27;newString&#x27;</span>;</span><br><span class="line">array[<span class="number">2</span>].c = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(array1[<span class="number">1</span>]); <span class="comment">// newString</span></span><br><span class="line"><span class="built_in">console</span>.log(array1[<span class="number">2</span>].c); <span class="comment">// 4</span></span><br><span class="line"><span class="built_in">console</span>.log(array2[<span class="number">1</span>]); <span class="comment">// string</span></span><br><span class="line"><span class="built_in">console</span>.log(array2[<span class="number">2</span>].c); <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+<p>这没有什么需要特别说明的，我们说些其他方法</p>
+<p>使用 slice 和 concat 方法</p>
+<p><a target="_blank" rel="noopener" href="https://link.jianshu.com?t=https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/slice"> <code>slice()</code> </a> 方法将一个数组被选择的部分（默认情况下是全部元素）浅拷贝到一个新数组对象，并返回这个数组对象，原始数组不会被修改。 <a target="_blank" rel="noopener" href="https://link.jianshu.com?t=https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/concat?v=a"> <code>concat()</code> </a> 方法用于合并两个或多个数组。此方法不会更改现有数组，而是返回一个新数组。</p>
+<p>这两个方法都可以达到拷贝数组的目的，并且是浅拷贝，数组中的对象只是复制了引用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">1</span>, <span class="string">&#x27;string&#x27;</span>, &#123;<span class="attr">a</span>: <span class="number">1</span>,<span class="attr">b</span>: <span class="number">2</span>, <span class="attr">obj</span>: &#123;<span class="attr">c</span>: <span class="number">3</span>&#125;&#125;];</span><br><span class="line"><span class="comment">// slice()</span></span><br><span class="line"><span class="keyword">var</span> array1 = array.slice();</span><br><span class="line"><span class="comment">// concat()</span></span><br><span class="line"><span class="keyword">var</span> array2 = array.concat();</span><br><span class="line"><span class="comment">// 改变原数组元素</span></span><br><span class="line">array[<span class="number">1</span>] = <span class="string">&#x27;newString&#x27;</span>;</span><br><span class="line">array[<span class="number">2</span>].c = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(array1[<span class="number">1</span>]); <span class="comment">// string</span></span><br><span class="line"><span class="built_in">console</span>.log(array1[<span class="number">2</span>].c); <span class="comment">// 4</span></span><br><span class="line"><span class="built_in">console</span>.log(array2[<span class="number">1</span>]); <span class="comment">// string</span></span><br><span class="line"><span class="built_in">console</span>.log(array2[<span class="number">2</span>].c); <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+<h2 id="四，-实现对象和数组深拷贝"><a href="#四，-实现对象和数组深拷贝" class="headerlink" title="四， 实现对象和数组深拷贝"></a>四， 实现对象和数组深拷贝</h2><p>实现深拷贝的方法大致有两种：</p>
+<ul>
+<li>利用  <code>JSON.stringify</code>  和  <code>JSON.parse</code>  方法 </li>
+<li>遍历对象的属性（或数组的元素），分别拷贝 下面就两种方法详细说说</li>
+</ul>
+<ol>
+<li>使用 JSON.stringify 和 JSON.parse 方法</li>
+</ol>
+<p><code>JSON.stringify</code> 和 <code>JSON.parse</code>  是 JavaScript 内置对象 JSON 的两个方法，主要是用来将 JavaScript 对象序列化为 JSON 字符串和把 JSON 字符串解析为原生 JavaScript 值。这里被用来实现对象的拷贝也算是一种黑魔法吧：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: &#123; <span class="attr">c</span>: <span class="number">2</span> &#125;&#125;;</span><br><span class="line"><span class="comment">// 深拷贝</span></span><br><span class="line"><span class="keyword">var</span> newObj = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(obj));</span><br><span class="line"><span class="comment">// 改变原对象的属性</span></span><br><span class="line">obj.b.c = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj); <span class="comment">// &#123; a: 1, b: &#123; c: 20 &#125; &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(newObj); <span class="comment">// &#123; a: 1, b: &#123; c: 2 &#125; &#125;</span></span><br></pre></td></tr></table></figure>
+<p>但是这种方式有一定的局限性，就是对象必须遵从JSON的格式，当遇到层级较深，且序列化对象不完全符合JSON格式时，使用JSON的方式进行深拷贝就会出现问题。</p>
+<p>在序列化 JavaScript 对象时，所有 <code>函数及原型成员</code> 都会被有意忽略，不体现在结果中，也就是说这种方法不能拷贝对象中的函数。此外，值为 undefined 的任何属性也都会被跳过。结果中最终都是值为有效 JSON 数据类型的实例属性。</p>
+<ol start="2">
+<li>使用递归</li>
+</ol>
+<p>递归是一种常见的解决这种问题的方法：我么可以定义一个函数，遍历对象的属性，当对象的属性是基本类型值得时候，直接拷贝；当属性是引用类型值的时候，再次调用这个函数进行递归拷贝。这是基本的思想，下面看具体的实现（不考虑原型，描述符，不可枚举属性等，便于理解）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">source</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 递归终止条件</span></span><br><span class="line">  <span class="keyword">if</span> (!source || <span class="keyword">typeof</span> source !== <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> source;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> targetObj = source.constructor === <span class="built_in">Array</span> ? [] : &#123;&#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> source) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Object</span>.prototype.hasOwnProperty.call(source, key) &#123;</span><br><span class="line">      <span class="keyword">if</span> (source[key] &amp;&amp; <span class="keyword">typeof</span> source[key] === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">        targetObj[key] = deepClone(source[key]);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        targetObj[key] = source[key];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> targetObj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> object1 = &#123;<span class="attr">arr</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="attr">obj</span>: &#123;<span class="attr">key</span>: <span class="string">&#x27;value&#x27;</span> &#125;, <span class="attr">func</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="number">1</span>;&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 深拷贝</span></span><br><span class="line"><span class="keyword">var</span> newObj= deepClone(object1);</span><br><span class="line"><span class="comment">// 改变原对象属性</span></span><br><span class="line">object1.arr.push(<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(object1.arr); <span class="comment">// [1, 2, 3, 4]</span></span><br><span class="line"><span class="built_in">console</span>.log(newObj.arr); <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+<p>对于 Function 类型，这里是直接复制的，任然是共享一个内存地址。因为函数更多的是完成某些功能，对函数的更改可能就是直接重新赋值，一般情况下不考虑深拷贝。</p>
+<p>上面的深拷贝只是比较简单的实现，没有考虑很复杂的情况，比如：</p>
+<ul>
+<li>其他引用类型：Function，Date，RegExp 的拷贝 </li>
+<li>对象中存在循环引用(Circular references)会导致调用栈溢出 </li>
+<li>通过闭包作用域来实现私有成员的这类对象不能真正的被拷贝 <strong>什么是闭包作用域</strong></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myConstructor</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> myPrivateVar = <span class="string">&#x27;secret&#x27;</span> ;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        myPublicVar: <span class="string">&#x27;public!&#x27;</span> ,</span><br><span class="line">        getMyPrivateVar: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> myPrivateVar ;</span><br><span class="line">        &#125; ,</span><br><span class="line">        <span class="function"><span class="title">setMyPrivateVar</span>(<span class="params"> value </span>)</span> &#123;</span><br><span class="line">            myPrivateVar = value.toString() ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> o = myContructor() ;</span><br></pre></td></tr></table></figure>
+<p>上面的代码中，对象 o 有三个属性，一个是字符串，另外两个是方法。方法中用到一个变量  <code>myPrivateVar</code> ，存在于  <code>myConstructor()</code>  的函数作用域中，当  <code>myConstructor</code>  构造函数调用时，就创建了这个变量  <code>myPrivateVar</code> ，然而这个变量并不是通过构造函数创建的对象  <code>o</code>  的属性，但是它任然可以被这两个方法使用。</p>
+<p>因此，如果尝试深拷贝对象  <code>o</code> ，那么拷贝对象  <code>clone</code>  和被拷贝对象  <code>original</code>  中的方法都是引用相同的  <code>myPrivateVar</code>  变量。</p>
+<p>但是，由于并没有方式改变闭包的作用域，所以这种模式创建的对象不能正常深拷贝是可以接受的。</p>
+<ol start="3">
+<li>使用队列</li>
+</ol>
+<p>递归的做法虽然简单，容易理解，但是存在一定的性能问题，对拷贝比较大的对象来说不是很好的选择。</p>
+<p>理论上来说，递归是可以转化成循环的，我们可以尝试着将深拷贝中的递归转化成循环。我们需要遍历对象的属性，如果属性是基本类型，直接复制，如果属性是引用类型（对象或数组），需要再遍历这个对象，对他的属性进行相同的操作。那么我们需要一个容器来存放需要进行遍历的对象，每次从容器中拿出一个对象进行拷贝处理，如果处理过程中遇到新的对象，那么再把它放到这个容器中准备进行下一轮的处理，当把容器中所有的对象都处理完成后，也就完成了对象的拷贝。</p>
+<p>思想大致是这样的，下面看具体的实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 利用队列的思想优化递归</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">source</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!source || <span class="keyword">typeof</span> source !== <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> source;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> current;</span><br><span class="line">  <span class="keyword">var</span> target = source.constructor === <span class="built_in">Array</span> ? [] : &#123;&#125;;</span><br><span class="line">  <span class="comment">// 用数组作为容器</span></span><br><span class="line">  <span class="comment">// 记录被拷贝的原对象和目标</span></span><br><span class="line">  <span class="keyword">var</span> cloneQueue = [&#123;</span><br><span class="line">    source,</span><br><span class="line">    target</span><br><span class="line">  &#125;];</span><br><span class="line">  <span class="comment">// 先进先出，更接近于递归</span></span><br><span class="line">  <span class="keyword">while</span> (current = cloneQueue.shift()) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> current.source) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">Object</span>.prototype.hasOwnProperty.call(current.source, key)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (current.source[key] &amp;&amp; <span class="keyword">typeof</span> current.source[key] === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">          current.target[key] = current.source[key].constructor === <span class="built_in">Array</span> ? [] : &#123;&#125;;</span><br><span class="line">          cloneQueue.push(&#123;</span><br><span class="line">            source: current.source[key],</span><br><span class="line">            target: current.target[key]</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          current.target[key] = current.source[key];</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> target;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> object1 = &#123;<span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: &#123;<span class="attr">c</span>: <span class="number">2</span>, <span class="attr">d</span>: <span class="number">3</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">var</span> object2 = deepClone(object1);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(object2); <span class="comment">// &#123;a: 1, b: &#123;c: 2, d: 3&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/09/12/%E3%80%90Angular%E3%80%91%E6%A8%A1%E5%9D%97%E5%8C%96%E3%80%81%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E8%AE%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/12/%E3%80%90Angular%E3%80%91%E6%A8%A1%E5%9D%97%E5%8C%96%E3%80%81%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E8%AE%AF/" class="post-title-link" itemprop="url">【Angular】模块化、组件间通讯</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-12 16:58:08" itemprop="dateCreated datePublished" datetime="2018-09-12T16:58:08+08:00">2018-09-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>父组件 Html代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;app-bpm-table #comTable [dataSource]&#x3D;&quot;dataSource&quot; [dataStyle]&#x3D;&quot;dataStyle&quot; </span><br><span class="line">(delete)&#x3D;&quot;delete($event, Id)&quot; (edit)&#x3D;&quot;edit($event, editEntity)&quot;&gt;&lt;&#x2F;app-bpm-table&gt;</span><br></pre></td></tr></table></figure>
+<p>父组件 TypeScript代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, OnInit, ViewChild &#125; from &#39;@angular&#x2F;core&#39;;</span><br><span class="line">import &#123; BpmTableComponent &#125; from &#39;..&#x2F;..&#x2F;..&#x2F;components&#x2F;bpm-table&#x2F;bpm-table.component&#39;;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: &#39;app-wbs&#39;,</span><br><span class="line">  templateUrl: &#39;.&#x2F;wbs.component.html&#39;,</span><br><span class="line">  styleUrls: [&#39;.&#x2F;wbs.component.css&#39;]</span><br><span class="line">&#125;)</span><br><span class="line">export class WbsComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  constructor() &#123; &#125;</span><br><span class="line">  dataStyle &#x3D; &#123;</span><br><span class="line">    tableName: &#39;WBS Table Info&#39;,</span><br><span class="line">    enableAction: true,</span><br><span class="line">    enableAdd: true,</span><br><span class="line">    enableDelete: true,</span><br><span class="line">    enableEdit: true,</span><br><span class="line">    tableHeads: [</span><br><span class="line">      &#123; ColumnName: &#39;No&#39;, ColumnType: &#39;number&#39;, ColumnSource: &#39;No&#39;, IsReadOnly: true &#125;,</span><br><span class="line">      &#123; ColumnName: &#39;WBS Code&#39;, ColumnType: &#39;text&#39;, ColumnSource: &#39;WBSCode&#39;, IsReadOnly: false &#125;,</span><br><span class="line">      &#123; ColumnName: &#39;WBS Name&#39;, ColumnType: &#39;text&#39;, ColumnSource: &#39;WBSName&#39;, IsReadOnly: false &#125;,</span><br><span class="line">      &#123; ColumnName: &#39;Create Date&#39;, ColumnType: &#39;datetime&#39;, ColumnSource: &#39;CreateDate&#39;, IsReadOnly: true &#125;,</span><br><span class="line">    ]</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  dataSource &#x3D; &#123;</span><br><span class="line">    ResultList: [</span><br><span class="line">      &#123; No: 1, PONo: 123, WBSCode: &#39;123123&#39;, WBSName: &#39;WBSName123&#39;, CreateDate: &#39;2018&#x2F;1&#x2F;1 12:22&#39; &#125;,</span><br><span class="line">    ],</span><br><span class="line">    ResultListCount: 1</span><br><span class="line">  &#125;</span><br><span class="line">  @ViewChild(&#39;comTable&#39;)</span><br><span class="line">  comTable: BpmTableComponent;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  ngOnInit() &#123;</span><br><span class="line">  &#125;</span><br><span class="line">  delete(Id) &#123;</span><br><span class="line">    console.log(Id + &quot;-----&quot;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  edit(editEntity) &#123;</span><br><span class="line">    console.log(editEntity);</span><br><span class="line">  &#125;</span><br><span class="line">  test() &#123;</span><br><span class="line">    this.dataSource.ResultList.push(&#123;</span><br><span class="line">      No: 2, PONo: 123, WBSCode: &#39;123123&#39;, WBSName: &#39;WBSName123&#39;, CreateDate: &#39;2018&#x2F;1&#x2F;1 12:22&#39;,</span><br><span class="line">    &#125;);</span><br><span class="line">    this.dataSource.ResultListCount++;</span><br><span class="line">    this.comTable.loadData(this.dataSource)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p> 子组件 Html代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">&lt;nz-card [nzTitle]&#x3D;&#39;dataStyle.tableName&#39; [nzExtra]&#x3D;&#39;addTemplate&#39;&gt;</span><br><span class="line">  &lt;nz-table #edit nzBordered [(nzData)]&#x3D;&#39;dataSet&#39; nzPageSize&#x3D;&#39;5&#39; [nzPageSizeOptions]&#x3D;&#39;pageSizeOptions&#39; [nzLoading]&#x3D;&#39;isPOLoading&#39;</span><br><span class="line">    [nzShowTotal]&#x3D;&#39;totalTemplate&#39; [nzShowSizeChanger]&#x3D;&#39;true&#39;&gt;</span><br><span class="line">    &lt;thead&gt;</span><br><span class="line">      &lt;tr&gt;</span><br><span class="line">        &lt;th *ngFor&#x3D;&quot;let item of dataStyle.tableHeads&quot;&gt;</span><br><span class="line">          &#123;&#123;item.ColumnName&#125;&#125;</span><br><span class="line">        &lt;&#x2F;th&gt;</span><br><span class="line">        &lt;th *ngIf&#x3D;&#39;dataStyle.enableAction&#x3D;&#x3D;true&#39;&gt;Action&lt;&#x2F;th&gt;</span><br><span class="line">      &lt;&#x2F;tr&gt;</span><br><span class="line">    &lt;&#x2F;thead&gt;</span><br><span class="line">    &lt;tbody&gt;</span><br><span class="line">      &lt;tr *ngFor&#x3D;&#39;let data of edit.data&#39;&gt;</span><br><span class="line">        &lt;td *ngFor&#x3D;&quot;let item of dataStyle.tableHeads;index as key&quot;&gt;</span><br><span class="line">          &lt;div *ngIf&#x3D;&quot;item.IsReadOnly&#x3D;&#x3D;false&quot;&gt;</span><br><span class="line">            &lt;ng-container *ngIf&#x3D;&#39;!editCache[data.ID].edit&#39;&gt;</span><br><span class="line">              &#123;&#123;editCache[data.ID].data[item.ColumnSource]&#125;&#125;</span><br><span class="line">            &lt;&#x2F;ng-container&gt;</span><br><span class="line">            &lt;ng-container *ngIf&#x3D;&#39;editCache[data.ID].edit&#39;&gt;</span><br><span class="line">              &lt;input type&#x3D;&#39;text&#39; *ngIf&#x3D;&quot;item.ColumnType&#x3D;&#x3D;&#39;text&#39;&quot; nz-input [(ngModel)]&#x3D;&#39;editCache[data.ID].data[item.ColumnSource]&#39;&gt;</span><br><span class="line">              &lt;nz-date-picker nzShowTime *ngIf&#x3D;&quot;item.ColumnType&#x3D;&#x3D;&#39;datetime&#39;&quot; [(ngModel)]&#x3D;&#39;editCache[data.ID].data[item.ColumnSource]&#39;&gt;&lt;&#x2F;nz-date-picker&gt;</span><br><span class="line">              &lt;nz-input-number *ngIf&#x3D;&quot;item.ColumnType&#x3D;&#x3D;&#39;number&#39;&quot; [(ngModel)]&#x3D;&#39;editCache[data.ID].data[item.ColumnSource]&#39;&gt;&lt;&#x2F;nz-input-number&gt;</span><br><span class="line">            &lt;&#x2F;ng-container&gt;</span><br><span class="line">          &lt;&#x2F;div&gt;</span><br><span class="line">          &lt;div *ngIf&#x3D;&quot;item.IsReadOnly&#x3D;&#x3D;true&quot;&gt;</span><br><span class="line">            &#123;&#123;editCache[data.ID].data[item.ColumnSource]&#125;&#125;</span><br><span class="line">          &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;&#x2F;td&gt;</span><br><span class="line">        &lt;td *ngIf&#x3D;&#39;dataStyle.enableAction&#x3D;&#x3D;true&#39;&gt;</span><br><span class="line">          &lt;div class&#x3D;&#39;editable-row-operations&#39;&gt;</span><br><span class="line">            &lt;ng-container *ngIf&#x3D;&#39;!editCache[data.ID].edit &amp;&amp; dataStyle.enableEdit&#x3D;&#x3D;true&#39;&gt;</span><br><span class="line">              &lt;a (click)&#x3D;&#39;startEdit(data.ID)&#39;&gt;Edit&lt;&#x2F;a&gt;</span><br><span class="line">            &lt;&#x2F;ng-container&gt;</span><br><span class="line">            &lt;ng-container *ngIf&#x3D;&#39;editCache[data.ID].edit&#39;&gt;</span><br><span class="line">              &lt;a (click)&#x3D;&#39;_saveEdit(data.ID)&#39;&gt;Save&lt;&#x2F;a&gt;</span><br><span class="line">              &lt;nz-divider nzType&#x3D;&#39;vertical&#39;&gt;&lt;&#x2F;nz-divider&gt;</span><br><span class="line">              &lt;nz-popconfirm [nzTitle]&#x3D;&quot;&#39;Sure to cancel?&#39;&quot; (nzOnConfirm)&#x3D;&quot;cancelEdit(data.ID)&quot;&gt;</span><br><span class="line">                &lt;a nz-popconfirm&gt;Cancel&lt;&#x2F;a&gt;</span><br><span class="line">              &lt;&#x2F;nz-popconfirm&gt;</span><br><span class="line">            &lt;&#x2F;ng-container&gt;</span><br><span class="line">            &lt;nz-divider nzType&#x3D;&#39;vertical&#39; *ngIf&#x3D;&quot;dataStyle.enableDelete&#x3D;&#x3D;true &amp;&amp; dataStyle.enableEdit&#x3D;&#x3D;true&quot;&gt;&lt;&#x2F;nz-divider&gt;</span><br><span class="line">            &lt;a nz-popconfirm nzTitle&#x3D;&#39;Sure delete this data?&#39; *ngIf&#x3D;&#39;dataStyle.enableDelete&#x3D;&#x3D;true&#39; (nzOnConfirm)&#x3D;&#39;_delete(data.ID)&#39;&gt;Delete&lt;&#x2F;a&gt;</span><br><span class="line">          &lt;&#x2F;div&gt;</span><br><span class="line">        &lt;&#x2F;td&gt;</span><br><span class="line">      &lt;&#x2F;tr&gt;</span><br><span class="line">    &lt;&#x2F;tbody&gt;</span><br><span class="line">  &lt;&#x2F;nz-table&gt;</span><br><span class="line">&lt;&#x2F;nz-card&gt;</span><br><span class="line">&lt;ng-template #totalTemplate&gt;</span><br><span class="line">  Total &#123;&#123;dataSource.ResultListCount&#125;&#125; items</span><br><span class="line">&lt;&#x2F;ng-template&gt;</span><br><span class="line">&lt;ng-template #addTemplate&gt;</span><br><span class="line">  &lt;a (click)&#x3D;&#39;isVisible&#x3D;(!isVisible)&#39; *ngIf&#x3D;&#39;dataStyle.enableAdd&#x3D;&#x3D;true&#39;&gt;Add&lt;&#x2F;a&gt;</span><br><span class="line">&lt;&#x2F;ng-template&gt;</span><br><span class="line">&lt;nz-modal [(nzVisible)]&#x3D;&#39;isVisible&#39; nzTitle&#x3D;&#39;Add PO Info&#39; (nzOnCancel)&#x3D;&#39;isVisible&#x3D;(!isVisible)&#39; nzCancelText&#x3D;&#39;Cencel&#39;</span><br><span class="line">  nzOkText&#x3D;&#39;Add&#39; (nzOnOk)&#x3D;&#39;handleOk()&#39;&gt;</span><br><span class="line">  &lt;p&gt;表单数据&lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;nz-modal&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>子组件 TypeScript代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Component, OnInit, Input, Output, EventEmitter &#125; from &#39;@angular&#x2F;core&#39;;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: &#39;app-bpm-table&#39;,</span><br><span class="line">  templateUrl: &#39;.&#x2F;bpm-table.component.html&#39;,</span><br><span class="line">  styleUrls: [&#39;.&#x2F;bpm-table.component.css&#39;]</span><br><span class="line">&#125;)</span><br><span class="line">export class BpmTableComponent implements OnInit &#123;</span><br><span class="line"></span><br><span class="line">  @Input() dataSource: any;</span><br><span class="line">  @Input() dataStyle: any;</span><br><span class="line">  @Output() delete &#x3D; new EventEmitter&lt;number&gt;();</span><br><span class="line">  @Output() edit &#x3D; new EventEmitter&lt;any&gt;();</span><br><span class="line"></span><br><span class="line">  constructor() &#123; &#125;</span><br><span class="line"></span><br><span class="line">  dataSet &#x3D; [];</span><br><span class="line">  editCache &#x3D; [];</span><br><span class="line">  isLoading &#x3D; false;</span><br><span class="line">  editTemp: any;</span><br><span class="line"></span><br><span class="line">  ngOnInit() &#123;</span><br><span class="line">    this.loadData(this.dataSource);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  startEdit(Id: number): void &#123;</span><br><span class="line">    this.editTemp &#x3D; JSON.parse(JSON.stringify(this.editCache[Id]));</span><br><span class="line">    this.editCache[Id].edit &#x3D; true;</span><br><span class="line">  &#125;</span><br><span class="line">  _saveEdit(Id: number): void &#123;</span><br><span class="line">    const index &#x3D; this.dataSet.findIndex(item &#x3D;&gt; item.Id &#x3D;&#x3D;&#x3D; Id);</span><br><span class="line">    this.dataSet[index] &#x3D; this.editCache[Id].data;</span><br><span class="line">    this.editCache[Id].edit &#x3D; false;</span><br><span class="line">    this.edit.emit(this.dataSet[index]);</span><br><span class="line">  &#125;</span><br><span class="line">  cancelEdit(Id: number): void &#123;</span><br><span class="line">    this.editCache[Id].data &#x3D; this.editTemp[&#39;data&#39;];</span><br><span class="line">    this.editCache[Id].edit &#x3D; false;</span><br><span class="line">  &#125;</span><br><span class="line">  _delete(Id: number): void &#123;</span><br><span class="line">    this.delete.emit(Id);</span><br><span class="line">    console.log(Id + &#39;delete&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">  arr &#x3D; [];</span><br><span class="line">  loadData(dataSource: any) &#123;</span><br><span class="line">    this.dataSet &#x3D; [];</span><br><span class="line">    this.editCache &#x3D; [];</span><br><span class="line">    dataSource[&#39;ResultList&#39;].forEach(item &#x3D;&gt; &#123;</span><br><span class="line">      this.dataSet.push(item);</span><br><span class="line">      this.editCache[item.ID] &#x3D; &#123;</span><br><span class="line">        edit: false,</span><br><span class="line">        data: item</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/45/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/45/">45</a><span class="page-number current">46</span><a class="page-number" href="/page/47/">47</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/47/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+   	鄂ICP备 -
+    <a target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow">17012779号</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22:07</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

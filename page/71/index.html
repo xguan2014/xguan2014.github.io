@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/71/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/71/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/08/15/%E3%80%90MVC%E3%80%91%E9%94%99%E8%AF%AF%E9%A1%B5%E9%9D%A2%E8%AE%BE%E7%BD%AE%E5%92%8C%E9%94%99%E8%AF%AF%E4%BF%A1%E6%81%AF%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/08/15/%E3%80%90MVC%E3%80%91%E9%94%99%E8%AF%AF%E9%A1%B5%E9%9D%A2%E8%AE%BE%E7%BD%AE%E5%92%8C%E9%94%99%E8%AF%AF%E4%BF%A1%E6%81%AF%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">【MVC】错误页面设置和错误信息记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-08-15 22:59:55" itemprop="dateCreated datePublished" datetime="2017-08-15T22:59:55+08:00">2017-08-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、自定义错误页面"><a href="#一、自定义错误页面" class="headerlink" title="一、自定义错误页面"></a>一、自定义错误页面</h3><p>有些时候，我们想使用自定义的错误页面，该怎么处理那。</p>
+<p>翻页其他大牛写的博客，看到有这种方式，自定义属性Class继承FileterAttribute，</p>
+<p>重写OnException方法，代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">public class MyErrorAttribute: HandleErrorAttribute</span><br><span class="line">&#123;</span><br><span class="line">public override void OnException(ExceptionContext filterContext)</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F;获取异常对象</span><br><span class="line">    Exception ex &#x3D; filterContext.Exception;</span><br><span class="line">    &#x2F;&#x2F;记录错误日志</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;记录出现错误的IP地址</span><br><span class="line">    string strIP &#x3D; filterContext.HttpContext.Request.UserHostAddress;</span><br><span class="line">    string strUser &#x3D; System.Environment.MachineName; ;</span><br><span class="line">    string strPath &#x3D; filterContext.HttpContext.Request.Path;</span><br><span class="line"></span><br><span class="line">    StringBuilder sb &#x3D; new StringBuilder();</span><br><span class="line">    sb.Append(&quot;IP:【&quot; + strIP + &quot;】&quot; + Environment.NewLine);</span><br><span class="line">    sb.Append(&quot;UserName:【&quot; + strUser + &quot;】&quot; + Environment.NewLine);</span><br><span class="line">    sb.Append(&quot;Action:【&quot; + strPath + &quot;】&quot; + Environment.NewLine);</span><br><span class="line">    sb.Append(&quot;Error in 【&quot; + filterContext.HttpContext.Request.Url.ToString() + &quot;】&quot; + Environment.NewLine);</span><br><span class="line">    sb.Append(&quot;Error Message 【&quot; + ex.Message + &quot;】&quot; + Environment.NewLine);</span><br><span class="line">    sb.Append(&quot;Browser 【&quot; + filterContext.HttpContext.Request.Browser.Browser + &quot;||&quot;);</span><br><span class="line">    sb.Append(filterContext.HttpContext.Request.Browser.Id + &quot;||&quot;);</span><br><span class="line">    sb.Append(filterContext.HttpContext.Request.Browser.Version + &quot;||&quot;);</span><br><span class="line">    sb.Append(filterContext.HttpContext.Request.Browser.Beta + &quot;】&quot;);</span><br><span class="line">    &#x2F;&#x2F;记录错误</span><br><span class="line">    WriteError(sb.ToString());</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;导向友好错误界面</span><br><span class="line">    filterContext.Result &#x3D; new RedirectToRouteResult(new RouteValueDictionary(</span><br><span class="line">            new</span><br><span class="line">            &#123;</span><br><span class="line">                controller &#x3D; &quot;Error&quot;,</span><br><span class="line">                action &#x3D; &quot;Page404&quot;,</span><br><span class="line">                returnUrl &#x3D; filterContext.HttpContext.Request.Url,</span><br><span class="line">                returnMessage &#x3D; &quot;页面不存在！&quot;</span><br><span class="line">            &#125;</span><br><span class="line">            ));</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;重要！！！告诉系统异常已经处理！！</span><br><span class="line">    &#x2F;&#x2F;如果没有这个步骤，系统还是会按照正常的异常处理流程做</span><br><span class="line">    filterContext.ExceptionHandled &#x3D; true;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;base.OnException(filterContext);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1、记录错误信息"><a href="#1、记录错误信息" class="headerlink" title="1、记录错误信息"></a>1、记录错误信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; 用于将错误信息输出到txt文件</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;errorMessage&quot;&gt;错误详细信息&lt;&#x2F;param&gt;</span><br><span class="line">public static void WriteError(string errorMessage)</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        string path &#x3D; &quot;~&#x2F;Error&#x2F;&quot; + DateTime.Today.ToString(&quot;yyMMdd&quot;) + &quot;.txt&quot;;</span><br><span class="line">        if (!File.Exists(System.Web.HttpContext.Current.Server.MapPath(path)))</span><br><span class="line">        &#123;</span><br><span class="line">            File.Create(System.Web.HttpContext.Current.Server.MapPath(path)).Close();</span><br><span class="line">        &#125;</span><br><span class="line">        using (StreamWriter w &#x3D; File.AppendText(System.Web.HttpContext.Current.Server.MapPath(path)))</span><br><span class="line">        &#123;</span><br><span class="line">            w.WriteLine(&quot;\r\nLog Entry : &quot;);</span><br><span class="line">            w.WriteLine(&quot;DateTime 【&#123;0&#125;】&quot;, DateTime.Now.ToString(CultureInfo.InvariantCulture));</span><br><span class="line">            w.WriteLine(errorMessage);</span><br><span class="line">            w.WriteLine(&quot;***********************************************************************************************&quot;);</span><br><span class="line">            w.Flush();</span><br><span class="line">            w.Close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        WriteError(ex.Message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>网上大神写的，他分得比较的细：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">public class BaseHandleErrorAttribute : FilterAttribute, IExceptionFilter</span><br><span class="line">&#123;</span><br><span class="line">    public void OnException(ExceptionContext filterContext)</span><br><span class="line">    &#123;</span><br><span class="line">        if (filterContext.ExceptionHandled &#x3D;&#x3D; true)</span><br><span class="line">        &#123;</span><br><span class="line">            HttpException httpExce &#x3D; filterContext.Exception as HttpException;</span><br><span class="line">            if (httpExce !&#x3D; null &amp;&amp; httpExce.GetHttpCode() !&#x3D; 500)&#x2F;&#x2F;为什么要特别强调500 因为MVC处理HttpException的时候，如果为500 则会自动将其ExceptionHandled设置为true，那么我们就无法捕获异常</span><br><span class="line">            &#123;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Exception exception &#x3D; filterContext.Exception;            </span><br><span class="line">        if (exception !&#x3D; null)</span><br><span class="line">        &#123;</span><br><span class="line">            HttpException httpException &#x3D; exception as HttpException;</span><br><span class="line">            if (httpException !&#x3D; null)</span><br><span class="line">            &#123;</span><br><span class="line">                &#x2F;&#x2F;网络错误</span><br><span class="line">                filterContext.Controller.ViewBag.UrlRefer &#x3D; filterContext.HttpContext.Request.UrlReferrer;</span><br><span class="line">                int DataEroorCode &#x3D; httpException.GetHttpCode();</span><br><span class="line">                if (DataEroorCode &#x3D;&#x3D; 404)</span><br><span class="line">                &#123;</span><br><span class="line">                    filterContext.HttpContext.Response.Redirect(&quot;~&#x2F;SysError&#x2F;404&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">                else if (DataEroorCode &#x3D;&#x3D; 500)</span><br><span class="line">                &#123;</span><br><span class="line">                    filterContext.HttpContext.Response.Redirect(&quot;~&#x2F;SysError&#x2F;500&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    filterContext.HttpContext.Response.Redirect(&quot;~&#x2F;SysError&#x2F;&quot; + DataEroorCode);</span><br><span class="line"></span><br><span class="line">                &#x2F;&#x2F;写入日志 记录</span><br><span class="line">                filterContext.ExceptionHandled &#x3D; true;&#x2F;&#x2F;设置异常已经处理</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                &#x2F;&#x2F;编程或者系统错误，不处理，留给HandError处理</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;                     </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/08/14/%E3%80%90DIY%E3%80%91%E8%AE%BF%E5%AE%A2%E8%AE%B0%E5%BD%95%E6%9F%A5%E8%AF%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/08/14/%E3%80%90DIY%E3%80%91%E8%AE%BF%E5%AE%A2%E8%AE%B0%E5%BD%95%E6%9F%A5%E8%AF%A2/" class="post-title-link" itemprop="url">【DIY】访客记录查询</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-08-14 15:10:31" itemprop="dateCreated datePublished" datetime="2017-08-14T15:10:31+08:00">2017-08-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DIY%E7%A8%8B%E5%BA%8F/" itemprop="url" rel="index"><span itemprop="name">DIY程序</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>328</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>昨天微信公众号推送一篇【朋友圈访客可以查询了】，虽然猜到了应该是个标题党</p>
+<p>里面讲如何查询 自己访客的一种方法，当然只是一种套路而已，并不能真的查询到结果</p>
+<p>然后受那个启发，在此基础上做了点改装。</p>
+<p><img src="/images/20170814145639028.png" alt="">  </p>
+<p>在输入自己微信号和Ta的微信号后，点击访客记录查询</p>
+<p>当然是什么结果的查不到的，但是这条查询记录被存储到数据库中了</p>
+<p>在界面中留有一个【小程序-后台入口】，但似乎没几个人发现了它</p>
+<p>点击下就会看到提示：点击五次进入…点击四次进入…，…</p>
+<p>进入就是这样的：</p>
+<p><img src="/images/20170814150238137.png" alt="">  </p>
+<p>然后往下面滑：</p>
+<p><img src="/images/20170814150324245.png" alt="">  </p>
+<p>在那个【查询-后台入口】里可以查询到ta查询过的记录</p>
+<p><img src="/images/20170814150433576.png" alt="">  </p>
+<p>输入1的时候能查询出所有的查询记录，用户的浏览记录被站长统计记录了。</p>
+<p>好吧，我也是没什么事做，才写个玩的。还是没有妹子主导，才这么无聊</p>
+<p>额，要什么妹子的，自己new一个啊</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/08/10/%E3%80%90.Net%E3%80%91%E5%9B%BE%E7%89%87Base64%E7%BC%96%E7%A0%81-%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/08/10/%E3%80%90.Net%E3%80%91%E5%9B%BE%E7%89%87Base64%E7%BC%96%E7%A0%81-%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/" class="post-title-link" itemprop="url">【.Net】图片Base64编码-图片格式转换</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-08-10 21:57:15" itemprop="dateCreated datePublished" datetime="2017-08-10T21:57:15+08:00">2017-08-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/lindana/archive/2009/03/25/1421345.html">http://www.cnblogs.com/lindana/archive/2009/03/25/1421345.html</a></p>
+<p><strong>一. Base64的编码规则</strong></p>
+<p>Base64编码的思想是是采用64个基本的ASCII码字符对数据进行重新编码。它将需要编码的数据拆分成字节数组。以3个字节为一组。按顺序排列24 位数据，再把这24位数据分成4组，即每组6位。再在每组的的最高位前补两个0凑足一个字节。这样就把一个3字节为一组的数据重新编码成了4个字节。当所要编码的数据的字节数不是3的整倍数，也就是说在分组时最后一组不够3个字节。这时在最后一组填充1到2个0字节。并在最后编码完成后在结尾添加1到2个 “=”。</p>
+<p>例：将对ABC进行BASE64编码：</p>
+<blockquote>
+<blockquote>
+<p> 1、首先取ABC对应的ASCII码值。A（65）B（66）C（67）；<br> 2、再取二进制值A（01000001）B（01000010）C（01000011）；<br> 3、然后把这三个字节的二进制码接起来（010000010100001001000011）；<br> 4、 再以6位为单位分成4个数据块,并在最高位填充两个0后形成4个字节的编码后的值，（00010000）（00010100）（00001001）（00000011），其中蓝色部分为真实数据；<br> 5、再把这四个字节数据转化成10进制数得（16）（20）（9）（3）；<br> 6、最后根据BASE64给出的64个基本字符表，查出对应的ASCII码字符（Q）（U）（J）（D），这里的值实际就是数据在字符表中的索引。</p>
+</blockquote>
+<p>注：BASE64字符表：ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/</p>
+</blockquote>
+<p><strong>二.解码规则</strong></p>
+<p>解码过程就是把4个字节再还原成3个字节再根据不同的数据形式把字节数组重新整理成数据。</p>
+<p><strong>三. C#中的实现</strong></p>
+<p>编码：</p>
+<p>byte[] bytes = Encoding.Default.GetBytes(“要转换的字符”);<br>string str = Convert.ToBase64String(bytes);  </p>
+<p>解码：</p>
+<p>byte[] outputb = Convert.FromBase64String(str);<br>string orgStr = Encoding.Default.GetString(outputb);  </p>
+<p><strong>**</strong>C#<strong><strong>图片的Base64编码和解码</strong></strong> **</p>
+<p>图片的Base64编码：</p>
+<p>System.IO.MemoryStream m = new System.IO.MemoryStream();<br>System.Drawing.Bitmap bp = new System.Drawing.Bitmap(@“c:\demo.GIF”);<br>bp.Save(m, System.Drawing.Imaging.ImageFormat.Gif);<br>byte[]b= m.GetBuffer();<br>string base64string=Convert.ToBase64String(b);  </p>
+<p>Base64字符串解码：</p>
+<p>byte[] bt = Convert.FromBase64String(base64string);<br>System.IO.MemoryStream stream = new System.IO.MemoryStream(bt);<br>Bitmap bitmap = new Bitmap(stream);<br>pictureBox1.Image = bitmap;  </p>
+<p><a target="_blank" rel="noopener" href="http://www.weste.net/html/200408/20040803QBI163429.html">http://www.weste.net/html/200408/20040803QBI163429.html</a>  </p>
+<p>把bmp图片转换为jpg图片（C#）  </p>
+<p><strong>[csharp]</strong> <a target="_blank" rel="noopener" href="http://blog.csdn.net/NRlovestudy/article/details/48137339#">view plain</a> <a target="_blank" rel="noopener" href="http://blog.csdn.net/NRlovestudy/article/details/48137339#">copy</a>   </p>
+<p>using System.IO;<br>using System.Drawing.Imaging; </p>
+<p>public class imgConvert<br>{<br>private void BMPToJPG(string bmpFileName,string jpgFileName)<br>{ </p>
+<p>System.Drawing.Image img;<br> img=ReturnPhoto(bmpFileName); </p>
+<p> img.Save(jpgFileName,ImageFormat.Jpeg);<br> } </p>
+<p> private Image ReturnPhoto(string bmpFileName)<br> {<br> System.IO.FileStream stream ;<br> stream=File.OpenRead(bmpFileName);<br> Bitmap bmp = new Bitmap(stream);<br> System.Drawing.Image image = bmp;//得到原图<br> //创建指定大小的图<br> System.Drawing.Image newImage = image.GetThumbnailImage(bmp.Width, bmp.Height,null, new IntPtr());<br> Graphics g=Graphics.FromImage(newImage);<br> g.DrawImage(newImage,0,0, newImage.Width, newImage.Height); //将原图画到指定的图上<br> g.Dispose();<br> stream.Close();<br> return newImage;<br> }<br> }   </p>
+<p><a target="_blank" rel="noopener" href="http://www.csframework.com/archive/2/arc-2-20110617-1635.htm">http://www.csframework.com/archive/2/arc-2-20110617-1635.htm</a>  </p>
+<p>PNG -&gt;JPG, BMP -&gt; PNG按比例缩小图片  </p>
+<p><strong>[csharp]</strong> <a target="_blank" rel="noopener" href="http://blog.csdn.net/NRlovestudy/article/details/48137339#">view plain</a> <a target="_blank" rel="noopener" href="http://blog.csdn.net/NRlovestudy/article/details/48137339#">copy</a>   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line">sing System; </span><br><span class="line">sing System.Collections.Generic; </span><br><span class="line">sing System.Text; </span><br><span class="line">sing System.IO; </span><br><span class="line">sing System.Drawing; </span><br><span class="line">sing System.Drawing.Imaging; </span><br><span class="line"></span><br><span class="line">amespace www.CSFramework.com </span><br><span class="line"> </span><br><span class="line">public class CImageLibrary </span><br><span class="line">&#123; </span><br><span class="line">public enum ValidateImageResult &#123; OK, InvalidFileSize, InvalidImageSize &#125; </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;检查图片大小  </span><br><span class="line">public static ValidateImageResult ValidateImage(string file, int MAX_FILE_SIZE, int MAX_WIDTH, int MAX_HEIGHT) </span><br><span class="line">&#123; </span><br><span class="line">byte[] bs &#x3D; File.ReadAllBytes(file); </span><br><span class="line"></span><br><span class="line">double size &#x3D; (bs.Length &#x2F; 1024); </span><br><span class="line">&#x2F;&#x2F;大于50KB  </span><br><span class="line">if (size &gt; MAX_FILE_SIZE) return ValidateImageResult.InvalidFileSize; </span><br><span class="line">Image img &#x3D; Image.FromFile(file); </span><br><span class="line">if (img.Width &gt; MAX_WIDTH || img.Height &gt; MAX_HEIGHT) return ValidateImageResult.InvalidImageSize; </span><br><span class="line">return ValidateImageResult.OK; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;按宽度比例缩小图片  </span><br><span class="line">public static Image GetOutputSizeImage(Image imgSource, int MAX_WIDTH) </span><br><span class="line">&#123; </span><br><span class="line">Image imgOutput &#x3D; imgSource; </span><br><span class="line"></span><br><span class="line">Size size &#x3D; new Size(imgSource.Width, imgSource.Height); </span><br><span class="line">if (imgSource.Width &lt;&#x3D; 3 || imgSource.Height &lt;&#x3D; 3) return imgSource; &#x2F;&#x2F;3X3大小的图片不转换  </span><br><span class="line"></span><br><span class="line">if (imgSource.Width &gt; MAX_WIDTH || imgSource.Height &gt; MAX_WIDTH) </span><br><span class="line">&#123; </span><br><span class="line">double rate &#x3D; MAX_WIDTH &#x2F; (double)imgSource.Width; </span><br><span class="line"></span><br><span class="line">if (imgSource.Height * rate &gt; MAX_WIDTH) </span><br><span class="line">rate &#x3D; MAX_WIDTH &#x2F; (double)imgSource.Height; </span><br><span class="line"></span><br><span class="line">size.Width &#x3D; Convert.ToInt32(imgSource.Width * rate); </span><br><span class="line">size.Height &#x3D; Convert.ToInt32(imgSource.Height * rate); </span><br><span class="line"></span><br><span class="line">imgOutput &#x3D; imgSource.GetThumbnailImage(size.Width, size.Height, null, IntPtr.Zero); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">return imgOutput; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;按比例缩小图片  </span><br><span class="line">public static Image GetOutputSizeImage(Image imgSource, Size outSize) </span><br><span class="line">&#123; </span><br><span class="line">Image imgOutput &#x3D; imgSource.GetThumbnailImage(outSize.Width, outSize.Height, null, IntPtr.Zero); </span><br><span class="line">return imgOutput; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;  </span><br><span class="line">&#x2F;&#x2F;&#x2F; 由图片文件转字节  </span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;  </span><br><span class="line">public static byte[] GetImageBytes(string imageFileName) </span><br><span class="line">&#123; </span><br><span class="line">Image img &#x3D; Image.FromFile(imageFileName); </span><br><span class="line">return GetImageBytes(img); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;  </span><br><span class="line">&#x2F;&#x2F;&#x2F; 图片转字节  </span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;  </span><br><span class="line">public static byte[] GetImageBytes(Image img) </span><br><span class="line">&#123; </span><br><span class="line">if (img &#x3D;&#x3D; null) return null; </span><br><span class="line">try </span><br><span class="line">&#123; </span><br><span class="line">System.IO.MemoryStream ms &#x3D; new MemoryStream(); </span><br><span class="line">img.Save(ms, ImageFormat.Jpeg); </span><br><span class="line">byte[] bs &#x3D; ms.ToArray(); </span><br><span class="line">ms.Close(); </span><br><span class="line">return bs; </span><br><span class="line">&#125; </span><br><span class="line">catch &#123; return null; &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;  </span><br><span class="line">&#x2F;&#x2F;&#x2F; 字节转图片  </span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;  </span><br><span class="line">public static Image FromBytes(byte[] bs) </span><br><span class="line">&#123; </span><br><span class="line">if (bs &#x3D;&#x3D; null) return null; </span><br><span class="line">try </span><br><span class="line">&#123; </span><br><span class="line">MemoryStream ms &#x3D; new MemoryStream(bs); </span><br><span class="line">Image returnImage &#x3D; Image.FromStream(ms); </span><br><span class="line">ms.Close(); </span><br><span class="line">return returnImage; </span><br><span class="line">&#125; </span><br><span class="line">catch &#123; return null; &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F;&#x2F; &lt;summary&gt;  </span><br><span class="line"> &#x2F;&#x2F;&#x2F; 将其它格式的图片转为JPG文件  </span><br><span class="line"> &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;  </span><br><span class="line"> public static Image ToJPG(Image source) </span><br><span class="line"> &#123; </span><br><span class="line"> &#x2F;&#x2F;注意，先定义Bitmap类，否则会报A generic error occurred in GDI+  </span><br><span class="line"> Bitmap bmp &#x3D; new Bitmap(source); </span><br><span class="line"> MemoryStream ms &#x3D; new MemoryStream(); </span><br><span class="line"> bmp.Save(ms, ImageFormat.Jpeg); </span><br><span class="line"> return Bitmap.FromStream(ms); </span><br><span class="line"> &#125; </span><br><span class="line"> </span><br><span class="line"> &#x2F;&#x2F;&#x2F; &lt;summary&gt;  </span><br><span class="line"> &#x2F;&#x2F;&#x2F; 将其它格式的图片转为PNG文件  </span><br><span class="line"> &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;  </span><br><span class="line"> public static Image ToPNG(Image source) </span><br><span class="line"> &#123; </span><br><span class="line"> &#x2F;&#x2F;注意，先定义Bitmap类，否则会报A generic error occurred in GDI+  </span><br><span class="line"> Bitmap bmp &#x3D; new Bitmap(source); </span><br><span class="line"> MemoryStream ms &#x3D; new MemoryStream(); </span><br><span class="line"> bmp.Save(ms, ImageFormat.Png); </span><br><span class="line"> return FromBytes(ms.ToArray()); </span><br><span class="line"> &#125; </span><br><span class="line"> </span><br><span class="line"> &#x2F;&#x2F;保存文件  </span><br><span class="line"> public static void SaveFile(string fileName, Image source) </span><br><span class="line"> &#123; </span><br><span class="line"> source.Save(fileName, source.RawFormat); </span><br><span class="line"> &#125; </span><br><span class="line"> </span><br><span class="line"> &#125; </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/70/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><span class="page-number current">71</span><a class="page-number" href="/page/72/">72</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/72/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+   	鄂ICP备 -
+    <a target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow">17012779号</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22:07</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

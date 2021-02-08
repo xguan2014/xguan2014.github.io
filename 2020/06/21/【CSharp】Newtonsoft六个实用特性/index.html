@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;huangxincheng&#x2F;p&#x2F;13171388.html  讲故事看完官方文档，阅读了一些 Newtonsoft 源码，对它有了新的认识，先总结 六个超经典又实用的特性，同大家一起分享，废话不多说，快来一起看看吧~ 特性分析代码格式化如果你直接使用 JsonConvert.SerializeObject的话，默认情况下所有的json是挤压在一块的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【CSharp】Newtonsoft六个实用特性">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/06/21/%E3%80%90CSharp%E3%80%91Newtonsoft%E5%85%AD%E4%B8%AA%E5%AE%9E%E7%94%A8%E7%89%B9%E6%80%A7/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;huangxincheng&#x2F;p&#x2F;13171388.html  讲故事看完官方文档，阅读了一些 Newtonsoft 源码，对它有了新的认识，先总结 六个超经典又实用的特性，同大家一起分享，废话不多说，快来一起看看吧~ 特性分析代码格式化如果你直接使用 JsonConvert.SerializeObject的话，默认情况下所有的json是挤压在一块的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/214741-20200621085446066-582437900.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/214741-20200621085446387-1538776392.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/214741-20200621085446590-6580309.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/214741-20200621085446778-1185015251.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/214741-20200621085446974-784325490.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/214741-20200621085447167-1121964321.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/214741-20200621085447849-1786343164.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/214741-20200621085448177-143733662.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/214741-20200621085448386-1070102789.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/214741-20200621085448716-2083675492.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/214741-20200621085448177-143733662.png">
+<meta property="article:published_time" content="2020-06-21T02:39:46.000Z">
+<meta property="article:modified_time" content="2021-02-08T02:21:21.923Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="Json">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/214741-20200621085446066-582437900.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/06/21/%E3%80%90CSharp%E3%80%91Newtonsoft%E5%85%AD%E4%B8%AA%E5%AE%9E%E7%94%A8%E7%89%B9%E6%80%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【CSharp】Newtonsoft六个实用特性 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/06/21/%E3%80%90CSharp%E3%80%91Newtonsoft%E5%85%AD%E4%B8%AA%E5%AE%9E%E7%94%A8%E7%89%B9%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【CSharp】Newtonsoft六个实用特性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-21 10:39:46" itemprop="dateCreated datePublished" datetime="2020-06-21T10:39:46+08:00">2020-06-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/huangxincheng/p/13171388.html">https://www.cnblogs.com/huangxincheng/p/13171388.html</a></p>
+</blockquote>
+<h2 id="讲故事"><a href="#讲故事" class="headerlink" title="讲故事"></a>讲故事</h2><p>看完官方文档，阅读了一些 <code>Newtonsoft</code> 源码，对它有了新的认识，先总结 六个超经典又实用的特性，同大家一起分享，废话不多说，快来一起看看吧<del>~</del></p>
+<h2 id="特性分析"><a href="#特性分析" class="headerlink" title="特性分析"></a>特性分析</h2><h3 id="代码格式化"><a href="#代码格式化" class="headerlink" title="代码格式化"></a>代码格式化</h3><p>如果你直接使用 <code>JsonConvert.SerializeObject</code>的话，默认情况下所有的json是挤压在一块的，特别不方便阅读，如下所示：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> reportModel = <span class="keyword">new</span> ReportModel()</span><br><span class="line">    &#123;</span><br><span class="line">        ProductName = <span class="string">&quot;法式小众设计感长裙气质显瘦纯白色仙女连衣裙&quot;</span>,</span><br><span class="line">        TotalPayment = <span class="number">100</span>,</span><br><span class="line">        TotalCustomerCount = <span class="number">2</span>,</span><br><span class="line">        TotalProductCount = <span class="number">333</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> json = JsonConvert.SerializeObject(reportModel);</span><br><span class="line"></span><br><span class="line">    System.Console.WriteLine(json);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ReportModel</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> ProductName &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> TotalCustomerCount &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">decimal</span> TotalPayment &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> TotalProductCount &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/214741-20200621085446066-582437900.png" alt=""></p>
+<p>那怎么办呢？ JsonConvert中提供了一个 <code>Formatting.Indented</code> 用来格式化json，这样在 debug 的过程中就非常友好，改造如下：</p>
+<p><img src="/images/214741-20200621085446387-1538776392.png" alt=""></p>
+<h2 id="踢掉没有被赋值的字段"><a href="#踢掉没有被赋值的字段" class="headerlink" title="踢掉没有被赋值的字段"></a>踢掉没有被赋值的字段</h2><p>如果你写过给 App 提供数据的后端服务，我相信你对手机流量这个词特别敏感，往往一个 Model 上有十几个字段，但需要传给 App 可能就 三四个字段，这就造成了巨大的流量浪费，如下图：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> reportModel = <span class="keyword">new</span> ReportModel()</span><br><span class="line">    &#123;</span><br><span class="line">        ProductName = <span class="string">&quot;法式小众设计感长裙气质显瘦纯白色仙女连衣裙&quot;</span>,</span><br><span class="line">        TotalPayment = <span class="number">100</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> json = JsonConvert.SerializeObject(reportModel, Formatting.Indented);</span><br><span class="line"></span><br><span class="line">    System.Console.WriteLine(json);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/214741-20200621085446590-6580309.png" alt=""></p>
+<p>从图中可以看到，<code>TotalCustomerCount</code> 和 <code>TotalProductCount</code> 这两个字段就没必要了，Netnewsoft 中提供了 <code>DefaultValueHandling.Ignore</code> 剔除默认值的枚举，太实用了，改造如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> json = JsonConvert.SerializeObject(reportModel, Formatting.Indented,</span><br><span class="line"><span class="keyword">new</span> JsonSerializerSettings</span><br><span class="line">&#123;</span><br><span class="line">    DefaultValueHandling = DefaultValueHandling.Ignore</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="/images/214741-20200621085446778-1185015251.png" alt=""></p>
+<h2 id="兼容其他语言的-驼峰-蛇形命名法"><a href="#兼容其他语言的-驼峰-蛇形命名法" class="headerlink" title="兼容其他语言的 驼峰,蛇形命名法"></a>兼容其他语言的 驼峰,蛇形命名法</h2><p>每一套编程语言都有各自偏好的命名法，比如 js 中都喜欢采用 驼峰命名法，在 mysql 中我见过最多的 蛇形命名法，而我们在 C# 中序列化的属性一般都是大写字母开头，比如你看到的 <code>特性二</code> 中的字段，那这里就存在问题了，有没有办法兼容一下，给 js 就用 驼峰，给 mysql 就用 蛇形，这样显得对别人友好一些，不是嘛😄😄😄，接下来看看怎么改造。</p>
+<ul>
+<li>驼峰命名 CamelCasePropertyNamesContractResolver</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> json = JsonConvert.SerializeObject(reportModel, Formatting.Indented,</span><br><span class="line"><span class="keyword">new</span> JsonSerializerSettings</span><br><span class="line">&#123;</span><br><span class="line">    ContractResolver = <span class="keyword">new</span> CamelCasePropertyNamesContractResolver()</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="/images/214741-20200621085446974-784325490.png" alt=""></p>
+<ul>
+<li>蛇形命名 SnakeCaseNamingStrategy</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> json = JsonConvert.SerializeObject(reportModel, Formatting.Indented,</span><br><span class="line"><span class="keyword">new</span> JsonSerializerSettings</span><br><span class="line">&#123;</span><br><span class="line">    ContractResolver = <span class="keyword">new</span> DefaultContractResolver()</span><br><span class="line">    &#123;</span><br><span class="line">        NamingStrategy = <span class="keyword">new</span> SnakeCaseNamingStrategy()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="/images/214741-20200621085447167-1121964321.png" alt=""></p>
+<h2 id="自定义属性的名字"><a href="#自定义属性的名字" class="headerlink" title="自定义属性的名字"></a>自定义属性的名字</h2><p>如果你和第三方系统进行过对接开发，通常都会遇到这个问题，就拿 OpenTaobao 来说，我的Model总不能按照它文档这样定义吧，而且字段名称也不可能做到完全一致，如下图：</p>
+<p><img src="/images/214741-20200621085447849-1786343164.png" alt=""></p>
+<p>所以这里面必然要存在一个 Mapping 的过程，这就可以用 <code>JsonProperty -&gt; propertyName</code> 帮你搞定，为了方便演示，我还是用 reportModel 吧。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> json = <span class="string">&quot;&#123;&#x27;title&#x27;:&#x27;法式小众设计感长裙气质显瘦纯白色仙女连衣裙&#x27;,&#x27;customercount&#x27;:1000,&#x27;totalpayment&#x27;:100.0,&#x27;productcount&#x27;:10000&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> reportModel = JsonConvert.DeserializeObject&lt;ReportModel&gt;(json);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ReportModel</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">JsonProperty(<span class="meta-string">&quot;title&quot;</span>)</span>] <span class="keyword">public</span> <span class="built_in">string</span> ProductName &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    [<span class="meta">JsonProperty(<span class="meta-string">&quot;customercount&quot;</span>)</span>] <span class="keyword">public</span> <span class="built_in">int</span> TotalCustomerCount &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    [<span class="meta">JsonProperty(<span class="meta-string">&quot;totalpayment&quot;</span>)</span>] <span class="keyword">public</span> <span class="built_in">decimal</span> TotalPayment &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    [<span class="meta">JsonProperty(<span class="meta-string">&quot;productcount&quot;</span>)</span>] <span class="keyword">public</span> <span class="built_in">int</span> TotalProductCount &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/214741-20200621085448177-143733662.png" alt=""></p>
+<h2 id="对字段的-正向剔除-和-反向剔除"><a href="#对字段的-正向剔除-和-反向剔除" class="headerlink" title="对字段的 正向剔除 和 反向剔除"></a>对字段的 正向剔除 和 反向剔除</h2><p>可能有些朋友对这两个概念不是特别了解，这里我仅显示 Model 中的 ProductName 为例讲解一下：</p>
+<ul>
+<li>正向剔除： 默认所有都显示，手工踢掉不显示的，使用 <code>MemberSerialization.OptOut</code> 配合 <code>JsonIgnore</code></li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> reportModel = <span class="keyword">new</span> ReportModel()</span><br><span class="line">    &#123;</span><br><span class="line">        ProductName = <span class="string">&quot;法式小众设计感长裙气质显瘦纯白色仙女连衣裙&quot;</span>,</span><br><span class="line">        TotalPayment = <span class="number">100</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> json = JsonConvert.SerializeObject(reportModel, Formatting.Indented);</span><br><span class="line"></span><br><span class="line">    System.Console.WriteLine(json);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[<span class="meta">JsonObject(MemberSerialization.OptOut)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ReportModel</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> ProductName &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    [<span class="meta">JsonIgnore</span>] <span class="keyword">public</span> <span class="built_in">int</span> TotalCustomerCount &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    [<span class="meta">JsonIgnore</span>] <span class="keyword">public</span> <span class="built_in">decimal</span> TotalPayment &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    [<span class="meta">JsonIgnore</span>] <span class="keyword">public</span> <span class="built_in">int</span> TotalProductCount &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/214741-20200621085448386-1070102789.png" alt=""></p>
+<ul>
+<li>反向剔除： 默认都不显示，手工指定要显示的，使用 <code>MemberSerialization.OptIn</code> 配合 <code>JsonProperty</code></li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">JsonObject(MemberSerialization.OptIn)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ReportModel</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">JsonProperty</span>] <span class="keyword">public</span> <span class="built_in">string</span> ProductName &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> TotalCustomerCount &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">decimal</span> TotalPayment &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> TotalProductCount &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/214741-20200621085448716-2083675492.png" alt=""></p>
+<h2 id="多个json-合并到-一个Model"><a href="#多个json-合并到-一个Model" class="headerlink" title="多个json 合并到 一个Model"></a>多个json 合并到 一个Model</h2><p>这个特性当初打破了我对 Newtonsoft 的认知观，不知道您呢？ 通常我们都会认为 一个 json 对应一个 model，一个 model 对应一个 json，居然还可以多个 json 对应一个 model 的情况，这就有意思了，场景大家可以自己想一想哈，这里使用 <code>PopulateObject</code> 方法就可以轻松帮你搞定，接下来看看怎么写这个代码：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> json1 = <span class="string">&quot;&#123;&#x27;ProductName&#x27;:&#x27;法式小众设计感长裙气质显瘦纯白色仙女连衣裙&#x27;&#125;&quot;</span>;</span><br><span class="line">    <span class="keyword">var</span> json2 = <span class="string">&quot;&#123;&#x27;TotalCustomerCount&#x27;:1000,&#x27;TotalPayment&#x27;:100.0,&#x27;TotalProductCount&#x27;:10000&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> reportModel = <span class="keyword">new</span> ReportModel();</span><br><span class="line"></span><br><span class="line">    JsonConvert.PopulateObject(json1, reportModel);</span><br><span class="line">    JsonConvert.PopulateObject(json2, reportModel);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/214741-20200621085448177-143733662.png" alt=""></p>
+<p>是不是有点意思😄😄😄</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>为了怕影响阅读体验，这一篇就先总结六个供大家欣赏，Newtonsoft 这玩意确实非常强大，太多的东西需要去挖掘，希望本篇对你有帮助，谢谢。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/06/21/%E3%80%90CSharp%E3%80%91Newtonsoft%E5%85%AD%E4%B8%AA%E5%AE%9E%E7%94%A8%E7%89%B9%E6%80%A7/" title="【CSharp】Newtonsoft六个实用特性">http://blog.bfsdfs.com/2020/06/21/【CSharp】Newtonsoft六个实用特性/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Json/" rel="tag"># Json</a>
+              <a href="/tags/C/" rel="tag"># C#</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/21/%E3%80%90MySql%E3%80%91%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8C%E6%AD%A5%E5%B7%A5%E5%85%B7/" rel="prev" title="【MySql】数据库同步工具">
+      <i class="fa fa-chevron-left"></i> 【MySql】数据库同步工具
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/30/%E3%80%90Docker%E3%80%912375%E7%AB%AF%E5%8F%A3%E5%85%A5%E4%BE%B5%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="next" title="【Docker】2375端口入侵服务器">
+      【Docker】2375端口入侵服务器 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%B2%E6%95%85%E4%BA%8B"><span class="nav-number">1.</span> <span class="nav-text">讲故事</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E6%80%A7%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">特性分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="nav-number">2.1.</span> <span class="nav-text">代码格式化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B8%A2%E6%8E%89%E6%B2%A1%E6%9C%89%E8%A2%AB%E8%B5%8B%E5%80%BC%E7%9A%84%E5%AD%97%E6%AE%B5"><span class="nav-number">3.</span> <span class="nav-text">踢掉没有被赋值的字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%9A%84-%E9%A9%BC%E5%B3%B0-%E8%9B%87%E5%BD%A2%E5%91%BD%E5%90%8D%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">兼容其他语言的 驼峰,蛇形命名法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7%E7%9A%84%E5%90%8D%E5%AD%97"><span class="nav-number">5.</span> <span class="nav-text">自定义属性的名字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E5%AD%97%E6%AE%B5%E7%9A%84-%E6%AD%A3%E5%90%91%E5%89%94%E9%99%A4-%E5%92%8C-%E5%8F%8D%E5%90%91%E5%89%94%E9%99%A4"><span class="nav-number">6.</span> <span class="nav-text">对字段的 正向剔除 和 反向剔除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AAjson-%E5%90%88%E5%B9%B6%E5%88%B0-%E4%B8%80%E4%B8%AAModel"><span class="nav-number">7.</span> <span class="nav-text">多个json 合并到 一个Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+   	鄂ICP备 -
+    <a target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow">17012779号</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22:07</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '32b1fb911b631b27133c4c299c9b014e',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

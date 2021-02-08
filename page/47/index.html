@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/47/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/47/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/09/12/%E3%80%90DIY%E3%80%91%E6%8B%BCHtml%E5%92%8CTS%E4%BB%A3%E7%A0%81%E7%9A%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/12/%E3%80%90DIY%E3%80%91%E6%8B%BCHtml%E5%92%8CTS%E4%BB%A3%E7%A0%81%E7%9A%84/" class="post-title-link" itemprop="url">【DIY】拼Html和TS代码的</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-12 16:47:27" itemprop="dateCreated datePublished" datetime="2018-09-12T16:47:27+08:00">2018-09-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>效果如图：<br><img src="/images/20180912164243459.png" alt=""></p>
+<p>实体：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class DbTableHeadEntity</span><br><span class="line">&#123;</span><br><span class="line">    public int Id &#123; get; set; &#125;</span><br><span class="line">    public string ColumnName &#123; get; set; &#125;</span><br><span class="line">    public string ColumnType &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class POEntity</span><br><span class="line">&#123;</span><br><span class="line">    public int ID &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public string PONo &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public string DeliveryAddress &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public int? CustomerID &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public DateTime? CreateTime &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public string CreateUserName &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public DateTime? UpdateTime &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br></pre></td><td class="code"><pre><span class="line">private void btnBuild_Click(object sender, EventArgs e)</span><br><span class="line">&#123;</span><br><span class="line">    var data &#x3D; ReadDbTableHead();</span><br><span class="line"></span><br><span class="line">    this.textHtmlCode.Text &#x3D; GetHtmlCode(&quot;PO&quot;, data);</span><br><span class="line">    this.textTypeScriptCode.Text &#x3D; GetTsCode(&quot;PO&quot;, data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static string GetTsCode(string tableName, List&lt;DbTableHeadEntity&gt; data)</span><br><span class="line">&#123;</span><br><span class="line">    StringBuilder sb &#x3D; new StringBuilder();</span><br><span class="line">    sb.AppendLine($&quot;dataSet&#123;tableName&#125; &#x3D; [];&quot;); </span><br><span class="line">    sb.AppendLine($&quot;editCache&#123;tableName&#125; &#x3D; [];&quot;); </span><br><span class="line">    sb.AppendLine($&quot;nzTotal&#123;tableName&#125; &#x3D; 0;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;&#123;tableName&#125;PageIndex &#x3D; 1;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;&#123;tableName&#125;PageSize &#x3D; 10;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;is&#123;tableName&#125;Loading &#x3D; false;&quot;); </span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;分页事件</span><br><span class="line">    sb.AppendLine($&quot;PageIndexChange&#123;tableName&#125;(): void&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#123;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;console.log(&#39;PageIndexChange&#39;);&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#125;&quot;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;开始编辑</span><br><span class="line">    sb.AppendLine($&quot;startEdit&#123;tableName&#125;(Id: number): void&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#123;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;this.editCache&#123;tableName&#125;[Id].edit &#x3D; true;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#125;&quot;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;保存数据</span><br><span class="line">    sb.AppendLine($&quot;saveEdit&#123;tableName&#125;(Id: number): void&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#123;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;console.log(Id + &#39;saveEdit&#39;);&quot;);</span><br><span class="line">    sb.AppendLine($&quot;this.editCache&#123;tableName&#125;[Id].edit &#x3D; false;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#125;&quot;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;取消编辑</span><br><span class="line">    sb.AppendLine($&quot;cancelEdit&#123;tableName&#125;(Id: number): void&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#123;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;this.editCache&#123;tableName&#125;[Id].edit &#x3D; false;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#125;&quot;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;删除数据</span><br><span class="line">    sb.AppendLine($&quot;delete&#123;tableName&#125;(Id:number): void&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#123;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;console.log(Id + &#39;delete&#39;);&quot;);</span><br><span class="line">    sb.AppendLine($&quot;this.&#123;tableName&#125;Service.delete(Id).subscribe(res &#x3D;&gt; &quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#123;&quot;);</span><br><span class="line"></span><br><span class="line">    sb.AppendLine(&quot;this.nzMessageService.success(&#39;Delete Success！&#39;);&quot;);</span><br><span class="line">    sb.AppendLine($&quot;this.get&#123;tableName&#125;List(null, null, null, null);&quot;);</span><br><span class="line">    sb.AppendLine($&quot;this.editCache&#123;tableName&#125;[Id].edit &#x3D; false;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#125;)&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#125;&quot;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;查询数据事件</span><br><span class="line">    sb.AppendLine($&quot;get&#123;tableName&#125;List(startTime,stopTime,pageSize&#x3D;10,pageIndex&#x3D;1) &quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#123;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;this.is&#123;tableName&#125;Loading &#x3D; true;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;this.&#123;tableName&#125;Service.get&#123;tableName&#125;List(startTime,stopTime,pageSize,pageIndex).subscribe(&quot;);</span><br><span class="line">    sb.AppendLine(&quot;(res: &#123;&#125;) &#x3D;&gt; &#123;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;this.dataSet&#123;tableName&#125; &#x3D; res[&#39;POList&#39;];&quot;);</span><br><span class="line">    sb.AppendLine($&quot;this.nzTotal&#123;tableName&#125; &#x3D; res[&#39;ResultListCount&#39;];&quot;);</span><br><span class="line">    sb.AppendLine($&quot;this.dataSet&#123;tableName&#125;.forEach(item &#x3D;&gt; &quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#123;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;this.editCache&#123;tableName&#125;[item.ID] &#x3D;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#123;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;edit: false,&quot;);</span><br><span class="line">    sb.AppendLine(&quot;data: item&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#125;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#125;);&quot;);</span><br><span class="line">    sb.AppendLine($&quot;this.is&#123;tableName&#125;Loading &#x3D; false;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#125;)&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#125;&quot;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;加载时调用方法</span><br><span class="line">    sb.AppendLine(&quot;ngOnInit() &quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#123;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;this.get&#123;tableName&#125;List(null, null, null, null);&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&#125;&quot;);</span><br><span class="line"></span><br><span class="line">    return sb.ToString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static string GetHtmlCode(string tableName, List&lt;DbTableHeadEntity&gt; tableHeads)</span><br><span class="line">&#123;</span><br><span class="line">    StringBuilder sb &#x3D; new StringBuilder();</span><br><span class="line">    sb.AppendLine($&quot;&lt;nz-card nzTitle&#x3D;&#39;&#123;tableName&#125;&#39; [nzExtra]&#x3D;&#39;addTemplate&#39;&gt;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;&lt;nz-table #edit&#123;tableName&#125; nzBordered [nzData]&#x3D;&#39;dataSet&#123;tableName&#125;&#39; nzFrontPagination&#x3D;&#39;false&#39; [nzTotal]&#x3D;&#39;nzTotal&#123;tableName&#125;&#39; nzShowSizeChanger&#x3D;&#39;true&#39; [nzPageIndex]&#x3D;&#39;&#123;tableName&#125;PageIndex&#39; [nzPageSize]&#x3D;&#39;&#123;tableName&#125;PageSize&#39; (nzPageIndexChange)&#x3D;&#39;PageIndexChange&#123;tableName&#125;()&#39; (nzPageSizeChange)&#x3D;&#39;PageIndexChange&#123;tableName&#125;()&#39; [nzLoading]&#x3D;&#39;is&#123;tableName&#125;Loading&#39; [nzShowTotal]&#x3D;&#39;totalTemplate&#39;&gt;&quot;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;表头</span><br><span class="line">    sb.AppendLine(&quot;&lt;thead&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;tr&gt;&quot;);</span><br><span class="line">    foreach (var item in tableHeads)</span><br><span class="line">    &#123;</span><br><span class="line">        sb.AppendLine(&quot;&lt;th&gt;&quot;);</span><br><span class="line">        sb.AppendLine($&quot;&#123;item.ColumnName&#125;&quot;);</span><br><span class="line">        sb.AppendLine(&quot;&lt;&#x2F;th&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    sb.AppendLine(&quot;&lt;th&gt;Action&lt;&#x2F;th&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;&#x2F;tr&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;&#x2F;thead&gt;&quot;);</span><br><span class="line"></span><br><span class="line">    sb.AppendLine(&quot;&lt;tbody&gt;&quot;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;数据列</span><br><span class="line">    sb.AppendLine($&quot;&lt;tr *ngFor&#x3D;&#39;let data of edit&#123;tableName&#125;.data&#39;&gt;&quot;);</span><br><span class="line">    foreach (var item in tableHeads)</span><br><span class="line">    &#123;</span><br><span class="line">        sb.AppendLine(&quot;&lt;td&gt;&quot;);</span><br><span class="line">        sb.AppendLine($&quot;&lt;ng-container *ngIf&#x3D;&#39;!editCache&#123;tableName&#125;[data.ID].edit&#39;&gt;&quot;);</span><br><span class="line">        sb.AppendLine(&quot;&#123;&#123;data.&quot; + item.ColumnName + &quot;&#125;&#125;&quot;);</span><br><span class="line">        sb.AppendLine(&quot;&lt;&#x2F;ng-container&gt;&quot;);</span><br><span class="line">        sb.AppendLine($&quot;&lt;ng-container *ngIf&#x3D;&#39;editCache&#123;tableName&#125;[data.ID].edit&#39;&gt;&quot;);</span><br><span class="line"></span><br><span class="line">        sb.AppendLine(GetTypeInput(tableName, item.ColumnType, item.ColumnName));</span><br><span class="line"></span><br><span class="line">        sb.AppendLine(&quot;&lt;&#x2F;ng-container&gt;&quot;);</span><br><span class="line">        sb.AppendLine(&quot;&lt;&#x2F;td&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;操作</span><br><span class="line">    sb.AppendLine(&quot;&lt;td&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;div class&#x3D;&#39;editable-row-operations&#39;&gt;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;&lt;ng-container *ngIf&#x3D;&#39;!editCache&#123;tableName&#125;[data.ID].edit&#39;&gt;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;&lt;a (click)&#x3D;&#39;startEdit&#123;tableName&#125;(data.ID)&#39;&gt;Edit&lt;&#x2F;a&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;&#x2F;ng-container&gt;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;&lt;ng-container *ngIf&#x3D;&#39;editCache&#123;tableName&#125;[data.ID].edit&#39;&gt;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;&lt;a (click)&#x3D;&#39;saveEdit&#123;tableName&#125;(data.ID)&#39;&gt;Save&lt;&#x2F;a&gt;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;&lt;nz-popconfirm [nzTitle]&#x3D;\&quot;&#39;Sure to cancel?&#39;\&quot; (nzOnConfirm)&#x3D;&#39;cancelEdit&#123;tableName&#125;(data.ID)&#39;&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;a nz-popconfirm&gt;Cancel&lt;&#x2F;a&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;&#x2F;nz-popconfirm&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;&#x2F;ng-container&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;nz-divider nzType&#x3D;&#39;vertical&#39;&gt;&lt;&#x2F;nz-divider&gt;&quot;);</span><br><span class="line">    sb.AppendLine($&quot;&lt;a nz-popconfirm nzTitle&#x3D;&#39;您确定要删除这条数据？&#39; (nzOnConfirm)&#x3D;&#39;delete&#123;tableName&#125;(data.ID)&#39;&gt;Delete&lt;&#x2F;a&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;&#x2F;div&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;&#x2F;td&gt;&quot;);</span><br><span class="line"></span><br><span class="line">    sb.AppendLine(&quot;&lt;&#x2F;tr&gt;&quot;);</span><br><span class="line"></span><br><span class="line">    sb.AppendLine(&quot;&lt;&#x2F;tbody&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;&#x2F;nz-table&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;&#x2F;nz-card&gt;&quot;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;总条数</span><br><span class="line">    sb.AppendLine(&quot;&lt;ng-template #totalTemplate&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;共 &#123;&#123;nzTotal&quot; + tableName + &quot;&#125;&#125; 条&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;&#x2F;ng-template&gt;&quot;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;添加数据</span><br><span class="line">    sb.AppendLine(&quot;&lt;ng-template #addTemplate&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;a (click)&#x3D;&#39;isVisible&#x3D;(!isVisible)&#39;&gt;Add&lt;&#x2F;a&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;&#x2F;ng-template&gt;&quot;);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;添加数据表单</span><br><span class="line">    sb.AppendLine($&quot;&lt;nz-modal [(nzVisible)]&#x3D;&#39;isVisible&#39; nzTitle&#x3D;&#39;Add &#123;tableName&#125; Info&#39; (nzOnCancel)&#x3D;&#39;isVisible&#x3D;(!isVisible)&#39; nzCancelText&#x3D;&#39;Cencel&#39; nzOkText&#x3D;&#39;Add&#39; (nzOnOk)&#x3D;&#39;handleOk()&#39;&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;p&gt;表单数据&lt;&#x2F;p&gt;&quot;);</span><br><span class="line">    sb.AppendLine(&quot;&lt;&#x2F;nz-modal&gt;&quot;);</span><br><span class="line"></span><br><span class="line">    return sb.ToString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static string GetTypeInput(string tableName,string columnType, string columnName)</span><br><span class="line">&#123;</span><br><span class="line">    string result &#x3D; $&quot;&lt;input type&#x3D;&#39;text&#39; nz-input [(ngModel)]&#x3D;&#39;editCache&#123;tableName&#125;[data.ID].data.&#123;columnName&#125;&#39;&gt;&quot;;</span><br><span class="line">    if (columnType.IndexOf(&quot;Int&quot;) !&#x3D; -1)</span><br><span class="line">    &#123;</span><br><span class="line">        result &#x3D; $&quot;&lt;input type&#x3D;&#39;number&#39; nz-input [(ngModel)]&#x3D;&#39;editCache&#123;tableName&#125;[data.ID].data.&#123;columnName&#125;&#39;&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    if (columnType.IndexOf(&quot;DateTime&quot;) !&#x3D; -1)</span><br><span class="line">    &#123;</span><br><span class="line">        result &#x3D; $&quot;&lt;nz-date-picker [(ngModel)]&#x3D;&#39;editCache&#123;tableName&#125;[data.ID].data.&#123;columnName&#125;&#39;&gt;&lt;&#x2F;nz-date-picker&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static List&lt;DbTableHeadEntity&gt; ReadDbTableHead()</span><br><span class="line">&#123;</span><br><span class="line">    List&lt;DbTableHeadEntity&gt; result &#x3D; new List&lt;DbTableHeadEntity&gt;();</span><br><span class="line"></span><br><span class="line">    var model &#x3D; new POEntity();</span><br><span class="line">    Type t &#x3D; model.GetType();</span><br><span class="line">    PropertyInfo[] PropertyList &#x3D; t.GetProperties();</span><br><span class="line">    int Id &#x3D; 0;</span><br><span class="line">    foreach (PropertyInfo item in PropertyList)</span><br><span class="line">    &#123;</span><br><span class="line">        DbTableHeadEntity dbTableHeadEntity &#x3D; new DbTableHeadEntity();</span><br><span class="line">        object value &#x3D; item.GetValue(model, null);</span><br><span class="line">        dbTableHeadEntity.Id &#x3D; ++Id;</span><br><span class="line">        dbTableHeadEntity.ColumnName &#x3D; item.Name;</span><br><span class="line">        if (item.PropertyType.IsGenericType &amp;&amp; item.PropertyType.GetGenericTypeDefinition() &#x3D;&#x3D; typeof(Nullable&lt;&gt;))</span><br><span class="line">        &#123;</span><br><span class="line">            var columnType &#x3D; item.PropertyType.GetGenericArguments()[0];</span><br><span class="line">            dbTableHeadEntity.ColumnType &#x3D; columnType.Name;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            dbTableHeadEntity.ColumnType &#x3D; item.PropertyType.Name;</span><br><span class="line">        &#125;</span><br><span class="line">        result.Add(dbTableHeadEntity);</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void btnCopyHtml_Click(object sender, EventArgs e)</span><br><span class="line">&#123;</span><br><span class="line">    this.textHtmlCode.Focus();</span><br><span class="line">    KeyBoard.CtrlX();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void btnCopyTypeScript_Click(object sender, EventArgs e)</span><br><span class="line">&#123;</span><br><span class="line">    this.textTypeScriptCode.Focus();</span><br><span class="line">    KeyBoard.CtrlX();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以生成一个table,带增删改查功能的，方法的具体代码没有实现！</p>
+<p>前端：Angular，TypeScrip，UI基于阿里的Ng-Zorro</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/09/06/%E3%80%90VSCode%E3%80%91%E5%90%8C%E6%AD%A5%E8%AE%BE%E7%BD%AE-%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/06/%E3%80%90VSCode%E3%80%91%E5%90%8C%E6%AD%A5%E8%AE%BE%E7%BD%AE-%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6/" class="post-title-link" itemprop="url">【VSCode】同步设置-扩展插件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-06 15:24:54" itemprop="dateCreated datePublished" datetime="2018-09-06T15:24:54+08:00">2018-09-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">常用工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>381</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>第一步：首先安装同步插件： <a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync">Settings Sync</a> </p>
+<p>第二步：进入你的github如图：</p>
+<p>** 打开设置选项：**<br><img src="/images/717286-20170425110145709-1197520269.png" alt=""></p>
+<p><strong>新建一个token：</strong><br><img src="/images/717286-20170425110217694-265826573.png" alt=""></p>
+<p>如图：<br><img src="/images/717286-20170425110527569-2136789567.png" alt=""></p>
+<p>** 记住这个token值**<br><img src="/images/717286-20170425110611272-515677998.png" alt=""></p>
+<p>转到vscode</p>
+<p>按shift+alt +u 在弹出窗里输入你的token,然后等下会生成syncSummary.txt文件在窗口中打开这样就算成功了。</p>
+<p><img src="/images/717286-20170425111018694-1033070297.png" alt=""></p>
+<p>syncSummary.txt这个文件里有个gist值或者到用户设置文件中查看gist的值，这个值用来你再另一台电脑上来下载你的设置</p>
+<p><img src="/images/717286-20170425111301428-168249381.png" alt=""></p>
+<p><strong>下载你的设置方法为：打开vscode——按alt+shift+d 在弹出窗里输入你的gist值，等待片刻便同步成功。</strong></p>
+<p>*<em>如果要重置同步设置：按ctrl+p 输入 ‘&gt;sync’ *</em></p>
+<p><img src="/images/717286-20170425111823147-777456584.png" alt=""></p>
+<p>** 就可以重新配置你的token来同步了**</p>
+<p><strong>转自：</strong><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ashidamana/p/6761085.html">https://www.cnblogs.com/ashidamana/p/6761085.html</a> </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/09/06/%E3%80%90DIY%E3%80%91Html5%E8%8E%B7%E5%8F%96G-Sensor%E7%AE%80%E5%8D%95%E8%AE%A1%E6%AD%A5%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/06/%E3%80%90DIY%E3%80%91Html5%E8%8E%B7%E5%8F%96G-Sensor%E7%AE%80%E5%8D%95%E8%AE%A1%E6%AD%A5%E5%99%A8/" class="post-title-link" itemprop="url">【前端】Html5获取G-Sensor简单计步器</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-06 14:44:36" itemprop="dateCreated datePublished" datetime="2018-09-06T14:44:36+08:00">2018-09-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DIY%E7%A8%8B%E5%BA%8F/" itemprop="url" rel="index"><span itemprop="name">DIY程序</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;DeviceOrientationEvent&lt;&#x2F;title&gt;</span><br><span class="line">    &lt;meta charset&#x3D;&quot;UTF-8&quot; &#x2F;&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;libs.baidu.com&#x2F;jquery&#x2F;2.0.0&#x2F;jquery.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;img.hcharts.cn&#x2F;highcharts&#x2F;highcharts.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;img.hcharts.cn&#x2F;highcharts&#x2F;modules&#x2F;exporting.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;https:&#x2F;&#x2F;img.hcharts.cn&#x2F;highcharts-plugins&#x2F;highcharts-zh_CN.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h1&gt;简单的计步器&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;h2&gt;简单的计步器 --</span><br><span class="line">        &lt;a href&#x3D;&quot;demo1.html&quot;&gt;重新开始&lt;&#x2F;a&gt;</span><br><span class="line">    &lt;&#x2F;h2&gt;</span><br><span class="line">    &lt;hr &#x2F;&gt;</span><br><span class="line">    &lt;p&gt;G-Sensor 获取三轴的加速度（考虑重力加速度）实时：&lt;&#x2F;p&gt;</span><br><span class="line">    &lt;p&gt;x轴加速度：</span><br><span class="line">        &lt;span id&#x3D;&quot;xg&quot;&gt;0&lt;&#x2F;span&gt; m&#x2F;s2</span><br><span class="line">    &lt;&#x2F;p&gt;</span><br><span class="line">    &lt;p&gt;y轴加速度：</span><br><span class="line">        &lt;span id&#x3D;&quot;yg&quot;&gt;0&lt;&#x2F;span&gt; m&#x2F;s2</span><br><span class="line">    &lt;&#x2F;p&gt;</span><br><span class="line">    &lt;p&gt;z轴加速度：</span><br><span class="line">        &lt;span id&#x3D;&quot;zg&quot;&gt;0&lt;&#x2F;span&gt; m&#x2F;s2</span><br><span class="line">    &lt;&#x2F;p&gt;</span><br><span class="line">    &lt;hr &#x2F;&gt;</span><br><span class="line">    &lt;h3&gt;手机获取传感器频率：</span><br><span class="line">        &lt;span id&#x3D;&quot;interval&quot;&gt;0&lt;&#x2F;span&gt;毫秒</span><br><span class="line">    &lt;&#x2F;h3&gt;</span><br><span class="line">    &lt;p&gt;开始时间：</span><br><span class="line">        &lt;span id&#x3D;&quot;date&quot;&gt;0&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;&#x2F;p&gt;</span><br><span class="line">    &lt;h3&gt;当前步数：</span><br><span class="line">        &lt;span id&#x3D;&quot;count1&quot;&gt; 0 &lt;&#x2F;span&gt; 步</span><br><span class="line">    &lt;&#x2F;h3&gt;</span><br><span class="line">    &lt;hr&gt;</span><br><span class="line">    &lt;div id&#x3D;&quot;container&quot; style&#x3D;&quot;min-width:400px;height:400px&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;hr&gt;</span><br><span class="line">    &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">        var data &#x3D; [];&#x2F;&#x2F;用来记录数据的</span><br><span class="line">        var arr &#x3D; [];&#x2F;&#x2F;记录△</span><br><span class="line">        var status &#x3D; 0;&#x2F;&#x2F;是否为开车</span><br><span class="line">        var min &#x3D; 0.5, max &#x3D; 1.552188;</span><br><span class="line">        var temp &#x3D; &#123;</span><br><span class="line">            X: 0, Y: 0, Z: 0</span><br><span class="line">        &#125;;</span><br><span class="line">        var point &#x3D; 0;</span><br><span class="line">        data.push(temp);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;获取传感器上加速器的数据</span><br><span class="line">        var count &#x3D; 0;</span><br><span class="line">        function motionHandler(event) &#123;</span><br><span class="line">            &#x2F;&#x2F;html 的addEventListener 变化频率大概1秒60次 ，现在一秒钟收集一次数据</span><br><span class="line">            &#x2F;&#x2F; if (count &gt;&#x3D; 15) &#123;</span><br><span class="line">                document.getElementById(&quot;interval&quot;).innerHTML &#x3D; event.interval;</span><br><span class="line">                var accGravity &#x3D; event.accelerationIncludingGravity;</span><br><span class="line">                document.getElementById(&quot;xg&quot;).innerHTML &#x3D; accGravity.x;</span><br><span class="line">                document.getElementById(&quot;yg&quot;).innerHTML &#x3D; accGravity.y;</span><br><span class="line">                document.getElementById(&quot;zg&quot;).innerHTML &#x3D; accGravity.z;</span><br><span class="line"></span><br><span class="line">                onSensorChanged(accGravity.x, accGravity.y, accGravity.z);&#x2F;&#x2F;记录数据</span><br><span class="line">                count &#x3D; 0;</span><br><span class="line">            &#x2F;&#x2F; &#125;</span><br><span class="line">            &#x2F;&#x2F; count++;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;存放三轴数据</span><br><span class="line">        var oriValues &#x3D; [];</span><br><span class="line">        &#x2F;&#x2F;当前传感器的值</span><br><span class="line">        var gravityNew &#x3D; 0;</span><br><span class="line"></span><br><span class="line">        function onSensorChanged(x, y, z) &#123;</span><br><span class="line">            oriValues[0] &#x3D; x;</span><br><span class="line">            oriValues[1] &#x3D; y;</span><br><span class="line">            oriValues[2] &#x3D; z;</span><br><span class="line">            gravityNew &#x3D; Math.sqrt(oriValues[0] * oriValues[0] + oriValues[1] * oriValues[1] + oriValues[2] * oriValues[2]);</span><br><span class="line">            point &#x3D; gravityNew;</span><br><span class="line">            detectorNewStep(gravityNew);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;*</span><br><span class="line">    * 检测步子，并开始计步</span><br><span class="line">    * 1.传入sersor中的数据</span><br><span class="line">    * 2.如果检测到了波峰，并且符合时间差以及阈值的条件，则判定为1步</span><br><span class="line">    * 3.符合时间差条件，波峰波谷差值大于initialValue，则将该差值纳入阈值的计算中</span><br><span class="line">    * *&#x2F;</span><br><span class="line">        &#x2F;&#x2F;上次传感器的值</span><br><span class="line">        var gravityOld &#x3D; 0;</span><br><span class="line">        &#x2F;&#x2F;上次波峰的时间</span><br><span class="line">        var timeOfLastPeak &#x3D; 0;</span><br><span class="line">        &#x2F;&#x2F;此次波峰的时间</span><br><span class="line">        var timeOfThisPeak &#x3D; 0;</span><br><span class="line">        &#x2F;&#x2F;波峰波谷时间差</span><br><span class="line">        var TimeInterval &#x3D; 250;</span><br><span class="line">        &#x2F;&#x2F;当前的时间</span><br><span class="line">        var timeOfNow &#x3D; 0;</span><br><span class="line">        &#x2F;&#x2F;波峰值</span><br><span class="line">        var peakOfWave &#x3D; 0;</span><br><span class="line">        &#x2F;&#x2F;初始阈值</span><br><span class="line">        var ThreadValue &#x3D; 2.0;</span><br><span class="line">        &#x2F;&#x2F;动态阈值需要动态的数据，这个值用于这些动态数据的阈值</span><br><span class="line">        var InitialValue &#x3D; 1.3;</span><br><span class="line">        var count1 &#x3D; 0;</span><br><span class="line">        function detectorNewStep(values) &#123;</span><br><span class="line">            if (gravityOld &#x3D;&#x3D; 0) &#123;</span><br><span class="line">                gravityOld &#x3D; values;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                if (detectorPeak(values, gravityOld)) &#123;</span><br><span class="line">                    timeOfLastPeak &#x3D; timeOfThisPeak;</span><br><span class="line">                    timeOfNow &#x3D; Date.now();</span><br><span class="line">                    &#x2F;&#x2F; System.currentTimeMillis</span><br><span class="line">                    if (timeOfNow - timeOfLastPeak &gt;&#x3D; TimeInterval</span><br><span class="line">                        &amp;&amp; (peakOfWave - valleyOfWave &gt;&#x3D; ThreadValue)) &#123;</span><br><span class="line">                        timeOfThisPeak &#x3D; timeOfNow;</span><br><span class="line">                        &#x2F;*</span><br><span class="line">                         * 更新界面的处理，不涉及到算法</span><br><span class="line">                         * 一般在通知更新界面之前，增加下面处理，为了处理无效运动：</span><br><span class="line">                         * 1.连续记录10才开始计步</span><br><span class="line">                         * 2.例如记录的9步用户停住超过3秒，则前面的记录失效，下次从头开始</span><br><span class="line">                         * 3.连续记录了9步用户还在运动，之前的数据才有效</span><br><span class="line">                         * *&#x2F;</span><br><span class="line">                        &#x2F;&#x2F; mStepListeners.countStep();</span><br><span class="line">                        document.getElementById(&quot;count1&quot;).innerHTML &#x3D; count1++;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (timeOfNow - timeOfLastPeak &gt;&#x3D; TimeInterval</span><br><span class="line">                        &amp;&amp; (peakOfWave - valleyOfWave &gt;&#x3D; InitialValue)) &#123;</span><br><span class="line">                        timeOfThisPeak &#x3D; timeOfNow;</span><br><span class="line">                        ThreadValue &#x3D; peakValleyThread(peakOfWave - valleyOfWave);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            gravityOld &#x3D; values;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;*</span><br><span class="line">             * 检测波峰</span><br><span class="line">             * 以下四个条件判断为波峰：</span><br><span class="line">             * 1.目前点为下降的趋势：isDirectionUp为false</span><br><span class="line">             * 2.之前的点为上升的趋势：lastStatus为true</span><br><span class="line">             * 3.到波峰为止，持续上升大于等于2次</span><br><span class="line">             * 4.波峰值大于20</span><br><span class="line">             * 记录波谷值</span><br><span class="line">             * 1.观察波形图，可以发现在出现步子的地方，波谷的下一个就是波峰，有比较明显的特征以及差值</span><br><span class="line">             * 2.所以要记录每次的波谷值，为了和下次的波峰做对比</span><br><span class="line">             *</span><br><span class="line">        *&#x2F;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;上一点的状态，上升还是下降</span><br><span class="line">        var lastStatus &#x3D; false;</span><br><span class="line">        &#x2F;&#x2F;是否上升的标志位</span><br><span class="line">        var isDirectionUp &#x3D; false;</span><br><span class="line">        &#x2F;&#x2F;持续上升次数</span><br><span class="line">        var continueUpCount &#x3D; 0;</span><br><span class="line">        &#x2F;&#x2F;上一点的持续上升的次数，为了记录波峰的上升次数</span><br><span class="line">        var continueUpFormerCount &#x3D; 0;</span><br><span class="line">        &#x2F;&#x2F;波谷值</span><br><span class="line">        var valleyOfWave &#x3D; 0;</span><br><span class="line">        function detectorPeak(newValue, oldValue) &#123;</span><br><span class="line">            lastStatus &#x3D; isDirectionUp;</span><br><span class="line">            if (newValue &gt;&#x3D; oldValue) &#123;</span><br><span class="line">                isDirectionUp &#x3D; true;</span><br><span class="line">                continueUpCount++;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                continueUpFormerCount &#x3D; continueUpCount;</span><br><span class="line">                continueUpCount &#x3D; 0;</span><br><span class="line">                isDirectionUp &#x3D; false;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (!isDirectionUp &amp;&amp; lastStatus</span><br><span class="line">                &amp;&amp; (continueUpFormerCount &gt;&#x3D; 2 || oldValue &gt;&#x3D; 20)) &#123;</span><br><span class="line">                peakOfWave &#x3D; oldValue;</span><br><span class="line">                return true;</span><br><span class="line">            &#125; else if (!lastStatus &amp;&amp; isDirectionUp) &#123;</span><br><span class="line">                valleyOfWave &#x3D; oldValue;</span><br><span class="line">                return false;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;*</span><br><span class="line">         * 阈值的计算</span><br><span class="line">         * 1.通过波峰波谷的差值计算阈值</span><br><span class="line">         * 2.记录4个值，存入tempValue[]数组中</span><br><span class="line">         * 3.在将数组传入函数averageValue中计算阈值</span><br><span class="line">         * *&#x2F;</span><br><span class="line">        &#x2F;&#x2F;用于存放计算阈值的波峰波谷差值</span><br><span class="line">        var ValueNum &#x3D; 4;</span><br><span class="line">        var tempValue &#x3D; new Array(ValueNum);</span><br><span class="line">        var tempCount &#x3D; 0;</span><br><span class="line">        function peakValleyThread(value) &#123;</span><br><span class="line">            var tempThread &#x3D; ThreadValue;</span><br><span class="line">            if (tempCount &lt; ValueNum) &#123;</span><br><span class="line">                tempValue[tempCount] &#x3D; value;</span><br><span class="line">                tempCount++;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                tempThread &#x3D; averageValue(tempValue, ValueNum);</span><br><span class="line">                for (var i &#x3D; 1; i &lt; ValueNum; i++) &#123;</span><br><span class="line">                    tempValue[i - 1] &#x3D; tempValue[i];</span><br><span class="line">                &#125;</span><br><span class="line">                tempValue[ValueNum - 1] &#x3D; value;</span><br><span class="line">            &#125;</span><br><span class="line">            return tempThread;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;*</span><br><span class="line">         * 梯度化阈值</span><br><span class="line">         * 1.计算数组的均值</span><br><span class="line">         * 2.通过均值将阈值梯度化在一个范围里</span><br><span class="line">         * *&#x2F;</span><br><span class="line">        function averageValue(value, n) &#123;</span><br><span class="line">            var ave &#x3D; 0;</span><br><span class="line">            for (var i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line">                ave +&#x3D; value[i];</span><br><span class="line">            &#125;</span><br><span class="line">            ave &#x3D; ave &#x2F; ValueNum;</span><br><span class="line">            if (ave &gt;&#x3D; 8)</span><br><span class="line">                ave &#x3D; 4.3;</span><br><span class="line">            else if (ave &gt;&#x3D; 7 &amp;&amp; ave &lt; 8)</span><br><span class="line">                ave &#x3D; 3.3;</span><br><span class="line">            else if (ave &gt;&#x3D; 4 &amp;&amp; ave &lt; 7)</span><br><span class="line">                ave &#x3D; 2.3;</span><br><span class="line">            else if (ave &gt;&#x3D; 3 &amp;&amp; ave &lt; 4)</span><br><span class="line">                ave &#x3D; 2.0;</span><br><span class="line">            else &#123;</span><br><span class="line">                ave &#x3D; 1.3;</span><br><span class="line">            &#125;</span><br><span class="line">            return ave;</span><br><span class="line">        &#125;</span><br><span class="line">        if (window.DeviceMotionEvent) &#123;</span><br><span class="line">            window.addEventListener(&quot;devicemotion&quot;, motionHandler, false);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            document.body.innerHTML &#x3D; &quot;What user agent u r using???&quot;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;获取时间</span><br><span class="line">        function getNowTime() &#123;</span><br><span class="line">            var date &#x3D; new Date();</span><br><span class="line">            var Hours &#x3D; date.getHours() &lt; 10 ? &#39;0&#39; + date.getHours() : date.getHours();</span><br><span class="line">            var Minutes &#x3D; date.getMinutes() &lt; 10 ? &#39;0&#39; + date.getMinutes() : date.getMinutes();</span><br><span class="line">            var Seconds &#x3D; date.getSeconds() &lt; 10 ? &#39;0&#39; + date.getSeconds() : date.getSeconds();</span><br><span class="line">            var time &#x3D; Hours + &#39;:&#39; + Minutes + &#39;:&#39; + Seconds;</span><br><span class="line">            return time;</span><br><span class="line">        &#125;</span><br><span class="line">        document.getElementById(&quot;date&quot;).innerHTML &#x3D; getNowTime();</span><br><span class="line"></span><br><span class="line">        Highcharts.setOptions(&#123;</span><br><span class="line">            global: &#123;</span><br><span class="line">                useUTC: false</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        function activeLastPointToolip(chart) &#123;</span><br><span class="line">            var points &#x3D; chart.series[0].points;</span><br><span class="line">            chart.tooltip.refresh(points[points.length - 1]);</span><br><span class="line">        &#125;</span><br><span class="line">        $(&#39;#container&#39;).highcharts(&#123;</span><br><span class="line">            chart: &#123;</span><br><span class="line">                type: &#39;spline&#39;,</span><br><span class="line">                animation: Highcharts.svg,</span><br><span class="line">                marginRight: 100,</span><br><span class="line">                events: &#123;</span><br><span class="line">                    load: function () &#123;</span><br><span class="line">                        var series &#x3D; this.series[0],</span><br><span class="line">                            chart &#x3D; this;</span><br><span class="line">                        setInterval(function () &#123;</span><br><span class="line">                            var x &#x3D; (new Date()).getTime(),</span><br><span class="line">                                y &#x3D; point;</span><br><span class="line">                            series.addPoint([x, y], true, true);</span><br><span class="line">                            activeLastPointToolip(chart)</span><br><span class="line">                        &#125;, 1000);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            title: &#123;</span><br><span class="line">                text: &#39;实时数据&#39;</span><br><span class="line">            &#125;,</span><br><span class="line">            xAxis: &#123;</span><br><span class="line">                type: &#39;datetime&#39;,</span><br><span class="line">                tickPixelInterval: 150</span><br><span class="line">            &#125;,</span><br><span class="line">            yAxis: &#123;</span><br><span class="line">                title: &#123;</span><br><span class="line">                    text: &#39;值&#39;</span><br><span class="line">                &#125;,</span><br><span class="line">                plotLines: [&#123;</span><br><span class="line">                    value: 0,</span><br><span class="line">                    width: 1,</span><br><span class="line">                    color: &#39;#808080&#39;</span><br><span class="line">                &#125;]</span><br><span class="line">            &#125;,</span><br><span class="line">            tooltip: &#123;</span><br><span class="line">                formatter: function () &#123;</span><br><span class="line">                    return &#39;&lt;b&gt;&#39; + this.series.name + &#39;&lt;&#x2F;b&gt;&lt;br&#x2F;&gt;&#39; +</span><br><span class="line">                        Highcharts.dateFormat(&#39;%H:%M:%S&#39;, this.x) + &#39;&lt;br&#x2F;&gt;&#39; +</span><br><span class="line">                        Highcharts.numberFormat(this.y, 6);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            legend: &#123;</span><br><span class="line">                enabled: false</span><br><span class="line">            &#125;,</span><br><span class="line">            exporting: &#123;</span><br><span class="line">                enabled: false</span><br><span class="line">            &#125;,</span><br><span class="line">            series: [&#123;</span><br><span class="line">                name: &#39;每秒的值&#39;,</span><br><span class="line">                data: (function () &#123;</span><br><span class="line">                    var data &#x3D; [],</span><br><span class="line">                        time &#x3D; (new Date()).getTime(),</span><br><span class="line">                        i;</span><br><span class="line">                    for (i &#x3D; -100; i &lt;&#x3D; 0; i +&#x3D; 1) &#123;</span><br><span class="line">                        data.push(&#123;</span><br><span class="line">                            x: time + i * 1000,</span><br><span class="line">                            y: 0</span><br><span class="line">                        &#125;);</span><br><span class="line">                    &#125;</span><br><span class="line">                    return data;</span><br><span class="line">                &#125;())</span><br><span class="line">            &#125;]</span><br><span class="line">        &#125;, function (c) &#123;</span><br><span class="line">            activeLastPointToolip(c)</span><br><span class="line">        &#125;);</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/20181127140949248.png" alt=""></p>
+<p>不便解释！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/46/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/46/">46</a><span class="page-number current">47</span><a class="page-number" href="/page/48/">48</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/48/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+   	鄂ICP备 -
+    <a target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow">17012779号</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22:07</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

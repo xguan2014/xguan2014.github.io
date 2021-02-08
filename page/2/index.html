@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/2/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/11/28/%E3%80%90%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E3%80%91ELK%E5%88%86%E5%B8%83%E5%BC%8F%E6%97%A5%E5%BF%97+NLog%E5%9C%A8.NetCore%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/28/%E3%80%90%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E3%80%91ELK%E5%88%86%E5%B8%83%E5%BC%8F%E6%97%A5%E5%BF%97+NLog%E5%9C%A8.NetCore%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">【环境搭建】ELK分布式日志+NLog在.NetCore中的应用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-28 22:56:50" itemprop="dateCreated datePublished" datetime="2020-11-28T22:56:50+08:00">2020-11-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">环境搭建</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/minghon/p/11853157.html">https://www.cnblogs.com/minghon/p/11853157.html</a></p>
+</blockquote>
+<h3 id="ELK简介"><a href="#ELK简介" class="headerlink" title="ELK简介"></a>ELK简介</h3><p>ELK是Elasticsearch、Logstash和Kibana首字母的缩写。这三者均是开源软件，这三套开源工具组合起来形成了一套强大的集中式日志管理平台</p>
+<p>Elasticsearch是一个分布式搜索和分析引擎，具有高可伸缩、高可靠和易管理等特点，基于Apache Lucene构建，能对大容量的数据进行接近实时的存储、搜索和分析操作。通过简单的配置，Elasticsearch就会帮你管理集群、分片、故障转移、主节点选举等，还提供集群状态的监控接口。</p>
+<p>Logstash是一个用来搜集、解析、过滤日志的工具。支持几乎任何类型的日志，包括系统日志、业务日志和安全日志，支持file、syslog、tcp、stdin、redis和kafka等多种接收方式。支持elasticrsearch、email、exec、nagios、tcp、hdfs等多种方式输出</p>
+<p>Kibana是一个开源的分析与可视化平台，用于搜索、分析和可视化存储在 Elasticsearch中的数据，然后以图表的方式展现出来，还允许用户自定义查询、过滤和汇总数据。</p>
+<h3 id="安装（这里以windows为例）"><a href="#安装（这里以windows为例）" class="headerlink" title="安装（这里以windows为例）"></a>安装（这里以windows为例）</h3><ol>
+<li>第一步：下载Elasticsearch 下载地址：<a target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/elasticsearch">https://www.elastic.co/cn/downloads/elasticsearch</a> 选择你适合的平台版本，如下图所示：</li>
+</ol>
+<p><img src="/images/391160-20191113201116736-53012389.png" alt=""></p>
+<ol start="2">
+<li>下载Logstash 下载地址：<a target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/logstash">https://www.elastic.co/cn/downloads/logstash</a> ，选择你适合的平台，如下图所示：</li>
+</ol>
+<p><img src="/images/391160-20191113201222000-31982442.png" alt=""></p>
+<ol start="3">
+<li>下载Kibana，下载地址：<a target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/kibana">https://www.elastic.co/cn/downloads/kibana</a> ，选择你适合的平台，如下图所示：</li>
+</ol>
+<p><img src="/images/391160-20191113201330450-1256039823.png" alt=""></p>
+<p>将压缩包解压到文件，如图所示：</p>
+<p><img src="/images/391160-20191113201652018-969901322.png" alt=""></p>
+<p>切换到elasticsearch-7.3.2/bin，点击elasticsearch.bat 即可完成安装，打开<a target="_blank" rel="noopener" href="http://localhost:9200/如下图所示即安装完成">http://localhost:9200/如下图所示即安装完成</a></p>
+<p><img src="/images/391160-20191113201754324-253835259.png" alt=""> 安装node.js和grunt，从地址：<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">https://nodejs.org/en/download/</a> 下载相应系统的 msi，双击安装</p>
+<p><img src="/images/391160-20191113201910840-1721957633.png" alt=""></p>
+<p>打开命令提示符输入npm install -g grunt-cli，如下图所示则grunt安装完成</p>
+<p><img src="/images/391160-20191113202037511-1147820968.png" alt=""></p>
+<p>进入/elasticsearch-7.3.2/config，打开elasticsearch.yml，在文件末尾加上以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http.cors.enabled: true</span><br><span class="line">http.cors.allow-origin: &quot;*&quot;</span><br></pre></td></tr></table></figure>
+<p>双击elasticsearch.bat重启es</p>
+<p>下载Head，下载地址：<a target="_blank" rel="noopener" href="https://github.com/mobz/elasticsearch-head">https://github.com/mobz/elasticsearch-head</a> ，下载后将elasticsearch-head-master 解压到elasticsearch-7.3.2文件夹下，如图所示：</p>
+<p><img src="/images/391160-20191113202302040-2077378037.png" alt=""></p>
+<p>修改elasticsearch-head-master文件夹下的Gruntfile.js，加上hostname:’*’</p>
+<p><img src="/images/391160-20191113202353162-1261333028.png" alt=""></p>
+<p>在/elasticsearch-7.3.2/elasticsearch-head-master文件夹下执行 npm install</p>
+<p><img src="/images/391160-20191113202450373-796356783.png" alt=""></p>
+<p>安装完成后执行grunt server 或者npm run start 运行head插件，http://浏览器下访问<a target="_blank" rel="noopener" href="http://localhost:9100/">http://localhost:9100/</a></p>
+<p><img src="/images/391160-20191113202532640-928371146.png" alt=""></p>
+<p>logstash安装：解压后启动使用配置文件就可以了</p>
+<p>Kibana安装：kibana-7.3.2/config 文件夹下修改kibana.yml，取消server.port ，server.host，server.name，elasticsearch.hosts， i18n.locale前面的#号，并将i18n.locale的值改为zh-CN ，运行bin文件夹下的kibana.bat，打开localhost:5601,如图所示则安装成功</p>
+<p><img src="/images/391160-20191113203324519-1695068531.png" alt=""></p>
+<h3 id="Net-Core使用Nlog调用ELK写入日志"><a href="#Net-Core使用Nlog调用ELK写入日志" class="headerlink" title=".Net Core使用Nlog调用ELK写入日志"></a>.Net Core使用Nlog调用ELK写入日志</h3><ol>
+<li><p>NuGet安装依赖</p>
+<p><img src="/images/391160-20191113203721397-1473259742.png" alt=""></p>
+</li>
+<li><p>配置nlog.config</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot; ?&gt;</span><br><span class="line">&lt;nlog xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.nlog-project.org&#x2F;schemas&#x2F;NLog.xsd&quot;</span><br><span class="line">      xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">      internalLogToConsole&#x3D;&quot;true&quot;&gt;</span><br><span class="line">  &lt;extensions&gt;</span><br><span class="line">    &lt;add assembly&#x3D;&quot;NLog.Targets.ElasticSearch&quot;&#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;extensions&gt;</span><br><span class="line"></span><br><span class="line">  &lt;targets async&#x3D;&quot;true&quot;&gt;</span><br><span class="line">    &lt;!--https:&#x2F;&#x2F;github.com&#x2F;reactive-markets&#x2F;NLog.Targets.ElasticSearch&#x2F;wiki--&gt;</span><br><span class="line">    &lt;target xsi:type&#x3D;&quot;ElasticSearch&quot;</span><br><span class="line">            name&#x3D;&quot;ElasticSearch&quot;</span><br><span class="line">            uri&#x3D;&quot;http:&#x2F;&#x2F;127.0.0.1:9200&quot;</span><br><span class="line">            index&#x3D;&quot;Web&quot;</span><br><span class="line">            documentType&#x3D;&quot;logevent&quot;</span><br><span class="line">            includeAllProperties&#x3D;&quot;false&quot;</span><br><span class="line">            requireAuth&#x3D;&quot;false&quot;&gt;</span><br><span class="line">      &lt;field name&#x3D;&quot;host&quot; layout&#x3D;&quot;$&#123;machinename&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;field name&#x3D;&quot;application&quot;</span><br><span class="line">                 layout&#x3D;&quot;$&#123;applicationName&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;field name&#x3D;&quot;logged&quot; layout&#x3D;&quot;$&#123;date&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;field name&#x3D;&quot;level&quot; layout&#x3D;&quot;$&#123;level&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;field name&#x3D;&quot;message&quot; layout&#x3D;&quot;$&#123;message&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;field name&#x3D;&quot;logger&quot; layout&#x3D;&quot;$&#123;logger&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;field name&#x3D;&quot;callSite&quot; layout&#x3D;&quot;$&#123;callsite:filename&#x3D;true&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;field name&#x3D;&quot;exception&quot; layout&#x3D;&quot;$&#123;exception:tostring&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;field name&#x3D;&quot;IP&quot; layout&#x3D;&quot;$&#123;aspnet-request-ip&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;field name&#x3D;&quot;User&quot; layout&#x3D;&quot;$&#123;aspnetcore-request-user&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;field name&#x3D;&quot;serverName&quot; layout&#x3D;&quot;$&#123;machinename&#125;&quot; &#x2F;&gt;</span><br><span class="line">      &lt;field name&#x3D;&quot;url&quot; layout&#x3D;&quot;$&#123;aspnetcore-request-url&#125;&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;target&gt;</span><br><span class="line">  &lt;&#x2F;targets&gt;</span><br><span class="line">  &lt;rules&gt;</span><br><span class="line">    &lt;logger name&#x3D;&quot;*&quot; minlevel&#x3D;&quot;INFO&quot; writeTo&#x3D;&quot;ElasticSearch&quot; &#x2F;&gt;</span><br><span class="line">  &lt;&#x2F;rules&gt;</span><br><span class="line">&lt;&#x2F;nlog&gt;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>Startup.cs配置</li>
+</ol>
+<p><img src="/images/391160-20191113204006896-852168777.png" alt=""></p>
+<ol start="4">
+<li>应用</li>
+</ol>
+<p><img src="/images/391160-20191113204331166-465826877.png" alt=""></p>
+<ol start="5">
+<li>直接用控制台</li>
+</ol>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> NLog;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Demo.ELK.TestNLog</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">var</span> _log = LogManager.GetCurrentClassLogger();</span><br><span class="line">            _log.Error(<span class="string">&quot;测试一下...........&quot;</span>);</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到以下数据则表示调用成功</p>
+<p><img src="/images/391160-20191113205640765-1306093372.png" alt=""></p>
+<h3 id="解决下载慢问题"><a href="#解决下载慢问题" class="headerlink" title="解决下载慢问题"></a>解决下载慢问题</h3><ol>
+<li><p>安装<code>Motrix</code>,地址:</p>
+<p> <a target="_blank" rel="noopener" href="https://motrix.app/zh-CN/">https://motrix.app/zh-CN/</a></p>
+</li>
+<li><p>打开如下网址(Elasticsearch所有版本下载地址) </p>
+<p> <a target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/past-releases#elasticsearch">https://www.elastic.co/cn/downloads/past-releases#elasticsearch</a></p>
+</li>
+<li><p>选择一个版本，例如我要下载7.7.1，然后按<code>F12</code>在网页源码中找到对应的下载地址</p>
+<p> <a target="_blank" rel="noopener" href="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-windows-x86_64.zip">https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.1-windows-x86_64.zip</a></p>
+</li>
+<li><p>然后将下载地址粘到用<code>Motrix</code>下载，具体操作如下图</p>
+<p> <img src="/images/20200622120316866.png" alt=""></p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/11/28/%E3%80%90CSharp%E3%80%91MemoryCache%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/28/%E3%80%90CSharp%E3%80%91MemoryCache%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">【C#】MemoryCache踩坑记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-28 18:44:58" itemprop="dateCreated datePublished" datetime="2020-11-28T18:44:58+08:00">2020-11-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>作者：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/CoderAyu">码农阿宇</a><br>出处：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/CoderAyu/p/10242230.html">https://www.cnblogs.com/CoderAyu/p/10242230.html</a></p>
+</blockquote>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>前些天公司服务器数据库访问量偏高,运维人员收到告警推送,安排我团队小伙伴排查原因.</p>
+<p>我们发现原来系统定期会跑一个回归测试,该测运行的任务较多,每处理一条任务都会到数据库中取相关数据,高速地回归测试也带来了高频率的数据库读取.</p>
+<h1 id="解决方案1"><a href="#解决方案1" class="headerlink" title="解决方案1"></a>解决方案1</h1><p>我们认为每个任务要取的数据大相径庭,因此我们考虑对这个过程进行修改,加入MemoryCache把数据库中读取到的数据进行缓存.</p>
+<p>整个修改非常简单,相信对常年混迹在博客园中的各位大佬来说小菜一碟,因此小弟不再叙述添加缓存的步骤细节.</p>
+<p>从缓存的添加,代码提交,Teamcity 编译通过,到测试环境,QA环境的安装无比流畅,一切显得如手到擒来.</p>
+<p>嗯,优秀是一种习惯, 没有一点办法.</p>
+<p>人生如戏,当我们还沉浸在”我加的Cache不可能又BUG”的自信中时,QA传来噩耗,回归测试大量未通过 ….</p>
+<h1 id="故障排查"><a href="#故障排查" class="headerlink" title="故障排查"></a>故障排查</h1><p>之前习惯了使用Redis缓存,因此,常识告诉我们 —  在数据库中数据没有改动的前提下,加了缓存后读取的数据的效果和从数据库中读取的效果是一模一样的.</p>
+<p>除非  ,,,   除非  这个常识是错误的….</p>
+<p>因此我们加了日志,对写入缓存前后读取出来的数据进行了对比,结果出人意料.</p>
+<p><img src="/images/1293736-20190109005329355-153902224.png" alt=""></p>
+<p>该死 MemoryCache 毁我老脸,丢我精度,拿命来!!!!!</p>
+<p>从日志中看到,第一行是从数据库中读取的结果,第二行是从cache中读取的,前两条数据完全一致,到了第三条,第四条,第五条,仔细观察发现,在小数点后面,居然有些小数点后比较微小的变化,不管变化的大小但数据确实发生改变了,所以MemoryCache会影响数据精度??这样会改变数据精度的MemoryCache又有何用??</p>
+<p>机智的我,似乎早已看穿了一切,这肯定不是MenoryCache的锅!!!</p>
+<h1 id="不一样的MemoryCache"><a href="#不一样的MemoryCache" class="headerlink" title="不一样的MemoryCache"></a>不一样的MemoryCache</h1><p>我从<a target="_blank" rel="noopener" href="https://referencesource.microsoft.com"></a> 中扒出了MemoryCache的源码一探究竟.</p>
+<p><img src="/images/1293736-20190109005330144-1017692323.png" alt=""></p>
+<p>定位到MemoryCache中的AddOrGetExisting方法,我们看到,其实我们把数据存储到该缓存的过程本质是把该对象存到一个名为_entries的         Hashtable 中,同样,取数据也是通过Key到该Hashtable中取出来,整个过程并没有对该对象进行序列化反序列等,也没有对该对象进行clone操作.这就意味着我们之前存入的,和后面取出的(不管我们从MemoryCache中取数据取多少次),永远只取出同一个对象.</p>
+<p>这一点,和我之前使用的RedisCache是有很大区别的.我们在Redis中存入数据,是把对象序列化后存到Redis中,取数据是把Redis中的字节数据反序列成对象,意味着前一次存入的,和后一次取出的,已经不是同一个对象了,因此Redis中的数据是安全的.</p>
+<h1 id="猜想"><a href="#猜想" class="headerlink" title="猜想"></a>猜想</h1><p>我做出了一个大胆的猜想,之前从MemoryCache中取出来的数据之所以变化了,可能是取出对象后,复杂的处理过程中对该对象进行了什么修改操作,所以后期,再次从数据库中读取数据,读出来的已经已经不是最初存入的数据,而是前一次修改之后的数据.带着这个猜想,我对代码进行了修改.</p>
+<h1 id="解决方案2"><a href="#解决方案2" class="headerlink" title="解决方案2"></a>解决方案2</h1><p>从MenoryCache中取到数据后对结果进行clone(),这样即使程序对取出来的结果进行了修改也不会影响Cache中的数据了.</p>
+<p>又是一次提心掉到的提交,编译,安装后, 回归测试顺利通过.</p>
+<p>感觉人生到达了高潮   -_-</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/11/12/%E3%80%90EFCore%E3%80%91EntityFrameworkCore%E5%85%B3%E8%81%94%E5%88%A0%E9%99%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/12/%E3%80%90EFCore%E3%80%91EntityFrameworkCore%E5%85%B3%E8%81%94%E5%88%A0%E9%99%A4/" class="post-title-link" itemprop="url">【EFCore】EntityFrameworkCore关联删除</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-12 21:31:10" itemprop="dateCreated datePublished" datetime="2020-11-12T21:31:10+08:00">2020-11-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>关联删除通常是一个数据库术语，用于描述在删除行时允许自动触发删除关联行的特征；即当主表的数据行被删除时，自动将关联表中依赖的数据行进行删除，或者将外键更新为<code>NULL</code>或默认值。</p>
+<h2 id="数据库关联删除行为"><a href="#数据库关联删除行为" class="headerlink" title="数据库关联删除行为"></a>数据库关联删除行为</h2><p>我们先来看一看SQL Server中支持的行为。在创建外键约束时，可以指定关联表在主表删除行时，对依赖的数据如何执行操作。例如下面的SQL语句，<code>[Order Details]</code>表中<code>[OrderID]</code>字段 是外键，依赖于<code>[Orders]</code>表中的主键<code>[OrderID]</code>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> [Orders] (</span><br><span class="line">    [OrderID] <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">IDENTITY</span>,</span><br><span class="line">    [Name] nvarchar(max) <span class="keyword">NULL</span>,</span><br><span class="line">    [OrderDate] datetime2 <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">CONSTRAINT</span> [PK_Orders] <span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> ([OrderID])</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">GO</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> [<span class="keyword">Order</span> Details] (</span><br><span class="line">    [DetailId] <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">IDENTITY</span>,</span><br><span class="line">    [OrderID] <span class="type">int</span> <span class="keyword">NULL</span>,</span><br><span class="line">    [ProductID] <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">CONSTRAINT</span> [PK_Order Details] <span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> ([DetailId]),</span><br><span class="line">    <span class="keyword">CONSTRAINT</span> [FK_Order Details_Orders_OrderID] <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> ([OrderID]) <span class="keyword">REFERENCES</span> [Orders] ([OrderID]) <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">SET</span> <span class="keyword">NULL</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>外键约束<code>[FK_Order Details_Orders_OrderID]</code>末尾的语句是<code>ON DELETE SET NULL</code>，表示当主表的数据行删除时，自动将关联表数据行的外键更新为<code>NULL</code>。</p>
+<p>在SQL Server中支持如下四种行为：</p>
+<ul>
+<li><p>ON DELETE NO ACTION<br>默认行为，删除主表数据行时，依赖表中的数据不会执行任何操作，此时会产生错误，并回滚 <code>DELETE</code>语句。例如会产生下面的错误：</p>
+<blockquote>
+<p>DELETE 语句与 REFERENCE 约束”FK_Order Details_Orders_OrderID”冲突。该冲突发生于数据库”Northwind_Test”，表”dbo.Order Details”, column ‘OrderID’。<br>语句已终止。</p>
+</blockquote>
+</li>
+<li><p>ON DELETE CASCADE<br>删除主表数据行时，依赖表的中数据行也会同步删除。</p>
+</li>
+<li><p>ON DELETE SET NULL<br>删除主表数据行时，将依赖表中数据行的外键更新为 <code>NULL</code>。为了满足此约束，目标表的外键列必须可为空值。</p>
+</li>
+<li><p>ON DELETE SET DEFAULT<br>删除主表数据行时，将依赖表的中数据行的外键更新为默认值。为了满足此约束，目标表的所有外键列必须具有默认值定义；如果外键可为空值，并且未显式设置默认值，则将使用 <code>NULL</code>作为该列的隐式默认值。</p>
+</li>
+</ul>
+<p>简单介绍了数据库中行为后，我们来着重介绍 EF Core 中的关联实体的行为。</p>
+<h2 id="定义实体"><a href="#定义实体" class="headerlink" title="定义实体"></a>定义实体</h2><p>我们先定义两个实体<code>Order</code>、<code>OrderDetail</code>分别表示订单和订单明细；其中<code>Order</code>与<code>OrderDetail</code>的关系是一对多，在<code>OrderDetail</code>实体中<code>OrderID</code>表示外键，依赖于<code>Order</code>实体中的主键<code>OrderID</code>。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Order</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> OrderID &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> DateTime? OrderDate &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ICollection&lt;OrderDetail&gt; OrderDetails &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">OrderDetail</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> DetailId &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span>? OrderID &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> ProductID &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Order Order &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Fluent-API-配置关联实体"><a href="#Fluent-API-配置关联实体" class="headerlink" title="Fluent API 配置关联实体"></a>Fluent API 配置关联实体</h2><p>在<code>DbContext</code>中<code>OnModelCreating</code>方法中，我们使用 Fluent API 配置实体中之间的关系。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">NorthwindContext</span> : <span class="title">DbContext</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> DbSet&lt;Order&gt; Orders &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> DbSet&lt;OrderDetail&gt; OrderDetails &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnModelCreating</span>(<span class="params">ModelBuilder modelBuilder</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        modelBuilder.Entity&lt;Order&gt;(</span><br><span class="line">            builder =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                builder.HasMany&lt;OrderDetail&gt;(e =&gt; e.OrderDetails).WithOne(e =&gt; e.Order).HasForeignKey(e =&gt; e.OrderID).OnDelete(DeleteBehavior.ClientSetNull);</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>OnDelete</code>方法中，需要传递参数<a target="_blank" rel="noopener" href="https://github.com/aspnet/EntityFrameworkCore/blob/rel/2.0.0/src/EFCore/DeleteBehavior.cs">DeleteBehavior</a>枚举，分别有如下四个值：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> DeleteBehavior</span><br><span class="line">&#123;</span><br><span class="line">    Cascade,</span><br><span class="line"></span><br><span class="line">    SetNull,</span><br><span class="line"></span><br><span class="line">    ClientSetNull,</span><br><span class="line"></span><br><span class="line">    Restrict</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这四个枚举值的分别表示不同的行为，这也是我们今天的重点。</p>
+<h2 id="创建表结构"><a href="#创建表结构" class="headerlink" title="创建表结构"></a>创建表结构</h2><p>我们分别使用使用这这个枚举值，来创建数据表结构。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">InlineData(DeleteBehavior.Cascade)</span>]</span><br><span class="line">[<span class="meta">InlineData(DeleteBehavior.SetNull)</span>]</span><br><span class="line">[<span class="meta">InlineData(DeleteBehavior.ClientSetNull)</span>]</span><br><span class="line">[<span class="meta">InlineData(DeleteBehavior.Restrict)</span>]</span><br><span class="line">[<span class="meta">Theory</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Create_Database</span>(<span class="params">DeleteBehavior behavior</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">using</span> (<span class="keyword">var</span> northwindContext = <span class="keyword">new</span> NorthwindContext(behavior))</span><br><span class="line">    &#123;</span><br><span class="line">        northwindContext.Database.EnsureDeleted();</span><br><span class="line">        northwindContext.Database.EnsureCreated();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>四个枚举值创建表的SQL语句类似如下，唯一区别在于创建外键约束<code>[FK_Order Details_Orders_OrderID]</code>中<code>ON DELETE &#123;&#125;</code> 后面的语句。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> [Orders] (</span><br><span class="line">    [OrderID] <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">IDENTITY</span>,</span><br><span class="line">    [Name] nvarchar(max) <span class="keyword">NULL</span>,</span><br><span class="line">    [OrderDate] datetime2 <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">CONSTRAINT</span> [PK_Orders] <span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> ([OrderID])</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">GO</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> [<span class="keyword">Order</span> Details] (</span><br><span class="line">    [DetailId] <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">IDENTITY</span>,</span><br><span class="line">    [OrderID] <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    [ProductID] <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">CONSTRAINT</span> [PK_Order Details] <span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> ([DetailId]),</span><br><span class="line">    <span class="keyword">CONSTRAINT</span> [FK_Order Details_Orders_OrderID] <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> ([OrderID]) <span class="keyword">REFERENCES</span> [Orders] ([OrderID]) <span class="keyword">ON</span> <span class="keyword">DELETE</span> CASCADE</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>四个枚举值分别对应的SQL语句如下：</p>
+<table>
+<thead>
+<tr>
+<th>枚举值</th>
+<th>SQL语句</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DeleteBehavior.Cascade</td>
+<td>ON DELETE CASCADE</td>
+</tr>
+<tr>
+<td>DeleteBehavior.SetNull</td>
+<td>ON DELETE SET NULL</td>
+</tr>
+<tr>
+<td>DeleteBehavior.ClientSetNull</td>
+<td>ON DELETE NO ACTION</td>
+</tr>
+<tr>
+<td>DeleteBehavior.Restrict</td>
+<td>ON DELETE NO ACTION</td>
+</tr>
+</tbody></table>
+<h2 id="EF-Core-关联实体删除行为"><a href="#EF-Core-关联实体删除行为" class="headerlink" title="EF Core 关联实体删除行为"></a>EF Core 关联实体删除行为</h2><p>我们分别通过枚举值与是否跟踪关联实体，进行代码测试，测试代码如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">InlineData(DeleteBehavior.Cascade, true)</span>]</span><br><span class="line">[<span class="meta">InlineData(DeleteBehavior.Cascade, false)</span>]</span><br><span class="line">[<span class="meta">InlineData(DeleteBehavior.SetNull, true)</span>]</span><br><span class="line">[<span class="meta">InlineData(DeleteBehavior.SetNull, false)</span>]</span><br><span class="line">[<span class="meta">InlineData(DeleteBehavior.ClientSetNull, true)</span>]</span><br><span class="line">[<span class="meta">InlineData(DeleteBehavior.ClientSetNull, false)</span>]</span><br><span class="line">[<span class="meta">InlineData(DeleteBehavior.Restrict, true)</span>]</span><br><span class="line">[<span class="meta">InlineData(DeleteBehavior.Restrict, false)</span>]</span><br><span class="line"></span><br><span class="line">[<span class="meta">Theory</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params">DeleteBehavior behavior, <span class="built_in">bool</span> includeDetail</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">using</span> (<span class="keyword">var</span> northwindContext = <span class="keyword">new</span> NorthwindContext(behavior))</span><br><span class="line">    &#123;</span><br><span class="line">        northwindContext.Database.EnsureDeleted();</span><br><span class="line">        northwindContext.Database.EnsureCreated();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">int</span> orderId;</span><br><span class="line">    <span class="built_in">int</span> detailId;</span><br><span class="line">    <span class="keyword">using</span> (<span class="keyword">var</span> northwindContext = <span class="keyword">new</span> NorthwindContext(behavior))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> order = <span class="keyword">new</span> Order &#123;</span><br><span class="line">            Name = <span class="string">&quot;Order1&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> orderDetail = <span class="keyword">new</span> OrderDetail &#123;</span><br><span class="line">            ProductID = <span class="number">11</span></span><br><span class="line">        &#125;;</span><br><span class="line">        order.OrderDetails = <span class="keyword">new</span> List&lt;OrderDetail&gt; &#123;</span><br><span class="line">            orderDetail</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        northwindContext.Set&lt;Order&gt;().Add(order);</span><br><span class="line">                        northwindContext.SaveChanges();</span><br><span class="line"></span><br><span class="line">        orderId = order.OrderID;</span><br><span class="line">        detailId = orderDetail.DetailId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">using</span> (<span class="keyword">var</span> northwindContext = <span class="keyword">new</span> NorthwindContext(behavior))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> queryable = northwindContext.Set&lt;Order&gt;().Where(e =&gt; e.OrderID == orderId);</span><br><span class="line">        <span class="keyword">if</span> (includeDetail)&#123;</span><br><span class="line">            queryable = queryable.Include(e =&gt; e.OrderDetails);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> order = queryable.Single();</span><br><span class="line">        northwindContext.Set&lt;Order&gt;().Remove(order);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            northwindContext.SaveChanges();</span><br><span class="line">            DumpSql();</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception)</span><br><span class="line">        &#123;</span><br><span class="line">            DumpSql();</span><br><span class="line">            <span class="keyword">throw</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">using</span> (<span class="keyword">var</span> northwindContext = <span class="keyword">new</span> NorthwindContext(behavior))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> orderDetail = northwindContext.Set&lt;OrderDetail&gt;().Find(detailId);</span><br><span class="line">        <span class="keyword">if</span> (behavior == DeleteBehavior.Cascade)</span><br><span class="line">        &#123;</span><br><span class="line">            Assert.Null(orderDetail);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            Assert.NotNull(orderDetail);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>枚举值</th>
+<th>是否跟踪关联实体</th>
+<th>是否成功调用SaveChange</th>
+<th>关联实体是否存在</th>
+<th>执行的SQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DeleteBehavior.Cascade</td>
+<td>No</td>
+<td>成功</td>
+<td>否</td>
+<td>DELETE FROM [Orders] WHERE [OrderID] = 1</td>
+</tr>
+<tr>
+<td>DeleteBehavior.Cascade</td>
+<td>YES</td>
+<td>成功</td>
+<td>否</td>
+<td>DELETE FROM [Order Details] WHERE [DetailId] = 1;DELETE FROM [Orders] WHERE [OrderID] = 1</td>
+</tr>
+<tr>
+<td>DeleteBehavior.SetNull</td>
+<td>No</td>
+<td>成功</td>
+<td>YES（外键为<code>NULL</code>）</td>
+<td>DELETE FROM [Orders] WHERE [OrderID] = 1</td>
+</tr>
+<tr>
+<td>DeleteBehavior.SetNull</td>
+<td>YES</td>
+<td>成功</td>
+<td>YES（外键为<code>NULL</code>）</td>
+<td>UPDATE [Order Details] SET [OrderID] = NULL WHERE [DetailId] = 1;DELETE FROM [Orders] WHERE [OrderID] = 1</td>
+</tr>
+<tr>
+<td>DeleteBehavior.ClientSetNull</td>
+<td>No</td>
+<td>失败(外键约束)</td>
+<td>YES</td>
+<td>DELETE FROM [Orders] WHERE [OrderID] = 1</td>
+</tr>
+<tr>
+<td>DeleteBehavior.ClientSetNull</td>
+<td>YES</td>
+<td>成功</td>
+<td>YES（外键为<code>NULL</code>）</td>
+<td>UPDATE [Order Details] SET [OrderID] = NULL WHERE [DetailId] = 1;DELETE FROM [Orders] WHERE [OrderID] = 1</td>
+</tr>
+<tr>
+<td>DeleteBehavior.Restrict</td>
+<td>No</td>
+<td>失败(外键约束)</td>
+<td>YES</td>
+<td>DELETE FROM [Orders] WHERE [OrderID] = 1</td>
+</tr>
+<tr>
+<td>DeleteBehavior.Restrict</td>
+<td>YES</td>
+<td>失败(外键约束)</td>
+<td>YES</td>
+<td>DELETE FROM [Orders] WHERE [OrderID] = 1</td>
+</tr>
+</tbody></table>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>根据上面的测试结果，我们可以出得如下结论：</p>
+<h3 id="DeleteBehavior-Cascade"><a href="#DeleteBehavior-Cascade" class="headerlink" title="DeleteBehavior.Cascade"></a><strong>DeleteBehavior.Cascade</strong></h3><ul>
+<li>如果关联实体未被跟踪，主实体的状态标记为删除，执行<code>SaveChage</code>时，在删除主表的数据的同时，通过数据库的行为删除关联表的数据行；</li>
+<li>如果关联实体已经被跟踪，将主实体的状态标记为删除时，关联实体的状态也会标记为删除，执行<code>SaveChange</code>时，先删除关联表的数据行，然后再删除主表的数据行；</li>
+<li>外键可以设置非空值、也可以设置为可为空值；</li>
+<li>关联实体可以不被跟踪。</li>
+</ul>
+<h3 id="DeleteBehavior-SetNull"><a href="#DeleteBehavior-SetNull" class="headerlink" title="DeleteBehavior.SetNull"></a><strong>DeleteBehavior.SetNull</strong></h3><ul>
+<li>如果关联实体未被跟踪，主实体的状态标记为删除，执行<code>SaveChage</code>时，在删除主表的数据时，通过数据库的行为将关联表数据行的外键更新为<code>NULL</code>,；</li>
+<li>如果关联实体已经被跟踪，将主实体的状态标记为删除时，关联实体的外键会被设置为<code>null</code>，同时将关联实体的状态标记为修改，执行<code>SaveChange</code>时，先更新关联表的数据行 ，然后删除主表的数据行；</li>
+<li>因为要将外键更新为<code>NULL</code>，所以外键必须设置为可空字段；</li>
+<li>关联实体可以不被跟踪。</li>
+</ul>
+<h3 id="DeleteBehavior-ClientSetNull"><a href="#DeleteBehavior-ClientSetNull" class="headerlink" title="DeleteBehavior.ClientSetNull"></a><strong>DeleteBehavior.ClientSetNull</strong></h3><ul>
+<li>数据库不会执行任何行为；</li>
+<li>关联实体必须被跟踪，将主实体的状态标记为删除时，关联实体的外键被设置为<code>null</code>，同时将关联实体的状态标记为修改，执行<code>SaveChange</code>时，先更新关联表的数据行，然后删除主表的数据行（此时的行为与<code>DeleteBehavior.SetNull</code>一致）；</li>
+<li>因为要将外键更新为<code>NULL</code>，所以外键必须设置为可空字段；</li>
+<li>关联实体必须被跟踪，否则保存数据时会抛出异常。</li>
+</ul>
+<h3 id="DeleteBehavior-Restrict"><a href="#DeleteBehavior-Restrict" class="headerlink" title="DeleteBehavior.Restrict"></a><strong>DeleteBehavior.Restrict</strong></h3><ul>
+<li>框架不执行任何操作，由开发人员决定关联实体的行为，可以将关联实体的状态设置为删除，也可以将关联实体的外键设置为<code>null</code>；</li>
+<li>因为要修改关联实体的状态或外键的值，所以关联实体必须被跟踪。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+   	鄂ICP备 -
+    <a target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow">17012779号</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22:07</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/45/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/45/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/11/01/%E3%80%90MySql%E3%80%91%E4%BA%8B%E4%BB%B6%EF%BC%88Event%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/01/%E3%80%90MySql%E3%80%91%E4%BA%8B%E4%BB%B6%EF%BC%88Event%EF%BC%89/" class="post-title-link" itemprop="url">【MySql】事件（Event）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-01 10:16:15" itemprop="dateCreated datePublished" datetime="2018-11-01T10:16:15+08:00">2018-11-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>作者：jesseyoung<br>来源：CSDN<br>原文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/JesseYoung/article/details/35257527">https://blog.csdn.net/JesseYoung/article/details/35257527</a><br>版权声明：本文为博主原创文章，转载请附上博文链接！</p>
+<p>1 事件简介</p>
+<p>事件（event）是MySQL在相应的时刻调用的过程式数据库对象。一个事件可调用一次，也可周期性的启动，它由一个特定的线程来管理的，也就是所谓的“事件调度器”。</p>
+<p>事件和触发器类似，都是在某些事情发生的时候启动。当数据库上启动一条语句的时候，触发器就启动了，而事件是根据调度事件来启动的。由于他们彼此相似，所以事件也称为临时性触发器。</p>
+<p>事件取代了原先只能由操作系统的计划任务来执行的工作，而且MySQL的事件调度器可以精确到每秒钟执行一个任务，而操作系统的计划任务（如：Linux下的CRON或Windows下的任务计划）只能精确到每分钟执行一次。</p>
+<p>2 事件的优缺点<br>2.1 优点</p>
+<p>一些对数据定时性操作不再依赖外部程序，而直接使用数据库本身提供的功能。</p>
+<p>可以实现每秒钟执行一个任务，这在一些对实时性要求较高的环境下就非常实用了。</p>
+<p>2.2 缺点<br>定时触发，不可以调用。</p>
+<p>3 创建事件</p>
+<p>一条create event语句创建一个事件。每个事件由两个主要部分组成，第一部分是事件调度（event schedule），表示事件何时启动以及按什么频率启动，第二部分是事件动作（event action ），这是事件启动时执行的代码，事件的动作包含一条SQL语句，它可能是一个简单地insert或者update语句，也可以使一个存储过程或者benin…end语句块，这两种情况允许我们执行多条SQL。</p>
+<p>一个事件可以是活动（打开）的或停止（关闭）的，活动意味着事件调度器检查事件动作是否必须调用，停止意味着事件的声明存储在目录中，但调度器不会检查它是否应该调用。在一个事件创建之后，它立即变为活动的，一个活动的事件可以执行一次或者多次。</p>
+<p>3.1 创建语法如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">CREATE</span><br><span class="line">    [DEFINER &#x3D; &#123; user | CURRENT_USER &#125;]</span><br><span class="line">    EVENT</span><br><span class="line">    [IF NOT EXISTS]</span><br><span class="line">    event_name</span><br><span class="line">    ON SCHEDULE schedule</span><br><span class="line">    [ON COMPLETION [NOT] PRESERVE]</span><br><span class="line">    [ENABLE | DISABLE | DISABLE ON SLAVE]</span><br><span class="line">    [COMMENT &#39;comment&#39;]</span><br><span class="line">    DO event_body;</span><br><span class="line"> </span><br><span class="line">schedule:</span><br><span class="line">    AT timestamp [+ INTERVAL interval] ...</span><br><span class="line">  | EVERY interval</span><br><span class="line">    [STARTS timestamp [+ INTERVAL interval] ...]</span><br><span class="line">    [ENDS timestamp [+ INTERVAL interval] ...]</span><br><span class="line"> </span><br><span class="line">interval:</span><br><span class="line">    quantity &#123;YEAR | QUARTER | MONTH | DAY | HOUR | MINUTE |</span><br><span class="line">              WEEK | SECOND | YEAR_MONTH | DAY_HOUR | DAY_MINUTE |</span><br><span class="line">              DAY_SECOND | HOUR_MINUTE | HOUR_SECOND | MINUTE_SECOND&#125;</span><br></pre></td></tr></table></figure>
+<p>名词解释：</p>
+<p>event_name ：创建的event名字（唯一确定的）。<br>ON SCHEDULE：计划任务。<br>schedule: 决定event的执行时间和频率（注意时间一定要是将来的时间，过去的时间会出错），有两种形式 AT和EVERY。<br>[ON COMPLETION [NOT] PRESERVE]： 可选项，默认是ON COMPLETION NOT PRESERVE 即计划任务执行完毕后自动drop该事件；ON COMPLETION PRESERVE则不会drop掉。<br>[COMMENT ‘comment’] ：可选项，comment 用来描述event；相当注释，最大长度64个字节。<br>[ENABLE | DISABLE] ：设定event的状态，默认ENABLE：表示系统尝试执行这个事件， DISABLE：关闭该事情，可以用alter修改<br>DO event_body: 需要执行的sql语句（可以是复合语句）。CREATE EVENT在存储过程中使用时合法的。</p>
+<p>3.2 开启关闭事件调度器</p>
+<p>3.2.1 MySQL事件调度器event_scheduler负责调用事件，它默认是关闭的。这个调度器不断地监视一个事件是否要调用， 要创建事件，必须打开调度器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#39;%event_scheduler%&#39;;</span><br><span class="line">+-----------------+-------+</span><br><span class="line">| Variable_name   | Value |</span><br><span class="line">+-----------------+-------+</span><br><span class="line">| event_scheduler | OFF   |</span><br><span class="line">+-----------------+-------+</span><br></pre></td></tr></table></figure>
+<p>3.2.2 开启事件调度器<br>通过命令行</p>
+<p>可通过如下任何一个命令行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SET GLOBAL event_scheduler &#x3D; ON;</span><br><span class="line">SET @@global.event_scheduler &#x3D; ON;</span><br><span class="line">SET GLOBAL event_scheduler &#x3D; 1;</span><br><span class="line">SET @@global.event_scheduler &#x3D; 1;</span><br></pre></td></tr></table></figure>
+<p>通过配置文件my.cnf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">event_scheduler &#x3D; 1 #或者ON</span><br></pre></td></tr></table></figure>
+<p>查看调度器线程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show processlist;</span><br><span class="line">+----+-----------------+-----------+------+---------+------+------------------------+------------------+</span><br><span class="line">| Id | User            | Host      | db   | Command | Time | State                  | Info             |</span><br><span class="line">+----+-----------------+-----------+------+---------+------+------------------------+------------------+</span><br><span class="line">|  2 | root            | localhost | NULL | Query   |    0 | NULL                   | show processlist |</span><br><span class="line">|  3 | event_scheduler | localhost | NULL | Daemon  |    6 | Waiting on empty queue | NULL             |</span><br><span class="line">+----+-----------------+-----------+------+---------+------+------------------------+------------------+</span><br></pre></td></tr></table></figure>
+<p>3.2.3 关闭事件调度器</p>
+<p>通过命令行</p>
+<p>可通过如下任何一个命令行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SET GLOBAL event_scheduler &#x3D; OFF;</span><br><span class="line">SET @@global.event_scheduler &#x3D; OFF;</span><br><span class="line">SET GLOBAL event_scheduler &#x3D; 0;</span><br><span class="line">SET @@global.event_scheduler &#x3D; 0;</span><br></pre></td></tr></table></figure>
+<p>通过配置文件my.cnf</p>
+<p>在[mysqld]下增加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">event_scheduler &#x3D; 0 #或者OFF，DISABLED</span><br></pre></td></tr></table></figure>
+<p>查看调度器线程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show processlist;</span><br><span class="line">+----+------+-----------+------+---------+------+-------+------------------+</span><br><span class="line">| Id | User | Host      | db   | Command | Time | State | Info             |</span><br><span class="line">+----+------+-----------+------+---------+------+-------+------------------+</span><br><span class="line">|  2 | root | localhost | NULL | Query   |    0 | NULL  | show processlist |</span><br><span class="line">+----+------+-----------+------+---------+------+-------+------------------+</span><br></pre></td></tr></table></figure>
+<p>3.3 例如：创建一个表记录每次事件调度的名字和事件戳</p>
+<p>3.3.1 创建测试表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; drop table if exists events_list;</span><br><span class="line">mysql&gt; create table events_list(event_name varchar(20) not null, event_started timestamp not null);</span><br></pre></td></tr></table></figure>
+<p>3.3.2 创建事件1（立即启动事件）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create event event_now </span><br><span class="line">on schedule </span><br><span class="line">at now() </span><br><span class="line">do insert into events_list values(&#39;event_now&#39;, now());</span><br></pre></td></tr></table></figure>
+<p>查看事件执行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from events_list;</span><br><span class="line">+------------+---------------------+</span><br><span class="line">| event_name | event_started       |</span><br><span class="line">+------------+---------------------+</span><br><span class="line">| event_now  | 2014-07-01 04:06:40 |</span><br><span class="line">+------------+---------------------+</span><br></pre></td></tr></table></figure>
+<p>3.3.3 创建事件2（每分钟启动事件）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create event test.event_minute </span><br><span class="line">on schedule </span><br><span class="line">every  1 minute  </span><br><span class="line">do insert into events_list values(&#39;event_now&#39;, now());</span><br></pre></td></tr></table></figure>
+<p>查看事件执行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from events_list;</span><br><span class="line">+------------+---------------------+</span><br><span class="line">| event_name | event_started       |</span><br><span class="line">+------------+---------------------+</span><br><span class="line">| event_now  | 2014-07-01 04:26:53 |</span><br><span class="line">| event_now  | 2014-07-01 04:27:53 |</span><br><span class="line">| event_now  | 2014-07-01 04:28:53 |</span><br><span class="line">+------------+---------------------+</span><br></pre></td></tr></table></figure>
+<p>3.4 注意：</p>
+<p>默认创建事件存储在当前库中，也可显示指定事件创建在哪个库中</p>
+<p>通过show events只能查看当前库中创建的事件</p>
+<p>事件执行完即释放，如立即执行事件，执行完后，事件便自动删除，多次调用事件或等待执行事件可以查看到。</p>
+<p>如果两个事件需要在同一时刻调用，mysql会确定调用他们的顺序，如果要指定顺序，需要确保一个事件至少在另一个事件1秒后执行</p>
+<p>对于递归调度的事件，结束日期不能在开始日期之前。</p>
+<p>select可以包含在一个事件中，然而他的结果消失了，就好像没执行过。</p>
+<p>4 查看事件</p>
+<p>查看当前所在库的事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show events;</span><br></pre></td></tr></table></figure>
+<p>查看所有事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from mysql.event;</span><br></pre></td></tr></table></figure>
+<p>5 修改事件</p>
+<p>一条alter event语句可以修改事件的定义和属性。我们可以让一个事件成为停止的或者再次让它活动，也可以修改一个事件的名字或者整个调度。然而当一个使用 ON COMPLETION NOT PRESERVE 属性定义的事件最后一次执行后，事件直接就不存在了，不能修改。</p>
+<p>5.1 语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ALTER</span><br><span class="line">    [DEFINER &#x3D; &#123; user | CURRENT_USER &#125;]</span><br><span class="line">    EVENT event_name</span><br><span class="line">    [ON SCHEDULE schedule]</span><br><span class="line">    [ON COMPLETION [NOT] PRESERVE]</span><br><span class="line">    [RENAME TO new_event_name]</span><br><span class="line">    [ENABLE | DISABLE | DISABLE ON SLAVE]</span><br><span class="line">    [COMMENT &#39;comment&#39;]</span><br><span class="line">    [DO event_body]</span><br></pre></td></tr></table></figure>
+<p>5.2 例如</p>
+<p>修改上面例子3.3.3 每分钟启动事件为每30秒启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">alter event test.event_minute</span><br><span class="line">on schedule </span><br><span class="line">every  30 second  </span><br><span class="line">do insert into events_list values(&#39;event_now&#39;, now());</span><br><span class="line">    修改上面例子3.3.3 事件名字为event_second</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">alter event test.event_minute </span><br><span class="line">rename to test.event_second;</span><br><span class="line">    修改上面例子3.3.3 事件为不活动和再次活动</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">alter event test.event_second disable;</span><br><span class="line">alter event test.event_second enable;</span><br></pre></td></tr></table></figure>
+<p>6 删除事件</p>
+<p>如果一个事件不再需要，我们可以使用一条drop event 语句删除它。使用这条语句我们不需要等到最后一次事件调用。</p>
+<p>6.1 基本语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP EVENT [IF EXISTS] event_name</span><br></pre></td></tr></table></figure>
+<p>6.2 例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop event if exists event_second;</span><br></pre></td></tr></table></figure>
+<p>7 事件和权限</p>
+<p>8 更多详细案例</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/10/17/%E3%80%90.Net%E3%80%91Parallel.For%20%E5%92%8C%20For%20%E8%B0%81%E7%9A%84%E6%95%88%E7%8E%87%E9%AB%98%E5%91%A2%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/10/17/%E3%80%90.Net%E3%80%91Parallel.For%20%E5%92%8C%20For%20%E8%B0%81%E7%9A%84%E6%95%88%E7%8E%87%E9%AB%98%E5%91%A2%EF%BC%9F/" class="post-title-link" itemprop="url">【.Net】Parallel.For 和 For 谁的效率高呢？</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-17 22:45:30" itemprop="dateCreated datePublished" datetime="2018-10-17T22:45:30+08:00">2018-10-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chenwolong/archive/2017/05/18/6872672.html">https://www.cnblogs.com/chenwolong/archive/2017/05/18/6872672.html</a></p>
+<p>原标题：C# 多线程 Parallel.For 和 For 谁的效率高？那么 Parallel.ForEach 和 ForEach 呢？</p>
+<p><strong>今天和大家探讨一个问题：Parallel.For 和 For 谁的效率高呢？</strong></p>
+<p>从CPU使用方面而言，Parallel.For 属于多线程范畴，可以开辟多个线程使用CPU内核，也就是说可以并行处理程序。For 循环是单线程的，一个线程执行完所有循环。</p>
+<p>因此你会认为：多线程的效率肯定高于单线程。但这样认为是错误的！</p>
+<p><strong>例如下面程序：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">    Stopwatch sw &#x3D; new Stopwatch();</span><br><span class="line">    sw.Start();</span><br><span class="line"></span><br><span class="line">    ParallelLoopResult result &#x3D;</span><br><span class="line">    Parallel.For(0, 10000, i &#x3D;&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        Console.Write(&quot;&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line">    sw.Stop();</span><br><span class="line">    TimeSpan ts2 &#x3D; sw.Elapsed;</span><br><span class="line">    Console.WriteLine(&quot;Parallel.For总共花费&#123;0&#125;ms.&quot;, ts2.TotalMilliseconds);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;</span><br><span class="line">    Stopwatch sw_Eq &#x3D; new Stopwatch();</span><br><span class="line">    sw_Eq.Start();</span><br><span class="line">    for (int i &#x3D; 0; i &lt; 10000; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.Write(&quot;&quot;); </span><br><span class="line">    &#125;</span><br><span class="line">    sw_Eq.Stop();</span><br><span class="line">    TimeSpan tssw_Eq &#x3D; sw_Eq.Elapsed;</span><br><span class="line">    Console.WriteLine(&quot;for总共花费&#123;0&#125;ms.&quot;, tssw_Eq.TotalMilliseconds);</span><br><span class="line">    Console.ReadKey();</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p><img src="/images/451016-20170518141813103-1433332785.png" alt=""></p>
+<p>额，为什么For 循环要比Parallel.For 效率要高呢？</p>
+<p>这是因为循环体内执行的任务开销太小，仅仅是输出一个空字符串而已。微软的文章已经指出任务的开销大小对并行任务的影响。如果任务很小，那么由于并行管理的附加开销（任务分配，调度，同步等成本），可能并行执行并不是优化方案。这也是上述程序For效率高出的原因。</p>
+<p>如果在循环体内执行向数据库插入操作，那么Parallel.For 效率就会高出，在此，我们认为每向数据库插入一条记录花费1毫秒时间，将程序修改如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">&#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Stopwatch sw &#x3D; new Stopwatch();</span><br><span class="line">            sw.Start();</span><br><span class="line"></span><br><span class="line">            ParallelLoopResult result &#x3D;</span><br><span class="line">            Parallel.For(0, 10, i &#x3D;&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(&quot;&quot;);</span><br><span class="line">                Thread.Sleep(1);</span><br><span class="line"></span><br><span class="line">            &#125;);</span><br><span class="line">            sw.Stop();</span><br><span class="line">            TimeSpan ts2 &#x3D; sw.Elapsed;</span><br><span class="line">            Console.WriteLine(&quot;Parallel.For总共花费&#123;0&#125;ms.&quot;, ts2.TotalMilliseconds);</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;</span><br><span class="line">            Stopwatch sw_Eq &#x3D; new Stopwatch();</span><br><span class="line">            sw_Eq.Start();</span><br><span class="line">            for (int i &#x3D; 0; i &lt; 10; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(&quot;&quot;);</span><br><span class="line">                Thread.Sleep(1);</span><br><span class="line">            &#125;</span><br><span class="line">            sw_Eq.Stop();</span><br><span class="line">            TimeSpan tssw_Eq &#x3D; sw_Eq.Elapsed;</span><br><span class="line">            Console.WriteLine(&quot;for总共花费&#123;0&#125;ms.&quot;, tssw_Eq.TotalMilliseconds);</span><br><span class="line">            Console.ReadKey();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果大大改变：</p>
+<p><img src="/images/451016-20170518142455010-1938998235.png" alt=""></p>
+<p>相信到此，大家应该明白了吧！也就说For是同步，Parallel.For 是异步执行。当然，我们也可以使用Thread实现异步编程：</p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">&#123;</span><br><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;主线程测试开始..&quot;);</span><br><span class="line">    Thread th &#x3D; new Thread(ThMethod);</span><br><span class="line">    th.Start();</span><br><span class="line">    Thread.Sleep(1000);</span><br><span class="line">    Console.WriteLine(&quot;主线程测试结束..&quot;);</span><br><span class="line">    Console.ReadLine();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">static void ThMethod()</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;异步执行开始&quot;);</span><br><span class="line">    for (int i &#x3D; 0; i &lt; 5; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;异步执行&quot; + i.ToString() + &quot;..&quot;);</span><br><span class="line">        Thread.Sleep(1000);</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine(&quot;异步执行完成&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Parallel.ForEach 和 ForEach 与 Parallel.For 和 For 一样，一个是异步执行，开辟多个线程。一个是同步执行，开辟一个线程。因此，效率方面同上，主要看执行的什么任务，在此不作具体说明。</p>
+<p>下面写了一些代码，从下面的代码中我们可以看出Parallel.ForEach具体开辟了几个线程，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">&#123;</span><br><span class="line">    static void Main(string[] args)</span><br><span class="line">    &#123;</span><br><span class="line">        int[] intList &#x3D; new int[] &#123; 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 &#125;;</span><br><span class="line">        ParallelLoopResult result &#x3D; Parallel.ForEach(intList, (s,pls,longs) &#x3D;&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(longs + &quot;  &quot; + s);</span><br><span class="line">            pls.Stop();</span><br><span class="line">            if (pls.IsStopped)</span><br><span class="line">            &#123;</span><br><span class="line">                Parallel.Invoke(Gs,Ks);&#x2F;&#x2F;异步调用多个方法</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        Console.ReadKey();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void Gs()</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;异步方法1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void Ks()</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;异步方法2&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码中，调用了Stop()方法，我们都知道，如果是同步执行的，调用Stop()后，会立即停止执行，那么程序只会输出索引值为0的结果。而在异步中不是这样的，异步迭代是多线程且没有顺序的。其执行结果如下：</p>
+<p>多次执行的结果可能不同。</p>
+<p><img src="/images/451016-20170519115856900-333831738.png" alt=""></p>
+<p><img src="/images/451016-20170519115942932-756096433.png" alt=""></p>
+<p>如上图所示，第一个图开辟了三个线程，执行顺序为 0 2 1，第二个图开辟了两个线程，执行顺序为：1 0 </p>
+<p>下面的Invoke()方法是异步调用其他的方法，在此不作解释，可参考C# Invoke()</p>
+<p><strong>设置开启的线程的个数：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Parallel.ForEach(NameArray,new ParallelOptions&#123;MaxDegreeOfParallelism&#x3D;3&#125;,(item,pls,i)&#x3D;&gt;</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/09/18/%E3%80%90Angular%E3%80%91%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/18/%E3%80%90Angular%E3%80%91%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">【Angular】配置文件之环境配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-18 13:56:11" itemprop="dateCreated datePublished" datetime="2018-09-18T13:56:11+08:00">2018-09-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>假设有三个环境：开发环境（dev）、测试环境(test)、生产环境(prod)。<br> 当我们构建参数时会用到 –prod来指定应用执行环境。脚手架会根据指定的值加载对应的环境配置文件。如：ng build –prod=dev –aot 就是build开发环境的包。那么我们就从这里开始看看Angular项目里环境该怎么配置。</p>
+</blockquote>
+<ol>
+<li>首先要找到.angular.json文件的production关键词进行如下配置： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&quot;configurations&quot;: &#123;</span><br><span class="line">  &quot;production&quot;: &#123;</span><br><span class="line">    &quot;fileReplacements&quot;: [&#123;</span><br><span class="line">      &quot;replace&quot;: &quot;src&#x2F;environments&#x2F;environment.ts&quot;,</span><br><span class="line">      &quot;with&quot;: &quot;src&#x2F;environments&#x2F;environment.prod.ts&quot;</span><br><span class="line">    &#125;],</span><br><span class="line">    &quot;optimization&quot;: true,</span><br><span class="line">    &quot;outputHashing&quot;: &quot;all&quot;,</span><br><span class="line">    &quot;sourceMap&quot;: false,</span><br><span class="line">    &quot;extractCss&quot;: true,</span><br><span class="line">    &quot;namedChunks&quot;: false,</span><br><span class="line">    &quot;aot&quot;: true,</span><br><span class="line">    &quot;extractLicenses&quot;: true,</span><br><span class="line">    &quot;vendorChunk&quot;: false,</span><br><span class="line">    &quot;buildOptimizer&quot;: true</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;dev&quot;: &#123;</span><br><span class="line">    &quot;fileReplacements&quot;: [&#123;</span><br><span class="line">      &quot;replace&quot;: &quot;src&#x2F;environments&#x2F;environment.ts&quot;,</span><br><span class="line">      &quot;with&quot;: &quot;src&#x2F;environments&#x2F;environment.dev.ts&quot;</span><br><span class="line">    &#125;],</span><br><span class="line">    &quot;optimization&quot;: true,</span><br><span class="line">    &quot;outputHashing&quot;: &quot;all&quot;,</span><br><span class="line">    &quot;sourceMap&quot;: false,</span><br><span class="line">    &quot;extractCss&quot;: true,</span><br><span class="line">    &quot;namedChunks&quot;: false,</span><br><span class="line">    &quot;aot&quot;: true,</span><br><span class="line">    &quot;extractLicenses&quot;: true,</span><br><span class="line">    &quot;vendorChunk&quot;: false,</span><br><span class="line">    &quot;buildOptimizer&quot;: true</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;test&quot;: &#123;</span><br><span class="line">    &quot;fileReplacements&quot;: [&#123;</span><br><span class="line">      &quot;replace&quot;: &quot;src&#x2F;environments&#x2F;environment.ts&quot;,</span><br><span class="line">      &quot;with&quot;: &quot;src&#x2F;environments&#x2F;environment.test.ts&quot;</span><br><span class="line">    &#125;],</span><br><span class="line">    &quot;optimization&quot;: true,</span><br><span class="line">    &quot;outputHashing&quot;: &quot;all&quot;,</span><br><span class="line">    &quot;sourceMap&quot;: false,</span><br><span class="line">    &quot;extractCss&quot;: true,</span><br><span class="line">    &quot;namedChunks&quot;: false,</span><br><span class="line">    &quot;aot&quot;: true,</span><br><span class="line">    &quot;extractLicenses&quot;: true,</span><br><span class="line">    &quot;vendorChunk&quot;: false,</span><br><span class="line">    &quot;buildOptimizer&quot;: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>再进入environments文件夹<br>文件目录：<br>├─ environments<br>│ ├─ environment.ts<br>│ ├─ environment.test.ts<br>│ ├─ environment.prod.ts 开发环境 ：</li>
+</ol>
+<ul>
+<li>environment.ts <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export const environment &#x3D; &#123;</span><br><span class="line">  production: true,</span><br><span class="line">  envName: &#39;prod&#39;,</span><br><span class="line">  apiBaseURL: &#39;http:&#x2F;&#x2F;10.**.**.***:81&#39;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+测试环境：</li>
+<li>environment.test.ts <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 测试环境</span><br><span class="line">&#x2F;&#x2F; ng build --prod&#x3D;test --aot</span><br><span class="line">export const environment &#x3D; &#123;</span><br><span class="line">    production: false,</span><br><span class="line">    envName: &#39;test&#39;,</span><br><span class="line">    apiBaseURL: &#39;http:&#x2F;&#x2F;10.25.141.150:1111&#39;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+生产环境：</li>
+<li>environment.prod.ts <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 生产环境</span><br><span class="line">&#x2F;&#x2F; ng build --prod&#x3D;prod --aot</span><br><span class="line">export const environment &#x3D; &#123;</span><br><span class="line">  production: false,</span><br><span class="line">  envName: &#39;prod&#39;,</span><br><span class="line">  apiBaseURL: &#39;http:&#x2F;&#x2F;10.25.141.150:81&#39;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol>
+<li>在项目的相对路径引入环境再请求接口,代码如下： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import &#123; environment &#125; from &#39;..&#x2F;environments&#x2F;environment&#39;;</span><br><span class="line"></span><br><span class="line">export const appConfig &#x3D; &#123;</span><br><span class="line">    apiUrl: environment.apiBaseURL,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+Angular6有些改动， 参考自：  </li>
+</ol>
+<p>作者：莫莫莫I<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d9397954dc8f">https://www.jianshu.com/p/d9397954dc8f</a><br>來源：简书<br>简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/44/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/44/">44</a><span class="page-number current">45</span><a class="page-number" href="/page/46/">46</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/46/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+   	鄂ICP备 -
+    <a target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow">17012779号</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22:07</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

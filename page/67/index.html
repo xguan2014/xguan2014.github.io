@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/67/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/67/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/11/05/%E3%80%90%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E3%80%91FileHelp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/05/%E3%80%90%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E3%80%91FileHelp/" class="post-title-link" itemprop="url">【常用代码】FileHelp</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-05 15:16:14" itemprop="dateCreated datePublished" datetime="2017-11-05T15:16:14+08:00">2017-11-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">常用代码</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>23k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>21 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br><span class="line">573</span><br><span class="line">574</span><br><span class="line">575</span><br><span class="line">576</span><br><span class="line">577</span><br><span class="line">578</span><br><span class="line">579</span><br><span class="line">580</span><br><span class="line">581</span><br><span class="line">582</span><br><span class="line">583</span><br><span class="line">584</span><br><span class="line">585</span><br><span class="line">586</span><br><span class="line">587</span><br><span class="line">588</span><br><span class="line">589</span><br><span class="line">590</span><br><span class="line">591</span><br><span class="line">592</span><br><span class="line">593</span><br><span class="line">594</span><br><span class="line">595</span><br><span class="line">596</span><br><span class="line">597</span><br><span class="line">598</span><br><span class="line">599</span><br><span class="line">600</span><br><span class="line">601</span><br><span class="line">602</span><br><span class="line">603</span><br><span class="line">604</span><br><span class="line">605</span><br><span class="line">606</span><br><span class="line">607</span><br><span class="line">608</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.IO;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using System.Web;</span><br><span class="line"></span><br><span class="line">namespace FileHelper</span><br><span class="line">&#123;</span><br><span class="line">    public static class FileHelp</span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 根据文件的地址,获取文件目录(json)</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &#123;filename&#x3D;,&#125;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;basePath&quot;&gt;网站目录&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;path&quot;&gt;路径&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;all&quot;&gt;是否是所有文件(true,false--第一个)&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">        public static List&lt;object&gt; GetFiles(string basePath, string path, bool all)</span><br><span class="line">        &#123;</span><br><span class="line">            List&lt;object&gt; list &#x3D; new List&lt;object&gt;();&#x2F;&#x2F;申明文件列表object类型</span><br><span class="line">            &#x2F;&#x2F;网站目录根目录下Document\Files  为文件地址</span><br><span class="line">            string str &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\Document\Files&quot;, basePath));</span><br><span class="line">            &#x2F;&#x2F;获取完整地址</span><br><span class="line">            string str2 &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, str, path));</span><br><span class="line">            &#x2F;&#x2F;判断是否存在目录</span><br><span class="line">            if (!Directory.Exists(str2))</span><br><span class="line">            &#123;</span><br><span class="line">                &#x2F;&#x2F;创建目录</span><br><span class="line">                Directory.CreateDirectory(str2);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            DirectoryInfo info &#x3D; new DirectoryInfo(str2);</span><br><span class="line">            &#x2F;&#x2F;获取目录下所有子目录(按名字排序)</span><br><span class="line">            foreach (DirectoryInfo info2 in from x in info.GetDirectories()</span><br><span class="line">                                            orderby x.Name</span><br><span class="line">                                            select x)</span><br><span class="line">            &#123;</span><br><span class="line">                &#x2F;&#x2F;创建匿名类: 其中filename 为文件名, extension为文件扩展名 ,图标为文件夹图片(EasyUI 图标)</span><br><span class="line">                list.Add(new &#123; filename &#x3D; info2.Name, extension &#x3D; &quot;&quot;, typeIcon &#x3D; &quot;&#x2F;Content&#x2F;themes&#x2F;icons&#x2F;folder.png&quot;, size &#x3D; &quot;文件夹&quot;, createtime &#x3D; info2.CreationTime.ToString(), updatetime &#x3D; info2.LastWriteTime.ToString(), path &#x3D; info2.FullName.Replace(str, &quot;&quot;) &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">            if (all)</span><br><span class="line">            &#123;</span><br><span class="line">                foreach (FileInfo info3 in from x in info.GetFiles()</span><br><span class="line">                                           orderby x.CreationTime</span><br><span class="line">                                           select x)</span><br><span class="line">                &#123;</span><br><span class="line">                    list.Add(FileHelp.CreateJsonObject(basePath, str, info3));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return list;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 获取文件夹树</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;basePath&quot;&gt;根目录&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;id&quot;&gt;地址&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;file&quot;&gt;标记&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">        public static List&lt;object&gt; GetDirectoryTree(string basePath, string id, string file)</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            List&lt;object&gt; list &#x3D; new List&lt;object&gt;();&#x2F;&#x2F;申明文件列表object类型</span><br><span class="line">            &#x2F;&#x2F;网站目录根目录下Document\Files  为文件地址</span><br><span class="line">            string str &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\Document\Files&quot;, basePath));</span><br><span class="line">            var isUserTablePng &#x3D; true;</span><br><span class="line">            var idArray &#x3D; id.Split(&#39;\\&#39;);&#x2F;&#x2F;将ID 分割</span><br><span class="line">            if (idArray.Count() &gt; 1)</span><br><span class="line">            &#123;</span><br><span class="line">                isUserTablePng &#x3D; false;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            if (id &#x3D;&#x3D; &quot;all&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                &#x2F;&#x2F;加载Document\Files 下所有目录</span><br><span class="line">                ;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                &#x2F;&#x2F;加载 Id路径下所有子目录并生成 json返回</span><br><span class="line">                str &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, str, id));</span><br><span class="line">            &#125;</span><br><span class="line">            if (!Directory.Exists(str))</span><br><span class="line">            &#123;</span><br><span class="line">                &#x2F;&#x2F;创建目录</span><br><span class="line">                Directory.CreateDirectory(str);</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F;获取所有的目录  </span><br><span class="line">            DirectoryInfo info &#x3D; new DirectoryInfo(str);</span><br><span class="line">            var theGiretorises &#x3D; (from x in info.GetDirectories()</span><br><span class="line">                                  orderby x.Name</span><br><span class="line">                                  select x).ToList();</span><br><span class="line">            for (int i &#x3D; 0; i &lt; theGiretorises.Count(); i++)</span><br><span class="line">            &#123;</span><br><span class="line">                DirectoryInfo info2 &#x3D; theGiretorises[i];</span><br><span class="line">                &#x2F;&#x2F;获取该目录的类型: 如果该目录为文件夹  调用本方法 </span><br><span class="line">                var thePath &#x3D; info2.Name;</span><br><span class="line">                if (id !&#x3D; &quot;all&quot;)</span><br><span class="line">                &#123;</span><br><span class="line">                    thePath &#x3D; string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, id, info2.Name);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                var children &#x3D; FileHelp.GetDirectoryTree(basePath, thePath, &quot;closed&quot;);&#x2F;&#x2F;获取该不目录下所有子目录文档</span><br><span class="line"></span><br><span class="line">                if (file !&#x3D; &quot;closed&quot;)</span><br><span class="line">                &#123;</span><br><span class="line">                    list.Add(new &#123; id &#x3D; thePath, iconCls &#x3D; &quot;folder_table&quot;, state &#x3D; &quot;open&quot;, text &#x3D; info2.Name, children &#x3D; children &#125;);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line"></span><br><span class="line">                    list.Add(new &#123; id &#x3D; thePath, state &#x3D; &quot;closed&quot;, text &#x3D; info2.Name, children &#x3D; children &#125;);</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return list;&#x2F;&#x2F;返回Json结果</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 创建目录</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;basePath&quot;&gt;根目录&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;path&quot;&gt;文件相对地址&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">        public static object CreateFolder(string basePath, string path)</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            string str &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\Document\Files&quot;, basePath));</span><br><span class="line">            &#x2F;&#x2F;完整地址</span><br><span class="line">            string str2 &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, str, path));</span><br><span class="line">            if (Directory.Exists(str2))</span><br><span class="line">            &#123;</span><br><span class="line">                return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; &quot;该文件夹已经存在！&quot; &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F;创建目录</span><br><span class="line">            Directory.CreateDirectory(str2);</span><br><span class="line">            return new &#123; result &#x3D; &quot;ok&quot;, message &#x3D; &quot;创建成功！&quot; &#125;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 删除文件 删除文件 返回json</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;basePath&quot;&gt;根目录&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;files&quot;&gt;地址&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">        public static object Delete(string basePath, string[] files)</span><br><span class="line">        &#123;</span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                &#x2F;&#x2F;获取地址</span><br><span class="line">                string str &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\Document\Files&quot;, basePath));</span><br><span class="line">                foreach (string str2 in files)</span><br><span class="line">                &#123;</span><br><span class="line">                    string[] strArray &#x3D; str2.Split(new char[] &#123; &#39;*&#39; &#125;);</span><br><span class="line">                    string path &#x3D; str + strArray[0];</span><br><span class="line">                    &#x2F;&#x2F;存在文件</span><br><span class="line">                    if (File.Exists(path) &amp;&amp; (strArray[1] &#x3D;&#x3D; &quot;1&quot;))</span><br><span class="line">                    &#123;</span><br><span class="line">                        &#x2F;&#x2F;删除此文件</span><br><span class="line">                        File.Delete(path);</span><br><span class="line">                    &#125;</span><br><span class="line">                    else if (Directory.Exists(path) &amp;&amp; (strArray[1] &#x3D;&#x3D; &quot;0&quot;))</span><br><span class="line">                    &#123;</span><br><span class="line">                        &#x2F;&#x2F;删除文件以及其子目录文件</span><br><span class="line">                        Directory.Delete(path, true);</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        &#x2F;&#x2F;失败</span><br><span class="line">                        return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; strArray[0] + &quot;-操作错误！&quot; &#125;;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                return new &#123; result &#x3D; &quot;ok&quot;, message &#x3D; &quot;删除成功！&quot; &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            catch (Exception exception)</span><br><span class="line">            &#123;</span><br><span class="line">                &#x2F;&#x2F;删除出错</span><br><span class="line">                return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; exception.Message &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 删除文件 返回bool</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;filePath&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">        public static bool Delete(string filePath)</span><br><span class="line">        &#123;</span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line"></span><br><span class="line">                &#x2F;&#x2F;存在文件</span><br><span class="line">                if (File.Exists(filePath))</span><br><span class="line">                &#123;</span><br><span class="line">                    &#x2F;&#x2F;删除此文件</span><br><span class="line">                    File.Delete(filePath);</span><br><span class="line">                &#125;</span><br><span class="line">                else if (Directory.Exists(filePath))</span><br><span class="line">                &#123;</span><br><span class="line">                    &#x2F;&#x2F;删除文件以及其子目录文件</span><br><span class="line">                    Directory.Delete(filePath, true);</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    &#x2F;&#x2F;失败</span><br><span class="line">                    return false;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            catch (Exception exception)</span><br><span class="line">            &#123;</span><br><span class="line">                &#x2F;&#x2F;删除出错</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 压缩文件</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;basePath&quot;&gt;网站根目录&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;path&quot;&gt;相对文件地址&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;zipName&quot;&gt;压缩名称&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;files&quot;&gt;文件名称  1- 文件夹  0 -- 文件&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">        public static object Zip(string basePath, string path, string zipName, string[] files)</span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            string str &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\Document\Files&quot;, basePath));</span><br><span class="line">            string str2 &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, str, path));</span><br><span class="line">            string str3 &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;.zip&quot;, str2, zipName));</span><br><span class="line">            if (File.Exists(str3))</span><br><span class="line">            &#123;</span><br><span class="line">                return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; &quot;压缩文件名称已经存在！&quot; &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line"></span><br><span class="line">                var thepath &#x3D; files[0].Split(&#39;*&#39;);</span><br><span class="line">                var Path &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, str, thepath[0]));</span><br><span class="line">                if (ZIPHelper.Compress(Path, str3, true))</span><br><span class="line">                &#123;</span><br><span class="line">                    FileInfo fi &#x3D; new FileInfo(str3);</span><br><span class="line">                    object obj2 &#x3D; FileHelp.CreateJsonObject(basePath, str, fi);</span><br><span class="line">                    return new &#123; result &#x3D; &quot;ok&quot;, data &#x3D; obj2 &#125;;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; &quot;压缩错误&quot; &#125;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            catch (Exception exception)</span><br><span class="line">            &#123;</span><br><span class="line">                return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; exception.Message &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 文件移动</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;basePath&quot;&gt;根目录&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;path&quot;&gt;地址&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;files&quot;&gt;地址参数&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">        public static object Move(string basePath, string path, string[] files)</span><br><span class="line">        &#123;</span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                &#x2F;&#x2F;根地址</span><br><span class="line">                string str &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\Document\Files&quot;, basePath));</span><br><span class="line">                &#x2F;&#x2F;完整地址</span><br><span class="line">                string str2 &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, str, path));</span><br><span class="line">                foreach (string str3 in files)</span><br><span class="line">                &#123;</span><br><span class="line">                    string[] strArray &#x3D; str3.Split(new char[] &#123; &#39;*&#39; &#125;);</span><br><span class="line">                    string str4 &#x3D; strArray[0].Substring(strArray[0].LastIndexOf(@&quot;\&quot;) + 1);</span><br><span class="line">                    &#x2F;&#x2F;原地址</span><br><span class="line">                    string str5 &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, str, strArray[0]));</span><br><span class="line">                    &#x2F;&#x2F;目标地址</span><br><span class="line">                    string str6 &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, str2, str4));</span><br><span class="line">                    if (str5 &#x3D;&#x3D; str6)</span><br><span class="line">                    &#123;</span><br><span class="line">                        return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; &quot;目标路径与源路径不能相同！&quot; &#125;;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (File.Exists(str6) &amp;&amp; (strArray[1] &#x3D;&#x3D; &quot;1&quot;))</span><br><span class="line">                    &#123;</span><br><span class="line">                        return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; string.Format(&quot;目标路径已存在相同文件名的文件(&#123;0&#125;),操作被迫中止！&quot;, str4) &#125;;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (File.Exists(str5) &amp;&amp; (strArray[1] &#x3D;&#x3D; &quot;1&quot;))</span><br><span class="line">                    &#123;</span><br><span class="line">                        File.Move(str5, str6);</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        if (Directory.Exists(str6) &amp;&amp; (strArray[1] &#x3D;&#x3D; &quot;0&quot;))</span><br><span class="line">                        &#123;</span><br><span class="line">                            return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; string.Format(&quot;目标路径已存在相同文件夹名称(&#123;0&#125;),操作被迫中止！&quot;, str4) &#125;;</span><br><span class="line">                        &#125;</span><br><span class="line">                        if (Directory.Exists(str5) &amp;&amp; (strArray[1] &#x3D;&#x3D; &quot;0&quot;))</span><br><span class="line">                        &#123;</span><br><span class="line">                            Directory.Move(str5, str6);</span><br><span class="line">                        &#125;</span><br><span class="line">                        else</span><br><span class="line">                        &#123;</span><br><span class="line">                            return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; strArray[0] + &quot;-操作错误！&quot; &#125;;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                &#x2F;&#x2F;剪切操作</span><br><span class="line">                return new &#123; result &#x3D; &quot;ok&quot;, message &#x3D; &quot;剪切成功！&quot; &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            catch (Exception exception)</span><br><span class="line">            &#123;</span><br><span class="line">                &#x2F;&#x2F;操作错误</span><br><span class="line">                return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; exception.Message &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 文件复制</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;basePath&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;path&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;files&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">        public static object Copy(string basePath, string path, string[] files)</span><br><span class="line">        &#123;</span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                string str &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\Document\Files&quot;, basePath));</span><br><span class="line">                string str2 &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, str, path));</span><br><span class="line">                foreach (string str3 in files)</span><br><span class="line">                &#123;</span><br><span class="line">                    string[] strArray &#x3D; str3.Split(new char[] &#123; &#39;*&#39; &#125;);</span><br><span class="line">                    string str4 &#x3D; strArray[0].Substring(strArray[0].LastIndexOf(@&quot;\&quot;) + 1);</span><br><span class="line">                    string str5 &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, str, strArray[0]));</span><br><span class="line">                    string str6 &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, str2, str4));</span><br><span class="line">                    if (str5 &#x3D;&#x3D; str6)</span><br><span class="line">                    &#123;</span><br><span class="line">                        return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; &quot;目标路径与源路径不能相同！&quot; &#125;;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (File.Exists(str6) &amp;&amp; (strArray[1] &#x3D;&#x3D; &quot;1&quot;))</span><br><span class="line">                    &#123;</span><br><span class="line">                        return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; string.Format(&quot;目标路径已存在相同文件名的文件(&#123;0&#125;),操作被迫中止！&quot;, str4) &#125;;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (File.Exists(str5) &amp;&amp; (strArray[1] &#x3D;&#x3D; &quot;1&quot;))</span><br><span class="line">                    &#123;</span><br><span class="line">                        File.Copy(str5, str6);</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        if (Directory.Exists(str6) &amp;&amp; (strArray[1] &#x3D;&#x3D; &quot;0&quot;))</span><br><span class="line">                        &#123;</span><br><span class="line">                            return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; string.Format(&quot;目标路径已存在相同文件夹名称(&#123;0&#125;),操作被迫中止！&quot;, str4) &#125;;</span><br><span class="line">                        &#125;</span><br><span class="line">                        if (Directory.Exists(str5) &amp;&amp; (strArray[1] &#x3D;&#x3D; &quot;0&quot;))</span><br><span class="line">                        &#123;</span><br><span class="line">                            &#x2F;&#x2F;复制</span><br><span class="line">                            FileHelp.DireactoryCopy(str5, str6);</span><br><span class="line">                        &#125;</span><br><span class="line">                        else</span><br><span class="line">                        &#123;</span><br><span class="line">                            return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; strArray[0] + &quot;-操作错误！&quot; &#125;;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                return new &#123; result &#x3D; &quot;ok&quot;, message &#x3D; &quot;复制成功！&quot; &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            catch (Exception exception)</span><br><span class="line">            &#123;</span><br><span class="line">                return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; exception.Message &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 重命名</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;basePath&quot;&gt;根目录&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;path&quot;&gt;相对位置&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;oldFileName&quot;&gt;旧名称&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;newFileName&quot;&gt;新名称&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;type&quot;&gt;类型&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">        public static object Rename(string basePath, string path, string oldFileName, string newFileName, string type)</span><br><span class="line">        &#123;</span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                string str &#x3D; string.Format(@&quot;&#123;0&#125;\Document\Files&quot;, basePath);</span><br><span class="line">                string str2 &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;\&#123;2&#125;&quot;, str, path, oldFileName));</span><br><span class="line">                string str3 &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;\&#123;2&#125;&#123;3&#125;&quot;, new object[] &#123; str, path, newFileName, Path.GetExtension(oldFileName) &#125;));</span><br><span class="line">                if (type &#x3D;&#x3D; &quot;0&quot;)</span><br><span class="line">                &#123;</span><br><span class="line">                    if (!Directory.Exists(str2))</span><br><span class="line">                    &#123;</span><br><span class="line">                        return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; &quot;源文件夹已不存在！&quot; &#125;;</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (Directory.Exists(str3))</span><br><span class="line">                    &#123;</span><br><span class="line">                        return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; &quot;该文件夹名称已经存在！&quot; &#125;;</span><br><span class="line">                    &#125;</span><br><span class="line">                    Directory.Move(str2, str3);</span><br><span class="line">                    return new &#123; result &#x3D; &quot;ok&quot;, message &#x3D; &quot;重命名成功！&quot; &#125;;</span><br><span class="line">                &#125;</span><br><span class="line">                if (!File.Exists(str2))</span><br><span class="line">                &#123;</span><br><span class="line">                    return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; &quot;源文件已不存在！&quot; &#125;;</span><br><span class="line">                &#125;</span><br><span class="line">                if (File.Exists(str3))</span><br><span class="line">                &#123;</span><br><span class="line">                    return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; &quot;该文件名称已经存在！&quot; &#125;;</span><br><span class="line">                &#125;</span><br><span class="line">                File.Move(str2, str3);</span><br><span class="line">                return new &#123; result &#x3D; &quot;ok&quot;, message &#x3D; &quot;重命名成功！&quot; &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            catch (Exception exception)</span><br><span class="line">            &#123;</span><br><span class="line">                return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; exception.Message &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 上传文件</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;basePath&quot;&gt;根目录&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;path&quot;&gt;相对地址&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">        public static object Upload(string basePath, string path, HttpPostedFileBase file)</span><br><span class="line">        &#123;</span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                string str &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\Document\Files&quot;, basePath));</span><br><span class="line">                string destpath &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, str, path));</span><br><span class="line">                if (FileHelp.SaveAs(file, destpath) &gt; 0)</span><br><span class="line">                &#123;</span><br><span class="line">                    return new &#123; result &#x3D; &quot;ok&quot;, message &#x3D; &quot;上传完成！&quot; &#125;;</span><br><span class="line">                &#125;</span><br><span class="line">                return new &#123; result &#x3D; &quot;null&quot;, message &#x3D; &quot;未移动任何文件！&quot; &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            catch (Exception exception)</span><br><span class="line">            &#123;</span><br><span class="line">                return new &#123; result &#x3D; &quot;error&quot;, message &#x3D; exception.Message &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 文件保存在本地</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;type&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;destpath&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">        public static int SaveAs(HttpPostedFileBase file, string destpath)</span><br><span class="line">        &#123;</span><br><span class="line">            string fileName &#x3D; string.Empty;&#x2F;&#x2F;文件名</span><br><span class="line">            string dir &#x3D; string.Empty;&#x2F;&#x2F;文件相对路径</span><br><span class="line">            if (file !&#x3D; null)</span><br><span class="line">            &#123;</span><br><span class="line">                fileName &#x3D; Path.GetFileName(file.FileName);</span><br><span class="line">                string fileExt &#x3D; Path.GetExtension(fileName);&#x2F;&#x2F;文件扩展名</span><br><span class="line">                &#x2F;&#x2F;文件限制</span><br><span class="line">                if (!Directory.Exists(destpath)) &#x2F;&#x2F;   创建文件夹</span><br><span class="line">                &#123;</span><br><span class="line">                    Directory.CreateDirectory(destpath);</span><br><span class="line">                &#125;</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    file.SaveAs(destpath);&#x2F;&#x2F;存储文件</span><br><span class="line">                    return 1;</span><br><span class="line">                &#125;</span><br><span class="line">                catch (Exception)</span><br><span class="line">                &#123;</span><br><span class="line"></span><br><span class="line">                    return 0;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                return 0;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 获取下载文件真实地址</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;basePath&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;path&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;files&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">        public static string Download(string basePath, string[] paths, string newFileName)</span><br><span class="line">        &#123;</span><br><span class="line">            &#x2F;&#x2F;对于多个文件下载,先建立一个新的文件夹 将所有文件 复制到新文件夹中</span><br><span class="line">            &#x2F;&#x2F;并返回新文件夹的 地址</span><br><span class="line">            &#x2F;&#x2F;basePath 默认是     document &#x2F;files</span><br><span class="line">            &#x2F;&#x2F;path  为文件的相对地址</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;第一步 ,创建一个新的文件夹</span><br><span class="line"></span><br><span class="line">            if (!Directory.Exists(newFileName))</span><br><span class="line">            &#123;</span><br><span class="line">                Directory.CreateDirectory(newFileName);</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F; 第二步 将文件复制到文件夹内</span><br><span class="line"></span><br><span class="line">            foreach (var path in paths)</span><br><span class="line">            &#123;</span><br><span class="line">                bool isDireactory &#x3D; false;&#x2F;&#x2F;默认 不是文件夹</span><br><span class="line">                string[] thepath &#x3D; path.Split(&#39;*&#39;);</span><br><span class="line">                if (thepath[1] !&#x3D; &quot;1&quot;)</span><br><span class="line">                &#123;</span><br><span class="line">                    isDireactory &#x3D; true;&#x2F;&#x2F;为文件夹</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                string str2 &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, basePath, thepath[0]));&#x2F;&#x2F;旧地址</span><br><span class="line">                string str3 &#x3D; FileHelp.Standard(string.Format(@&quot;&#123;0&#125;\&#123;1&#125;&quot;, newFileName, thepath[0]));&#x2F;&#x2F;新地址</span><br><span class="line">                &#x2F;&#x2F;判断文件是文件夹还是文件</span><br><span class="line">                if (isDireactory)</span><br><span class="line">                &#123;</span><br><span class="line">                    DireactoryCopy(str2, str3);&#x2F;&#x2F;文件夹复制</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    FileCopy(str2, str3);  &#x2F;&#x2F;文件复制</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return FileHelp.Standard(newFileName);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 文件夹复制</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;source&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;target&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">        private static void DireactoryCopy(string source, string target)</span><br><span class="line">        &#123;</span><br><span class="line">            if (!target.StartsWith(source, StringComparison.CurrentCultureIgnoreCase))</span><br><span class="line">            &#123;</span><br><span class="line">                DirectoryInfo info &#x3D; new DirectoryInfo(source);</span><br><span class="line">                DirectoryInfo info2 &#x3D; new DirectoryInfo(target);</span><br><span class="line">                info2.Create();</span><br><span class="line">                FileInfo[] files &#x3D; info.GetFiles();</span><br><span class="line">                foreach (FileInfo info3 in files)</span><br><span class="line">                &#123;</span><br><span class="line">                    File.Copy(info3.FullName, info2.FullName + @&quot;\&quot; + info3.Name, true);</span><br><span class="line">                &#125;</span><br><span class="line">                DirectoryInfo[] directories &#x3D; info.GetDirectories();</span><br><span class="line">                foreach (DirectoryInfo info4 in directories)</span><br><span class="line">                &#123;</span><br><span class="line">                    FileHelp.DireactoryCopy(info4.FullName, info2.FullName + @&quot;\&quot; + info4.Name);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 文件复制</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;source&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;target&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">        public static void FileCopy(string source, string target)</span><br><span class="line">        &#123;</span><br><span class="line">            bool isrewrite &#x3D; true; &#x2F;&#x2F; true&#x3D;覆盖已存在的同名文件,false则反之</span><br><span class="line">            System.IO.File.Copy(source, target, isrewrite);&#x2F;&#x2F;复制文件</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 创建Json结果</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;basePath&quot;&gt;根目录(网站)&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;rootPath&quot;&gt;文件完整目录(Document&#x2F;file)&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;fi&quot;&gt;文件信息&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;Json结果&lt;&#x2F;returns&gt;</span><br><span class="line">        private static object CreateJsonObject(string basePath, string rootPath, FileInfo fi)</span><br><span class="line">        &#123;</span><br><span class="line">            &#x2F;&#x2F;返回 文件的扩展名</span><br><span class="line">            string extension &#x3D; Path.GetExtension(fi.FullName);</span><br><span class="line">            &#x2F;&#x2F;获取EasyUI 中对应文件类型的图标</span><br><span class="line">            string str2 &#x3D; string.Format(&quot;&#x2F;Content&#x2F;themes&#x2F;filetype&#x2F;&#123;0&#125;.gif&quot;, extension.Replace(&quot;.&quot;, &quot;&quot;));</span><br><span class="line">            &#x2F;&#x2F;判断是否存在图标</span><br><span class="line">            if (!File.Exists(basePath + str2))</span><br><span class="line">            &#123;</span><br><span class="line">                &#x2F;&#x2F;该文件类型不存在对应图标 ,标记为unknown图表</span><br><span class="line">                str2 &#x3D; string.Format(&quot;&#x2F;Content&#x2F;themes&#x2F;filetype&#x2F;&#123;0&#125;.gif&quot;, &quot;unknown&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F;计算当前图片的大小 (由Byte转换为KB)</span><br><span class="line">            double num &#x3D; ((double)fi.Length) &#x2F; 1024.0;</span><br><span class="line">            &#x2F;&#x2F;返回JsonResult</span><br><span class="line">            return new &#123; filename &#x3D; fi.Name, extension &#x3D; extension, typeIcon &#x3D; str2, size &#x3D; num.ToString(&quot;0.00&quot;) + &quot; KB&quot;, createtime &#x3D; fi.CreationTime.ToString(), updatetime &#x3D; fi.LastWriteTime.ToString(), path &#x3D; fi.FullName.Replace(rootPath, &quot;&quot;) &#125;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 标准替换</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 将\\替换为\</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;fileName&quot;&gt;文件名(带有\\)&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;标准文件名&lt;&#x2F;returns&gt;</span><br><span class="line">        public static string Standard(string fileName)</span><br><span class="line">        &#123;</span><br><span class="line">            &#x2F;&#x2F;由于ASP.NET 获取地址带有\\  该地址不能应用与文件夹操作  </span><br><span class="line">            &#x2F;&#x2F;将\\转换为\ 即可</span><br><span class="line">            while (fileName.IndexOf(@&quot;\\&quot;) &gt;&#x3D; 0)</span><br><span class="line">            &#123;</span><br><span class="line">                fileName &#x3D; fileName.Replace(@&quot;\\&quot;, @&quot;\&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            return fileName;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/11/02/%E3%80%90%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E3%80%91%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E5%9D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/02/%E3%80%90%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E3%80%91%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BB%A3%E7%A0%81%E5%9D%97/" class="post-title-link" itemprop="url">【常用代码】常用的一些代码块</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-02 19:59:14" itemprop="dateCreated datePublished" datetime="2017-11-02T19:59:14+08:00">2017-11-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">常用代码</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="一、记录日志"><a href="#一、记录日志" class="headerlink" title="一、记录日志"></a>一、记录日志</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">protected override void OnStart(string[] args)  </span><br><span class="line">&#123;  </span><br><span class="line">    this.WriteLog(&quot;\n当前时间：&quot; + DateTime.Now.ToString(&quot;yyyy-MM-dd hh-mm-ss&quot;) + &quot;\n&quot;);  </span><br><span class="line">    this.WriteLog(&quot;客户端数据同步服务：【服务启动】&quot;);  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">protected override void OnStop()  </span><br><span class="line">&#123;  </span><br><span class="line">    this.WriteLog(&quot;\n当前时间：&quot; + DateTime.Now.ToString(&quot;yyyy-MM-dd hh-mm-ss&quot;)+ &quot;\n&quot;);  </span><br><span class="line">    this.WriteLog(&quot;客户端数据同步服务：【服务停止】&quot;);  </span><br><span class="line">&#125;  </span><br><span class="line">protected override void OnShutdown()  </span><br><span class="line">&#123;  </span><br><span class="line">    this.WriteLog(&quot;\n当前时间：&quot; + DateTime.Now.ToString(&quot;yyyy-MM-dd hh-mm-ss&quot;) + &quot;\n&quot;);  </span><br><span class="line">    this.WriteLog(&quot;客户端数据同步服务：【计算机关闭】&quot;);  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">#region 记录日志  </span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;  </span><br><span class="line">&#x2F;&#x2F;&#x2F; 记录日志  </span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;  </span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;msg&quot;&gt;&lt;&#x2F;param&gt;  </span><br><span class="line">private void WriteLog(string msg)  </span><br><span class="line">&#123;  </span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;string path &#x3D; @&quot;C:\log.txt&quot;;  </span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;该日志文件会存在windows服务程序目录下  </span><br><span class="line">    string path &#x3D; AppDomain.CurrentDomain.BaseDirectory + &quot;\\log.txt&quot;;  </span><br><span class="line">    FileInfo file &#x3D; new FileInfo(path);  </span><br><span class="line">    if (!file.Exists)  </span><br><span class="line">    &#123;  </span><br><span class="line">        FileStream fs;  </span><br><span class="line">        fs &#x3D; File.Create(path);  </span><br><span class="line">        fs.Close();  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    using (FileStream fs &#x3D; new FileStream(path, FileMode.Append, FileAccess.Write))  </span><br><span class="line">    &#123;  </span><br><span class="line">        using (StreamWriter sw &#x3D; new StreamWriter(fs))  </span><br><span class="line">        &#123;  </span><br><span class="line">            sw.WriteLine(DateTime.Now.ToString() + &quot;   &quot; + msg);  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">#endregion  </span><br></pre></td></tr></table></figure>
+<h2 id="二、生成二维码"><a href="#二、生成二维码" class="headerlink" title="二、生成二维码"></a>二、生成二维码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; 生成用户名片</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">public ActionResult creQRcode()</span><br><span class="line">&#123;</span><br><span class="line">    string name &#x3D; Request[&quot;name&quot;]&#x3D;&#x3D;null? &quot;暂无&quot; : Request[&quot;name&quot;];</span><br><span class="line">    string tel &#x3D; Request[&quot;phone&quot;] &#x3D;&#x3D; null ? &quot;400 XXXX 421&quot; : Request[&quot;phone&quot;];</span><br><span class="line">    string TITLE &#x3D; Request[&quot;phone&quot;] &#x3D;&#x3D; null ? &quot;400 XXXX 421&quot; : Request[&quot;phone&quot;];</span><br><span class="line">    string ORG &#x3D; Request[&quot;userTypeName&quot;] &#x3D;&#x3D; null ? &quot;暂无&quot; : Request[&quot;userTypeName&quot;];</span><br><span class="line">    string ADR &#x3D; Request[&quot;address&quot;] &#x3D;&#x3D; null  ? &quot;XXXXX&quot; : Request[&quot;address&quot;];</span><br><span class="line">    string URL &#x3D; &quot;http:&#x2F;&#x2F;www.yhfy.cn&#x2F;&quot;;</span><br><span class="line">    string EMAIL &#x3D; Request[&quot;email&quot;] &#x3D;&#x3D; null ? &quot;bXXXXX1@126.com&quot; : Request[&quot;email&quot;];</span><br><span class="line">    string comment &#x3D; Request[&quot;comment&quot;] &#x3D;&#x3D; null ? &quot;无&quot; : Request[&quot;comment&quot;];</span><br><span class="line"></span><br><span class="line">    StringBuilder card &#x3D; new StringBuilder();</span><br><span class="line">    card.Append(&quot;BEGIN:VCARD&quot;);</span><br><span class="line">    card.Append(&quot;\r\nFN:&quot; + name);&#x2F;&#x2F;姓名</span><br><span class="line">    card.Append(&quot;\r\nTEL;CELL:&quot; + tel);&#x2F;&#x2F;手机号</span><br><span class="line">    card.Append(&quot;\r\nTITLE:&quot; + TITLE);&#x2F;&#x2F;</span><br><span class="line">    card.Append(&quot;\r\nORG:&quot; + ORG+ &quot;-&quot; + comment);</span><br><span class="line">    card.Append(&quot;\r\nTEL;WORK:&quot; + &quot;400-6690421&quot;);</span><br><span class="line">    card.Append(&quot;\r\nADR;WORK:&quot; + ADR);</span><br><span class="line">    card.Append(&quot;\r\nURL:&quot; + URL);</span><br><span class="line">    card.Append(&quot;\r\nEMAIL;WORK:&quot; + EMAIL);</span><br><span class="line">    card.Append(&quot;\r\nEND:VCARD\r\n&quot;);</span><br><span class="line"></span><br><span class="line">    Bitmap bmp &#x3D; GetTwoDimensionCode(card.ToString(), string.Empty, 200, 200, &quot;微软雅黑&quot;);</span><br><span class="line"></span><br><span class="line">    string path &#x3D; &quot;~&#x2F;Upload&#x2F;MyQRCoed&#x2F;&quot;;</span><br><span class="line">    string path2 &#x3D; Request.MapPath(path);</span><br><span class="line">    if (!Directory.Exists(path2))</span><br><span class="line">    &#123;</span><br><span class="line">        Directory.CreateDirectory(path2);</span><br><span class="line">    &#125;</span><br><span class="line">    string guid &#x3D; Guid.NewGuid().ToString();</span><br><span class="line">    string newPath &#x3D; path2 + guid + &quot;.jpg&quot;;</span><br><span class="line">    bmp.Save(newPath, ImageFormat.Jpeg);</span><br><span class="line">    string src &#x3D; &quot;..&#x2F;Upload&#x2F;MyQRCoed&#x2F;&quot; + guid + &quot;.jpg&quot;;</span><br><span class="line">    return Content(src);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; 绘制二维码</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;strSource&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;text&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;width&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;height&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;fontName&quot;&gt;&lt;&#x2F;param&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;returns&gt;&lt;&#x2F;returns&gt;</span><br><span class="line">public static Bitmap GetTwoDimensionCode(string strSource, string text, int width, int height, string fontName)</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F; 创建Bitmap对象</span><br><span class="line">    Bitmap bmp &#x3D; new Bitmap(width, height);</span><br><span class="line">    &#x2F;&#x2F; 从image创建 Graphics对象</span><br><span class="line">    Graphics objGraphics &#x3D; Graphics.FromImage(bmp);</span><br><span class="line">    &#x2F;&#x2F; 填上背景色</span><br><span class="line">    objGraphics.FillRectangle(Brushes.White, 0, 0, bmp.Width, bmp.Height);</span><br><span class="line">    &#x2F;&#x2F; </span><br><span class="line">    ThoughtWorks.QRCode.Codec.QRCodeEncoder qrCodeEncoder &#x3D;</span><br><span class="line">        new ThoughtWorks.QRCode.Codec.QRCodeEncoder();</span><br><span class="line">    &#x2F;&#x2F; 设置编码方法</span><br><span class="line">    qrCodeEncoder.QRCodeEncodeMode &#x3D;</span><br><span class="line">        ThoughtWorks.QRCode.Codec.QRCodeEncoder.ENCODE_MODE.BYTE;</span><br><span class="line">    &#x2F;&#x2F; 设置大小</span><br><span class="line">    qrCodeEncoder.QRCodeScale &#x3D; 3;</span><br><span class="line">    &#x2F;&#x2F; 适用于信息量较少的情形，图像越小保存的信息量越少</span><br><span class="line">    &#x2F;&#x2F; qrCodeEncoder.QRCodeScale &#x3D; 4;</span><br><span class="line">    &#x2F;&#x2F; 设置版本</span><br><span class="line">    qrCodeEncoder.QRCodeVersion &#x3D; 0;</span><br><span class="line">    &#x2F;&#x2F; 设置错误校验的级别，正因为二维码有纠错能力，才能够加入logo</span><br><span class="line">    qrCodeEncoder.QRCodeErrorCorrect &#x3D;</span><br><span class="line">        ThoughtWorks.QRCode.Codec.QRCodeEncoder.ERROR_CORRECTION.M;</span><br><span class="line">    Image image &#x3D; qrCodeEncoder.Encode(strSource, Encoding.GetEncoding(&quot;utf-8&quot;));</span><br><span class="line">    &#x2F;&#x2F; 写入二维码</span><br><span class="line">    int x &#x3D; (int)(width - image.Width) &#x2F; 2;</span><br><span class="line">    int y &#x3D; (int)(height - image.Height) &#x2F; 2;</span><br><span class="line">    objGraphics.DrawImage(image, new Point(x, y));</span><br><span class="line">    &#x2F;&#x2F; 添加Logo图标</span><br><span class="line">    image &#x3D; MvcTMM.Properties.Resources.logo;</span><br><span class="line">    x &#x3D; (int)(width - image.Width) &#x2F; 2;</span><br><span class="line">    y &#x3D; (int)(height - image.Height) &#x2F; 2;</span><br><span class="line">    objGraphics.DrawImage(image, new Point(x, y));</span><br><span class="line">    &#x2F;&#x2F; 写入字符串</span><br><span class="line">    &#x2F;&#x2F;objGraphics.DrawString(text, new Font(fontName, 13, FontStyle.Bold), </span><br><span class="line">    &#x2F;&#x2F;    Brushes.Black, new PointF(43, 15));</span><br><span class="line">    return bmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、图片加水印"><a href="#三、图片加水印" class="headerlink" title="三、图片加水印"></a>三、图片加水印</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Drawing;</span><br><span class="line">using System.Drawing.Drawing2D;</span><br><span class="line">using System.Drawing.Imaging;</span><br><span class="line">using System.IO;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Web;</span><br><span class="line"></span><br><span class="line">namespace MvcTMM.BaseCode</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 调用方法：传入图片的路径，添加水印的文字</span><br><span class="line">    &#x2F;&#x2F;&#x2F; Img.LetterWatermark(@&quot;C:\Users\Administrator\Desktop\Img加水印\Img加水印\bin\1.jpg&quot;, &quot;YHFY:种植前田地状态&quot;);</span><br><span class="line">    &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">    </span><br><span class="line">    public class ImgAddText</span><br><span class="line">    &#123;</span><br><span class="line">        #region 文字水印</span><br><span class="line">        &#x2F;&#x2F;&#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F;&#x2F;&#x2F; 文字水印处理方法</span><br><span class="line">        &#x2F;&#x2F;&#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;path&quot;&gt;图片路径（绝对路径）&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;letter&quot;&gt;水印文字&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;location&quot;&gt;水印位置&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;size&quot;&gt;字体大小&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;returns&gt;图片路径&lt;&#x2F;returns&gt;</span><br><span class="line">        public static string LetterWatermark(string path, string letter, string location &#x3D; &quot;LB&quot;, int size &#x3D; 20)</span><br><span class="line">        &#123;</span><br><span class="line">            #region</span><br><span class="line">            &#x2F;&#x2F;水印的颜色样式</span><br><span class="line">            Color color &#x3D; System.Drawing.Color.FromArgb(224, 207, 201);</span><br><span class="line">            &#x2F;&#x2F;添加时间后缀</span><br><span class="line">            letter +&#x3D; &quot; | &quot; + DateTime.Now.ToLocalTime();</span><br><span class="line"></span><br><span class="line">            string kz_name &#x3D; Path.GetExtension(path);</span><br><span class="line">            if (kz_name &#x3D;&#x3D; &quot;.jpg&quot; || kz_name &#x3D;&#x3D; &quot;.bmp&quot; || kz_name &#x3D;&#x3D; &quot;.jpeg&quot; || kz_name &#x3D;&#x3D; &quot;.png&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                DateTime time &#x3D; DateTime.Now;</span><br><span class="line">                string filename &#x3D; &quot;&quot; + time.Year.ToString() + time.Month.ToString() + time.Day.ToString() + time.Hour.ToString() + time.Minute.ToString() + time.Second.ToString() + time.Millisecond.ToString();</span><br><span class="line">                Image img &#x3D; Bitmap.FromFile(path);</span><br><span class="line">                Graphics gs &#x3D; Graphics.FromImage(img);</span><br><span class="line">                ArrayList loca &#x3D; GetLocation(location, img, size, letter.Length);</span><br><span class="line">                Font font &#x3D; new Font(&quot;微软雅黑&quot;, size);</span><br><span class="line">                Brush br &#x3D; new SolidBrush(color);</span><br><span class="line">                gs.DrawString(letter, font, br, float.Parse(loca[0].ToString()), float.Parse(loca[1].ToString()));</span><br><span class="line">                gs.Dispose();</span><br><span class="line">                string newpath &#x3D; Path.GetDirectoryName(path) + filename + kz_name;</span><br><span class="line">                img.Save(newpath);</span><br><span class="line">                img.Dispose();</span><br><span class="line">                File.Copy(newpath, path, true);</span><br><span class="line">                if (File.Exists(newpath))</span><br><span class="line">                &#123;</span><br><span class="line">                    File.Delete(newpath);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return path;</span><br><span class="line">            #endregion</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 文字水印位置的方法</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;location&quot;&gt;位置代码&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;img&quot;&gt;图片对象&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;width&quot;&gt;宽(当水印类型为文字时,传过来的就是字体的大小)&lt;&#x2F;param&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;height&quot;&gt;高(当水印类型为文字时,传过来的就是字符的长度)&lt;&#x2F;param&gt;</span><br><span class="line">        private static ArrayList GetLocation(string location, Image img, int width, int height)</span><br><span class="line">        &#123;</span><br><span class="line">            ArrayList loca &#x3D; new ArrayList();</span><br><span class="line">            float x &#x3D; 10;</span><br><span class="line">            float y &#x3D; 10;</span><br><span class="line"></span><br><span class="line">            if (location &#x3D;&#x3D; &quot;LT&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                loca.Add(x);</span><br><span class="line">                loca.Add(y);</span><br><span class="line">            &#125;</span><br><span class="line">            else if (location &#x3D;&#x3D; &quot;T&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                x &#x3D; img.Width &#x2F; 2 - (width * height) &#x2F; 2;</span><br><span class="line">                loca.Add(x);</span><br><span class="line">                loca.Add(y);</span><br><span class="line">            &#125;</span><br><span class="line">            else if (location &#x3D;&#x3D; &quot;RT&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                x &#x3D; img.Width - width * height;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (location &#x3D;&#x3D; &quot;LC&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                y &#x3D; img.Height &#x2F; 2;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (location &#x3D;&#x3D; &quot;C&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                x &#x3D; img.Width &#x2F; 2 - (width * height) &#x2F; 2;</span><br><span class="line">                y &#x3D; img.Height &#x2F; 2;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (location &#x3D;&#x3D; &quot;RC&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                x &#x3D; img.Width - height;</span><br><span class="line">                y &#x3D; img.Height &#x2F; 2;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (location &#x3D;&#x3D; &quot;LB&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                y &#x3D; img.Height - width - 15;</span><br><span class="line">            &#125;</span><br><span class="line">            else if (location &#x3D;&#x3D; &quot;B&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                x &#x3D; img.Width &#x2F; 2 - (width * height) &#x2F; 2;</span><br><span class="line">                y &#x3D; img.Height - width - 5;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                x &#x3D; img.Width - width * height;</span><br><span class="line">                y &#x3D; img.Height - width - 5;</span><br><span class="line">            &#125;</span><br><span class="line">            loca.Add(x);</span><br><span class="line">            loca.Add(y);</span><br><span class="line">            return loca;</span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/10/29/%E3%80%90Asp.Net%E3%80%91%E5%A4%A7%E7%99%BD%E8%AF%9DWebSocket%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/10/29/%E3%80%90Asp.Net%E3%80%91%E5%A4%A7%E7%99%BD%E8%AF%9DWebSocket%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">【Asp.Net】大白话WebSocket原理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-10-29 10:51:39" itemprop="dateCreated datePublished" datetime="2017-10-29T10:51:39+08:00">2017-10-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转自：<a target="_blank" rel="noopener" href="http://blog.csdn.net/frank_good/article/details/50856585">http://blog.csdn.net/frank_good/article/details/50856585</a></p>
+<p>偶然在知乎上看到一篇回帖，瞬间觉得之前看的那么多资料都不及这一篇回帖让我对  <code>websocket</code>  的认识深刻有木有。所以转到我博客里，分享一下。比较喜欢看这种博客，读起来很轻松，不枯燥，没有布道师的阵仗，纯粹为分享。废话这么多了，最后再赞一个~</p>
+<h2 id="一、websocket与http"><a href="#一、websocket与http" class="headerlink" title="一、websocket与http"></a><a href=""></a>一、websocket与http</h2><p>WebSocket是HTML5出的东西（协议），也就是说HTTP协议没有变化，或者说没关系，但HTTP是不支持持久连接的（长连接，循环连接的不算）</p>
+<p>首先HTTP有  <code>1.1</code>  和  <code>1.0</code>  之说，也就是所谓的  <code>keep-alive</code>  ，把多个HTTP请求合并为一个，但是  <code>Websocket</code>  其实是一个新协议，跟HTTP协议基本没有关系，只是为了兼容现有浏览器的握手规范而已，也就是说它是HTTP协议上的一种补充可以通过这样一张图理解</p>
+<p><img src="/images/iE3yuqA.png" alt=""></p>
+<p>有交集，但是并不是全部。</p>
+<p>另外Html5是指的一系列新的API，或者说新规范，新技术。Http协议本身只有1.0和1.1，而且跟Html本身没有直接关系。。通俗来说，你可以用HTTP协议传输非Html数据，就是这样=。=</p>
+<p>再简单来说，层级不一样。</p>
+<h2 id="二、Websocket是什么样的协议，具体有什么优点"><a href="#二、Websocket是什么样的协议，具体有什么优点" class="headerlink" title="二、Websocket是什么样的协议，具体有什么优点"></a><a href=""></a>二、Websocket是什么样的协议，具体有什么优点</h2><p>首先，Websocket是一个持久化的协议，相对于HTTP这种非持久的协议来说。简单的举个例子吧，用目前应用比较广泛的PHP生命周期来解释。</p>
+<p>HTTP的生命周期通过  <code>Request</code>  来界定，也就是一个  <code>Request</code>  一个  <code>Response</code>  ，那么在  <code>HTTP1.0</code>  中，这次HTTP请求就结束了。</p>
+<p>在HTTP1.1中进行了改进，使得有一个keep-alive，也就是说，在一个HTTP连接中，可以发送多个Request，接收多个Response。但是请记住  <code>Request
+= Response</code>  ， 在HTTP中永远是这样，也就是说一个request只能有一个response。而且这个response也是被动的，不能主动发起。</p>
+<p>教练，你BB了这么多，跟Websocket有什么关系呢？_(:з」∠)_好吧，我正准备说Websocket呢。。</p>
+<p>首先Websocket是基于HTTP协议的，或者说借用了HTTP的协议来完成一部分握手。</p>
+<p>首先我们来看个典型的  <code>Websocket</code>  握手（借用Wikipedia的。。）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET &#x2F;chat HTTP&#x2F;1.1 Host: server.example.com Upgrade: websocket Connection: Upgrade Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw&#x3D;&#x3D; Sec-WebSocket-Protocol: chat, superchat Sec-WebSocket-Version: 13 Origin: http:&#x2F;&#x2F;example.com</span><br></pre></td></tr></table></figure>
+<p>熟悉HTTP的童鞋可能发现了，这段类似HTTP协议的握手请求中，多了几个东西。我会顺便讲解下作用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Upgrade: websocket Connection: Upgrade</span><br></pre></td></tr></table></figure>
+<p>这个就是Websocket的核心了，告诉  <code>Apache</code>  、  <code>Nginx</code>  等服务器：注意啦，我发起的是Websocket协议，快点帮我找到对应的助理处理~不是那个老土的HTTP。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw&#x3D;&#x3D; Sec-WebSocket-Protocol: chat, superchat Sec-WebSocket-Version: 13</span><br></pre></td></tr></table></figure>
+<p>首先，  <code>Sec-WebSocket-Key</code>  是一个  <code>Base64
+encode</code>  的值，这个是浏览器随机生成的，告诉服务器：泥煤，不要忽悠窝，我要验证尼是不是真的是Websocket助理。</p>
+<p>然后，  <code>Sec_WebSocket-Protocol</code>  是一个用户定义的字符串，用来区分同URL下，不同的服务所需要的协议。简单理解：今晚我要服务A，别搞错啦~</p>
+<p>最后，  <code>Sec-WebSocket-Version</code>  是告诉服务器所使用的  <code>Websocket
+Draft</code> （协议版本），在最初的时候，Websocket协议还在  <code>Draft</code>  阶段，各种奇奇怪怪的协议都有，而且还有很多期奇奇怪怪不同的东西，什么Firefox和Chrome用的不是一个版本之类的，当初Websocket协议太多可是一个大难题。。不过现在还好，已经定下来啦<del>大家都使用的一个东西</del> 脱水： 服务员，我要的是13岁的噢→_→</p>
+<p>然后服务器会返回下列东西，表示已经接受到请求， 成功建立Websocket啦！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP&#x2F;1.1 101 Switching Protocols Upgrade: websocket Connection: Upgrade Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk&#x3D; Sec-WebSocket-Protocol: chat</span><br></pre></td></tr></table></figure>
+<p>这里开始就是HTTP最后负责的区域了，告诉客户，我已经成功切换协议啦~</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Upgrade: websocket Connection: Upgrade</span><br></pre></td></tr></table></figure>
+<p>依然是固定的，告诉客户端即将升级的是  <code>Websocket</code>  协议，而不是mozillasocket，lurnarsocket或者shitsocket。</p>
+<p>然后，  <code>Sec-WebSocket-Accept</code>  这个则是经过服务器确认，并且加密过后的  <code>Sec-WebSocket-Key</code>  。 服务器：好啦好啦，知道啦，给你看我的ID CARD来证明行了吧。。</p>
+<p>后面的，  <code>Sec-WebSocket-Protocol</code>  则是表示最终使用的协议。</p>
+<p>至此，HTTP已经完成它所有工作了，接下来就是完全按照Websocket协议进行了。具体的协议就不在这阐述了。</p>
+<p>——————技术解析部分完毕——————</p>
+<p><img src="/images/yQJFRva.jpg" alt=""></p>
+<p>你TMD又BBB了这么久，那到底Websocket有什么鬼用，  <code>http long poll</code>  ，或者 <code>ajax轮询</code>  不都可以实现实时信息传递么。</p>
+<p><img src="/images/2yIRbun.jpg" alt=""></p>
+<p>好好好，年轻人，那我们来讲一讲Websocket有什么用。来给你吃点胡（苏）萝（丹）卜（红）</p>
+<p><img src="/images/nIV7RbE.jpg" alt=""></p>
+<h2 id="三、Websocket的作用"><a href="#三、Websocket的作用" class="headerlink" title="三、Websocket的作用"></a><a href=""></a>三、Websocket的作用</h2><p>在讲Websocket之前，我就顺带着讲下  <code>long poll</code>  和  <code>ajax轮询</code>  的原理。</p>
+<h3 id="ajax轮询"><a href="#ajax轮询" class="headerlink" title="ajax轮询"></a><a href=""></a>ajax轮询</h3><p>ajax轮询的原理非常简单，让浏览器隔个几秒就发送一次请求，询问服务器是否有新信息。</p>
+<p>场景再现：</p>
+<p>客户端：啦啦啦，有没有新信息(Request)</p>
+<p>服务端：没有（Response）</p>
+<p>客户端：啦啦啦，有没有新信息(Request)</p>
+<p>服务端：没有。。（Response）</p>
+<p>客户端：啦啦啦，有没有新信息(Request)</p>
+<p>服务端：你好烦啊，没有啊。。（Response）</p>
+<p>客户端：啦啦啦，有没有新消息（Request）</p>
+<p>服务端：好啦好啦，有啦给你。（Response）</p>
+<p>客户端：啦啦啦，有没有新消息（Request）</p>
+<p>服务端：。。。。。没。。。。没。。。没有（Response） —- loop</p>
+<h3 id="long-poll"><a href="#long-poll" class="headerlink" title="long poll"></a><a href=""></a>long poll</h3><p><code>long poll</code>  其实原理跟  <code>ajax轮询</code>  差不多，都是采用轮询的方式，不过采取的是阻塞模型（一直打电话，没收到就不挂电话），也就是说，客户端发起连接后，如果没消息，就一直不返回Response给客户端。直到有消息才返回，返回完之后，客户端再次建立连接，周而复始。</p>
+<p>场景再现：</p>
+<p>客户端：啦啦啦，有没有新信息，没有的话就等有了才返回给我吧（Request）</p>
+<p>服务端：额。。 等待到有消息的时候。。来 给你（Response）</p>
+<p>客户端：啦啦啦，有没有新信息，没有的话就等有了才返回给我吧（Request） -loop</p>
+<p>从上面可以看出其实这两种方式，都是在不断地建立HTTP连接，然后等待服务端处理，可以体现HTTP协议的另外一个<a href=""></a>特点，被动性。</p>
+<p>何为被动性呢，其实就是，服务端不能主动联系客户端，只能有客户端发起。</p>
+<p>简单地说就是，服务器是一个很懒的冰箱（这是个梗）（不会、不能主动发起连接），但是上司有命令，如果有客户来，不管多么累都要好好接待。</p>
+<p>说完这个，我们再来说一说上面的缺陷（原谅我废话这么多吧OAQ）</p>
+<p>从上面很容易看出来，不管怎么样，上面这两种都是非常消耗资源的。</p>
+<p>ajax轮询 需要服务器有很快的处理速度和资源。（速度）long poll 需要有很高的并发，也就是说同时接待客户的能力。（场地大小）</p>
+<p>所以  <code>ajax轮询</code>  和  <code>long
+poll</code>  都有可能发生这种情况。</p>
+<p>客户端：啦啦啦啦，有新信息么？</p>
+<p>服务端：月线正忙，请稍后再试（503 Server Unavailable）</p>
+<p>客户端：。。。。好吧，啦啦啦，有新信息么？</p>
+<p>服务端：月线正忙，请稍后再试（503 Server Unavailable）</p>
+<p>客户端：然后服务端在一旁忙的要死：冰箱，我要更多的冰箱！更多。。更多。。（我错了。。这又是梗。。）</p>
+<h3 id="言归正传，我们来说Websocket吧"><a href="#言归正传，我们来说Websocket吧" class="headerlink" title="言归正传，我们来说Websocket吧"></a><a href=""></a>言归正传，我们来说Websocket吧</h3><p>通过上面这个例子，我们可以看出，这两种方式都不是最好的方式，需要很多资源。</p>
+<p>一种需要更快的速度，一种需要更多的’电话’。这两种都会导致’电话’的需求越来越高。</p>
+<p>哦对了，忘记说了HTTP还是一个状态协议。</p>
+<p>通俗的说就是，服务器因为每天要接待太多客户了，是个健忘鬼，你一挂电话，他就把你的东西全忘光了，把你的东西全丢掉了。你第二次还得再告诉服务器一遍。</p>
+<p>所以在这种情况下出现了，Websocket出现了。他解决了HTTP的这几个难题。首先，被动性，当服务器完成协议升级后（HTTP-&gt;Websocket），服务端就可以主动推送信息给客户端啦。所以上面的情景可以做如下修改。</p>
+<p>客户端：啦啦啦，我要建立Websocket协议，需要的服务：chat，Websocket协议版本：17（HTTP Request）</p>
+<p>服务端：ok，确认，已升级为Websocket协议（HTTP Protocols Switched）</p>
+<p>客户端：麻烦你有信息的时候推送给我噢。。</p>
+<p>服务端：ok，有的时候会告诉你的。</p>
+<p>服务端：balabalabalabala</p>
+<p>服务端：balabalabalabala</p>
+<p>服务端：哈哈哈哈哈啊哈哈哈哈</p>
+<p>服务端：笑死我了哈哈哈哈哈哈哈</p>
+<p>就变成了这样，只需要经过一次HTTP请求，就可以做到源源不断的信息传送了。（在程序设计中，这种设计叫做回调，即：你有信息了再来通知我，而不是我傻乎乎的每次跑来问你 ）</p>
+<p>这样的协议解决了上面同步有延迟，而且还非常消耗资源的这种情况。那么为什么他会解决服务器上消耗资源的问题呢？</p>
+<p>其实我们所用的程序是要经过两层代理的，即HTTP协议在Nginx等服务器的解析下，然后再传送给相应的Handler（PHP等）来处理。简单地说，我们有一个非常快速的  <code>接线员（Nginx）</code>  ，他负责把问题转交给相应的  <code>客服（Handler）</code>  。</p>
+<p>本身接线员基本上速度是足够的，但是每次都卡在客服（Handler）了，老有客服处理速度太慢。，导致客服不够。Websocket就解决了这样一个难题，建立后，可以直接跟接线员建立持久连接，有信息的时候客服想办法通知接线员，然后接线员在统一转交给客户。</p>
+<p>这样就可以解决客服处理速度过慢的问题了。</p>
+<p>同时，在传统的方式上，要不断的建立，关闭HTTP协议，由于HTTP是非状态性的，每次都要重新传输  <code>identity info</code>  （鉴别信息），来告诉服务端你是谁。</p>
+<p>虽然接线员很快速，但是每次都要听这么一堆，效率也会有所下降的，同时还得不断把这些信息转交给客服，不但浪费客服的处理时间，而且还会在网路传输中消耗过多的流量/时间。</p>
+<p>但是Websocket只需要一次HTTP握手，所以说整个通讯过程是建立在一次连接/状态中，也就避免了HTTP的非状态性，服务端会一直知道你的信息，直到你关闭请求，这样就解决了接线员要反复解析HTTP协议，还要查看identity info的信息。</p>
+<p>同时由客户主动询问，转换为服务器（推送）有信息的时候就发送（当然客户端还是等主动发送信息过来的。。），没有信息的时候就交给接线员（Nginx），不需要占用本身速度就慢的客服（Handler）了</p>
+<p>——————–</p>
+<p>至于怎么在不支持Websocket的客户端上使用Websocket。。答案是： 不能</p>
+<p>但是可以通过上面说的  <code>long poll</code>  和  <code>ajax
+轮询</code>  来 模拟出类似的效果</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/66/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/66/">66</a><span class="page-number current">67</span><a class="page-number" href="/page/68/">68</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/68/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+   	鄂ICP备 -
+    <a target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow">17012779号</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22:07</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

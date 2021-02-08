@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/4/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/10/16/%E3%80%90Docker%E3%80%91%E5%A6%82%E4%BD%95%E5%A4%8D%E7%8E%B0%E6%9F%A5%E7%9C%8BRun%E5%8F%82%E6%95%B0%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/16/%E3%80%90Docker%E3%80%91%E5%A6%82%E4%BD%95%E5%A4%8D%E7%8E%B0%E6%9F%A5%E7%9C%8BRun%E5%8F%82%E6%95%B0%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">【Docker】如何复现查看Run参数命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-16 21:14:26" itemprop="dateCreated datePublished" datetime="2020-10-16T21:14:26+08:00">2020-10-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">环境搭建</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://www.linuxea.com/2270.html">https://www.linuxea.com/2270.html</a></p>
+</blockquote>
+<p>如果有这样以一个场景。我使用<code>docker run</code>启动了一个<code>redis容器</code>，而<code>docker run</code>的参数有很多，由于时间太久，我已经忘记了当初的启动参数，也并没有使用 <code>docker-compose</code>这样的编排工具。现在我如何进行重启，如何找回此前的启动命令？</p>
+<ul>
+<li>示例</li>
+</ul>
+<p>使用<code>docker run</code>启动一个容器：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="bash"> \</span></span><br><span class="line"><span class="bash"> --detach \</span></span><br><span class="line"><span class="bash"> --env REDIS_CONF=on \</span></span><br><span class="line"><span class="bash"> --env REQUIRE_PASS=OTdmOWI4ZTM4NTY1M2M4OTZh \</span></span><br><span class="line"><span class="bash"> --env MASTER_AUTH=OTdmOWI4ZTM4NTY1M2M4OTZh \</span></span><br><span class="line"><span class="bash"> --env MAXCLIENTS_NUM=30 \</span></span><br><span class="line"><span class="bash"> --net=host \</span></span><br><span class="line"><span class="bash"> --env MAXMEMORY_SIZE=1024M \</span></span><br><span class="line"><span class="bash"> --publish 6379:6379 \</span></span><br><span class="line"><span class="bash"> --volume linuxea_volume \</span></span><br><span class="line"><span class="bash"> --name linuxea_redis \</span></span><br><span class="line"><span class="bash"> --tty --interactive \</span></span><br><span class="line"><span class="bash"> marksugar/redis:5.0.0</span></span><br></pre></td></tr></table></figure>
+<h2 id="docker命令查看"><a href="#docker命令查看" class="headerlink" title="docker命令查看"></a>docker命令查看</h2><p>首先，我们查看启动的脚本参数和完整的命令</p>
+<p>使用 <code>docker ps -a --no-trunc</code></p>
+<p><code>docker ps -a --no-trunc</code>可以打印<code>docker ps -a</code>的隐藏部分，但是这并不能看到我们run的参数</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@LinuxEA-<span class="number">172</span>_25_50_250 ~]<span class="comment"># docker ps -a --no-trunc</span></span><br><span class="line">CONTAINER ID                                                       IMAGE                             COMMAND                CREATED             STATUS              PORTS               NAMES</span><br><span class="line">c32bc1bba3a0f8d59e3bd96648838399287ee183ddbff1ca1293ccbc933c8ede   marksugar/redis:<span class="number">5.0</span>.<span class="number">0</span>             <span class="string">&quot;/Initialization.sh&quot;</span>   <span class="number">8</span> minutes ago       Up <span class="number">8</span> minutes                            linuxea_redis</span><br><span class="line"><span class="number">1</span>d848a10149325e6fb46ef5fa0624812ab12f28263535720d79aa564a5551e45   marksugar/nginx_createrepo:v0.<span class="number">2</span>   <span class="string">&quot;entrypoint.sh&quot;</span>        <span class="number">13</span> days ago         Up <span class="number">13</span> days                              nginx_repo</span><br></pre></td></tr></table></figure>
+<h2 id="docker-inspect"><a href="#docker-inspect" class="headerlink" title="docker inspect"></a>docker inspect</h2><p>此时，我们试图找回上述的<code>docker run</code>命令，使用<code>docker inspect</code> ，但是<code>docker inspect</code>打印的是json文件，我们需要挑选字段查看</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@LinuxEA-<span class="number">172</span>_25_50_250 ~]<span class="comment"># docker inspect -f &quot;&#123;&#123;.Name&#125;&#125; &#123;&#123;.Path&#125;&#125; &#123;&#123;.Args&#125;&#125; &#123;&#123;.Config.Cmd&#125;&#125; &#123;&#123;.Config.Env&#125;&#125; &#123;&#123;.Config.Volumes&#125;&#125; &#123;&#123;.Config.Entrypoint&#125;&#125; &#123;&#123;.NetworkSettings.Networks&#125;&#125;&quot; $(docker ps -a -q)</span></span><br><span class="line">/linuxea_redis /Initialization.sh [] [] [REDIS_CONF=on REQUIRE_PASS=OTdmOWI4ZTM4NTY1M2M4OTZh MASTER_AUTH=OTdmOWI4ZTM4NTY1M2M4OTZh MAXCLIENTS_NUM=<span class="number">30</span> MAXMEMORY_SIZE=<span class="number">1024</span>M PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin RS_VSON=<span class="number">5.0</span>.<span class="number">0</span> RS_USER=redis RS_VSON_URL=http://download.redis.io/releases/redis-<span class="number">5.0</span>.<span class="number">0</span>.tar.gz BATADIR=/usr/local/redis DATADIR=/data/redis DATALOG=/data/logs DATACIG=/etc/redis] map[linuxea_volume:&#123;&#125;] [/Initialization.sh] map[host:<span class="number">0</span>xc420182000]</span><br><span class="line">/nginx_repo entrypoint.sh [] [] [USERNAME=marksugar FTPPASSWD=<span class="number">123</span> FTPDATA=/data/wwwroot SERVER_NAME=meftp.ds.com NGINX_PORT=<span class="number">80</span> WELCOME=<span class="string">&quot;welome to linuxea.com&quot;</span> PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin version=<span class="number">1.14</span>.<span class="number">2</span> <span class="keyword">USER</span>=www INSTALL_PATH=/usr/local WWWPATH=/data/wwwroot] map[/tmp/header.html:&#123;&#125; /data:&#123;&#125; /etc/localtime:&#123;&#125; /etc/nginx/nginx.conf:&#123;&#125; /etc/nginx/vhost:&#123;&#125; /tmp/footer.html:&#123;&#125;] [entrypoint.sh] map[host:<span class="number">0</span>xc42044c000]</span><br></pre></td></tr></table></figure>
+<p>这样的显示并不直观。好在我发现了<code>rekcod</code>和<code>runlike</code>这两个逆转<code>docker run</code>命令，参见本章介绍和使用。<code>runlike</code>更漂亮些</p>
+<h2 id="rekcod"><a href="#rekcod" class="headerlink" title="rekcod"></a>rekcod</h2><p>借助<code>rekcod</code>打印出更易读的格式，<code>docker inspect</code> → <code>docker run</code></p>
+<p><code>docker run</code>从现有容器（via <code>docker inspect</code>）反向设计命令。</p>
+<p><code>rekcod</code>可以将以下任何内容转换为<code>docker run</code>命令：</p>
+<ol>
+<li>容器ID /名称（<code>rekcod</code>将调用<code>docker inspect</code>）</li>
+<li>包含<code>docker inspect</code>输出的文件的路径</li>
+<li>原始JSON（<code>docker inspect</code>直接传递输出）</li>
+</ol>
+<p>每个<code>docker run</code>命令都可用于复制容器。</p>
+<p>这不是非常强大，但它应该涵盖所需的大多数参数。请参阅下面<a target="_blank" rel="noopener" href="https://github.com/nexdrew/rekcod#fields-supported">支持的字段</a></p>
+<p>传递容器ID /名称时，此模块<code>docker inspect</code>直接调用，运行它的用户也应该能够。</p>
+<h3 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h3><ul>
+<li>install rekcod</li>
+</ul>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install npm -y</span><br><span class="line">npm i -g rekcod</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果您只安装了Docker：</li>
+</ul>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull nexdrew/rekcod</span><br><span class="line">$ alias rekcod=<span class="string">&quot;docker run --rm -v /var/run/docker.sock:/var/run/docker.sock nexdrew/rekcod&quot;</span></span><br></pre></td></tr></table></figure>
+<p>或者你可以简单地运行它，不需要安装：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="keyword">run</span><span class="bash"> --rm -v /var/run/docker.sock:/var/run/docker.sock nexdrew/rekcod &lt;container&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h3><p>以使用<code>linuxea_redis</code>容器为例，<code>rekcod linuxea_redis</code>，如下：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@LinuxEA-<span class="number">172</span>_25_50_250 ~]<span class="comment"># docker ps -qa|rekcod</span></span><br></pre></td></tr></table></figure>
+<p>或者这样</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@LinuxEA-<span class="number">172</span>_25_50_250 ~]<span class="comment">#  rekcod linuxea_redis</span></span><br><span class="line"></span><br><span class="line">docker <span class="keyword">run</span><span class="bash"> --name linuxea_redis --runtime runc -p 6379:6379/tcp --net host --restart no -h LinuxEA-Node172_25_50_250.cluster.com --expose 26379/tcp --expose 6379/tcp -e <span class="string">&#x27;REDIS_CONF=on&#x27;</span> -e <span class="string">&#x27;REQUIRE_PASS=OTdmOWI4ZTM4NTY1M2M4OTZh&#x27;</span> -e <span class="string">&#x27;MASTER_AUTH=OTdmOWI4ZTM4NTY1M2M4OTZh&#x27;</span> -e <span class="string">&#x27;MAXCLIENTS_NUM=30&#x27;</span> -e <span class="string">&#x27;MAXMEMORY_SIZE=1024M&#x27;</span> -e <span class="string">&#x27;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&#x27;</span> -e <span class="string">&#x27;RS_VSON=5.0.0&#x27;</span> -e <span class="string">&#x27;RS_USER=redis&#x27;</span> -e <span class="string">&#x27;RS_VSON_URL=http://download.redis.io/releases/redis-5.0.0.tar.gz&#x27;</span> -e <span class="string">&#x27;BATADIR=/usr/local/redis&#x27;</span> -e <span class="string">&#x27;DATADIR=/data/redis&#x27;</span> -e <span class="string">&#x27;DATALOG=/data/logs&#x27;</span> -e <span class="string">&#x27;DATACIG=/etc/redis&#x27;</span> -d -t -i --entrypoint <span class="string">&quot;/Initialization.sh&quot;</span> marksugar/redis:5.0.0</span></span><br></pre></td></tr></table></figure>
+<p>我将结果换行查看，并且进行启动 <strong><em>这里不得不说的是，在runlike中，可以使用-q自动换行</em></strong>.见下文</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="bash"> --name linuxea_redis \</span></span><br><span class="line"><span class="bash">-p 6379:6379/tcp \</span></span><br><span class="line"><span class="bash">--net host \</span></span><br><span class="line"><span class="bash">--restart no \</span></span><br><span class="line"><span class="bash">-h LinuxEA-Node172_25_50_250.cluster.com \</span></span><br><span class="line"><span class="bash">--expose 26379/tcp \</span></span><br><span class="line"><span class="bash">--expose 6379/tcp \</span></span><br><span class="line"><span class="bash">-e <span class="string">&#x27;REDIS_CONF=on&#x27;</span> \</span></span><br><span class="line"><span class="bash">-e <span class="string">&#x27;REQUIRE_PASS=OTdmOWI4ZTM4NTY1M2M4OTZh&#x27;</span> \</span></span><br><span class="line"><span class="bash">-e <span class="string">&#x27;MASTER_AUTH=OTdmOWI4ZTM4NTY1M2M4OTZh&#x27;</span> \</span></span><br><span class="line"><span class="bash">-e <span class="string">&#x27;MAXCLIENTS_NUM=30&#x27;</span> \</span></span><br><span class="line"><span class="bash">-e <span class="string">&#x27;MAXMEMORY_SIZE=1024M&#x27;</span> \</span></span><br><span class="line"><span class="bash">-e <span class="string">&#x27;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&#x27;</span> \</span></span><br><span class="line"><span class="bash">-e <span class="string">&#x27;RS_VSON=5.0.0&#x27;</span> \</span></span><br><span class="line"><span class="bash">-e <span class="string">&#x27;RS_USER=redis&#x27;</span> \</span></span><br><span class="line"><span class="bash">-e <span class="string">&#x27;RS_VSON_URL=http://download.redis.io/releases/redis-5.0.0.tar.gz&#x27;</span> \</span></span><br><span class="line"><span class="bash">-e <span class="string">&#x27;BATADIR=/usr/local/redis&#x27;</span> \</span></span><br><span class="line"><span class="bash">-e <span class="string">&#x27;DATADIR=/data/redis&#x27;</span> \</span></span><br><span class="line"><span class="bash">-e <span class="string">&#x27;DATALOG=/data/logs&#x27;</span> \</span></span><br><span class="line"><span class="bash">-e <span class="string">&#x27;DATACIG=/etc/redis&#x27;</span> \</span></span><br><span class="line"><span class="bash">-d -t -i --entrypoint <span class="string">&quot;/Initialization.sh&quot;</span> marksugar/redis:5.0.0</span></span><br></pre></td></tr></table></figure>
+<p>启动成功</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@LinuxEA-<span class="number">172</span>_25_50_250 ~]<span class="comment"># docker ps -a</span></span><br><span class="line">CONTAINER ID        IMAGE                             COMMAND                CREATED             STATUS              PORTS               NAMES</span><br><span class="line"><span class="number">492</span>f6cdc159c        marksugar/redis:<span class="number">5.0</span>.<span class="number">0</span>             <span class="string">&quot;/Initialization.sh&quot;</span>   <span class="number">4</span> seconds ago       Up <span class="number">3</span> seconds                            linuxea_redis</span><br><span class="line"><span class="number">1</span>d848a101493        marksugar/nginx_createrepo:v0.<span class="number">2</span>   <span class="string">&quot;entrypoint.sh&quot;</span>        <span class="number">13</span> days ago         Up <span class="number">13</span> days                              nginx_repo</span><br></pre></td></tr></table></figure>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@LinuxEA-<span class="number">172</span>_25_50_250 ~]<span class="comment"># docker logs linuxea_redis</span></span><br><span class="line">[i] Start configuration /etc/redis</span><br><span class="line">[ok] /etc/redis/redis.conf config ready</span><br><span class="line">[ok] Start variable substitution REDIS_CONF=on</span><br><span class="line">[ok] Replace the maxclients=<span class="number">30</span> variable value</span><br><span class="line">[ok] Replace the maxmemory=<span class="number">1024</span>M variable value</span><br><span class="line">[ok] Replace the requirepass=OTdmOWI4ZTM4NTY1M2M4OTZh variable value</span><br><span class="line">[ok] Replace the masterauth=OTdmOWI4ZTM4NTY1M2M4OTZh variable value</span><br><span class="line">[i] Start up /usr/local/bin/redis-server /etc/redis/redis.conf</span><br></pre></td></tr></table></figure>
+<h2 id="runlike"><a href="#runlike" class="headerlink" title="runlike"></a>runlike</h2><p>我仍然要提一下<a target="_blank" rel="noopener" href="https://github.com/lavie/runlike">runlike</a>，和<a target="_blank" rel="noopener" href="https://github.com/nexdrew/rekcod">rekcod</a>有一样的作用</p>
+<h3 id="本地安装使用"><a href="#本地安装使用" class="headerlink" title="本地安装使用"></a>本地安装使用</h3><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install python-pip</span><br></pre></td></tr></table></figure>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install runlike</span><br></pre></td></tr></table></figure>
+<ul>
+<li>用法:</li>
+</ul>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">runlike &lt;container-name&gt;</span><br></pre></td></tr></table></figure>
+<p>这打印出你需要运行什么来获得类似的容器。你可以<code>$(runlike container-name)</code>一步完成其输出。如下：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@LinuxEA-<span class="number">172</span>_25_50_250 ~]<span class="comment"># runlike linuxea_redis</span></span><br><span class="line">docker <span class="keyword">run</span><span class="bash"> --name=linuxea_redis --hostname=LinuxEA-Node172_25_50_250.cluster.com --env=REDIS_CONF=on --env=REQUIRE_PASS=OTdmOWI4ZTM4NTY1M2M4OTZh --env=MASTER_AUTH=OTdmOWI4ZTM4NTY1M2M4OTZh --env=MAXCLIENTS_NUM=30 --env=MAXMEMORY_SIZE=1024M --env=PATH=/usr/<span class="built_in">local</span>/sbin:/usr/<span class="built_in">local</span>/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=RS_VSON=5.0.0 --env=RS_USER=redis --env=RS_VSON_URL=http://download.redis.io/releases/redis-5.0.0.tar.gz --env=BATADIR=/usr/<span class="built_in">local</span>/redis --env=DATADIR=/data/redis --env=DATALOG=/data/logs --env=DATACIG=/etc/redis --volume=linuxea_volume --network=host -p 6379:6379 --restart=no --detach=<span class="literal">true</span> -t marksugar/redis:5.0.0</span></span><br></pre></td></tr></table></figure>
+<p><code>-p</code>将命令行分解为漂亮漂亮的行。例如：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@LinuxEA-<span class="number">172</span>_25_50_250 ~]<span class="comment"># runlike -p linuxea_redis</span></span><br><span class="line">docker <span class="keyword">run</span><span class="bash"> \</span></span><br><span class="line"><span class="bash">    --name=linuxea_redis \</span></span><br><span class="line"><span class="bash">    --hostname=LinuxEA-Node172_25_50_250.cluster.com \</span></span><br><span class="line"><span class="bash">    --env=REDIS_CONF=on \</span></span><br><span class="line"><span class="bash">    --env=REQUIRE_PASS=OTdmOWI4ZTM4NTY1M2M4OTZh \</span></span><br><span class="line"><span class="bash">    --env=MASTER_AUTH=OTdmOWI4ZTM4NTY1M2M4OTZh \</span></span><br><span class="line"><span class="bash">    --env=MAXCLIENTS_NUM=30 \</span></span><br><span class="line"><span class="bash">    --env=MAXMEMORY_SIZE=1024M \</span></span><br><span class="line"><span class="bash">    --env=PATH=/usr/<span class="built_in">local</span>/sbin:/usr/<span class="built_in">local</span>/bin:/usr/sbin:/usr/bin:/sbin:/bin \</span></span><br><span class="line"><span class="bash">    --env=RS_VSON=5.0.0 \</span></span><br><span class="line"><span class="bash">    --env=RS_USER=redis \</span></span><br><span class="line"><span class="bash">    --env=RS_VSON_URL=http://download.redis.io/releases/redis-5.0.0.tar.gz \</span></span><br><span class="line"><span class="bash">    --env=BATADIR=/usr/<span class="built_in">local</span>/redis \</span></span><br><span class="line"><span class="bash">    --env=DATADIR=/data/redis \</span></span><br><span class="line"><span class="bash">    --env=DATALOG=/data/logs \</span></span><br><span class="line"><span class="bash">    --env=DATACIG=/etc/redis \</span></span><br><span class="line"><span class="bash">    --volume=linuxea_volume \</span></span><br><span class="line"><span class="bash">    --network=host \</span></span><br><span class="line"><span class="bash">    -p 6379:6379 \</span></span><br><span class="line"><span class="bash">    --restart=no \</span></span><br><span class="line"><span class="bash">    --detach=<span class="literal">true</span> \</span></span><br><span class="line"><span class="bash">    -t \</span></span><br><span class="line"><span class="bash">    marksugar/redis:5.0.0</span></span><br></pre></td></tr></table></figure>
+<h3 id="docker使用"><a href="#docker使用" class="headerlink" title="docker使用"></a>docker使用</h3><p><code>runlike</code>被封装为一个名为<a target="_blank" rel="noopener" href="https://hub.docker.com/r/assaflavie/runlike/">assaflavie / runlike</a>的Docker镜像。</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="bash"> --rm -v /var/run/docker.sock:/var/run/docker.sock \</span></span><br><span class="line"><span class="bash">    assaflavie/runlike YOUR-CONTAINER</span></span><br></pre></td></tr></table></figure>
+<p>或者您可以使用别名运行它，例如，将其保存在<code>~/.profile</code>或中<code>~/.bashrc</code></p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias runlike=<span class="string">&quot;docker run --rm -v /var/run/docker.sock:/var/run/docker.sock assaflavie/runlike&quot;</span></span><br></pre></td></tr></table></figure>
+<p>然后您可以直接以本地命令运行</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">runlike YOUR-CONTAINER</span><br></pre></td></tr></table></figure>
+<h2 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h2><p>事实上这样的方式，我并不推荐，你大可不必这样 麻烦，直接使用docker-compose就可以完成简单的编排，如下：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">version: <span class="string">&#x27;2&#x27;</span></span><br><span class="line">services:</span><br><span class="line">  redis:</span><br><span class="line">    image: marksugar/redis:<span class="number">5.0</span>.<span class="number">0</span></span><br><span class="line">    container_name: redis</span><br><span class="line">    restart: always</span><br><span class="line">    network_mode: <span class="string">&quot;host&quot;</span></span><br><span class="line">    privileged: true</span><br><span class="line">    environment:</span><br><span class="line">    - REDIS_CONF=on</span><br><span class="line">    - REQUIRE_PASS=OTdmOWI4ZTM4NTY1M2M4OTZh</span><br><span class="line">    - MASTER_AUTH=OTdmOWI4ZTM4NTY1M2M4OTZh</span><br><span class="line">    - MAXCLIENTS_NUM=<span class="number">600</span></span><br><span class="line">    - MAXMEMORY_SIZE=<span class="number">4096</span>M</span><br><span class="line">    volumes:</span><br><span class="line">    - /etc/localtime:/etc/localtime:ro</span><br><span class="line"><span class="comment">#    - /etc/redis:/etc/redis</span></span><br><span class="line">    - /data/redis-data:/data/redis:Z</span><br><span class="line">    - /data/logs:/data/logs</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/10/02/%E3%80%90VS%E3%80%91%E5%87%A0%E4%B8%AA%E8%B6%85%E7%BA%A7%E5%AE%9E%E7%94%A8%E4%BD%86%E5%BE%88%E5%B0%91%E4%BA%BA%E7%9F%A5%E9%81%93%E7%9A%84%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/02/%E3%80%90VS%E3%80%91%E5%87%A0%E4%B8%AA%E8%B6%85%E7%BA%A7%E5%AE%9E%E7%94%A8%E4%BD%86%E5%BE%88%E5%B0%91%E4%BA%BA%E7%9F%A5%E9%81%93%E7%9A%84%E6%8A%80%E5%B7%A7/" class="post-title-link" itemprop="url">【VS】几个超级实用但很少人知道的技巧</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-02 17:51:22" itemprop="dateCreated datePublished" datetime="2020-10-02T17:51:22+08:00">2020-10-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">常用工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>大家好，今天分享一些实用的 VS 技巧，而这些技巧我发现很多人都不知道。因为我经常在工作中遇到：我在同事电脑上解决问题，或在会议上演示代码示例时，使用了一些 VS “骚”操作，他们会好奇地问：你是怎么做到的？有时候你知道一些别人不知道的小技巧便可以让你显得更专业。</p>
+<p>PS：本文所有示例演示均基于 Visual Studio 2019 v16.7.4 版本。</p>
+<h2 id="扩展-缩小选区"><a href="#扩展-缩小选区" class="headerlink" title="扩展/缩小选区"></a><strong>扩展/缩小选区</strong></h2><p>通过双击选中整个单词，这个操作大家应该都知道。但如何快速选择几个单词、或多个单词的字符串、或代码块呢？教大家一个快捷键，如何快速扩展选择代码区域。例如，当光标在一个字符串中时，使用下面的快捷键就可以选择整个字符串。</p>
+<p>按 <code>Alt</code> + <code>Shift</code> + <code>=</code> 扩展选区，按 <code>Alt</code> + <code>Shift</code> + <code>-</code> 缩小选区：</p>
+<p><img src="/images/v2-814e7c9dcd5238d1c85ad6aa55f85668_b.gif" alt=""></p>
+<p>你也可以使用 <code>Alt</code> + <code>Shift</code> + <code>]</code> 直接选中一个代码块。</p>
+<h2 id="切换窗口停靠"><a href="#切换窗口停靠" class="headerlink" title="切换窗口停靠"></a><strong>切换窗口停靠</strong></h2><p>我们知道VS的窗口布局可以非常灵活的拖动，想摆哪摆哪。我们一般把常用的视图窗口固定停靠在编辑器的左边、右边或下边。但有时候为了查看方便，你可能需要临时把窗口拖到另一个位置（比如中心位置）。完了以后你还需要再次把它停靠到原来的位置，这样拖动起来就会比较麻烦。有一种非常快速的方法可以将窗口停靠到它之前停靠的位置。</p>
+<p>按 <code>Ctrl</code> + 双击窗口标题：</p>
+<p><img src="/images/v2-867b4832325c2be15f02fc7a2a926fae_b.gif" alt=""></p>
+<h2 id="快速定位打开的文件"><a href="#快速定位打开的文件" class="headerlink" title="快速定位打开的文件"></a><strong>快速定位打开的文件</strong></h2><p>在 VS 中，你可以使用 <code>Ctrl</code> + <code>T</code> 打开 “Go To All” 搜索工具栏，通过搜索关键字轻松打开要找的文件。但是对于某些操作，比如重命名文件，你需要在解决方案资源管理器中找到该文件。</p>
+<p>使用 <code>Ctrl</code> + <code>[</code>, <code>S</code> 或使用下面的图标按钮可以快速定位到当前打开的文件：</p>
+<p><img src="/images/v2-ffe161b22ceab1b3e73bc36d7ec50ea2_b.gif" alt=""></p>
+<h2 id="多行编辑"><a href="#多行编辑" class="headerlink" title="多行编辑"></a><strong>多行编辑</strong></h2><p>Visual Studio 允许同时编辑多行，这对于将相同的更改应用于多行非常有用，例如同时修改多个属性的修饰符。下面有 4 个多行编辑代码的技巧。</p>
+<p>按住 <code>Alt</code> 键，使用鼠标拖选：</p>
+<p><img src="/images/v2-4035b6131a1a83be20c9cbe8be1671bd_b.gif" alt=""></p>
+<p>按住 <code>Alt</code> + <code>Shift</code> 键，再按上/下/左/右方向键选择：</p>
+<p><img src="/images/v2-811661d856694a4fbd8b7b7fa1ece022_b.gif" alt=""></p>
+<p>使用多个光标同时编辑。按住 <code>Ctrl</code> + <code>Alt</code> 键，点击或选择要插入或编辑的位置：</p>
+<p><img src="/images/v2-8e2b8ed3bac36dc15e478151323d6e2c_b.gif" alt=""></p>
+<p>匹配相同单词并编辑。先选择要编辑的单词或字符，再按一下 <code>Alt</code> + <code>Shift</code> + <code>;</code>，会自动匹配并选中所有相同的单词，然后开始编辑：</p>
+<p><img src="/images/v2-805ebc6c9f65c554edc48ca05f059194_b.gif" alt=""></p>
+<p>你也可以使用 <code>Alt</code> + <code>Shift</code> + <code>.</code> 只匹配选择下一个相同的单词。</p>
+<h2 id="使用剪贴板历史粘贴"><a href="#使用剪贴板历史粘贴" class="headerlink" title="使用剪贴板历史粘贴"></a><strong>使用剪贴板历史粘贴</strong></h2><p>复制粘贴是写代码很常见的操作。我们在 Ctrl + V 时默认是粘贴你最后一次复制的内容，但有时你想使用上一次复制的内容，你可能会重新再复制一下。剪贴板一次只能包含一个内容。Visual Studio 附带了一个剪贴板历史记录，默认它包含你复制到剪贴板的最后 20 项记录。</p>
+<p>通过使用 <code>Ctrl</code> + <code>Shift</code> + <code>V</code>，可以打开剪贴板的历史记录：</p>
+<p><img src="/images/v2-0f074a9ddbafd34ddd4f3ee0b9b709c2_b.gif" alt=""></p>
+<p>你可以将多个内容复制到剪贴板，并在稍后依次粘贴到相应的位置。</p>
+<h2 id="整行上下移动"><a href="#整行上下移动" class="headerlink" title="整行上下移动"></a><strong>整行上下移动</strong></h2><p>有时候我们需要调整一下代码行的位置，比如将代码行上移或下移几行。可以按住 <code>Alt</code>，然后使用上下方向键移动整行代码：</p>
+<p><img src="/images/v2-6fab67588014ad73493231a57299e8b6_b.gif" alt=""></p>
+<h2 id="直接拖动引用项目"><a href="#直接拖动引用项目" class="headerlink" title="直接拖动引用项目"></a><strong>直接拖动引用项目</strong></h2><p>在 VS 中的一个项目中引用另一个项目最方便的方法是直接把要引用的项目拖到该项目。</p>
+<p><img src="/images/v2-50328bb28a2212166ff3ff5f75d19a4d_b.gif" alt=""></p>
+<h2 id="设置-git-pull-快捷键"><a href="#设置-git-pull-快捷键" class="headerlink" title="设置 git pull 快捷键"></a><strong>设置 git pull 快捷键</strong></h2><p>最常用的 Git 操作就是 Pull 了，平时大家都是在 Team Explorer 窗口依次点击 Sync -&gt; Pull 来操作。但用快捷键更方便，可以在 Tools -&gt; Options -&gt; Keyboard 中为 Git Pull 设置一个快捷键，比如设置为 <code>CTRL + SHIFT + P</code>。</p>
+<p><img src="/images/v2-d0df521d90547de80855dea57a8f4870_720w.jpg" alt=""></p>
+<h2 id="打开命令行窗口"><a href="#打开命令行窗口" class="headerlink" title="打开命令行窗口"></a><strong>打开命令行窗口</strong></h2><p>我经常需要在项目的根目录打开命令行窗口执行一些命令，比如 <code>dotnet ef</code> 相关的命令。在 VS 2019 之前，每次要打开命令行窗口并定位到项目的根目录是相当的麻烦。好在 VS 2019 终于内置了命令行窗口，通过快捷键 <code>Ctrl + `</code> 打开，或者点击 View -&gt; Teminal 打开。打开后默认定位到项目的根目录，还可以创建多个 Tab。</p>
+<p><img src="/images/v2-88d2d64b2eb7aaf514e3635fef2a28b3_720w.jpg" alt=""></p>
+<h2 id="设置私有字段使用下划线前缀"><a href="#设置私有字段使用下划线前缀" class="headerlink" title="设置私有字段使用下划线前缀"></a><strong>设置私有字段使用下划线前缀</strong></h2><p>默认情况下，VS 智能补全对类的私有字段使用的是 camelCase 命名风格，但有很多人更习惯使用 _camelCase 风格对私有字段命名，类的私有字段前面加 <code>_</code> 前缀有助于和本地变量进行区分。我们可以通过设置来改变默认的 camelCase 命名行为，具体设置步骤如下。</p>
+<p>依次点击：Tools -&gt; Options -&gt; Text Editor -&gt; C# -&gt; Code Style -&gt; Naming -&gt; Manage naming styles。</p>
+<p><img src="/images/v2-0fdf49a6380dedbc8f0503da653e46c7_720w.jpg" alt=""></p>
+<p>上面的添加 Naming Style 步骤（第 4 步）很重要，为了让你们看清楚些，请参照如下单独放大的截图：</p>
+<p><img src="/images/v2-d92ee4233427f9d3931f6ec0570adaf6_720w.jpg" alt=""></p>
+<p>好了，来试试效果：</p>
+<p><img src="/images/v2-85082722f96925a34448772007fdc4d8_b.gif" alt=""></p>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a><strong>其它</strong></h2><p>本文只罗列了几个很多人都不知道的 VS 实用技巧，当然还有很多大多数人都知道的技巧，比如 Ctrl + D 复制当前行、Ctrl + X 剪切/删除当前行、Shift + Enter 新启一行等等，在这里就不一一罗列了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/09/27/%E3%80%90CSharp%E3%80%91%E6%9E%9A%E4%B8%BE%E9%AB%98%E7%BA%A7%E6%88%98%E6%9C%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/27/%E3%80%90CSharp%E3%80%91%E6%9E%9A%E4%B8%BE%E9%AB%98%E7%BA%A7%E6%88%98%E6%9C%AF/" class="post-title-link" itemprop="url">【CSharp】枚举高级战术</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-27 15:50:57" itemprop="dateCreated datePublished" datetime="2020-09-27T15:50:57+08:00">2020-09-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/willick/p/csharp-enum-superior-tactics.html#!comments">https://www.cnblogs.com/willick/p/csharp-enum-superior-tactics.html#!comments</a></p>
+</blockquote>
+<p>文章开头先给大家出一道面试题：</p>
+<blockquote>
+<p>在设计某小型项目的数据库（假设用的是 MySQL）时，如果给用户表（User）添加一个字段（Roles）用来存储用户的角色，你会给这个字段设置什么类型？提示：要考虑到角色在后端开发时需要用枚举表示，且一个用户可能会拥有多个角色。</p>
+</blockquote>
+<p>映入你脑海的第一个答案可能是：varchar 类型，用分隔符的方式来存储多个角色，比如用 <code>1|2|3</code> 或  <code>1,2,3</code> 来表示用户拥有多个角色。当然如果角色数量可能超过个位数，考虑到数据库的查询方便（比如用 INSTR 或 POSITION 来判断用户是否包含某个角色），角色的值至少要从数字 10 开始。方案是可行的，可是不是太简单了，有没有更好的方案？更好的回答应是整型（int、bigint 等），优点是写 SQL 查询条件更方便，性能、空间上都优于 varchar。但整型毕竟只是一个数字，怎么表示多个角色呢？此时想到了二进制位操作的你，心中应该早有了答案。且保留你心中的答案，接着看完本文，或许你会有意外的收获，因为实际应用中可能还会遇到一连串的问题。为了更好的说明后面的问题，我们先来回顾一下枚举的基础知识。</p>
+<h2 id="枚举基础"><a href="#枚举基础" class="headerlink" title="枚举基础"></a>枚举基础</h2><p>枚举类型的作用是限制其变量只能从有限的选项中取值，这些选项（枚举类型的成员）各自对应于一个数字，数字默认从 0 开始，并以此递增。例如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Days</span><br><span class="line">&#123;</span><br><span class="line">    Sunday, Monday, Tuesday, <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 Sunday 的值是 0，Monday 是 1，以此类推。为了一眼能看出每个成员代表的值，一般推荐显示地将成员值写出来，不要省略：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Days</span><br><span class="line">&#123;</span><br><span class="line">    Sunday = <span class="number">0</span>, Monday = <span class="number">1</span>, Tuesday = <span class="number">2</span>, <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>C# 枚举成员的类型默认是 int 类型，通过继承可以声明枚举成员为其它类型，比如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Days : <span class="built_in">byte</span></span><br><span class="line">&#123;</span><br><span class="line">    Monday = <span class="number">1</span>,</span><br><span class="line">    Tuesday = <span class="number">2</span>,</span><br><span class="line">    Wednesday = <span class="number">3</span>,</span><br><span class="line">    Thursday = <span class="number">4</span>,</span><br><span class="line">    Friday = <span class="number">5</span>,</span><br><span class="line">    Saturday = <span class="number">6</span>,</span><br><span class="line">    Sunday = <span class="number">7</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>枚举类型一定是继承自 byte、sbyte、short、ushort、int、uint、long 和 ulong 中的一种，不能是其它类型。下面是几个枚举的常见用法（以上面的 Days 枚举为例）：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 枚举转字符串</span></span><br><span class="line"><span class="built_in">string</span> foo = Days.Saturday.ToString(); <span class="comment">// &quot;Saturday&quot;</span></span><br><span class="line"><span class="built_in">string</span> foo = Enum.GetName(<span class="keyword">typeof</span>(Days), <span class="number">6</span>); <span class="comment">// &quot;Saturday&quot;</span></span><br><span class="line"><span class="comment">// 字符串转枚举</span></span><br><span class="line">Enum.TryParse(<span class="string">&quot;Tuesday&quot;</span>, <span class="keyword">out</span> Days bar); <span class="comment">// true, bar = Days.Tuesday</span></span><br><span class="line">(Days)Enum.Parse(<span class="keyword">typeof</span>(Days), <span class="string">&quot;Tuesday&quot;</span>); <span class="comment">// Days.Tuesday</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 枚举转数字</span></span><br><span class="line"><span class="built_in">byte</span> foo = (<span class="built_in">byte</span>)Days.Monday; <span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 数字转枚举</span></span><br><span class="line">Days foo = (Days)<span class="number">2</span>; <span class="comment">// Days.Tuesday</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取枚举所属的数字类型</span></span><br><span class="line">Type foo = Enum.GetUnderlyingType(<span class="keyword">typeof</span>(Days))); <span class="comment">// System.Byte</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取所有的枚举成员</span></span><br><span class="line">Array foo = Enum.GetValues(<span class="keyword">typeof</span>(MyEnum);</span><br><span class="line"><span class="comment">// 获取所有枚举成员的字段名</span></span><br><span class="line"><span class="built_in">string</span>[] foo = Enum.GetNames(<span class="keyword">typeof</span>(Days));</span><br></pre></td></tr></table></figure>
+<p>另外，值得注意的是，枚举可能会得到非预期的值（值没有对应的成员）。比如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Days d = (Days)<span class="number">21</span>; <span class="comment">// 不会报错</span></span><br><span class="line">Enum.IsDefined(<span class="keyword">typeof</span>(Days), d); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>即使枚举没有值为 0 的成员，它的默认值永远都是 0。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> z = <span class="literal">default</span>(Days); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<p>枚举可以通过 Description、Display 等特性来为成员添加有用的辅助信息，比如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> ApiStatus</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">Description(<span class="meta-string">&quot;成功&quot;</span>)</span>]</span><br><span class="line">    OK = <span class="number">0</span>,</span><br><span class="line">    [<span class="meta">Description(<span class="meta-string">&quot;资源未找到&quot;</span>)</span>]</span><br><span class="line">    NotFound = <span class="number">2</span>,</span><br><span class="line">    [<span class="meta">Description(<span class="meta-string">&quot;拒绝访问&quot;</span>)</span>]</span><br><span class="line">    AccessDenied = <span class="number">3</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">class</span> <span class="title">EnumExtensions</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">GetDescription</span>(<span class="params"><span class="keyword">this</span> Enum val</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">var</span> field = val.GetType().GetField(val.ToString());</span><br><span class="line">        <span class="keyword">var</span> customAttribute = Attribute.GetCustomAttribute(field, <span class="keyword">typeof</span>(DescriptionAttribute));</span><br><span class="line">        <span class="keyword">if</span> (customAttribute == <span class="literal">null</span>) &#123; <span class="keyword">return</span> val.ToString(); &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; <span class="keyword">return</span> ((DescriptionAttribute)customAttribute).Description; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Console.WriteLine(ApiStatus.Ok.GetDescription()); <span class="comment">// &quot;成功&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这些我认为已经包含了大部分我们日常用到的枚举知识了。下面我们继续回到文章开头说的用户角色存储问题。</p>
+<h2 id="用户角色存储问题"><a href="#用户角色存储问题" class="headerlink" title="用户角色存储问题"></a>用户角色存储问题</h2><p>我们先定义一个枚举类型来表示两种用户角色：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Roles</span><br><span class="line">&#123;</span><br><span class="line">    Admin = <span class="number">1</span>,</span><br><span class="line">    Member = <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，如果某个用户同时拥有 Admin 和 Member 两种角色，那么 User 表的 Roles 字段就应该存 3。那问题来了，此时若查询所有拥有 Admin 角色的用户的 SQL 该怎么写呢？对于有基础的程序员来说，这个问题很简单，只要用位操作符逻辑与（‘&amp;’）来查询即可。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> `<span class="keyword">User</span>` <span class="keyword">WHERE</span> `Roles` <span class="operator">&amp;</span> <span class="number">1</span> <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>同理，查询同时拥有这两种角色的用户，SQL 语句应该这么写：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> `<span class="keyword">User</span>` <span class="keyword">WHERE</span> `Roles` <span class="operator">&amp;</span> <span class="number">3</span> <span class="operator">=</span> <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<p>对这条 SQL 语句用 C# 来实现查询是这样的（为了简单，这里使用了 Dapper）：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">User</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Id &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> Roles Roles &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">connection.Query&lt;User&gt;(</span><br><span class="line">    <span class="string">&quot;SELECT * FROM `User` WHERE `Roles` &amp; @roles = @roles;&quot;</span>,</span><br><span class="line">    <span class="keyword">new</span> &#123; roles = Roles.Admin | Roles.Member &#125;);</span><br></pre></td></tr></table></figure>
+<p>对应的，在 C# 中要判断用户是否拥有某个角色，可以这么判断：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式一</span></span><br><span class="line"><span class="keyword">if</span> ((user.Roles &amp; Roles.Admin) == Roles.Admin)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 做管理员可以做的事情</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式二</span></span><br><span class="line"><span class="keyword">if</span> (user.Roles.HasFlag(Roles.Admin))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 做管理员可以做的事情</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同理，在 C# 中你可以对枚举进行任意位逻辑运算，比如要把角色从某个枚举变量中移除：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = Roles.Admin | Roles.Member;</span><br><span class="line"><span class="keyword">var</span> bar = foo &amp; ~Roles.Admin;</span><br></pre></td></tr></table></figure>
+<p>这就解决了文章前面提到的用整型来存储多角色的问题，不论数据库还是 C# 语言，操作上都是可行的，而且也很方便灵活。</p>
+<h2 id="枚举的-Flags-特性"><a href="#枚举的-Flags-特性" class="headerlink" title="枚举的 Flags 特性"></a>枚举的 Flags 特性</h2><p>下面我们提供一个通过角色来查询用户的方法，并演示如何调用，如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> IEnumerable&lt;User&gt; <span class="title">GetUsersInRoles</span>(<span class="params">Roles roles</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    _logger.LogDebug(roles.ToString());</span><br><span class="line">    _connection.Query&lt;User&gt;(</span><br><span class="line">        <span class="string">&quot;SELECT * FROM `User` WHERE `Roles` &amp; @roles = @roles;&quot;</span>,</span><br><span class="line">        <span class="keyword">new</span> &#123; roles &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line">_repository.GetUsersInRoles(Roles.Admin | Roles.Member);</span><br></pre></td></tr></table></figure>
+<p><code>Roles.Admin | Roles.Member</code> 的值是 3，由于 Roles 枚举类型中并没有定义一个值为 3 的字段，所以在方法内 roles 参数显示的是 3。3 这个信息对于我们调试或打印日志很不友好。在方法内，我们并不知道这个 3 代表的是什么。为了解决这个问题，C# 枚举有个很有用的特性：FlagsAtrribute。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Flags</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Roles</span><br><span class="line">&#123;</span><br><span class="line">    Admin = <span class="number">1</span>,</span><br><span class="line">    Member = <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>加上这个 Flags 特性后，我们再来调试 <code>GetUsersInRoles(Roles roles)</code> 方法时，roles 参数的值就会显示为 <code>Admin|Member</code> 了。简单来说，加不加 Flags 的区别是：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> roles = Roles.Admin | Roles.Member;</span><br><span class="line">Console.WriteLing(roles.ToString()); <span class="comment">// &quot;3&quot;，没有 Flags 特性</span></span><br><span class="line">Console.WriteLing(roles.ToString()); <span class="comment">// &quot;Admin, Member&quot;，有 Flags 特性</span></span><br></pre></td></tr></table></figure>
+<p>给枚举加上 Flags 特性，我觉得应当视为 C# 编程的一种最佳实践，在定义枚举时尽量加上 Flags 特性。</p>
+<h2 id="解决枚举值冲突：2-的幂"><a href="#解决枚举值冲突：2-的幂" class="headerlink" title="解决枚举值冲突：2 的幂"></a>解决枚举值冲突：2 的幂</h2><p>到这，枚举类型 Roles 一切看上去没什么问题，但如果现在要增加一个角色：Mananger，会发生什么情况？按照数字值递增的规则，Manager 的值应当设为 3。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Flags</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Roles</span><br><span class="line">&#123;</span><br><span class="line">    Admin = <span class="number">1</span>,</span><br><span class="line">    Member = <span class="number">2</span>,</span><br><span class="line">    Manager = <span class="number">3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>能不能把 Manager 的值设为 3？显然不能，因为 Admin 和 Member 进行位的或逻辑运算（即：Admin | Member） 的值也是 3，表示同时拥有这两种角色，这和 Manager 冲突了。那怎样设值才能避免冲突呢？既然是二进制逻辑运算“或”会和成员值产生冲突，那就利用逻辑运算或的规律来解决。我们知道“或”运算的逻辑是两边只要出现一个 1 结果就会 1，比如 1|1、1|0 结果都是 1，只有 0|0 的情况结果才是 0。那么我们就要避免任意两个值在相同的位置上出现 1。根据二进制满 2 进 1 的特点，只要保证枚举的各项值都是 2 的幂即可。比如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>:  <span class="number">00000001</span></span><br><span class="line"><span class="number">2</span>:  <span class="number">00000010</span></span><br><span class="line"><span class="number">4</span>:  <span class="number">00000100</span></span><br><span class="line"><span class="number">8</span>:  <span class="number">00001000</span></span><br></pre></td></tr></table></figure>
+<p>再往后增加的话就是 16、32、64…，其中各值不论怎么相加都不会和成员的任一值冲突。这样问题就解决了，所以我们要这样定义 Roles 枚举的值：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Flags</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Roles</span><br><span class="line">&#123;</span><br><span class="line">    Admin = <span class="number">1</span>,</span><br><span class="line">    Member = <span class="number">2</span>,</span><br><span class="line">    Manager = <span class="number">4</span>,</span><br><span class="line">    Operator = <span class="number">8</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不过在定义值的时候要在心中小小计算一下，如果你想懒一点，可以用下面这种“位移”的方法来定义：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Flags</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Roles</span><br><span class="line">&#123;</span><br><span class="line">    Admin    = <span class="number">1</span> &lt;&lt; <span class="number">0</span>,</span><br><span class="line">    Member   = <span class="number">1</span> &lt;&lt; <span class="number">1</span>,</span><br><span class="line">    Manager  = <span class="number">1</span> &lt;&lt; <span class="number">2</span>,</span><br><span class="line">    Operator = <span class="number">1</span> &lt;&lt; <span class="number">3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一直往下递增编值即可，阅读体验好，也不容易编错。两种方式是等效的，常量位移的计算是在编译的时候进行的，所以相比不会有额外的开销。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文通过一道小小的面试题引发一连串对枚举的思考。在小型系统中，把用户角色直接存储在用户表是很常见的做法，此时把角色字段设为整型（比如 int）是比较好的设计方案。但与此同时，也要考虑到一些最佳实践，比如使用 Flags 特性来帮助更好的调试和日志输出。也要考虑到实际开发中的各种潜在问题，比如多个枚举值进行或（‘|’）运算与成员值发生冲突的问题。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+   	鄂ICP备 -
+    <a target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow">17012779号</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22:07</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

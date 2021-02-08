@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/66/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/66/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/11/14/%E3%80%90Jquery%E3%80%91ajax%E6%96%B9%E6%B3%95%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%88%B0return%E8%BF%94%E5%9B%9E%E5%80%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/14/%E3%80%90Jquery%E3%80%91ajax%E6%96%B9%E6%B3%95%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%88%B0return%E8%BF%94%E5%9B%9E%E5%80%BC/" class="post-title-link" itemprop="url">【Jquery】ajax方法获取不到return返回值</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-14 21:17:17" itemprop="dateCreated datePublished" datetime="2017-11-14T21:17:17+08:00">2017-11-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>又遇到这个问题了，还好及时发现了。之前也遇见过这个问题，困惑了很久。</p>
+<p>这次有经验了，一下就发现了存在的问题，自此记录一下，下次不在犯了。</p>
+<p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/terryMe/p/6130309.html">https://www.cnblogs.com/terryMe/p/6130309.html</a></p>
+<p>小哥哥描述得很清楚：</p>
+<p>如果jquery中，获取不到ajax返回值。</p>
+<p>两个错误写法会导致这种情况：1.ajax未用同步 2.在ajax方法中直接return返回值。</p>
+<p>下面列举了三种写法，如果想成功获取到返回值，参考第三种写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">* 方式：（1）同步调用 （2）在ajax函数中return值</span><br><span class="line">* 结果：返回 1。未成功获取返回值</span><br><span class="line">* 失败原因：ajax内部是一个或多个定义的函数，ajax中return返回值，</span><br><span class="line">* 返回到ajax定义函数，而不是返回到ajax外层的函数checkAccount1()</span><br><span class="line">*&#x2F;</span><br><span class="line">function checkAccount1()&#123;</span><br><span class="line">    var result &#x3D; 1;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        url : &#39;test.do&#39;,</span><br><span class="line">        type : &quot;post&quot;,</span><br><span class="line">        data : &#123;&#125;,</span><br><span class="line">        async : false,</span><br><span class="line">        success : function(data) &#123;</span><br><span class="line">            return 2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * （1）异步调用 （2）在ajax对全局变量进行设值 (3)ajax函数外将变量return</span><br><span class="line"> * 结果：返回 1。未成功获取返回值</span><br><span class="line"> * 失败原因：ajax请求和后面的return result语句异步执行，</span><br><span class="line"> * 导致return result比result &#x3D; 2先执行并返回result的值</span><br><span class="line"> *&#x2F;</span><br><span class="line">function checkAccount2()&#123;</span><br><span class="line">    var result &#x3D; 1;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        url : &#39;test.do&#39;,</span><br><span class="line">        type : &quot;post&quot;,</span><br><span class="line">        data : &#123;&#125;,</span><br><span class="line">        async : true,</span><br><span class="line">        success : function(data) &#123;</span><br><span class="line">            result &#x3D; 2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * （1）同步调用 （2）且在ajax对全局变量进行设值 (3)ajax函数外将变量return</span><br><span class="line"> * 结果：返回 2。成功获取返回值</span><br><span class="line"> * 成功原因：先执行result &#x3D; 2;再往下执行return result;</span><br><span class="line"> *&#x2F;</span><br><span class="line">function checkAccount3()&#123;</span><br><span class="line">    var result &#x3D; 1;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        url : &#39;test.do&#39;,</span><br><span class="line">        type : &quot;post&quot;,</span><br><span class="line">        data : &#123;&#125;,</span><br><span class="line">        async : false,</span><br><span class="line">        success : function(data) &#123;</span><br><span class="line">            result &#x3D; 2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/11/11/%E3%80%90JS%E3%80%91%E5%B8%B8%E7%94%A8%E7%9A%84%E9%AA%8C%E8%AF%81%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/11/%E3%80%90JS%E3%80%91%E5%B8%B8%E7%94%A8%E7%9A%84%E9%AA%8C%E8%AF%81%E7%B1%BB/" class="post-title-link" itemprop="url">【JS】常用的验证类</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-11 22:57:26" itemprop="dateCreated datePublished" datetime="2017-11-11T22:57:26+08:00">2017-11-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天开始准备有时间，看一些开源项目，学习那些大牛们的编码风格。</p>
+<p>第一个项目：《MVC5仓库管理系统后台管理源码》</p>
+<p>该程序使用的.NET MVC开发，大量使用到了jQuery,以及Bootstrap。 数据库使用了SQL Server.</p>
+<p>很适合现阶段看，大部分代码还算看得懂。</p>
+<p>然后刚刚看到一个js公共类，里面的代码做验证的，封装的挺全了，可是没有注释啊。好吧，我自己加了点注释</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br></pre></td><td class="code"><pre><span class="line">var git &#x3D; &#123;</span><br><span class="line">    &#x2F;&#x2F;true表示邮箱格式正确</span><br><span class="line">    checkEmail: function (str) &#123;</span><br><span class="line">        if (str.match(&#x2F;[A-Za-z0-9_-]+[@](\S*)(net|com|cn|org|cc|tv|[0-9]&#123;1,3&#125;)(\S*)&#x2F;g) &#x3D;&#x3D; null) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;true表示手机号格式正确</span><br><span class="line">    checkMobilePhone: function (str) &#123;</span><br><span class="line">        if (str.match(&#x2F;^(?:13\d|15[0-9]|18[0123456789])-?\d&#123;5&#125;(\d&#123;3&#125;|\*&#123;3&#125;)$&#x2F;) &#x3D;&#x3D; null) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;true表示为数字</span><br><span class="line">    checkNum: function (str) &#123;</span><br><span class="line">        if (str.match(&#x2F;\D&#x2F;) &#x3D;&#x3D; null) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;true表示为小数</span><br><span class="line">    checkDecimal: function (str) &#123;</span><br><span class="line">        if (str.match(&#x2F;^-?\d+(\.\d+)?$&#x2F;g) &#x3D;&#x3D; null) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;true表示为小数</span><br><span class="line">    checkInteger: function (str) &#123;</span><br><span class="line">        if (str.match(&#x2F;^[-+]?\d*$&#x2F;) &#x3D;&#x3D; null) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;true表示为全部为字符 不包含汉字</span><br><span class="line">    checkStr: function (str) &#123;</span><br><span class="line">        if (&#x2F;[^\x00-\xff]&#x2F;g.test(str)) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;true表示包含汉字</span><br><span class="line">    checkChinese: function (str) &#123;</span><br><span class="line">        if (escape(str).indexOf(&quot;%u&quot;) !&#x3D; -1) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;true表示格式正确</span><br><span class="line">    checkTelephone: function (str) &#123;</span><br><span class="line">        if (str.match(&#x2F;^(([0\+]\d&#123;2,3&#125;-)?(0\d&#123;2,3&#125;)-)(\d&#123;7,8&#125;)(-(\d&#123;3,&#125;))?$&#x2F;) &#x3D;&#x3D; null) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;true表示格式正确 检查输入的身份证号是否正确</span><br><span class="line">    checkCard: function (str) &#123;</span><br><span class="line">        &#x2F;&#x2F;15位数身份证正则表达式</span><br><span class="line">        var arg1 &#x3D; &#x2F;^[1-9]\d&#123;7&#125;((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d&#123;3&#125;$&#x2F;;</span><br><span class="line">        &#x2F;&#x2F;18位数身份证正则表达式</span><br><span class="line">        var arg2 &#x3D; &#x2F;^[1-9]\d&#123;5&#125;[1-9]\d&#123;3&#125;((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d&#123;4&#125;)|\d&#123;3&#125;[A-Z])$&#x2F;;</span><br><span class="line">        if (str.match(arg1) &#x3D;&#x3D; null &amp;&amp; str.match(arg2) &#x3D;&#x3D; null) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;检查输入的IP地址是否正确 true表示格式正确</span><br><span class="line">    checkIP: function (str) &#123;</span><br><span class="line">        var arg &#x3D; &#x2F;^(\d&#123;1,2&#125;|1\d\d|2[0-4]\d|25[0-5])\.(\d&#123;1,2&#125;|1\d\d|2[0-4]\d|25[0-5])\.(\d&#123;1,2&#125;|1\d\d|2[0-4]\d|25[0-5])\.(\d&#123;1,2&#125;|1\d\d|2[0-4]\d|25[0-5])$&#x2F;;</span><br><span class="line">        if (str.match(arg) &#x3D;&#x3D; null) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;检查输入的URL地址是否正确 true表示格式正确</span><br><span class="line">    checkURL: function (str) &#123;</span><br><span class="line">        &#x2F;&#x2F;if (str.match(&#x2F;(http[s]?|ftp):\&#x2F;\&#x2F;[^\&#x2F;\.]+?\..+\w$&#x2F;i) &#x3D;&#x3D; null) &#123;</span><br><span class="line">        if (str.match(&#x2F;(http[s]?|ftp):\&#x2F;\&#x2F;([\w-]+\.)+[\w-]+(\&#x2F;[\w- .\&#x2F;?%&amp;&#x3D;]*)?&#x2F;) &#x3D;&#x3D; null) &#123;</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;检查字符串是否为空</span><br><span class="line">    IsEmpty: function (str) &#123;</span><br><span class="line">        if (str &#x3D;&#x3D; undefined || str &#x3D;&#x3D; &quot;&quot;) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;域名验证</span><br><span class="line">    IsURL: function (URL) &#123;</span><br><span class="line">        var str &#x3D; URL;</span><br><span class="line">        var Expression &#x3D; &#x2F;http(s)?:\&#x2F;\&#x2F;([\w-]+\.)+[\w-]+(\&#x2F;[\w- .\&#x2F;?%&amp;&#x3D;]*)?&#x2F;;</span><br><span class="line">        var objExp &#x3D; new RegExp(Expression);</span><br><span class="line">        if (objExp.test(str) &#x3D;&#x3D; true) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;true只有数字和字母和下划线</span><br><span class="line">    IsNumOrLet: function (parVal) &#123;</span><br><span class="line">        if (parVal.match(&#x2F;[^a-zA-Z0-9_]+&#x2F;)) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;验证Money，true表示正确</span><br><span class="line">    checkMoney: function (str) &#123;</span><br><span class="line">        if (str.match(&#x2F;^[0-9][\d]&#123;0,11&#125;([\.][\d]&#123;0,4&#125;)?$&#x2F;)) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;true表示开始时间大于或等于结束时间</span><br><span class="line">    CompareTime: function (stime, etime) &#123;</span><br><span class="line">        var starttimes &#x3D; stime.split(&#39;-&#39;);</span><br><span class="line">        var endtimes &#x3D; etime.split(&#39;-&#39;);</span><br><span class="line">        var starttimeTemp &#x3D; starttimes[0] + &#39;&#x2F;&#39; + starttimes[1] + &#39;&#x2F;&#39; + starttimes[2];</span><br><span class="line">        var endtimesTemp &#x3D; endtimes[0] + &#39;&#x2F;&#39; + endtimes[1] + &#39;&#x2F;&#39; + endtimes[2];</span><br><span class="line">        if (Date.parse(new Date(starttimeTemp)) &gt; Date.parse(new Date(endtimesTemp)) || Date.parse(new Date(starttimeTemp)) &#x3D;&#x3D; Date.parse(new Date(endtimesTemp))) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;true表示开始时间大于或等于结束时间,只有年月日</span><br><span class="line">    checkCompareTime: function (stime, etime) &#123;</span><br><span class="line">        var starttimes &#x3D; stime.split(&#39;-&#39;);</span><br><span class="line">        var endtimes &#x3D; etime.split(&#39;-&#39;);</span><br><span class="line">        var starttimeTemp &#x3D; starttimes[0] + &#39;&#x2F;&#39; + starttimes[1] + &#39;&#x2F;&#39; + starttimes[2];</span><br><span class="line">        var endtimesTemp &#x3D; endtimes[0] + &#39;&#x2F;&#39; + endtimes[1] + &#39;&#x2F;&#39; + endtimes[2];</span><br><span class="line">        if (Date.parse(new Date(starttimeTemp)) &gt; Date.parse(new Date(endtimesTemp))) &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;？？</span><br><span class="line">    Escape: function (value) &#123;</span><br><span class="line">        if (value !&#x3D; undefined) &#123;</span><br><span class="line">            return escape(value);</span><br><span class="line">        &#125;</span><br><span class="line">        return undefined;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;递归啥？？</span><br><span class="line">    UnEscape: function (value) &#123;</span><br><span class="line">        if (value !&#x3D; undefined) &#123;</span><br><span class="line">            return unescape(value);</span><br><span class="line">        &#125;</span><br><span class="line">        return undefined;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;.net Json后的日期转换</span><br><span class="line">    JsonToDateTime: function (jsonDate) &#123;</span><br><span class="line">        if (jsonDate &#x3D;&#x3D; undefined || jsonDate.length &lt;&#x3D; 0) return jsonDate;</span><br><span class="line">        var date &#x3D; new Date(parseInt(jsonDate.substr(6))).format(&quot;yyyy-MM-dd HH:mm:ss&quot;);</span><br><span class="line">        return date;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;.net Json后的日期转换 只有年月日</span><br><span class="line">    JsonToDateTimeymd: function (jsonDate) &#123;</span><br><span class="line">        if (jsonDate &#x3D;&#x3D; undefined || jsonDate.length &lt;&#x3D; 0) return jsonDate;</span><br><span class="line">        var date &#x3D; new Date(parseInt(jsonDate.substr(6))).format(&quot;yyyy-MM-dd&quot;);</span><br><span class="line">        return date;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;获得访问的路径&#x2F;Home&#x2F;Index</span><br><span class="line">    GetPath: function () &#123;</span><br><span class="line">        return window.location.pathname;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;获得Url地址</span><br><span class="line">    GetUrl: function () &#123;</span><br><span class="line">        return window.location.href;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;获得访问协议 http https</span><br><span class="line">    GetProtocol: function () &#123;</span><br><span class="line">        return window.location.protocol;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;获取域名</span><br><span class="line">    GetDomain: function () &#123;</span><br><span class="line">        return document.domain;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;获得端口</span><br><span class="line">    GetPort: function () &#123;</span><br><span class="line">        return window.location.port;</span><br><span class="line">    &#125;,</span><br><span class="line">    GetArgs: function () &#123;</span><br><span class="line">        var args &#x3D; &#123;&#125;;</span><br><span class="line">        var query &#x3D; location.search.substring(1);</span><br><span class="line">        var pairs &#x3D; query.split(&quot;&amp;&quot;);</span><br><span class="line">        for (var i &#x3D; 0; i &lt; pairs.length; i++) &#123;</span><br><span class="line">            var pos &#x3D; pairs[i].indexOf(&#39;&#x3D;&#39;);</span><br><span class="line">            if (pos &#x3D;&#x3D; -1) &#123;</span><br><span class="line">                continue;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                var argname &#x3D; pairs[i].substring(0, pos);</span><br><span class="line">                var value &#x3D; pairs[i].substring(pos + 1);</span><br><span class="line">                value &#x3D; decodeURIComponent(value);</span><br><span class="line">                args[argname] &#x3D; value;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return args;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;去所有空格</span><br><span class="line">    Trim: function (value) &#123;</span><br><span class="line">        if (value &#x3D;&#x3D; undefined || value &#x3D;&#x3D; &quot;&quot;) &#123;</span><br><span class="line">            return value;</span><br><span class="line">        &#125;</span><br><span class="line">        value &#x3D; value.replace(&#x2F;[ ]&#x2F;g, &quot;&quot;);</span><br><span class="line">        return value;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;去左边的空格</span><br><span class="line">    LTrim: function (value) &#123;</span><br><span class="line">        if (value &#x3D;&#x3D; undefined || value &#x3D;&#x3D; &quot;&quot;) &#123;</span><br><span class="line">            return value;</span><br><span class="line">        &#125;</span><br><span class="line">        value &#x3D; value.replace(&#x2F;(^\s*)&#x2F;g, &quot;&quot;);</span><br><span class="line">        return value;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;去右边空格</span><br><span class="line">    RTrim: function (value) &#123;</span><br><span class="line">        if (value &#x3D;&#x3D; undefined || value &#x3D;&#x3D; &quot;&quot;) &#123;</span><br><span class="line">            return value;</span><br><span class="line">        &#125;</span><br><span class="line">        value &#x3D; value.replace(&#x2F;(\s*$)&#x2F;g, &quot;&quot;);</span><br><span class="line">        return value;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;转换成小数，x:转换的对象，y:小数点后面的位数</span><br><span class="line">    ToDecimal: function (x, y) &#123;</span><br><span class="line">        var f_x &#x3D; parseFloat(x);</span><br><span class="line">        if (isNaN(f_x)) &#123;</span><br><span class="line"></span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        var f_x &#x3D; Math.round(x * 100000) &#x2F; 100000;</span><br><span class="line">        var s_x &#x3D; f_x.toString();</span><br><span class="line">        var pos_decimal &#x3D; s_x.indexOf(&#39;.&#39;);</span><br><span class="line">        if (pos_decimal &lt; 0) &#123;</span><br><span class="line">            pos_decimal &#x3D; s_x.length;</span><br><span class="line">            s_x +&#x3D; &#39;.&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">        while (s_x.length &lt;&#x3D; pos_decimal + y) &#123;</span><br><span class="line">            s_x +&#x3D; &#39;0&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">        return s_x;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;在键值对中，根据值获取建的信息</span><br><span class="line">    GetEnumDesc: function (item, value) &#123;</span><br><span class="line">        if (item !&#x3D; undefined) &#123;</span><br><span class="line">            var returnValue &#x3D; &quot;&quot;;</span><br><span class="line">            for (var i &#x3D; 0; i &lt; item.length; i++) &#123;</span><br><span class="line">                var json &#x3D; item[i];</span><br><span class="line">                if (json.Value &#x3D;&#x3D; value) &#123;</span><br><span class="line">                    returnValue &#x3D; json.Description;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return returnValue;</span><br><span class="line">        &#125;</span><br><span class="line">        return &quot;&quot;;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F;截取字符串</span><br><span class="line">    GetStrSub: function (str,lth)</span><br><span class="line">    &#123;</span><br><span class="line">        var resultStr &#x3D; &quot;&quot;;</span><br><span class="line">        if (str &#x3D;&#x3D; undefined || str &#x3D;&#x3D; &quot;&quot;) &#123;</span><br><span class="line">            resultStr &#x3D; &quot;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            if (str.length &gt; lth) &#123;</span><br><span class="line">                resultStr &#x3D; str.substring(0, lth) + &#39;...&#39;;</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                resultStr &#x3D; str;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return resultStr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;*   </span><br><span class="line">函数：格式化日期   </span><br><span class="line">参数：formatStr-格式化字符串   </span><br><span class="line">d：将日显示为不带前导零的数字，如1   </span><br><span class="line">dd：将日显示为带前导零的数字，如01   </span><br><span class="line">ddd：将日显示为缩写形式，如Sun   </span><br><span class="line">dddd：将日显示为全名，如Sunday   </span><br><span class="line">M：将月份显示为不带前导零的数字，如一月显示为1   </span><br><span class="line">MM：将月份显示为带前导零的数字，如01  </span><br><span class="line">MMM：将月份显示为缩写形式，如Jan  </span><br><span class="line">MMMM：将月份显示为完整月份名，如January  </span><br><span class="line">yy：以两位数字格式显示年份  </span><br><span class="line">yyyy：以四位数字格式显示年份  </span><br><span class="line">h：使用12小时制将小时显示为不带前导零的数字，注意||的用法  </span><br><span class="line">hh：使用12小时制将小时显示为带前导零的数字  </span><br><span class="line">H：使用24小时制将小时显示为不带前导零的数字  </span><br><span class="line">HH：使用24小时制将小时显示为带前导零的数字  </span><br><span class="line">m：将分钟显示为不带前导零的数字  </span><br><span class="line">mm：将分钟显示为带前导零的数字  </span><br><span class="line">s：将秒显示为不带前导零的数字  </span><br><span class="line">ss：将秒显示为带前导零的数字  </span><br><span class="line">l：将毫秒显示为不带前导零的数字  </span><br><span class="line">ll：将毫秒显示为带前导零的数字  </span><br><span class="line">tt：显示am&#x2F;pm  </span><br><span class="line">TT：显示AM&#x2F;PM  </span><br><span class="line">返回：格式化后的日期  </span><br><span class="line">*&#x2F;</span><br><span class="line">Date.prototype.format &#x3D; function (formatStr) &#123;</span><br><span class="line">    var date &#x3D; this;</span><br><span class="line">    &#x2F;*  </span><br><span class="line">    函数：填充0字符  </span><br><span class="line">    参数：value-需要填充的字符串, length-总长度  </span><br><span class="line">    返回：填充后的字符串  </span><br><span class="line">    *&#x2F;</span><br><span class="line">    var zeroize &#x3D; function (value, length) &#123;</span><br><span class="line">        if (!length) &#123;</span><br><span class="line">            length &#x3D; 2;</span><br><span class="line">        &#125;</span><br><span class="line">        value &#x3D; new String(value);</span><br><span class="line">        for (var i &#x3D; 0, zeros &#x3D; &#39;&#39;; i &lt; (length - value.length) ; i++) &#123;</span><br><span class="line">            zeros +&#x3D; &#39;0&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">        return zeros + value;</span><br><span class="line">    &#125;;</span><br><span class="line">    return formatStr.replace(&#x2F;&quot;[^&quot;]*&quot;|&#39;[^&#39;]*&#39;|\b(?:d&#123;1,4&#125;|M&#123;1,4&#125;|yy(?:yy)?|([hHmstT])\1?|[lLZ])\b&#x2F;g, function ($0) &#123;</span><br><span class="line">        switch ($0) &#123;</span><br><span class="line">            case &#39;d&#39;: return date.getDate();</span><br><span class="line">            case &#39;dd&#39;: return zeroize(date.getDate());</span><br><span class="line">            case &#39;ddd&#39;: return [&#39;Sun&#39;, &#39;Mon&#39;, &#39;Tue&#39;, &#39;Wed&#39;, &#39;Thr&#39;, &#39;Fri&#39;, &#39;Sat&#39;][date.getDay()];</span><br><span class="line">            case &#39;dddd&#39;: return [&#39;Sunday&#39;, &#39;Monday&#39;, &#39;Tuesday&#39;, &#39;Wednesday&#39;, &#39;Thursday&#39;, &#39;Friday&#39;, &#39;Saturday&#39;][date.getDay()];</span><br><span class="line">            case &#39;M&#39;: return date.getMonth() + 1;</span><br><span class="line">            case &#39;MM&#39;: return zeroize(date.getMonth() + 1);</span><br><span class="line">            case &#39;MMM&#39;: return [&#39;Jan&#39;, &#39;Feb&#39;, &#39;Mar&#39;, &#39;Apr&#39;, &#39;May&#39;, &#39;Jun&#39;, &#39;Jul&#39;, &#39;Aug&#39;, &#39;Sep&#39;, &#39;Oct&#39;, &#39;Nov&#39;, &#39;Dec&#39;][date.getMonth()];</span><br><span class="line">            case &#39;MMMM&#39;: return [&#39;January&#39;, &#39;February&#39;, &#39;March&#39;, &#39;April&#39;, &#39;May&#39;, &#39;June&#39;, &#39;July&#39;, &#39;August&#39;, &#39;September&#39;, &#39;October&#39;, &#39;November&#39;, &#39;December&#39;][date.getMonth()];</span><br><span class="line">            case &#39;yy&#39;: return new String(date.getFullYear()).substr(2);</span><br><span class="line">            case &#39;yyyy&#39;: return date.getFullYear();</span><br><span class="line">            case &#39;h&#39;: return date.getHours() % 12 || 12;</span><br><span class="line">            case &#39;hh&#39;: return zeroize(date.getHours() % 12 || 12);</span><br><span class="line">            case &#39;H&#39;: return date.getHours();</span><br><span class="line">            case &#39;HH&#39;: return zeroize(date.getHours());</span><br><span class="line">            case &#39;m&#39;: return date.getMinutes();</span><br><span class="line">            case &#39;mm&#39;: return zeroize(date.getMinutes());</span><br><span class="line">            case &#39;s&#39;: return date.getSeconds();</span><br><span class="line">            case &#39;ss&#39;: return zeroize(date.getSeconds());</span><br><span class="line">            case &#39;l&#39;: return date.getMilliseconds();</span><br><span class="line">            case &#39;ll&#39;: return zeroize(date.getMilliseconds());</span><br><span class="line">            case &#39;tt&#39;: return date.getHours() &lt; 12 ? &#39;am&#39; : &#39;pm&#39;;</span><br><span class="line">            case &#39;TT&#39;: return date.getHours() &lt; 12 ? &#39;AM&#39; : &#39;PM&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/11/09/%E3%80%90Html%E3%80%91%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/09/%E3%80%90Html%E3%80%91%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/" class="post-title-link" itemprop="url">【html】鼠标右键菜单</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-09 19:46:42" itemprop="dateCreated datePublished" datetime="2017-11-09T19:46:42+08:00">2017-11-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>15k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>14 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>网页上需要有个右键显示菜单的功能，无奈自带的UI上没有这个功能。</p>
+<p>先准备自己写个的，但写得太丑了，写不下去^,^，只好作罢。</p>
+<p>网上搜了个简单Demo，做了一些修改，去掉了一些没必要的东西（高深的看不懂）</p>
+<p>想着留着以后肯定还会用得着的，既然有轮子，又何必再造轮子</p>
+<p>效果图：</p>
+<p><img src="/images/20171109194614007.png" alt=""></p>
+<p>html代码部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;meta http-equiv&#x3D;&quot;content-type&quot; content&#x3D;&quot;text&#x2F;html; charset&#x3D;UTF-8&quot;&gt;</span><br><span class="line">		&lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;IE-8&quot;&gt;</span><br><span class="line">		&lt;title&gt;右键菜单Demo&lt;&#x2F;title&gt;</span><br><span class="line">		&lt;link rel&#x3D;&quot;stylesheet&quot; type&#x3D;&quot;text&#x2F;css&quot; href&#x3D;&quot;css&#x2F;context.standalone.css&quot;&gt;</span><br><span class="line">		&lt;link rel&#x3D;&quot;stylesheet&quot; type&#x3D;&quot;text&#x2F;css&quot; href&#x3D;&quot;http:&#x2F;&#x2F;www.jq22.com&#x2F;jquery&#x2F;bootstrap-3.3.4.css&quot;&gt;</span><br><span class="line">		&lt;script src&#x3D;&quot;js&#x2F;jquery-1.12.0.min.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">		&lt;script src&#x3D;&quot;js&#x2F;context.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">	&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">	&lt;body&gt;</span><br><span class="line">		&lt;div id&#x3D;&quot;notDynamic&quot; style&#x3D;&quot;position: absolute; left: 0; height: 100%; width: 100%; background: yellow;&quot;&gt;</span><br><span class="line">			点右键的DIV</span><br><span class="line">		&lt;&#x2F;div&gt;</span><br><span class="line">		&lt;script&gt;</span><br><span class="line">			test_menu2 &#x3D; [&#123;</span><br><span class="line">					header: &#39;右鍵菜单&#39;</span><br><span class="line">				&#125;,</span><br><span class="line">				&#123;</span><br><span class="line">					icon: &#39;glyphicon-plus&#39;,</span><br><span class="line">					text: &#39;添加&#39;,</span><br><span class="line">					action: function(e, selector) &#123;</span><br><span class="line">						alert(&#39;Create clicked on &#39; + selector.prop(&quot;tagName&quot;) + &quot;:&quot; + selector.attr(&quot;id&quot;));</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;,</span><br><span class="line">				&#123;</span><br><span class="line">					icon: &#39;glyphicon-edit&#39;,</span><br><span class="line">					text: &#39;编辑&#39;,</span><br><span class="line">					action: function(e, selector) &#123;</span><br><span class="line">						alert(&#39;Edit clicked on &#39; + selector.prop(&quot;tagName&quot;) + &quot;:&quot; + selector.attr(&quot;id&quot;));</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;,</span><br><span class="line">				&#123;</span><br><span class="line">					icon: &#39;glyphicon-list-alt&#39;,</span><br><span class="line">					text: &#39;更多&#39;,</span><br><span class="line">					subMenu: [&#123;</span><br><span class="line">						text: &#39;文本&#39;,</span><br><span class="line">						action: function(e, selector) &#123;</span><br><span class="line">							alert(&#39;Text clicked on &#39; + selector.prop(&quot;tagName&quot;) + &quot;:&quot; + selector.attr(&quot;id&quot;));</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;,&#123;</span><br><span class="line">						text: &#39;文本&#39;,</span><br><span class="line">						action: function(e, selector) &#123;</span><br><span class="line">							alert(&#39;Text clicked on &#39; + selector.prop(&quot;tagName&quot;) + &quot;:&quot; + selector.attr(&quot;id&quot;));</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;]</span><br><span class="line">				&#125;</span><br><span class="line">			];</span><br><span class="line">			context.init(&#123;</span><br><span class="line">				preventDoubleContext: false</span><br><span class="line">			&#125;);</span><br><span class="line"></span><br><span class="line">			&#x2F;&#x2F;在DIV上调用右键菜单</span><br><span class="line">			context.attach(&#39;#notDynamic&#39;, test_menu2);</span><br><span class="line">		&lt;&#x2F;script&gt;</span><br><span class="line">	&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+<p>js代码部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br></pre></td><td class="code"><pre><span class="line">context &#x3D; (function() &#123;</span><br><span class="line"></span><br><span class="line">	var options &#x3D; &#123;</span><br><span class="line">		fadeSpeed: 200,</span><br><span class="line">		filter: function($obj) &#123;</span><br><span class="line">			&#x2F;&#x2F; Modify $obj, Do not return</span><br><span class="line">		&#125;,</span><br><span class="line">		preventDoubleContext: true,</span><br><span class="line">		compress: true&#x2F;&#x2F;紧缩</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	function initialize(opts) &#123;</span><br><span class="line"></span><br><span class="line">		options &#x3D; $.extend(&#123;&#125;, options, opts);</span><br><span class="line"></span><br><span class="line">		$(document).on(&#39;click&#39;, function() &#123;</span><br><span class="line">			$(&#39;.dropdown-context&#39;).fadeOut(options.fadeSpeed, function() &#123;</span><br><span class="line">				$(&#39;.dropdown-context&#39;).css(&#123;</span><br><span class="line">					display: &#39;&#39;</span><br><span class="line">				&#125;).find(&#39;.drop-left&#39;).removeClass(&#39;drop-left&#39;);</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;);</span><br><span class="line">		if(options.preventDoubleContext) &#123;</span><br><span class="line">			$(document).on(&#39;contextmenu&#39;, &#39;.dropdown-context&#39;, function(e) &#123;</span><br><span class="line">				e.preventDefault();</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;</span><br><span class="line">		$(document).on(&#39;mouseenter&#39;, &#39;.dropdown-submenu&#39;, function() &#123;</span><br><span class="line">			var $sub &#x3D; $(this).find(&#39;.dropdown-context-sub:first&#39;),</span><br><span class="line">				subWidth &#x3D; $sub.width(),</span><br><span class="line">				subLeft &#x3D; $sub.offset().left,</span><br><span class="line">				collision &#x3D; (subWidth + subLeft) &gt; window.innerWidth;</span><br><span class="line">			if(collision) &#123;</span><br><span class="line">				$sub.addClass(&#39;drop-left&#39;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	function updateOptions(opts) &#123;</span><br><span class="line">		options &#x3D; $.extend(&#123;&#125;, options, opts);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	function buildMenu(data, id, subMenu) &#123;</span><br><span class="line">		var subClass &#x3D; (subMenu) ? &#39; dropdown-context-sub&#39; : &#39;&#39;,</span><br><span class="line">			compressed &#x3D; options.compress ? &#39; compressed-context&#39; : &#39;&#39;,</span><br><span class="line">			$menu &#x3D; $(&#39;&lt;ul class&#x3D;&quot;dropdown-menu dropdown-context&#39; + subClass + compressed + &#39;&quot; id&#x3D;&quot;dropdown-&#39; + id + &#39;&quot;&gt;&lt;&#x2F;ul&gt;&#39;);</span><br><span class="line"></span><br><span class="line">		return buildMenuItems($menu, data, id, subMenu);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	function buildMenuItems($menu, data, id, subMenu, addDynamicTag) &#123;</span><br><span class="line">		var linkTarget &#x3D; &#39;&#39;;</span><br><span class="line">		for(var i &#x3D; 0; i &lt; data.length; i++) &#123;</span><br><span class="line">			if(typeof data[i].divider !&#x3D;&#x3D; &#39;undefined&#39;) &#123;</span><br><span class="line">				var divider &#x3D; &#39;&lt;li class&#x3D;&quot;divider&#39;;</span><br><span class="line">				divider +&#x3D; (addDynamicTag) ? &#39; dynamic-menu-item&#39; : &#39;&#39;;</span><br><span class="line">				divider +&#x3D; &#39;&quot;&gt;&lt;&#x2F;li&gt;&#39;;</span><br><span class="line">				$menu.append(divider);</span><br><span class="line">			&#125; else if(typeof data[i].header !&#x3D;&#x3D; &#39;undefined&#39;) &#123;</span><br><span class="line">				var header &#x3D; &#39;&lt;li class&#x3D;&quot;nav-header&#39;;</span><br><span class="line">				header +&#x3D; (addDynamicTag) ? &#39; dynamic-menu-item&#39; : &#39;&#39;;</span><br><span class="line">				header +&#x3D; &#39;&quot;&gt;&#39; + data[i].header + &#39;&lt;&#x2F;li&gt;&#39;;</span><br><span class="line">				$menu.append(header);</span><br><span class="line">			&#125; else if(typeof data[i].menu_item_src !&#x3D;&#x3D; &#39;undefined&#39;) &#123;</span><br><span class="line">				var funcName;</span><br><span class="line">				if(typeof data[i].menu_item_src &#x3D;&#x3D;&#x3D; &#39;function&#39;) &#123;</span><br><span class="line">					if(data[i].menu_item_src.name &#x3D;&#x3D;&#x3D; &quot;&quot;) &#123; &#x2F;&#x2F; The function is declared like &quot;foo &#x3D; function() &#123;&#125;&quot;</span><br><span class="line">						for(var globalVar in window) &#123;</span><br><span class="line">							if(data[i].menu_item_src &#x3D;&#x3D; window[globalVar]) &#123;</span><br><span class="line">								funcName &#x3D; globalVar;</span><br><span class="line">								break;</span><br><span class="line">							&#125;</span><br><span class="line">						&#125;</span><br><span class="line">					&#125; else &#123;</span><br><span class="line">						funcName &#x3D; data[i].menu_item_src.name;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125; else &#123;</span><br><span class="line">					funcName &#x3D; data[i].menu_item_src;</span><br><span class="line">				&#125;</span><br><span class="line">				$menu.append(&#39;&lt;li class&#x3D;&quot;dynamic-menu-src&quot; data-src&#x3D;&quot;&#39; + funcName + &#39;&quot;&gt;&lt;&#x2F;li&gt;&#39;);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				if(typeof data[i].href &#x3D;&#x3D; &#39;undefined&#39;) &#123;</span><br><span class="line">					data[i].href &#x3D; &#39;#&#39;;</span><br><span class="line">				&#125;</span><br><span class="line">				if(typeof data[i].target !&#x3D;&#x3D; &#39;undefined&#39;) &#123;</span><br><span class="line">					linkTarget &#x3D; &#39; target&#x3D;&quot;&#39; + data[i].target + &#39;&quot;&#39;;</span><br><span class="line">				&#125;</span><br><span class="line">				if(typeof data[i].subMenu !&#x3D;&#x3D; &#39;undefined&#39;) &#123;</span><br><span class="line">					var sub_menu &#x3D; &#39;&lt;li class&#x3D;&quot;dropdown-submenu&#39;;</span><br><span class="line">					sub_menu +&#x3D; (addDynamicTag) ? &#39; dynamic-menu-item&#39; : &#39;&#39;;</span><br><span class="line">					sub_menu +&#x3D; &#39;&quot;&gt;&lt;a tabindex&#x3D;&quot;-1&quot; href&#x3D;&quot;&#39; + data[i].href + &#39;&quot;&gt;&#39; + data[i].text + &#39;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;</span><br><span class="line">					$sub &#x3D; (sub_menu);</span><br><span class="line">				&#125; else &#123;</span><br><span class="line">					var element &#x3D; &#39;&lt;li&#39;;</span><br><span class="line">					element +&#x3D; (addDynamicTag) ? &#39; class&#x3D;&quot;dynamic-menu-item&quot;&#39; : &#39;&#39;;</span><br><span class="line">					element +&#x3D; &#39;&gt;&lt;a tabindex&#x3D;&quot;-1&quot; href&#x3D;&quot;&#39; + data[i].href + &#39;&quot;&#39; + linkTarget + &#39;&gt;&#39;;</span><br><span class="line">					if(typeof data[i].icon !&#x3D;&#x3D; &#39;undefined&#39;)</span><br><span class="line">						element +&#x3D; &#39;&lt;span class&#x3D;&quot;glyphicon &#39; + data[i].icon + &#39;&quot;&gt;&lt;&#x2F;span&gt; &#39;;</span><br><span class="line">					element +&#x3D; data[i].text + &#39;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;&#39;;</span><br><span class="line">					$sub &#x3D; $(element);</span><br><span class="line">				&#125;</span><br><span class="line">				if(typeof data[i].action !&#x3D;&#x3D; &#39;undefined&#39;) &#123;</span><br><span class="line">					$action &#x3D; data[i].action;</span><br><span class="line">					$sub</span><br><span class="line">						.find(&#39;a&#39;)</span><br><span class="line">						.addClass(&#39;context-event&#39;)</span><br><span class="line">						.on(&#39;click&#39;, createCallback($action));</span><br><span class="line">				&#125;</span><br><span class="line">				$menu.append($sub);</span><br><span class="line">				if(typeof data[i].subMenu !&#x3D; &#39;undefined&#39;) &#123;</span><br><span class="line">					var subMenuData &#x3D; buildMenu(data[i].subMenu, id, true);</span><br><span class="line">					$menu.find(&#39;li:last&#39;).append(subMenuData);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			if(typeof options.filter &#x3D;&#x3D; &#39;function&#39;) &#123;</span><br><span class="line">				options.filter($menu.find(&#39;li:last&#39;));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return $menu;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	function addContext(selector, data) &#123;</span><br><span class="line">		if(typeof data.id !&#x3D;&#x3D; &#39;undefined&#39; &amp;&amp; typeof data.data !&#x3D;&#x3D; &#39;undefined&#39;) &#123;</span><br><span class="line">			var id &#x3D; data.id;</span><br><span class="line">			$menu &#x3D; $(&#39;body&#39;).find(&#39;#dropdown-&#39; + id)[0];</span><br><span class="line">			if(typeof $menu &#x3D;&#x3D;&#x3D; &#39;undefined&#39;) &#123;</span><br><span class="line">				$menu &#x3D; buildMenu(data.data, id);</span><br><span class="line">				$(&#39;body&#39;).append($menu);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			var d &#x3D; new Date(),</span><br><span class="line">				id &#x3D; d.getTime(),</span><br><span class="line">				$menu &#x3D; buildMenu(data, id);</span><br><span class="line">			$(&#39;body&#39;).append($menu);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		$(selector).on(&#39;contextmenu&#39;, function(e) &#123;</span><br><span class="line">			e.preventDefault();</span><br><span class="line">			e.stopPropagation();</span><br><span class="line"></span><br><span class="line">			currentContextSelector &#x3D; $(this);</span><br><span class="line"></span><br><span class="line">			$(&#39;.dropdown-context:not(.dropdown-context-sub)&#39;).hide();</span><br><span class="line"></span><br><span class="line">			$dd &#x3D; $(&#39;#dropdown-&#39; + id);</span><br><span class="line"></span><br><span class="line">			$dd.find(&#39;.dynamic-menu-item&#39;).remove(); &#x2F;&#x2F; Destroy any old dynamic menu items</span><br><span class="line">			$dd.find(&#39;.dynamic-menu-src&#39;).each(function(idx, element) &#123;</span><br><span class="line">				var menuItems &#x3D; window[$(element).data(&#39;src&#39;)]($(selector));</span><br><span class="line">				$parentMenu &#x3D; $(element).closest(&#39;.dropdown-menu.dropdown-context&#39;);</span><br><span class="line">				$parentMenu &#x3D; buildMenuItems($parentMenu, menuItems, id, undefined, true);</span><br><span class="line">			&#125;);</span><br><span class="line"></span><br><span class="line">			$dd.addClass(&#39;dropdown-context-sub&#39;).css(&#123;</span><br><span class="line">				top: e.pageY + 10,</span><br><span class="line">				left: e.pageX - 13</span><br><span class="line">			&#125;).fadeIn(options.fadeSpeed);</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	function destroyContext(selector) &#123;</span><br><span class="line">		$(document).off(&#39;contextmenu&#39;, selector).off(&#39;click&#39;, &#39;.context-event&#39;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return &#123;</span><br><span class="line">		init: initialize,</span><br><span class="line">		settings: updateOptions,</span><br><span class="line">		attach: addContext,</span><br><span class="line">		destroy: destroyContext</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">var createCallback &#x3D; function(func) &#123;</span><br><span class="line">	return function(event) &#123;</span><br><span class="line">		func(event, currentContextSelector)</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">currentContextSelector &#x3D; undefined;</span><br></pre></td></tr></table></figure>
+<p>css代码部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br></pre></td><td class="code"><pre><span class="line"> &#x2F;**</span><br><span class="line"> * ContextJS Styles</span><br><span class="line"> * For use WITHOUT Twitters Bootstrap CSS</span><br><span class="line"> *&#x2F;</span><br><span class="line">.nav-header &#123;</span><br><span class="line">    display: block;</span><br><span class="line">    padding: 3px 15px;</span><br><span class="line">    font-size: 11px;</span><br><span class="line">    font-weight: bold;</span><br><span class="line">    line-height: 20px;</span><br><span class="line">    color: #999;</span><br><span class="line">    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);</span><br><span class="line">    text-transform: uppercase;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-menu &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 100%;</span><br><span class="line">    left: 0;</span><br><span class="line">    z-index: 1000;</span><br><span class="line">    display: none;</span><br><span class="line">    float: left;</span><br><span class="line">    min-width: 160px;</span><br><span class="line">    padding: 5px 0;</span><br><span class="line">    margin: 2px 0 0;</span><br><span class="line">    list-style: none;</span><br><span class="line">    background-color: #ffffff;</span><br><span class="line">    border: 1px solid #ccc;</span><br><span class="line">    border: 1px solid rgba(0, 0, 0, 0.2);</span><br><span class="line">    font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;</span><br><span class="line">    font-size: 14px;</span><br><span class="line">    *border-right-width: 2px;</span><br><span class="line">    *border-bottom-width: 2px;</span><br><span class="line">    -webkit-border-radius: 6px;</span><br><span class="line">    -moz-border-radius: 6px;</span><br><span class="line">    border-radius: 6px;</span><br><span class="line">    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);</span><br><span class="line">    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);</span><br><span class="line">    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);</span><br><span class="line">    -webkit-background-clip: padding-box;</span><br><span class="line">    -moz-background-clip: padding;</span><br><span class="line">    background-clip: padding-box;</span><br><span class="line">    text-align:left;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-menu.pull-right &#123;</span><br><span class="line">    right: 0;</span><br><span class="line">    left: auto;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-menu .divider &#123;</span><br><span class="line">    *width: 100%;</span><br><span class="line">    height: 1px;</span><br><span class="line">    margin: 9px 1px;</span><br><span class="line">    *margin: -5px 0 5px;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">    background-color: #e5e5e5;</span><br><span class="line">    border-bottom: 1px solid #e5e5e5;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-menu a &#123;</span><br><span class="line">    display: block;</span><br><span class="line">    padding: 3px 20px;</span><br><span class="line">    clear: both;</span><br><span class="line">    font-weight: normal;</span><br><span class="line">    line-height: 20px;</span><br><span class="line">    color: #333333;</span><br><span class="line">    white-space: nowrap;</span><br><span class="line">    text-decoration: none;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-menu li &gt; a:hover, .dropdown-menu li &gt; a:focus, .dropdown-submenu:hover &gt; a &#123;</span><br><span class="line">    color: #ffffff;</span><br><span class="line">    text-decoration: none;</span><br><span class="line">    background-color: #0088cc;</span><br><span class="line">    background-color: #0081c2;</span><br><span class="line">    background-image: -moz-linear-gradient(top, #0088cc, #0077b3);</span><br><span class="line">    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));</span><br><span class="line">    background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);</span><br><span class="line">    background-image: -o-linear-gradient(top, #0088cc, #0077b3);</span><br><span class="line">    background-image: linear-gradient(to bottom, #0088cc, #0077b3);</span><br><span class="line">    background-repeat: repeat-x;</span><br><span class="line">    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr&#x3D;&#39;#ff0088cc&#39;, endColorstr&#x3D;&#39;#ff0077b3&#39;, GradientType&#x3D;0);</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-menu .active &gt; a, .dropdown-menu .active &gt; a:hover &#123;</span><br><span class="line">    color: #ffffff;</span><br><span class="line">    text-decoration: none;</span><br><span class="line">    background-color: #0088cc;</span><br><span class="line">    background-color: #0081c2;</span><br><span class="line">    background-image: linear-gradient(to bottom, #0088cc, #0077b3);</span><br><span class="line">    background-image: -moz-linear-gradient(top, #0088cc, #0077b3);</span><br><span class="line">    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));</span><br><span class="line">    background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);</span><br><span class="line">    background-image: -o-linear-gradient(top, #0088cc, #0077b3);</span><br><span class="line">    background-repeat: repeat-x;</span><br><span class="line">    outline: 0;</span><br><span class="line">    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr&#x3D;&#39;#ff0088cc&#39;, endColorstr&#x3D;&#39;#ff0077b3&#39;, GradientType&#x3D;0);</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-menu .disabled &gt; a, .dropdown-menu .disabled &gt; a:hover &#123;</span><br><span class="line">    color: #999999;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-menu .disabled &gt; a:hover &#123;</span><br><span class="line">    text-decoration: none;</span><br><span class="line">    cursor: default;</span><br><span class="line">    background-color: transparent;</span><br><span class="line">&#125;</span><br><span class="line">.open &#123;</span><br><span class="line">    *z-index: 1000;</span><br><span class="line">&#125;</span><br><span class="line">.open &gt; .dropdown-menu &#123;</span><br><span class="line">    display: block;</span><br><span class="line">&#125;</span><br><span class="line">.pull-right &gt; .dropdown-menu &#123;</span><br><span class="line">    right: 0;</span><br><span class="line">    left: auto;</span><br><span class="line">&#125;</span><br><span class="line">.dropup .caret, .navbar-fixed-bottom .dropdown .caret &#123;</span><br><span class="line">    border-top: 0;</span><br><span class="line">    border-bottom: 4px solid #000000;</span><br><span class="line">    content: &quot;\2191&quot;;</span><br><span class="line">&#125;</span><br><span class="line">.dropup .dropdown-menu, .navbar-fixed-bottom .dropdown .dropdown-menu &#123;</span><br><span class="line">    top: auto;</span><br><span class="line">    bottom: 100%;</span><br><span class="line">    margin-bottom: 1px;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-submenu &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-submenu &gt; .dropdown-menu &#123;</span><br><span class="line">    top: 0;</span><br><span class="line">    left: 100%;</span><br><span class="line">    margin-top: -6px;</span><br><span class="line">    margin-left: -1px;</span><br><span class="line">    -webkit-border-radius: 0 6px 6px 6px;</span><br><span class="line">    -moz-border-radius: 0 6px 6px 6px;</span><br><span class="line">    border-radius: 0 6px 6px 6px;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-submenu &gt; .dropdown-menu.drop-left&#123;</span><br><span class="line">    left:-100%;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-submenu:hover .dropdown-menu &#123;</span><br><span class="line">    display: block;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-submenu &gt; a:after &#123;</span><br><span class="line">    display: block;</span><br><span class="line">    float: right;</span><br><span class="line">    width: 0;</span><br><span class="line">    height: 0;</span><br><span class="line">    margin-top: 5px;</span><br><span class="line">    margin-right: -10px;</span><br><span class="line">    border-color: transparent;</span><br><span class="line">    border-left-color: #cccccc;</span><br><span class="line">    border-style: solid;</span><br><span class="line">    border-width: 5px 0 5px 5px;</span><br><span class="line">    content: &quot; &quot;;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-submenu:hover &gt; a:after &#123;</span><br><span class="line">    border-left-color: #ffffff;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown .dropdown-menu .nav-header &#123;</span><br><span class="line">    padding-right: 20px;</span><br><span class="line">    padding-left: 20px;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;**</span><br><span class="line"> *  Context Styles</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">.dropdown-context .nav-header &#123;</span><br><span class="line">    cursor: default;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-context:before, .dropdown-context-up:before, .dropdown-context-left:before &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: -7px;</span><br><span class="line">    left: 9px;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    border-right: 7px solid transparent;</span><br><span class="line">    border-bottom: 7px solid #ccc;</span><br><span class="line">    border-left: 7px solid transparent;</span><br><span class="line">    border-bottom-color: rgba(0, 0, 0, 0.2);</span><br><span class="line">    content: &#39;&#39;;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-context:after, .dropdown-context-up:after, .dropdown-context-left:after &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: -6px;</span><br><span class="line">    left: 10px;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    border-right: 6px solid transparent;</span><br><span class="line">    border-bottom: 6px solid #ffffff;</span><br><span class="line">    border-left: 6px solid transparent;</span><br><span class="line">    content: &#39;&#39;;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-context-up:before, .dropdown-context-up:after &#123;</span><br><span class="line">    top: auto;</span><br><span class="line">    bottom: -7px;</span><br><span class="line">    z-index: 9999;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-context-up:before &#123;</span><br><span class="line">    border-right: 7px solid transparent;</span><br><span class="line">    border-top: 7px solid #ccc;</span><br><span class="line">    border-bottom: none;</span><br><span class="line">    border-left: 7px solid transparent;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-context-up:after &#123;</span><br><span class="line">    border-right: 6px solid transparent;</span><br><span class="line">    border-top: 6px solid #ffffff;</span><br><span class="line">    border-left: 6px solid transparent;</span><br><span class="line">    border-bottom: none;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-context-left:before &#123;</span><br><span class="line">    left: auto;</span><br><span class="line">    right: 9px;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-context-left:after &#123;</span><br><span class="line">    left: auto;</span><br><span class="line">    right: 9px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.dropdown-context-sub:before, .dropdown-context-sub:after &#123;</span><br><span class="line">    display: none;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-context .dropdown-submenu:hover .dropdown-menu &#123;</span><br><span class="line">    display: none;</span><br><span class="line">&#125;</span><br><span class="line">.dropdown-context .dropdown-submenu:hover &gt; .dropdown-menu &#123;</span><br><span class="line">    display: block;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.compressed-context a&#123;</span><br><span class="line">    padding-left: 14px;</span><br><span class="line">    padding-top: 0;</span><br><span class="line">    padding-bottom: 0;</span><br><span class="line">    font-size: 13px;</span><br><span class="line">    &#125;</span><br><span class="line">.compressed-context .divider&#123;</span><br><span class="line">    margin: 5px 1px;</span><br><span class="line">    &#125;</span><br><span class="line">.compressed-context .nav-header&#123;</span><br><span class="line">    padding:1px 13px;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">.dynamic-menu-src &#123;</span><br><span class="line">    display: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/65/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><span class="page-number current">66</span><a class="page-number" href="/page/67/">67</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/67/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+   	鄂ICP备 -
+    <a target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow">17012779号</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22:07</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

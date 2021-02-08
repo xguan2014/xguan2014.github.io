@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/72/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/72/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/08/10/%E3%80%90Asp.Net%E3%80%91%E5%9B%BE%E7%89%87%E5%92%8CBase64%E7%BC%96%E7%A0%81%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/08/10/%E3%80%90Asp.Net%E3%80%91%E5%9B%BE%E7%89%87%E5%92%8CBase64%E7%BC%96%E7%A0%81%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2/" class="post-title-link" itemprop="url">【Asp.Net】图片和Base64编码互相转换</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-08-10 17:26:32" itemprop="dateCreated datePublished" datetime="2017-08-10T17:26:32+08:00">2017-08-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在调用阿里云上面的api接口时，有些图片处理接口都需要将图片文件转换成base64，传递参数然后才能调用。</p>
+<p>网上搜了下 一些图片和base转换的方法：</p>
+<h3 id="一、通过jQuery方法转换"><a href="#一、通过jQuery方法转换" class="headerlink" title="一、通过jQuery方法转换"></a>一、通过jQuery方法转换</h3><p>html代码部分：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;file&quot; id&#x3D;&quot;img_upload_file&quot; value&#x3D;&quot;&quot; multiple&#x3D;&quot;multiple&quot; &#x2F;&gt;</span><br><span class="line">&lt;input type&#x3D;&quot;hidden&quot; name&#x3D;&quot;img_upload_base&quot; id&#x3D;&quot;img_upload_base&quot; &#x2F;&gt;</span><br><span class="line">&lt;textarea rows&#x3D;&quot;30&quot; cols&#x3D;&quot;100&quot; id&#x3D;&quot;img_upload_base_text&quot;&gt;&lt;&#x2F;textarea&gt;</span><br></pre></td></tr></table></figure>
+<p>js代码部分 ：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;scripts&#x2F;jquery-1.8.3.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">    $(function () &#123;</span><br><span class="line">        $(&quot;#img_upload_file&quot;).change(function () &#123;</span><br><span class="line">            var file &#x3D; this.files[0];</span><br><span class="line">            var reader &#x3D; new FileReader();</span><br><span class="line">            reader.readAsDataURL(file);&#x2F;&#x2F;调用自带方法进行转换  </span><br><span class="line">            reader.onload &#x3D; function (e) &#123;</span><br><span class="line">                $(&quot;#img_upload_show&quot;).attr(&quot;src&quot;, this.result);&#x2F;&#x2F;将转换后的编码存入src完成预览  </span><br><span class="line">                $(&quot;#img_upload_base&quot;).val(this.result);&#x2F;&#x2F;将转换后的编码保存到input供后台使用  </span><br><span class="line">                $(&quot;#img_upload_base_text&quot;).val(this.result);&#x2F;&#x2F;显示出  转换后的编码数据   </span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>这个方法比较简单，省时省力，转换的操作都放到用户浏览器上进行，减少服务器压力。  </p>
+<h3 id="二-、asp后台处理转换"><a href="#二-、asp后台处理转换" class="headerlink" title="二 、asp后台处理转换"></a>二 、asp后台处理转换</h3><p>html代码部分：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;asp:FileUpload ID&#x3D;&quot;file_upload&quot; runat&#x3D;&quot;server&quot; &#x2F;&gt;</span><br><span class="line">&lt;asp:Button ID&#x3D;&quot;btn&quot; runat&#x3D;&quot;server&quot; Text&#x3D;&quot;后台转换&quot; OnClick&#x3D;&quot;btn_Click&quot; &#x2F;&gt;</span><br><span class="line">&lt;img id&#x3D;&quot;img_upload_show&quot; src&#x3D;&quot;&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<p>aps后台代码部分：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">protected void btn_Click(object sender, EventArgs e)</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F;获取上传 文件的名称</span><br><span class="line">    string btn_file&#x3D;  file_upload.PostedFile.FileName;</span><br><span class="line">    &#x2F;&#x2F;获取 服务器上路径</span><br><span class="line">    string imgPath &#x3D; Server.MapPath(&quot;Imagers&#x2F;&quot;);</span><br><span class="line">    &#x2F;&#x2F;获取 文件后缀</span><br><span class="line">    string houzui &#x3D; btn_file.Substring(btn_file.LastIndexOf(&#39;.&#39;));</span><br><span class="line">    &#x2F;&#x2F;上传文件 路径 ，重命名</span><br><span class="line">    string filePath &#x3D; imgPath + Guid.NewGuid().ToString()+ houzui;</span><br><span class="line">    &#x2F;&#x2F;上传文件</span><br><span class="line">    file_upload.SaveAs(filePath);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;转换base64</span><br><span class="line">    string result &#x3D; imgToBase64(filePath);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;写入txt文件中</span><br><span class="line">    string path &#x3D; Server.MapPath(&quot;&#x2F;Base&quot;);</span><br><span class="line">    System.IO.File.WriteAllText(path + &quot;&#x2F;&#x2F;&quot; + Guid.NewGuid().ToString() + &quot;.txt&quot;, result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>imagerToBase64的方法：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; imager 转换 成Base64</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;filePath&quot;&gt;文件路径&lt;&#x2F;param&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;returns&gt;base64编码&lt;&#x2F;returns&gt;</span><br><span class="line">private string imgToBase64(string filePath)</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F;用streamread读这个文件</span><br><span class="line">    System.IO.StreamReader sr &#x3D; new StreamReader(filePath, Encoding.Default, true);</span><br><span class="line"></span><br><span class="line">    int index;</span><br><span class="line">    &#x2F;&#x2F;实例化一个内存流</span><br><span class="line">    System.IO.MemoryStream tempStream &#x3D; new MemoryStream();</span><br><span class="line">    &#x2F;&#x2F;将流转换为字节数组</span><br><span class="line">    while ((index &#x3D; sr.BaseStream.ReadByte()) !&#x3D; -1)</span><br><span class="line">    &#123;</span><br><span class="line">        tempStream.WriteByte(((byte)index));</span><br><span class="line">    &#125;</span><br><span class="line">    byte[] array &#x3D; tempStream.ToArray();</span><br><span class="line">    tempStream.Close();</span><br><span class="line">    &#x2F;&#x2F;将得到的字节数组转换为base64位编码</span><br><span class="line">    string result &#x3D; Convert.ToBase64String(array);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法不太方便，需要先将图片上传至服务器，然后得到图片的路径，再进行 转换。  </p>
+<h3 id="三、Base64编码转图片"><a href="#三、Base64编码转图片" class="headerlink" title="三、Base64编码转图片"></a>三、Base64编码转图片</h3><p>在写这个时候，遇到个bug，Bitmap参数无效，原来是错误的将 gif 的 动态图的编码转成Bitmap所以会报错的 额 。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; base64编码的文本 转为    图片</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;txtFileName&quot;&gt;Base编码的txt文本路径 &lt;&#x2F;param&gt;</span><br><span class="line">private void Base64StringToImage(string txtFileName)</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        FileStream ifs &#x3D; new FileStream(txtFileName, FileMode.Open, FileAccess.Read);</span><br><span class="line">        StreamReader sr &#x3D; new StreamReader(ifs);</span><br><span class="line">        &#x2F;&#x2F;读取txt里面的内容</span><br><span class="line">        String inputStr &#x3D; sr.ReadToEnd();</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F;转图片 </span><br><span class="line">        byte[] bt &#x3D; Convert.FromBase64String(inputStr);</span><br><span class="line">        System.IO.MemoryStream stream &#x3D; new System.IO.MemoryStream(bt);</span><br><span class="line">        Bitmap bmp &#x3D; new Bitmap(stream);</span><br><span class="line"></span><br><span class="line">        string fileName &#x3D; txtFileName.Substring(0, txtFileName.IndexOf(&quot;.&quot;));</span><br><span class="line"></span><br><span class="line">        if (File.Exists(fileName))</span><br><span class="line">        &#123;</span><br><span class="line">            File.Delete(fileName);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;存储到服务器 上 </span><br><span class="line">        bmp.Save(fileName + &quot;.jpg&quot;, System.Drawing.Imaging.ImageFormat.Jpeg);</span><br><span class="line">        bmp.Save(fileName + &quot;.bmp&quot;, ImageFormat.Bmp);</span><br><span class="line">        bmp.Save(fileName + &quot;.gif&quot;, ImageFormat.Gif);</span><br><span class="line">        bmp.Save(fileName + &quot;.png&quot;, ImageFormat.Png);</span><br><span class="line">        stream.Close();</span><br><span class="line">        sr.Close();</span><br><span class="line">        ifs.Close();</span><br><span class="line">    &#125;</span><br><span class="line">    catch (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;(&quot;Base64StringToImage 转换失败\nException：&quot; + ex.Message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/08/08/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95,Json%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/08/08/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95,Json%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">【前端】一些基本方法Json操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-08-08 23:26:16" itemprop="dateCreated datePublished" datetime="2017-08-08T23:26:16+08:00">2017-08-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>简单的总结下AJAX的几个方法</p>
+<p>之前只会使用$.Ajax()这个方法，但需要填的参数有点多。</p>
+<p>今天花时间去学习了下Jquery中Ajax的一些其他的方法。</p>
+<p>今天学习感觉收获挺大的。</p>
+<p>以前都是通过ajax在一般处理程序的后台把前台界面的代码拼接好，然后通过回掉函数传给前台。</p>
+<p>现在可以 用过JSON返回数据给前台，然后再 拼接html，在程序效率上肯定是比之前强很多的。</p>
+<p>下面就来总结一下今天学习的吧：</p>
+<p><img src="/images/20170808225551361.png" alt="">  </p>
+<h3 id="一、post提交"><a href="#一、post提交" class="headerlink" title="一、post提交"></a>一、post提交</h3><p><strong>url</strong>:发送请求地址。</p>
+<p><strong>data</strong>:待发送 Key/value 参数。</p>
+<p><strong>callback</strong>:发送成功时回调函数。</p>
+<p><strong>type</strong>:返回内容格式，xml, html, script, json, text, _default。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;#btnPost&quot;).click(function () &#123;</span><br><span class="line">    $.post(&quot;AjaxDemo.ashx&quot;,</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;Action&quot;: &quot;Post&quot;,</span><br><span class="line">            &quot;UserName&quot;: &quot;zhangsan&quot;,</span><br><span class="line">            &quot;UserPwd&quot;: &quot;123456&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        function (data) &#123;</span><br><span class="line">            alert(data);</span><br><span class="line">        &#125;, &quot;text&quot;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="二、get提交"><a href="#二、get提交" class="headerlink" title="二、get提交"></a>二、get提交</h3><p>其实和post在 写法和参数上并没有什么 不同的  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;#btnGet&quot;).click(function () &#123;</span><br><span class="line">    $.get(&quot;AjaxDemo.ashx&quot;,</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;Action&quot;: &quot;Get&quot;,</span><br><span class="line">            &quot;UserName&quot;: &quot;zhangsan&quot;,</span><br><span class="line">            &quot;UserPwd&quot;: &quot;123456&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        function (data) &#123;</span><br><span class="line">            alert(data);</span><br><span class="line">        &#125;, &quot;text&quot;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、ajax提交"><a href="#三、ajax提交" class="headerlink" title="三、ajax提交"></a>三、ajax提交</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    url: &#39;MyHandler&#x2F;HdProSet.ashx&#39;,</span><br><span class="line">    contentType: &#39;post&#39;,</span><br><span class="line">    data: &#123;</span><br><span class="line">        action: &#39;SelProAndSchool&#39;,</span><br><span class="line">        ProID: ProID,</span><br><span class="line">        ProName: ProName,</span><br><span class="line">    &#125;,</span><br><span class="line">    success: function (msg) &#123;</span><br><span class="line">        $(&quot;#mytbody&quot;).empty();</span><br><span class="line">        $(&quot;#mytbody&quot;).append(msg);</span><br><span class="line">        del();</span><br><span class="line">        UpaProID();</span><br><span class="line">    &#125;,</span><br><span class="line">    error: function () &#123;</span><br><span class="line">        alert(&quot;出错了！&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>/<strong><strong><strong><strong><strong>***</strong></strong></strong></strong></strong>重点来了<strong><strong><strong><strong>*****</strong></strong></strong></strong>/  </p>
+<h3 id="四、直接提交整个form表单数据"><a href="#四、直接提交整个form表单数据" class="headerlink" title="四、直接提交整个form表单数据"></a>四、直接提交整个form表单数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;#btnForm&quot;).click(function () &#123;</span><br><span class="line">    var form &#x3D; $(&quot;#form1&quot;).serializeArray();</span><br><span class="line">    $.post(&quot;AjaxDemo.ashx&quot;, form,</span><br><span class="line">        function (data) &#123;</span><br><span class="line">            alert(data);</span><br><span class="line">        &#125;, &quot;text&quot;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="五、返回一个json数据集"><a href="#五、返回一个json数据集" class="headerlink" title="五、返回一个json数据集"></a>五、返回一个json数据集</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*-----------------------------------------------------*&#x2F;</span><br><span class="line">$(&quot;#btnJson&quot;).click(function () &#123;</span><br><span class="line">    $.post(&quot;AjaxDemo.ashx&quot;, &#123; &quot;Action&quot;: &quot;Json&quot; &#125;,</span><br><span class="line">        function (JsonData) &#123;</span><br><span class="line">            var length &#x3D; JsonData.length;</span><br><span class="line">            for (var i &#x3D; 0; i &lt; length; i++) &#123;</span><br><span class="line">                alert(JsonData[i].SchoolID + &quot;+&quot; +</span><br><span class="line">                    JsonData[i].SchoolName + &quot;+&quot; +</span><br><span class="line">                    JsonData[i].Remarks);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, &quot;json&quot;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>六、将TableData转成JSON<br>引用：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Web.Script.Serialization;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; 将datatable转换为json  </span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;param name&#x3D;&quot;dtb&quot;&gt;Dt&lt;&#x2F;param&gt;</span><br><span class="line">&#x2F;&#x2F;&#x2F; &lt;returns&gt;JSON字符串&lt;&#x2F;returns&gt;</span><br><span class="line">public static string Dtb2Json(DataTable dtb)</span><br><span class="line">&#123;</span><br><span class="line">    JavaScriptSerializer jss &#x3D; new JavaScriptSerializer();</span><br><span class="line">    ArrayList dic &#x3D; new ArrayList();</span><br><span class="line">    foreach (DataRow dr in dtb.Rows)</span><br><span class="line">    &#123;</span><br><span class="line">        Dictionary&lt;string, object&gt; drow &#x3D; new Dictionary&lt;string, object&gt;();</span><br><span class="line">        foreach (DataColumn dc in dtb.Columns)</span><br><span class="line">        &#123;</span><br><span class="line">            drow.Add(dc.ColumnName, dr[dc.ColumnName]);</span><br><span class="line">        &#125;</span><br><span class="line">        dic.Add(drow);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;序列化  </span><br><span class="line">    return jss.Serialize(dic);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>差不多这些了，后续再补充，睡觉！  </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/08/08/%E3%80%90Asp.Net%E3%80%91%E4%B8%80%E8%88%AC%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E4%B8%AD%E4%BD%BF%E7%94%A8Session/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/08/08/%E3%80%90Asp.Net%E3%80%91%E4%B8%80%E8%88%AC%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F%E4%B8%AD%E4%BD%BF%E7%94%A8Session/" class="post-title-link" itemprop="url">【Asp.Net】一般处理程序中使用Session</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-08-08 16:01:38" itemprop="dateCreated datePublished" datetime="2017-08-08T16:01:38+08:00">2017-08-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>用ajax+一般处理程序做 项目时，能使界面无刷新，异步请求数据，提高程序运行效率 ，减少网络流通等优点。</p>
+<p>通常也涉及到做登陆功能时，需要将用户登陆信息存放在Session里面，一般处理程序没有继承这个类，直接使用会报错。</p>
+<p>解决办法知道两种，一是将一般处理程序改成web界面处理程序，**.aspx，然后 可以 使用Session类</p>
+<p>二，让一般处理程序继承</p>
+<p>1.引用命名空间：using System.Web.SessionState;</p>
+<p>2.实现接口： IReadOnlySessionState。</p>
+<p>按照上面两点处理就能在一般处理程序中使用Session了！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">using System.Web.SessionState;&#x2F;&#x2F;导入命名空间</span><br><span class="line"></span><br><span class="line">namespace CRM.MyHandler</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; HdVerifycode 的摘要说明</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 一般处理程序中要想用session，需要继承IRequiresSessionState这个</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 然后context.Session[&quot;VerStr&quot;]&#x3D;。。。。这样写就行</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 注意：要及时清空session里面的值</span><br><span class="line">    &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">    public class HdVerifycode : IHttpHandler, IRequiresSessionState</span><br><span class="line">    &#123;  </span><br><span class="line">        public void ProcessRequest(HttpContext context)</span><br><span class="line">        &#123;</span><br><span class="line">            context.Response.ContentType &#x3D; &quot;text&#x2F;plain&quot;;</span><br><span class="line">            context.Response.Write(msg);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">        &#x2F;&#x2F;&#x2F; 验证登陆</span><br><span class="line">        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">        private string getLogin(HttpContext context)</span><br><span class="line">        &#123;</span><br><span class="line"> 		      context.Session[&quot;VerStr&quot;] &#x3D; null;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后使用：context.Session[“XX”] = XXX</p>
+<h2 id="web处理程序和一般处理程序比较"><a href="#web处理程序和一般处理程序比较" class="headerlink" title="web处理程序和一般处理程序比较"></a>web处理程序和一般处理程序比较</h2><p>两者的共同点<br>如果把aspx处理程序和ashx处理程序放到上图中，他们是处在相同的位置的，<br>他们都实现了IHttphandler接口。实现了IHttphandler才具备处理请求的能力  </p>
+<p>两者的不同点<br>微软对aspx下足了功夫，做了相当大的包装，里面含有控件，viewstate,还有自己的生命周期。<br>为了让开发人员更好的处理请求，微软采用了事件机制，让程序员可以在aspx的生命周期类 注入代码。<br>aspx是比ashx复杂的多的处理程序版本。  </p>
+<p>越复杂的包装，效率越低。所以简要的功能还是尽量使用一般处理程序吧。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/71/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><span class="page-number current">72</span><a class="page-number" href="/page/73/">73</a><span class="space">&hellip;</span><a class="page-number" href="/page/102/">102</a><a class="extend next" rel="next" href="/page/73/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">305</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+   	鄂ICP备 -
+    <a target="_blank" href="http://beian.miit.gov.cn/" rel="nofollow">17012779号</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.5m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">22:07</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>
