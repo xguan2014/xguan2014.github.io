@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="https:&#x2F;&#x2F;www.coder.work&#x2F;article&#x2F;1591477  我试图为一个if-else类型结构创建一个非常简单的解析器，它将构建并执行一个sql语句。与其测试执行语句的条件，不如测试生成字符串的条件。例如： 12345678910select column1from#if(VariableA &#x3D; Case1)table1#else if(VariableA &#x3D; Case2)t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【CSharp】解析if-else-if语句算法">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/05/23/%E3%80%90CSharp%E3%80%91%E8%A7%A3%E6%9E%90if-else-if%E8%AF%AD%E5%8F%A5%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.coder.work&#x2F;article&#x2F;1591477  我试图为一个if-else类型结构创建一个非常简单的解析器，它将构建并执行一个sql语句。与其测试执行语句的条件，不如测试生成字符串的条件。例如： 12345678910select column1from#if(VariableA &#x3D; Case1)table1#else if(VariableA &#x3D; Case2)t">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-23T03:05:32.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.059Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/05/23/%E3%80%90CSharp%E3%80%91%E8%A7%A3%E6%9E%90if-else-if%E8%AF%AD%E5%8F%A5%E7%AE%97%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【CSharp】解析if-else-if语句算法 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/05/23/%E3%80%90CSharp%E3%80%91%E8%A7%A3%E6%9E%90if-else-if%E8%AF%AD%E5%8F%A5%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【CSharp】解析if-else-if语句算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-23 11:05:32" itemprop="dateCreated datePublished" datetime="2020-05-23T11:05:32+08:00">2020-05-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.coder.work/article/1591477">https://www.coder.work/article/1591477</a></p>
+</blockquote>
+<p>我试图为一个if-else类型结构创建一个非常简单的解析器，它将构建并执行一个sql语句。<br>与其测试执行语句的条件，不如测试生成字符串的条件。<br>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">select column1</span><br><span class="line">from</span><br><span class="line">#if(VariableA = Case1)</span><br><span class="line">table1</span><br><span class="line">#else if(VariableA = Case2)</span><br><span class="line">table2</span><br><span class="line">#else</span><br><span class="line">defaultTable</span><br><span class="line">#end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果variablea等于case1，则结果字符串应为：<code>select column1 from table1</code><br>一个更复杂的例子是嵌套if语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">select column1</span><br><span class="line">from</span><br><span class="line">#if(VariableA = Case1)</span><br><span class="line">#if(VariableB = Case3)</span><br><span class="line">    table3</span><br><span class="line">#else</span><br><span class="line">    table4</span><br><span class="line">#else if(VariableA = Case2)</span><br><span class="line">table2</span><br><span class="line">#else</span><br><span class="line">defaultTable</span><br><span class="line">#end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这是我真正遇到麻烦的地方，我想不出一个好的方法来正确识别每个if-else结束组。<br>另外，我不确定跟踪“else”子句中的字符串是否应该计算为true的好方法。<br>我一直在网上寻找不同类型的解析算法，它们看起来都非常抽象和复杂。<br>对于这个非计算机专业的学生，有什么好的开始的建议吗？</p>
+<p><strong>最佳答案</strong></p>
+<p>我编写了一个简单的解析器，并根据您提供的示例进行了测试。如果你想了解更多关于解析的知识，我建议你阅读niklaus wirth的<a target="_blank" rel="noopener" href="http://www.ethoberon.ethz.ch/WirthPubl/CBEAll.pdf">Compiler Construction</a>。<br>第一步总是以适当的方式写下你的语言的语法。我选择了ebnf，这很容易理解。<br><code>|</code>分离备选方案。<br><code>[</code>和<code>]</code>包含选项。<br><code>&#123;</code>和<code>&#125;</code>表示重复（零次、一次或多次）。<br><code>(</code>和<code>)</code>组表达式（此处不使用）。<br>此描述不完整，但我提供的链接对其进行了更详细的描述。<br>ebnf语法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">LineSequence = &#123; TextLine | IfStatement &#125;.</span><br><span class="line">TextLine     = &lt;string&gt;.</span><br><span class="line">IfStatement  = IfLine LineSequence &#123; ElseIfLine LineSequence &#125; [ ElseLine LineSequence ] EndLine.</span><br><span class="line">IfLine       = &quot;#if&quot; &quot;(&quot; Condition &quot;)&quot;.</span><br><span class="line">ElseLine     = &quot;#else&quot;.</span><br><span class="line">ElseIfLine   = &quot;#else&quot; &quot;if&quot; &quot;(&quot; Condition &quot;)&quot;.</span><br><span class="line">EndLine      = &quot;#end&quot;.</span><br><span class="line">Condition    = Identifier &quot;=&quot; Identifier.</span><br><span class="line">Identifier   = &lt;letter_or_underline&gt; &#123; &lt;letter_or_underline&gt; | &lt;digit&gt; &#125;.</span><br></pre></td></tr></table></figure>
+
+<p>解析器严格遵循语法，即将重复翻译成循环，将替代翻译成if-else语句，依此类推。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Text.RegularExpressions;</span><br><span class="line"><span class="keyword">using</span> System.Windows.Forms;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Example.SqlPreprocessor</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Parser</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">enum</span> Symbol</span><br><span class="line">        &#123;</span><br><span class="line">            None,</span><br><span class="line">            LPar,</span><br><span class="line">            RPar,</span><br><span class="line">            Equals,</span><br><span class="line">            Text,</span><br><span class="line">            NumberIf,</span><br><span class="line">            If,</span><br><span class="line">            NumberElse,</span><br><span class="line">            NumberEnd,</span><br><span class="line">            Identifier</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        List&lt;<span class="built_in">string</span>&gt; _input; <span class="comment">// Raw SQL with preprocessor directives.</span></span><br><span class="line">        <span class="built_in">int</span> _currentLineIndex = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Simulates variables used in conditions</span></span><br><span class="line">        Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; _variableValues = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; &#123; </span><br><span class="line">            &#123; <span class="string">&quot;VariableA&quot;</span>, <span class="string">&quot;Case1&quot;</span> &#125;,</span><br><span class="line">            &#123; <span class="string">&quot;VariableB&quot;</span>, <span class="string">&quot;CaseX&quot;</span> &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        Symbol _sy; <span class="comment">// Current symbol.</span></span><br><span class="line">        <span class="built_in">string</span> _string; <span class="comment">// Identifier or text line;</span></span><br><span class="line">        Queue&lt;<span class="built_in">string</span>&gt; _textQueue = <span class="keyword">new</span> Queue&lt;<span class="built_in">string</span>&gt;(); <span class="comment">// Buffered text parts of a single line.</span></span><br><span class="line">        <span class="built_in">int</span> _lineNo; <span class="comment">// Current line number for error messages.</span></span><br><span class="line">        <span class="built_in">string</span> _line; <span class="comment">// Current line for error messages.</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> Get the next line from the input.</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>Input line or null if no more lines are available.<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line">        <span class="function"><span class="built_in">string</span> <span class="title">GetLine</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (_currentLineIndex &gt;= _input.Count) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            _line = _input[_currentLineIndex++];</span><br><span class="line">            _lineNo = _currentLineIndex;</span><br><span class="line">            <span class="keyword">return</span> _line;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> Get the next symbol from the input stream and stores it in _sy.</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">GetSy</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">string</span> s;</span><br><span class="line">            <span class="keyword">if</span> (_textQueue.Count &gt; <span class="number">0</span>) &#123; <span class="comment">// Buffered text parts available, use one from these.</span></span><br><span class="line">                s = _textQueue.Dequeue();</span><br><span class="line">                <span class="keyword">switch</span> (s.ToLower()) &#123;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;(&quot;</span>:</span><br><span class="line">                        _sy = Symbol.LPar;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;)&quot;</span>:</span><br><span class="line">                        _sy = Symbol.RPar;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;=&quot;</span>:</span><br><span class="line">                        _sy = Symbol.Equals;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;if&quot;</span>:</span><br><span class="line">                        _sy = Symbol.If;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="literal">default</span>:</span><br><span class="line">                        _sy = Symbol.Identifier;</span><br><span class="line">                        _string = s;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Get next line from input.</span></span><br><span class="line">            s = GetLine();</span><br><span class="line">            <span class="keyword">if</span> (s == <span class="literal">null</span>) &#123;</span><br><span class="line">                _sy = Symbol.None;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            s = s.Trim(<span class="string">&#x27; &#x27;</span>, <span class="string">&#x27;\t&#x27;</span>);</span><br><span class="line">            <span class="keyword">if</span> (s[<span class="number">0</span>] == <span class="string">&#x27;#&#x27;</span>) &#123; <span class="comment">// We have a preprocessor directive.</span></span><br><span class="line">                <span class="comment">// Split the line in order to be able get its symbols.</span></span><br><span class="line">                <span class="built_in">string</span>[] parts = Regex.Split(s, <span class="string">@&quot;\b|[^#_a-zA-Z0-9()=]&quot;</span>);</span><br><span class="line">                <span class="comment">// parts[0] = #</span></span><br><span class="line">                <span class="comment">// parts[1] = if, else, end</span></span><br><span class="line">                <span class="keyword">switch</span> (parts[<span class="number">1</span>].ToLower()) &#123;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;if&quot;</span>:</span><br><span class="line">                        _sy = Symbol.NumberIf;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;else&quot;</span>:</span><br><span class="line">                        _sy = Symbol.NumberElse;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;end&quot;</span>:</span><br><span class="line">                        _sy = Symbol.NumberEnd;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="literal">default</span>:</span><br><span class="line">                        Error(<span class="string">&quot;Invalid symbol #&#123;0&#125;&quot;</span>, parts[<span class="number">1</span>]);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Store the remaining parts for later.</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">2</span>; i &lt; parts.Length; i++) &#123;</span><br><span class="line">                    <span class="built_in">string</span> part = parts[i].Trim(<span class="string">&#x27; &#x27;</span>, <span class="string">&#x27;\t&#x27;</span>);</span><br><span class="line">                    <span class="keyword">if</span> (part != <span class="string">&quot;&quot;</span>) &#123;</span><br><span class="line">                        _textQueue.Enqueue(part);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// We have an ordinary SQL text line.</span></span><br><span class="line">                _sy = Symbol.Text;</span><br><span class="line">                _string = s;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">Error</span>(<span class="params"><span class="built_in">string</span> message, <span class="keyword">params</span>  <span class="built_in">object</span>[] args</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// Make sure parsing stops here</span></span><br><span class="line">            _sy = Symbol.None;</span><br><span class="line">            _textQueue.Clear();</span><br><span class="line">            _input.Clear();</span><br><span class="line"></span><br><span class="line">            message = String.Format(message, args) +</span><br><span class="line">                      String.Format(<span class="string">&quot; in line &#123;0&#125;\r\n\r\n&#123;1&#125;&quot;</span>, _lineNo, _line);</span><br><span class="line">            Output(<span class="string">&quot;------&quot;</span>);</span><br><span class="line">            Output(message);</span><br><span class="line">            MessageBox.Show(message, <span class="string">&quot;Error&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> Writes the processed line to a (simulated) output stream.</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;line&quot;&gt;</span>Line to be written to output<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">Output</span>(<span class="params"><span class="built_in">string</span> line</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(line);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> Starts the parsing process.</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Parse</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// Simulate an input stream.</span></span><br><span class="line">            _input = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt; &#123;</span><br><span class="line">                <span class="string">&quot;select column1&quot;</span>,</span><br><span class="line">                <span class="string">&quot;from&quot;</span>,</span><br><span class="line">                <span class="string">&quot;#if(VariableA = Case1)&quot;</span>,</span><br><span class="line">                <span class="string">&quot;    #if(VariableB = Case3)&quot;</span>,</span><br><span class="line">                <span class="string">&quot;        table3&quot;</span>,</span><br><span class="line">                <span class="string">&quot;    #else&quot;</span>,</span><br><span class="line">                <span class="string">&quot;        table4&quot;</span>,</span><br><span class="line">                <span class="string">&quot;    #end&quot;</span>,</span><br><span class="line">                <span class="string">&quot;#else if(VariableA = Case2)&quot;</span>,</span><br><span class="line">                <span class="string">&quot;    table2&quot;</span>,</span><br><span class="line">                <span class="string">&quot;#else&quot;</span>,</span><br><span class="line">                <span class="string">&quot;    defaultTable&quot;</span>,</span><br><span class="line">                <span class="string">&quot;#end&quot;</span></span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Clear previous parsing</span></span><br><span class="line">            _textQueue.Clear();</span><br><span class="line">            _currentLineIndex = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Get first symbol and start parsing</span></span><br><span class="line">            GetSy();</span><br><span class="line">            <span class="keyword">if</span> (LineSequence(<span class="literal">true</span>)) &#123; <span class="comment">// Finished parsing successfully.</span></span><br><span class="line">                <span class="comment">//<span class="doctag">TODO:</span> Do something with the generated SQL</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// Error encountered.</span></span><br><span class="line">                Output(<span class="string">&quot;*** ABORTED ***&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// The following methods parse according the the EBNF syntax.</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="built_in">bool</span> <span class="title">LineSequence</span>(<span class="params"><span class="built_in">bool</span> writeOutput</span>)</span></span><br><span class="line">        &#123;   </span><br><span class="line">            <span class="comment">// EBNF:  LineSequence = &#123; TextLine | IfStatement &#125;.</span></span><br><span class="line">            <span class="keyword">while</span> (_sy == Symbol.Text || _sy == Symbol.NumberIf) &#123;</span><br><span class="line">                <span class="keyword">if</span> (_sy == Symbol.Text) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (!TextLine(writeOutput)) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123; <span class="comment">// _sy == Symbol.NumberIf</span></span><br><span class="line">                    <span class="keyword">if</span> (!IfStatement(writeOutput)) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="built_in">bool</span> <span class="title">TextLine</span>(<span class="params"><span class="built_in">bool</span> writeOutput</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// EBNF:  TextLine = &lt;string&gt;.</span></span><br><span class="line">            <span class="keyword">if</span> (writeOutput) &#123;</span><br><span class="line">                Output(_string);</span><br><span class="line">            &#125;</span><br><span class="line">            GetSy();</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="built_in">bool</span> <span class="title">IfStatement</span>(<span class="params"><span class="built_in">bool</span> writeOutput</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// EBNF:  IfStatement = IfLine LineSequence &#123; ElseIfLine LineSequence &#125; [ ElseLine LineSequence ] EndLine.</span></span><br><span class="line">            <span class="built_in">bool</span> result;</span><br><span class="line">            <span class="keyword">if</span> (IfLine(<span class="keyword">out</span> result) &amp;&amp; LineSequence(writeOutput &amp;&amp; result)) &#123;</span><br><span class="line">                writeOutput &amp;= !result; <span class="comment">// Only one section can produce an output.</span></span><br><span class="line">                <span class="keyword">while</span> (_sy == Symbol.NumberElse) &#123;</span><br><span class="line">                    GetSy();</span><br><span class="line">                    <span class="keyword">if</span> (_sy == Symbol.If) &#123; <span class="comment">// We have an #else if</span></span><br><span class="line">                        <span class="keyword">if</span> (!ElseIfLine(<span class="keyword">out</span> result)) &#123;</span><br><span class="line">                            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span> (!LineSequence(writeOutput &amp;&amp; result)) &#123;</span><br><span class="line">                            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        writeOutput &amp;= !result; <span class="comment">// Only one section can produce an output.</span></span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123; <span class="comment">// We have a simple #else</span></span><br><span class="line">                        <span class="keyword">if</span> (!LineSequence(writeOutput)) &#123;</span><br><span class="line">                            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">break</span>; <span class="comment">// We can have only one #else statement.</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (_sy != Symbol.NumberEnd) &#123;</span><br><span class="line">                    Error(<span class="string">&quot;&#x27;#end&#x27; expected&quot;</span>);</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                GetSy();</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="built_in">bool</span> <span class="title">IfLine</span>(<span class="params"><span class="keyword">out</span> <span class="built_in">bool</span> result</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// EBNF:  IfLine = &quot;#if&quot; &quot;(&quot; Condition &quot;)&quot;.</span></span><br><span class="line">            result = <span class="literal">false</span>;</span><br><span class="line">            GetSy();</span><br><span class="line">            <span class="keyword">if</span> (_sy != Symbol.LPar) &#123;</span><br><span class="line">                Error(<span class="string">&quot;&#x27;(&#x27; expected&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            GetSy();</span><br><span class="line">            <span class="keyword">if</span> (!Condition(<span class="keyword">out</span> result)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (_sy != Symbol.RPar) &#123;</span><br><span class="line">                Error(<span class="string">&quot;&#x27;)&#x27; expected&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            GetSy();</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="built_in">bool</span> <span class="title">Condition</span>(<span class="params"><span class="keyword">out</span> <span class="built_in">bool</span> result</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// EBNF:  Condition = Identifier &quot;=&quot; Identifier.</span></span><br><span class="line">            <span class="built_in">string</span> variable;</span><br><span class="line">            <span class="built_in">string</span> expectedValue;</span><br><span class="line">            <span class="built_in">string</span> variableValue;</span><br><span class="line"></span><br><span class="line">            result = <span class="literal">false</span>;</span><br><span class="line">            <span class="comment">// Identifier &quot;=&quot; Identifier</span></span><br><span class="line">            <span class="keyword">if</span> (_sy != Symbol.Identifier) &#123;</span><br><span class="line">                Error(<span class="string">&quot;Identifier expected&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            variable = _string; <span class="comment">// The first identifier is a variable.</span></span><br><span class="line">            GetSy();</span><br><span class="line">            <span class="keyword">if</span> (_sy != Symbol.Equals) &#123;</span><br><span class="line">                Error(<span class="string">&quot;&#x27;=&#x27; expected&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            GetSy();</span><br><span class="line">            <span class="keyword">if</span> (_sy != Symbol.Identifier) &#123;</span><br><span class="line">                Error(<span class="string">&quot;Value expected&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            expectedValue = _string;  <span class="comment">// The second identifier is a value.</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// Search the variable</span></span><br><span class="line">            <span class="keyword">if</span> (_variableValues.TryGetValue(variable, <span class="keyword">out</span> variableValue)) &#123;</span><br><span class="line">                result = variableValue == expectedValue; <span class="comment">// Perform the comparison.</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                Error(<span class="string">&quot;Variable &#x27;&#123;0&#125;&#x27; not found&quot;</span>, variable);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            GetSy();</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="built_in">bool</span> <span class="title">ElseIfLine</span>(<span class="params"><span class="keyword">out</span> <span class="built_in">bool</span> result</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// EBNF:  ElseIfLine = &quot;#else&quot; &quot;if&quot; &quot;(&quot; Condition &quot;)&quot;.</span></span><br><span class="line">            result = <span class="literal">false</span>;</span><br><span class="line">            GetSy(); <span class="comment">// &quot;#else&quot; already processed here, we are only called if the symbol is &quot;if&quot;</span></span><br><span class="line">            <span class="keyword">if</span> (_sy != Symbol.LPar) &#123;</span><br><span class="line">                Error(<span class="string">&quot;&#x27;(&#x27; expected&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            GetSy();</span><br><span class="line">            <span class="keyword">if</span> (!Condition(<span class="keyword">out</span> result)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (_sy != Symbol.RPar) &#123;</span><br><span class="line">                Error(<span class="string">&quot;&#x27;)&#x27; expected&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            GetSy();</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意，嵌套的if语句是以非常自然的方式自动处理的。首先，语法是递归表达的。a<code>LineSequence</code>可以包含<code>IfStatment</code>s，<code>IfStatment</code>s包含<code>LineSequence</code>s。其次，这会导致语法处理方法以递归方式相互调用。因此，语法元素的嵌套被转换为递归方法调用。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/05/23/%E3%80%90CSharp%E3%80%91%E8%A7%A3%E6%9E%90if-else-if%E8%AF%AD%E5%8F%A5%E7%AE%97%E6%B3%95/" title="【CSharp】解析if-else-if语句算法">http://blog.bfsdfs.com/2020/05/23/【CSharp】解析if-else-if语句算法/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net/" rel="tag"># .Net</a>
+              <a href="/tags/C/" rel="tag"># C#</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/22/%E3%80%90.Net%E3%80%91SSH-NET%E5%BA%94%E7%94%A8/" rel="prev" title="【.Net】SSH.NET应用">
+      <i class="fa fa-chevron-left"></i> 【.Net】SSH.NET应用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/25/%E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91docker+rtmp%E8%A7%86%E9%A2%91%E7%9B%91%E6%8E%A7/" rel="next" title="【树莓派】docker+rtmp视频监控">
+      【树莓派】docker+rtmp视频监控 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '1c19541e601ef91ff9dadecce415e570',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

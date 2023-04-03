@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;javazhiyin&#x2F;p&#x2F;15682813.html  存在即是合理的，业务复杂，人员协同性要求高的场景下，这些规范性的东西不按着来虽然不会出错，程序照样跑，但是遵守规范会让程序更具扩展性和可读性，都是前辈血淋淋的宝贵经验，为什么不用？ 随着现在后端编程标准化程度越来越高，各种编程模型层出不穷。作为Java开发人员，大部分人不免要接触VO，BO，P">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【设计】项目开发中定义VO，BO，PO，DO，DTO">
+<meta property="og:url" content="http://blog.bfsdfs.com/2021/12/18/%E3%80%90%E8%AE%BE%E8%AE%A1%E3%80%91%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E5%AE%9A%E4%B9%89VO%EF%BC%8CBO%EF%BC%8CPO%EF%BC%8CDO%EF%BC%8CDTO/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;javazhiyin&#x2F;p&#x2F;15682813.html  存在即是合理的，业务复杂，人员协同性要求高的场景下，这些规范性的东西不按着来虽然不会出错，程序照样跑，但是遵守规范会让程序更具扩展性和可读性，都是前辈血淋淋的宝贵经验，为什么不用？ 随着现在后端编程标准化程度越来越高，各种编程模型层出不穷。作为Java开发人员，大部分人不免要接触VO，BO，P">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/java9-1639321228.png">
+<meta property="article:published_time" content="2021-12-18T05:09:58.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.103Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/java9-1639321228.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2021/12/18/%E3%80%90%E8%AE%BE%E8%AE%A1%E3%80%91%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E5%AE%9A%E4%B9%89VO%EF%BC%8CBO%EF%BC%8CPO%EF%BC%8CDO%EF%BC%8CDTO/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【设计】项目开发中定义VO，BO，PO，DO，DTO | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/12/18/%E3%80%90%E8%AE%BE%E8%AE%A1%E3%80%91%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E5%AE%9A%E4%B9%89VO%EF%BC%8CBO%EF%BC%8CPO%EF%BC%8CDO%EF%BC%8CDTO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【设计】项目开发中定义VO，BO，PO，DO，DTO
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-18 13:09:58" itemprop="dateCreated datePublished" datetime="2021-12-18T13:09:58+08:00">2021-12-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/javazhiyin/p/15682813.html">https://www.cnblogs.com/javazhiyin/p/15682813.html</a></p>
+</blockquote>
+<p>存在即是合理的，业务复杂，人员协同性要求高的场景下，这些规范性的东西不按着来虽然不会出错，程序照样跑，但是遵守规范会让程序更具扩展性和可读性，都是前辈血淋淋的宝贵经验，为什么不用？</p>
+<p>随着现在后端编程标准化程度越来越高，各种编程模型层出不穷。作为Java开发人员，大部分人不免要接触VO，BO，PO，DO，DTO之类的，但很多同学对这些概念一直以来都是云里雾里，团队开发过程中也总是处于混乱的状态，抓起来就用，本来是规范性的东西，却反而导致更加混乱了。</p>
+<p>今天我们把这些概念掰开揉碎来讲解一下，力求有一个清晰的理解，在开发中能有所助益。文中又理解不到位的，也欢迎大家斧正。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ul>
+<li><p>VO（<code>View Object</code>）：<strong>视图对象</strong>，用于展示层，它的作用是把某个指定页面（或组件）的所有数据封装起来。</p>
+</li>
+<li><p>DTO（<code>Data Transfer Object</code>）：<strong>数据传输对象</strong>，这个概念来源于J2EE的设计模式，原来的目的是为了EJB的分布式应用提供粗粒度的数据实体，以减少分布式调用的次数，从而提高分布式调用的性能和降低网络负载，但在这里，更符合泛指用于展示层与服务层之间的数据传输对象。</p>
+</li>
+<li><p>BO（<code>Business Object</code>）：<strong>业务对象</strong>，把业务逻辑封装为一个对象，这个对象可以包括一个或多个其它的对象。</p>
+</li>
+<li><p>PO（<code>Persistent Object</code>）：<strong>持久化对象</strong>，它跟持久层（通常是关系型数据库）的数据结构形成一一对应的映射关系，如果持久层是关系型数据库，那么，数据表中的每个字段（或若干个）就对应PO的一个（或若干个）属性。</p>
+</li>
+<li><p>DO（<code>Domain Object</code>）：<strong>领域对象</strong>，就是从现实世界中抽象出来的有形或无形的业务实体。</p>
+</li>
+</ul>
+<p>如果光看这些概念，可能大部分人都理解，但还是很绕，具体用的时候还是不能很好区分，我们来横向做个比较，理解会加深一些。</p>
+<h3 id="易混点一：VO和DTO"><a href="#易混点一：VO和DTO" class="headerlink" title="易混点一：VO和DTO"></a>易混点一：VO和DTO</h3><p>首先VO是最常用的，但对于这个概念，网上也是众说纷纭，value object 或 view object，一般说视图对象或者值对象，我更倾向理解为视图对象。说白了它就是展示用的，不管展示方式是网页，还是客户端，还是APP，只要是这个东西是让人看到的，我们就把它封装为VO。</p>
+<p>VO比较容易混淆的是DTO，DTO是展示层与服务层之间传递数据的对象，可以这样说，对于绝大部分的应用场景来说，DTO和VO的属性值基本是一致的，而且他们通常都是POJO，那么既然有了VO，为什么还需要DTO呢？</p>
+<p><strong>我们举例来说明一下：</strong></p>
+<p>某公司有一个后台服务，服务层有一个getUser的方法返回一个系统用户，包含sex(性别)、年龄。对于服务层来说，DTO只从语义上定义，可能是这样的：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"> <span class="attr">&quot;gender&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span></span><br><span class="line"> <span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">35</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>但这个服务同时供多个客户端使用（不同门户），而不同的客户端对于表现层的要求有所不同，比如管理端要求显示准确的年龄，而应用端为了保护客户隐私，只需要显示一个年龄段即可。</p>
+<p>管理端VO：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"> <span class="attr">&quot;gender&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span></span><br><span class="line"> <span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">35</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>应用端VO：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"> <span class="attr">&quot;gender&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span></span><br><span class="line"> <span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">30</span>~<span class="number">40</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>从这个例子可以看出，DTO很有存在的必要，根据职责单一原则，服务层只负责业务，与具体的表现形式无关，DTO不应该出现与表现形式的耦合，DTO定义的是原始数据，VO再对DTO数据进行解释。这下VO和DTO用法就清晰很多了。</p>
+<h3 id="易混点二：BO和PO"><a href="#易混点二：BO和PO" class="headerlink" title="易混点二：BO和PO"></a>易混点二：BO和PO</h3><p>PO是持久对象，这个很好理解，就是实体和数据库字段的对应，一个PO的数据结构对应着库中表的结构，表中的一条记录就是一个PO属性，大多数情况下，PO仅仅作为PO只是用来增删改使用。</p>
+<p>PO比较容易混淆的是BO，BO是业务对象，对应的是某个具体的业务块，可以包含多个属性、对象。简单点来说，我们可以把BO看作是PO的组合。</p>
+<p><strong>我们举例来说明一下：</strong></p>
+<p>PO-1是交易记录对象，PO-2是登录记录对象，PO-3是商品浏览记录对象，PO-4是添加购物车记录对象，PO-5是搜索记录对象，BO是个人网站行为对象，BO对象：{PO-1;PO-2;PO-3;PO-4;PO-5}。这样做的优点不言而喻，维护代码的时候查看BO，就能知道这块逻辑涉及多少表（PO）。</p>
+<h3 id="易混点三：BO和DTO"><a href="#易混点三：BO和DTO" class="headerlink" title="易混点三：BO和DTO"></a>易混点三：BO和DTO</h3><p>搞清楚了BO和PO各自的用途后，我们会发现BO和DTO有重叠功能，一样可以对PO进行排列组合，那BO的存在的意义是什么呢？</p>
+<p>从用途上进行根本的区别，BO是业务对象，DTO是数据传输对象，虽然BO也可以排列组合数据，但它的功能是对内的，比如上个例子中的BO对象包括{PO-1;PO-2;PO-3;PO-4;PO-5}还有其他字段属性，但在提供对外接口时，BO对象中的某些属性对象可能用不到或者不方便对外暴露，那么此时DTO只需要在BO的基础上，抽取自己需要的数据，然后对外提供。</p>
+<p>在这个关系上，通常不会有数据内容的变化，内容变化要么在BO内部业务计算的时候完成，要么在解释VO的时候完成。</p>
+<h3 id="DO"><a href="#DO" class="headerlink" title="DO"></a>DO</h3><p>DO是领域对象，就是从现实世界中抽象出来的有形或无形的业务实体。事实上，DO和PO在绝大部分情况下是一一对应的。阿里巴巴的开发手册中的定义DO等同于PO，即与数据库表结构一一对应，通过DAO层向上传输数据源对象。</p>
+<hr>
+<p>上一张图，更加直观的展示这些名词使用的节点：</p>
+<p><img src="/images/java9-1639321228.png" alt=""></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>VO，BO，PO，DTO这样分层还是很有意义的。尤其在团队成员较多的情况下，结构更加一目了然，同时也能很大程度避免多端系统数据所需不一致时，有人修改属性影响其他页面。但也完全没有必要教条主义，把这些全部用上，需要根据所开发的业务复杂度来取舍，如果本身业务逻辑不负责，照搬全上反而让开发变的更复杂。</p>
+<p>例如业务不复杂，根本没有多端展示的差异化，VO可以直接拿掉，直接使用DTO传输到前端数据即可。</p>
+<p>同时在使用过程中，最重要的是要在团队中达成共识，概念一致，如果使用了这些，但各按各的理解来，甚至抓起来就直接用，反而会让代码变得更乱，还不如直接POJO、DTO打天下。</p>
+<p>另附这些概念命名规范：</p>
+<ul>
+<li>数据对象：xxxPO，xxx即为数据表名。(也可DO)</li>
+<li>数据传输对象：xxxDTO，xxx为业务领域相关的名称。</li>
+<li>展示对象：xxxVO，xxx一般为网页名称。</li>
+<li>业务对象：xxxBO，xxx是业务名称。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2021/12/18/%E3%80%90%E8%AE%BE%E8%AE%A1%E3%80%91%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E5%AE%9A%E4%B9%89VO%EF%BC%8CBO%EF%BC%8CPO%EF%BC%8CDO%EF%BC%8CDTO/" title="【设计】项目开发中定义VO，BO，PO，DO，DTO">http://blog.bfsdfs.com/2021/12/18/【设计】项目开发中定义VO，BO，PO，DO，DTO/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/11/%E3%80%90%E5%B7%A5%E5%85%B7%E3%80%91WindowsTerminal%E8%AE%BE%E7%BD%AE/" rel="prev" title="【工具】WindowsTerminal设置">
+      <i class="fa fa-chevron-left"></i> 【工具】WindowsTerminal设置
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%93%E6%B7%B7%E7%82%B9%E4%B8%80%EF%BC%9AVO%E5%92%8CDTO"><span class="nav-number">2.</span> <span class="nav-text">易混点一：VO和DTO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%93%E6%B7%B7%E7%82%B9%E4%BA%8C%EF%BC%9ABO%E5%92%8CPO"><span class="nav-number">3.</span> <span class="nav-text">易混点二：BO和PO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%93%E6%B7%B7%E7%82%B9%E4%B8%89%EF%BC%9ABO%E5%92%8CDTO"><span class="nav-number">4.</span> <span class="nav-text">易混点三：BO和DTO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DO"><span class="nav-number">5.</span> <span class="nav-text">DO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '4e7a7dfda63acbe5e7dfe77a9c87265e',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

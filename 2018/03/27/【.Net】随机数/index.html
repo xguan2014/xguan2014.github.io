@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="几乎所有编程语言中都提供了”生成一个随机数”的方法，也就是调用这个方法会生成一个数，我们事先也不知道它生成什么数。比如在.Net中编写下面的代码： 123Random rand &#x3D; newRandom();Console.WriteLine(rand.Next()); 运行后结果如下： Next()方法用来返回一个随机数。同样的代码你执行和我的结果很可能不一样，而且我多次运行的结果也很可能不一样，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net】随机数">
+<meta property="og:url" content="http://blog.bfsdfs.com/2018/03/27/%E3%80%90.Net%E3%80%91%E9%9A%8F%E6%9C%BA%E6%95%B0/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="几乎所有编程语言中都提供了”生成一个随机数”的方法，也就是调用这个方法会生成一个数，我们事先也不知道它生成什么数。比如在.Net中编写下面的代码： 123Random rand &#x3D; newRandom();Console.WriteLine(rand.Next()); 运行后结果如下： Next()方法用来返回一个随机数。同样的代码你执行和我的结果很可能不一样，而且我多次运行的结果也很可能不一样，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/121103258593814.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/121103277182116.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/121103284849515.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/121103308127660.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/121103310465432.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/121103313599760.png">
+<meta property="article:published_time" content="2018-03-27T13:48:58.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.049Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net">
+<meta property="article:tag" content="C#基础">
+<meta property="article:tag" content="Random">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/121103258593814.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2018/03/27/%E3%80%90.Net%E3%80%91%E9%9A%8F%E6%9C%BA%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net】随机数 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/03/27/%E3%80%90.Net%E3%80%91%E9%9A%8F%E6%9C%BA%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net】随机数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-27 21:48:58" itemprop="dateCreated datePublished" datetime="2018-03-27T21:48:58+08:00">2018-03-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>几乎所有编程语言中都提供了”生成一个随机数”的方法，也就是调用这个方法会生成一个数，我们事先也不知道它生成什么数。比如在.Net中编写下面的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Random rand = newRandom();</span><br><span class="line"></span><br><span class="line">Console.WriteLine(rand.Next());</span><br></pre></td></tr></table></figure>
+<p>运行后结果如下：</p>
+<p>Next()方法用来返回一个随机数。同样的代码你执行和我的结果很可能不一样，而且我多次运行的结果也很可能不一样，这就是随机数。</p>
+<p>一、陷阱</p>
+<p>看似很简单的东西，使用的时候有陷阱。我编写下面的代码想生成100个随机数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for(int i=0;i&lt;100;i++)</span><br><span class="line">&#123;</span><br><span class="line">    Random rand = new Random();</span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>太奇怪了，竟然生成的”随机数”有好多连续一样的，这算什么”随机数”呀。有人指点”把new Random()”放到for循环外面就可以了： <img src="/images/121103258593814.png" alt=""></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Random rand = newRandom();</span><br><span class="line">for(int i=0;i&lt;100;i++)</span><br><span class="line">&#123;            </span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p>确实可以了！ </p>
+<p>二、这是为什么呢？</p>
+<p>这要从计算机中”随机数”产生的原理说起了。我们知道，计算机是很严格的，在确定的输入条件下，产生的结果是唯一确定的，不会每次执行的结果不一样。那么怎么样用软件实现产生看似不确定的随机数呢？</p>
+<p>生成随机数的算法有很多种，最简单也是最常用的就是 “线性同余法”： 第n+1个数=(第n个数*29+37) % 1000，其中%是”求余数”运算符。很多像我一样的人见了公式都头疼，我用代码解释一下吧，MyRand是一个自定义的生成随机数的类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class MyRand</span><br><span class="line"> &#123;</span><br><span class="line">    private int seed;</span><br><span class="line">    public MyRand(int seed)</span><br><span class="line">   &#123;</span><br><span class="line"></span><br><span class="line">    this.seed = seed;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">  public int Next()</span><br><span class="line">   &#123;</span><br><span class="line">     int next = (seed * 29 + 37) % 1000;</span><br><span class="line">     seed = next;</span><br><span class="line">     return next;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MyRand rand = newMyRand(51);</span><br><span class="line">for (int i = 0; i &lt; 10; i++)</span><br><span class="line"> &#123;</span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>如下调用：</p>
+<p>执行结果如下：</p>
+<p><img src="/images/121103277182116.png" alt=""></p>
+<p>生成的数据是不是看起来”随机”了。简单解释一下这个代码：我们创建MyRand的一个对象，然后构造函数传递一个数51，这个数被赋值给seed，每次调用Next方法的时候根据(seed * 29 + 37) % 1000计算得到一个随机数，把这个随机数赋值给seed，然后把生成的随机数返回。这样下次再调用Next()的时候seed就不再是51，而是上次生成的随机数了，这样就看起来好像每一次生成的内容都很”随机”了。注意”%1000”取余预算的目的是保证生成的随机数不超过1000。 </p>
+<p>当然无论是你运行还是我每次运行，输出结果都是一样的随机数，因为根据给定的初始数据51，我们就可以依次推断下来下面生成的所有”随机数”是什么都可以算出来了。这个初始的数据51就被称为”随机数种子”，这一系列的516、1、66、951、616……数字被称为”随机数序列”。我们把51改成52，就会有这样的结果：</p>
+<p><img src="/images/121103284849515.png" alt=""></p>
+<p>三、楼主好人，跪求种子</p>
+<p>那么怎么可以使得每次运行程序的时候都生成不同的”随机数序列”呢？因为我们每次执行程序时候的时间很可能不一样，因此我们可以用当前时间做”随机数种子”</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MyRand rand = newMyRand(Environment.TickCount);</span><br><span class="line">for (int i = 0; i &lt; 10; i++)</span><br><span class="line"> &#123;</span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>Environment.TickCount为”系统启动后经过的微秒数”。这样每次程序运行的时候Environment.TickCount都不大可能一样（靠手动谁能一微秒内启动两次程序呢），所以每次生成的随机数就不一样了。</p>
+<p><img src="/images/121103308127660.png" alt=""></p>
+<p>当然如果我们把new MyRand(Environment.TickCount)放到for循环中： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0; i &lt; 100; i++)</span><br><span class="line"> &#123;</span><br><span class="line">    MyRand rand = newMyRand(Environment.TickCount);</span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/121103310465432.png" alt=""></p>
+<p>运行结果又变成”很多是连续”的了，原理很简单：由于for循环体执行很快，所以每次循环的时候Environment.TickCount很可能还和上次一样（两行简单的代码运行用不了一毫秒那么长事件），由于这次的”随机数种子”和上次的”随机数种子”一样，这样Next()生成的第一个”随机数”就一样了。从”-320”变成”-856”是因为运行到”-856”的时候时间过了一毫秒。 </p>
+<p>四、各语言的实现</p>
+<p>我们看到.Net的Random类有一个int类型参数的构造函数：</p>
+<p>public Random(int Seed)</p>
+<p>就是和我们写的MyRand一样接受一个”随机数种子”。而我们之前调用的无参构造函数就是给Random(int Seed)传递Environment.TickCount类进行构造的，代码如下：</p>
+<p>public Random() : this(Environment.TickCount)<br>{<br> }</p>
+<p>这下我们终于明白最开始的疑惑了。 </p>
+<p>同样道理，在C/C++中生成10个随机数不应该如下调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int i;</span><br><span class="line">for(i=0;i&lt;10;i++)</span><br><span class="line">&#123;</span><br><span class="line">    srand( (unsigned)time( NULL ) );</span><br><span class="line">    printf(&quot;%d\n&quot;,rand());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而应该：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">srand( (unsigned)time( NULL ) ); //把当前时间设置为&quot;随机数种子&quot;</span><br><span class="line">int i;</span><br><span class="line">for(i=0;i&lt;10;i++)</span><br><span class="line">&#123;         </span><br><span class="line">    printf(&quot;%d\n&quot;,rand());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Java学习者可能会提出问题了，在Java低版本中，如下使用会像.Net、C/C++中一样产生相同的随机数： 五、”奇葩”的Java</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for(int i=0;i&lt;100;i++)</span><br><span class="line">&#123;</span><br><span class="line">    Random rand = new Random();</span><br><span class="line">    System.out.println(rand.nextInt());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为低版本Java中Rand类的无参构造函数的实现同样是用当前时间做种子：</p>
+<p>public Random() { this(System.currentTimeMillis()); } </p>
+<p>但是在高版本的Java中，比如Java1.8中，上面的”错误”代码执行却是没问题的：</p>
+<p><img src="/images/121103313599760.png" alt=""></p>
+<p>为什么呢？我们来看一下这个Random无参构造函数的实现代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public Random()</span><br><span class="line">&#123;</span><br><span class="line">  this(seedUniquifier() ^ System.nanoTime());</span><br><span class="line">&#125;</span><br><span class="line">private static long seedUniquifier() &#123;</span><br><span class="line">for (;;) &#123;</span><br><span class="line">long current = seedUniquifier.get();</span><br><span class="line">long next = current * 181783497276652981L;</span><br><span class="line">if (seedUniquifier.compareAndSet(current, next))</span><br><span class="line">return next;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">privatestaticfinal AtomicLong seedUniquifier  = new AtomicLong(8682522807148012L);</span><br></pre></td></tr></table></figure>
+<p>这里不再是使用当前时间来做”随机数种子”，而是使用System.nanoTime()这个纳秒级的时间量并且和采用原子量AtomicLong根据上次调用构造函数算出来的一个数做异或运算。关于这段代码的解释详细参考这篇文章《<a target="_blank" rel="noopener" href="http://t1174779123.iteye.com/blog/2037719">解密随机数生成器（2）——从java源码看线性同余算法</a>》</p>
+<p>最核心的地方就在于使用static变量AtomicLong来记录每次调用Random构造函数时使用的种子，下次再调用Random构造函数的时候避免和上次一样。</p>
+<p>六、高并发系统中的问题</p>
+<p>前面我们分析了，对于使用系统时间做”随机数种子”的随机数生成器，如果要产生多个随机数，那么一定要共享一个”随机数种子”才会避免生成的随机数短时间之内生成重复的随机数。但是在一些高并发的系统中一个不注意还会产生问题，比如一个网站在服务器端通过下面的方法生成验证码：</p>
+<p>Random rand = new Random();</p>
+<p>Int code = rand.Next();</p>
+<p>当网站并发量很大的时候，可能一个毫秒内会有很多个人请求验证码，这就会造成这几个人请求到的验证码是重复的，会给系统带来潜在的漏洞。</p>
+<p>再比如我今天看到的一篇文章《当随机不够随机：一个在线扑克游戏的教训》里面就提到了”由于随机数产生器的种子是基于服务器时钟的，黑客们只要将他们的程序与服务器时钟同步就能够将可能出现的乱序减少到只有 200,000 种。到那个时候一旦黑客知道 5 张牌，他就可以实时的对 200,000 种可能的乱序进行快速搜索，找到游戏中的那种。所以一旦黑客知道手中的两张牌和 3 张公用牌，就可以猜出转牌和河牌时会来什么牌，以及其他玩家的牌。” </p>
+<p>这种情况有如下几种解决方法：</p>
+<ol>
+<li>把Random对象作为一个全局实例（static）来使用。Java中Random是线程安全的（内部进行了加锁处理）；.Net中Random不是线程安全的，需要加锁处理。不过加锁会存在会造成处理速度慢的问题。而且由于初始的种子是确定的，所以攻击者存在着根据得到的若干随机数序列推测出”随机数种子”的可能性。</li>
+</ol>
+<ol start="3">
+<li>因为每次生成Guid的值都不样，网上有的文章说可以创建一个Guid计算它的HashCode或者MD5值的方式来做种子： new Random(Guid.NewGuid().GetHashCode()) 。但是我认为Guid的生成算法是确定的，在条件充足的情况下也是可以预测的，这样生成的随机数也有可预测的可能性。当然只是我的猜测，没经过理论的证明。</li>
+</ol>
+<ol start="5">
+<li><p>采用”真随机数发生器”，快看下一节分解！</p>
+<p>   七、真随机数发生器</p>
+</li>
+</ol>
+<p>根据我们之前的分析，我们知道这些所谓的随机数不是真的”随机”，只是看起来随机，因此被称为”伪随机算法”。在一些对随机要求高的场合会使用一些物理硬件采集物理噪声、宇宙射线、量子衰变等现实生活中的真正随机的物理参数来产生真正的随机数。</p>
+<p>当然也有聪明的人想到了不借助增加”随机数发生器”硬件的方法生成随机数。我们操作计算机时候鼠标的移动、敲击键盘的行为都是不可预测的，外界命令计算机什么时候要执行什么进程、处理什么文件、加载什么数据等也是不可预测的，因此导致的CPU运算速度、硬盘读写行为、内存占用情况的变化也是不可预测的。因此如果采集这些信息来作为随机数种子，那么生成的随机数就是不可预测的了。</p>
+<p>在Linux/Unix下可以使用”/dev/random”这个真随机数发生器，它的数据主来来自于硬件中断信息，不过产生随机数的速度比较慢。</p>
+<p>Windows下可以调用系统的CryptGenRandom()函数，它主要依据当前进程Id、当前线程Id、系统启动后的TickCount、当前时间、QueryPerformanceCounter返回的高性能计数器值、用户名、计算机名、CPU计数器的值等等来计算。和”/dev/random”一样CryptGenRandom()的生成速度也比较慢，而且消耗比较大的系统资源。</p>
+<p>当然.Net下也可以使用RNGCryptoServiceProvider 类（System.Security.Cryptography命名空间下）来生成真随机数，根据StackOverflow上一篇帖子介绍RNGCryptoServiceProvider 并不是对CryptGenRandom()函数的封装，但是和CryptGenRandom()原理类似。 </p>
+<p>八、总结</p>
+<p>有人可能会问：既然有”/dev/random” 、CryptGenRandom()这样的”真随机数发生器”，为什么还要提供、使用伪随机数这样的”假货”？因为前面提到了”/dev/random” 、CryptGenRandom()生成速度慢而且比较消耗性能。在对随机数的不可预测性要求低的场合，使用伪随机数算法即可，因为性能比较高。对于随机数的不可预测性要求高的场合就要使用真随机数发生器，真随机数发生器硬件设备需要考虑成本问题，而”/dev/random”、CryptGenRandom()则性能较差。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2018/03/27/%E3%80%90.Net%E3%80%91%E9%9A%8F%E6%9C%BA%E6%95%B0/" title="【.Net】随机数">http://blog.bfsdfs.com/2018/03/27/【.Net】随机数/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net/" rel="tag"># .Net</a>
+              <a href="/tags/C-%E5%9F%BA%E7%A1%80/" rel="tag"># C#基础</a>
+              <a href="/tags/Random/" rel="tag"># Random</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/03/25/%E3%80%90Centos%E3%80%91%E9%83%A8%E7%BD%B2%E6%B1%89%E5%8C%96%E7%89%88GitLab/" rel="prev" title="【CentOS】部署汉化版Gitlab">
+      <i class="fa fa-chevron-left"></i> 【CentOS】部署汉化版Gitlab
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/03/27/%E3%80%90.Net%E3%80%91%E5%AF%B9%E8%B1%A1%E6%98%A0%E5%B0%84%E7%BB%84%E4%BB%B6Tiny%20Mapper/" rel="next" title="【.Net】对象映射组件Tiny Mapper">
+      【.Net】对象映射组件Tiny Mapper <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'ee506beb134edd12d4f89596c889d06f',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

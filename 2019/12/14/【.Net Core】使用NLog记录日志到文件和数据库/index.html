@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="NLog 记录日志是微软官方推荐使用。 接下来，通过配置日志记录到文件和Sql Server数据库。 第一步：首先添加包NLog.Config （可通过微软添加包命令Install-Package 包名进行添加，也可以通过管理NuGet程序包进行添加），添加成功后会生成NLog.config配置文件。并对该配置文件进行配置。详细配置可参考Git上 NLog说明。 以下是我个人配置： 1234567">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net Core】使用NLog记录日志到文件和数据库">
+<meta property="og:url" content="http://blog.bfsdfs.com/2019/12/14/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8NLog%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%E5%88%B0%E6%96%87%E4%BB%B6%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="NLog 记录日志是微软官方推荐使用。 接下来，通过配置日志记录到文件和Sql Server数据库。 第一步：首先添加包NLog.Config （可通过微软添加包命令Install-Package 包名进行添加，也可以通过管理NuGet程序包进行添加），添加成功后会生成NLog.config配置文件。并对该配置文件进行配置。详细配置可参考Git上 NLog说明。 以下是我个人配置： 1234567">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvODI0NDkxLzIwMTgxMC84MjQ0OTEtMjAxODEwMTQyMjAzMTg3NjAtMTA2ODU3MTEzNy5wbmc.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvODI0NDkxLzIwMTgxMC84MjQ0OTEtMjAxODEwMTQyMjAzMjM1NjQtMTE2MTQ2MDk3NS5wbmc.png">
+<meta property="article:published_time" content="2019-12-14T03:55:45.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.041Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="控制台">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvODI0NDkxLzIwMTgxMC84MjQ0OTEtMjAxODEwMTQyMjAzMTg3NjAtMTA2ODU3MTEzNy5wbmc.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2019/12/14/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8NLog%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%E5%88%B0%E6%96%87%E4%BB%B6%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net Core】使用NLog记录日志到文件和数据库 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/12/14/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8NLog%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%E5%88%B0%E6%96%87%E4%BB%B6%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net Core】使用NLog记录日志到文件和数据库
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-14 11:55:45" itemprop="dateCreated datePublished" datetime="2019-12-14T11:55:45+08:00">2019-12-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>NLog 记录日志是微软官方推荐使用。</p>
+<p>接下来，通过配置日志记录到文件和Sql Server数据库。</p>
+<p>第一步：首先添加包NLog.Config （可通过微软添加包命令Install-Package 包名进行添加，也可以通过管理NuGet程序包进行添加），添加成功后会生成NLog.config配置文件。并对该配置文件进行配置。详细配置可参考Git上 NLog说明。</p>
+<p>以下是我个人配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span><br><span class="line">&lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;</span><br><span class="line">      xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">      xsi:schemaLocation=&quot;http://www.nlog-project.org/schemas/NLog.xsd NLog.xsd&quot;</span><br><span class="line">      autoReload=&quot;true&quot;</span><br><span class="line">      throwExceptions=&quot;false&quot;</span><br><span class="line">      internalLogLevel=&quot;Warn&quot;   </span><br><span class="line">      internalLogFile=&quot;Logs/nlog-internal.log&quot;&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;!--internalLogLevel=&quot;Off&quot;--&gt;</span><br><span class="line">  &lt;!-- optional, add some variables</span><br><span class="line">  https://github.com/nlog/NLog/wiki/Configuration-file#variables</span><br><span class="line">  --&gt;</span><br><span class="line">  &lt;variable name=&quot;myvar&quot; value=&quot;myvalue&quot;/&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!--</span><br><span class="line">  See https://github.com/nlog/nlog/wiki/Configuration-file</span><br><span class="line">  for information on customizing logging rules and outputs.</span><br><span class="line">   --&gt;</span><br><span class="line">  &lt;targets&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--</span><br><span class="line">    add your targets here</span><br><span class="line">    See https://github.com/nlog/NLog/wiki/Targets for possible targets.</span><br><span class="line">    See https://github.com/nlog/NLog/wiki/Layout-Renderers for the possible layout renderers.</span><br><span class="line">    --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--</span><br><span class="line">    Write events to a file with the date in the filename.</span><br><span class="line">    &lt;target xsi:type=&quot;File&quot; name=&quot;f&quot; fileName=&quot;$&#123;basedir&#125;/logs/$&#123;shortdate&#125;.log&quot;</span><br><span class="line">            layout=&quot;$&#123;longdate&#125; $&#123;uppercase:$&#123;level&#125;&#125; $&#123;message&#125;&quot; /&gt;</span><br><span class="line">    --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- write logs to file --&gt;</span><br><span class="line">    &lt;target xsi:type=&quot;File&quot; name=&quot;allfile&quot; fileName=&quot;Logs/$&#123;date:format=yyyyMM&#125;/nlog-all-$&#123;shortdate&#125;.log&quot;</span><br><span class="line">             layout=&quot;$&#123;longdate&#125;|$&#123;event-properties:item=EventId.Id&#125;|$&#123;uppercase:$&#123;level&#125;&#125;|$&#123;logger&#125; $&#123;newline&#125;$&#123;message&#125; $&#123;exception&#125; $&#123;newline&#125;&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;target xsi:type=&quot;File&quot; name=&quot;ownFile-web&quot; fileName=&quot;Logs/$&#123;date:format=yyyyMM&#125;/nlog-own-$&#123;shortdate&#125;.log&quot;</span><br><span class="line">             layout=&quot;$&#123;longdate&#125;|$&#123;event-properties:item=EventId.Id&#125;|$&#123;uppercase:$&#123;level&#125;&#125;|$&#123;logger&#125; $&#123;newline&#125;$&#123;message&#125; $&#123;exception&#125; $&#123;newline&#125; --- |url: $&#123;aspnet-request-url&#125;|action: $&#123;aspnet-mvc-action&#125;&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;target xsi:type=&quot;Null&quot; name=&quot;blackhole&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;target xsi:type=&quot;Database&quot; name=&quot;database&quot;&gt;</span><br><span class="line">      &lt;connectionString&gt;$&#123;var:connectionString&#125;&lt;/connectionString&gt;</span><br><span class="line">      &lt;commandText&gt;</span><br><span class="line">        insert into syslogs (Application,Levels,Operatingtime,Operatingaddress,Userid,Logger,Callsite,Requesturl,Referrerurl,Action,Message,Exception)</span><br><span class="line">        values (@application,@levels,@operatingtime,@operatingaddress,@userid,@logger,@callSite,@requesturl,@referrerurl,@action,@message,@exception);</span><br><span class="line">      &lt;/commandText&gt;</span><br><span class="line">      &lt;parameter name=&quot;@application&quot; layout=&quot;WebApi&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@levels&quot; layout=&quot;$&#123;level&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@operatingTime&quot; layout=&quot;$&#123;date&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@operatingaddress&quot; layout=&quot;$&#123;aspnet-Request-IP&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@userid&quot; layout=&quot;1&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@logger&quot; layout=&quot;$&#123;logger&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@callSite&quot; layout=&quot;$&#123;callsite&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@requesturl&quot; layout=&quot;$&#123;aspnet-request-url&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@referrerurl&quot; layout=&quot;$&#123;aspnet-request&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@action&quot; layout=&quot;$&#123;aspnet-mvc-action&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@message&quot; layout=&quot;$&#123;message&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@exception&quot; layout=&quot;$&#123;exception:tostring&#125;&quot; /&gt;</span><br><span class="line">    &lt;/target&gt;</span><br><span class="line">    </span><br><span class="line">  &lt;/targets&gt;</span><br><span class="line"></span><br><span class="line">  &lt;rules&gt;</span><br><span class="line">    &lt;!-- add your logging rules here --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--</span><br><span class="line">    Write all events with minimal level of Debug (So Debug, Info, Warn, Error and Fatal, but not Trace)  to &quot;f&quot;</span><br><span class="line">    &lt;logger name=&quot;*&quot; minlevel=&quot;Debug&quot; writeTo=&quot;f&quot; /&gt;</span><br><span class="line">    --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--All logs, including from Microsoft--&gt;</span><br><span class="line">    &lt;!--minlevel 改为Trace 跟踪全部 Error 只捕获异常--&gt;</span><br><span class="line">    &lt;logger name=&quot;*&quot; minlevel=&quot;Error&quot; writeTo=&quot;allfile&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--Skip Microsoft logs and so log only own logs--&gt;</span><br><span class="line">    &lt;logger name=&quot;Microsoft.*&quot; minlevel=&quot;Trace&quot; writeTo=&quot;blackhole&quot; final=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;logger name=&quot;*&quot; minlevel=&quot;Trace&quot; writeTo=&quot;ownFile-web&quot; /&gt;</span><br><span class="line">    &lt;logger name=&quot;*&quot; minlevel=&quot;Trace&quot; writeTo=&quot;database&quot; /&gt;    </span><br><span class="line">    </span><br><span class="line">  &lt;/rules&gt;</span><br><span class="line">&lt;/nlog&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;!--增加引用</span><br><span class="line">&lt;PackageReference Include=&quot;NLog.Extensions.Logging&quot; Version=&quot;1.2.1&quot; /&gt;</span><br><span class="line">&lt;PackageReference Include=&quot;NLog.Web.AspNetCore&quot; Version=&quot;4.6.0&quot; /&gt;--&gt;</span><br><span class="line"></span><br><span class="line">NLog.config</span><br></pre></td></tr></table></figure>
+<p>说明：targets 中有一节点为Database，是配置将日志写入数据库中，注意需要在数据库中添加该记录日志表。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;ConnectionStrings&quot;: &#123;</span><br><span class="line">    &quot;DefaultConnection&quot;: &quot;Data Source=192.168.30.133;Initial Catalog=Test;User ID=sa;Password=123456;Trusted_Connection=True;MultipleActiveResultSets=true;Integrated Security=false;&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;Logging&quot;: &#123;</span><br><span class="line">    &quot;LogLevel&quot;: &#123;</span><br><span class="line">      &quot;Default&quot;: &quot;Warning&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;AllowedHosts&quot;: &quot;*&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">appsettings.json</span><br></pre></td></tr></table></figure>
+<p>第二步：添加包NLog.Web.AspNetCore，在Program.cs中的WebHost加入”.UseNLog()”（该属于程序集NLog.Web，需要添加引用using NLog.Web;）,即为添加nlog.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">using Microsoft.AspNetCore;</span><br><span class="line">using Microsoft.AspNetCore.Hosting;</span><br><span class="line">using NLog.Web;</span><br><span class="line"></span><br><span class="line">namespace WebApi</span><br><span class="line">&#123;</span><br><span class="line">    public class Program</span><br><span class="line">    &#123;</span><br><span class="line">        public static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            CreateWebHostBuilder(args).Build().Run();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =&gt;</span><br><span class="line">            WebHost.CreateDefaultBuilder(args)</span><br><span class="line">                .UseStartup&lt;Startup&gt;()</span><br><span class="line">                .UseNLog(); //加入nlog日志</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Program.cs</span><br></pre></td></tr></table></figure>
+<p>第三步：在Startup.cs中的Configure方法中添加记日志代码，即需要加载的配置文件和配置日志写入数据库连接字符串代码。注意：为避免中文乱码问题需要添加System.Text.Encoding.CodePages包。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public void Configure(IApplicationBuilder app, IHostingEnvironment env)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    #region Nlog记日志</span><br><span class="line">    //将日志记录到数据库                 config/NLog.config</span><br><span class="line">    NLog.LogManager.LoadConfiguration(&quot;nlog.config&quot;).GetCurrentClassLogger();       NLog.LogManager.Configuration.Variables[&quot;connectionString&quot;] = Configuration.GetConnectionString(&quot;DefaultConnection&quot;);   Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);  //避免日志中的中文输出乱码</span><br><span class="line">    #endregion</span><br><span class="line"></span><br><span class="line">    if (env.IsDevelopment())</span><br><span class="line">        app.UseDeveloperExceptionPage();</span><br><span class="line">    else</span><br><span class="line">        app.UseHsts();</span><br><span class="line">    app.UseHttpsRedirection();</span><br><span class="line">    app.UseMvc();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Configure方法</span><br></pre></td></tr></table></figure>
+<p>第四步：使用微软推荐的方式在在构造方法中将将日志对象注入。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class UsersController : Controller</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 日志对象</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    private readonly ILogger logger;    </span><br><span class="line">      public UsersController(ILoggerFactory loggerFactory)</span><br><span class="line">    &#123;</span><br><span class="line">        this.logger = loggerFactory.CreateLogger&lt;UsersController&gt;();</span><br><span class="line"></span><br><span class="line">        #region 测试日志</span><br><span class="line">        logger.LogTrace(&quot;开发阶段调试，可能包含敏感程序数据&quot;, 1);</span><br><span class="line">        logger.LogDebug(&quot;开发阶段短期内比较有用，对调试有益。&quot;);</span><br><span class="line">        logger.LogInformation(&quot;你访问了首页。跟踪程序的一般流程。&quot;);</span><br><span class="line">        logger.LogWarning(&quot;警告信息！因程序出现故障或其他不会导致程序停止的流程异常或意外事件。&quot;);</span><br><span class="line">        logger.LogError(&quot;错误信息。因某些故障停止工作&quot;);</span><br><span class="line">        logger.LogCritical(&quot;程序或系统崩溃、遇到灾难性故障！！！&quot;);</span><br><span class="line">        #endregion</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">构造方法中注入</span><br></pre></td></tr></table></figure>
+<p>所有工作完成，运行程序。在配置NLog路径下生成日志文件，同时，在数据库中生成日志。</p>
+<p><img src="/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvODI0NDkxLzIwMTgxMC84MjQ0OTEtMjAxODEwMTQyMjAzMTg3NjAtMTA2ODU3MTEzNy5wbmc.png" alt="">)<img src="/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvODI0NDkxLzIwMTgxMC84MjQ0OTEtMjAxODEwMTQyMjAzMjM1NjQtMTE2MTQ2MDk3NS5wbmc.png" alt=""></p>
+<p>MySql的问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#1楼 2019-04-30 14:35 3369</span><br><span class="line">你好，我这边使用Pomelo.EntityFrameworkCore.MySql连接mysql，dbProvider=&quot;Pomelo.EntityFrameworkCore.MySql&quot;，可以向文件中写入日志，但是无法向数据库中写入日志</span><br><span class="line">支持(0) 反对(0)</span><br><span class="line">  修改 删除#2楼 2019-12-10 18:03 占位符,😐!</span><br><span class="line">@ 3369</span><br><span class="line">还得安装下：MySql.Data</span><br><span class="line">这个还是：dbProvider=&quot;MySql.Data.MySqlClient.MySqlConnection, MySql.Data&quot;，</span><br><span class="line">不知道有没有更好的方法</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2019/12/14/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8NLog%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%E5%88%B0%E6%96%87%E4%BB%B6%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/" title="【.Net Core】使用NLog记录日志到文件和数据库">http://blog.bfsdfs.com/2019/12/14/【.Net Core】使用NLog记录日志到文件和数据库/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net-Core/" rel="tag"># .Net Core</a>
+              <a href="/tags/%E6%8E%A7%E5%88%B6%E5%8F%B0/" rel="tag"># 控制台</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/14/%E3%80%90angular%E3%80%91%E8%B0%83%E7%94%A8API%E4%BD%BF%E7%94%A8Cookie/" rel="prev" title="【Angular】调用API使用Cookie">
+      <i class="fa fa-chevron-left"></i> 【Angular】调用API使用Cookie
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/01/04/%E3%80%90frp%E3%80%91%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/" rel="next" title="【Frp】内网穿透相关配置">
+      【Frp】内网穿透相关配置 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'e4038f9594b66ac05bd03c924b0d1f98',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

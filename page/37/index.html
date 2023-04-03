@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/37/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/37/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/05/12/%E3%80%90WebScraper%E3%80%91%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8A%93%E5%8F%96%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/12/%E3%80%90WebScraper%E3%80%91%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8A%93%E5%8F%96%E6%95%99%E7%A8%8B/" class="post-title-link" itemprop="url">【WebScraper】最简单的数据抓取教程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-12 21:26:17" itemprop="dateCreated datePublished" datetime="2019-05-12T21:26:17+08:00">2019-05-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">常用工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转自：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1171773">https://cloud.tencent.com/developer/article/1171773</a></p>
+<blockquote>
+<p>Web Scraper 是一款免费的，适用于普通用户（不需要专业 IT 技术的）的爬虫工具，可以方便的通过鼠标和简单配置获取你所想要数据。例如知乎回答列表、微博热门、微博评论、电商网站商品信息、博客文章列表等等。</p>
+</blockquote>
+<h1 id="环境需求"><a href="#环境需求" class="headerlink" title="环境需求"></a><strong>环境需求</strong></h1><p>这么简单的工具当然对环境的要求也很简单了，只需要一台能联网的电脑，一个版本不是很低的 Chrome 浏览器，具体的版本要求是大于 31 ，当然是越新越好了。目前 Chrome 的已经是60多了，也就是说这个版本要求也不是很高。</p>
+<h1 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a><strong>安装过程</strong></h1><ul>
+<li><strong>在线安装方式</strong> <em>在线安装需要具有可FQ网络，可访问 Chrome 应用商店</em></li>
+</ul>
+<p>1、在线访问 <a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/web-scraper/jnhgnonknehpejjnehehllkliplmbmhn">web Scraper 插件</a> ，点击 “添加至 CHROME”。</p>
+<p><img src="/images/tfxu2u4xe8.png" alt=""></p>
+<p>2、然后点击弹出框中的“添加扩展程序”</p>
+<p><img src="/images/7wyx0y9qfz.png" alt=""></p>
+<p>3、安装完成后在顶部工具栏显示 Web Scraper 的图标。</p>
+<p><img src="/images/wti5tuysnd.png" alt=""></p>
+<ul>
+<li><strong>本地安装方式</strong> <em>不能FQ的可以使用本地FQ方式，在本公众号回复<strong>「爬虫」</strong>，可下载 Chrome 和 Web Scraper 扩展插件</em></li>
+</ul>
+<p>1、打开 Chrome，在地址栏输入 <a href="">chrome://extensions/</a> ，进入扩展程序管理界面，然后将下载好的扩展插件 Web-Scraper_v0.3.7.crx 拖拽到此页面，点击“添加到扩展程序”即可完成安装。如图：</p>
+<p><img src="/images/8kaifnhlud.gif" alt=""></p>
+<p>2、安装完成后在顶部工具栏显示 Web Scraper 的图标。</p>
+<p><img src="/images/wti5tuysnd.png" alt=""></p>
+<h1 id="初识-web-scraper"><a href="#初识-web-scraper" class="headerlink" title="初识 web scraper"></a><strong>初识 web scraper</strong></h1><h2 id="打开-Web-Scraper"><a href="#打开-Web-Scraper" class="headerlink" title="*打开 Web Scraper *"></a>*<em>打开 Web Scraper *</em></h2><p><em>开发人员可以路过看后面了</em></p>
+<p>windows 系统下可以使用快捷键 F12，有的型号的笔记本需要按 Fn+F12；</p>
+<p>Mac 系统下可以使用快捷键 command+option+i ；</p>
+<p>也可以直接在 Chrome 界面上操作，点击设置—&gt;更多工具—&gt;开发者工具</p>
+<p><img src="/images/jgqa964smm.png" alt=""></p>
+<p>打开后的效果如下，其中绿色框部分是开发者工具的完整界面，红色框部分是 Web Scraper 区域，也就是我们之后要操作的部分。</p>
+<p><img src="/images/sxgzt617wy.png" alt=""></p>
+<p>注意：如果打开开发者工具在浏览器的右侧区域，则需要调节开发者工具位置到浏览器底部。</p>
+<p><img src="/images/da3ecc8jdv.gif" alt=""></p>
+<h2 id="原理及功能说明"><a href="#原理及功能说明" class="headerlink" title="原理及功能说明"></a><strong>原理及功能说明</strong></h2><p>我们抓取数据一般都是什么场景呢，如果只是零星的几条数据或者特定的某条数据也就不值得用工具了，之所以用工具是因为要批量的获取数据，而用手工方式又太耗时费力，甚至根本不能完成。例如抓取微博热门前100条，当然可以一页一页的翻，但是实在是太耗精力，再比如说知乎某个问题的所有答案，有的热门问题回答数成千上万，手工来，还是省省吧。</p>
+<p>基于这样的一种需求，一般可采用两种方式采集这些数据，一种叫“我们程序员的方式”，另一种叫“你们普通人的方式”。</p>
+<p>“我们程序员的方式”是指开发人员会根据需求自己写个爬虫或者利用某个爬虫框架，盯着屏幕狂敲代码，根据需求的复杂程度，敲代码的时长从一两个小时到一两天不等，当然如果时间太长的话可能是因为需求太复杂，针对这种复杂的需求来说，普通人的方式或许也就行不通了。常用的爬虫框架 Scrapy（Python）、WebMagic（Java）、Crawler4j（Java）。</p>
+<p>这篇还是主要介绍“你们普通人的方式”，也就是 Web Scraper 这个工具，因为其界面简单、操作简单，并且可导出 Excel 格式，不懂开发的同学也可以很快上手。而且对于一些简单的需求，开发人员也没必要自己实现个爬虫，点几下鼠标毕竟要比敲半天代码快吧。</p>
+<p>数据爬取的思路一般可以简单概括如下：</p>
+<p>1、通过一个或多个入口地址，获取初始数据。例如一个文章列表页，或者具有某种规则的页面，例如带有分页的列表页；</p>
+<p>2、根据入口页面的某些信息，例如链接指向，进入下一级页面，获取必要信息；</p>
+<p>3、根据上一级的链接继续进入下一层，获取必要信息（此步骤可以无限循环下去）；</p>
+<p>原理大致如此，接下来正式认识一下 Web Scraper 这个工具，来，打开开发者工具，点到 Web Scraper 这个标签栏，看到分为三个部分：</p>
+<p><img src="/images/r2fjs229ui.png" alt=""></p>
+<p><strong>Create new sitemap</strong>：首先理解 sitemap ，字面意思网站地图，这里可以理解为一个入口地址，可以理解为其对应一个网站，对应一个需求，假设要获取知乎上的一个问题的回答，就创建一个 sitemap ,并将这个问题所在的地址设置为sitemap 的 Start URL，然后点击 “Create Sitemap”即可创建一个 sitemap。</p>
+<p><img src="/images/b2pyoj5j5e.png" alt=""></p>
+<p><strong>Sitemaps</strong>:sitemap 的集合，所有创建过的 sitemap 都会在这里显示，并且可以在这里进入一个 sitemap 进行修改和数据抓取等操作。</p>
+<p><img src="/images/sb11h2vpnq.png" alt=""></p>
+<p><strong>Sitemap</strong>:进入某个 sitemap ,可以进行一系列的操作，如下图：</p>
+<p><img src="/images/1er3a1031m.png" alt=""></p>
+<p>其中红色框部分 Add new selector 是必不可少的步骤。selector 是什么呢，字面意思：选择器，一个选择器对应网页上的一部分区域，也就是包含我们要收集的数据的部分。</p>
+<p>需要解释一下，一个 sitemap 下可以有多个 selector，每个 selector 有可以包含子 selector ，一个 selector 可以只对应一个标题，也可以对应一整个区域，此区域可能包含标题、副标题、作者信息、内容等等信息。</p>
+<p>Selectors：查看所有的选择器。</p>
+<p>Selector graph:查看当前 sitemap 的拓扑结构图，根节点是什么，包含几个选择器，选择器下包含的子选择器。</p>
+<p>Edit metadata:可以修改 sitemap 信息，标题和起始地址。</p>
+<p>Scrape:开始数据抓取工作。</p>
+<p>Export data as CSV:将抓取的数据以 CSV 格式导出。</p>
+<p>到这里，有一个简单的认识就可以了，实践出真知，具体的操作案例才具有说服力，下面就以几个例子来说一说具体的用法。</p>
+<h1 id="案例实践"><a href="#案例实践" class="headerlink" title="案例实践"></a><strong>案例实践</strong></h1><h2 id="简单试水-hao123"><a href="#简单试水-hao123" class="headerlink" title="简单试水 hao123"></a><strong>简单试水 hao123</strong></h2><p><em>由浅入深，先以一个最简单的例子为入口，只是作为进一步认识 Web Scraper 服务</em></p>
+<blockquote>
+<p>需求背景：看到下面 hao123 页面中红色框住的部分了吧，我们的需求就是统计这部分区域中的所有网站名称和链接地址，最后以生成到 Excel 中。 因为这部分内容足够简单，当然真正的需求可能比这复杂，这么几个数据手工统计的时间也很快。</p>
+<p><img src="/images/tcjzqwryqc.png" alt=""></p>
+</blockquote>
+<p><strong>开始操作</strong></p>
+<p>1、假设我们已经打开了 hao123 页面，并且在此页面的底部打开了开发者工具，并且定位到了 Web Scraper 标签栏；</p>
+<p>2、点击“Create Sitemap”；</p>
+<p><img src="/images/p5cj0gt70k.png" alt=""></p>
+<p>3、之后输入 sitemap 名称和 start url，名称只为方便我们标记，就命名为hao123（注意，不支持中文），start url 就是hao123的网址，然后点击 create sitemap；</p>
+<p><img src="/images/z0oa8dpu8f.png" alt=""></p>
+<p>4、之后 Web Scraper 自动定位到这个 sitemap，接下来我们添加一个选择器，点击“add new selector”；</p>
+<p><img src="/images/7rq5xm9yup.png" alt=""></p>
+<p>5、首先给这个 selector 指定一个 id，就是一个便于识别 名字而已，我这里命名为 hot。因为要获取名称和链接，所以将Type 设置为 Link，这个类型就是专门为网页链接准备的，选择 Link 类型后，会自动提取名称和链接两个属性；</p>
+<p><img src="/images/s5486x88dx.png" alt=""></p>
+<p>6、之后点击 select ,然后我们在网页上移动光标，会发现光标所到之处会有颜色变化，变成绿色的，表示就是我么当前选择的区域。我们将光标定位到需求里说的那一栏的某个链接处，例如第一个头条新闻，在此处单击，这个部分就会变成红色，说明已经选中了，我们的目的是要选多个，所以选中这个之后，继续选第二个，我们会发现，这一行的链接都变成了红色，没错，这就是我们要的效果。然后点击”Done selecting!”，最后别忘了勾选 Multiple ，表示要采集多条数据；</p>
+<p><img src="/images/3md9chd41w.png" alt=""></p>
+<p>7、最后保存，save selector。点击Element preview 可以预览选择的区域，点击 Data preview 可以在浏览器里预览抓取的数据。 后面的文本框里的内容，对于懂技术的同学来说很清楚，这就是 xpath，我们可以不通过鼠标操作，直接手写 xpath 也可以；</p>
+<p>完整操作过程如下：</p>
+<p><img src="/images/sqwm91qabs.gif" alt=""></p>
+<p>8、上一步操作完，其实就可以导出了。先别急，看一下其他的操作，Sitemap hao123 下的 Selector graph，可以看出拓扑结构图，_root 是根 selector ，创建一个 sitemap 自动会有一个 _root 节点，可以看到它的子 selector，就是我们创建的 hot selector；</p>
+<p><img src="/images/9x0an6rkiz.png" alt=""></p>
+<p>9、Scrape ，开始抓取数据。</p>
+<p>10、Sitemap hao123 下的 Browse ，可以通过浏览器直接查看抓取的最后结果,需要再；</p>
+<p><img src="/images/yiz6tmbhv3.png" alt=""></p>
+<p>11、最后，使用 Export data as CSV，以 CSV 格式导出，其中 hot 列是标题，hot-href 列是链接；</p>
+<p><img src="/images/k19zgmbeko.png" alt=""></p>
+<p><strong>怎么样，赶紧试一下吧</strong></p>
+<h2 id="抓取知乎问题所有回答"><a href="#抓取知乎问题所有回答" class="headerlink" title="抓取知乎问题所有回答"></a><strong>抓取知乎问题所有回答</strong></h2><blockquote>
+<p>简单的介绍完了，接下来试一个有些难度的，抓取一个知乎问题的所有答案，包括回答者昵称、赞同数量、回答内容。问题：为什么鲜有炫富的程序员？<br><em>知乎的特点是，页面向下滚动才会加载后面的回答</em></p>
+</blockquote>
+<p>1、首先还是在 Chrome 中打开这个链接，链接地址为：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/30692237%EF%BC%8C%E5%B9%B6%E8%B0%83%E5%87%BA%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%EF%BC%8C%E5%AE%9A%E4%BD%8D%E5%88%B0">https://www.zhihu.com/question/30692237，并调出开发者工具，定位到</a> Web Scraper 标签栏；</p>
+<p>2、Create new sitemap，填写 sitemap name 和 start url;</p>
+<p><img src="/images/b54873h9qe.png" alt=""></p>
+<p>3、接下来，开始添加选择器，点击 Add new selector；</p>
+<p>4、先来分析一下知乎问题的结构，如图，一个问题由多个这种区域组成，一个区域就是一个回答，这个回答区域包括了昵称、赞同数、回答内容和发布时间等。红色框住的部分就是我们要抓取的内容。所以我们抓取数据的逻辑是这样的：由入口页进入，获取当前页面已加载的回答，找到一个回答区域，提取里面的昵称、赞同数、回答内容，之后依次向下执行，当已加载的区域获取完成，模拟向下滚动鼠标，加载后续的部分，一直循环往复，直到全部加载完毕；</p>
+<p><img src="/images/7ts3726hsc.png" alt=""></p>
+<p>5、内容结构的拓扑图如下，_root 根节点下包含若干个回答区域，每个区域下包含昵称、赞同数、回答内容；</p>
+<p><img src="/images/1uxsf79qe8.png" alt=""></p>
+<p>6、按照上面这个拓扑图，开始来创建选择器，填写 selector id 为 answer（随意填），Type 选择 Element scroll down 。解释一下：Element 就是针对这种大范围区域的，这个区域还要包含子元素，回答区域就对应 Element，因为要从这个区域获取我们所需的数据，而 Element scroll down 是说这个区域利用向下滚动的方式可以加载更多出来，就是针对这种下拉加载的情况专门设计的。</p>
+<p><img src="/images/eow3tpr7av.png" alt=""></p>
+<p>7、接下来点击 Select，然后鼠标到页面上来，让当绿色框框住一个回答区域后点击鼠标，然后移动到下一个回答，同样当绿色框框住一个回答区域后点击鼠标。这时，除了这两个回答外，所有的回答区域都变成了红色框，然后点击”Done selecting！”，最后别忘了选择 Multiple ，之后保存；</p>
+<p><img src="/images/8x2mc21b8a.gif" alt=""></p>
+<p>8、接下来，单击红色区域，进入刚刚创建的 answer 选择器中，创建子选择器；</p>
+<p><img src="/images/q7g2ol1hf5.png" alt=""></p>
+<p>9、创建昵称选择器，设置 id 为 name，Type 设置为 Text，Select 选择昵称部分，如果没经验的话，可能第一次选的不准，发现有错误，可以调整，保存即可；</p>
+<p><img src="/images/riu3hu7n1h.gif" alt=""></p>
+<p>10、创建赞同数选择器；</p>
+<p><img src="/images/h8dfmplvqr.gif" alt=""></p>
+<p>11、创建内容选择器，由于内容是带有格式的并且较长，所以有个技巧，从下面选择会比较方便；</p>
+<p><img src="/images/jn5vop4gwm.gif" alt=""></p>
+<p>12、执行 Scrape 操作，由于内容较多，可能需要几分钟的时间，如果是为了做测试，可以找一个回答数较少的问题做测试。</p>
+<p><img src="/images/3b61ptev3b.png" alt=""></p>
+<h1 id="资源获取"><a href="#资源获取" class="headerlink" title="资源获取"></a><strong>资源获取</strong></h1><ul>
+<li>在本公众号内回复「爬虫」，获取 Chrome 和 Web Scraper 扩展程序的安装包 </li>
+<li>在本公众号内回复 「sitemap」，获取本文中抓取 hao123 和知乎的 sitemap 文本 获取下来的 sitemap 是一段 json 文本，通过 Create new Sitemap 下的 Import Sitemap，然后输入获取到的 sitemap json 串，并起个名字，然后点击导入按钮即可。</li>
+</ul>
+<p><img src="/images/jwehztzsx9.png" alt=""></p>
+<p><img src="/images/afhgpa4w3t.png" alt=""></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/05/06/%E3%80%90DIY%E3%80%91%E8%B0%83%E7%94%A8%E5%BE%AE%E8%BD%AF%E8%AF%AD%E9%9F%B3%E6%9C%8D%E5%8A%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/06/%E3%80%90DIY%E3%80%91%E8%B0%83%E7%94%A8%E5%BE%AE%E8%BD%AF%E8%AF%AD%E9%9F%B3%E6%9C%8D%E5%8A%A1/" class="post-title-link" itemprop="url">【DIY】调用微软语音服务</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-06 22:17:59" itemprop="dateCreated datePublished" datetime="2019-05-06T22:17:59+08:00">2019-05-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DIY%E7%A8%8B%E5%BA%8F/" itemprop="url" rel="index"><span itemprop="name">DIY程序</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>自定义语音合成 可 参考：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/THFmz4uNpb0lNYWshaZ2qQ">https://mp.weixin.qq.com/s/THFmz4uNpb0lNYWshaZ2qQ</a></p>
+<p>合成微软语音晓晓 可 参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/viter/p/10685402.html">https://www.cnblogs.com/viter/p/10685402.html</a></p>
+<p>图灵聊天机器人API:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">public class TulingHelper</span><br><span class="line">&#123;</span><br><span class="line">    private const string HOST = &quot;http://openapi.tuling123.com/openapi/api/v2&quot;;</span><br><span class="line">    private static readonly Logger logger = LogManager.GetCurrentClassLogger();</span><br><span class="line"></span><br><span class="line">    public static async Task&lt;string&gt; RequestTuling(string text)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            using (var httpClient = new HttpClient())</span><br><span class="line">            &#123;</span><br><span class="line">                var body = &quot;&#123;&#x27;reqType&#x27;:0,&#x27;perception&#x27;: &#123;&#x27;inputText&#x27;: &#123;&#x27;text&#x27;: &#x27;&quot; + text + &quot;&#x27;&#125;&#125;,&#x27;userInfo&#x27;: &#123;&#x27;apiKey&#x27;: &#x27;*****&#x27;,&#x27;userId&#x27;: &#x27;267842&#x27;&#125;&#125;&quot;;</span><br><span class="line">                var request = new HttpRequestMessage()</span><br><span class="line">                &#123;</span><br><span class="line">                    Method = HttpMethod.Post,</span><br><span class="line">                    RequestUri = new Uri(HOST),</span><br><span class="line">                    Content = new StringContent(body, Encoding.UTF8)</span><br><span class="line">                &#125;;</span><br><span class="line"></span><br><span class="line">                var response = await httpClient.SendAsync(request);</span><br><span class="line">                if (response.StatusCode != System.Net.HttpStatusCode.OK)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(&quot;The Response &#123;0&#125;&quot;, response.StatusCode);</span><br><span class="line">                    return null;</span><br><span class="line">                &#125;</span><br><span class="line">                var responseString = await response.Content.ReadAsStringAsync();</span><br><span class="line">                var obj = JObject.Parse(responseString);</span><br><span class="line">                return (string)obj[&quot;results&quot;][0][&quot;values&quot;][&quot;text&quot;];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            logger.Error(ex, ex.Message);</span><br><span class="line">            return &quot;出错了&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>微软语音合成API：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">public class VoicesHelper</span><br><span class="line">&#123;</span><br><span class="line">    private static readonly Logger logger = LogManager.GetCurrentClassLogger();</span><br><span class="line"></span><br><span class="line">    private const string TOKEN_URI = &quot;https://southeastasia.api.cognitive.microsoft.com/sts/v1.0/issuetoken&quot;;</span><br><span class="line">    private const string SUB_KEY = &quot;*****&quot;;</span><br><span class="line">    private const string HOST = &quot;https://southeastasia.voice.speech.microsoft.com/cognitiveservices/v1?deploymentId=***&quot;;</span><br><span class="line">    private const string RESOURCE_NAME = &quot;SpeechSerivce&quot;;</span><br><span class="line"></span><br><span class="line">    public static async Task&lt;string&gt; GetTokenAsync()</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            using (var httpClient = new HttpClient())</span><br><span class="line">            &#123;</span><br><span class="line">                httpClient.DefaultRequestHeaders.Add(&quot;Ocp-Apim-Subscription-Key&quot;, SUB_KEY);</span><br><span class="line">                var builder = new UriBuilder(TOKEN_URI);</span><br><span class="line">                var result = await httpClient.PostAsync(builder.Uri.AbsoluteUri, null);</span><br><span class="line">                return await result.Content.ReadAsStringAsync();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            logger.Error(ex, ex.Message);</span><br><span class="line">            return &quot;出错了&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static async Task RequestSSML(string authToken, string text, string fileName)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            using (var httpClient = new HttpClient())</span><br><span class="line">            &#123;</span><br><span class="line">                var body = &quot;&lt;speak xmlns=\&quot;http://www.w3.org/2001/10/synthesis\&quot; xmlns:mstts=\&quot;http://www.w3.org/2001/mstts\&quot; version=\&quot;1.0\&quot; xml:lang=\&quot;zh-CN\&quot;&gt;&lt;voice name=\&quot;xixi\&quot;&gt;&quot; + text + &quot;&lt;/voice&gt;&lt;/speak&gt;&quot;;</span><br><span class="line">                var request = new HttpRequestMessage()</span><br><span class="line">                &#123;</span><br><span class="line">                    Method = HttpMethod.Post,</span><br><span class="line">                    RequestUri = new Uri(HOST),</span><br><span class="line">                    Content = new StringContent(body, Encoding.UTF8, &quot;application/ssml+xml&quot;)</span><br><span class="line">                &#125;;</span><br><span class="line">                request.Headers.Add(&quot;Authorization&quot;, &quot;Bearer &quot; + authToken);</span><br><span class="line">                request.Headers.Add(&quot;Connection&quot;, &quot;Keep-Alive&quot;);</span><br><span class="line">                request.Headers.Add(&quot;User-Agent&quot;, RESOURCE_NAME);</span><br><span class="line">                request.Headers.Add(&quot;X-Microsoft-OutputFormat&quot;, &quot;riff-24khz-16bit-mono-pcm&quot;);</span><br><span class="line"></span><br><span class="line">                var response = await httpClient.SendAsync(request);</span><br><span class="line">                if (response.StatusCode != System.Net.HttpStatusCode.OK)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(&quot;The Response &#123;0&#125;&quot;, response.StatusCode);</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">                using (var stream = await response.Content.ReadAsStreamAsync())</span><br><span class="line">                &#123;</span><br><span class="line">                    stream.Position = 0;</span><br><span class="line">                    using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))</span><br><span class="line">                    &#123;</span><br><span class="line">                        await stream.CopyToAsync(fs);</span><br><span class="line">                        fs.Close();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            logger.Error(ex, ex.Message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用这两个API：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[HttpPost]</span><br><span class="line">public IActionResult Voices(Context context)</span><br><span class="line">&#123;</span><br><span class="line">    logger.LogError(520, $&quot;问：&#123; context.body&#125;&quot;);</span><br><span class="line">    var text = TulingHelper.RequestTuling(context.body).ConfigureAwait(false).GetAwaiter().GetResult();</span><br><span class="line">    logger.LogError(521, $&quot;答：&#123;text&#125;&quot;);</span><br><span class="line"></span><br><span class="line">    var result = VoicesHelper.GetTokenAsync().ConfigureAwait(false).GetAwaiter();</span><br><span class="line">    string token = result.GetResult();</span><br><span class="line"></span><br><span class="line">    string fileName = $&quot;/voiceswav/&#123;Guid.NewGuid().ToString()&#125;.wav&quot;;</span><br><span class="line">    var task1 = VoicesHelper.RequestSSML(token, text, $&quot;./wwwroot&#123;fileName&#125;&quot;);</span><br><span class="line">    task1.ConfigureAwait(false).GetAwaiter().GetResult();</span><br><span class="line">    return Ok(fileName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/04/18/%E3%80%90Angular%E3%80%91%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8HTML5%20Fullscreen%20API%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/18/%E3%80%90Angular%E3%80%91%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8HTML5%20Fullscreen%20API%EF%BC%9F/" class="post-title-link" itemprop="url">【Angular】如何使用HTML5 Fullscreen API？</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-18 09:22:31" itemprop="dateCreated datePublished" datetime="2019-04-18T09:22:31+08:00">2019-04-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>   我使用Angular 7，我希望有一个按钮，可以将我的应用程序全屏显示。 我使用HTML5 Fullscreen API，我有两个功能：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">openfullscreen() &#123;</span><br><span class="line">   // Trigger fullscreen</span><br><span class="line">   console.log(&#x27;gg&#x27;);</span><br><span class="line">   if (document.documentElement.requestFullscreen) &#123;</span><br><span class="line">     document.documentElement.requestFullscreen();</span><br><span class="line">   &#125; else if (document.documentElement.mozRequestFullScreen) &#123; /* Firefox */</span><br><span class="line">     document.documentElement.mozRequestFullScreen();</span><br><span class="line">   &#125; else if (document.documentElement.webkitRequestFullscreen) &#123; /* Chrome, Safari and Opera */</span><br><span class="line">     document.documentElement.webkitRequestFullscreen();</span><br><span class="line">   &#125; else if (document.documentElement.msRequestFullscreen) &#123; /* IE/Edge */</span><br><span class="line">     document.documentElement.msRequestFullscreen();</span><br><span class="line">   &#125;</span><br><span class="line">   this.isfullscreen = true;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> closefullscreen()&#123;</span><br><span class="line">   if (document.exitFullscreen) &#123;</span><br><span class="line">     document.exitFullscreen();</span><br><span class="line">   &#125; else if (document.mozCancelFullScreen) &#123; /* Firefox */</span><br><span class="line">     document.mozCancelFullScreen();</span><br><span class="line">   &#125; else if (document.webkitExitFullscreen) &#123; /* Chrome, Safari and Opera */</span><br><span class="line">     document.webkitExitFullscreen();</span><br><span class="line">   &#125; else if (document.msExitFullscreen) &#123; /* IE/Edge */</span><br><span class="line">     document.msExitFullscreen();</span><br><span class="line">   &#125;</span><br><span class="line">   this.isfullscreen = false;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>它能工作，但会报很多错误警告：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">error TS2339: Property &#x27;mozRequestFullScreen&#x27; does not exist on type &#x27;HTMLElement&#x27;.</span><br><span class="line">error TS2339: Property &#x27;mozRequestFullScreen&#x27; does not exist on type &#x27;HTMLElement&#x27;.</span><br><span class="line">error TS2339: Property &#x27;webkitRequestFullscreen&#x27; does not exist on type &#x27;HTMLElement&#x27;.</span><br><span class="line">error TS2339: Property &#x27;webkitRequestFullscreen&#x27; does not exist on type &#x27;HTMLElement&#x27;.</span><br><span class="line">error TS2551: Property &#x27;msRequestFullscreen&#x27; does not exist on type &#x27;HTMLElement&#x27;. Did you mean &#x27;requestFullscreen&#x27;?</span><br><span class="line">error TS2551: Property &#x27;msRequestFullscreen&#x27; does not exist on type &#x27;HTMLElement&#x27;. Did you mean &#x27;requestFullscreen&#x27;?</span><br><span class="line">error TS2339: Property &#x27;mozCancelFullScreen&#x27; does not exist on type &#x27;Document&#x27;.</span><br><span class="line">error TS2339: Property &#x27;mozCancelFullScreen&#x27; does not exist on type &#x27;Document&#x27;.</span><br><span class="line">error TS2339: Property &#x27;webkitExitFullscreen&#x27; does not exist on type &#x27;Document&#x27;.</span><br><span class="line">error TS2339: Property &#x27;webkitExitFullscreen&#x27; does not exist on type &#x27;Document&#x27;.</span><br><span class="line">error TS2551: Property &#x27;msExitFullscreen&#x27; does not exist on type &#x27;Document&#x27;. Did you mean &#x27;exitFullscreen&#x27;?</span><br><span class="line">error TS2551: Property &#x27;msExitFullscreen&#x27; does not exist on type &#x27;Document&#x27;. Did you mean &#x27;exitFullscreen&#x27;?</span><br></pre></td></tr></table></figure>
+<p>改进方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">openfullscreen() &#123;</span><br><span class="line">  // Trigger fullscreen</span><br><span class="line">  const docElmWithBrowsersFullScreenFunctions = document.documentElement as HTMLElement &amp; &#123;</span><br><span class="line">    mozRequestFullScreen(): Promise&lt;void&gt;;</span><br><span class="line">    webkitRequestFullscreen(): Promise&lt;void&gt;;</span><br><span class="line">    msRequestFullscreen(): Promise&lt;void&gt;;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  if (docElmWithBrowsersFullScreenFunctions.requestFullscreen) &#123;</span><br><span class="line">    docElmWithBrowsersFullScreenFunctions.requestFullscreen();</span><br><span class="line">  &#125; else if (docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen) &#123; /* Firefox */</span><br><span class="line">    docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen();</span><br><span class="line">  &#125; else if (docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen) &#123; /* Chrome, Safari and Opera */</span><br><span class="line">    docElmWithBrowsersFullScreenFunctions.webkitRequestFullscreen();</span><br><span class="line">  &#125; else if (docElmWithBrowsersFullScreenFunctions.msRequestFullscreen) &#123; /* IE/Edge */</span><br><span class="line">    docElmWithBrowsersFullScreenFunctions.msRequestFullscreen();</span><br><span class="line">  &#125;</span><br><span class="line">  this.isfullscreen = true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">closefullscreen()&#123;</span><br><span class="line">  const docWithBrowsersExitFunctions = document as Document &amp; &#123;</span><br><span class="line">    mozCancelFullScreen(): Promise&lt;void&gt;;</span><br><span class="line">    webkitExitFullscreen(): Promise&lt;void&gt;;</span><br><span class="line">    msExitFullscreen(): Promise&lt;void&gt;;</span><br><span class="line">  &#125;;</span><br><span class="line">  if (docWithBrowsersExitFunctions.exitFullscreen) &#123;</span><br><span class="line">    docWithBrowsersExitFunctions.exitFullscreen();</span><br><span class="line">  &#125; else if (docWithBrowsersExitFunctions.mozCancelFullScreen) &#123; /* Firefox */</span><br><span class="line">    docWithBrowsersExitFunctions.mozCancelFullScreen();</span><br><span class="line">  &#125; else if (docWithBrowsersExitFunctions.webkitExitFullscreen) &#123; /* Chrome, Safari and Opera */</span><br><span class="line">    docWithBrowsersExitFunctions.webkitExitFullscreen();</span><br><span class="line">  &#125; else if (docWithBrowsersExitFunctions.msExitFullscreen) &#123; /* IE/Edge */</span><br><span class="line">    docWithBrowsersExitFunctions.msExitFullscreen();</span><br><span class="line">  &#125;</span><br><span class="line">  this.isfullscreen = false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>翻译自：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/54242775/angular-7-how-does-work-the-html5-fullscreen-api-ive-a-lot-of-errors">https://stackoverflow.com/questions/54242775/angular-7-how-does-work-the-html5-fullscreen-api-ive-a-lot-of-errors</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/36/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/36/">36</a><span class="page-number current">37</span><a class="page-number" href="/page/38/">38</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/38/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转自：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;landeanfen&#x2F;p&#x2F;4636102.html 前言：xml的操作方式有多种，但要论使用频繁程度，博主用得最多的还是Linq to xml的方式，觉得它使用起来很方便，就用那么几个方法就能完成简单xml的读写。之前做的一个项目有一个很变态的需求：C#项目调用不知道是什么语言写的一个WebService，然后添加服务引用总是失败，通过代理的方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Xml】复杂的读取操作">
+<meta property="og:url" content="http://blog.bfsdfs.com/2019/04/16/%E3%80%90Xml%E3%80%91%E5%A4%8D%E6%9D%82%E7%9A%84%E8%AF%BB%E5%8F%96%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="转自：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;landeanfen&#x2F;p&#x2F;4636102.html 前言：xml的操作方式有多种，但要论使用频繁程度，博主用得最多的还是Linq to xml的方式，觉得它使用起来很方便，就用那么几个方法就能完成简单xml的读写。之前做的一个项目有一个很变态的需求：C#项目调用不知道是什么语言写的一个WebService，然后添加服务引用总是失败，通过代理的方">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/20190416092222532.png">
+<meta property="article:published_time" content="2019-04-16T01:24:39.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.083Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content=".Net">
+<meta property="article:tag" content=".Asp.Net">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/20190416092222532.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2019/04/16/%E3%80%90Xml%E3%80%91%E5%A4%8D%E6%9D%82%E7%9A%84%E8%AF%BB%E5%8F%96%E6%93%8D%E4%BD%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【Xml】复杂的读取操作 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/04/16/%E3%80%90Xml%E3%80%91%E5%A4%8D%E6%9D%82%E7%9A%84%E8%AF%BB%E5%8F%96%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Xml】复杂的读取操作
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-16 09:24:39" itemprop="dateCreated datePublished" datetime="2019-04-16T09:24:39+08:00">2019-04-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/landeanfen/p/4636102.html">https://www.cnblogs.com/landeanfen/p/4636102.html</a></p>
+<p>前言：xml的操作方式有多种，但要论使用频繁程度，博主用得最多的还是Linq to xml的方式，觉得它使用起来很方便，就用那么几个方法就能完成简单xml的读写。之前做的一个项目有一个很变态的需求：C#项目调用不知道是什么语言写的一个WebService，然后添加服务引用总是失败，通过代理的方式动态调用也总是报错，最后没办法，通过发送原始的WebRequest请求直接得到对方返回的一个xml文件。注意过webservice的wsdl文件的朋友应该知道这个是系统生成的xml文件，有点复杂，研究了半天终于能正常读写了。今天在这里和大家分享下。</p>
+<p>1、介绍之前，首先回顾下Linq to xml的方式读写简单xml的方法</p>
+<p>（1）读取xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;BizADsList&gt;</span><br><span class="line">  &lt;adData aid=&quot;1&quot; image=&quot;baidu.jpg&quot; link=&quot;www.baidu.com&quot; title=&quot;百度&quot;/&gt;</span><br><span class="line">  &lt;adData aid=&quot;2&quot; image=&quot;qq.jpg&quot; link=&quot;www.qq.com&quot; title=&quot;腾讯&quot;/&gt;</span><br><span class="line">&lt;/BizADsList&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var strPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @&quot;data\test.xml&quot;);</span><br><span class="line">XDocument adList = XDocument.Load(strPath);</span><br><span class="line">var ad = from a in adList.Descendants(&quot;BizADsList&quot;).Elements(&quot;adData&quot;)</span><br><span class="line">            select new</span><br><span class="line">            &#123;</span><br><span class="line">                image = a.Attribute(&quot;image&quot;).Value,</span><br><span class="line">                link = a.Attribute(&quot;link&quot;).Value,</span><br><span class="line">                title = a.Attribute(&quot;title&quot;).Value</span><br><span class="line">            &#125;;</span><br><span class="line">string s = &quot;&quot;;</span><br><span class="line">foreach (var a in ad)</span><br><span class="line">    s += a.image;</span><br></pre></td></tr></table></figure>
+
+<p>（2）写xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 根据得到的Document集合生成XML</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;param name=&quot;lstDocumentBD&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;docNE&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;strSpiderTime&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;strNewRate&quot;&gt;&lt;/param&gt;</span><br><span class="line">private static void SaveXmlByLstDocument(List&lt;Document&gt; lstDocumentBD, Document docNE, string strSpiderTime, string strNewRate)</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        XDocument xDoc = new XDocument();</span><br><span class="line">        XElement xRoot = new XElement(CSpiderConst.XML_ELE_ROOT);</span><br><span class="line"></span><br><span class="line">        //1.构造Device节点</span><br><span class="line">        XElement xDevice = new XElement(CSpiderConst.XML_ELE_DEVICE);</span><br><span class="line"></span><br><span class="line">        //2.构造NE节点</span><br><span class="line">        XElement xNE = new XElement(CSpiderConst.XML_ELE_NE);</span><br><span class="line">        foreach (var oDocNE in docNE)</span><br><span class="line">        &#123;</span><br><span class="line">            XElement xItem = new XElement(CSpiderConst.XML_ELE_ITEM, new XAttribute(CSpiderConst.XML_PROP_NAME, oDocNE.Key), oDocNE.Value);</span><br><span class="line">            xNE.Add(xItem);</span><br><span class="line">        &#125;</span><br><span class="line">        //这里增加一个&lt;Item name=&#x27;NewRate&#x27;&gt;和&lt;Item name=&#x27;SpiderTimeEx&#x27;&gt;节点用来保存当前这次的利用率和当次的采集时间</span><br><span class="line">        AddNewRateAndSpiderTime(strSpiderTime, strNewRate, xNE);</span><br><span class="line">        xDevice.Add(xNE);</span><br><span class="line"></span><br><span class="line">        //3.循环构造BD节点并添加到Device节点中</span><br><span class="line">        foreach (var oDocument in lstDocumentBD)</span><br><span class="line">        &#123;</span><br><span class="line">            XElement xBD = new XElement(CSpiderConst.XML_ELE_BD);</span><br><span class="line">            foreach (var oDocBD in oDocument)</span><br><span class="line">            &#123;</span><br><span class="line">                XElement xItem = new XElement(CSpiderConst.XML_ELE_ITEM, new XAttribute(CSpiderConst.XML_PROP_NAME, oDocBD.Key), oDocBD.Value);</span><br><span class="line">                xBD.Add(xItem);</span><br><span class="line">            &#125;</span><br><span class="line">            AddNewRateAndSpiderTime(strSpiderTime, strNewRate, xBD);</span><br><span class="line">            xDevice.Add(xBD);</span><br><span class="line">        &#125;</span><br><span class="line">        xRoot.Add(xDevice);</span><br><span class="line">        xDoc.Add(xRoot);</span><br><span class="line"></span><br><span class="line">        //4.保存到采集器本地，以服务器的时间和网元的AssetID来命名</span><br><span class="line">        var strDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, &quot;ReportFailed\\&quot;);</span><br><span class="line">        if (!Directory.Exists(strDirectoryPath))</span><br><span class="line">        &#123;</span><br><span class="line">            Directory.CreateDirectory(strDirectoryPath);</span><br><span class="line">        &#125;</span><br><span class="line">        xDoc.Save(strDirectoryPath + docNE[TBLDeviceLCBB.PROP_ASSETID] + &quot;_&quot; + strSpiderTime.Replace(&quot;:&quot;, &quot;_&quot;) + &quot;.xml&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        CLogService.Instance.Debug(&quot;保存XML失败&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过XDocument、XElement对象和Element()、Elements()两个方法能完成大部分xml文件的操作。</p>
+<p>2、进入今天的正题：读写带命名空间的xml文件。</p>
+<p>首先来看一段xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span><br><span class="line">&lt;DataSet xmlns=&quot;http://WebXml.com.cn/&quot;&gt;</span><br><span class="line">  &lt;xs:schema xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot; id=&quot;getRegion&quot;&gt;</span><br><span class="line">    &lt;msdata:aa&gt;</span><br><span class="line">      test</span><br><span class="line">    &lt;/msdata:aa&gt;</span><br><span class="line">    &lt;xs:element name=&quot;getRegion&quot; msdata:IsDataSet=&quot;true&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;</span><br><span class="line">      &lt;xs:element name=&quot;Province&quot;&gt;</span><br><span class="line">        &lt;xs:sequence&gt;</span><br><span class="line">          &lt;xs:element name=&quot;RegionID&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">          &lt;xs:element name=&quot;RegionName&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">        &lt;/xs:sequence&gt;</span><br><span class="line">      &lt;/xs:element&gt;</span><br><span class="line">    &lt;/xs:element&gt;</span><br><span class="line">  &lt;/xs:schema&gt;</span><br><span class="line">&lt;/DataSet&gt;</span><br></pre></td></tr></table></figure>
+<p>第一次看到这个文件确实让人萌神了，比如需要取一个msdata:IsDataSet=”true”这个属性，该怎么取…</p>
+<p>解析之前，先来分析下这段xml，<DataSet xmlns="http://WebXml.com.cn/">这段里面有一个xmlns属性，这个属性是每一个标签自带的属性，不信你可以新建一个xml文件，然后在任何一个标签里面输入xmlns属性，后面都会出来很多的系统自带的命名空间。这个属性表示所属标签在哪个命名空间下面，所以在取的时候要带上这个命名空间。</p>
+<p>先来看看解析的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var strPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @&quot;data\test.xml&quot;);</span><br><span class="line">var oRoot = XDocument.Load(strPath);</span><br><span class="line">//取DataSet标签</span><br><span class="line">var oDataSet = oRoot.Element(XName.Get(&quot;DataSet&quot;, &quot;http://WebXml.com.cn/&quot;));</span><br><span class="line">//取schema标签</span><br><span class="line">var oSchema = oDataSet.Element(XName.Get(&quot;schema&quot;, &quot;http://www.w3.org/2001/XMLSchema&quot;));</span><br><span class="line">//取element标签</span><br><span class="line">var oElement = oSchema.Element(XName.Get(&quot;element&quot;, &quot;http://www.w3.org/2001/XMLSchema&quot;));//这两个节点都是以xs打头，所以命名空间都是xs的命名空间</span><br><span class="line">//取element标签下面的IsDataSet属性</span><br><span class="line">var oElementValue = oElement.Attribute(XName.Get(&quot;IsDataSet&quot;, &quot;urn:schemas-microsoft-com:xml-msdata&quot;));</span><br><span class="line">//取aa标签</span><br><span class="line">var oAA = oSchema.Element(XName.Get(&quot;aa&quot;, &quot;urn:schemas-microsoft-com:xml-msdata&quot;));</span><br></pre></td></tr></table></figure>
+<p>我们来解析下几个关键的地方：</p>
+<p>（1）我们来解析下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:schema xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot; id=&quot;getRegion&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>这一句，最前面的”xs”表示标签所属命名空间的变量，xmlns:xs=”<a target="_blank" rel="noopener" href="http://www.w3.org/2001/XMLSchema&quot;这个表示xs这个命名空间的值。所以要得到schema这个标签需要带上命名空间var">http://www.w3.org/2001/XMLSchema&quot;这个表示xs这个命名空间的值。所以要得到schema这个标签需要带上命名空间var</a> oSchema = oDataSet.Element(XName.Get(“schema”, “<a target="_blank" rel="noopener" href="http://www.w3.org/2001/XMLSchema&quot;));这个标签还定义了另一个命名空间xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;。">http://www.w3.org/2001/XMLSchema&quot;));这个标签还定义了另一个命名空间xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;。</a></p>
+<p>（2）再来看看aa标签</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;msdata:aa&gt;</span><br><span class="line">    test</span><br><span class="line">&lt;/msdata:aa&gt;</span><br></pre></td></tr></table></figure>
+<p>msdata就是上面schema标签里面定义的另一个命名空间，表示aa标签属于msdata命名空间下面。</p>
+<p>（3）再看来看属性的取法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;getRegion&quot; msdata:IsDataSet=&quot;true&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>如果要取msdata:IsDataSet=”true”，由于这个属性也带有命名空间，所以取属性时也要加上命名空间了。所以需要这样取。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var oElementValue = oElement.Attribute(XName.Get(&quot;IsDataSet&quot;, &quot;urn:schemas-microsoft-com:xml-msdata&quot;));</span><br></pre></td></tr></table></figure>
+<p>现在大伙们应该对这种xml有一个更加清晰的认识了吧。其实一般情况下这种场景比较少见，因为这么复杂的xml一般是由引用服务时代理对象去解析的。但如果真的有这么变态的需求我们也不用担心了。在此记录下，以后如果大家遇到希望能节约大伙的时间。</p>
+<p>Demo 读取 xml：</p>
+<p><img src="/images/20190416092222532.png" alt=""></p>
+<p>代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">XmlDocument xmldc = new XmlDocument();</span><br><span class="line"></span><br><span class="line">XmlNamespaceManager xnm = new XmlNamespaceManager(xmldc.NameTable);</span><br><span class="line">xnm.AddNamespace(&quot;xx&quot;, &quot;http://xml.sunhotels.net/schemas/Places_1.5.0.xsd&quot;);</span><br><span class="line"></span><br><span class="line">using (XmlReader reader = XmlReader.Create(@&quot;Places_en.xml&quot;))</span><br><span class="line">&#123;</span><br><span class="line">    xmldc.Load(reader);</span><br><span class="line">    var places1 = xmldc.DocumentElement.SelectNodes(&quot;/xx:sunhotels_cache_file/xx:places/xx:place&quot;, xnm);</span><br><span class="line">    foreach (var place1 in places1)</span><br><span class="line">    &#123;</span><br><span class="line">        //第一层</span><br><span class="line">        var id1 = ((XmlNode)place1).SelectSingleNode(&quot;xx:id&quot;, xnm).InnerText;</span><br><span class="line">        var description1 = ((XmlNode)place1).SelectSingleNode(&quot;xx:description&quot;, xnm).InnerText;</span><br><span class="line">        Console.WriteLine($&quot;&#123;id1&#125; --- &#123;description1&#125;&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        var places2 = ((XmlNode)place1).SelectNodes(&quot;xx:places/xx:place&quot;, xnm);</span><br><span class="line">        foreach (var place2 in places2)</span><br><span class="line">        &#123;</span><br><span class="line">            //第er层</span><br><span class="line">            var id2 = ((XmlNode)place2).SelectSingleNode(&quot;xx:id&quot;, xnm).InnerText;</span><br><span class="line">            var description2 = ((XmlNode)place2).SelectSingleNode(&quot;xx:description&quot;, xnm).InnerText;</span><br><span class="line">            Console.WriteLine($&quot;\t&#123;id2&#125; --- &#123;description2&#125;&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            var places3 = ((XmlNode)place2).SelectNodes(&quot;xx:places/xx:place&quot;, xnm);</span><br><span class="line">            foreach (var place3 in places3)</span><br><span class="line">            &#123;</span><br><span class="line">                //第三层</span><br><span class="line">                var id3 = ((XmlNode)place3).SelectSingleNode(&quot;xx:id&quot;, xnm).InnerText;</span><br><span class="line">                var description3 = ((XmlNode)place3).SelectSingleNode(&quot;xx:description&quot;, xnm).InnerText;</span><br><span class="line">                Console.WriteLine($&quot;\t\t&#123;id3&#125; --- &#123;description3&#125;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2019/04/16/%E3%80%90Xml%E3%80%91%E5%A4%8D%E6%9D%82%E7%9A%84%E8%AF%BB%E5%8F%96%E6%93%8D%E4%BD%9C/" title="【Xml】复杂的读取操作">http://blog.bfsdfs.com/2019/04/16/【Xml】复杂的读取操作/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net-Core/" rel="tag"># .Net Core</a>
+              <a href="/tags/Net/" rel="tag"># .Net</a>
+              <a href="/tags/Asp-Net/" rel="tag"># .Asp.Net</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/12/%E3%80%90MySQL%E3%80%91%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E4%B8%8E%E6%8E%88%E6%9D%83/" rel="prev" title="【MySql】创建用户与授权">
+      <i class="fa fa-chevron-left"></i> 【MySql】创建用户与授权
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/18/%E3%80%90Angular%E3%80%91%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8HTML5%20Fullscreen%20API%EF%BC%9F/" rel="next" title="【Angular】如何使用HTML5 Fullscreen API？">
+      【Angular】如何使用HTML5 Fullscreen API？ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '79c65e9c049b93c5fff9ae82e76dd0db',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

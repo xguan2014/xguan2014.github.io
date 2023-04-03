@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;xszjk&#x2F;articles&#x2F;5517638.html  12using System.ComponentModel.DataAnnotations;@Html.ValidationSummary(&quot;Errors have occurred:&quot;)&#x2F;&#x2F;显示视图总的验证信息 通过为模型类增加数据描述的DataAnnotations，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【CSharp】DataAnnotations常用属性">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/04/15/%E3%80%90CSharp%E3%80%91DataAnnotations%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;xszjk&#x2F;articles&#x2F;5517638.html  12using System.ComponentModel.DataAnnotations;@Html.ValidationSummary(&quot;Errors have occurred:&quot;)&#x2F;&#x2F;显示视图总的验证信息 通过为模型类增加数据描述的DataAnnotations，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-15T13:21:53.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.056Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/04/15/%E3%80%90CSharp%E3%80%91DataAnnotations%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【CSharp】DataAnnotations常用属性 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/04/15/%E3%80%90CSharp%E3%80%91DataAnnotations%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【CSharp】DataAnnotations常用属性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-15 21:21:53" itemprop="dateCreated datePublished" datetime="2020-04-15T21:21:53+08:00">2020-04-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xszjk/articles/5517638.html">https://www.cnblogs.com/xszjk/articles/5517638.html</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">using System.ComponentModel.DataAnnotations;</span><br><span class="line">@Html.ValidationSummary(&quot;Errors have occurred:&quot;)//显示视图总的验证信息</span><br></pre></td></tr></table></figure>
+<p>通过为模型类增加数据描述的DataAnnotations，我们可以容易地为应用程序增加验证的功能。DataAnnotations允许我们描述希望应用在模型属性上的验证规则，ASP.NET MVC将会使用这些DataAnnotations，然后将适当的验证信息返回给用户。</p>
+<p>常用的DataAnnotations</p>
+<h3 id="Required"><a href="#Required" class="headerlink" title="Required"></a>Required</h3><p>属性值必须非空或者不能只是空格，如果允许全空格可以</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Required(AllowEmptyStrings = true)`]</span><br></pre></td></tr></table></figure>
+
+<h3 id="DisplayName"><a href="#DisplayName" class="headerlink" title="DisplayName"></a>DisplayName</h3><p>显示名–定义表单字段的提示名称</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[DisplayName(&quot;名称&quot;)]</span><br></pre></td></tr></table></figure>
+
+<h3 id="StringLength"><a href="#StringLength" class="headerlink" title="StringLength"></a>StringLength</h3><p>字符串长度不能超过给定的最大长度，也可以指定最小长度：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[StringLength(10, MinimumLength=2)]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Range"><a href="#Range" class="headerlink" title="Range"></a>Range</h3><p>范围–数字的可输入范围</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Range(10, 20)]</span><br></pre></td></tr></table></figure>
+<p>属性值必须在指定的数值范围内，可以使用数值类型的最大最小值比如int.MinValue、int.MaxValue</p>
+<h3 id="Bind"><a href="#Bind" class="headerlink" title="Bind"></a>Bind</h3><p>绑定–列出在将请求参数绑定到模型的时候，包含和不包含的字段</p>
+<h3 id="ScaffoldColumn"><a href="#ScaffoldColumn" class="headerlink" title="ScaffoldColumn"></a>ScaffoldColumn</h3><p>支架列-在编辑表单的时候，需要隐藏起来的的字符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ScaffoldColumn(true|false)]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Compare"><a href="#Compare" class="headerlink" title="Compare"></a>Compare</h3><p>比较-与制定的字段值进行比较具体见代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Compare(&quot;MyOtherProperty&quot;)]</span><br></pre></td></tr></table></figure>
+<p>两个属性必须相同值，比如我们要求用户重复输入两次邮件地址时有用</p>
+<h3 id="RegularExpre-ssion"><a href="#RegularExpre-ssion" class="headerlink" title="RegularExpre ssion"></a>RegularExpre ssion</h3><p>正则表达式匹配</p>
+<p>字符串值必须匹配正则表达式，默认大小写敏感，可以使用(?i）修饰符关闭大小写敏感，比如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[RegularExpre ssion(&quot;(?i)mypattern&quot;)]</span><br></pre></td></tr></table></figure>
+
+<h3 id="DataType"><a href="#DataType" class="headerlink" title="DataType"></a>DataType</h3><p>在前端显示的文本框类型</p>
+<h3 id="Remote"><a href="#Remote" class="headerlink" title="Remote"></a>Remote</h3><p>服务端验证</p>
+<p><strong>客户端验证</strong></p>
+<p>任何平台都可以靠js来实现客户端验证，但是我这里探讨的是MVC的数据验证。那MVC的客户端数据验证有什么不同呢？在View里添加一行代码：（注意要添加在Form前）@Html.EnableClientValidation();</p>
+<p>注意点：这里，其实是这个函数把Model验证转换成了javascript代码，对！它只能转换Model验证，BLL验证无法转换，因为BLL验证涉及到复杂的代码，不可能全部转换成javascript吧？并且BLL验证很多还需要和数据库交互。那如果想把BLL验证也做成”客户端”验证怎么办？（只有可能用ajax实现无刷新验证，而不是真正的客户端验证）</p>
+<p>关于Model层数据验证的一些验证规则与相关验证属性标签小集</p>
+<p>（1）常规验证（必填字段、字符串长度、正则表达式验证、范围验证、数值、日期等）</p>
+<p>1.必填字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Required]</span><br><span class="line">public string FirstName &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.字段长度至多n位：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[StringLength(160)]</span><br><span class="line">public string FirstName &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+<p>要求至少n位：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[StringLength(160, MinimumLength=3)]</span><br><span class="line">public string FirstName &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.正则验证</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[RegularExpre ssion(@&quot;[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]&#123;2,4&#125;&quot;)]</span><br><span class="line">public string Email &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.范围</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Range(35,44, UIHint(&quot;IntSlider&quot;))]//左右托动块</span><br><span class="line">public int Age &#123;get;set;&#125;</span><br></pre></td></tr></table></figure>
+<p>小数的情况：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Range(typeof(decimal),&quot;0.00&quot;,&quot;49.99&quot;)]</span><br><span class="line">public decimal Price&#123;get;set;&#125;</span><br></pre></td></tr></table></figure>
+<p>5.服务端参与的验证</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Remote(&quot;CheckUserName&quot;, &quot;Account&quot;, ErrorMessage = &quot;该姓名已存在&quot;)]</span><br><span class="line">public string UserName &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+<p>Remote异步请求验证，在[HttpGet]时获取指定Controller里面的指定方法验证，次方法必须是[HttpGet]标记的，返回类型为Json类型的JavaScript对象。</p>
+<p>然后在AccountController里指定一个CheckUserName方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public JsonResult CheckUserName(string username)</span><br><span class="line">&#123; </span><br><span class="line">    var result = Membership.FindUsersByName(username).Count == 0;</span><br><span class="line">    return Json(result, JsonRequestBehavior.AllowGet);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>6.比较</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[RegularExpre ssion(@&quot;[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]&#123;2,4&#125;&quot;)]</span><br><span class="line">public string Email &#123; get; set; &#125;</span><br><span class="line">[Compare(&quot;Email&quot;)]</span><br><span class="line">public string EmailConfirm &#123; get; set; &#125;</span><br><span class="line">public string EmailConfirm &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>7.自定义错误消息</p>
+<p>正则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[RegularExpre ssion(@&quot;[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]&#123;2,4&#125;&quot;,ErrorMessage=&quot;Emaildoesn’tlooklikeavalidemailaddress.&quot;)]</span><br><span class="line">publicstringEmail&#123;get;set;&#125;</span><br></pre></td></tr></table></figure>
+<p>具体示例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line">[DisplayName(&quot;分组名称&quot;)]</span><br><span class="line">[Required(ErrorMessage=&quot;请输入账号&quot;)]</span><br><span class="line">[StringLength(50,ErrorMessage=&quot;请勿输入超过50个字&quot;)]</span><br><span class="line">public string Name &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;排序字段&quot;)]</span><br><span class="line">[DataType(DataType.Password)]</span><br><span class="line">[Required(ErrorMessage=&quot;请输入排序字段&quot;)]</span><br><span class="line">[RegularExpre ssion(@&quot;^([d]+)$&quot;,ErrorMessage=&quot;请输入正确的Email.&quot;)]</span><br><span class="line">public string Sequence &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;备注&quot;)]</span><br><span class="line">[DataTyle(DataType.MultilineText)]//数据显示为多文本</span><br><span class="line">[Required(AllowEmptyStrings=true,ErrorMessage=&quot;请输入中文姓名&quot;)]</span><br><span class="line">[StringLength(50,ErrorMessage=&quot;请勿输入超过50个字&quot;)]</span><br><span class="line">public string Describe &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;账号&quot;)]</span><br><span class="line">[Required(ErrorMessage=&quot;请输入账号&quot;)]</span><br><span class="line">[StringLength(50,ErrorMessage=&quot;请勿输入超过50个字&quot;)]</span><br><span class="line">public string Account&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;密码&quot;)]</span><br><span class="line">[DataType(DataType.Password)]</span><br><span class="line">[Required(ErrorMessage=&quot;请输入密码&quot;)]</span><br><span class="line">[StringLength(50,ErrorMessage=&quot;请勿输入超过50个字&quot;)]</span><br><span class="line">public string Password&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[Required]</span><br><span class="line">[DataType(DataType.Password)]</span><br><span class="line">[Display(Name=&quot;Currentpassword&quot;)]</span><br><span class="line">public string OldPassword&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[Required]</span><br><span class="line">[StringLength(100,ErrorMessage=&quot;The&#123;0&#125;mustbeatleast&#123;2&#125;characterslong.&quot;,MinimumLength=6)]</span><br><span class="line">[DataType(DataType.Password)]</span><br><span class="line">[Display(Name=&quot;Newpassword&quot;)]</span><br><span class="line">public string NewPassword&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[Display(Name=&quot;确认密码&quot;)]</span><br><span class="line">[Compare(&quot;LogPassword&quot;,ErrorMessage=&quot;密码必须一致&quot;)]</span><br><span class="line">public virtual string LogPasswordConfirm&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[Display(Name=&quot;Rememberme?&quot;)]</span><br><span class="line">public bool RememberMe&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;姓名&quot;)]</span><br><span class="line">[Required(ErrorMessage=&quot;请输入姓名&quot;)]</span><br><span class="line">[StringLength(50,ErrorMessage=&quot;请勿输入超过50个字&quot;)]</span><br><span class="line">public string ChName&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;昵称&quot;)]</span><br><span class="line">[Required(ErrorMessage=&quot;请输入昵称&quot;)]</span><br><span class="line">[StringLength(50,ErrorMessage=&quot;请勿输入超过50个字&quot;)]</span><br><span class="line">public string NickName&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[Display(Name=&quot;出生日期&quot;)]</span><br><span class="line">[Range(typeof(DateTime),&quot;2011-12-31&quot;,&quot;1950-1-1&quot;,ErrorMessage=&quot;&#123;0&#125;的范围是&#123;1&#125;到&#123;2&#125;&quot;)]</span><br><span class="line">[DisplayFormat(DataFormatString = &quot;&#123;0:yyyy-MM-dd&#125;&quot;, ApplyFormatInEditMode = true)]**//显示格式**</span><br><span class="line">public virtual DateTime? Birthday&#123;get;set;&#125;//表示值可为Null</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;年龄&quot;)]</span><br><span class="line">[Range(1,int.MaxValue,ErrorMessage=&quot;请输入大于等于1的数&quot;)]</span><br><span class="line">public int Age&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;Email&quot;)]</span><br><span class="line">[Required(ErrorMessage=&quot;请输入Email&quot;)]</span><br><span class="line">[StringLength(255,ErrorMessage=&quot;请勿输入超过255个字&quot;)]</span><br><span class="line">[RegularExpre ssion(@&quot;^([w-.]+)@(([[0-9]&#123;1,3&#125;.[0-9]&#123;1,3&#125;.[0-9]&#123;1,3&#125;.)|(([w-]+.)+))([a-zA-Z]&#123;2,4&#125;)$&quot;,ErrorMessage=&quot;请输入正确的Email.&quot;)]</span><br><span class="line">[DataType(DataType.EmailAddress)]</span><br><span class="line">public string Email&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;电话号码&quot;)]</span><br><span class="line">[RegularExpre ssion(@&quot;^((0d&#123;2,5&#125;-)|(0d&#123;2,5&#125;))?d&#123;7,8&#125;(-d&#123;3,4&#125;)?$&quot;, ErrorMessage = &quot;电话格式有误。n有效格式为：n①本区7或8位号码[-3或4位分机号码,可选]n②(3~5位区号)7或8位号码[-3或4位分机号码,可选]n③3~5位区号-7或8位号码[-3或4位分机号码,可选]n示例：023-12345678;(023)1234567-1234&quot;)]</span><br><span class="line">public string Phone &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[Display(Name = &quot;身份证号码&quot;)]</span><br><span class="line">[RegularExpre ssion(@&quot;d&#123;17&#125;[d|X]|d&#123;15&#125;&quot;, ErrorMessage = &quot;&#123;0&#125;的格式不正确&quot;)]</span><br><span class="line">public virtual string IdentityNo &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;是否为管理员&quot;)]</span><br><span class="line">public bool IsAdmin &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;代表图示&quot;)]</span><br><span class="line">[Required(ErrorMessage = &quot;请选择代表图示&quot;)]</span><br><span class="line"></span><br><span class="line">[Range(1, 3, ErrorMessage = &quot;输入的值必须介于1到3之间&quot;)]</span><br><span class="line">public int AvatarIcon &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[Display(Name = &quot;逻辑删除标识&quot;)]</span><br><span class="line">public virtual int IsLogicDelete &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;验证码&quot;)]</span><br><span class="line">public string AuthCode &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;创建日期&quot;)]</span><br><span class="line">public DateTime CreateTime &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;网址&quot;)]</span><br><span class="line">[RegularExpre ssion(@&quot;http(s)?://([w-]+.)+[w-]+(/[w- ./?%&amp;=]*)?&quot;, ErrorMessage = &quot;请输入合法的网址!示例：</span><br><span class="line">https://abc.a;http://www.abc.dd&quot;) ]</span><br><span class="line">public string Httpaddress &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>普通文本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Required(ErrorMessage=&quot;Your last name is required&quot;)]</span><br><span class="line">[StringLength(160, ErrorMessage=&quot;Your last name is too long&quot;)]</span><br><span class="line">public string LastName &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+<p>占位符：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Required(ErrorMessage=&quot;Your &#123;0&#125; is required.&quot;)]</span><br><span class="line">[StringLength(160, ErrorMessage=&quot;&#123;0&#125; is too long.&quot;)]</span><br><span class="line">public string LastName &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>数据库约束验证</p>
+<p>如果不希望用户使用123456这样的过于简单的密码，可以使用check约束来实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE staffinfoes WITH NOCHECKADD CONSTRAINT chk_logPassword</span><br><span class="line">CHECK (logPassword NOT IN(&#x27;123&#x27;,&#x27;123123&#x27;,&#x27;123456&#x27;))</span><br></pre></td></tr></table></figure>
+<p>其中，staffinfoes是表名称，chk_logPassword是约束名称，logPassword是列名称</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/04/15/%E3%80%90CSharp%E3%80%91DataAnnotations%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/" title="【CSharp】DataAnnotations常用属性">http://blog.bfsdfs.com/2020/04/15/【CSharp】DataAnnotations常用属性/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net/" rel="tag"># .Net</a>
+              <a href="/tags/C/" rel="tag"># C#</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/15/%E3%80%90CSharp%E3%80%91DataAnnotations%E6%A3%80%E8%AF%81%E5%AE%9E%E4%BD%93/" rel="prev" title="【CSharp】DataAnnotations检证实体">
+      <i class="fa fa-chevron-left"></i> 【CSharp】DataAnnotations检证实体
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/16/%E3%80%90.Net%20Core%E3%80%91ASP.NET%20Core%203.x-gRPC%E7%AE%80%E4%BB%8B/" rel="next" title="【.Net Core】ASP.NET Core 3.x-gRPC简介">
+      【.Net Core】ASP.NET Core 3.x-gRPC简介 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Required"><span class="nav-number">1.</span> <span class="nav-text">Required</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DisplayName"><span class="nav-number">2.</span> <span class="nav-text">DisplayName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringLength"><span class="nav-number">3.</span> <span class="nav-text">StringLength</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Range"><span class="nav-number">4.</span> <span class="nav-text">Range</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bind"><span class="nav-number">5.</span> <span class="nav-text">Bind</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ScaffoldColumn"><span class="nav-number">6.</span> <span class="nav-text">ScaffoldColumn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compare"><span class="nav-number">7.</span> <span class="nav-text">Compare</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RegularExpre-ssion"><span class="nav-number">8.</span> <span class="nav-text">RegularExpre ssion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataType"><span class="nav-number">9.</span> <span class="nav-text">DataType</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Remote"><span class="nav-number">10.</span> <span class="nav-text">Remote</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '844d46105644fa367e5248ec6c2f68ec',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

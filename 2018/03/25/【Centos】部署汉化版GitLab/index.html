@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转自：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;straycats&#x2F;p&#x2F;7637373.html  实测可行！ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 2017&#x2F;11&#x2F;12_第6次修改 ccb_warlock 更新说明： 2017&#x2F;11&#x2F;12：五中增加管理员账号的内容 2017&#x2F;11&#x2F;8：修复3.6中命令错误的问题； 2017&#x2F;10&#x2F;2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【CentOS】部署汉化版Gitlab">
+<meta property="og:url" content="http://blog.bfsdfs.com/2018/03/25/%E3%80%90Centos%E3%80%91%E9%83%A8%E7%BD%B2%E6%B1%89%E5%8C%96%E7%89%88GitLab/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="转自：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;straycats&#x2F;p&#x2F;7637373.html  实测可行！ &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; 2017&#x2F;11&#x2F;12_第6次修改 ccb_warlock 更新说明： 2017&#x2F;11&#x2F;12：五中增加管理员账号的内容 2017&#x2F;11&#x2F;8：修复3.6中命令错误的问题； 2017&#x2F;10&#x2F;2">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/901201-20171008141753746-1168496902.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/901201-20171008142452840-154152191.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/901201-20171008142634168-1176466712.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/901201-20171009183831371-1529709149.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/901201-20171008160130871-391254302.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/901201-20171008160210778-2027065574.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/901201-20171008160302559-34936248.png">
+<meta property="article:published_time" content="2018-03-25T11:51:03.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.062Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/901201-20171008141753746-1168496902.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2018/03/25/%E3%80%90Centos%E3%80%91%E9%83%A8%E7%BD%B2%E6%B1%89%E5%8C%96%E7%89%88GitLab/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【CentOS】部署汉化版Gitlab | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/03/25/%E3%80%90Centos%E3%80%91%E9%83%A8%E7%BD%B2%E6%B1%89%E5%8C%96%E7%89%88GitLab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【CentOS】部署汉化版Gitlab
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-25 19:51:03" itemprop="dateCreated datePublished" datetime="2018-03-25T19:51:03+08:00">2018-03-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">Linux知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/straycats/p/7637373.html">https://www.cnblogs.com/straycats/p/7637373.html</a> </p>
+<p>实测可行！</p>
+<p>===============================================</p>
+<p>2017/11/12_第6次修改 ccb_warlock</p>
+<p>更新说明：</p>
+<p>2017/11/12：五中增加管理员账号的内容</p>
+<p>2017/11/8：修复3.6中命令错误的问题；</p>
+<p>2017/10/20：3.4中增加“途径2：从官方获取RPM包后上传到/root目录下”的内容；4.5中增加安装patch的命令；2.2中增加git clone老版本的命令；</p>
+<p>2017/10/18：在“环境准备”中增加硬件环境的描述；</p>
+<p>2017/10/9：增加3.5的内容；</p>
+<p>=============================================== </p>
+<p>作为公司层面使用gitlab，进行维护时一定要考虑升级、备份、迁移/恢复的事情，代码安全是研发部门的重心之一，故我也整理了下面的内容供维护人员参考。 </p>
+<p>升级：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/straycats/p/7707359.html">http://www.cnblogs.com/straycats/p/7707359.html</a><br>本地备份：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/straycats/p/7671204.html">http://www.cnblogs.com/straycats/p/7671204.html</a><br>远程备份：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/straycats/p/7672692.html">http://www.cnblogs.com/straycats/p/7672692.html</a><br>迁移/恢复：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/straycats/p/7702271.html">http://www.cnblogs.com/straycats/p/7702271.html</a></p>
+<p>gitlab接触了一段时间，觉得是一个很不错的开源产品（gitlab的社区版），值得我整理一篇部署教程作为记录。</p>
+<h2 id="安装全程选择的用户为root。"><a href="#安装全程选择的用户为root。" class="headerlink" title="安装全程选择的用户为root。"></a>安装全程选择的用户为root。</h2><p>一、环境准备<br>操作系统：centos7（minimal，<a target="_blank" rel="noopener" href="http://www.centos.org下载的包是CentOS-7-x86_64-Minimal-1708.iso）">www.centos.org下载的包是CentOS-7-x86_64-Minimal-1708.iso）</a><br>CPU：2核<br>内存：6G<br>说明：硬件根据我查到的资料(<a target="_blank" rel="noopener" href="http://www.cnblogs.com/gnool/p/6128546.html">http://www.cnblogs.com/gnool/p/6128546.html</a>)，结合使用人数的考虑，故选择了2核6G的配置，实际配置时需要根据gitlab使用人数的负载来决定硬件配置。</p>
+<p>1.1 更换阿里yum（个人习惯）</p>
+<p>步骤：</p>
+<p>1）下载wget </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y wget</span><br></pre></td></tr></table></figure>
+<p>2）备份默认的yum</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/yum.repos.d /etc/yum.repos.d.backup</span><br></pre></td></tr></table></figure>
+<p>3）设置新的yum目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /etc/yum.repos.d</span><br></pre></td></tr></table></figure>
+<p>4）下载阿里yum配置到该目录中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
+<p>5）重建缓存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+<p>6）升级所有包（改变软件设置和系统设置，系统版本内核都升级，故需要几分钟耐心等待）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update -y</span><br></pre></td></tr></table></figure>
+
+<p>1.2 安装vim（个人习惯）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y vim </span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>二、获取gitlab汉化包（要部署非汉化版，可以跳过这一块内容）<br>说明：gitlab中文社区版的项目，v7-v8.8是由Larry Li发起的“GitLab 中文社区版项目”（<a target="_blank" rel="noopener" href="https://gitlab.com/larryli/gitlab），从">https://gitlab.com/larryli/gitlab），从</a> v8.9 之后，@xhang 开始继续该汉化项目（<a target="_blank" rel="noopener" href="https://gitlab.com/xhang/gitlab）。">https://gitlab.com/xhang/gitlab）。</a></p>
+<p>2.1 安装git</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y git </span><br></pre></td></tr></table></figure>
+<p>2.2 克隆获取汉化版本库<br>下载最新的汉化包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitlab.com/xhang/gitlab.git </span><br></pre></td></tr></table></figure>
+<p>如果是要下载老版本的汉化包，需要加上老版本的分支，比如今天已经是10.0.4，我依旧想下载10.0.2，可以运行下面的语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitlab.com/xhang/gitlab.git -b v10.0.2-zh </span><br></pre></td></tr></table></figure>
+<p>2.3 查看该汉化补丁的版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat gitlab/VERSION </span><br></pre></td></tr></table></figure>
+<p>我安装的时候正好是国庆，最新的版本才刚出，所以汉化版为10.0.2，故我选择原版也安装10.0.2。<br><img src="/images/901201-20171008141753746-1168496902.png" alt=""></p>
+<hr>
+<p>三、部署社区版gitlab</p>
+<p>3.1 安装gitlab的依赖项</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y curl openssh-server openssh-clients postfix cronie policycoreutils-python</span><br></pre></td></tr></table></figure>
+<p>// 10.x以后开始依赖policycoreutils-python，我之前在使用9.x时还没有依赖该项。</p>
+<p>3.2 启动postfix，并设置为开机启动 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start postfix</span><br><span class="line">systemctl enable postfix </span><br></pre></td></tr></table></figure>
+<p>3.3 设置防火墙 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --add-service=http --permanent</span><br><span class="line">firewall-cmd --reload </span><br></pre></td></tr></table></figure>
+<p>3.4 获取gitlab的rpm包</p>
+<p>途径1：通过清华开源镜像站</p>
+<p>查看清华开源镜像站，有我需要的10.0.2的rpm包。</p>
+<p><img src="/images/901201-20171008142452840-154152191.png" alt=""><br>获取rpm包 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-10.0.2-ce.0.el7.x86_64.rpm </span><br></pre></td></tr></table></figure>
+<p>途径2：从官方获取RPM包后上传到/root目录下</p>
+<p>官方下载：<a target="_blank" rel="noopener" href="https://packages.gitlab.com/gitlab/gitlab-ce/">https://packages.gitlab.com/gitlab/gitlab-ce/</a></p>
+<p>因为要在centos7上安装版本10.0.2的gitlab，故找到gitlab-ce-10.0.2-ce.0.el7.x86_64.rpm下载到本地后，通过Bitvise SSH Client工具将rpm包上传到gitlab虚拟机的/root目录下。</p>
+<p>说明：从下载速度和方便程度来说，走清华的镜像站的方式更优，但是我2017/10/20想下载gitlab10.0.4时，发现清华的镜像站最新只有10.0.3，故在增补“途径2”获取最新的安装包。</p>
+<p>3.5 安装rpm包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -i gitlab-ce-10.0.2-ce.0.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<p><img src="/images/901201-20171008142634168-1176466712.png" alt=""><br>根据提示，继续执行指令配置gitlab。 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure </span><br></pre></td></tr></table></figure>
+<p>3.6 修改配置文件gitlab.rb</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/gitlab/gitlab.rb</span><br></pre></td></tr></table></figure>
+<p>将external_url变量的地址修改为gitlab所在centos的ip地址。（因为我这台centos是16.5，故配成图中的地址）。</p>
+<p><img src="/images/901201-20171009183831371-1529709149.png" alt=""></p>
+<p>因为修改了配置文件，故需要重新加载配置内容。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br><span class="line">gitlab-ctl restart </span><br></pre></td></tr></table></figure>
+<p>3.7 查看gitlab版本 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head -1 /opt/gitlab/version-manifest.txt </span><br></pre></td></tr></table></figure>
+<hr>
+<p>四、覆盖汉化包</p>
+<p>4.1 停止gitlab服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl stop </span><br></pre></td></tr></table></figure>
+<p>4.2 切换到gitlab汉化包所在的目录（即步骤二获取的汉化版gitlab） </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /root/gitlab </span><br></pre></td></tr></table></figure>
+<p>4.3 比较汉化标签和原标签，导出 patch 用的 diff 文件到/root下 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff v10.0.2 v10.0.2-zh &gt; ../10.0.2-zh.diff </span><br></pre></td></tr></table></figure>
+<p>4.4 回到/root目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd </span><br></pre></td></tr></table></figure>
+<p>4.5 将10.0.2-zh.diff作为补丁更新到gitlab中 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install patch -y</span><br><span class="line">patch -d /opt/gitlab/embedded/service/gitlab-rails -p1 &lt; 10.0.2-zh.diff </span><br></pre></td></tr></table></figure>
+<p>4.6 启动gitlab</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl start </span><br></pre></td></tr></table></figure>
+<p>4.7 重新配置gitlab </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure </span><br></pre></td></tr></table></figure>
+<hr>
+<p>五、设置管理员密码</p>
+<p>管理员账号登录的用户名：root</p>
+<p>（虽然登录后管理员的用户名为Administrator，但是实际登录的用户名是root）</p>
+<p>方法一：网页方式</p>
+<p>浏览器访问gitlab所在的ip，输入密码后点击 “Change your password”（如果进行汉化，点击“修改密码”）。</p>
+<p><img src="/images/901201-20171008160130871-391254302.png" alt=""></p>
+<p><img src="/images/901201-20171008160210778-2027065574.png" alt=""></p>
+<p>方法二：指令方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-rails console production</span><br></pre></td></tr></table></figure>
+<p>稍等一会后会出现</p>
+<p><img src="/images/901201-20171008160302559-34936248.png" alt=""></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">irb(main):001:0&gt; user = User.where(id: 1).first     // id为1的是超级管理员</span><br><span class="line">irb(main):002:0&gt;user.password = &#x27;yourpassword&#x27;      // 密码必须至少8个字符</span><br><span class="line">irb(main):003:0&gt;user.save!                          // 如没有问题 返回true</span><br><span class="line">exit                                                // 退出 </span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2018/03/25/%E3%80%90Centos%E3%80%91%E9%83%A8%E7%BD%B2%E6%B1%89%E5%8C%96%E7%89%88GitLab/" title="【CentOS】部署汉化版Gitlab">http://blog.bfsdfs.com/2018/03/25/【Centos】部署汉化版GitLab/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/01/11/%E3%80%90Angular%E3%80%91i18n%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB%E3%80%81%E8%B8%A9%E8%BF%87%E7%9A%84%E5%9D%91/" rel="prev" title="【Angular】i18n的技术分享、踩过的坑">
+      <i class="fa fa-chevron-left"></i> 【Angular】i18n的技术分享、踩过的坑
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/03/27/%E3%80%90.Net%E3%80%91%E9%9A%8F%E6%9C%BA%E6%95%B0/" rel="next" title="【.Net】随机数">
+      【.Net】随机数 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%85%A8%E7%A8%8B%E9%80%89%E6%8B%A9%E7%9A%84%E7%94%A8%E6%88%B7%E4%B8%BAroot%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">安装全程选择的用户为root。</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'edc913a1b23a041746d4c7eaaa060809',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

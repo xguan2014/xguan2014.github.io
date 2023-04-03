@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转自：http:&#x2F;&#x2F;www.html-js.com&#x2F;article&#x2F;1628 一个Demo Gihub：https:&#x2F;&#x2F;github.com&#x2F;sjzlei1989&#x2F;Bezier-csharp 相信很多同学都知道“贝塞尔曲线”这个词，我们在很多地方都能经常看到。但是，可能并不是每位同学都清楚地知道，到底什么是“贝塞尔曲线”，又是什么特点让它有这么高的知名度。 贝塞尔曲线的数学基础是早在 1912 年">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【算法】贝塞尔曲线扫盲">
+<meta property="og:url" content="http://blog.bfsdfs.com/2018/11/13/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%89%AB%E7%9B%B2/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="转自：http:&#x2F;&#x2F;www.html-js.com&#x2F;article&#x2F;1628 一个Demo Gihub：https:&#x2F;&#x2F;github.com&#x2F;sjzlei1989&#x2F;Bezier-csharp 相信很多同学都知道“贝塞尔曲线”这个词，我们在很多地方都能经常看到。但是，可能并不是每位同学都清楚地知道，到底什么是“贝塞尔曲线”，又是什么特点让它有这么高的知名度。 贝塞尔曲线的数学基础是早在 1912 年">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1386078245509-bezier-quadratic-start.png">
+<meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1386078258661-bezier-quadratic-step1.png">
+<meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1386078272369-bezier-quadratic-step2.png">
+<meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1386078284528-bezier-quadratic-step3.png">
+<meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1386078293828-bezier-quadratic-step4.png">
+<meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1386078307084-bezier-quadratic-end.png">
+<meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1415845715278-bezier-quadratic-animation.gif">
+<meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1386078421816-bezier-cubic-start.png">
+<meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1386078436764-bezier-cubic-points.png">
+<meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1386078443819-bezier-cubic-end.png">
+<meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1415845739049-bezier-linear-animation.gif">
+<meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1415845756871-complex-bezier-curve.gif">
+<meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1386078496790-bezier-surface.png">
+<meta property="og:image" content="http://htmljs.b0.upaiyun.com/uploads/1386078505773-industrial-design.png">
+<meta property="article:published_time" content="2018-11-13T13:59:26.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.100Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://htmljs.b0.upaiyun.com/uploads/1386078245509-bezier-quadratic-start.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2018/11/13/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%89%AB%E7%9B%B2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【算法】贝塞尔曲线扫盲 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/11/13/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%89%AB%E7%9B%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【算法】贝塞尔曲线扫盲
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-13 21:59:26" itemprop="dateCreated datePublished" datetime="2018-11-13T21:59:26+08:00">2018-11-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">算法竞赛</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>转自：<a target="_blank" rel="noopener" href="http://www.html-js.com/article/1628">http://www.html-js.com/article/1628</a></p>
+<p>一个Demo Gihub：<a target="_blank" rel="noopener" href="https://github.com/sjzlei1989/Bezier-csharp">https://github.com/sjzlei1989/Bezier-csharp</a></p>
+<p>相信很多同学都知道“<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/B%C3%A9zier_curve">贝塞尔曲线</a>”这个词，我们在很多地方都能经常看到。但是，可能并不是每位同学都清楚地知道，到底什么是“贝塞尔曲线”，又是什么特点让它有这么高的知名度。</p>
+<p>贝塞尔曲线的数学基础是早在 1912 年就广为人知的<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Bernstein_polynomial">伯恩斯坦多项式</a>。但直到 1959 年，当时就职于雪铁龙的法国数学家 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Paul_de_Casteljau">Paul de Casteljau</a> 才开始对它进行图形化应用的尝试，并提出了一种数值稳定的 [de Casteljau 算法](<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/De_Casteljau&#39;">http://en.wikipedia.org/wiki/De_Casteljau&#39;</a> rel=)。然而贝塞尔曲线的得名，却是由于 1962 年另一位就职于雷诺的法国工程师 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Pierre_B%C3%A9zier">Pierre Bézier</a> 的广泛宣传。他使用这种只需要很少的控制点就能够生成复杂平滑曲线的方法，来辅助汽车车体的工业设计。</p>
+<p>正是因为控制简便却具有极强的描述能力，贝塞尔曲线在工业设计领域迅速得到了广泛的应用。不仅如此，在计算机图形学领域，尤其是矢量图形学，贝塞尔曲线也占有重要的地位。今天我们最常见的一些矢量绘图软件，如 Flash、Illustrator、CorelDraw 等，无一例外都提供了绘制贝塞尔曲线的功能。甚至像 Photoshop 这样的位图编辑软件，也把贝塞尔曲线作为仅有的矢量绘制工具（钢笔工具）包含其中。</p>
+<p>贝塞尔曲线在 web 开发领域同样占有一席之地。CSS3 新增了 <a target="_blank" rel="noopener" href="http://www.w3.org/TR/css3-transitions/#transition-timing-function-property">transition-timing-function</a> 属性，它的取值就可以设置为一个三次贝塞尔曲线方程。在此之前，也有不少 JavaScript 动画库使用贝塞尔曲线来实现美观逼真的缓动效果。</p>
+<p>下面我们就通过例子来了解一下如何用 de Casteljau 算法绘制一条贝塞尔曲线。</p>
+<p>在平面内任选 3 个不共线的点，依次用线段连接。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078245509-bezier-quadratic-start.png" alt="enter image description here"></p>
+<p>在第一条线段上任选一个点 D。计算该点到线段起点的距离 AD，与该线段总长 AB 的比例。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078258661-bezier-quadratic-step1.png" alt="enter image description here"></p>
+<p>根据上一步得到的比例，从第二条线段上找出对应的点 E，使得  <code>AD:AB = BE:BC</code> 。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078272369-bezier-quadratic-step2.png" alt="enter image description here"></p>
+<p>连接这两点 DE。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078284528-bezier-quadratic-step3.png" alt="enter image description here"></p>
+<p>从新的线段 DE 上再次找出相同比例的点 F，使得  <code>DF:DE = AD:AB = BE:BC</code> 。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078293828-bezier-quadratic-step4.png" alt="enter image description here"></p>
+<p>到这里，我们就确定了贝塞尔曲线上的一个点 F。接下来，请稍微回想一下中学所学的极限知识，让选取的点 D 在第一条线段上从起点 A 移动到终点 B，找出所有的贝塞尔曲线上的点 F。所有的点找出来之后，我们也得到了这条贝塞尔曲线。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078307084-bezier-quadratic-end.png" alt="enter image description here"></p>
+<p>如果你实在想象不出这个过程，没关系，看动画！<img src="http://htmljs.b0.upaiyun.com/uploads/1415845715278-bezier-quadratic-animation.gif" alt="enter image description here"></p>
+<p>回过头来看这条贝塞尔曲线，为了确定曲线上的一个点，需要进行两轮取点的操作，因此我们称得到的贝塞尔曲线为二次曲线（这样记忆很直观，但曲线的次数其实是由前面提到的伯恩斯坦多项式决定的）。</p>
+<p>当控制点个数为 4 时，情况是怎样的？<img src="http://htmljs.b0.upaiyun.com/uploads/1386078421816-bezier-cubic-start.png" alt="enter image description here"></p>
+<p>步骤都是相同的，只不过我们每确定一个贝塞尔曲线上的点，要进行三轮取点操作。如图， <code>AE:AB = BF:BC = CG:CD = EH:EF = FI:FG = HJ:HI</code> ，其中点 J 就是最终得到的贝塞尔曲线上的一个点。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078436764-bezier-cubic-points.png" alt="enter image description here"></p>
+<p>这样我们得到的是一条三次贝塞尔曲线。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078443819-bezier-cubic-end.png" alt="enter image description here"></p>
+<p>看过了二次和三次曲线，更高次的贝塞尔曲线大家应该也知道要怎么画了吧。那么比二次曲线更简单的一次（线性）贝塞尔曲线存在吗？长什么样？根据前面的介绍，只要稍作思考，想必你也能猜出来了。哈！就是一条直线~<img src="http://htmljs.b0.upaiyun.com/uploads/1415845739049-bezier-linear-animation.gif" alt="enter image description here"></p>
+<p>能画曲线也能画直线，是不是很厉害？要绘制更复杂的曲线，控制点的增加也仅仅是线性的。这一特点使其不光在工业设计领域大展拳脚，就连数学基础不好的人也可以比较容易地掌握，比如大多数平面美术设计师们。<img src="http://htmljs.b0.upaiyun.com/uploads/1415845756871-complex-bezier-curve.gif" alt="enter image description here"></p>
+<p>上面介绍的内容并不足以展示贝塞尔曲线的真正威力。推广到三维空间的<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/B%C3%A9zier_surface">贝塞尔曲面</a>，以及更进一步的<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Non-uniform_rational_B-spline">非均匀有理 B 样条（NURBS）</a>，早已成为当今计算机辅助设计（CAD）的行业标准，不论是我们平常用到的各种产品，还是在电影院看到的精彩大片，都少不了它们的功劳。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078496790-bezier-surface.png" alt="enter image description here"></p>
+<p><img src="http://htmljs.b0.upaiyun.com/uploads/1386078505773-industrial-design.png" alt="enter image description here"></p>
+<p>动态绘制贝塞尔曲线的<a target="_blank" rel="noopener" href="http://myst729.github.io/bezier-curve">在线演示</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2018/11/13/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%89%AB%E7%9B%B2/" title="【算法】贝塞尔曲线扫盲">http://blog.bfsdfs.com/2018/11/13/【算法】贝塞尔曲线扫盲/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/11/01/%E3%80%90MySql%E3%80%91%E4%BA%8B%E4%BB%B6%EF%BC%88Event%EF%BC%89/" rel="prev" title="【MySql】事件（Event）">
+      <i class="fa fa-chevron-left"></i> 【MySql】事件（Event）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/11/15/%E3%80%90Gitlab%E3%80%91%E5%A6%82%E4%BD%95%E6%8A%8ASVN%E8%BF%81%E7%A7%BB%E5%88%B0Gitlab/" rel="next" title="【Gitlab】如何把SVN迁移到Gitlab">
+      【Gitlab】如何把SVN迁移到Gitlab <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '3f01ebbca8fee91bafcb9fa789089d29',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

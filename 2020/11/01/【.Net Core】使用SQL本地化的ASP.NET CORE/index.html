@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文为Google翻译的 原文地址  本文介绍如何使用SQL数据库在ASP.NET Core中使用SQL本地化。 演示中的SQL本地化使用Entity Framework Core访问SQLite数据库。 可以将其配置为使用任何EF核心提供程序。 使用SQL本地化 要使用SQL本地化，需要将该库添加到project.json文件中的依赖项。 该库称为Localization.SqlLocaliz">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net Core】使用SQL本地化的ASP.NET CORE">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/11/01/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8SQL%E6%9C%AC%E5%9C%B0%E5%8C%96%E7%9A%84ASP.NET%20CORE/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="本文为Google翻译的 原文地址  本文介绍如何使用SQL数据库在ASP.NET Core中使用SQL本地化。 演示中的SQL本地化使用Entity Framework Core访问SQLite数据库。 可以将其配置为使用任何EF核心提供程序。 使用SQL本地化 要使用SQL本地化，需要将该库添加到project.json文件中的依赖项。 该库称为Localization.SqlLocaliz">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aspnetcore_loc_sql_01.png">
+<meta property="article:published_time" content="2020-11-01T05:02:40.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.042Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net Core">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/aspnetcore_loc_sql_01.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/11/01/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8SQL%E6%9C%AC%E5%9C%B0%E5%8C%96%E7%9A%84ASP.NET%20CORE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net Core】使用SQL本地化的ASP.NET CORE | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/11/01/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8SQL%E6%9C%AC%E5%9C%B0%E5%8C%96%E7%9A%84ASP.NET%20CORE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net Core】使用SQL本地化的ASP.NET CORE
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-01 13:02:40" itemprop="dateCreated datePublished" datetime="2020-11-01T13:02:40+08:00">2020-11-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>本文为Google翻译的 <a target="_blank" rel="noopener" href="https://damienbod.com/2016/01/29/asp-net-core-1-0-using-sql-localization/">原文地址</a></p>
+</blockquote>
+<p>本文介绍如何使用SQL数据库在ASP.NET Core中使用SQL本地化。 演示中的SQL本地化使用Entity Framework Core访问SQLite数据库。 可以将其配置为使用任何EF核心提供程序。</p>
+<p><strong>使用SQL本地化</strong></p>
+<p>要使用SQL本地化，需要将该库添加到project.json文件中的依赖项。 该库称为Localization.SqlLocalizer。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Localization.SqlLocalizer&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2.0.0&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后可以将其添加到Startup类的ConfigureServices方法中。 AddSqlLocalization方法要求在实体框架服务扩展中配置LocalizationModelContext类。 在此示例中，SQLite用作LocalizationModelContext上下文类的提供程序。 其余的本地化可以根据需要进行配置。 该示例支持en-US，de-CH，fr-CH，it-CH。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConfigureServices</span>(<span class="params">IServiceCollection services</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// services.AddLocalization(options =&gt; options.ResourcesPath = &quot;Resources&quot;);</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">// init database for localization</span></span><br><span class="line">    <span class="keyword">var</span> sqlConnectionString = Configuration[<span class="string">&quot;DbStringLocalizer:ConnectionString&quot;</span>];</span><br><span class="line"> </span><br><span class="line">    services.AddDbContext&lt;LocalizationModelContext&gt;(options =&gt;</span><br><span class="line">        options.UseSqlite(</span><br><span class="line">            sqlConnectionString, </span><br><span class="line">            b =&gt; b.MigrationsAssembly(<span class="string">&quot;AspNet5Localization&quot;</span>)</span><br><span class="line">        )</span><br><span class="line">    );</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// Requires that LocalizationModelContext is defined</span></span><br><span class="line">    <span class="comment">// services.AddSqlLocalization(options =&gt;  options.UseTypeFullNames = true);</span></span><br><span class="line">    services.AddSqlLocalization();</span><br><span class="line"> </span><br><span class="line">    services.AddMvc()</span><br><span class="line">        .AddViewLocalization()</span><br><span class="line">        .AddDataAnnotationsLocalization();</span><br><span class="line"> </span><br><span class="line">    services.AddScoped&lt;LanguageActionFilter&gt;();</span><br><span class="line"> </span><br><span class="line">    services.Configure&lt;RequestLocalizationOptions&gt;(</span><br><span class="line">        options =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">var</span> supportedCultures = <span class="keyword">new</span> List&lt;CultureInfo&gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">new</span> CultureInfo(<span class="string">&quot;en-US&quot;</span>),</span><br><span class="line">                    <span class="keyword">new</span> CultureInfo(<span class="string">&quot;de-CH&quot;</span>),</span><br><span class="line">                    <span class="keyword">new</span> CultureInfo(<span class="string">&quot;fr-CH&quot;</span>),</span><br><span class="line">                    <span class="keyword">new</span> CultureInfo(<span class="string">&quot;it-CH&quot;</span>)</span><br><span class="line">                &#125;;</span><br><span class="line"> </span><br><span class="line">                options.DefaultRequestCulture = <span class="keyword">new</span> RequestCulture(culture: <span class="string">&quot;en-US&quot;</span>, uiCulture: <span class="string">&quot;en-US&quot;</span>);</span><br><span class="line">                options.SupportedCultures = supportedCultures;</span><br><span class="line">                options.SupportedUICultures = supportedCultures;</span><br><span class="line">            &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还需要在Configure方法中添加本地化。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Configure</span>(<span class="params">IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    loggerFactory.AddConsole();</span><br><span class="line">    loggerFactory.AddDebug();</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">var</span> locOptions = app.ApplicationServices.GetService&lt;IOptions&lt;RequestLocalizationOptions&gt;&gt;();</span><br><span class="line">    app.UseRequestLocalization(locOptions.Value);</span><br><span class="line"> </span><br><span class="line">    app.UseStaticFiles();</span><br><span class="line"> </span><br><span class="line">    app.UseMvc();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在需要创建数据库。 如果使用SQLite，则在 <a target="_blank" rel="noopener" href="https://github.com/damienbod/AspNet5Localization/blob/master/AspNet5Localization/src/Localization.SqlLocalizer/DbStringLocalizer/SqliteCreateLocalizationRecord.sql">SqliteCreateLocalizationRecord.sql</a> 文件中 提供创建sql脚本 。 如果使用其他数据库，则需要创建该数据库。 我没有提供迁移脚本。 可以使用SQLite Manager在Firefox中执行SQLite脚本。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE <span class="string">&quot;LocalizationRecords&quot;</span> (</span><br><span class="line">    <span class="string">&quot;Id&quot;</span> INTEGER NOT NULL CONSTRAINT <span class="string">&quot;PK_DataEventRecord&quot;</span> PRIMARY KEY AUTOINCREMENT,</span><br><span class="line">    <span class="string">&quot;Key&quot;</span> TEXT,</span><br><span class="line">    <span class="string">&quot;ResourceKey&quot;</span> TEXT,</span><br><span class="line">    <span class="string">&quot;Text&quot;</span> TEXT,</span><br><span class="line">    <span class="string">&quot;LocalizationCulture&quot;</span> TEXT,</span><br><span class="line">    <span class="string">&quot;UpdatedTimestamp&quot;</span> TEXT NOT NULL</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>该数据库现在应该存在。 我添加了一些基本的演示行。</p>
+<p><img src="/images/aspnetcore_loc_sql_01.png" alt=""></p>
+<p>SQL Localization的默认配置使用资源名称，然后使用资源密钥（如果遵循Microsoft的建议，则可能是默认语言文本），然后使用区域性。 这些属性中的每个属性在数据库中都有一个单独的字段。 如果找不到本地化，则返回搜索到的关键字。 这是一个未找到并返回到UI的本地化示例。</p>
+<p>ASP.NET Core MVC控制器：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.Mvc;</span><br><span class="line"><span class="keyword">using</span> Microsoft.Extensions.Localization;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">namespace</span> <span class="title">AspNet5Localization.Controllers</span></span><br><span class="line">&#123;</span><br><span class="line"> </span><br><span class="line">    [<span class="meta">ServiceFilter(typeof(LanguageActionFilter))</span>]</span><br><span class="line">    [<span class="meta">Route(<span class="string">&quot;api/&#123;culture&#125;/[controller]&quot;</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AboutWithCultureInRouteController</span> : <span class="title">Controller</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// http://localhost:5000/api/it-CH/AboutWithCultureInRoute</span></span><br><span class="line">        <span class="comment">// http://localhost:5000/api/fr-CH/AboutWithCultureInRoute</span></span><br><span class="line"> </span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IStringLocalizer&lt;SharedResource&gt; _localizer;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">AboutWithCultureInRouteController</span>(<span class="params">IStringLocalizer&lt;SharedResource&gt; localizer</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _localizer = localizer;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        [<span class="meta">HttpGet</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">Get</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> _localizer[<span class="string">&quot;Name&quot;</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用的网址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:5000/api/fr-CH/AboutWithCultureInRoute</span><br></pre></td></tr></table></figure>
+
+<p>结果：ResoureKey：SharedResource，Key：名称，本地化文化：fr-CH</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SharedResource.Name.fr-CH</span><br></pre></td></tr></table></figure>
+
+<p>这应该使查找和添加缺失的本地化变得容易。</p>
+<p><strong>配置SQL本地化</strong></p>
+<p>还可以将SQL Localization配置为使用不同的键在数据库中搜索本地化。 可以使用services.AddSqlLocalization并添加options参数在Startup类中进行配置。</p>
+<p>SqlLocalizationOptions具有两个属性，UseTypeFullNames和UseOnlyPropertyNames。 如果UseOnlyPropertyNames为true，则在数据库中仅将属性名称用作带有ResourceKey全局键的键。 您还可以通过设置UseTypeFullNames将其配置为使用FullNames作为键。 如果设置了此名称，则数据库的ResourceKey属性中需要完整的类型名称。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SqlLocalizationOptions</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> If UseOnlyPropertyNames is false, this property can be used to define keys with full type names or just the name of the class</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">bool</span> UseTypeFullNames &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> This can be used to use only property names to find the keys</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">bool</span> UseOnlyPropertyNames &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在Startup类中使用选项的示例：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sqlConnectionString = Configuration[<span class="string">&quot;DbStringLocalizer:ConnectionString&quot;</span>];</span><br><span class="line"> </span><br><span class="line">services.AddEntityFramework()</span><br><span class="line">     .AddSqlite()</span><br><span class="line">     .AddDbContext&lt;LocalizationModelContext&gt;(</span><br><span class="line">         options =&gt; options.UseSqlite(sqlConnectionString));</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Requires that LocalizationModelContext is defined</span></span><br><span class="line">services.AddSqlLocalization(options =&gt;  options.UseTypeFullNames = <span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+
+<p>用于HTTP请求的Controller：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Globalization;</span><br><span class="line"><span class="keyword">using</span> System.Threading;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">namespace</span> <span class="title">AspNet5Localization.Controllers</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> Microsoft.AspNetCore.Mvc;</span><br><span class="line">    <span class="keyword">using</span> Microsoft.AspNetCore.Mvc.Localization;</span><br><span class="line">    <span class="keyword">using</span> Microsoft.Extensions.Localization;</span><br><span class="line"> </span><br><span class="line">    [<span class="meta">Route(<span class="string">&quot;api/[controller]&quot;</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AboutController</span> : <span class="title">Controller</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IStringLocalizer&lt;SharedResource&gt; _localizer;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IStringLocalizer&lt;AboutController&gt; _aboutLocalizerizer;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">AboutController</span>(<span class="params">IStringLocalizer&lt;SharedResource&gt; localizer, IStringLocalizer&lt;AboutController&gt; aboutLocalizerizer</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _localizer = localizer;</span><br><span class="line">            _aboutLocalizerizer = aboutLocalizerizer;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        [<span class="meta">HttpGet</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">Get</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// _localizer[&quot;Name&quot;] </span></span><br><span class="line">            <span class="keyword">return</span> _aboutLocalizerizer[<span class="string">&quot;AboutTitle&quot;</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>网址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:5000/api/about?culture=it-CH</span><br></pre></td></tr></table></figure>
+
+<p>结果：从结果中可以看到，SQL本地化使用FullName搜索了本地化。 ResoureKey：AspNet5Localization.Controllers.AboutController，键：AboutTitle，LocalizationCulture：it-CH</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AspNet5Localization.Controllers.AboutController.AboutTitle.it-CH</span><br></pre></td></tr></table></figure>
+
+<p><strong>SQL本地化详细</strong></p>
+<p>SQL本地化库使用扩展方法来提供其服务，该服务可在应用程序的Startup类中使用。 该库取决于Entity Framework Core。 任何数据库提供程序都可以用于此目的。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> Microsoft.Extensions.DependencyInjection.Extensions;</span><br><span class="line"><span class="keyword">using</span> Microsoft.Extensions.Localization;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Microsoft.Extensions.DependencyInjection</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">global</span>::Localization.SqlLocalizer;</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">global</span>::Localization.SqlLocalizer.DbStringLocalizer;</span><br><span class="line"> </span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> Extension methods for adding localization servics to the DI container.</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">SqlLocalizationServiceCollectionExtensions</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> Adds services required for application localization.</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;services&quot;&gt;</span>The <span class="doctag">&lt;see cref=&quot;IServiceCollection&quot;/&gt;</span> to add the services to.<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>The <span class="doctag">&lt;see cref=&quot;IServiceCollection&quot;/&gt;</span>.<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IServiceCollection <span class="title">AddSqlLocalization</span>(<span class="params"><span class="keyword">this</span> IServiceCollection services</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (services == <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="keyword">nameof</span>(services));</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">return</span> AddSqlLocalization(services, setupAction: <span class="literal">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> Adds services required for application localization.</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;services&quot;&gt;</span>The <span class="doctag">&lt;see cref=&quot;IServiceCollection&quot;/&gt;</span> to add the services to.<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;setupAction&quot;&gt;</span>An action to configure the <span class="doctag">&lt;see cref=&quot;LocalizationOptions&quot;/&gt;</span>.<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span>The <span class="doctag">&lt;see cref=&quot;IServiceCollection&quot;/&gt;</span>.<span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IServiceCollection <span class="title">AddSqlLocalization</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">            <span class="keyword">this</span> IServiceCollection services,</span></span></span><br><span class="line"><span class="params"><span class="function">            Action&lt;SqlLocalizationOptions&gt; setupAction</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (services == <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="keyword">nameof</span>(services));</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            services.TryAdd(<span class="keyword">new</span> ServiceDescriptor(</span><br><span class="line">                <span class="keyword">typeof</span>(IStringLocalizerFactory),</span><br><span class="line">                <span class="keyword">typeof</span>(SqlStringLocalizerFactory),</span><br><span class="line">                ServiceLifetime.Singleton));</span><br><span class="line">            services.TryAdd(<span class="keyword">new</span> ServiceDescriptor(</span><br><span class="line">                <span class="keyword">typeof</span>(IStringLocalizer),</span><br><span class="line">                <span class="keyword">typeof</span>(SqlStringLocalizer),</span><br><span class="line">                ServiceLifetime.Singleton));</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">if</span> (setupAction != <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                services.Configure(setupAction);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> services;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>SqlStringLocalizerFactory类实现IStringLocalizerFactory，该对象负责数据库访问。 该数据库仅用于每个资源的第一个请求。 这意味着此后会有更好的性能，但是新的翻译仅 <strong>在</strong> 应用程序重新启动<strong>后</strong> 才能读取 。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">Localization.SqlLocalizer.DbStringLocalizer</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> System;</span><br><span class="line">    <span class="keyword">using</span> System.Collections.Concurrent;</span><br><span class="line">    <span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line">    <span class="keyword">using</span> System.Linq;</span><br><span class="line">    <span class="keyword">using</span> Microsoft.Extensions.Localization;</span><br><span class="line">    <span class="keyword">using</span> Microsoft.Extensions.Options;</span><br><span class="line">    <span class="keyword">using</span> Microsoft.Extensions.PlatformAbstractions;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SqlStringLocalizerFactory</span> : <span class="title">IStringLocalizerFactory</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> LocalizationModelContext _context;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> ConcurrentDictionary&lt;<span class="built_in">string</span>, IStringLocalizer&gt; _resourceLocalizations = <span class="keyword">new</span> ConcurrentDictionary&lt;<span class="built_in">string</span>, IStringLocalizer&gt;();</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IOptions&lt;SqlLocalizationOptions&gt; _options;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">string</span> Global = <span class="string">&quot;global&quot;</span>;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">SqlStringLocalizerFactory</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">           LocalizationModelContext context,</span></span></span><br><span class="line"><span class="params"><span class="function">           IApplicationEnvironment applicationEnvironment,</span></span></span><br><span class="line"><span class="params"><span class="function">           IOptions&lt;SqlLocalizationOptions&gt; localizationOptions</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (context == <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="keyword">nameof</span>(LocalizationModelContext));</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">if</span> (applicationEnvironment == <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="keyword">nameof</span>(applicationEnvironment));</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">if</span> (localizationOptions == <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="keyword">nameof</span>(localizationOptions));</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            _options = localizationOptions;</span><br><span class="line">            _context = context;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">public</span> IStringLocalizer <span class="title">Create</span>(<span class="params">Type resourceSource</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            SqlStringLocalizer sqlStringLocalizer;</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">if</span> (_options.Value.UseOnlyPropertyNames)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (_resourceLocalizations.Keys.Contains(Global))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">return</span> _resourceLocalizations[Global];</span><br><span class="line">                &#125;</span><br><span class="line"> </span><br><span class="line">                sqlStringLocalizer = <span class="keyword">new</span> SqlStringLocalizer(GetAllFromDatabaseForResource(Global), Global);</span><br><span class="line">                <span class="keyword">return</span> _resourceLocalizations.GetOrAdd(Global, sqlStringLocalizer);</span><br><span class="line">                 </span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">if</span> (_options.Value.UseTypeFullNames)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (_resourceLocalizations.Keys.Contains(resourceSource.FullName))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">return</span> _resourceLocalizations[resourceSource.FullName];</span><br><span class="line">                &#125;</span><br><span class="line"> </span><br><span class="line">                sqlStringLocalizer = <span class="keyword">new</span> SqlStringLocalizer(GetAllFromDatabaseForResource(resourceSource.FullName), resourceSource.FullName);</span><br><span class="line">                _resourceLocalizations.GetOrAdd(resourceSource.FullName, sqlStringLocalizer);</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">            <span class="keyword">if</span> (_resourceLocalizations.Keys.Contains(resourceSource.Name))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> _resourceLocalizations[resourceSource.Name];</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            sqlStringLocalizer = <span class="keyword">new</span> SqlStringLocalizer(GetAllFromDatabaseForResource(resourceSource.Name), resourceSource.Name);</span><br><span class="line">            <span class="keyword">return</span> _resourceLocalizations.GetOrAdd(resourceSource.Name, sqlStringLocalizer);</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">public</span> IStringLocalizer <span class="title">Create</span>(<span class="params"><span class="built_in">string</span> baseName, <span class="built_in">string</span> location</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (_resourceLocalizations.Keys.Contains(baseName + location))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> _resourceLocalizations[baseName + location];</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">var</span> sqlStringLocalizer = <span class="keyword">new</span> SqlStringLocalizer(GetAllFromDatabaseForResource(baseName + location), baseName + location);</span><br><span class="line">            <span class="keyword">return</span> _resourceLocalizations.GetOrAdd(baseName + location, sqlStringLocalizer);</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">private</span> Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; <span class="title">GetAllFromDatabaseForResource</span>(<span class="params"><span class="built_in">string</span> resourceKey</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> _context.LocalizationRecords.Where(data =&gt; data.ResourceKey == resourceKey).ToDictionary(kvp =&gt; (kvp.Key + <span class="string">&quot;.&quot;</span> + kvp.LocalizationCulture), kvp =&gt; kvp.Text);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>SqlStringLocalizer实现IStringLocalizer。 因为它只是GET资源，所以用作应用程序的单例。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">Localization.SqlLocalizer.DbStringLocalizer</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> System;</span><br><span class="line">    <span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line">    <span class="keyword">using</span> System.Globalization;</span><br><span class="line">    <span class="keyword">using</span> Microsoft.Extensions.Localization;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SqlStringLocalizer</span> : <span class="title">IStringLocalizer</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; _localizations;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> <span class="built_in">string</span> _resourceKey;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">SqlStringLocalizer</span>(<span class="params">Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; localizations, <span class="built_in">string</span> resourceKey</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _localizations = localizations;</span><br><span class="line">            _resourceKey = resourceKey;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> LocalizedString <span class="keyword">this</span>[<span class="built_in">string</span> name]</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> LocalizedString(name, GetText(name));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">public</span> LocalizedString <span class="keyword">this</span>[<span class="built_in">string</span> name, <span class="keyword">params</span> <span class="built_in">object</span>[] arguments]</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> LocalizedString(name, GetText(name));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">public</span> IEnumerable&lt;LocalizedString&gt; <span class="title">GetAllStrings</span>(<span class="params"><span class="built_in">bool</span> includeParentCultures</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NotImplementedException();</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">public</span> IStringLocalizer <span class="title">WithCulture</span>(<span class="params">CultureInfo culture</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NotImplementedException();</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="built_in">string</span> <span class="title">GetText</span>(<span class="params"><span class="built_in">string</span> key</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="keyword">if</span> NET451</span></span><br><span class="line">            <span class="keyword">var</span> culture = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();</span><br><span class="line"><span class="meta">#<span class="keyword">elif</span> NET46</span></span><br><span class="line">            <span class="keyword">var</span> culture = System.Threading.Thread.CurrentThread.CurrentCulture.ToString();</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">            <span class="keyword">var</span> culture = CultureInfo.CurrentCulture.ToString();</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">            <span class="built_in">string</span> computedKey = <span class="string">$&quot;<span class="subst">&#123;key&#125;</span>.<span class="subst">&#123;culture&#125;</span>&quot;</span>;</span><br><span class="line"> </span><br><span class="line">            <span class="built_in">string</span> result;</span><br><span class="line">            <span class="keyword">if</span> (_localizations.TryGetValue(computedKey, <span class="keyword">out</span> result))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> _resourceKey + <span class="string">&quot;.&quot;</span> + computedKey;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>LocalizationModelContext类是实体框架核心DbContext实现。 这使用LocalizationRecord模型类进行数据访问。 影子属性用于数据库UpdatedTimestamp，在使用本地化数据库导入进行更新时将使用该属性。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">Localization.SqlLocalizer.DbStringLocalizer</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> System;</span><br><span class="line">    <span class="keyword">using</span> System.Linq;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">using</span> Microsoft.EntityFrameworkCore;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// &gt;dotnet ef migrations add LocalizationMigration</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">LocalizationModelContext</span> : <span class="title">DbContext</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">LocalizationModelContext</span>(<span class="params">DbContextOptions&lt;LocalizationModelContext&gt; options</span>) :<span class="title">base</span>(<span class="params">options</span>)</span></span><br><span class="line">        &#123; &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">DbSet</span>&lt;<span class="title">LocalizationRecord</span>&gt; LocalizationRecords</span> &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnModelCreating</span>(<span class="params">ModelBuilder builder</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            builder.Entity&lt;LocalizationRecord&gt;().HasKey(m =&gt; m.Id);</span><br><span class="line">            <span class="comment">//builder.Entity&lt;LocalizationRecord&gt;().HasKey(m =&gt; m.LocalizationCulture + m.Key);</span></span><br><span class="line"> </span><br><span class="line">            <span class="comment">// shadow properties</span></span><br><span class="line">            builder.Entity&lt;LocalizationRecord&gt;().Property&lt;DateTime&gt;(<span class="string">&quot;UpdatedTimestamp&quot;</span>);</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">base</span>.OnModelCreating(builder);</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">int</span> <span class="title">SaveChanges</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            ChangeTracker.DetectChanges();</span><br><span class="line">            updateUpdatedProperty&lt;LocalizationRecord&gt;();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">base</span>.SaveChanges();</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">updateUpdatedProperty</span>&lt;<span class="title">T</span>&gt;() <span class="keyword">where</span> T : <span class="keyword">class</span></span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> modifiedSourceInfo =</span><br><span class="line">                ChangeTracker.Entries&lt;T&gt;()</span><br><span class="line">                    .Where(e =&gt; e.State == EntityState.Added || e.State == EntityState.Modified);</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> entry <span class="keyword">in</span> modifiedSourceInfo)</span><br><span class="line">            &#123;</span><br><span class="line">                entry.Property(<span class="string">&quot;UpdatedTimestamp&quot;</span>).CurrentValue = DateTime.UtcNow;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>下一步</strong></p>
+<p>该应用程序可以打包为NuGet并添加到NuGet服务器。 该数据库可以优化。 我还可以添加一些额外的配置选项。 我想为SPA json文件以及可以由外部公司翻译的csv文件实现导入，导出功能。</p>
+<p>我很乐意提供反馈，非常感谢您提供改进方法的提示。 也许可以将其添加到ASP.NET Core中。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/11/01/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8SQL%E6%9C%AC%E5%9C%B0%E5%8C%96%E7%9A%84ASP.NET%20CORE/" title="【.Net Core】使用SQL本地化的ASP.NET CORE">http://blog.bfsdfs.com/2020/11/01/【.Net Core】使用SQL本地化的ASP.NET CORE/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net-Core/" rel="tag"># .Net Core</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/21/%E3%80%90CSharp%E3%80%91%E7%94%A8Topshelf%E5%88%9B%E5%BB%BAWindows%E6%9C%8D%E5%8A%A1/" rel="prev" title="【CSharp】用Topshelf创建Windows服务">
+      <i class="fa fa-chevron-left"></i> 【CSharp】用Topshelf创建Windows服务
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/12/%E3%80%90EFCore%E3%80%91EntityFrameworkCore%E5%85%B3%E8%81%94%E5%88%A0%E9%99%A4/" rel="next" title="【EFCore】EntityFrameworkCore关联删除">
+      【EFCore】EntityFrameworkCore关联删除 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '40bff52cc66d6c48f199e6ccf10a20bd',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

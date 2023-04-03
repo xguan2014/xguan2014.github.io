@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/16/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/16/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/05/28/%E3%80%90.Net%20Core%E3%80%91%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94%E4%BF%A1%E6%81%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/28/%E3%80%90.Net%20Core%E3%80%91%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94%E4%BF%A1%E6%81%AF/" class="post-title-link" itemprop="url">【.Net Core】获取请求和响应信息</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-28 21:52:05" itemprop="dateCreated datePublished" datetime="2020-05-28T21:52:05+08:00">2020-05-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Google 机器翻译： <a target="_blank" rel="noopener" href="https://elanderson.net/2019/12/log-requests-and-responses-in-asp-net-core-3/">https://elanderson.net/2019/12/log-requests-and-responses-in-asp-net-core-3/</a></p>
+</blockquote>
+<p>这篇文章将是 <a target="_blank" rel="noopener" href="https://elanderson.net/2017/02/log-requests-and-responses-in-asp-net-core/">对ASP.NET Core</a> 中的 <a target="_blank" rel="noopener" href="https://elanderson.net/2017/02/log-requests-and-responses-in-asp-net-core/">日志请求和响应</a> 的更新，该 文章不再适用于更现代的ASP.NET Core版本。 在大多数情况下，该帖子将与原始帖子完全匹配，但代码位已更新。</p>
+<p>作为尝试进行调试的一部分，我需要一种记录请求和响应的方法。 编写中间件似乎是解决此问题的一种好方法。 结果也比我预期的处理请求和响应机构要复杂得多。</p>
+<h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><p>在ASP.NET Core中， <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware">中间件</a> 是组成HTTP管道的组件，该HTTP管道处理应用程序的请求和响应。 每个被调用的中间件都可以选择对请求进行一些处理，然后再在线调用下一个中间件。 在执行从调用返回到下一个中​​间件之后，就有机会对响应进行处理。</p>
+<p>应用程序的HTTP管道是在Startup 类 的 Configure 函数中 设置的 。Run ，Map 和Use 是可用的三种中间件类型。Run 只能用于终止管道。Map 用于管道分支。Use 似乎是最常见的中间件类型，它进行一些处理并直接调用下一个中间件。 有关更多详细信息，请参见官方 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware">文档</a> 。<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware"></a></p>
+<h3 id="创建中间件"><a href="#创建中间件" class="headerlink" title="创建中间件"></a>创建中间件</h3><p>中间件可以直接在 Configure 函数中 实现为lambda ，但更典型的是，它可以实现为使用 IApplicationBuilder 上的扩展方法添加到管道中的类 。 本示例将使用类路由。</p>
+<p>本示例是一个中间件，它使用ASP.NET Core的内置日志记录请求和响应。 创建一个名为 <strong>LoggerMiddleware</strong> 的类 。</p>
+<p>该类将需要一个带有两个参数的构造函数，这两个参数都将由ASP.NET Core的依赖项注入系统提供。 第一个是 RequestDelegate，它将成为 管道中的下一个中间件。 第二个是 ILoggerFactory 的实例，该实例 将用于创建记录器。 所述 RequestDelegate 存储到类级别 _next 变量和 的LoggerFactory 用于创建存储到类电平的记录器 _logger 变量。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">LoggerMiddleware</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> RequestDelegate _next;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> ILogger _logger;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LoggerMiddleware</span>(<span class="params">RequestDelegate next,</span></span></span><br><span class="line"><span class="params"><span class="function">                                            ILoggerFactory loggerFactory</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _next = next;</span><br><span class="line">        _logger = loggerFactory</span><br><span class="line">                  .CreateLogger&lt;LoggerMiddleware&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>添加一个Invoke函数，当管道运行中间件时将调用该函数。下面的函数除了调用管道中的下一个中间件外什么也不做。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Invoke</span>(<span class="params">HttpContext context</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">     <span class="comment">//code dealing with the request</span></span><br><span class="line"></span><br><span class="line">     <span class="keyword">await</span> _next(context);</span><br><span class="line"></span><br><span class="line">     <span class="comment">//code dealing with the response</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来，添加一个静态类以简化将中间件添加到应用程序管道中的过程。这与内置中间件使用的模式相同。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">LoggerMiddlewareExtensions</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IApplicationBuilder <span class="title">UseRequestResponseLogging</span>(<span class="params"><span class="keyword">this</span> IApplicationBuilder builder</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> builder.UseMiddleware&lt;LoggerMiddleware&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加到管道"><a href="#添加到管道" class="headerlink" title="添加到管道"></a>添加到管道</h3><p>要将新的中间件添加到管道中，请打开 <strong>Startup.cs</strong>文件，并将以下行添加 到 <strong>Configure</strong> 函数中。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.UseRequestResponseLogging();</span><br></pre></td></tr></table></figure>
+
+<p>请记住，中间件的添加顺序可能会影响应用程序的行为。 由于该帖子正在处理的中间件是日志记录，因此我将其放置在管道的开始位置附近。</p>
+<h3 id="记录请求和响应"><a href="#记录请求和响应" class="headerlink" title="记录请求和响应"></a>记录请求和响应</h3><p>现在我们新的中间件的设置工作已经完成，我们将回到其 调用 功能。 如前所述，这最终比我预期的要复杂得多，但是值得庆幸的是，我发现 <a target="_blank" rel="noopener" href="https://twitter.com/sulhome">Sul Aga</a> 做到了 <a target="_blank" rel="noopener" href="http://www.sulhome.com/blog/10/log-asp-net-core-request-and-response-using-middleware">这一点</a> ， 这确实帮助我解决了我所遇到的问题，并对这篇文章的原始版本提出了很多反馈。<a target="_blank" rel="noopener" href="https://twitter.com/sulhome"></a></p>
+<p>有关此帖子原始版本的反馈之一是关于 <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/52328142/1291838">潜在的内存泄漏和使用可回收内存流</a> 。 首先，添加对 <strong>Microsoft.IO.RecyclableMemoryStream</strong>包 的NuGet引用 。 接下来，我们将添加一个类级变量来保存一个 <strong>RecyclableMemoryStreamManager</strong> 的实例，该实例 将在构造函数中创建。 以下是更新的类视图，其中包含这些更改以及对 <strong>Invoke</strong> 函数和日志记录方法的存根的 更改 。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">LoggerMiddleware</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> RequestDelegate _next;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> ILogger _logger;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> RecyclableMemoryStreamManager _recyclableMemoryStreamManager;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LoggerMiddleware</span>(<span class="params">RequestDelegate next,</span></span></span><br><span class="line"><span class="params"><span class="function">                                            ILoggerFactory loggerFactory</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _next = next;</span><br><span class="line">        _logger = loggerFactory</span><br><span class="line">                  .CreateLogger&lt;LoggerMiddleware&gt;();</span><br><span class="line">        _recyclableMemoryStreamManager = <span class="keyword">new</span> RecyclableMemoryStreamManager();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Invoke</span>(<span class="params">HttpContext context</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">await</span> LogRequest(context);</span><br><span class="line">        <span class="keyword">await</span> LogResponse(context);</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">async</span> Task <span class="title">LogRequest</span>(<span class="params">HttpContext context</span>)</span> &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">async</span> Task <span class="title">LogResponse</span>(<span class="params">HttpContext context</span>)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先，我们将看一下LogRequest函数及其使用的辅助函数。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">async</span> Task <span class="title">LogRequest</span>(<span class="params">HttpContext context</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    context.Request.EnableBuffering();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">using</span> <span class="keyword">var</span> requestStream = _recyclableMemoryStreamManager.GetStream();</span><br><span class="line">    <span class="keyword">await</span> context.Request.Body.CopyToAsync(requestStream);</span><br><span class="line">    _logger.LogInformation(<span class="string">$&quot;Http Request Information:<span class="subst">&#123;Environment.NewLine&#125;</span>&quot;</span> +</span><br><span class="line">                           <span class="string">$&quot;Schema:<span class="subst">&#123;context.Request.Scheme&#125;</span> &quot;</span> +</span><br><span class="line">                           <span class="string">$&quot;Host: <span class="subst">&#123;context.Request.Host&#125;</span> &quot;</span> +</span><br><span class="line">                           <span class="string">$&quot;Path: <span class="subst">&#123;context.Request.Path&#125;</span> &quot;</span> +</span><br><span class="line">                           <span class="string">$&quot;QueryString: <span class="subst">&#123;context.Request.QueryString&#125;</span> &quot;</span> +</span><br><span class="line">                           <span class="string">$&quot;Request Body: <span class="subst">&#123;ReadStreamInChunks(requestStream)&#125;</span>&quot;</span>);</span><br><span class="line">    context.Request.Body.Position = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">ReadStreamInChunks</span>(<span class="params">Stream stream</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">int</span> readChunkBufferLength = <span class="number">4096</span>;</span><br><span class="line"></span><br><span class="line">    stream.Seek(<span class="number">0</span>, SeekOrigin.Begin);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">var</span> textWriter = <span class="keyword">new</span> StringWriter();</span><br><span class="line">    <span class="keyword">using</span> <span class="keyword">var</span> reader = <span class="keyword">new</span> StreamReader(stream);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> readChunk = <span class="keyword">new</span> <span class="built_in">char</span>[readChunkBufferLength];</span><br><span class="line">    <span class="built_in">int</span> readChunkLength;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">        readChunkLength = reader.ReadBlock(readChunk, </span><br><span class="line">                                           <span class="number">0</span>, </span><br><span class="line">                                           readChunkBufferLength);</span><br><span class="line">        textWriter.Write(readChunk, <span class="number">0</span>, readChunkLength);</span><br><span class="line">    &#125; <span class="keyword">while</span> (readChunkLength &gt; <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> textWriter.ToString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使此功能起作用并允许读取请求正文的关键是 <strong>context.Request.EnableBuffering（）</strong> ，它使我们能够从流的开头进行读取。 该功能的其余部分非常简单。</p>
+<p>下一个函数是 <strong>LogResponse</strong> ，它用于使用 <strong>_next（context）等待</strong> 管道中的下一个中间件 ，然后在其余管道运行后记录响应主体。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">async</span> Task <span class="title">LogResponse</span>(<span class="params">HttpContext context</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> originalBodyStream = context.Response.Body;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">using</span> <span class="keyword">var</span> responseBody = _recyclableMemoryStreamManager.GetStream();</span><br><span class="line">    context.Response.Body = responseBody;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> _next(context);</span><br><span class="line"></span><br><span class="line">    context.Response.Body.Seek(<span class="number">0</span>, SeekOrigin.Begin);</span><br><span class="line">    <span class="keyword">var</span> text = <span class="keyword">await</span> <span class="keyword">new</span> StreamReader(context.Response.Body).ReadToEndAsync();</span><br><span class="line">    context.Response.Body.Seek(<span class="number">0</span>, SeekOrigin.Begin);</span><br><span class="line"></span><br><span class="line">    _logger.LogInformation(<span class="string">$&quot;Http Response Information:<span class="subst">&#123;Environment.NewLine&#125;</span>&quot;</span> +</span><br><span class="line">                           <span class="string">$&quot;Schema:<span class="subst">&#123;context.Request.Scheme&#125;</span> &quot;</span> +</span><br><span class="line">                           <span class="string">$&quot;Host: <span class="subst">&#123;context.Request.Host&#125;</span> &quot;</span> +</span><br><span class="line">                           <span class="string">$&quot;Path: <span class="subst">&#123;context.Request.Path&#125;</span> &quot;</span> +</span><br><span class="line">                           <span class="string">$&quot;QueryString: <span class="subst">&#123;context.Request.QueryString&#125;</span> &quot;</span> +</span><br><span class="line">                           <span class="string">$&quot;Response Body: <span class="subst">&#123;text&#125;</span>&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> responseBody.CopyToAsync(originalBodyStream);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如您所见，读取响应主体的技巧是将正在使用的流替换为新的 MemoryStream ，然后将数据复制回原始主体流。 我不知道这会对性能有多大影响，因此请确保在生产环境中使用它之前先研究它如何扩展。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.Http;</span><br><span class="line"><span class="keyword">using</span> Microsoft.Extensions.Logging;</span><br><span class="line"><span class="keyword">using</span> Microsoft.IO;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.IO;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">demo.Extensions</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">LoggerMiddleware</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> RequestDelegate _next;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> ILogger _logger;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> RecyclableMemoryStreamManager _recyclableMemoryStreamManager;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">LoggerMiddleware</span>(<span class="params">RequestDelegate next, ILoggerFactory loggerFactory</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _next = next;</span><br><span class="line">            _logger = loggerFactory.CreateLogger&lt;LoggerMiddleware&gt;();</span><br><span class="line">            _recyclableMemoryStreamManager = <span class="keyword">new</span> RecyclableMemoryStreamManager();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Invoke</span>(<span class="params">HttpContext context</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">await</span> LogRequest(context);</span><br><span class="line">            <span class="keyword">await</span> LogResponse(context);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">async</span> Task <span class="title">LogRequest</span>(<span class="params">HttpContext context</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            context.Request.EnableBuffering();</span><br><span class="line">            <span class="keyword">using</span> (<span class="keyword">var</span> requestStream = _recyclableMemoryStreamManager.GetStream())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">await</span> context.Request.Body.CopyToAsync(requestStream);</span><br><span class="line">                <span class="keyword">if</span> (context.Request.Path.Value.StartsWith(<span class="string">&quot;/api/&quot;</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    _logger.LogError(<span class="string">$&quot;Http Request Information:<span class="subst">&#123;Environment.NewLine&#125;</span>&quot;</span> +</span><br><span class="line">                                    <span class="string">$&quot;Schema:<span class="subst">&#123;context.Request.Scheme&#125;</span> &quot;</span> +</span><br><span class="line">                                    <span class="string">$&quot;Host: <span class="subst">&#123;context.Request.Host&#125;</span> &quot;</span> +</span><br><span class="line">                                    <span class="string">$&quot;Path: <span class="subst">&#123;context.Request.Path&#125;</span> &quot;</span> +</span><br><span class="line">                                    <span class="string">$&quot;QueryString: <span class="subst">&#123;context.Request.QueryString&#125;</span> &quot;</span> +</span><br><span class="line">                                    <span class="string">$&quot;Request Body: <span class="subst">&#123;ReadStreamInChunks(requestStream)&#125;</span>&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                context.Request.Body.Position = <span class="number">0</span>;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">ReadStreamInChunks</span>(<span class="params">Stream stream</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">const</span> <span class="built_in">int</span> readChunkBufferLength = <span class="number">4096</span>;</span><br><span class="line">            stream.Seek(<span class="number">0</span>, SeekOrigin.Begin);</span><br><span class="line">            <span class="keyword">using</span> (<span class="keyword">var</span> textWriter = <span class="keyword">new</span> StringWriter())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">using</span> (<span class="keyword">var</span> reader = <span class="keyword">new</span> StreamReader(stream))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">var</span> readChunk = <span class="keyword">new</span> <span class="built_in">char</span>[readChunkBufferLength];</span><br><span class="line">                    <span class="built_in">int</span> readChunkLength;</span><br><span class="line">                    <span class="keyword">do</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        readChunkLength = reader.ReadBlock(readChunk, <span class="number">0</span>, readChunkBufferLength);</span><br><span class="line">                        textWriter.Write(readChunk, <span class="number">0</span>, readChunkLength);</span><br><span class="line">                    &#125; <span class="keyword">while</span> (readChunkLength &gt; <span class="number">0</span>);</span><br><span class="line">                    <span class="keyword">return</span> textWriter.ToString();</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">async</span> Task <span class="title">LogResponse</span>(<span class="params">HttpContext context</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> originalBodyStream = context.Response.Body;</span><br><span class="line">            <span class="keyword">using</span> (<span class="keyword">var</span> responseBody = _recyclableMemoryStreamManager.GetStream())</span><br><span class="line">            &#123;</span><br><span class="line">                context.Response.Body = responseBody;</span><br><span class="line">                <span class="keyword">await</span> _next(context);</span><br><span class="line">                context.Response.Body.Seek(<span class="number">0</span>, SeekOrigin.Begin);</span><br><span class="line">                <span class="keyword">var</span> text = <span class="keyword">await</span> <span class="keyword">new</span> StreamReader(context.Response.Body).ReadToEndAsync();</span><br><span class="line">                context.Response.Body.Seek(<span class="number">0</span>, SeekOrigin.Begin);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (context.Request.Path.Value.StartsWith(<span class="string">&quot;/api/&quot;</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    _logger.LogError(<span class="string">$&quot;Http Response Information:<span class="subst">&#123;Environment.NewLine&#125;</span>&quot;</span> +</span><br><span class="line">                                    <span class="string">$&quot;Schema:<span class="subst">&#123;context.Request.Scheme&#125;</span> &quot;</span> +</span><br><span class="line">                                    <span class="string">$&quot;Host: <span class="subst">&#123;context.Request.Host&#125;</span> &quot;</span> +</span><br><span class="line">                                    <span class="string">$&quot;Path: <span class="subst">&#123;context.Request.Path&#125;</span> &quot;</span> +</span><br><span class="line">                                    <span class="string">$&quot;QueryString: <span class="subst">&#123;context.Request.QueryString&#125;</span> &quot;</span> +</span><br><span class="line">                                    <span class="string">$&quot;Response Body: <span class="subst">&#123;text&#125;</span>&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">await</span> responseBody.CopyToAsync(originalBodyStream);</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/05/26/%E3%80%90Docker%E3%80%91DockerFile%E8%A7%A3%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/26/%E3%80%90Docker%E3%80%91DockerFile%E8%A7%A3%E6%9E%90/" class="post-title-link" itemprop="url">【Docker】DockerFile解析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-26 22:39:45" itemprop="dateCreated datePublished" datetime="2020-05-26T22:39:45+08:00">2020-05-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">环境搭建</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/bbgs-xc/p/12961204.html">https://www.cnblogs.com/bbgs-xc/p/12961204.html</a></p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Dockerfile是用来构建Docker镜像的构建文件，是由一系列命令和参数构成的脚本</p>
+<p>构建三步: DockerFile文件 ==&gt; docker build ==&gt; docker run</p>
+<p>Dockerfile可参考官方Dockerfile文件</p>
+<h2 id="构建过程解析"><a href="#构建过程解析" class="headerlink" title="构建过程解析"></a>构建过程解析</h2><h3 id="Dockerfile内容基础知识："><a href="#Dockerfile内容基础知识：" class="headerlink" title="Dockerfile内容基础知识："></a>Dockerfile内容基础知识：</h3><p>a&gt;每条保留字指令都必须为大写字母且后面要跟随至少一个参数</p>
+<p>b&gt;指令按照从上到下，顺序执行</p>
+<p>c&gt;#表示注释</p>
+<p>d&gt;每条指令都会创建一个新的镜像层，并对镜像进行提交</p>
+<h3 id="Docker执行Dockerfile的大致流程："><a href="#Docker执行Dockerfile的大致流程：" class="headerlink" title="Docker执行Dockerfile的大致流程："></a>Docker执行Dockerfile的大致流程：</h3><p>a&gt;docker从基础镜像运行一个容器</p>
+<p>b&gt;执行一条指令并对容器作出修改</p>
+<p>c&gt;执行类似docker commit的操作提交一个新的镜像</p>
+<p>d&gt;docker再基于刚提交的镜像运行一个新容器</p>
+<p>e&gt;执行dockerfile中的下一条指令直到所有指令都执行完成</p>
+<h2 id="Dockerfile保留字指令："><a href="#Dockerfile保留字指令：" class="headerlink" title="Dockerfile保留字指令："></a>Dockerfile保留字指令：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">FROM：基础镜像,当前镜像是基于那个镜像的。</span><br><span class="line"></span><br><span class="line">MAINTAINER：作者  邮箱。</span><br><span class="line"></span><br><span class="line">RUN：容器构建时需要运行的命令。</span><br><span class="line"></span><br><span class="line">EXPOSE：暴露端口号 启动容器的时候还需使用 –p 指定端口。</span><br><span class="line"></span><br><span class="line">WORKDIR：指定在创建容器后,终端默认登录后进来的工作目录,一个落脚点,默认根目录，通常绝对路径，CMD ENTRYPOINT 都会在这个目录下执行。</span><br><span class="line"></span><br><span class="line">ENV：构建镜像的过程中设置环境变量, 构建和运行时都有效可以使用$引用。</span><br><span class="line"></span><br><span class="line">ADD：将宿主机目录下的文件拷贝到镜像且会自动处理URL和 解压tar 压缩包。</span><br><span class="line"></span><br><span class="line">COPY：拷贝文件和目录到镜像中，将从构建上下文目录中&lt;源路径&gt;的文件/复制到新的一层镜像内&lt;目标路径&gt;的位置。语法：COPY src dest  COPY [“src”, “desc”]。</span><br><span class="line"></span><br><span class="line">VOLUME：容器数据卷, 数据保存和持久化。</span><br><span class="line"></span><br><span class="line">USER：指定该镜像由什么用户运行  不指定由root 运行。</span><br><span class="line"></span><br><span class="line">CMD：指定容器启动时要运行默认的命令，Dockerfile中可以有多个cmd , 但只有最后一个生效。</span><br><span class="line"></span><br><span class="line">ENTERPOINT：指定容器启动时要运行的命令。在docker run 后面追加参数</span><br><span class="line">ONBUILD：触发器, 当构建一个被继承的dockerfile时运行命令, 父镜像在被子继承后的父镜像的onbuild 被触发。</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/1405595-20200525211046930-1889288240.png" alt=""></p>
+<h2 id="Dockerfile的案例总结"><a href="#Dockerfile的案例总结" class="headerlink" title="Dockerfile的案例总结"></a>Dockerfile的案例总结</h2><h3 id="自定义mycentos镜像（需要安装有vim和ifconfig命令）"><a href="#自定义mycentos镜像（需要安装有vim和ifconfig命令）" class="headerlink" title="自定义mycentos镜像（需要安装有vim和ifconfig命令）"></a>自定义mycentos镜像（需要安装有vim和ifconfig命令）</h3><p>a.定义Dockerfile文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">FROM centos</span><br><span class="line">#定义作者用邮箱</span><br><span class="line">MAINTAINER xc&lt;xxyy@163.com&gt;</span><br><span class="line">ENV DEFAULTDIR /usr/local</span><br><span class="line">#落脚点</span><br><span class="line">WORKDIR $DEFAULTDIR</span><br><span class="line">#安装vim和net-tools</span><br><span class="line">RUN yum -y install  vim</span><br><span class="line">RUN yum -y install  net-tools</span><br><span class="line">#容器暴露端口</span><br><span class="line">EXPOSE 80</span><br><span class="line">CMD /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>b.构建build</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#如果为当前路径下的Dockerfile文件可以省略-f</span><br><span class="line">docker build -f /mydocker/Dockerfile -t mycentos:1.0 .</span><br><span class="line">#查看构建历史</span><br><span class="line">docker history mycentos:1.0</span><br></pre></td></tr></table></figure>
+
+<p>c.运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d mycentos:1.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="CMD与ENTRYPOINT区别"><a href="#CMD与ENTRYPOINT区别" class="headerlink" title="CMD与ENTRYPOINT区别"></a>CMD与ENTRYPOINT区别</h3><p>a.Dockerfile</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM centos</span><br><span class="line">RUN yum install -y curl</span><br><span class="line">#CMD [ &quot;curl&quot;, &quot;-s&quot;, &quot;http://ip.cn&quot; ] </span><br><span class="line">ENTRYPOINT [ &quot;curl&quot;, &quot;-s&quot;, &quot;http://ip.cn&quot; ]</span><br></pre></td></tr></table></figure>
+
+<p>b.构建docker build  -t myip .</p>
+<p>c.运行:docker run myip -i (CMD命令构建报错,-i命令会覆盖curl -s命令；ENTRYPOINT命令会打出头信息)</p>
+<h3 id="自定义tomcat"><a href="#自定义tomcat" class="headerlink" title="自定义tomcat"></a>自定义tomcat</h3><p>a.当前目录下文件<br><img src="/images/1405595-20200525214017931-861605298.png" alt=""></p>
+<p>b.Dockerfile</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">FROM centos</span><br><span class="line">ENV MY_PATH /usr/local</span><br><span class="line">WORKDIR $MY_PATH</span><br><span class="line">COPY 1.txt $MY_PATH/contain.txt</span><br><span class="line">#添加jdk和tomcat</span><br><span class="line">ADD apache-tomcat-7.0.75.tar.gz $MY_PATH</span><br><span class="line">ADD jdk-8u121-linux-x64.tar.gz $MY_PATH</span><br><span class="line"></span><br><span class="line">RUN yum -y install vim</span><br><span class="line"></span><br><span class="line">ENV JAVA_HOME $MY_PATH/jdk1.8.0_121</span><br><span class="line">ENV TOMCAT_HOME $MY_PATH/apache-tomcat-7.0.75</span><br><span class="line">ENV PATH $PATH:$JAVA_HOME/bin:$TOMCAT_HOME/:$CATALINA_HOME/lib:$CATALINA_HOME/bin</span><br><span class="line"></span><br><span class="line">EXPOSE 8080</span><br><span class="line"></span><br><span class="line">CMD $TOMCAT_HOME/bin/startup.sh &amp;&amp; tail -F $TOMCAT_HOME/logs/catalina.out</span><br></pre></td></tr></table></figure>
+
+<p>c.构建</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t mytomcat .</span><br></pre></td></tr></table></figure>
+
+<p>d.启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8090:8080 --name myt -v /mydocker/mytomcat/test:/usr/local/apache-tomcat-7.0.75/webapps/test \</span><br><span class="line">-v /mydocker/mytomcat/logs/:/usr/local/apache-tomcat-7.0.75/logs --privileged=true mytomcat</span><br></pre></td></tr></table></figure>
+<p><img src="/images/1405595-20200525215749223-1013796983.png" alt=""></p>
+<p>则可以在宿主机上之间获取访问容器内日志同时test目录下的项目也可对应容器内项目的class文件</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/05/25/%E3%80%90EF%E3%80%91%E6%8F%92%E5%85%A5%E8%87%AA%E5%A2%9EID%E4%B8%BB%E4%BB%8E%E8%A1%A8%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/25/%E3%80%90EF%E3%80%91%E6%8F%92%E5%85%A5%E8%87%AA%E5%A2%9EID%E4%B8%BB%E4%BB%8E%E8%A1%A8%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">【EF】插入自增ID主从表数据</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-25 22:38:32" itemprop="dateCreated datePublished" datetime="2020-05-25T22:38:32+08:00">2020-05-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tylertang/p/10690774.html">https://www.cnblogs.com/tylertang/p/10690774.html</a></p>
+</blockquote>
+<p>原因：<br>数据库中的两个表是主从表关系，但是没有建外键，而表的id用的是数据库的自增整数，导致在使用EF导入主从表数据时，需要先保存主表数据，取到<br>主表的自增id后才能插入从表数据，这样循环之下，数据插入速度非常慢。</p>
+<p>经过查询得知：<br>即使在数据库中没有建立外键关系，也可以在EF中通过关系建议主从表关系，从而达到批量导入主从表数据的目的。</p>
+<p>具体实现：<br>首先model中需要添加主从表的关系属性</p>
+<p>主表</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Table(<span class="string">&quot;DataHubEmployee&quot;</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">DataHubEmployee</span> : <span class="title">SecuredEntity</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">Key</span>]</span><br><span class="line">    [<span class="meta">DatabaseGenerated(DatabaseGeneratedOption.Identity)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> pkDataHubEmployee &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> fkDataHubBatch &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span>? OriginalBatchId &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> EmployeeId &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> ClientCode &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> ICollection&lt;DataHubDependant&gt; DataHubDependants &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从表</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Table(<span class="string">&quot;DataHubDependant&quot;</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">DataHubDependant</span> : <span class="title">SecuredEntity</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">Key</span>]</span><br><span class="line">    [<span class="meta">DatabaseGenerated(DatabaseGeneratedOption.Identity)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> pkDataHubDependant &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span>? OriginalBatchId &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> ClientCode &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> fkDataHubEmployee &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> EmployeeId &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> FullName &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> DataHubEmployee DataHubEmployee &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后EF的DbContext中的OnModelCreating对实体的外键关联进行注册</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnModelCreating</span>(<span class="params">DbModelBuilder modelBuilder</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    modelBuilder.Properties&lt;<span class="built_in">decimal</span>&gt;().Configure(c =&gt; c.HasPrecision(<span class="number">18</span>, <span class="number">6</span>));</span><br><span class="line">    <span class="comment">//add model mapping for auto process </span></span><br><span class="line">    modelBuilder.Entity&lt;DataHubDependant&gt;()</span><br><span class="line">        .HasRequired(d =&gt; d.DataHubEmployee)</span><br><span class="line">        .WithMany(e =&gt; e.DataHubDependants)</span><br><span class="line">        .HasForeignKey(d =&gt; d.fkDataHubEmployee);</span><br><span class="line"></span><br><span class="line">    modelBuilder.Entity&lt;DependantChangeLog&gt;()</span><br><span class="line">        .HasRequired(d =&gt; d.EmployeeChangeLog)</span><br><span class="line">        .WithMany(e =&gt; e.DependantChangeLogs)</span><br><span class="line">        .HasForeignKey(d =&gt; d.fkEmployeeChangeLog);</span><br><span class="line">    <span class="comment">//close auto migration</span></span><br><span class="line">    Database.SetInitializer&lt;ClientDbContext&gt;(<span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">base</span>.OnModelCreating(modelBuilder);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说明：这里可以通过.HasForeignKey(d =&gt; d.fkDataHubEmployee);来指定从表中的哪个字段是外键。如果不指定，EF会自动生产一个包含外键的新列。</p>
+<p>批量插入数据</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span> (<span class="keyword">var</span> dataHubEmployeeDTO <span class="keyword">in</span> dataHubEmployeeDtoList)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (batchType == <span class="string">&quot;MonthlyData&quot;</span> &amp;&amp; dataHubEmployeeDTO.Status.ToUpper() == <span class="string">&quot;Terminated&quot;</span>.ToUpper())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    DataHubEmployee dataHubEmployee = <span class="keyword">new</span> DataHubEmployee</span><br><span class="line">    &#123;</span><br><span class="line">        EmployeeId = dataHubEmployeeDTO.EmployeeId,</span><br><span class="line">        fkDataHubBatch = dataHubBatch.pkDataHubBatch,</span><br><span class="line">        OriginalBatchId = batchId,</span><br><span class="line">        ClientCode = dataHubEmployeeDTO.ClientCode,</span><br><span class="line">        </span><br><span class="line">        DataHubDependants = <span class="keyword">new</span> List&lt;DataHubDependant&gt;()</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//插入重表数据</span></span><br><span class="line">    <span class="comment">//获取当前批员工列表</span></span><br><span class="line">    <span class="keyword">foreach</span> (<span class="keyword">var</span> dependant <span class="keyword">in</span> dataHubEmployeeDTO.DependantList)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> dataHubDependant = <span class="keyword">new</span> DataHubDependant</span><br><span class="line">        &#123;</span><br><span class="line">            OriginalBatchId = batchId,</span><br><span class="line">            ClientCode = dataHubEmployeeDTO.ClientCode,</span><br><span class="line">            fkDataHubEmployee = dataHubEmployee.pkDataHubEmployee,</span><br><span class="line">            EmployeeId = dataHubEmployeeDTO.ID,</span><br><span class="line">            FullName = dependant.FullName,</span><br><span class="line">            Identification = dependant.Identification,</span><br><span class="line">            BirthDate = dependant.BirthDate,</span><br><span class="line">            Gender = dependant.Gender,</span><br><span class="line">            Nationality = dependant.Nationality,</span><br><span class="line">            </span><br><span class="line">        &#125;;</span><br><span class="line">        dataHubEmployee.DataHubDependants.Add(dataHubDependant);</span><br><span class="line">    &#125;</span><br><span class="line">    clientDbContext.DataHubEmployee.Add(dataHubEmployee);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">clientDbContext.SaveChanges();</span><br></pre></td></tr></table></figure>
+<p>这样就可以在批量插入数据的时候，自动填充主表的自增ID到从表。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

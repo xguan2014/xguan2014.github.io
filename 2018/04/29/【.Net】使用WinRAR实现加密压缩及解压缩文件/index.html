@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转自：http:&#x2F;&#x2F;www.jb51.net&#x2F;article&#x2F;68916.htm 本次示例主要实现：1.压缩文件夹及其下文件2.压缩文件夹下文件3.压缩文件夹及其下文件为rar 还是 zip4.解压缩5.加密压缩及解加密压缩    示例代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net】使用WinRAR实现加密压缩及解压缩文件">
+<meta property="og:url" content="http://blog.bfsdfs.com/2018/04/29/%E3%80%90.Net%E3%80%91%E4%BD%BF%E7%94%A8WinRAR%E5%AE%9E%E7%8E%B0%E5%8A%A0%E5%AF%86%E5%8E%8B%E7%BC%A9%E5%8F%8A%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="转自：http:&#x2F;&#x2F;www.jb51.net&#x2F;article&#x2F;68916.htm 本次示例主要实现：1.压缩文件夹及其下文件2.压缩文件夹下文件3.压缩文件夹及其下文件为rar 还是 zip4.解压缩5.加密压缩及解加密压缩    示例代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-04-29T03:58:54.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.046Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2018/04/29/%E3%80%90.Net%E3%80%91%E4%BD%BF%E7%94%A8WinRAR%E5%AE%9E%E7%8E%B0%E5%8A%A0%E5%AF%86%E5%8E%8B%E7%BC%A9%E5%8F%8A%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net】使用WinRAR实现加密压缩及解压缩文件 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/04/29/%E3%80%90.Net%E3%80%91%E4%BD%BF%E7%94%A8WinRAR%E5%AE%9E%E7%8E%B0%E5%8A%A0%E5%AF%86%E5%8E%8B%E7%BC%A9%E5%8F%8A%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net】使用WinRAR实现加密压缩及解压缩文件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-04-29 11:58:54" itemprop="dateCreated datePublished" datetime="2018-04-29T11:58:54+08:00">2018-04-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>转自：<a target="_blank" rel="noopener" href="http://www.jb51.net/article/68916.htm">http://www.jb51.net/article/68916.htm</a></p>
+<p>本次示例主要实现：<br>1.压缩文件夹及其下文件<br>2.压缩文件夹下文件<br>3.压缩文件夹及其下文件为rar 还是 zip<br>4.解压缩<br>5.加密压缩及解加密压缩  </p>
+<hr>
+<p>示例代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">protected void Button1_Click(object sender, EventArgs e)</span><br><span class="line">  &#123;</span><br><span class="line"></span><br><span class="line">    string strtxtPath = &quot;C://freezip//free.txt&quot;;</span><br><span class="line">    string strzipPath = &quot;C://freezip//free.zip&quot;;</span><br><span class="line">    System.Diagnostics.Process Process1 = new System.Diagnostics.Process();</span><br><span class="line">    Process1.StartInfo.FileName = &quot;Winrar.exe&quot;;</span><br><span class="line">    Process1.StartInfo.CreateNoWindow = true;</span><br><span class="line">    //// 1</span><br><span class="line">    ////压缩c:/freezip/free.txt(即文件夹及其下文件freezip/free.txt)</span><br><span class="line">    ////到c:/freezip/free.rar</span><br><span class="line">    //strzipPath = &quot;C://freezip//free&quot;;//默认压缩方式为 .rar</span><br><span class="line">    //Process1.StartInfo.Arguments = &quot; a -r &quot; + strzipPath + &quot; &quot; + strtxtPath;</span><br><span class="line"></span><br><span class="line">    //// 2</span><br><span class="line">    ////压缩c:/freezip/free.txt(即文件夹及其下文件freezip/free.txt)</span><br><span class="line">    ////到c:/freezip/free.rar</span><br><span class="line">    //strzipPath = &quot;C://freezip//free&quot;;//设置压缩方式为 .zip</span><br><span class="line">    //Process1.StartInfo.Arguments = &quot; a -afzip &quot; + strzipPath + &quot; &quot; + strtxtPath;</span><br><span class="line"></span><br><span class="line">    //// 3</span><br><span class="line">    ////压缩c:/freezip/free.txt(即文件夹及其下文件freezip/free.txt)</span><br><span class="line">    ////到c:/freezip/free.zip 直接设定为free.zip</span><br><span class="line">    //Process1.StartInfo.Arguments = &quot; a -r &quot;+strzipPath+&quot; &quot; + strtxtPath ;</span><br><span class="line"></span><br><span class="line">    //// 4</span><br><span class="line">    ////搬迁压缩c:/freezip/free.txt(即文件夹及其下文件freezip/free.txt)</span><br><span class="line">    ////到c:/freezip/free.rar 压缩后 原文件将不存在</span><br><span class="line">    //Process1.StartInfo.Arguments = &quot; m &quot; + strzipPath + &quot; &quot; + strtxtPath;</span><br><span class="line"></span><br><span class="line">    //// 5</span><br><span class="line">    ////压缩c:/freezip/下的free.txt(即文件free.txt)</span><br><span class="line">    ////到c:/freezip/free.zip 直接设定为free.zip 只有文件 而没有文件夹</span><br><span class="line">    //Process1.StartInfo.Arguments = &quot; a -ep &quot; + strzipPath + &quot; &quot; + strtxtPath;</span><br><span class="line"></span><br><span class="line">    //// 6</span><br><span class="line">    ////解压缩c:/freezip/free.rar</span><br><span class="line">    ////到 c:/freezip/</span><br><span class="line">    //strtxtPath = &quot;c://freezip//&quot;;</span><br><span class="line">    //Process1.StartInfo.Arguments = &quot; x &quot; + strzipPath + &quot; &quot; + strtxtPath;</span><br><span class="line"></span><br><span class="line">    //// 7</span><br><span class="line">    ////加密压缩c:/freezip/free.txt(即文件夹及其下文件freezip/free.txt)</span><br><span class="line">    ////到c:/freezip/free.zip 密码为123456 注意参数间不要空格</span><br><span class="line">    //Process1.StartInfo.Arguments = &quot; a -p123456 &quot; + strzipPath + &quot; &quot; + strtxtPath;</span><br><span class="line"></span><br><span class="line">    //// 8</span><br><span class="line">    ////解压缩加密的c:/freezip/free.rar</span><br><span class="line">    ////到 c:/freezip/  密码为123456 注意参数间不要空格</span><br><span class="line">    //strtxtPath = &quot;c://freezip//&quot;;</span><br><span class="line">    //Process1.StartInfo.Arguments = &quot; x -p123456 &quot; + strzipPath + &quot; &quot; + strtxtPath;</span><br><span class="line"></span><br><span class="line">    Process1.Start(); </span><br><span class="line">    if (Process1.HasExited)</span><br><span class="line">    &#123;</span><br><span class="line">      Response.Write(&quot;完成&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="re-C-加密-压缩及解压缩-相关文件夹及文件"><a href="#re-C-加密-压缩及解压缩-相关文件夹及文件" class="headerlink" title="re: C# (加密)压缩及解压缩 相关文件夹及文件"></a>re: C# (加密)压缩及解压缩 相关文件夹及文件</h1><p>更多WinRAR命令(引自WinRAR帮助文档)<br>a 添加文件到压缩文件<br>c 添加压缩文件注释<br>d 从压缩文件删除文件<br>e 从压缩文件解压压缩，忽略路径<br>f 刷新压缩文件中的文件<br>i 在压缩文件中查找字符串<br>k 锁定压缩文件<br>m 移动文件和文件夹到压缩文件<br>r 修复受损的压缩文件<br>rc 重建丢失的卷<br>rn 重命名压缩文件<br>rr[N] 添加数据恢复记录<br>rv[N] 创建恢复卷<br>s[name] 转换压缩文件成为自解压文件类型<br>s- 删除自解压模块<br>t 测试压缩文件<br>u 从压缩文件中更新文件<br>x 以完整路径名称从压缩文件解压压缩 回复 更多评论 </p>
+<h1 id="re-C-加密-压缩及解压缩-相关文件夹及文件-1"><a href="#re-C-加密-压缩及解压缩-相关文件夹及文件-1" class="headerlink" title="re: C# (加密)压缩及解压缩 相关文件夹及文件"></a>re: C# (加密)压缩及解压缩 相关文件夹及文件</h1><p>更多WinRAR字母开头(引自WinRAR帮助文档)<br>-ac 在压缩或解压后清除存档属性<br>-ad 附加压缩文件名到目标路径中<br>-af&lt;类型&gt; 指定压缩文件格式<br>-ag[格式] 以当前日期生成压缩文件名<br>-ao 添加有存档属性设置的<br>-ap 设置内部压缩文件路径<br>-as 同步化压缩文件内容<br>-av 应用用户身份校验信息<br>-av- 禁用添加用户身份校验信息<br>-cfg- 忽略默认配置和环境变量<br>-cl 将文件名转换成为小写<br>-cu 将文件名转换成为大写<br>-df 压缩后删除压缩文件<br>-dh 打开共享的文件<br>-ds 不排序压缩的文件<br>-ed 不添加空文件夹<br>-en 不添加“压缩文件结束”块<br>-ep 从名称中排除路径<br>-ep1 从名称中排除主文件夹<br>-ep2 扩大成完整路径<br>-ep3 扩展包含盘符的完整路径<br>-e[+]&lt;属性&gt; 设置文件排除和包含属性<br>-f 刷新文件<br>-hp[密码] 加密文件数据和头<br>-ibck 在后台运行 WinRAR<br>-ieml 使用E-mail发送压缩文件<br>-iicon&lt;名称&gt; 指定自解压图标<br>-iimg&lt;名称&gt; 指定自解压图片<br>-ilog[名称] 记录错误到文件中<br>-inul 关闭错误信息<br>-ioff 关闭 PC 电源<br>-k 锁定压缩文件<br>-kb 保留坏掉的解压文件<br>-m<n> 设置压缩方式<br>-mc&lt;参数&gt; 设置高级压缩参数<br>-md<n> 选择字典大小<br>-ms 指定文件存储<br>-n&lt;文件&gt; 仅包含指定的文件<br>-n@&lt;列表文件&gt; 使用指定的列表文件包含文件<br>-os 保存 NTFS 数据流<br>-oc 设置 NTFS “压缩”属性<br>-ow 处理文件用户身份校验信息<br>-o+ 覆盖已存在的文件<br>-o- 不要覆盖已存在的文件<br>-p[密码] 设置密码<br>-r 返回子文件夹<br>-r0 只返回与通配符匹配的子文件夹<br>-ri 设置优先级和休眠时间<br>-rr[N] 添加数据恢复记录<br>-rv[N] 创建恢复卷<br>-s 创建固实压缩文件<br>-s<N> 以文件数量创建固实组<br>-se 以文件扩展名创建固实组<br>-sfx[名称] 创建自解压文件<br>-sv 创建互不依赖的固实压缩文件<br>-sv- 创建互相依赖的固实压缩文件<br>-s- 禁用固实算法<br>-t 压缩后测试文件<br>-ta&lt;日期&gt; 只处理指定日期之后修改的文件<br>-tb&lt;日期&gt; 只处理指定日期之前修改的文件<br>-tk 保持原有压缩文件时间<br>-tl 以最新的文件设置压缩文件时间<br>-tn&lt;时间&gt; 处理较新于指定时间的文件<br>-to&lt;时间&gt; 处理较旧于指定时间的文件<br>-ts&lt;m,c,a&gt; 保存或恢复文件时间(修改,创建,访问)<br>-u 更新文件<br>-v<n>[k|b|f|m|M|g|G] 创建分卷压缩<br>-vd 创建分卷压缩前清除磁盘内容<br>-ver 文件版本控制<br>-vn 使用旧风格的卷命名法则<br>-vp 每次分卷压缩前暂停<br>-x&lt;文件&gt; 排除指定的文件<br>-x@&lt;文件列表&gt; 使用指定的列表文件来排除指定的文件<br>-y 假设全部的询问回应皆为“是”<br>-z&lt;文件&gt; 从文件读取压缩文件注释<br>– 停止开关的扫描</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">    string strtxtPath = &quot;D://&quot;;</span><br><span class="line">    string strzipPath = &quot;D://test.rar&quot;;</span><br><span class="line"></span><br><span class="line">    System.Diagnostics.Process Process1 = new System.Diagnostics.Process();</span><br><span class="line">    Process1.StartInfo.FileName = &quot;Winrar.exe&quot;;</span><br><span class="line">    Process1.StartInfo.CreateNoWindow = true;</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(DateTime.Now);</span><br><span class="line">    Console.WriteLine(&quot;开始暴力解密：&quot;);</span><br><span class="line">    int count = 0;</span><br><span class="line">    string pwd = string.Empty;</span><br><span class="line">    for (int a = 0; a &lt; 10; a++)</span><br><span class="line">    &#123;</span><br><span class="line">        for (int b = 0; b &lt; 10; b++)</span><br><span class="line">        &#123;</span><br><span class="line">            for (int c = 0; c &lt; 10; c++)</span><br><span class="line">            &#123;</span><br><span class="line">                for (int d = 0; d &lt; 10; d++)</span><br><span class="line">                &#123;</span><br><span class="line">                    count++;</span><br><span class="line">                    pwd = &quot;&quot; + a + b + c + d;</span><br><span class="line">                    Console.WriteLine(DateTime.Now);</span><br><span class="line">                    Console.WriteLine(&quot;第&quot;+count+&quot;次尝试: pwd = &quot;+pwd);</span><br><span class="line">                    Process1.StartInfo.Arguments = &quot; x -p&quot;+ pwd + &quot; &quot; + strzipPath + &quot; &quot; + strtxtPath;</span><br><span class="line">                    Process1.Start();</span><br><span class="line">                    System.Threading.Thread.Sleep(3 * 1000);</span><br><span class="line">                    if (Process1.HasExited)</span><br><span class="line">                    &#123;</span><br><span class="line">                        Console.WriteLine(&quot;解密成功!&quot;);</span><br><span class="line">                        Console.WriteLine(&quot;密码为:&quot;+pwd);</span><br><span class="line">                        Console.ReadLine();</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                    &#123;</span><br><span class="line">                        KillProcess(&quot;WinRAR&quot;);</span><br><span class="line">                        Console.WriteLine();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Console.ReadLine();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static void KillProcess(string processName)</span><br><span class="line">&#123;</span><br><span class="line">    Process[] myproc = Process.GetProcesses();</span><br><span class="line">    foreach (Process item in myproc)</span><br><span class="line">    &#123;</span><br><span class="line">        if (item.ProcessName == processName)</span><br><span class="line">        &#123;</span><br><span class="line">            item.Kill();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2018/04/29/%E3%80%90.Net%E3%80%91%E4%BD%BF%E7%94%A8WinRAR%E5%AE%9E%E7%8E%B0%E5%8A%A0%E5%AF%86%E5%8E%8B%E7%BC%A9%E5%8F%8A%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6/" title="【.Net】使用WinRAR实现加密压缩及解压缩文件">http://blog.bfsdfs.com/2018/04/29/【.Net】使用WinRAR实现加密压缩及解压缩文件/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net/" rel="tag"># .Net</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/04/26/%E3%80%90.Net%E3%80%91%E6%96%87%E4%BB%B6%E5%92%8C%E6%96%87%E4%BB%B6%E6%96%87%E4%BB%B6%E5%A4%B9%E6%8C%89%E6%97%B6%E9%97%B4%E3%80%81%E5%90%8D%E7%A7%B0%E6%8E%92%E5%BA%8F-%E9%A1%BA%E5%BA%8F%E4%B8%8E%E5%80%92%E5%BA%8F/" rel="prev" title="【.Net】文件和文件文件夹按时间、名称排序-顺序与倒序">
+      <i class="fa fa-chevron-left"></i> 【.Net】文件和文件文件夹按时间、名称排序-顺序与倒序
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/04/30/%E3%80%90DIY%E3%80%91%E4%B8%80%E4%B8%AA%E6%88%AA%E5%9B%BE%E5%92%8Cwebapi%E4%B8%8A%E4%BC%A0%E7%9A%84%E5%B0%8F%E6%A0%97%E5%AD%90/" rel="next" title="【DIY】一个截图和webapi上传的小栗子">
+      【DIY】一个截图和webapi上传的小栗子 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#re-C-%E5%8A%A0%E5%AF%86-%E5%8E%8B%E7%BC%A9%E5%8F%8A%E8%A7%A3%E5%8E%8B%E7%BC%A9-%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6%E5%A4%B9%E5%8F%8A%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">re: C# (加密)压缩及解压缩 相关文件夹及文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#re-C-%E5%8A%A0%E5%AF%86-%E5%8E%8B%E7%BC%A9%E5%8F%8A%E8%A7%A3%E5%8E%8B%E7%BC%A9-%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6%E5%A4%B9%E5%8F%8A%E6%96%87%E4%BB%B6-1"><span class="nav-number">2.</span> <span class="nav-text">re: C# (加密)压缩及解压缩 相关文件夹及文件</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'baeddeff5272c172db3ff2dcc3cdbd66',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/83/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/04/28/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E8%BF%87%E6%B2%B3%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/04/28/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E8%BF%87%E6%B2%B3%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">【算法】过河问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-04-28 17:11:07" itemprop="dateCreated datePublished" datetime="2017-04-28T17:11:07+08:00">2017-04-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">算法竞赛</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="过河问题"><a href="#过河问题" class="headerlink" title="过河问题"></a>过河问题</h2><p>时间限制：1000 ms | 内存限制：65535 KB</p>
+<p>难度：5</p>
+<p>描述</p>
+<p>在漆黑的夜里，N位旅行者来到了一座狭窄而且没有护栏的桥边。如果不借助手电筒的话，大家是无论如何也不敢过桥去的。不幸的是，N个人一共只带了一只手电筒，而桥窄得只够让两个人同时过。如果各自单独过桥的话，N人所需要的时间已知；而如果两人同时过桥，所需要的时间就是走得比较慢的那个人单独行动时所需的时间。问题是，如何设计一个方案，让这N人尽快过桥。 </p>
+<p>输入</p>
+<p>第一行是一个整数T(1&lt;=T&lt;=20)表示测试数据的组数<br>每组测试数据的第一行是一个整数N(1&lt;=N&lt;=1000)表示共有N个人要过河<br>每组测试数据的第二行是N个整数Si,表示此人过河所需要花时间。(0&lt;Si&lt;=100)</p>
+<p>输出</p>
+<p>输出所有人都过河需要用的最少时间</p>
+<p>样例输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">4</span><br><span class="line">1 2 5 10</span><br></pre></td></tr></table></figure>
+<p>样例输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">17 </span><br></pre></td></tr></table></figure>
+
+<p>这个题还是蛮有意思的，上图说话：</p>
+<p><img src="/images/20170428170928311.png" alt=""></p>
+<p>ac代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class T9过河问题 &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		Scanner sc=new Scanner(System.in);</span><br><span class="line">		while(sc.hasNext())&#123;</span><br><span class="line">			int n=sc.nextInt();</span><br><span class="line">			int[] out=new int[n];</span><br><span class="line">			</span><br><span class="line">			for (int i = 0; i &lt; out.length; i++) &#123;</span><br><span class="line">				int t=sc.nextInt();</span><br><span class="line">				int[] data=new int[t];</span><br><span class="line">				for (int j = 0; j &lt; data.length; j++) &#123;</span><br><span class="line">					data[j]=sc.nextInt();</span><br><span class="line">				&#125;</span><br><span class="line">				out[i]=f(data);</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			for (int i = 0; i &lt; out.length; i++) &#123;</span><br><span class="line">				System.out.println(out[i]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static int f(int[] data) &#123;</span><br><span class="line">		Arrays.sort(data);//排序</span><br><span class="line">		</span><br><span class="line">		int index=data.length-1;//数组下标</span><br><span class="line">		int ans=0;				//最短过桥的和时间</span><br><span class="line">		int counts=data.length; //有多少人需要过河</span><br><span class="line">		</span><br><span class="line">		if(counts==1)&#123;</span><br><span class="line">			return data[0];</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		//当人数大于等于四人时，可以采用两种方案运送最大的两个为一次行动</span><br><span class="line">		while(counts&gt;=4)&#123;</span><br><span class="line">			</span><br><span class="line">			int Min=data[0];       //用时最短的</span><br><span class="line">			int eMin=data[1];      //用时第二短的</span><br><span class="line">			int Max=data[index];   //用时最长的</span><br><span class="line">			int eMax=data[index-1];//用时第二长的</span><br><span class="line">			</span><br><span class="line">			int sum1=eMin+Min+Max+eMin;//方案一：两小送两大的，用时：第二小+第一小+最大的+第二</span><br><span class="line">			int sum2=Max+Min+eMax+Min; //方案二：最小的分别送两大的，用时：最大的+最小的+第二大的+最小的</span><br><span class="line">			</span><br><span class="line">			ans+=Math.min(sum1,sum2);//选择其中用时较短的一种方案</span><br><span class="line">			index-=2;//运送过去了两个人</span><br><span class="line">			counts-=2;</span><br><span class="line">		&#125;</span><br><span class="line">		//最后还有三个人时，剩下三个相加</span><br><span class="line">		if(counts==3)&#123;</span><br><span class="line">			ans+=data[index]+data[0]+data[1];</span><br><span class="line">		&#125;</span><br><span class="line">		//两个人时，用时为大的那个</span><br><span class="line">		if(counts==2)&#123;</span><br><span class="line">			ans+=data[1];</span><br><span class="line">		&#125;</span><br><span class="line">		return ans;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/04/26/%E3%80%90Jquery%E3%80%91%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F--%E8%A1%A8%E5%8D%95%E9%AA%8C%E8%AF%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/04/26/%E3%80%90Jquery%E3%80%91%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F--%E8%A1%A8%E5%8D%95%E9%AA%8C%E8%AF%81/" class="post-title-link" itemprop="url">【Jqiery】正则表达式--表单验证</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-04-26 10:54:10" itemprop="dateCreated datePublished" datetime="2017-04-26T10:54:10+08:00">2017-04-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>写了十个常用的验证<br>html部分：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">		1：用户姓名 *只能是中文字*&lt;br&gt;</span><br><span class="line">		&lt;input type=&quot;text&quot; name=&quot;&quot; id=&quot;id1&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;button&quot; name=&quot;&quot; id=&quot;btn1&quot; value=&quot;验证&quot;&gt;</span><br><span class="line">		&lt;samp id=&quot;samp1&quot;&gt;*&lt;/samp&gt;</span><br><span class="line">		&lt;br&gt;</span><br><span class="line"></span><br><span class="line">		2：用户密码 *大于等于6  必须是数字*&lt;br&gt;</span><br><span class="line">		&lt;input type=&quot;text&quot; name=&quot;&quot; id=&quot;id2&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;button&quot; name=&quot;&quot; id=&quot;btn2&quot; value=&quot;验证&quot;&gt;</span><br><span class="line">		&lt;samp id=&quot;samp2&quot;&gt;*&lt;/samp&gt;</span><br><span class="line">		&lt;br&gt;</span><br><span class="line"></span><br><span class="line">		3：联系方式 *必须是11位，电信或者联通的有效号码*  如：15102739524移动 17614575414联通&lt;br&gt;</span><br><span class="line">		&lt;input type=&quot;text&quot; name=&quot;&quot; id=&quot;id3&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;button&quot; name=&quot;&quot; id=&quot;btn3&quot; value=&quot;验证&quot;&gt;</span><br><span class="line">		&lt;samp id=&quot;samp3&quot;&gt;*&lt;/samp&gt;</span><br><span class="line">		&lt;br&gt;</span><br><span class="line"></span><br><span class="line">		4：邮箱方式 *如：kelvin@yeah.com\290000738@qq.com*&lt;br&gt;</span><br><span class="line">		&lt;input type=&quot;text&quot; name=&quot;&quot; id=&quot;id4&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;button&quot; name=&quot;&quot; id=&quot;btn4&quot; value=&quot;验证&quot;&gt;</span><br><span class="line">		&lt;samp id=&quot;samp4&quot;&gt;*&lt;/samp&gt;</span><br><span class="line">		&lt;br&gt;</span><br><span class="line"></span><br><span class="line">		5：博客地址 *Http:\\www.boke.com*&lt;br&gt;</span><br><span class="line">		&lt;input type=&quot;text&quot; name=&quot;&quot; id=&quot;id5&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;button&quot; name=&quot;&quot; id=&quot;btn5&quot; value=&quot;验证&quot;&gt;</span><br><span class="line">		&lt;samp id=&quot;samp5&quot;&gt;*&lt;/samp&gt;</span><br><span class="line">		&lt;br&gt;</span><br><span class="line"></span><br><span class="line">		6：年龄     *必须是数字 小于等120*&lt;br&gt;</span><br><span class="line">		&lt;input type=&quot;text&quot; name=&quot;&quot; id=&quot;id6&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;button&quot; name=&quot;&quot; id=&quot;btn6&quot; value=&quot;验证&quot;&gt;</span><br><span class="line">		&lt;samp id=&quot;samp6&quot;&gt;*&lt;/samp&gt;</span><br><span class="line">		&lt;br&gt;</span><br><span class="line"></span><br><span class="line">		7：邮政编码 *中国邮政编码为6位数字*&lt;br&gt;</span><br><span class="line">		&lt;input type=&quot;text&quot; name=&quot;&quot; id=&quot;id7&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;button&quot; name=&quot;&quot; id=&quot;btn7&quot; value=&quot;验证&quot;&gt;</span><br><span class="line">		&lt;samp id=&quot;samp7&quot;&gt;*&lt;/samp&gt;</span><br><span class="line">		&lt;br&gt;</span><br><span class="line"></span><br><span class="line">		8：身份证   *中国的身份证为15位或18位*&lt;br&gt;</span><br><span class="line">		&lt;input type=&quot;text&quot; name=&quot;&quot; id=&quot;id8&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;button&quot; name=&quot;&quot; id=&quot;btn8&quot; value=&quot;验证&quot;&gt;</span><br><span class="line">		&lt;samp id=&quot;samp8&quot;&gt;*&lt;/samp&gt;</span><br><span class="line">		&lt;br&gt;</span><br><span class="line"></span><br><span class="line">		9：电话号码 *匹配形式如 0511-4405222 或 021-87888822*&lt;br&gt;</span><br><span class="line">		&lt;input type=&quot;text&quot; name=&quot;&quot; id=&quot;id9&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;button&quot; name=&quot;&quot; id=&quot;btn9&quot; value=&quot;验证&quot;&gt;</span><br><span class="line">		&lt;samp id=&quot;samp9&quot;&gt;*&lt;/samp&gt;</span><br><span class="line">		&lt;br&gt;</span><br><span class="line"></span><br><span class="line">		10： QQ号   *腾讯QQ号从10000开始*&lt;br&gt;</span><br><span class="line">		&lt;input type=&quot;text&quot; name=&quot;&quot; id=&quot;id10&quot;&gt;</span><br><span class="line">		&lt;input type=&quot;button&quot; name=&quot;&quot; id=&quot;btn10&quot; value=&quot;验证&quot;&gt;</span><br><span class="line">		&lt;samp id=&quot;samp10&quot;&gt;*&lt;/samp&gt;</span><br><span class="line">		&lt;br&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<p>css部分： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">	body&#123;</span><br><span class="line">		font-size: 12px;</span><br><span class="line">		line-height: 30px;</span><br><span class="line">	&#125;</span><br><span class="line">	samp&#123;</span><br><span class="line">		color: red;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p> js部分： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;Scripts/jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">	$(function()&#123;</span><br><span class="line">	    //1用户名验证</span><br><span class="line">	    $(&quot;#btn1&quot;).click(function () &#123;</span><br><span class="line">	        var mytext = $(&quot;#id1&quot;).val();</span><br><span class="line">	        var res = /[^\x00-\x80]/;</span><br><span class="line"></span><br><span class="line">	        $(&quot;#samp1&quot;).empty();</span><br><span class="line">	        $(&quot;#samp1&quot;).append(&quot;*&quot;);</span><br><span class="line"></span><br><span class="line">	        if (mytext == &quot;&quot;) &#123;</span><br><span class="line">	            $(&quot;#samp1&quot;).append(&quot;用户名不能为空！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        else if (!res.exec(mytext)) &#123;</span><br><span class="line">	            $(&quot;#samp1&quot;).append(&quot;输入的用户名只能为中文！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        return true;</span><br><span class="line">	    &#125;);</span><br><span class="line"></span><br><span class="line">	    //2密码验证</span><br><span class="line">	    $(&quot;#btn2&quot;).click(function () &#123;</span><br><span class="line">	        var mytext = $(&quot;#id2&quot;).val();</span><br><span class="line">	        var res = /[^\x00-\x80]/;</span><br><span class="line"></span><br><span class="line">	        $(&quot;#samp2&quot;).empty();</span><br><span class="line">	        $(&quot;#samp2&quot;).append(&quot;*&quot;);</span><br><span class="line"></span><br><span class="line">	        if (mytext == &quot;&quot;) &#123;</span><br><span class="line">	            $(&quot;#samp2&quot;).append(&quot;密码不能为空！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        else if (mytext.length&lt;6) &#123;</span><br><span class="line">	            $(&quot;#samp2&quot;).append(&quot;输入的密码长度应大于等于6位！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        else if (isNaN(mytext)) &#123;</span><br><span class="line">	            $(&quot;#samp2&quot;).append(&quot;输入的密码只能为数字！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        return true;</span><br><span class="line">	    &#125;);</span><br><span class="line"></span><br><span class="line">	    //3联系方式</span><br><span class="line">	    $(&quot;#btn3&quot;).click(function () &#123;</span><br><span class="line">	        var mytext = $(&quot;#id3&quot;).val();</span><br><span class="line">	        var res = /^0?(13[0-9]|15[012356789]|17[0236789]|14[57])[0-9]&#123;8&#125;$/;</span><br><span class="line"></span><br><span class="line">	        $(&quot;#samp3&quot;).empty();</span><br><span class="line">	        $(&quot;#samp3&quot;).append(&quot;*&quot;);</span><br><span class="line"></span><br><span class="line">	        if (mytext == &quot;&quot;) &#123;</span><br><span class="line">	            $(&quot;#samp3&quot;).append(&quot;电话号码不能为空！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        else if (mytext.length != 11) &#123;</span><br><span class="line">	            $(&quot;#samp3&quot;).append(&quot;输入的电话号码长度应等于11位！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        else if (!res.exec(mytext)) &#123;</span><br><span class="line">	            $(&quot;#samp3&quot;).append(&quot;号码必须是电信或者联通的有效号码！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        return true;</span><br><span class="line">	    &#125;);</span><br><span class="line"></span><br><span class="line">	    //4邮箱方式</span><br><span class="line">	    $(&quot;#btn4&quot;).click(function () &#123;</span><br><span class="line">	        var mytext = $(&quot;#id4&quot;).val();</span><br><span class="line">	        var res = /^([0-9A-Za-z\-_\.]+)@([0-9A-Za-z]+\.[A-Za-z]&#123;2,3&#125;(\.[A-Za-z]&#123;2&#125;)?)$/;</span><br><span class="line"></span><br><span class="line">	        $(&quot;#samp4&quot;).empty();</span><br><span class="line">	        $(&quot;#samp4&quot;).append(&quot;*&quot;);</span><br><span class="line"></span><br><span class="line">	        if (mytext == &quot;&quot;) &#123;</span><br><span class="line">	            $(&quot;#samp4&quot;).append(&quot;邮箱地址不能为空！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        else if (!res.test(mytext)) &#123;</span><br><span class="line">	            $(&quot;#samp4&quot;).append(&quot;邮箱格式不符合要求！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        return true;</span><br><span class="line">	    &#125;);</span><br><span class="line"></span><br><span class="line">	    //5博客地址</span><br><span class="line">	    $(&quot;#btn5&quot;).click(function () &#123;</span><br><span class="line">	        var mytext = $(&quot;#id5&quot;).val();</span><br><span class="line">	        var res = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&amp;=]*)?/;</span><br><span class="line"></span><br><span class="line">	        $(&quot;#samp5&quot;).empty();</span><br><span class="line">	        $(&quot;#samp5&quot;).append(&quot;*&quot;);</span><br><span class="line"></span><br><span class="line">	        if (mytext == &quot;&quot;) &#123;</span><br><span class="line">	            $(&quot;#samp5&quot;).append(&quot;博客地址不能为空！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        else if (!res.exec(mytext)) &#123;</span><br><span class="line">	            $(&quot;#samp5&quot;).append(&quot;博客地址格式不符合要求！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        return true;</span><br><span class="line">	    &#125;);</span><br><span class="line"></span><br><span class="line">	    //6年龄</span><br><span class="line">	    $(&quot;#btn6&quot;).click(function () &#123;</span><br><span class="line">	        var mytext = $(&quot;#id6&quot;).val();</span><br><span class="line"></span><br><span class="line">	        $(&quot;#samp6&quot;).empty();</span><br><span class="line">	        $(&quot;#samp6&quot;).append(&quot;*&quot;);</span><br><span class="line"></span><br><span class="line">	        if (mytext == &quot;&quot;) &#123;</span><br><span class="line">	            $(&quot;#samp6&quot;).append(&quot;请输入年龄！！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        else if (isNaN(mytext)) &#123;</span><br><span class="line">	            $(&quot;#samp6&quot;).append(&quot;年龄必须为数字！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        else if (Number(mytext) &lt;= 0 || Number(mytext) &gt;= 120) &#123;</span><br><span class="line">	            $(&quot;#samp6&quot;).append(&quot;年龄必须大于0，且小于120！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        return true;</span><br><span class="line">	    &#125;);</span><br><span class="line"></span><br><span class="line">	    //7邮政编码</span><br><span class="line">	    $(&quot;#btn7&quot;).click(function () &#123;</span><br><span class="line">	        var mytext = $(&quot;#id7&quot;).val();</span><br><span class="line">	        var res = /^[a-zA-Z0-9 ]&#123;3,12&#125;$/;</span><br><span class="line"></span><br><span class="line">	        $(&quot;#samp7&quot;).empty();</span><br><span class="line">	        $(&quot;#samp7&quot;).append(&quot;*&quot;);</span><br><span class="line"></span><br><span class="line">	        if (mytext == &quot;&quot;) &#123;</span><br><span class="line">	            $(&quot;#samp7&quot;).append(&quot;请输入邮政编码！！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        else if (isNaN(mytext)) &#123;</span><br><span class="line">	            $(&quot;#samp7&quot;).append(&quot;邮政编码必须为数字！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        else if (!res.exec(mytext)) &#123;</span><br><span class="line">	            $(&quot;#samp7&quot;).append(&quot;邮政编码不符合要求！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        return true;</span><br><span class="line">	    &#125;);</span><br><span class="line"></span><br><span class="line">	    //8身份证</span><br><span class="line">	    $(&quot;#btn8&quot;).click(function () &#123;</span><br><span class="line">	        var mytext = $(&quot;#id8&quot;).val();</span><br><span class="line">	        var res = /(^\d&#123;15&#125;$)|(^\d&#123;18&#125;$)|(^\d&#123;17&#125;(\d|X|x)$)/;</span><br><span class="line"></span><br><span class="line">	        $(&quot;#samp8&quot;).empty();</span><br><span class="line">	        $(&quot;#samp8&quot;).append(&quot;*&quot;);</span><br><span class="line"></span><br><span class="line">	        if (mytext == &quot;&quot;) &#123;</span><br><span class="line">	            $(&quot;#samp8&quot;).append(&quot;请输入身份证！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        else if (!res.exec(mytext)) &#123;</span><br><span class="line">	            $(&quot;#samp8&quot;).append(&quot;身份证号码不符合要求！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        return true;</span><br><span class="line">	    &#125;);</span><br><span class="line"></span><br><span class="line">	    //9电话号码</span><br><span class="line">	    $(&quot;#btn9&quot;).click(function () &#123;</span><br><span class="line">	        var mytext = $(&quot;#id9&quot;).val();</span><br><span class="line">	        var res = /^(\(\d&#123;3,4&#125;\)|\d&#123;3,4&#125;-|\s)?\d&#123;7,14&#125;$/;</span><br><span class="line"></span><br><span class="line">	        $(&quot;#samp9&quot;).empty();</span><br><span class="line">	        $(&quot;#samp9&quot;).append(&quot;*&quot;);</span><br><span class="line"></span><br><span class="line">	        if (mytext == &quot;&quot;) &#123;</span><br><span class="line">	            $(&quot;#samp9&quot;).append(&quot;请输入电话号码！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        else if (!res.exec(mytext)) &#123;</span><br><span class="line">	            $(&quot;#samp9&quot;).append(&quot;电话号码不符合要求！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        return true;</span><br><span class="line">	    &#125;);</span><br><span class="line"></span><br><span class="line">	    //10QQ号</span><br><span class="line">	    $(&quot;#btn10&quot;).click(function () &#123;</span><br><span class="line">	        var mytext = $(&quot;#id10&quot;).val();</span><br><span class="line">	        var res = /^[1-9][0-9]&#123;4,&#125;$/;</span><br><span class="line"></span><br><span class="line">	        $(&quot;#samp10&quot;).empty();</span><br><span class="line">	        $(&quot;#samp10&quot;).append(&quot;*&quot;);</span><br><span class="line"></span><br><span class="line">	        if (mytext == &quot;&quot;) &#123;</span><br><span class="line">	            $(&quot;#samp10&quot;).append(&quot;请输入QQ号！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        else if (!res.exec(mytext)) &#123;</span><br><span class="line">	            $(&quot;#samp10&quot;).append(&quot;QQ号码不符合要求！&quot;);</span><br><span class="line">	            return false;</span><br><span class="line">	        &#125;</span><br><span class="line">	        return true;</span><br><span class="line">	    &#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/04/24/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%AF%BB%E6%89%BE%E6%9C%80%E5%A4%A7%E6%95%B0%EF%BC%88%E4%B8%89%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/04/24/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%AF%BB%E6%89%BE%E6%9C%80%E5%A4%A7%E6%95%B0%EF%BC%88%E4%B8%89%EF%BC%89/" class="post-title-link" itemprop="url">【算法】寻找最大数（三）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-04-24 09:30:02" itemprop="dateCreated datePublished" datetime="2017-04-24T09:30:02+08:00">2017-04-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">算法竞赛</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>976</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="寻找最大数（三）"><a href="#寻找最大数（三）" class="headerlink" title="寻找最大数（三）"></a>寻找最大数（三）</h2><p>时间限制：1000 ms | 内存限制：65535 KB</p>
+<p>难度：2</p>
+<p>描述</p>
+<p>给出一个整数N，每次可以移动2个相邻数位上的数字，最多移动K次，得到一个新的整数。</p>
+<p>求这个新的整数的最大值是多少。</p>
+<p>输入</p>
+<p>多组测试数据。<br>每组测试数据占一行，每行有两个数N和K (1 ≤ N≤ 10^18; 0 ≤ K ≤ 100).</p>
+<p>输出</p>
+<p>每组测试数据的输出占一行，输出移动后得到的新的整数的最大值。</p>
+<p>样例输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1990 1</span><br><span class="line">100 0</span><br><span class="line">9090000078001234 6</span><br></pre></td></tr></table></figure>
+<p>样例输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">9190</span><br><span class="line">100</span><br><span class="line">9907000008001234 </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class T13寻找最大数 &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		Scanner sc=new Scanner(System.in);</span><br><span class="line">		while(sc.hasNext())&#123;</span><br><span class="line">			String num=sc.next();</span><br><span class="line">			int k=sc.nextInt();</span><br><span class="line">			String s=f(num,k);</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static String f(String num, int k) &#123;</span><br><span class="line">		</span><br><span class="line">		char[] ch=num.toCharArray();</span><br><span class="line">		while(k&gt;0)&#123;</span><br><span class="line">			for (int i = 0; i &lt; ch.length; i++) &#123;</span><br><span class="line">				char c=ch[i];</span><br><span class="line">				int index=0;</span><br><span class="line">				for (int j = i; j &lt;= k+i&amp;&amp;j&lt;ch.length; j++) &#123;</span><br><span class="line">					if(ch[j]&gt;c)&#123;</span><br><span class="line">						c=ch[j];</span><br><span class="line">						index=j;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				if(index&gt;0)&#123;</span><br><span class="line">					k-=(index-i);</span><br><span class="line">					for (int j = index; j &gt;i ; j--) &#123;</span><br><span class="line">						char h=ch[j];</span><br><span class="line">						ch[j]=ch[j-1];</span><br><span class="line">						ch[j-1]=h;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line">		String str=new String(ch);</span><br><span class="line">		return str;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/82/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/82/">82</a><span class="page-number current">83</span><a class="page-number" href="/page/84/">84</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/84/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

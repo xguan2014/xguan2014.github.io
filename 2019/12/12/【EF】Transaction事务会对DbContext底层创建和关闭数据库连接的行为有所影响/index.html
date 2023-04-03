@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="数据库  我们先在SQL Server数据库中建立一个Book表： 123456789101112131415 CREATE TABLE [dbo].[Book](    [ID] [int] IDENTITY(1,1) NOT NULL,    [BookName] [nvarchar](50) NULL,    [BookDescription] [nvarchar](50) NULL,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【EF】Transaction事务会对DbContext底层创建和关闭数据库连接的行为有所影响">
+<meta property="og:url" content="http://blog.bfsdfs.com/2019/12/12/%E3%80%90EF%E3%80%91Transaction%E4%BA%8B%E5%8A%A1%E4%BC%9A%E5%AF%B9DbContext%E5%BA%95%E5%B1%82%E5%88%9B%E5%BB%BA%E5%92%8C%E5%85%B3%E9%97%AD%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%A1%8C%E4%B8%BA%E6%9C%89%E6%89%80%E5%BD%B1%E5%93%8D/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="数据库  我们先在SQL Server数据库中建立一个Book表： 123456789101112131415 CREATE TABLE [dbo].[Book](    [ID] [int] IDENTITY(1,1) NOT NULL,    [BookName] [nvarchar](50) NULL,    [BookDescription] [nvarchar](50) NULL,">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNjYwNTkvMjAxODEwLzY2MDU5LTIwMTgxMDE3MTEyNDQ0OTM0LTE2MDAzMzY5NDIucG5n.png">
+<meta property="article:published_time" content="2019-12-12T12:20:05.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.069Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="EF">
+<meta property="article:tag" content="C#基础">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNjYwNTkvMjAxODEwLzY2MDU5LTIwMTgxMDE3MTEyNDQ0OTM0LTE2MDAzMzY5NDIucG5n.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2019/12/12/%E3%80%90EF%E3%80%91Transaction%E4%BA%8B%E5%8A%A1%E4%BC%9A%E5%AF%B9DbContext%E5%BA%95%E5%B1%82%E5%88%9B%E5%BB%BA%E5%92%8C%E5%85%B3%E9%97%AD%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%A1%8C%E4%B8%BA%E6%9C%89%E6%89%80%E5%BD%B1%E5%93%8D/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【EF】Transaction事务会对DbContext底层创建和关闭数据库连接的行为有所影响 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/12/12/%E3%80%90EF%E3%80%91Transaction%E4%BA%8B%E5%8A%A1%E4%BC%9A%E5%AF%B9DbContext%E5%BA%95%E5%B1%82%E5%88%9B%E5%BB%BA%E5%92%8C%E5%85%B3%E9%97%AD%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%A1%8C%E4%B8%BA%E6%9C%89%E6%89%80%E5%BD%B1%E5%93%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【EF】Transaction事务会对DbContext底层创建和关闭数据库连接的行为有所影响
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-12 20:20:05" itemprop="dateCreated datePublished" datetime="2019-12-12T20:20:05+08:00">2019-12-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>29k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>26 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>数据库</strong></p>
+<hr>
+<p>我们先在SQL Server数据库中建立一个Book表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> CREATE TABLE [dbo].[Book](</span><br><span class="line">    [ID] [int] IDENTITY(1,1) NOT NULL,</span><br><span class="line">    [BookName] [nvarchar](50) NULL,</span><br><span class="line">    [BookDescription] [nvarchar](50) NULL,</span><br><span class="line">    [ISBN] [nvarchar](20) NULL,</span><br><span class="line">    [CreateTime] [datetime] NULL,</span><br><span class="line"> CONSTRAINT [PK_Book] PRIMARY KEY CLUSTERED </span><br><span class="line">(</span><br><span class="line">    [ID] ASC</span><br><span class="line">)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]</span><br><span class="line">) ON [PRIMARY]</span><br><span class="line">GO</span><br><span class="line"></span><br><span class="line">ALTER TABLE [dbo].[Book] ADD  CONSTRAINT [DF_Book_CreateTime]  DEFAULT (getdate()) FOR [CreateTime]</span><br><span class="line">GO</span><br></pre></td></tr></table></figure>
+<p>然后插入如下数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">INSERT [dbo].[Book] ([BookName], [BookDescription], [ISBN]) VALUES (N&#x27;Chinese&#x27;, N&#x27;Chinese&#x27;, N&#x27;0001&#x27;)</span><br><span class="line">GO</span><br><span class="line">INSERT [dbo].[Book] ([BookName], [BookDescription], [ISBN]) VALUES (N&#x27;English&#x27;, N&#x27;English&#x27;, N&#x27;0002&#x27;)</span><br><span class="line">GO</span><br><span class="line">INSERT [dbo].[Book] ([BookName], [BookDescription], [ISBN]) VALUES (N&#x27;Japanese&#x27;, N&#x27;Japanese&#x27;, N&#x27;0003&#x27;)</span><br><span class="line">GO</span><br><span class="line">INSERT [dbo].[Book] ([BookName], [BookDescription], [ISBN]) VALUES (N&#x27;Russian&#x27;, N&#x27;Russian&#x27;, N&#x27;0004&#x27;)</span><br><span class="line">GO</span><br><span class="line">INSERT [dbo].[Book] ([BookName], [BookDescription], [ISBN]) VALUES (N&#x27;Italian&#x27;, N&#x27;Italian&#x27;, N&#x27;0005&#x27;)</span><br><span class="line">GO</span><br></pre></td></tr></table></figure>
+<p>查询Book表的数据，如下图所示：</p>
+<p><img src="/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNjYwNTkvMjAxODEwLzY2MDU5LTIwMTgxMDE3MTEyNDQ0OTM0LTE2MDAzMzY5NDIucG5n.png" alt=""></p>
+<p>现在我们使用EF Core将Book表映射到.NET Core控制台项目中的Book实体上，Book实体如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line"></span><br><span class="line">namespace EFCoreDB.Entities</span><br><span class="line">&#123;</span><br><span class="line">    public partial class Book</span><br><span class="line">    &#123;</span><br><span class="line">        public int Id &#123; get; set; &#125;</span><br><span class="line">        public string BookName &#123; get; set; &#125;</span><br><span class="line">        public string BookDescription &#123; get; set; &#125;</span><br><span class="line">        public string Isbn &#123; get; set; &#125;</span><br><span class="line">        public DateTime? CreateTime &#123; get; set; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="不使用事务"><a href="#不使用事务" class="headerlink" title="不使用事务"></a><strong>不使用事务</strong></h2><p>然后我们在.NET Core控制台项目Program类的Main方法中，使用DbContext（也就是FinanceDigitalToolContext）读取BookName为”Chinese”的Book实体，然后使用DbContext.SaveChanges方法两次更改其BookDescription属性的值，再从数据库中将其查询出来显示，代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">using EFCoreDB.Entities;</span><br><span class="line">using System;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Linq.Expressions;</span><br><span class="line"></span><br><span class="line">namespace EFCoreDB</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            using (FinanceDigitalToolContext dbContext = new FinanceDigitalToolContext())</span><br><span class="line">            &#123;</span><br><span class="line">                Expression&lt;Func&lt;Book, bool&gt;&gt; bookExpression = b =&gt; b.BookName == &quot;Chinese&quot;;//构造查询条件，来查询BookName为Chinese的Book</span><br><span class="line"></span><br><span class="line">                var chineseBook = dbContext.Book.First(bookExpression);//获取BookName为Chinese的Book实体chineseBook</span><br><span class="line"></span><br><span class="line">                chineseBook.BookDescription = &quot;This is a Chinese book&quot;;//更改chineseBook的BookDescription属性</span><br><span class="line">                dbContext.SaveChanges();//用DbContext.SaveChanges方法保存更改到数据库</span><br><span class="line"></span><br><span class="line">                chineseBook.BookDescription = &quot;This is a very good Chinese book&quot;;//再次更改chineseBook的BookDescription属性</span><br><span class="line">                dbContext.SaveChanges();//用DbContext.SaveChanges方法保存更改到数据库</span><br><span class="line"></span><br><span class="line">                chineseBook = dbContext.Book.First(bookExpression);//重新获取BookName为Chinese的Book实体chineseBook</span><br><span class="line"></span><br><span class="line">                //显示当前chineseBook的当前BookDescription属性值</span><br><span class="line">                Console.WriteLine(chineseBook.BookName + &quot; book has description: \&quot;&quot; + chineseBook.BookDescription + &quot;\&quot;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(&quot;Press key to quit....&quot;);</span><br><span class="line"></span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行上面的代码，我们使用EF Core的日志功能，输出每次DbContext访问数据库时的后台日志信息：</p>
+<p>首先在执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var chineseBook = dbContext.Book.First(bookExpression);//获取BookName为Chinese的Book实体chineseBook</span><br></pre></td></tr></table></figure>
+<p>时，EF Core的日志如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opening connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opened connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executing DbCommand [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executed DbCommand (129ms) [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">A data reader was disposed.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closing connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closed connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Context &#x27;Book&#x27; started tracking &#x27;FinanceDigitalToolContext&#x27; entity. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br></pre></td></tr></table></figure>
+<p>从日志中我们可以看出来，dbContext.Book.First(bookExpression)在数据库中开启了一个数据库连接，并使用SQL语句做了查询，然后关闭了数据库连接。</p>
+<p>然后在执行下面的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chineseBook.BookDescription = &quot;This is a Chinese book&quot;;//更改chineseBook的BookDescription属性</span><br><span class="line">dbContext.SaveChanges();//用DbContext.SaveChanges方法保存更改到数据库</span><br></pre></td></tr></table></figure>
+<p>时，EF Core的日志如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">SaveChanges starting for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">DetectChanges starting for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Unchanged &#x27;Book.BookDescription&#x27; detected as changed and will be marked as modified. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see property values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">An &#x27;Book&#x27; entity tracked by &#x27;FinanceDigitalToolContext&#x27; changed from &#x27;Unchanged&#x27; to &#x27;Modified&#x27;. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">DetectChanges completed for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opening connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opened connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Beginning transaction with isolation level &#x27;ReadCommitted&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executing DbCommand [Parameters=[@p1=&#x27;?&#x27; (DbType = Int32), @p0=&#x27;?&#x27; (Size = 50)], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SET NOCOUNT ON;</span><br><span class="line">UPDATE [Book] SET [BookDescription] = @p0</span><br><span class="line">WHERE [ID] = @p1;</span><br><span class="line">SELECT @@ROWCOUNT;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executed DbCommand (19ms) [Parameters=[@p1=&#x27;?&#x27; (DbType = Int32), @p0=&#x27;?&#x27; (Size = 50)], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SET NOCOUNT ON;</span><br><span class="line">UPDATE [Book] SET [BookDescription] = @p0</span><br><span class="line">WHERE [ID] = @p1;</span><br><span class="line">SELECT @@ROWCOUNT;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">A data reader was disposed.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Committing transaction.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closing connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closed connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Disposing transaction.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">An &#x27;Book&#x27; entity tracked by &#x27;FinanceDigitalToolContext&#x27; changed from &#x27;Modified&#x27; to &#x27;Unchanged&#x27;. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">SaveChanges completed for &#x27;FinanceDigitalToolContext&#x27; with 1 entities written to the database.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br></pre></td></tr></table></figure>
+<p>同样从日志中我们可以看出来在执行dbContext.SaveChanges方法时，EF Core在数据库中开启了一个数据库连接，并使用SQL语句做了数据库更改，然后关闭了数据库连接。然后chineseBook这个Book实体的EntityState从Modified变为了Unchanged。</p>
+<p>然后执行代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chineseBook = dbContext.Book.First(bookExpression);//重新获取BookName为Chinese的Book实体chineseBook</span><br></pre></td></tr></table></figure>
+<p>时，EF Core的日志如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opening connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opened connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executing DbCommand [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executed DbCommand (21ms) [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">A data reader was disposed.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closing connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closed connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br></pre></td></tr></table></figure>
+<p>从日志中我们可以看出来，dbContext.Book.First(bookExpression)在数据库中还是开启了一个数据库连接，并使用SQL语句做了查询，然后关闭了数据库连接。</p>
+<p>总结下来，上面的代码和日志发生的事情如下：</p>
+<ul>
+<li>dbContext.Book.First(bookExpression)开启和关闭了一个数据库连接，查询BookName为Chinese的Book实体chineseBook </li>
+<li>第一个dbContext.SaveChanges()开启和关闭了一个数据库连接，更改chineseBook的BookDescription属性值”This is a Chinese book”到数据库 </li>
+<li>第二个dbContext.SaveChanges()开启和关闭了一个数据库连接，更改chineseBook的BookDescription属性值”This is a very good Chinese book”到数据库 </li>
+<li>dbContext.Book.First(bookExpression)开启和关闭了一个数据库连接，重新查询BookName为Chinese的Book实体chineseBook 所以综上所述DbContext一共开启了和关闭了四个数据库连接。</li>
+</ul>
+<h2 id="使用事务"><a href="#使用事务" class="headerlink" title="使用事务"></a><strong>使用事务</strong></h2><p>现在我们更改Program类Main方法中的代码，将两次DbContext.SaveChanges方法的调用都放在一个TransactionScope事务范围中，所以现在两次DbContext.SaveChanges方法提交的SQL都会在同一个数据库事务中，代码如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">using EFCoreDB.Entities;</span><br><span class="line">using System;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Linq.Expressions;</span><br><span class="line">using System.Transactions;</span><br><span class="line"></span><br><span class="line">namespace EFCoreDB</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            using (FinanceDigitalToolContext dbContext = new FinanceDigitalToolContext())</span><br><span class="line">            &#123;</span><br><span class="line">                Expression&lt;Func&lt;Book, bool&gt;&gt; bookExpression = b =&gt; b.BookName == &quot;Chinese&quot;;//构造查询条件，来查询BookName为Chinese的Book</span><br><span class="line"></span><br><span class="line">                var chineseBook = dbContext.Book.First(bookExpression);//获取BookName为Chinese的Book实体chineseBook</span><br><span class="line"></span><br><span class="line">                //使用TransactionScope事务范围来开启一个数据库事务</span><br><span class="line">                using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew))</span><br><span class="line">                &#123;</span><br><span class="line">                    chineseBook.BookDescription = &quot;This is a Chinese book&quot;;//更改chineseBook的BookDescription属性</span><br><span class="line">                    dbContext.SaveChanges();//用DbContext.SaveChanges方法保存更改到数据库，由于TransactionScope事务范围的存在，所以DbContext.SaveChanges方法提交的SQL语句都存在于TransactionScope的事务当中</span><br><span class="line"></span><br><span class="line">                    chineseBook.BookDescription = &quot;This is a very good Chinese book&quot;;//再次更改chineseBook的BookDescription属性</span><br><span class="line">                    dbContext.SaveChanges();//用DbContext.SaveChanges方法保存更改到数据库，由于TransactionScope事务范围的存在，所以DbContext.SaveChanges方法提交的SQL语句都存在于TransactionScope的事务当中</span><br><span class="line"></span><br><span class="line">                    transactionScope.Complete();//提交TransactionScope事务范围中的SQL语句到数据库，数据库事务结束</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                chineseBook = dbContext.Book.First(bookExpression);//重新获取BookName为Chinese的Book实体chineseBook</span><br><span class="line"></span><br><span class="line">                //显示当前chineseBook的当前BookDescription属性值</span><br><span class="line">                Console.WriteLine(chineseBook.BookName + &quot; book has description: \&quot;&quot; + chineseBook.BookDescription + &quot;\&quot;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(&quot;Press key to quit....&quot;);</span><br><span class="line"></span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行上面的代码，我们还是使用EF Core的日志功能，输出每次DbContext访问数据库时的后台日志信息：</p>
+<p>首先执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var chineseBook = dbContext.Book.First(bookExpression);//获取BookName为Chinese的Book实体chineseBook</span><br></pre></td></tr></table></figure>
+<p>时，EF Core的日志如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opening connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opened connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executing DbCommand [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executed DbCommand (139ms) [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">A data reader was disposed.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closing connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closed connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Context &#x27;Book&#x27; started tracking &#x27;FinanceDigitalToolContext&#x27; entity. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br></pre></td></tr></table></figure>
+<p>从日志中我们可以看出来，dbContext.Book.First(bookExpression)在数据库中开启了一个数据库连接，并使用SQL语句做了查询，然后关闭了数据库连接。</p>
+<p>然后执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew))</span><br><span class="line">&#123;</span><br></pre></td></tr></table></figure>
+<p>TransactionScope的事务范围开始，此时数据库事务已经开始，EF Core没有输出日志</p>
+<p>然后执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chineseBook.BookDescription = &quot;This is a Chinese book&quot;;//更改chineseBook的BookDescription属性</span><br><span class="line">dbContext.SaveChanges();//用DbContext.SaveChanges方法保存更改到数据库，由于TransactionScope事务范围的存在，所以DbContext.SaveChanges方法提交的SQL语句都存在于TransactionScope的事务当中</span><br></pre></td></tr></table></figure>
+<p>时，EF Core的日志如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">SaveChanges starting for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">DetectChanges starting for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Unchanged &#x27;Book.BookDescription&#x27; detected as changed and will be marked as modified. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see property values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">An &#x27;Book&#x27; entity tracked by &#x27;FinanceDigitalToolContext&#x27; changed from &#x27;Unchanged&#x27; to &#x27;Modified&#x27;. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">DetectChanges completed for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opening connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opened connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Enlisted in an ambient transaction with isolation level &#x27;Serializable&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executing DbCommand [Parameters=[@p1=&#x27;?&#x27; (DbType = Int32), @p0=&#x27;?&#x27; (Size = 50)], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SET NOCOUNT ON;</span><br><span class="line">UPDATE [Book] SET [BookDescription] = @p0</span><br><span class="line">WHERE [ID] = @p1;</span><br><span class="line">SELECT @@ROWCOUNT;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executed DbCommand (79ms) [Parameters=[@p1=&#x27;?&#x27; (DbType = Int32), @p0=&#x27;?&#x27; (Size = 50)], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SET NOCOUNT ON;</span><br><span class="line">UPDATE [Book] SET [BookDescription] = @p0</span><br><span class="line">WHERE [ID] = @p1;</span><br><span class="line">SELECT @@ROWCOUNT;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">A data reader was disposed.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">An &#x27;Book&#x27; entity tracked by &#x27;FinanceDigitalToolContext&#x27; changed from &#x27;Modified&#x27; to &#x27;Unchanged&#x27;. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">SaveChanges completed for &#x27;FinanceDigitalToolContext&#x27; with 1 entities written to the database.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br></pre></td></tr></table></figure>
+<p>从日志中我们可以看出来在执行dbContext.SaveChanges方法时，EF Core在数据库中开启了一个数据库连接，并使用SQL语句做了数据库更改，<strong>但是没有关闭数据库连接。</strong>然后chineseBook这个Book实体的EntityState从Modified变为了Unchanged。</p>
+<p>然后执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chineseBook.BookDescription = &quot;This is a very good Chinese book&quot;;//再次更改chineseBook的BookDescription属性</span><br><span class="line">dbContext.SaveChanges();//用DbContext.SaveChanges方法保存更改到数据库，由于TransactionScope事务范围的存在，所以DbContext.SaveChanges方法提交的SQL语句都存在于TransactionScope的事务当中</span><br></pre></td></tr></table></figure>
+<p>时，EF Core的日志如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">SaveChanges starting for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">DetectChanges starting for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Unchanged &#x27;Book.BookDescription&#x27; detected as changed and will be marked as modified. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see property values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">An &#x27;Book&#x27; entity tracked by &#x27;FinanceDigitalToolContext&#x27; changed from &#x27;Unchanged&#x27; to &#x27;Modified&#x27;. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">DetectChanges completed for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executing DbCommand [Parameters=[@p1=&#x27;?&#x27; (DbType = Int32), @p0=&#x27;?&#x27; (Size = 50)], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SET NOCOUNT ON;</span><br><span class="line">UPDATE [Book] SET [BookDescription] = @p0</span><br><span class="line">WHERE [ID] = @p1;</span><br><span class="line">SELECT @@ROWCOUNT;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executed DbCommand (22ms) [Parameters=[@p1=&#x27;?&#x27; (DbType = Int32), @p0=&#x27;?&#x27; (Size = 50)], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SET NOCOUNT ON;</span><br><span class="line">UPDATE [Book] SET [BookDescription] = @p0</span><br><span class="line">WHERE [ID] = @p1;</span><br><span class="line">SELECT @@ROWCOUNT;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">A data reader was disposed.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">An &#x27;Book&#x27; entity tracked by &#x27;FinanceDigitalToolContext&#x27; changed from &#x27;Modified&#x27; to &#x27;Unchanged&#x27;. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">SaveChanges completed for &#x27;FinanceDigitalToolContext&#x27; with 1 entities written to the database.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br></pre></td></tr></table></figure>
+<p>从日志中我们可以看出来在执行dbContext.SaveChanges方法时，<strong>EF Core在数据库中并没有开启新的数据库连接，而是沿用了上一个DbContext.SaveChanges方法开启的数据库连接来提交SQL语句到数据库。</strong>然后chineseBook这个Book实体的EntityState从Modified变为了Unchanged。</p>
+<p>然后执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">transactionScope.Complete();//提交TransactionScope事务范围中的SQL语句到数据库，数据库事务结束</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>提交TransactionScope的事务到数据库，此时数据库事务结束，TransactionScope的事务范围也结束，EF Core没有输出日志</p>
+<p>然后执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chineseBook = dbContext.Book.First(bookExpression);//重新获取BookName为Chinese的Book实体chineseBook</span><br></pre></td></tr></table></figure>
+<p>时，EF Core的日志如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executing DbCommand [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executed DbCommand (24ms) [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">A data reader was disposed.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closing connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closed connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br></pre></td></tr></table></figure>
+<p>从日志中我们可以看出来，<strong>dbContext.Book.First(bookExpression)在数据库中也没有开启新的数据库连接，而是继续沿用了第一个DbContext.SaveChanges方法开启的数据库连接，使用SQL语句做了查询，之后关闭了第一个DbContext.SaveChanges方法开启的数据库连接，所以可以看到第一个DbContext.SaveChanges方法开启的数据库连接，现在才被关闭，这和不使用事务时是完全不一样的。</strong></p>
+<p>总结下来，使用事务后的代码和日志发生的事情如下：</p>
+<ul>
+<li>dbContext.Book.First(bookExpression)<strong>开启和关闭了一个数据库连接，</strong>查询BookName为Chinese的Book实体chineseBook </li>
+<li>using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew)){开启了TransactionScope事务范围，数据库事务开始 </li>
+<li>第一个dbContext.SaveChanges()<strong>开启一个数据库连接，但是没有关闭数据库连接，</strong>更改chineseBook的BookDescription属性值”This is a Chinese book”到数据库 </li>
+<li>第二个dbContext.SaveChanges()没有开启新的数据库连接，而是沿用了上一个DbContext.SaveChanges方法开启的数据库连接，更改chineseBook的BookDescription属性值”This is a very good Chinese book”到数据库 </li>
+<li>transactionScope.Complete()提交TransactionScope事务范围的数据库事务到数据库，数据库事务结束 </li>
+<li>}TransactionScope事务范围结束 </li>
+<li>dbContext.Book.First(bookExpression)没有开启新的数据库连接，而是沿用了第一个DbContext.SaveChanges方法开启的数据库连接，重新查询BookName为Chinese的Book实体chineseBook，<strong>最后关闭了第一个DbContext.SaveChanges方法开启的数据库连接。</strong> 所以综上所述DbContext这次一共只开启和关闭了两个数据库连接，并且第二个数据库连接执行了三次数据库操作(两次DbContext.SaveChanges更改数据，一次Book.First查询数据)才被关闭。</li>
+</ul>
+<p>由此我们可以看到EF Core在处于事务中时，会优化底层开启和关闭数据库连接的机制，因为EF Core觉得两次DbContext.SaveChanges方法提交的SQL语句既然都在同一个事务中，所以就没有必要每次都开启和关闭一个数据库连接，而是沿用了第一次DbContext.SaveChanges方法开启的数据库连接，所以这和没有使用事务的时候是完全不一样的。</p>
+<p>在efcore平台时，你使用TransactionScope将会出现异常，微软会提示你去查看相关资料，这回资料挺准！<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/ef/core/saving/transactions">https://docs.microsoft.com/en-us/ef/core/saving/transactions</a></p>
+<p>本文章主要说了几点内容</p>
+<ol>
+<li>默认的事务－savechanges依旧是一个事务 </li>
+<li>单个上下文实现事务 </li>
+<li>不同上下文之间实现事务 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">using (var context = new BloggingContext())</span><br><span class="line">&#123;</span><br><span class="line">    using (var transaction = context.Database.BeginTransaction())</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            context.Blogs.Add(new Blog &#123; Url = &quot;http://blogs.msdn.com/dotnet&quot; &#125;);</span><br><span class="line">            context.SaveChanges();</span><br><span class="line">            context.Blogs.Add(new Blog &#123; Url = &quot;http://blogs.msdn.com/visualstudio&quot; &#125;);</span><br><span class="line">            context.SaveChanges();</span><br><span class="line">            var blogs = context.Blogs</span><br><span class="line">                .OrderBy(b =&gt; b.Url)</span><br><span class="line">                .ToList();</span><br><span class="line">            // Commit transaction if all commands succeed, transaction will auto-rollback</span><br><span class="line">            // when disposed if either commands fails</span><br><span class="line">            transaction.Commit();</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception)</span><br><span class="line">        &#123;</span><br><span class="line">            // TODO: Handle failure</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2019/12/12/%E3%80%90EF%E3%80%91Transaction%E4%BA%8B%E5%8A%A1%E4%BC%9A%E5%AF%B9DbContext%E5%BA%95%E5%B1%82%E5%88%9B%E5%BB%BA%E5%92%8C%E5%85%B3%E9%97%AD%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%A1%8C%E4%B8%BA%E6%9C%89%E6%89%80%E5%BD%B1%E5%93%8D/" title="【EF】Transaction事务会对DbContext底层创建和关闭数据库连接的行为有所影响">http://blog.bfsdfs.com/2019/12/12/【EF】Transaction事务会对DbContext底层创建和关闭数据库连接的行为有所影响/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/EF/" rel="tag"># EF</a>
+              <a href="/tags/C-%E5%9F%BA%E7%A1%80/" rel="tag"># C#基础</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/12/%E3%80%90Angular%E3%80%91%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90/" rel="prev" title="【Angular】生命周期钩子">
+      <i class="fa fa-chevron-left"></i> 【Angular】生命周期钩子
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/14/%E3%80%90angular%E3%80%91%E8%B0%83%E7%94%A8API%E4%BD%BF%E7%94%A8Cookie/" rel="next" title="【Angular】调用API使用Cookie">
+      【Angular】调用API使用Cookie <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E4%BD%BF%E7%94%A8%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.</span> <span class="nav-text">不使用事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">使用事务</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'af69f2ea48ba624e84fc994e9b357b08',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

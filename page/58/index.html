@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/58/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/58/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/06/22/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E6%9F%B1%E5%BD%A2%E8%8C%83%E5%9B%B4%E5%9B%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/06/22/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E6%9F%B1%E5%BD%A2%E8%8C%83%E5%9B%B4%E5%9B%BE/" class="post-title-link" itemprop="url">【前端】HighCharts柱形范围图</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-06-22 10:16:31" itemprop="dateCreated datePublished" datetime="2018-06-22T10:16:31+08:00">2018-06-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>效果图：</p>
+<p><img src="/images/20180622101507184.png" alt=""></p>
+<p>代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;container&quot; style=&quot;width: 930px; height: 400px; margin: 0 auto&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script src=&quot;http://cdn.hcharts.cn/highcharts/highcharts.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;http://cdn.hcharts.cn/highcharts/highcharts-more.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;http://cdn.hcharts.cn/highcharts/modules/exporting.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;http://cdn.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    var MyData = [</span><br><span class="line">        [9.10, 18.40],</span><br><span class="line">        [9.01, 16.5],</span><br><span class="line">        [9.5, 17.4],</span><br><span class="line">        [9.4, 18.9],</span><br><span class="line">        [10.0, 17.6],</span><br><span class="line">        [9.9, 18.5],</span><br><span class="line">        [9.2, 17.7],</span><br><span class="line">        [8.3, 18.5],</span><br><span class="line">        [9.4, 18.0],</span><br><span class="line">        [9.1, 17.4],</span><br><span class="line">        [9.2, 18.4],</span><br><span class="line">        [11.5, 18.8]</span><br><span class="line">    ];</span><br><span class="line">    function GetDate(value) &#123;</span><br><span class="line">        var h = parseInt(value);</span><br><span class="line">        var m = parseInt((value - parseInt(value)) * 60);</span><br><span class="line">        return (h &lt; 10 ? &#x27;0&#x27; + h : h) + &quot;：&quot; + (m &lt; 10 ? &#x27;0&#x27; + m : m);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    //柱状图颜色定义</span><br><span class="line">    var colors=[];</span><br><span class="line">    for(var i=0;i&lt;MyData.length;i++)&#123;</span><br><span class="line">        var workTime =MyData[i][1]-MyData[i][0];</span><br><span class="line">        if(workTime&gt;9)&#123;</span><br><span class="line">            colors.push(&quot;#83F5C4&quot;);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            colors.push(&quot;#F08664&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Highcharts.setOptions(&#123;</span><br><span class="line">        colors:colors</span><br><span class="line">    &#125;);</span><br><span class="line">    var chart = Highcharts.chart(&#x27;container&#x27;, &#123;</span><br><span class="line">        chart: &#123;</span><br><span class="line">            type: &#x27;columnrange&#x27;,</span><br><span class="line">            zoomType: &#x27;xy&#x27;</span><br><span class="line">        &#125;,</span><br><span class="line">        title: &#123;</span><br><span class="line">            text: &#x27;数据记录&#x27;</span><br><span class="line">        &#125;,</span><br><span class="line">        subtitle: &#123;</span><br><span class="line">            text: &#x27;2018/06&#x27;</span><br><span class="line">        &#125;,</span><br><span class="line">        xAxis: &#123;</span><br><span class="line">            crosshair: true,</span><br><span class="line">            categories: [&#x27;06/01&#x27;, &#x27;06/02&#x27;, &#x27;06/03&#x27;, &#x27;06/04&#x27;, &#x27;06/05&#x27;, &#x27;06/06&#x27;, &#x27;06/07&#x27;, &#x27;06/08&#x27;, &#x27;06/09&#x27;, &#x27;06/10&#x27;, &#x27;06/11&#x27;, &#x27;06/12&#x27;]</span><br><span class="line">        &#125;,</span><br><span class="line">        yAxis: [&#123;</span><br><span class="line">            title: &#123;</span><br><span class="line">                text: &#x27;打卡时间 ( H )&#x27;</span><br><span class="line">            &#125;,</span><br><span class="line">            plotLines: [&#123;</span><br><span class="line">                color: &#x27;red&#x27;,</span><br><span class="line">                dashStyle: &#x27;longdashdot&#x27;,</span><br><span class="line">                value: 9,</span><br><span class="line">                width: 2,</span><br><span class="line">                label: &#123;</span><br><span class="line">                    text: &#x27;上班时间&#x27;,</span><br><span class="line">                    align: &#x27;left&#x27;,</span><br><span class="line">                    x: -60,</span><br><span class="line">                    y: 5</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, &#123;</span><br><span class="line">                color: &#x27;red&#x27;,</span><br><span class="line">                dashStyle: &#x27;longdashdot&#x27;,</span><br><span class="line">                value: 18,</span><br><span class="line">                width: 2,</span><br><span class="line">                label: &#123;</span><br><span class="line">                    text: &#x27;下班时间&#x27;,</span><br><span class="line">                    align: &#x27;left&#x27;,</span><br><span class="line">                    x: -60,</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;],</span><br><span class="line">        &#125;],</span><br><span class="line">        tooltip: &#123;</span><br><span class="line">            formatter: function () &#123;</span><br><span class="line">                return &#x27;&lt;b&gt;日期：&#x27; + this.x + &#x27;&lt;/b&gt;&lt;br/&gt;&#x27; +</span><br><span class="line">                    &#x27;上班时间&#x27; + &#x27;: &#x27; + GetDate(this.point.low) + &#x27;&lt;br/&gt;&#x27; +</span><br><span class="line">                    &#x27;下班时间&#x27; + &#x27;: &#x27; + GetDate(this.point.high) + &#x27;&lt;br/&gt;&#x27; +</span><br><span class="line">                    &#x27;工作时长: &#x27; + (this.point.high - this.point.low).toFixed(2)+&#x27;H&#x27;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        plotOptions: &#123;</span><br><span class="line">            column: &#123;</span><br><span class="line">                colorByPoint: true</span><br><span class="line">            &#125;,</span><br><span class="line">            columnrange: &#123;</span><br><span class="line">                dataLabels: &#123;</span><br><span class="line">                    enabled: true,</span><br><span class="line">                    formatter: function () &#123;</span><br><span class="line">                        return GetDate(this.y);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        legend: &#123;</span><br><span class="line">            enabled: false</span><br><span class="line">        &#125;,</span><br><span class="line">        series: [&#123;</span><br><span class="line">            colorByPoint: true, </span><br><span class="line">            name: &#x27;打卡时间&#x27;,</span><br><span class="line">            yAxis: 0,</span><br><span class="line">            data: MyData</span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>效果图：</p>
+<p><img src="/images/20180906171954525.png" alt=""></p>
+<p>代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">var chart = Highcharts.chart(&#x27;container&#x27;, &#123;</span><br><span class="line">	chart: &#123;</span><br><span class="line">		type: &#x27;columnrange&#x27;, // columnrange 依赖 highcharts-more.js</span><br><span class="line">		zoomType: &#x27;xy&#x27;,</span><br><span class="line">	&#125;,</span><br><span class="line">	title: &#123;</span><br><span class="line">		text: &#x27;每月温度变化范围&#x27;</span><br><span class="line">	&#125;,</span><br><span class="line">	subtitle: &#123;</span><br><span class="line">		text: &#x27;2009 挪威某地&#x27;</span><br><span class="line">	&#125;,</span><br><span class="line">	xAxis: &#123;</span><br><span class="line">		categories: [&#x27;一月&#x27;, &#x27;二月&#x27;, &#x27;三月&#x27;, &#x27;四月&#x27;, &#x27;五月&#x27;, &#x27;六月&#x27;, &#x27;七月&#x27;, &#x27;八月&#x27;, &#x27;九月&#x27;, &#x27;十月&#x27;, &#x27;十一月&#x27;, &#x27;十二月&#x27;]</span><br><span class="line">	&#125;,</span><br><span class="line">	yAxis: &#123;</span><br><span class="line">		title: &#123;</span><br><span class="line">			text: &#x27;温度 ( °C )&#x27;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	plotOptions: &#123;</span><br><span class="line">		columnrange: &#123;</span><br><span class="line">			stacking: &#x27;normal&#x27;</span><br><span class="line">		&#125;,</span><br><span class="line">	&#125;,</span><br><span class="line">	tooltip: &#123;</span><br><span class="line">		formatter: function () &#123;</span><br><span class="line">			return &#x27;&lt;b&gt;Date：&#x27; + this.x + &#x27;&lt;/b&gt;&lt;br/&gt;&#x27; +</span><br><span class="line">				&#x27;On work time&#x27; + &#x27;: &#x27; + (this.point.low) + &#x27;&lt;br/&gt;&#x27; +</span><br><span class="line">				&#x27;Off work time&#x27; + &#x27;: &#x27; + (this.point.high) + &#x27;&lt;br/&gt;&#x27; +</span><br><span class="line">				&#x27;Length of work: &#x27; + ((this.point.high - this.point.low).toFixed(2));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	series: [&#123;</span><br><span class="line">		name: &#x27;温度&#x27;,</span><br><span class="line">		data: [&#123;</span><br><span class="line">			low: 2,</span><br><span class="line">			high: 9.4,</span><br><span class="line">			color: &quot;#83F5C4&quot;</span><br><span class="line">		&#125;, &#123;</span><br><span class="line">			low: 5,</span><br><span class="line">			high: 6.6,</span><br><span class="line">			color: &quot;#83F5C4&quot;</span><br><span class="line">		&#125;, &#123;</span><br><span class="line">			low: 7.8,</span><br><span class="line">			high: 9.5,</span><br><span class="line">			color: &quot;#83F5C4&quot;</span><br><span class="line">		&#125;, &#123;</span><br><span class="line">			low: 6,</span><br><span class="line">			high: 20.0,</span><br><span class="line">			color: &quot;#83F5C4&quot;</span><br><span class="line">		&#125;],</span><br><span class="line">		stack: &#x27;male&#x27;,</span><br><span class="line">	&#125;,&#123;</span><br><span class="line">		name: &#x27;XXX&#x27;,</span><br><span class="line">		data: [</span><br><span class="line">			[9.4,12],</span><br><span class="line">			[ 6.6,12],</span><br><span class="line">			[ 9.5,12],</span><br><span class="line">			[20.0,22]</span><br><span class="line">		],</span><br><span class="line">		stack: &#x27;male&#x27;,</span><br><span class="line">		color: &#x27;#FF0000&#x27;</span><br><span class="line">	&#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/06/11/%E3%80%90.Net%E3%80%91%E5%87%A0%E7%A7%8D%E5%B8%B8%E7%94%A8%E7%9A%84%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/06/11/%E3%80%90.Net%E3%80%91%E5%87%A0%E7%A7%8D%E5%B8%B8%E7%94%A8%E7%9A%84%E5%8A%A0%E5%AF%86%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">【.Net】几种常用的加密方式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-06-11 21:20:47" itemprop="dateCreated datePublished" datetime="2018-06-11T21:20:47+08:00">2018-06-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、AES加密算法"><a href="#一、AES加密算法" class="headerlink" title="一、AES加密算法"></a>一、AES加密算法</h3><p>AES算法基于排列和置换运算。排列是对数据重新进行安排，置换是将一个数据单元替换为另一个。AES 使用几种不同的方法来执行排列和置换运算。<br>AES是一个迭代的、对称密钥分组的密码，它可以使用128、192 和 256 位密钥，并且用 128 位（16字节）分组加密和解密数据。与公共密钥密码使用密钥对不同，对称密钥密码使用相同的密钥加密和解密数据。通过分组密码返回的加密数据的位数与输入数据相同。迭代加密使用一个循环结构，在该循环中重复置换和替换输入数据。 摘自：<a target="_blank" rel="noopener" href="http://www.baike.com/wiki/AES%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95">互动百科</a></p>
+<p>几种模式的优缺点对比：</p>
+<p><img src="/images/20180611210744459.png" alt=""></p>
+<p>C#代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.IO;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Security.Cryptography;</span><br><span class="line">using System.Text;</span><br><span class="line"></span><br><span class="line">namespace PwdDemo</span><br><span class="line">&#123;</span><br><span class="line">    public class AESHelper</span><br><span class="line">    &#123;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        ///  AES 加密</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;str&quot;&gt;明文（待加密）&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;key&quot;&gt;密文&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public string AesEncrypt(string str, string key)</span><br><span class="line">        &#123;</span><br><span class="line">            if (string.IsNullOrEmpty(str)) return null;</span><br><span class="line">            Byte[] toEncryptArray = Encoding.UTF8.GetBytes(str);</span><br><span class="line"></span><br><span class="line">            RijndaelManaged rm = new RijndaelManaged</span><br><span class="line">            &#123;</span><br><span class="line">                Key = Encoding.UTF8.GetBytes(key),</span><br><span class="line">                Mode = CipherMode.ECB,</span><br><span class="line">                Padding = PaddingMode.PKCS7</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            ICryptoTransform cTransform = rm.CreateEncryptor();</span><br><span class="line">            Byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);</span><br><span class="line">            return Convert.ToBase64String(resultArray);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        ///  AES 解密</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;str&quot;&gt;明文（待解密）&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;key&quot;&gt;密文&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public string AesDecrypt(string str, string key)</span><br><span class="line">        &#123;</span><br><span class="line">            if (string.IsNullOrEmpty(str)) return null;</span><br><span class="line">            Byte[] toEncryptArray = Convert.FromBase64String(str);</span><br><span class="line"></span><br><span class="line">            RijndaelManaged rm = new RijndaelManaged</span><br><span class="line">            &#123;</span><br><span class="line">                Key = Encoding.UTF8.GetBytes(key),</span><br><span class="line">                Mode = CipherMode.ECB,</span><br><span class="line">                Padding = PaddingMode.PKCS7</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            ICryptoTransform cTransform = rm.CreateDecryptor();</span><br><span class="line">            Byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);</span><br><span class="line"></span><br><span class="line">            return Encoding.UTF8.GetString(resultArray);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、DES加密算法"><a href="#二、DES加密算法" class="headerlink" title="二、DES加密算法"></a>二、DES加密算法</h3><p>DES设计中使用了分组密码设计的两个原则：混淆（confusion）和扩散(diffusion)，其目的是抗击敌手对密码系统的统计分析。混淆是使密文的统计特性与密钥的取值之间的关系尽可能复杂化，以使密钥和明文以及密文之间的依赖性对密码分析者来说是无法利用的。扩散的作用就是将每一位明文的影响尽可能迅速地作用到较多的输出密文位中，以便在大量的密文中消除明文的统计结构，并且使每一位密钥的影响尽可能迅速地扩展到较多的密文位中，以防对密钥进行逐段破译。</p>
+<p>C#代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.IO;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Security.Cryptography;</span><br><span class="line">using System.Text;</span><br><span class="line"></span><br><span class="line">namespace PwdDemo</span><br><span class="line">&#123;</span><br><span class="line">    public class DESHelper</span><br><span class="line">    &#123;</span><br><span class="line">        //密钥</span><br><span class="line">        public static byte[] _KEY  = new byte[] &#123; 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 &#125;;</span><br><span class="line">        //向量</span><br><span class="line">        public static byte[] _IV = new byte[] &#123; 0x08, 0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01 &#125;;   </span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// DES加密操作</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;normalTxt&quot;&gt;&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public string DesEncrypt(string normalTxt)</span><br><span class="line">        &#123;</span><br><span class="line">            //byte[] byKey = System.Text.ASCIIEncoding.ASCII.GetBytes(_KEY);</span><br><span class="line">            //byte[] byIV = System.Text.ASCIIEncoding.ASCII.GetBytes(_IV);</span><br><span class="line">            </span><br><span class="line">            DESCryptoServiceProvider cryptoProvider = new DESCryptoServiceProvider();</span><br><span class="line">            int i = cryptoProvider.KeySize;</span><br><span class="line">            MemoryStream ms = new MemoryStream();</span><br><span class="line">            CryptoStream cst = new CryptoStream(ms, cryptoProvider.CreateEncryptor(_KEY, _IV), CryptoStreamMode.Write);</span><br><span class="line"></span><br><span class="line">            StreamWriter sw = new StreamWriter(cst);</span><br><span class="line">            sw.Write(normalTxt);</span><br><span class="line">            sw.Flush();</span><br><span class="line">            cst.FlushFinalBlock();</span><br><span class="line">            sw.Flush();</span><br><span class="line"></span><br><span class="line">            string strRet = Convert.ToBase64String(ms.GetBuffer(), 0, (int)ms.Length);</span><br><span class="line">            return strRet;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// DES解密操作</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;securityTxt&quot;&gt;加密字符串&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">        public string DesDecrypt(string securityTxt)//解密  </span><br><span class="line">        &#123;</span><br><span class="line">            //byte[] byKey = System.Text.ASCIIEncoding.ASCII.GetBytes(_KEY);</span><br><span class="line">            //byte[] byIV = System.Text.ASCIIEncoding.ASCII.GetBytes(_IV);</span><br><span class="line">            byte[] byEnc;</span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                securityTxt.Replace(&quot;_%_&quot;, &quot;/&quot;);</span><br><span class="line">                securityTxt.Replace(&quot;-%-&quot;, &quot;#&quot;);</span><br><span class="line">                byEnc = Convert.FromBase64String(securityTxt);</span><br><span class="line">            &#125;</span><br><span class="line">            catch</span><br><span class="line">            &#123;</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line">            DESCryptoServiceProvider cryptoProvider = new DESCryptoServiceProvider();</span><br><span class="line">            MemoryStream ms = new MemoryStream(byEnc);</span><br><span class="line">            CryptoStream cst = new CryptoStream(ms, cryptoProvider.CreateDecryptor(_KEY, _IV), CryptoStreamMode.Read);</span><br><span class="line">            StreamReader sr = new StreamReader(cst);</span><br><span class="line">            return sr.ReadToEnd();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="三、RSA加密算法"><a href="#三、RSA加密算法" class="headerlink" title="三、RSA加密算法"></a>三、RSA加密算法</h3><p>RSA是第一个能同时用于加密和数字签名的算法，也易于理解和操作。RSA是被研究得最广泛的公钥算法，从提出到现在已近二十年，经历了各种攻击的考验，逐渐为人们接受，普遍认为是目前最优秀的公钥方案之一。</p>
+<p>C#代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.IO;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Security.Cryptography;</span><br><span class="line">using System.Text;</span><br><span class="line"></span><br><span class="line">namespace PwdDemo</span><br><span class="line">&#123;</span><br><span class="line">   public class RSAHelper</span><br><span class="line">    &#123;</span><br><span class="line">        private const int RsaKeySize = 2048;</span><br><span class="line">        private const string publicKeyFileName = &quot;RSA.Pub&quot;;</span><br><span class="line">        private const string privateKeyFileName = &quot;RSA.Private&quot;;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        ///在给定路径中生成XML格式的私钥和公钥。</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public void GenerateKeys(string path)</span><br><span class="line">        &#123;</span><br><span class="line">            using (var rsa = new RSACryptoServiceProvider(RsaKeySize))</span><br><span class="line">            &#123;</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    // 获取私钥和公钥。</span><br><span class="line">                    var publicKey = rsa.ToXmlString(false);</span><br><span class="line">                    var privateKey = rsa.ToXmlString(true);</span><br><span class="line"></span><br><span class="line">                    // 保存到磁盘</span><br><span class="line">                    File.WriteAllText(Path.Combine(path, publicKeyFileName), publicKey);</span><br><span class="line">                    File.WriteAllText(Path.Combine(path, privateKeyFileName), privateKey);</span><br><span class="line"></span><br><span class="line">                    //Console.WriteLine(string.Format(&quot;生成的RSA密钥的路径: &#123;0&#125;\\ [&#123;1&#125;, &#123;2&#125;]&quot;, path, publicKeyFileName, privateKeyFileName));</span><br><span class="line">                &#125;</span><br><span class="line">                finally</span><br><span class="line">                &#123;</span><br><span class="line">                    rsa.PersistKeyInCsp = false;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 用给定路径的RSA公钥文件加密纯文本。</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;plainText&quot;&gt;要加密的文本&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;pathToPublicKey&quot;&gt;用于加密的公钥路径.&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;表示加密数据的64位编码字符串.&lt;/returns&gt;</span><br><span class="line">        public string Encrypt(string plainText, string pathToPublicKey)</span><br><span class="line">        &#123;</span><br><span class="line">            using (var rsa = new RSACryptoServiceProvider(RsaKeySize))</span><br><span class="line">            &#123;</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    //加载公钥</span><br><span class="line">                    var publicXmlKey = File.ReadAllText(pathToPublicKey);</span><br><span class="line">                    rsa.FromXmlString(publicXmlKey);</span><br><span class="line"></span><br><span class="line">                    var bytesToEncrypt = System.Text.Encoding.Unicode.GetBytes(plainText);</span><br><span class="line"></span><br><span class="line">                    var bytesEncrypted = rsa.Encrypt(bytesToEncrypt, false);</span><br><span class="line"></span><br><span class="line">                    return Convert.ToBase64String(bytesEncrypted);</span><br><span class="line">                &#125;</span><br><span class="line">                finally</span><br><span class="line">                &#123;</span><br><span class="line">                    rsa.PersistKeyInCsp = false;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// Decrypts encrypted text given a RSA private key file path.给定路径的RSA私钥文件解密 加密文本</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        /// &lt;param name=&quot;encryptedText&quot;&gt;加密的密文&lt;/param&gt;</span><br><span class="line">        /// &lt;param name=&quot;pathToPrivateKey&quot;&gt;用于加密的私钥路径.&lt;/param&gt;</span><br><span class="line">        /// &lt;returns&gt;未加密数据的字符串&lt;/returns&gt;</span><br><span class="line">        public string Decrypt(string encryptedText, string pathToPrivateKey)</span><br><span class="line">        &#123;</span><br><span class="line">            using (var rsa = new RSACryptoServiceProvider(RsaKeySize))</span><br><span class="line">            &#123;</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    var privateXmlKey = File.ReadAllText(pathToPrivateKey);</span><br><span class="line">                    rsa.FromXmlString(privateXmlKey);</span><br><span class="line"></span><br><span class="line">                    var bytesEncrypted = Convert.FromBase64String(encryptedText);</span><br><span class="line"></span><br><span class="line">                    var bytesPlainText = rsa.Decrypt(bytesEncrypted, false);</span><br><span class="line"></span><br><span class="line">                    return System.Text.Encoding.Unicode.GetString(bytesPlainText);</span><br><span class="line">                &#125;</span><br><span class="line">                finally</span><br><span class="line">                &#123;</span><br><span class="line">                    rsa.PersistKeyInCsp = false;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="四、SHA加密算法"><a href="#四、SHA加密算法" class="headerlink" title="四、SHA加密算法"></a>四、SHA加密算法</h3><p>SHA，全称SecureHashAlgorithm，是一种<a target="_blank" rel="noopener" href="http://www.baike.com/wiki/%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95">数据加密算法</a>，该算法的思想是接收一段明文，然后以一种不可逆的方式将它转换成一段（通常更小）密文，也可以简单的理解为取一串输入码（称为预映射或信息），并把它们转化为长度较短、位数固定的输出序列即散列值（也称为信息摘要或信息认证代码）的过程。</p>
+<p>C#代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Security.Cryptography;</span><br><span class="line">using System.Text;</span><br><span class="line"></span><br><span class="line">namespace PwdDemo</span><br><span class="line">&#123;</span><br><span class="line">    public class SHAHelper</span><br><span class="line">    &#123;</span><br><span class="line">        public string SHAmd5Encrypt(string normalTxt)</span><br><span class="line">        &#123;</span><br><span class="line">            var bytes = Encoding.Default.GetBytes(normalTxt);//求Byte[]数组  </span><br><span class="line">            var Md5 = new MD5CryptoServiceProvider();</span><br><span class="line">            var encryptbytes = Md5.ComputeHash(bytes);//求哈希值  </span><br><span class="line">            return Base64To16(encryptbytes);//将Byte[]数组转为净荷明文(其实就是字符串)  </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public string SHA1Encrypt(string normalTxt)</span><br><span class="line">        &#123;</span><br><span class="line">            var bytes = Encoding.Default.GetBytes(normalTxt);</span><br><span class="line">            var SHA = new SHA1CryptoServiceProvider();</span><br><span class="line">            var encryptbytes = SHA.ComputeHash(bytes);</span><br><span class="line">            return Base64To16(encryptbytes);</span><br><span class="line">        &#125;</span><br><span class="line">        public string SHA256Encrypt(string normalTxt)</span><br><span class="line">        &#123;</span><br><span class="line">            var bytes = Encoding.Default.GetBytes(normalTxt);</span><br><span class="line">            var SHA256 = new SHA256CryptoServiceProvider();</span><br><span class="line">            var encryptbytes = SHA256.ComputeHash(bytes);</span><br><span class="line">            return Base64To16(encryptbytes);</span><br><span class="line">        &#125;</span><br><span class="line">        public string SHA384Encrypt(string normalTxt)</span><br><span class="line">        &#123;</span><br><span class="line">            var bytes = Encoding.Default.GetBytes(normalTxt);</span><br><span class="line">            var SHA384 = new SHA384CryptoServiceProvider();</span><br><span class="line">            var encryptbytes = SHA384.ComputeHash(bytes);</span><br><span class="line">            return Base64To16(encryptbytes);</span><br><span class="line">        &#125;</span><br><span class="line">        public string SHA512Encrypt(string normalTxt)</span><br><span class="line">        &#123;</span><br><span class="line">            var bytes = Encoding.Default.GetBytes(normalTxt);</span><br><span class="line">            var SHA512 = new SHA512CryptoServiceProvider();</span><br><span class="line">            var encryptbytes = SHA512.ComputeHash(bytes);</span><br><span class="line">            return Base64To16(encryptbytes);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        private string Base64To16(byte[] buffer)</span><br><span class="line">        &#123;</span><br><span class="line">            string md_str = string.Empty;</span><br><span class="line">            for (int i = 0; i &lt; buffer.Length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                md_str += buffer[i].ToString(&quot;x2&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            return md_str;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上内容大部分摘自网络，代码根据网上的改的，简单测试过。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/06/10/%E3%80%90Asp.Net%E3%80%91WebApi%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E5%80%BC%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/06/10/%E3%80%90Asp.Net%E3%80%91WebApi%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E5%80%BC%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">【Asp.Net】WebApi接口返回值返回值类型详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-06-10 16:33:29" itemprop="dateCreated datePublished" datetime="2018-06-10T16:33:29+08:00">2018-06-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最开头，说明下文章转自：</p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/landeanfen/p/5501487.html">http://www.cnblogs.com/landeanfen/p/5501487.html</a> <a target="_blank" rel="noopener" href="http://www.cnblogs.com/landeanfen/p/5501487.html">点击打开链接</a></p>
+<p>欢迎直接去看原创文章，原创比较精彩，这里只做个搬运工作！</p>
+<p>使用过Webapi的园友应该都知道，Webapi的接口返回值主要有四种类型</p>
+<ul>
+<li>void无返回值 </li>
+<li>IHttpActionResult </li>
+<li>HttpResponseMessage </li>
+<li>自定义类型 此篇就围绕这四块分别来看看它们的使用。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/landeanfen/p/5501487.html#_labelTop">回到顶部</a></p>
+<h1 id="一、void无返回值"><a href="#一、void无返回值" class="headerlink" title="一、void无返回值"></a>一、void无返回值</h1><p>void关键字我们都不陌生，它申明方法没有返回值。它的使用也很简单，我们来看一个示例就能明白。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class ORDER</span><br><span class="line">&#123;</span><br><span class="line">    public string ID &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public string NO &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public string NAME &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public string DESC &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class OrderController : ApiController</span><br><span class="line">&#123;</span><br><span class="line">    [HttpPost]</span><br><span class="line">    public void SaveOrder(ORDER name)</span><br><span class="line">    &#123; </span><br><span class="line">        //处理业务逻辑</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在Web里面调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$(function () &#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type: &#x27;post&#x27;,</span><br><span class="line">        url: &#x27;http://localhost:21528/api/Order/SaveOrder&#x27;,</span><br><span class="line">        data: &#123; ID: &quot;aaa&quot;, NAME: &quot;test&quot; &#125;,</span><br><span class="line">        success: function (data, status) &#123;</span><br><span class="line">            alert(data);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>得到结果</p>
+<p><img src="/images/459756-20160518100147591-795484497.gif" alt=""></p>
+<p>可以看到，使用void申明的方法，在success方法里面得不到返回值，并且会返回http状态码204，告诉客户端此请求没有返回值。</p>
+<h1 id="二、IHttpActionResult"><a href="#二、IHttpActionResult" class="headerlink" title="二、IHttpActionResult"></a>二、IHttpActionResult</h1><p>IHttpActionResult类型是WebApi里面非常重要的一种返回值类型。下面博主就根据平时在项目里面使用最多的几种方式来讲解下这种类型的返回值的一些用法。</p>
+<h2 id="1、Json-T-content"><a href="#1、Json-T-content" class="headerlink" title="1、Json(T content)"></a>1、Json<T>(T content)</h2><p>使用MVC开发过的朋友一定记得，在MVC里面，请求数据的接口的返回值类型大部分使用的是JsonResult，在MVC里面你一定也写过类似这样的接口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public JsonResult GetResult()</span><br><span class="line">&#123;</span><br><span class="line">    return Json(new &#123; &#125;, JsonRequestBehavior.AllowGet);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么，在WebAPI里面是否也存在类似的用法呢。呵呵，在这点上面，微软总是贴心的。在WebApi的ApiController这个抽象类里面，为我们封装了Json<T>(T content)这个方法，它的用法和MVC里面的JsonResult基本类似。我们通过一个例子来说明它的用法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[HttpGet]</span><br><span class="line">public IHttpActionResult GetOrder()</span><br><span class="line">&#123;</span><br><span class="line">    var lstRes = new List&lt;ORDER&gt;(); </span><br><span class="line"></span><br><span class="line">    //实际项目中，通过后台取到集合赋值给lstRes变量。这里只是测试。</span><br><span class="line">    lstRes.Add(new ORDER() &#123; ID = &quot;aaaa&quot;, NO = &quot;111&quot;, NAME = &quot;111&quot;, DESC = &quot;1111&quot; &#125;);</span><br><span class="line">    lstRes.Add(new ORDER() &#123; ID = &quot;bbbb&quot;, NO = &quot;222&quot;, NAME = &quot;222&quot;, DESC = &quot;2222&quot; &#125;);</span><br><span class="line"></span><br><span class="line">    return Json&lt;List&lt;ORDER&gt;&gt;(lstRes);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看到这个代码，有人就疑惑了，我们定义的返回值类型是IHttpActionResult类型，直接返回Json<T>(T content)这样可行么？我们将Json转到定义看看：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protected internal JsonResult&lt;T&gt; Json&lt;T&gt;(T content); </span><br></pre></td></tr></table></figure>
+<p>我们继续将JsonResult<T>转到定义</p>
+<p><img src="/images/459756-20160518103426185-121461456.png" alt=""></p>
+<p>原来JsonResult<T>是实现了IHttpActionResult接口的，难怪可以直接返回呢。</p>
+<p>知道了这个，我们直接在Web里面通过ajax请求来调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$(function () &#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type: &#x27;get&#x27;,</span><br><span class="line">        url: &#x27;http://localhost:21528/api/Order/GetOrder&#x27;,</span><br><span class="line">        data: &#123;&#125;,</span><br><span class="line">        success: function (data, status) &#123;</span><br><span class="line">            alert(data);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>来看结果：</p>
+<p><img src="/images/459756-20160518104042466-442124827.gif" alt=""></p>
+<p>既然实体类可以直接这样传递，那么如果我们想要传递一些匿名类型呢，因为很多情况下，我们需要返回到前端的对象都没有对应的实体来对应，如果我们想要返回匿名对象怎么办呢？我们知道，这里的Json<T>(T content)必须要传一个对应的泛型类型，如果是匿名类型这里肯定不好传。还好有我们的object类型，当然你可以使用dynamic，我们来试一把。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[HttpGet]</span><br><span class="line">public IHttpActionResult GetOrder()</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    return Json&lt;dynamic&gt;(new &#123; AA = &quot;&quot;, BB = &quot;cc&quot; &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同样的来看测试结果：</p>
+<p><img src="/images/459756-20160518105037904-1250637926.gif" alt=""></p>
+<h2 id="2、Ok-、-Ok-T-content"><a href="#2、Ok-、-Ok-T-content" class="headerlink" title="2、Ok()、 Ok(T content)"></a>2、Ok()、 Ok<T>(T content)</h2><p>除了Json<T>(T content)，在ApiController里面还有另外一个比较常用的方法：Ok()。同样，我们将Ok()转到定义</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protected internal virtual OkResult Ok();</span><br></pre></td></tr></table></figure>
+<p> OkResult转到定义</p>
+<p><img src="/images/459756-20160518105439482-1200647799.png" alt=""></p>
+<p>有了这个作为基础，我们就可以放心大胆的使用了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[HttpGet]</span><br><span class="line">public IHttpActionResult GetOKResult()</span><br><span class="line">&#123;</span><br><span class="line">    return Ok();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>得到结果<br><img src="/images/459756-20160518110253138-1272090042.gif" alt=""></p>
+<p>如果返回Ok()，就表示不向客户端返回任何信息，只告诉客户端请求成功。</p>
+<p>除了Ok()之外，还有另外一个重载Ok<T>(T content)。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[HttpGet]</span><br><span class="line">public IHttpActionResult GetOKResult(string name)</span><br><span class="line">&#123;</span><br><span class="line">    return Ok&lt;string&gt;(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/459756-20160518110700826-1856827071.gif" alt=""></p>
+<p>这种用法和Json<T>(T content)比较类似，如果你非要问这两者有什么区别，或者说怎么选择两者。那么我的理解是如果是返回实体或者实体集合，建议使用Json<T>(T content)，如果是返回基础类型（如int、string等），使用Ok<T>(T content)。</p>
+<h2 id="3、NotFound"><a href="#3、NotFound" class="headerlink" title="3、NotFound()"></a>3、NotFound()</h2><p>当需要向客户端返回找不到记录时，有时需要用到NotFound()方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protected internal virtual NotFoundResult NotFound();</span><br></pre></td></tr></table></figure>
+<p><img src="/images/459756-20160518112243857-1739933700.png" alt=""></p>
+<p>来看看它的使用场景</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[HttpGet]</span><br><span class="line">public IHttpActionResult GetNotFoundResult(string id)</span><br><span class="line">&#123;</span><br><span class="line">    var lstRes = new List&lt;ORDER&gt;();</span><br><span class="line"></span><br><span class="line">    //实际项目中，通过后台取到集合赋值给lstRes变量。这里只是测试。</span><br><span class="line">    lstRes.Add(new ORDER() &#123; ID = &quot;aaaa&quot;, NO = &quot;111&quot;, NAME = &quot;111&quot;, DESC = &quot;1111&quot; &#125;);</span><br><span class="line">    lstRes.Add(new ORDER() &#123; ID = &quot;bbbb&quot;, NO = &quot;222&quot;, NAME = &quot;222&quot;, DESC = &quot;2222&quot; &#125;);</span><br><span class="line">    var oFind = lstRes.FirstOrDefault(x =&gt; x.ID == id) ;</span><br><span class="line">    if (oFind == null)</span><br><span class="line">    &#123;</span><br><span class="line">        return NotFound();</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return Json&lt;ORDER&gt;(oFind);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$(function () &#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type: &#x27;get&#x27;,</span><br><span class="line">        url: &#x27;http://localhost:21528/api/Order/GetNotFoundResult&#x27;,</span><br><span class="line">        data: &#123; id :&quot;cccc&quot; &#125;,</span><br><span class="line">        success: function (data, status) &#123;</span><br><span class="line">            alert(data);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>得到结果</p>
+<p><img src="/images/459756-20160518112939498-1854926524.gif" alt=""></p>
+<p>NotFound()方法会返回一个404的错误到客户端。</p>
+<h2 id="4、其他"><a href="#4、其他" class="headerlink" title="4、其他"></a>4、其他</h2><p>其他还有一些方法，都有它特定的用途。在此贴出来。</p>
+<h3 id="4-1、Content-HttpStatusCode-statusCode-T-value"><a href="#4-1、Content-HttpStatusCode-statusCode-T-value" class="headerlink" title="4.1、Content(HttpStatusCode statusCode, T value)"></a>4.1、Content<T>(HttpStatusCode statusCode, T value)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[HttpGet]</span><br><span class="line">public IHttpActionResult GetContentResult()</span><br><span class="line">&#123;</span><br><span class="line">    return Content&lt;string&gt;(HttpStatusCode.OK, &quot;OK&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>向客户端返回值和http状态码。</p>
+<h3 id="4-2、BadRequest"><a href="#4-2、BadRequest" class="headerlink" title="4.2、BadRequest()"></a>4.2、BadRequest()</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[HttpGet]</span><br><span class="line">public IHttpActionResult GetBadRequest(ORDER order)</span><br><span class="line">&#123;</span><br><span class="line">    if (string.IsNullOrEmpty(order.ID))</span><br><span class="line">        return BadRequest();</span><br><span class="line">    return Ok();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>向客户端返回400的http错误。</p>
+<h3 id="4-3、Redirect-string-location"><a href="#4-3、Redirect-string-location" class="headerlink" title="4.3、Redirect(string location)"></a>4.3、Redirect(string location)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[HttpGet]</span><br><span class="line">public IHttpActionResult RedirectResult()</span><br><span class="line">&#123;</span><br><span class="line">    return Redirect(&quot;http://localhost:21528/api/Order/GetContentResult&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将请求重定向到其他地方。</p>
+<h2 id="5、自定义IHttpActionResult接口的实现"><a href="#5、自定义IHttpActionResult接口的实现" class="headerlink" title="5、自定义IHttpActionResult接口的实现"></a>5、自定义IHttpActionResult接口的实现</h2><p>上面介绍了一些系统内置的常用的实现IHttpActionResult接口的方法。如果我们需要自定义IHttpActionResult的返回呢？</p>
+<p>在介绍之前，我们有必要先来看看IHttpActionResult类型的定义，将IHttpActionResult转到定义可以看到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">namespace System.Web.Http</span><br><span class="line">&#123;</span><br><span class="line">    // 摘要: </span><br><span class="line">    //     Defines a command that asynchronously creates an System.Net.Http.HttpResponseMessage.</span><br><span class="line">    public interface IHttpActionResult</span><br><span class="line">    &#123;</span><br><span class="line">        // 摘要: </span><br><span class="line">        //     Creates an System.Net.Http.HttpResponseMessage asynchronously.</span><br><span class="line">        //</span><br><span class="line">        // 参数: </span><br><span class="line">        //   cancellationToken:</span><br><span class="line">        //     The token to monitor for cancellation requests.</span><br><span class="line">        //</span><br><span class="line">        // 返回结果: </span><br><span class="line">        //     A task that, when completed, contains the System.Net.Http.HttpResponseMessage.</span><br><span class="line">        Task&lt;System.Net.Http.HttpResponseMessage&gt; ExecuteAsync(CancellationToken cancellationToken);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个接口包含唯一的一个方法ExecuteAsync()，此方法将以异步方式创建一个HttpResponseMessage实例返回给客户端。</p>
+<p>有了这个作为基础，下面，我们自定义一个bootstrapTable服务端分页的子类去展示自定义IHttpActionResult的用法。</p>
+<p>首先，自定义一个实现类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class PageResult : IHttpActionResult</span><br><span class="line">&#123;</span><br><span class="line">    object _value;</span><br><span class="line">    HttpRequestMessage _request;</span><br><span class="line"></span><br><span class="line">    public PageResult(object value, HttpRequestMessage request)</span><br><span class="line">    &#123;</span><br><span class="line">        _value = value;</span><br><span class="line">        _request = request;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Task&lt;HttpResponseMessage&gt; ExecuteAsync(System.Threading.CancellationToken cancellationToken)</span><br><span class="line">    &#123;</span><br><span class="line">        var response = new HttpResponseMessage()</span><br><span class="line">        &#123;</span><br><span class="line">            Content = new ObjectContent(typeof(object), _value, new JsonMediaTypeFormatter()),</span><br><span class="line">            RequestMessage = _request</span><br><span class="line">        &#125;;</span><br><span class="line">        return Task.FromResult(response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，在API接口里面返回PageResult对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[HttpGet]</span><br><span class="line">public IHttpActionResult GetPageRow(int limit, int offset)</span><br><span class="line">&#123;</span><br><span class="line">    var lstRes = new List&lt;ORDER&gt;();</span><br><span class="line"></span><br><span class="line">    //实际项目中，通过后台取到集合赋值给lstRes变量。这里只是测试。</span><br><span class="line">    lstRes.Add(new ORDER() &#123; ID = &quot;aaaa&quot;, NO = &quot;111&quot;, NAME = &quot;111&quot;, DESC = &quot;1111&quot; &#125;);</span><br><span class="line">    lstRes.Add(new ORDER() &#123; ID = &quot;bbbb&quot;, NO = &quot;222&quot;, NAME = &quot;222&quot;, DESC = &quot;2222&quot; &#125;);</span><br><span class="line"></span><br><span class="line">    var oData = new &#123; total = lstRes.Count, rows = lstRes.Skip(offset).Take(limit).ToList() &#125;;</span><br><span class="line">    return new PageResult(oData, Request);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最好，ajax调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$(function () &#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type: &#x27;get&#x27;,</span><br><span class="line">        url: &#x27;http://localhost:21528/api/Order/GetPageRow&#x27;,</span><br><span class="line">        data: &#123; limit:1,offset:1&#125;,</span><br><span class="line">        success: function (data, status) &#123;</span><br><span class="line">            alert(data);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>得到结果</p>
+<p><img src="/images/459756-20160518122253404-1021235553.gif" alt=""></p>
+<h1 id="三、HttpResponseMessage"><a href="#三、HttpResponseMessage" class="headerlink" title="三、HttpResponseMessage"></a>三、HttpResponseMessage</h1><p>在上文自定义IHttpActionResult返回类型的时候，提到过HttpResponseMessage这个对象。它表示向客户端返回一个http响应的消息对象（包含http状态码和需要返回客户端的消息）。这个对象也有它独特的使用场景：需要向客户端返回HttpResponse时就要用到这个对象。以导出为例，由于需要将导出的Excel文件输出到客户端浏览器，Webapi的服务端需要向Web的客户端输出文件流，这个时候一般的IHttpActionResult对象不方便解决这个问题，于是HttpReponseMessage派上了用场。我们来看看它的使用示例。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">　　　　public HttpResponseMessage Export()</span><br><span class="line">&#123;</span><br><span class="line">    //取数据</span><br><span class="line">    var lstRes = OrderBLL.Export();</span><br><span class="line"></span><br><span class="line">    //向Excel里面填充数据</span><br><span class="line">    HSSFWorkbook workbook = new HSSFWorkbook();</span><br><span class="line">    CreateAndFillSheet(workbook, lstRes);</span><br><span class="line">    </span><br><span class="line">    //保存到服务</span><br><span class="line">    var fileName = &quot;Excel&quot; + DateTime.Now.ToString(&quot;yyyyMMddHHmmss&quot;) + &quot;.xls&quot;;</span><br><span class="line">    var strPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @&quot;Data\&quot; + fileName);</span><br><span class="line">    using (FileStream fs = new FileStream(strPath, FileMode.Create))</span><br><span class="line">    &#123;</span><br><span class="line">        workbook.Write(fs);</span><br><span class="line">        using (MemoryStream ms = new MemoryStream())</span><br><span class="line">        &#123;</span><br><span class="line">            workbook.Write(ms);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //输出到浏览器</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        var stream = new FileStream(strPath, FileMode.Open);</span><br><span class="line">        HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);</span><br><span class="line">        response.Content = new StreamContent(stream);</span><br><span class="line">        response.Content.Headers.ContentType = new MediaTypeHeaderValue(&quot;application/octet-stream&quot;);</span><br><span class="line">        response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue(&quot;attachment&quot;)</span><br><span class="line">        &#123;</span><br><span class="line">            FileName = fileName</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        return response;</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        return new HttpResponseMessage(HttpStatusCode.NoContent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将文件流保存在StreamContent对象里面，然后输出到浏览器。在浏览器端即可将Excel输出。</p>
+<h1 id="四、自定义类型"><a href="#四、自定义类型" class="headerlink" title="四、自定义类型"></a>四、自定义类型</h1><p>以上几种返回值类型能解决我们大部分返回值的问题，当然，你也可以将webapi的接口和普通方法一样，返回任意的类型，WebApi会自动序列化你自定义任何返回类型，然后将序列化的值写到响应正文里，状态码统一返回200。比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[HttpGet]</span><br><span class="line">public object GetOther()</span><br><span class="line">&#123;</span><br><span class="line">    var lstRes = new List&lt;ORDER&gt;();</span><br><span class="line"></span><br><span class="line">    //实际项目中，通过后台取到集合赋值给lstRes变量。这里只是测试。</span><br><span class="line">    lstRes.Add(new ORDER() &#123; ID = &quot;aaaa&quot;, NO = &quot;111&quot;, NAME = &quot;111&quot;, DESC = &quot;1111&quot; &#125;);</span><br><span class="line">    lstRes.Add(new ORDER() &#123; ID = &quot;bbbb&quot;, NO = &quot;222&quot;, NAME = &quot;222&quot;, DESC = &quot;2222&quot; &#125;);</span><br><span class="line"></span><br><span class="line">    return lstRes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>得到结果</p>
+<p><img src="/images/459756-20160518144158529-2136726568.gif" alt=""></p>
+<p>和上面的Json、Ok等用法在效果上面没有太大区别。</p>
+<h1 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h1><p>以上通过四个方面详细分享了下WebApi里面返回值的常见用法，不能说哪种方式最好，因为每种方式都有其特定的使用场景。博主觉得为了规范WebApi接口，对于一般接口的返回值，尽量使用IHttpActionResult类型作为返回值，毕竟是微软内置的东西，可能为我们考虑了很多我们考虑不到的东西。当然，你可能会觉得麻烦，你可能会说直接和普通方法一样来使用不是更爽，博主当初也有这种想法，可是学习微软的东西多了之后发现很多东西还是遵守一定的标准比较好，至少维护起来方便。这就像博主最近正在努力学习的WebApi+oData一样，为什么要搞这么一套标准性的东西，还不是为了更加方便地规范Restful风格。如果本文能帮到你，不妨推荐下，您的推荐是博主继续总结的动力！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/57/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/57/">57</a><span class="page-number current">58</span><a class="page-number" href="/page/59/">59</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/59/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

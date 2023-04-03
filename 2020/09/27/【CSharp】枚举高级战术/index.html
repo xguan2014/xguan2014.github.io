@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;willick&#x2F;p&#x2F;csharp-enum-superior-tactics.html#!comments  文章开头先给大家出一道面试题：  在设计某小型项目的数据库（假设用的是 MySQL）时，如果给用户表（User）添加一个字段（Roles）用来存储用户的角色，你会给这个字段设置什么类型？提示：要考虑到角色在后端开发时需要用枚举表示，且一个用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【CSharp】枚举高级战术">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/09/27/%E3%80%90CSharp%E3%80%91%E6%9E%9A%E4%B8%BE%E9%AB%98%E7%BA%A7%E6%88%98%E6%9C%AF/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;willick&#x2F;p&#x2F;csharp-enum-superior-tactics.html#!comments  文章开头先给大家出一道面试题：  在设计某小型项目的数据库（假设用的是 MySQL）时，如果给用户表（User）添加一个字段（Roles）用来存储用户的角色，你会给这个字段设置什么类型？提示：要考虑到角色在后端开发时需要用枚举表示，且一个用">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-27T07:50:57.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.059Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/09/27/%E3%80%90CSharp%E3%80%91%E6%9E%9A%E4%B8%BE%E9%AB%98%E7%BA%A7%E6%88%98%E6%9C%AF/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【CSharp】枚举高级战术 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/09/27/%E3%80%90CSharp%E3%80%91%E6%9E%9A%E4%B8%BE%E9%AB%98%E7%BA%A7%E6%88%98%E6%9C%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【CSharp】枚举高级战术
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-27 15:50:57" itemprop="dateCreated datePublished" datetime="2020-09-27T15:50:57+08:00">2020-09-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/willick/p/csharp-enum-superior-tactics.html#!comments">https://www.cnblogs.com/willick/p/csharp-enum-superior-tactics.html#!comments</a></p>
+</blockquote>
+<p>文章开头先给大家出一道面试题：</p>
+<blockquote>
+<p>在设计某小型项目的数据库（假设用的是 MySQL）时，如果给用户表（User）添加一个字段（Roles）用来存储用户的角色，你会给这个字段设置什么类型？提示：要考虑到角色在后端开发时需要用枚举表示，且一个用户可能会拥有多个角色。</p>
+</blockquote>
+<p>映入你脑海的第一个答案可能是：varchar 类型，用分隔符的方式来存储多个角色，比如用 <code>1|2|3</code> 或  <code>1,2,3</code> 来表示用户拥有多个角色。当然如果角色数量可能超过个位数，考虑到数据库的查询方便（比如用 INSTR 或 POSITION 来判断用户是否包含某个角色），角色的值至少要从数字 10 开始。方案是可行的，可是不是太简单了，有没有更好的方案？更好的回答应是整型（int、bigint 等），优点是写 SQL 查询条件更方便，性能、空间上都优于 varchar。但整型毕竟只是一个数字，怎么表示多个角色呢？此时想到了二进制位操作的你，心中应该早有了答案。且保留你心中的答案，接着看完本文，或许你会有意外的收获，因为实际应用中可能还会遇到一连串的问题。为了更好的说明后面的问题，我们先来回顾一下枚举的基础知识。</p>
+<h2 id="枚举基础"><a href="#枚举基础" class="headerlink" title="枚举基础"></a>枚举基础</h2><p>枚举类型的作用是限制其变量只能从有限的选项中取值，这些选项（枚举类型的成员）各自对应于一个数字，数字默认从 0 开始，并以此递增。例如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Days</span><br><span class="line">&#123;</span><br><span class="line">    Sunday, Monday, Tuesday, <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中 Sunday 的值是 0，Monday 是 1，以此类推。为了一眼能看出每个成员代表的值，一般推荐显示地将成员值写出来，不要省略：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Days</span><br><span class="line">&#123;</span><br><span class="line">    Sunday = <span class="number">0</span>, Monday = <span class="number">1</span>, Tuesday = <span class="number">2</span>, <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>C# 枚举成员的类型默认是 int 类型，通过继承可以声明枚举成员为其它类型，比如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Days : <span class="built_in">byte</span></span><br><span class="line">&#123;</span><br><span class="line">    Monday = <span class="number">1</span>,</span><br><span class="line">    Tuesday = <span class="number">2</span>,</span><br><span class="line">    Wednesday = <span class="number">3</span>,</span><br><span class="line">    Thursday = <span class="number">4</span>,</span><br><span class="line">    Friday = <span class="number">5</span>,</span><br><span class="line">    Saturday = <span class="number">6</span>,</span><br><span class="line">    Sunday = <span class="number">7</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>枚举类型一定是继承自 byte、sbyte、short、ushort、int、uint、long 和 ulong 中的一种，不能是其它类型。下面是几个枚举的常见用法（以上面的 Days 枚举为例）：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 枚举转字符串</span></span><br><span class="line"><span class="built_in">string</span> foo = Days.Saturday.ToString(); <span class="comment">// &quot;Saturday&quot;</span></span><br><span class="line"><span class="built_in">string</span> foo = Enum.GetName(<span class="keyword">typeof</span>(Days), <span class="number">6</span>); <span class="comment">// &quot;Saturday&quot;</span></span><br><span class="line"><span class="comment">// 字符串转枚举</span></span><br><span class="line">Enum.TryParse(<span class="string">&quot;Tuesday&quot;</span>, <span class="keyword">out</span> Days bar); <span class="comment">// true, bar = Days.Tuesday</span></span><br><span class="line">(Days)Enum.Parse(<span class="keyword">typeof</span>(Days), <span class="string">&quot;Tuesday&quot;</span>); <span class="comment">// Days.Tuesday</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 枚举转数字</span></span><br><span class="line"><span class="built_in">byte</span> foo = (<span class="built_in">byte</span>)Days.Monday; <span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 数字转枚举</span></span><br><span class="line">Days foo = (Days)<span class="number">2</span>; <span class="comment">// Days.Tuesday</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取枚举所属的数字类型</span></span><br><span class="line">Type foo = Enum.GetUnderlyingType(<span class="keyword">typeof</span>(Days))); <span class="comment">// System.Byte</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取所有的枚举成员</span></span><br><span class="line">Array foo = Enum.GetValues(<span class="keyword">typeof</span>(MyEnum);</span><br><span class="line"><span class="comment">// 获取所有枚举成员的字段名</span></span><br><span class="line"><span class="built_in">string</span>[] foo = Enum.GetNames(<span class="keyword">typeof</span>(Days));</span><br></pre></td></tr></table></figure>
+
+<p>另外，值得注意的是，枚举可能会得到非预期的值（值没有对应的成员）。比如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Days d = (Days)<span class="number">21</span>; <span class="comment">// 不会报错</span></span><br><span class="line">Enum.IsDefined(<span class="keyword">typeof</span>(Days), d); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>即使枚举没有值为 0 的成员，它的默认值永远都是 0。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> z = <span class="literal">default</span>(Days); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+
+<p>枚举可以通过 Description、Display 等特性来为成员添加有用的辅助信息，比如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> ApiStatus</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">Description(<span class="string">&quot;成功&quot;</span>)</span>]</span><br><span class="line">    OK = <span class="number">0</span>,</span><br><span class="line">    [<span class="meta">Description(<span class="string">&quot;资源未找到&quot;</span>)</span>]</span><br><span class="line">    NotFound = <span class="number">2</span>,</span><br><span class="line">    [<span class="meta">Description(<span class="string">&quot;拒绝访问&quot;</span>)</span>]</span><br><span class="line">    AccessDenied = <span class="number">3</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">class</span> <span class="title">EnumExtensions</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">GetDescription</span>(<span class="params"><span class="keyword">this</span> Enum val</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> field = val.GetType().GetField(val.ToString());</span><br><span class="line">        <span class="keyword">var</span> customAttribute = Attribute.GetCustomAttribute(field, <span class="keyword">typeof</span>(DescriptionAttribute));</span><br><span class="line">        <span class="keyword">if</span> (customAttribute == <span class="literal">null</span>) &#123; <span class="keyword">return</span> val.ToString(); &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; <span class="keyword">return</span> ((DescriptionAttribute)customAttribute).Description; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(ApiStatus.Ok.GetDescription()); <span class="comment">// &quot;成功&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面这些我认为已经包含了大部分我们日常用到的枚举知识了。下面我们继续回到文章开头说的用户角色存储问题。</p>
+<h2 id="用户角色存储问题"><a href="#用户角色存储问题" class="headerlink" title="用户角色存储问题"></a>用户角色存储问题</h2><p>我们先定义一个枚举类型来表示两种用户角色：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Roles</span><br><span class="line">&#123;</span><br><span class="line">    Admin = <span class="number">1</span>,</span><br><span class="line">    Member = <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，如果某个用户同时拥有 Admin 和 Member 两种角色，那么 User 表的 Roles 字段就应该存 3。那问题来了，此时若查询所有拥有 Admin 角色的用户的 SQL 该怎么写呢？对于有基础的程序员来说，这个问题很简单，只要用位操作符逻辑与（‘&amp;’）来查询即可。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> `<span class="keyword">User</span>` <span class="keyword">WHERE</span> `Roles` <span class="operator">&amp;</span> <span class="number">1</span> <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>同理，查询同时拥有这两种角色的用户，SQL 语句应该这么写：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> `<span class="keyword">User</span>` <span class="keyword">WHERE</span> `Roles` <span class="operator">&amp;</span> <span class="number">3</span> <span class="operator">=</span> <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>对这条 SQL 语句用 C# 来实现查询是这样的（为了简单，这里使用了 Dapper）：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">User</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Id &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> Roles Roles &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">connection.Query&lt;User&gt;(</span><br><span class="line">    <span class="string">&quot;SELECT * FROM `User` WHERE `Roles` &amp; @roles = @roles;&quot;</span>,</span><br><span class="line">    <span class="keyword">new</span> &#123; roles = Roles.Admin | Roles.Member &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>对应的，在 C# 中要判断用户是否拥有某个角色，可以这么判断：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式一</span></span><br><span class="line"><span class="keyword">if</span> ((user.Roles &amp; Roles.Admin) == Roles.Admin)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 做管理员可以做的事情</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式二</span></span><br><span class="line"><span class="keyword">if</span> (user.Roles.HasFlag(Roles.Admin))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 做管理员可以做的事情</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同理，在 C# 中你可以对枚举进行任意位逻辑运算，比如要把角色从某个枚举变量中移除：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = Roles.Admin | Roles.Member;</span><br><span class="line"><span class="keyword">var</span> bar = foo &amp; ~Roles.Admin;</span><br></pre></td></tr></table></figure>
+
+<p>这就解决了文章前面提到的用整型来存储多角色的问题，不论数据库还是 C# 语言，操作上都是可行的，而且也很方便灵活。</p>
+<h2 id="枚举的-Flags-特性"><a href="#枚举的-Flags-特性" class="headerlink" title="枚举的 Flags 特性"></a>枚举的 Flags 特性</h2><p>下面我们提供一个通过角色来查询用户的方法，并演示如何调用，如下：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">IEnumerable</span>&lt;<span class="title">User</span>&gt; <span class="title">GetUsersInRoles</span>(<span class="params">Roles roles</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    _logger.LogDebug(roles.ToString());</span><br><span class="line">    _connection.Query&lt;User&gt;(</span><br><span class="line">        <span class="string">&quot;SELECT * FROM `User` WHERE `Roles` &amp; @roles = @roles;&quot;</span>,</span><br><span class="line">        <span class="keyword">new</span> &#123; roles &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line">_repository.GetUsersInRoles(Roles.Admin | Roles.Member);</span><br></pre></td></tr></table></figure>
+
+<p><code>Roles.Admin | Roles.Member</code> 的值是 3，由于 Roles 枚举类型中并没有定义一个值为 3 的字段，所以在方法内 roles 参数显示的是 3。3 这个信息对于我们调试或打印日志很不友好。在方法内，我们并不知道这个 3 代表的是什么。为了解决这个问题，C# 枚举有个很有用的特性：FlagsAtrribute。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Flags</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Roles</span><br><span class="line">&#123;</span><br><span class="line">    Admin = <span class="number">1</span>,</span><br><span class="line">    Member = <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>加上这个 Flags 特性后，我们再来调试 <code>GetUsersInRoles(Roles roles)</code> 方法时，roles 参数的值就会显示为 <code>Admin|Member</code> 了。简单来说，加不加 Flags 的区别是：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> roles = Roles.Admin | Roles.Member;</span><br><span class="line">Console.WriteLing(roles.ToString()); <span class="comment">// &quot;3&quot;，没有 Flags 特性</span></span><br><span class="line">Console.WriteLing(roles.ToString()); <span class="comment">// &quot;Admin, Member&quot;，有 Flags 特性</span></span><br></pre></td></tr></table></figure>
+
+<p>给枚举加上 Flags 特性，我觉得应当视为 C# 编程的一种最佳实践，在定义枚举时尽量加上 Flags 特性。</p>
+<h2 id="解决枚举值冲突：2-的幂"><a href="#解决枚举值冲突：2-的幂" class="headerlink" title="解决枚举值冲突：2 的幂"></a>解决枚举值冲突：2 的幂</h2><p>到这，枚举类型 Roles 一切看上去没什么问题，但如果现在要增加一个角色：Mananger，会发生什么情况？按照数字值递增的规则，Manager 的值应当设为 3。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Flags</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Roles</span><br><span class="line">&#123;</span><br><span class="line">    Admin = <span class="number">1</span>,</span><br><span class="line">    Member = <span class="number">2</span>,</span><br><span class="line">    Manager = <span class="number">3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>能不能把 Manager 的值设为 3？显然不能，因为 Admin 和 Member 进行位的或逻辑运算（即：Admin | Member） 的值也是 3，表示同时拥有这两种角色，这和 Manager 冲突了。那怎样设值才能避免冲突呢？既然是二进制逻辑运算“或”会和成员值产生冲突，那就利用逻辑运算或的规律来解决。我们知道“或”运算的逻辑是两边只要出现一个 1 结果就会 1，比如 1|1、1|0 结果都是 1，只有 0|0 的情况结果才是 0。那么我们就要避免任意两个值在相同的位置上出现 1。根据二进制满 2 进 1 的特点，只要保证枚举的各项值都是 2 的幂即可。比如：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>:  <span class="number">00000001</span></span><br><span class="line"><span class="number">2</span>:  <span class="number">00000010</span></span><br><span class="line"><span class="number">4</span>:  <span class="number">00000100</span></span><br><span class="line"><span class="number">8</span>:  <span class="number">00001000</span></span><br></pre></td></tr></table></figure>
+
+<p>再往后增加的话就是 16、32、64…，其中各值不论怎么相加都不会和成员的任一值冲突。这样问题就解决了，所以我们要这样定义 Roles 枚举的值：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Flags</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Roles</span><br><span class="line">&#123;</span><br><span class="line">    Admin = <span class="number">1</span>,</span><br><span class="line">    Member = <span class="number">2</span>,</span><br><span class="line">    Manager = <span class="number">4</span>,</span><br><span class="line">    Operator = <span class="number">8</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不过在定义值的时候要在心中小小计算一下，如果你想懒一点，可以用下面这种“位移”的方法来定义：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Flags</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> Roles</span><br><span class="line">&#123;</span><br><span class="line">    Admin    = <span class="number">1</span> &lt;&lt; <span class="number">0</span>,</span><br><span class="line">    Member   = <span class="number">1</span> &lt;&lt; <span class="number">1</span>,</span><br><span class="line">    Manager  = <span class="number">1</span> &lt;&lt; <span class="number">2</span>,</span><br><span class="line">    Operator = <span class="number">1</span> &lt;&lt; <span class="number">3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一直往下递增编值即可，阅读体验好，也不容易编错。两种方式是等效的，常量位移的计算是在编译的时候进行的，所以相比不会有额外的开销。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文通过一道小小的面试题引发一连串对枚举的思考。在小型系统中，把用户角色直接存储在用户表是很常见的做法，此时把角色字段设为整型（比如 int）是比较好的设计方案。但与此同时，也要考虑到一些最佳实践，比如使用 Flags 特性来帮助更好的调试和日志输出。也要考虑到实际开发中的各种潜在问题，比如多个枚举值进行或（‘|’）运算与成员值发生冲突的问题。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/09/27/%E3%80%90CSharp%E3%80%91%E6%9E%9A%E4%B8%BE%E9%AB%98%E7%BA%A7%E6%88%98%E6%9C%AF/" title="【CSharp】枚举高级战术">http://blog.bfsdfs.com/2020/09/27/【CSharp】枚举高级战术/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net/" rel="tag"># .Net</a>
+              <a href="/tags/C/" rel="tag"># C#</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/23/%E3%80%90MySql%E3%80%91%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" rel="prev" title="【MySql】索引结构及查询优化">
+      <i class="fa fa-chevron-left"></i> 【MySql】索引结构及查询优化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/02/%E3%80%90VS%E3%80%91%E5%87%A0%E4%B8%AA%E8%B6%85%E7%BA%A7%E5%AE%9E%E7%94%A8%E4%BD%86%E5%BE%88%E5%B0%91%E4%BA%BA%E7%9F%A5%E9%81%93%E7%9A%84%E6%8A%80%E5%B7%A7/" rel="next" title="【VS】几个超级实用但很少人知道的技巧">
+      【VS】几个超级实用但很少人知道的技巧 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">枚举基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%A7%92%E8%89%B2%E5%AD%98%E5%82%A8%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">用户角色存储问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%9A%84-Flags-%E7%89%B9%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">枚举的 Flags 特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%9E%9A%E4%B8%BE%E5%80%BC%E5%86%B2%E7%AA%81%EF%BC%9A2-%E7%9A%84%E5%B9%82"><span class="nav-number">4.</span> <span class="nav-text">解决枚举值冲突：2 的幂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '427651fe74ad70066b69d0ff08bc96ad',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

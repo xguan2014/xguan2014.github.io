@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="在此Raspberry Pi TeamViewer教程中，我们将向您展示如何在Raspberry Pi上设置并连接到TeamViewer。  对于那些不知道TeamViewer是什么的人，它是专有软件，在共享桌面以及允许其他人远程访问该设备方面非常受欢迎。 支持团队大量使用它，因为它可以使诊断和解决问题变得更加容易。 我们将要安装到Raspberry Pi的TeamViewer版本称为 TeamV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【树莓派】安装TeamViewer">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/03/02/%E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91%E5%AE%89%E8%A3%85TeamViewer/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="在此Raspberry Pi TeamViewer教程中，我们将向您展示如何在Raspberry Pi上设置并连接到TeamViewer。  对于那些不知道TeamViewer是什么的人，它是专有软件，在共享桌面以及允许其他人远程访问该设备方面非常受欢迎。 支持团队大量使用它，因为它可以使诊断和解决问题变得更加容易。 我们将要安装到Raspberry Pi的TeamViewer版本称为 TeamV">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/Raspberry-Pi-TeamViewer.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/Raspberry-Pi-TeamViewer-step-1-TeamViewer-License-Agreement.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/TeamViewer-icon-Desktop.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/Raspberry-Pi-TeamViewer-step-3-TeamViewer-App-select-access-or-set-password.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/Raspberry-Pi-TeamViewer-step-4a-TeamViewer-Assign-to-account.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/Raspberry-Pi-TeamViewer-step-5a-TeamViewer-Options.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/Raspberry-Pi-TeamViewer-step-5b-TeamViewer-Options-set-password.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/Raspberry-Pi-TeamViewer-step-5c-TeamViewer-Retrieve-ID.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/Raspberry-Pi-TeamViewer-step-6-TeamViewer-Desktop-select-Raspberry-Pi.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/TeamViewer-connected.png">
+<meta property="article:published_time" content="2020-03-02T05:51:14.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.089Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="树莓派">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/Raspberry-Pi-TeamViewer.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/03/02/%E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91%E5%AE%89%E8%A3%85TeamViewer/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【树莓派】安装TeamViewer | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/03/02/%E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91%E5%AE%89%E8%A3%85TeamViewer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【树莓派】安装TeamViewer
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-02 13:51:14" itemprop="dateCreated datePublished" datetime="2020-03-02T13:51:14+08:00">2020-03-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在此Raspberry Pi TeamViewer教程中，我们将向您展示如何在Raspberry Pi上设置并连接到TeamViewer。</p>
+<p><img src="/images/Raspberry-Pi-TeamViewer.png" alt="树莓派 TeamViewer"></p>
+<p>对于那些不知道TeamViewer是什么的人，它是专有软件，在共享桌面以及允许其他人远程访问该设备方面非常受欢迎。 支持团队大量使用它，因为它可以使诊断和解决问题变得更加容易。</p>
+<p>我们将要安装到Raspberry Pi的TeamViewer版本称为 <a target="_blank" rel="noopener" href="https://www.teamviewer.com/en/download/linux/">TeamViewer Host</a> 。 与TeamViewer的标准版本不同，它纯粹用于接收连接并充当服务器。</p>
+<p>您不能在Raspberry Pi上使用TeamViewer来连接到其他TeamViewer客户端，但是其他人可以连接到它。</p>
+<p>要在Raspberry Pi上安装TeamViewer，您必须 <a href="/raspberry-pi-2/">使用</a> 运行Raspbian Jessie或更高版本 <a href="/raspberry-pi-2/">的Raspberry Pi 2</a> 或更高版本。</p>
+<p>这意味着，除非您正在运行的Raspberry Pi版本已经过时，否则TeamViewer软件应适用于绝大多数人。</p>
+<p>还有其他方法可以远程连接到Raspberry Pi，例如使用 <a href="/raspberry-pi-vnc-server/">VNC服务器</a> 。 对于纯 <a href="/raspberry-pi-terminal-sharing/">终端共享，</a> 您可以使用tmate之类的东西。</p>
+<h2 id="设备"><a href="#设备" class="headerlink" title="设备"></a>设备</h2><p>以下是在Raspberry Pi上设置TeamViewer所需的所有设备。</p>
+<h3 id="推荐的"><a href="#推荐的" class="headerlink" title="推荐的"></a>推荐的</h3><p><a target="_blank" rel="noopener" href="https://go.pimylifeup.com/l8KF94/amazon/raspberrypi">Raspberry Pi 2或更高版本（2、3、3B +）</a></p>
+<p><a target="_blank" rel="noopener" href="https://go.pimylifeup.com/LmAkjt/amazon/sdcard">8GB SD卡</a> 或 <a target="_blank" rel="noopener" href="https://go.pimylifeup.com/DUVENo/amazon/microsdcard">Micro SD卡（</a> 如果您使用的是Raspberry Pi 2、3或B +</p>
+<p><a target="_blank" rel="noopener" href="https://go.pimylifeup.com/FiheVF/amazon/usbkeyboard">USB键盘</a></p>
+<p><a target="_blank" rel="noopener" href="https://go.pimylifeup.com/2VE9AD/amazon/usbmouse">USB鼠标</a></p>
+<p><a target="_blank" rel="noopener" href="https://go.pimylifeup.com/85rGC3/amazon/hdmicables">HDMI线</a></p>
+<p><a target="_blank" rel="noopener" href="https://go.pimylifeup.com/9YIU76/amazon/ethernetcord">以太网线</a> 或 <a target="_blank" rel="noopener" href="https://go.pimylifeup.com/89vmLk/amazon/wifidongle">Wifi加密狗</a></p>
+<h3 id="可选的"><a href="#可选的" class="headerlink" title="可选的"></a>可选的</h3><p><a target="_blank" rel="noopener" href="https://go.pimylifeup.com/vbWKKX/allraspberrypicases">覆盆子皮套</a></p>
+<h2 id="将TeamViewer安装到Raspberry-Pi"><a href="#将TeamViewer安装到Raspberry-Pi" class="headerlink" title="将TeamViewer安装到Raspberry Pi"></a>将TeamViewer安装到Raspberry Pi</h2><p><strong>1.</strong> 要将TeamViewer安装到您的Raspberry Pi，我们首先必须确保我们的软件包列表和所有已安装的软件包都是最新的。</p>
+<p>您可以通过运行以下命令来实现。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.</strong> 现在有了Raspberry Pi完全是最新的。 让我们继续前进，从Teamviewer的服务器下载软件包。</p>
+<p>由于我们已经在使用命令行，因此可以通过运行以下命令来实现。 此命令将使用 <strong>wget</strong> 从TeamViewer的服务器 下载 <strong>.deb</strong> 文件。</p>
+<p>一个 <strong>.deb文件</strong> 文件是专为Debian的系统包管理系统中的软件包文件。 该 <strong>deb包</strong> 文件是包含我们需要的TeamViewer的所有文件的存档。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.teamviewer.com/download/linux/teamviewer-host_armhf.deb</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.</strong> 现在，我们在Raspberry Pi上提供了TeamViewer deb文件，让我们继续运行以下命令来安装它。</p>
+<p>要安装TeamViewer deb软件包，我们将使用 <a target="_blank" rel="noopener" href="https://manpages.debian.org/stretch/dpkg/dpkg.1.en.html">dpkg实用程序</a> ，它是Debian软件包管理软件的基础。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i teamviewer-host_armhf.deb</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.</strong> 运行上述命令后，您会注意到一堆关于未安装特定软件包的错误。</p>
+<p>要解决此问题，我们将必须利用我们的软件包管理器来修复“损坏的安装”。</p>
+<p>apt软件包管理器将自动检测丢失的软件包，并尝试下载适用于该软件的最佳版本。</p>
+<p>现在，通过运行以下命令来使用apt工具。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt --fix-broken install</span><br></pre></td></tr></table></figure>
+
+<p><strong>5.</strong> TeamViewer现在应该在您的Raspberry Pi上启动并运行。 该软件是自动设置的，因此它将在启动时启动，因此您不必为此担心。</p>
+<p>在接下来的两个部分中，我们将探索在GUI设置和无头设置上使用TeamViewer的方法。</p>
+<p>使用TeamViewer，即使您正在运行 仅具有命令行 的 <a href="/how-to-install-raspbian/">精简版Raspbian</a> ，也可以访问Raspberry Pi 。 TeamViewer设置为也共享命令行屏幕。</p>
+<h2 id="在无头Raspberry-Pi安装程序上使用TeamViewer"><a href="#在无头Raspberry-Pi安装程序上使用TeamViewer" class="headerlink" title="在无头Raspberry Pi安装程序上使用TeamViewer"></a>在无头Raspberry Pi安装程序上使用TeamViewer</h2><p><strong>1.</strong> 在从TeamViewer客户端访问Raspberry Pi之前，我们首先必须指定服务器的密码。</p>
+<p>我们可以通过运行以下命令来做到这一点，其中”<strong><password></strong>“是您要使用的密码。</p>
+<p>确保此密码安全，因为如果有人设法获取您的TeamViewer ID和密码，它将允许某人访问您的Raspberry Pi。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo teamviewer passwd &lt;password&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.</strong> 现在我们已经在Raspberry Pi上为TeamViewer设置了密码，现在我们继续获取TeamViewer ID。</p>
+<p>TeamViewer ID是您用来与Raspberry Pi上的TeamViewer服务器建立连接的ID。</p>
+<p>要检索TeamViewer ID，请在终端中输入以下命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">teamviewer info</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.</strong> 您将从此命令得到的结果显示类似下面的内容。</p>
+<p>我们拥有 <strong>{xxxxxxxxxx}的位置</strong> 就是您的TeamViewer ID所在的位置，请记下该数字，因为您需要使用它来连接到Raspberry Pi。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TeamViewer                           14.2.2558  (DEB)</span><br><span class="line"></span><br><span class="line">TeamViewer ID:                        &#123;xxxxxxxxxx&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.</strong> 或者，如果您希望能够更轻松地通过TeamViewer连接到Raspberry Pi，则可以将设备连接到 <a target="_blank" rel="noopener" href="https://www.teamviewer.com/en/">TeamViewer帐户</a> 。</p>
+<p>要开始此过程，请运行以下命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo teamviewer setup</span><br></pre></td></tr></table></figure>
+
+<p><strong>5.</strong> 在设置过程中，系统将要求您同意条款和条件，并输入TeamViewer帐户的详细信息。</p>
+<p>输入您的帐户详细信息是为了使TeamViewer可以与其建立连接，并允许您轻松地通过TeamViewer界面访问您的帐户。</p>
+<p>完成设置过程后，您现在应该可以连接到Raspberry Pi上运行的TeamViewer服务器。</p>
+<p>您可以跳到”<strong>使用TeamViewer连接到Raspberry Pi”</strong>  部分，以了解如何连接到Raspberry Pi的TeamViewer安装。</p>
+<h2 id="在Raspberry-Pi上的GUI中使用TeamViewer"><a href="#在Raspberry-Pi上的GUI中使用TeamViewer" class="headerlink" title="在Raspberry Pi上的GUI中使用TeamViewer"></a>在Raspberry Pi上的GUI中使用TeamViewer</h2><p><strong>1.</strong> 将TeamViewer安装到Raspberry Pi上后，将出现以下屏幕，要求您接受TeamViewer的许可协议。</p>
+<p>要继续阅读本指南，您需要单击”<strong>接受许可协议”</strong>  按钮。</p>
+<p><img src="/images/Raspberry-Pi-TeamViewer-step-1-TeamViewer-License-Agreement.png" alt="TeamViewer许可协议"></p>
+<p><strong>2.</strong> 同意许可协议后，您将返回桌面。</p>
+<p>要打开Teamviewer主机软件，请单击  任务栏中 的 <strong>TeamViewer</strong> 图标，如下面的屏幕快照所示。</p>
+<p><img src="/images/TeamViewer-icon-Desktop.png" alt="TeamViewer图标桌面"></p>
+<p><strong>3.</strong> 在此屏幕中，您需要确定是要将Raspberry Pi与TeamViewer帐户关联，还是要设置密码并使用TeamViewer ID进行连接。</p>
+<p>如果要依靠使用TeamViewer ID，请继续并单击”<strong>设置个人密码”。</strong> （ <strong>1.</strong> ）加载选项菜单。 如果选择此选项，请确保跳至 本教程的 <strong>第5步</strong> 。</p>
+<p>如果您决定使用TeamViewer帐户连接到Raspberry Pi，请继续并单击”<strong>授予轻松访问</strong> （ <strong>2</strong> ）”按钮。 如果选择此选项，请继续执行 本教程的 <strong>第4步</strong> 。</p>
+<p><img src="/images/Raspberry-Pi-TeamViewer-step-3-TeamViewer-App-select-access-or-set-password.png" alt="TeamViewer应用选择访问或设置密码"></p>
+<p><strong>4.</strong> 如果您决定将Raspberry Pi的TeamViewer主机连接到TeamViewer帐户，现在将要求您”<strong>分配您的帐户</strong>“。</p>
+<p>此过程会将您的设备连接到TeamViewer帐户，从而轻松访问。 您需要做的就是输入您的 <strong>电子邮件</strong> 以及 <strong>密码</strong> （ <strong>1.</strong> ）。</p>
+<p>输入所有信息后，需要单击”<strong>分配”</strong> 按钮（ <strong>2.</strong> ）。 单击按钮将完成连接并关联设备。</p>
+<p>现在，您可以继续 本Raspberry Pi Teamviewer教程的 <strong>第6步</strong> 。</p>
+<p><img src="/images/Raspberry-Pi-TeamViewer-step-4a-TeamViewer-Assign-to-account.png" alt="TeamViewer分配给帐户"></p>
+<p><strong>5.</strong> 如果您决定依赖使用TeamViewer ID，则需要设置密码。</p>
+<p>点击“后， <strong>设置个人密码。</strong>“，在 <strong>第3步中</strong> ，您将看到TeamViewer选项菜单。</p>
+<p>在此菜单中，单击”<strong>安全性</strong>“选项卡，如下面的屏幕快照所示。</p>
+<p><img src="/images/Raspberry-Pi-TeamViewer-step-5a-TeamViewer-Options.png" alt="TeamViewer选项"></p>
+<p><strong>6.</strong> 在此屏幕上，在”<strong>个人密码</strong> （ <strong>1.</strong> ）”部分 下设置密码 。 确保您保持此安全，因为如果有人获得了它以及您的TeamViewer ID，则可以获取访问权限。</p>
+<p>设置密码后，按”<strong>应用”</strong>  按钮。</p>
+<p><img src="/images/Raspberry-Pi-TeamViewer-step-5b-TeamViewer-Options-set-password.png" alt="TeamViewer选项设置密码"></p>
+<p><strong>7.</strong> 设置TeamViewer个人访问密码后，默认的TeamViewer界面现在应该会打招呼，如下所示。</p>
+<p>在这里，将显示您的TeamViewer ID，使用该ID和密码，您将能够利用TeamViewer软件连接到Raspberry Pi。</p>
+<p><img src="/images/Raspberry-Pi-TeamViewer-step-5c-TeamViewer-Retrieve-ID.png" alt="TeamViewer检索ID"></p>
+<h2 id="使用TeamViewer连接到Raspberry-Pi"><a href="#使用TeamViewer连接到Raspberry-Pi" class="headerlink" title="使用TeamViewer连接到Raspberry Pi"></a>使用TeamViewer连接到Raspberry Pi</h2><p><strong>1.</strong> 现在在您的Raspberry Pi上设置了TeamViewer之后，我们现在可以开始连接它了。</p>
+<p>要连接到它，您将需要一台装有TeamViewer客户端的设备，无论它是Windows PC还是大多数其他设备。</p>
+<p>您可以通过 <a target="_blank" rel="noopener" href="https://www.teamviewer.com">访问TeamViewer网站</a> 下载TeamViewer 。 安装完成后，继续下一步。</p>
+<p><strong>2.</strong> 现在，在装入TeamViewer的情况下，您将可以输入TeamViewer ID（ <strong>2.</strong> ）并以这种方式连接到Raspberry Pi。</p>
+<p>或者，如果您将Raspberry Pi连接到TeamViewer帐户，则可以在连接列表中双击它以连接到设备。</p>
+<p><img src="/images/Raspberry-Pi-TeamViewer-step-6-TeamViewer-Desktop-select-Raspberry-Pi.png" alt="TeamViewer Desktop Select Raspberry Pi"></p>
+<p><strong>3.</strong> 使用TeamViewer连接到Raspberry Pi后，桌面或命令行都会给您打招呼，具体取决于您所使用的Raspbian版本。</p>
+<p>如果一切都正确连接，那么您现在已经成功在Raspberry Pi上设置了TeamViewer。</p>
+<p><img src="/images/TeamViewer-connected.png" alt="TeamViewer已连接"></p>
+<p>现在，您应该使一切正常。 如果您对此Raspberry Pi Teamviewer教程有任何反馈，请不要在下面发表评论。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/03/02/%E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91%E5%AE%89%E8%A3%85TeamViewer/" title="【树莓派】安装TeamViewer">http://blog.bfsdfs.com/2020/03/02/【树莓派】安装TeamViewer/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" rel="tag"># 树莓派</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/02/%E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91%E5%AE%89%E8%A3%85docker/" rel="prev" title="【树莓派】安装docker">
+      <i class="fa fa-chevron-left"></i> 【树莓派】安装docker
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/08/%E3%80%90CSharp%E3%80%91FaceSDK%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" rel="next" title="【C#】FaceSDK人脸识别">
+      【C#】FaceSDK人脸识别 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">设备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%9A%84"><span class="nav-number">1.1.</span> <span class="nav-text">推荐的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E7%9A%84"><span class="nav-number">1.2.</span> <span class="nav-text">可选的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86TeamViewer%E5%AE%89%E8%A3%85%E5%88%B0Raspberry-Pi"><span class="nav-number">2.</span> <span class="nav-text">将TeamViewer安装到Raspberry Pi</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E6%97%A0%E5%A4%B4Raspberry-Pi%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F%E4%B8%8A%E4%BD%BF%E7%94%A8TeamViewer"><span class="nav-number">3.</span> <span class="nav-text">在无头Raspberry Pi安装程序上使用TeamViewer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8Raspberry-Pi%E4%B8%8A%E7%9A%84GUI%E4%B8%AD%E4%BD%BF%E7%94%A8TeamViewer"><span class="nav-number">4.</span> <span class="nav-text">在Raspberry Pi上的GUI中使用TeamViewer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8TeamViewer%E8%BF%9E%E6%8E%A5%E5%88%B0Raspberry-Pi"><span class="nav-number">5.</span> <span class="nav-text">使用TeamViewer连接到Raspberry Pi</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '56d6975c2af99b625a3ab29910bcbd7a',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

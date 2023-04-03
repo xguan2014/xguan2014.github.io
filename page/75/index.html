@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/75/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/75/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/09/03/%E3%80%90html%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E8%87%AA%E9%80%82%E5%BA%94%E5%B1%8F%E5%B9%95%E5%A4%A7%E5%B0%8F%E7%9A%84%E7%BD%91%E9%A1%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/09/03/%E3%80%90html%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E8%87%AA%E9%80%82%E5%BA%94%E5%B1%8F%E5%B9%95%E5%A4%A7%E5%B0%8F%E7%9A%84%E7%BD%91%E9%A1%B5/" class="post-title-link" itemprop="url">【Html】如何设计自适应屏幕大小的网页</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-09-03 13:26:45" itemprop="dateCreated datePublished" datetime="2017-09-03T13:26:45+08:00">2017-09-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>随着3G的普及，越来越多的人使用手机上网。</p>
+<p>移动设备正超过桌面设备，成为访问互联网的最常见终端。于是，网页设计师不得不面对一个难题：如何才能在不同大小的设备上呈现同样的网页？</p>
+<p><img src="http://www.blackxl.org/wp-content/uploads/auto_save_image/2012/10/044756gVW.jpg" alt="如何设计自适应屏幕大小的网页(转)"></p>
+<p>手机的屏幕比较小，宽度通常在600像素以下；PC的屏幕宽度，一般都在1000像素以上（目前主流宽度是1366×768），有的还达到了2000像素。同样的内容，要在大小迥异的屏幕上，都呈现出满意的效果，并不是一件容易的事。</p>
+<p>很多网站的解决方法，是为不同的设备提供不同的网页，比如专门提供一个mobile版本，或者iPhone / iPad版本。这样做固然保证了效果，但是比较麻烦，同时要维护好几个版本，而且如果一个网站有多个portal（入口），会大大增加<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/architecture">架构</a>设计的复杂度。</p>
+<p>于是，很早就有人设想，能不能”一次设计，普遍适用”，让同一张网页自动适应不同大小的屏幕，根据屏幕宽度，自动调整布局（layout）？</p>
+<p><img src="http://www.xh130.com/zb_users/upload/2012/12/2012121351316377.jpg" alt="如何设计自适应屏幕大小的网页(转)">  </p>
+<p><strong>一、”自适应网页设计”的概念</strong></p>
+<p>2010年，Ethan Marcotte提出了”自适应网页设计”（Responsive Web Design）这个名词，指可以自动识别屏幕宽度、并做出相应调整的网页设计。</p>
+<p>他制作了一个范例，里面是《福尔摩斯历险记》六个主人公的头像。如果屏幕宽度大于1300像素，则6张图片并排在一行。</p>
+<p><img src="http://www.blackxl.org/wp-content/uploads/auto_save_image/2012/10/044756anv.jpg" alt="如何设计自适应屏幕大小的网页(转)"></p>
+<p>如果屏幕宽度在600像素到1300像素之间，则6张图片分成两行。</p>
+<p><img src="http://www.blackxl.org/wp-content/uploads/auto_save_image/2012/10/04475625z.jpg" alt="如何设计自适应屏幕大小的网页(转)"></p>
+<p>如果屏幕宽度在400像素到600像素之间，则导航栏移到网页头部。</p>
+<p><img src="http://www.blackxl.org/wp-content/uploads/auto_save_image/2012/10/044756sZK.jpg" alt="如何设计自适应屏幕大小的网页(转)"></p>
+<p>如果屏幕宽度在400像素以下，则6张图片分成三行。</p>
+<p><img src="http://www.blackxl.org/wp-content/uploads/auto_save_image/2012/10/044757n7Y.jpg" alt="如何设计自适应屏幕大小的网页(转)"></p>
+<p><a target="_blank" rel="noopener" href="http://mediaqueri.es/">mediaqueri.es</a>上面有更多这样的例子。</p>
+<p>这里还有一个<a target="_blank" rel="noopener" href="http://www.benjaminkeen.com/misc/bricss/">测试小工具</a>，可以在一张网页上，同时显示不同分辨率屏幕的<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/softwaretest">测试</a>效果，我推荐安装。</p>
+<p><strong>二、允许网页宽度自动调整</strong></p>
+<p>“自适应网页设计”到底是怎么做到的？其实并不难。</p>
+<p>首先，在网页代码的头部，加入一行<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en/mobile/viewport_meta_tag">viewport元标签</a>。</p>
+<p><a target="_blank" rel="noopener" href="https://developer.apple.com/library/ios/#DOCUMENTATION/AppleApplications/Reference/SafariWebContent/UsingtheViewport/UsingtheViewport.html">viewport</a>是网页默认的宽度和高度，上面这行代码的意思是，网页宽度默认等于屏幕宽度（width=device-width），原始缩放比例（initial-scale=1）为1.0，即网页初始大小占屏幕面积的100%。</p>
+<p>所有主流浏览器都支持这个设置，包括IE9。对于那些老式浏览器（主要是IE6、7、8），需要使用<a target="_blank" rel="noopener" href="http://code.google.com/p/css3-mediaqueries-js/">css3-mediaqueries.js</a>。</p>
+<p>“自适应网页设计”到底是怎么做到的？其实并不难。</p>
+<p>首先，在网页代码的头部，加入一行viewport元标签。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=”viewport” content=”width=device-width, initial-scale=1″ /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>viewport是网页默认的宽度和高度，上面这行代码的意思是，网页宽度默认等于屏幕宽度（width=device-width），原始缩放比例（initial-scale=1）为1.0，即网页初始大小占屏幕面积的100%。</p>
+<p>所有主流浏览器都支持这个设置，包括IE9。对于那些老式浏览器（主要是IE6、7、8），需要使用<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/css3">CSS3</a>-mediaqueries.<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/javascript">js</a>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!–[if lt IE 9]&gt;</span><br><span class="line">&lt;script src=”http://[css3](http://lib.csdn.net/base/css3)-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js”&gt;&lt;/script&gt;</span><br><span class="line">&lt;![endif]–&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>三、不使用绝对宽度</strong></p>
+<p>由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。这一条非常重要。</p>
+<p>具体说，CSS代码不能指定像素宽度：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">width:300px;</span><br></pre></td></tr></table></figure>
+
+<p>只能指定百分比宽度：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">width: 98%;</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">width:auto;</span><br></pre></td></tr></table></figure>
+
+<p><strong>四、相对大小的字体</strong><br>字体也不能使用绝对大小（px），而只能使用相对大小（em）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">body &#123;</span><br><span class="line">        font: normal 100% Helvetica, Arial, sans-serif;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码指定，字体大小是页面默认大小的100%，即16像素。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">h1 &#123;</span><br><span class="line">        font-size: 1.5em;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，h1的大小是默认大小的1.5倍，即24像素（24/16=1.5）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">small &#123;</span><br><span class="line">        font-size: 0.875em;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>small元素的大小是默认大小的0.875倍，即14像素（14/16=0.875）。</p>
+<p><strong>五、流动布局（fluid grid）</strong></p>
+<p>“流动布局”的含义是，各个区块的位置都是浮动的，不是固定不变的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.main &#123;</span><br><span class="line">        float: right;</span><br><span class="line">        width: 70%;</span><br><span class="line">&#125;</span><br><span class="line">.leftBar &#123;</span><br><span class="line">        float: left;</span><br><span class="line">        width: 25%;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>float的好处是，如果宽度太小，放不下两个元素，后面的元素会自动滚动到前面元素的下方，不会在水平方向overflow（溢出），避免了水平滚动条的出现。</p>
+<p>另外，绝对定位（position: absolute）的使用，也要非常小心。</p>
+<p><strong>六、选择加载CSS</strong></p>
+<p>“自适应网页设计”的核心，就是CSS3引入的Media Query模块。</p>
+<p>它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=”stylesheet” type=”text/css” media=”screen and (max-device-width: 400px)” href=”tinyScreen.css” /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码意思是，如果屏幕宽度小于400像素（max-device-width: 400px），就加载tinyScreen.css文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=”stylesheet” type=”text/css”</span><br><span class="line">media=”screen and (min-width: 400px) and (max-device-width: 600px)”</span><br><span class="line">href=”smallScreen.css” /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果屏幕宽度在400像素到600像素之间，则加载smallScreen.css文件。</p>
+<p>除了用html标签加载CSS文件，还可以在现有CSS文件中加载。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import url(“tinyScreen.css”) screen and (max-device-width: 400px);</span><br></pre></td></tr></table></figure>
+
+<p><strong>七、CSS的@media规则</strong></p>
+<p>同一个CSS文件中，也可以根据不同的屏幕分辨率，选择应用不同的CSS规则。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@media screen and (max-device-width: 400px) &#123;</span><br><span class="line">        .column &#123;</span><br><span class="line">                float: none;</span><br><span class="line">                width:auto;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        #sidebar &#123;</span><br><span class="line">                display:none;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码意思是，如果屏幕宽度小于400像素，则column块取消浮动（float:none）、宽度自动调节（width:auto），sidebar块不显示（display:none）。</p>
+<p><strong>八、图片的自适应（fluid image）</strong></p>
+<p>除了布局和文本，”自适应网页设计”还必须实现图片的自动缩放。</p>
+<p>这只要一行CSS代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img &#123; max-width: 100%;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这行代码对于大多数嵌入网页的视频也有效，所以可以写成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img, object &#123; max-width: 100%;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>老版本的IE不支持max-width，所以只好写成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img &#123; width: 100%; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>此外，windows平台缩放图片时，可能出现图像失真现象。这时，可以尝试使用IE的专有命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img &#123; -ms-interpolation-mode: bicubic; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者，Ethan Marcotte的imgSizer.js。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">addLoadEvent(function() &#123;</span><br><span class="line">        var imgs = document.getElementByIdx_x_x(“content”).getElementsByTagName_r(“img”);</span><br><span class="line">        imgSizer.collate(imgs);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>不过，有条件的话，最好还是根据不同大小的屏幕，加载不同分辨率的图片。有很多方法可以做到这一条，服务器端和客户端都可以实现。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/09/02/%E3%80%90NPOI%E3%80%91%E5%AF%BC%E5%87%BAExcel%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/09/02/%E3%80%90NPOI%E3%80%91%E5%AF%BC%E5%87%BAExcel%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">【NPOI】导出Excel文件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-09-02 18:51:05" itemprop="dateCreated datePublished" datetime="2017-09-02T18:51:05+08:00">2017-09-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近有点懒，也有点忙，大半个月时间没写博客了。<br>历经十五天，第二个实训项目终于写完了，也终于有时间来记录项目中遇到的一些问题。</p>
+<p>将web中信息导出至Excel中早就不陌生了，大一做一个比赛项目《考勤管理系统》时，就操作过将数据导出成Excel文件和将Excel文件导入进数据库，当时比较“稚嫩”，啥也不懂，采用office的api进行导出操作，然后提交后，发现在没有安装office的电脑上就用不了，它必须依赖于office的插件才能运行。这次吸取的上次的教训，百度又找到了一个方法，用NPOI进行excel操作。</p>
+<p>别人说：这个NPOI操作Excel，应该是最好的方案了，没有之一，使用NPOI能够帮助开发者在没有安装微软Office的情况下读写Office 97-2003的文件，支持的文件格式包括xls, doc, ppt等。NPOI是构建在POI 3.x版本之上的，它可以在没有安装Office的情况下对Word/Excel文档进行读写操作。  </p>
+<h2 id="一、下载NPOI"><a href="#一、下载NPOI" class="headerlink" title="一、下载NPOI"></a>一、下载NPOI</h2><p>先去官网：<a target="_blank" rel="noopener" href="http://npoi.codeplex.com/。">http://npoi.codeplex.com/。</a></p>
+<p>目前用的版本是：NPOI 2.2.1,发现不同版本在使用上有好大的区别，网上看其他人写的也存在一些差异，有些属性的大小写不同，方法不同等，不过还是换汤不换药的。 </p>
+<h2 id="二、引用文件"><a href="#二、引用文件" class="headerlink" title="二、引用文件"></a>二、引用文件</h2><p>解压文件后可以选择需要引入dll（可以选择.net2.0或者.net4.0的dll），然后在网站中添加引用</p>
+<p>我选的是4.0的，将下面四个文件引用进去<br><img src="/images/20170902184757243.png" alt="">  </p>
+<h2 id="三、导出Excel方法"><a href="#三、导出Excel方法" class="headerlink" title="三、导出Excel方法"></a>三、导出Excel方法</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 导出excel</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">public ActionResult ExcelINTest()</span><br><span class="line">&#123;</span><br><span class="line">    HSSFWorkbook book = new HSSFWorkbook();</span><br><span class="line">    HSSFSheet sheet = book.CreateSheet(&quot;Sheet1&quot;) as HSSFSheet;</span><br><span class="line">    //设置列宽</span><br><span class="line">    sheet.SetColumnWidth(1, 10 * 256);</span><br><span class="line">    sheet.SetColumnWidth(2, 10 * 256);</span><br><span class="line">    sheet.SetColumnWidth(3, 10 * 256);</span><br><span class="line">    sheet.SetColumnWidth(4, 15 * 256);</span><br><span class="line">    sheet.SetColumnWidth(5, 25 * 256);</span><br><span class="line">    sheet.SetColumnWidth(6, 10 * 256);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    #region 表头部分</span><br><span class="line">    //合并单元格</span><br><span class="line">    HSSFRow dataRow = sheet.CreateRow(1) as HSSFRow;</span><br><span class="line">    dataRow = sheet.CreateRow(1) as HSSFRow;</span><br><span class="line">    CellRangeAddress region = new CellRangeAddress(0, 0, 1, 6);</span><br><span class="line">    //CellRangeAddress（）该方法的参数次序是：开始行号，结束行号，开始列号，结束列号。</span><br><span class="line">    sheet.AddMergedRegion(region);</span><br><span class="line">    IRow hrow = sheet.CreateRow(0);</span><br><span class="line">    hrow.Height = 20 * 25;</span><br><span class="line">    ICell icellltop0 = hrow.CreateCell(1);</span><br><span class="line"></span><br><span class="line">    //表头样式</span><br><span class="line">    IFont font12 = book.CreateFont();</span><br><span class="line">    font12.FontHeightInPoints = 14;</span><br><span class="line">    font12.FontName = &quot;微软雅黑&quot;;</span><br><span class="line">    font12.Boldweight = short.MaxValue;</span><br><span class="line">    font12.Color = Black.Index;</span><br><span class="line"></span><br><span class="line">    ICellStyle cellStyle = book.CreateCellStyle();</span><br><span class="line">    cellStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;</span><br><span class="line">    cellStyle.BorderBottom = BorderStyle.Thin;</span><br><span class="line">    cellStyle.BorderLeft = BorderStyle.Thin;</span><br><span class="line">    cellStyle.BorderRight = BorderStyle.Thin;</span><br><span class="line">    cellStyle.BorderTop = BorderStyle.Thin;</span><br><span class="line"></span><br><span class="line">    for (int i = region.FirstRow; i &lt;= region.LastRow; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        IRow row = HSSFCellUtil.GetRow(i, sheet);</span><br><span class="line">        for (int j = region.FirstColumn; j &lt;= region.LastColumn; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            ICell singleCell = HSSFCellUtil.GetCell(row, (short)j);</span><br><span class="line">            singleCell.CellStyle = cellStyle;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cellStyle.SetFont(font12);</span><br><span class="line">    icellltop0.CellStyle = cellStyle;</span><br><span class="line">    icellltop0.SetCellValue(&quot;此处程序自动生成&quot;);</span><br><span class="line">    #endregion</span><br><span class="line"></span><br><span class="line">    #region 标题部分</span><br><span class="line">    ICellStyle TitleStyle = book.CreateCellStyle();</span><br><span class="line">    TitleStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.PaleBlue.Index;</span><br><span class="line">    TitleStyle.FillPattern = FillPattern.SolidForeground;</span><br><span class="line">    TitleStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;</span><br><span class="line">    TitleStyle.BorderBottom = BorderStyle.Thin;</span><br><span class="line">    TitleStyle.BorderLeft = BorderStyle.Thin;</span><br><span class="line">    TitleStyle.BorderRight = BorderStyle.Thin;</span><br><span class="line">    TitleStyle.BorderTop = BorderStyle.Thin;</span><br><span class="line"></span><br><span class="line">    IRow TitleRow = sheet.CreateRow(3);</span><br><span class="line">    ICell Titlecell1 = TitleRow.CreateCell(1);</span><br><span class="line">    Titlecell1.CellStyle = TitleStyle;</span><br><span class="line">    Titlecell1.SetCellValue(&quot;会员卡号&quot;);</span><br><span class="line"></span><br><span class="line">    ICell Titlecell2 = TitleRow.CreateCell(2);</span><br><span class="line">    Titlecell2.CellStyle = TitleStyle;</span><br><span class="line">    Titlecell2.SetCellValue(&quot;姓名&quot;);</span><br><span class="line"></span><br><span class="line">    ICell Titlecell3 = TitleRow.CreateCell(3);</span><br><span class="line">    Titlecell3.CellStyle = TitleStyle;</span><br><span class="line">    Titlecell3.SetCellValue(&quot;性别&quot;);</span><br><span class="line"></span><br><span class="line">    ICell Titlecell4 = TitleRow.CreateCell(4);</span><br><span class="line">    Titlecell4.CellStyle = TitleStyle;</span><br><span class="line">    Titlecell4.SetCellValue(&quot;电话&quot;);</span><br><span class="line"></span><br><span class="line">    ICell Titlecell5 = TitleRow.CreateCell(5);</span><br><span class="line">    Titlecell5.CellStyle = TitleStyle;</span><br><span class="line">    Titlecell5.SetCellValue(&quot;登记时间&quot;);</span><br><span class="line"></span><br><span class="line">    ICell Titlecell6 = TitleRow.CreateCell(6);</span><br><span class="line">    Titlecell6.CellStyle = TitleStyle;</span><br><span class="line">    Titlecell6.SetCellValue(&quot;会员等级&quot;);</span><br><span class="line">    #endregion</span><br><span class="line"></span><br><span class="line">    int lenght = 0, man = 0, woman = 0;</span><br><span class="line">    #region sqltoExcel</span><br><span class="line">    using (Models.MPMS_DBDataContext db = new Models.MPMS_DBDataContext())</span><br><span class="line">    &#123;</span><br><span class="line">        MPMS.Models.Users user = Session[&quot;userInfo&quot;] as MPMS.Models.Users;</span><br><span class="line">        int S_ID = (int)user.S_ID;</span><br><span class="line">        var data = db.MemCards.Where(p =&gt; p.S_ID == S_ID).ToList();</span><br><span class="line">        lenght = data.Count();</span><br><span class="line">        for (int i = 0; i &lt; lenght; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            IRow row = sheet.CreateRow(i + 4);</span><br><span class="line">            row.CreateCell(1).SetCellValue(data[i].MC_CardID);</span><br><span class="line"></span><br><span class="line">            row.CreateCell(2).SetCellValue(data[i].MC_Name);</span><br><span class="line"></span><br><span class="line">            string sex = data[i].MC_Sex == 0 ? &quot;未知&quot; : data[i].MC_Sex == 1 ? &quot;男&quot; : &quot;女&quot;;</span><br><span class="line">            if (data[i].MC_Sex == 1)</span><br><span class="line">                man++;</span><br><span class="line">            if (data[i].MC_Sex == 2)</span><br><span class="line">                woman++;</span><br><span class="line">            row.CreateCell(3).SetCellValue(sex);</span><br><span class="line"></span><br><span class="line">            row.CreateCell(4).SetCellValue(data[i].MC_Mobile);</span><br><span class="line"></span><br><span class="line">            string date = DateTime.Parse(data[i].MC_CreateTime.ToString()).ToString();</span><br><span class="line">            row.CreateCell(5).SetCellValue(date);</span><br><span class="line"></span><br><span class="line">            var jj = db.CardLevels.FirstOrDefault(p =&gt; p.CL_ID == data[i].CL_ID);</span><br><span class="line">            row.CreateCell(6).SetCellValue(jj.CL_LevelName);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    #endregion</span><br><span class="line"></span><br><span class="line">    #region 统计部分</span><br><span class="line">    ICellStyle SumStyle = book.CreateCellStyle();</span><br><span class="line">    SumStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.PaleBlue.Index;</span><br><span class="line">    SumStyle.FillPattern = FillPattern.SolidForeground;</span><br><span class="line">    SumStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;</span><br><span class="line">    SumStyle.BorderBottom = BorderStyle.Thin;</span><br><span class="line">    SumStyle.BorderLeft = BorderStyle.Thin;</span><br><span class="line">    SumStyle.BorderRight = BorderStyle.Thin;</span><br><span class="line">    SumStyle.BorderTop = BorderStyle.Thin;</span><br><span class="line"></span><br><span class="line">    IRow SumRow = sheet.CreateRow(1);</span><br><span class="line">    ICell cell1 = SumRow.CreateCell(1);</span><br><span class="line">    cell1.SetCellValue(&quot;总人数&quot;);</span><br><span class="line">    cell1.CellStyle = SumStyle;</span><br><span class="line"></span><br><span class="line">    ICell cell2 = SumRow.CreateCell(2);</span><br><span class="line">    cell2.SetCellValue(lenght);</span><br><span class="line">    cell2.CellStyle = SumStyle;</span><br><span class="line"></span><br><span class="line">    ICell cell3 = SumRow.CreateCell(3);</span><br><span class="line">    cell3.SetCellValue(&quot;男生人数&quot;);</span><br><span class="line">    cell3.CellStyle = SumStyle;</span><br><span class="line"></span><br><span class="line">    ICell cell4 = SumRow.CreateCell(4);</span><br><span class="line">    cell4.SetCellValue(man);</span><br><span class="line">    cell4.CellStyle = SumStyle;</span><br><span class="line"></span><br><span class="line">    ICell cell5 = SumRow.CreateCell(5);</span><br><span class="line">    cell5.SetCellValue(&quot;女生人数&quot;);</span><br><span class="line">    cell5.CellStyle = SumStyle;</span><br><span class="line"></span><br><span class="line">    ICell cell6 = SumRow.CreateCell(6);</span><br><span class="line">    cell6.SetCellValue(woman);</span><br><span class="line">    cell6.CellStyle = SumStyle;</span><br><span class="line">    #endregion</span><br><span class="line"></span><br><span class="line">    #region 边框设置</span><br><span class="line">    ICellStyle borStyle = book.CreateCellStyle();</span><br><span class="line">    borStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;</span><br><span class="line">    borStyle.BorderBottom = BorderStyle.Thin;</span><br><span class="line">    borStyle.BorderLeft = BorderStyle.Thin;</span><br><span class="line">    borStyle.BorderRight = BorderStyle.Thin;</span><br><span class="line">    borStyle.BorderTop = BorderStyle.Thin;</span><br><span class="line"></span><br><span class="line">    for (int i = 2; i &lt;= lenght + 3; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if (i == 3) continue;</span><br><span class="line">        IRow row = HSSFCellUtil.GetRow(i, sheet);</span><br><span class="line">        for (int j = 1; j &lt;= 6; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            ICell singleCell = HSSFCellUtil.GetCell(row, (short)j);</span><br><span class="line">            singleCell.CellStyle = borStyle;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    #endregion</span><br><span class="line"></span><br><span class="line">    // 写入到客户端  </span><br><span class="line">    System.IO.MemoryStream ms = new System.IO.MemoryStream();</span><br><span class="line">    book.Write(ms);</span><br><span class="line">    Response.AddHeader(&quot;Content-Disposition&quot;, string.Format(&quot;attachment; filename=&#123;0&#125;.xls&quot;, DateTime.Now.ToString(&quot;yyyyMMddHHmmssfff&quot;)));</span><br><span class="line">    Response.BinaryWrite(ms.ToArray());</span><br><span class="line">    book = null;</span><br><span class="line">    ms.Close();</span><br><span class="line">    ms.Dispose();</span><br><span class="line">    return Content(&quot;OK&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/08/15/%E3%80%90MVC%E3%80%91%E9%94%99%E8%AF%AF%E9%A1%B5%E9%9D%A2%E8%AE%BE%E7%BD%AE%E5%92%8C%E9%94%99%E8%AF%AF%E4%BF%A1%E6%81%AF%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/08/15/%E3%80%90MVC%E3%80%91%E9%94%99%E8%AF%AF%E9%A1%B5%E9%9D%A2%E8%AE%BE%E7%BD%AE%E5%92%8C%E9%94%99%E8%AF%AF%E4%BF%A1%E6%81%AF%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">【MVC】错误页面设置和错误信息记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-08-15 22:59:55" itemprop="dateCreated datePublished" datetime="2017-08-15T22:59:55+08:00">2017-08-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、自定义错误页面"><a href="#一、自定义错误页面" class="headerlink" title="一、自定义错误页面"></a>一、自定义错误页面</h3><p>有些时候，我们想使用自定义的错误页面，该怎么处理那。</p>
+<p>翻页其他大牛写的博客，看到有这种方式，自定义属性Class继承FileterAttribute，</p>
+<p>重写OnException方法，代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">public class MyErrorAttribute: HandleErrorAttribute</span><br><span class="line">&#123;</span><br><span class="line">public override void OnException(ExceptionContext filterContext)</span><br><span class="line">&#123;</span><br><span class="line">    //获取异常对象</span><br><span class="line">    Exception ex = filterContext.Exception;</span><br><span class="line">    //记录错误日志</span><br><span class="line"></span><br><span class="line">    //记录出现错误的IP地址</span><br><span class="line">    string strIP = filterContext.HttpContext.Request.UserHostAddress;</span><br><span class="line">    string strUser = System.Environment.MachineName; ;</span><br><span class="line">    string strPath = filterContext.HttpContext.Request.Path;</span><br><span class="line"></span><br><span class="line">    StringBuilder sb = new StringBuilder();</span><br><span class="line">    sb.Append(&quot;IP:【&quot; + strIP + &quot;】&quot; + Environment.NewLine);</span><br><span class="line">    sb.Append(&quot;UserName:【&quot; + strUser + &quot;】&quot; + Environment.NewLine);</span><br><span class="line">    sb.Append(&quot;Action:【&quot; + strPath + &quot;】&quot; + Environment.NewLine);</span><br><span class="line">    sb.Append(&quot;Error in 【&quot; + filterContext.HttpContext.Request.Url.ToString() + &quot;】&quot; + Environment.NewLine);</span><br><span class="line">    sb.Append(&quot;Error Message 【&quot; + ex.Message + &quot;】&quot; + Environment.NewLine);</span><br><span class="line">    sb.Append(&quot;Browser 【&quot; + filterContext.HttpContext.Request.Browser.Browser + &quot;||&quot;);</span><br><span class="line">    sb.Append(filterContext.HttpContext.Request.Browser.Id + &quot;||&quot;);</span><br><span class="line">    sb.Append(filterContext.HttpContext.Request.Browser.Version + &quot;||&quot;);</span><br><span class="line">    sb.Append(filterContext.HttpContext.Request.Browser.Beta + &quot;】&quot;);</span><br><span class="line">    //记录错误</span><br><span class="line">    WriteError(sb.ToString());</span><br><span class="line"></span><br><span class="line">    //导向友好错误界面</span><br><span class="line">    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(</span><br><span class="line">            new</span><br><span class="line">            &#123;</span><br><span class="line">                controller = &quot;Error&quot;,</span><br><span class="line">                action = &quot;Page404&quot;,</span><br><span class="line">                returnUrl = filterContext.HttpContext.Request.Url,</span><br><span class="line">                returnMessage = &quot;页面不存在！&quot;</span><br><span class="line">            &#125;</span><br><span class="line">            ));</span><br><span class="line"></span><br><span class="line">    //重要！！！告诉系统异常已经处理！！</span><br><span class="line">    //如果没有这个步骤，系统还是会按照正常的异常处理流程做</span><br><span class="line">    filterContext.ExceptionHandled = true;</span><br><span class="line"></span><br><span class="line">    //base.OnException(filterContext);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1、记录错误信息"><a href="#1、记录错误信息" class="headerlink" title="1、记录错误信息"></a>1、记录错误信息</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 用于将错误信息输出到txt文件</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;param name=&quot;errorMessage&quot;&gt;错误详细信息&lt;/param&gt;</span><br><span class="line">public static void WriteError(string errorMessage)</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        string path = &quot;~/Error/&quot; + DateTime.Today.ToString(&quot;yyMMdd&quot;) + &quot;.txt&quot;;</span><br><span class="line">        if (!File.Exists(System.Web.HttpContext.Current.Server.MapPath(path)))</span><br><span class="line">        &#123;</span><br><span class="line">            File.Create(System.Web.HttpContext.Current.Server.MapPath(path)).Close();</span><br><span class="line">        &#125;</span><br><span class="line">        using (StreamWriter w = File.AppendText(System.Web.HttpContext.Current.Server.MapPath(path)))</span><br><span class="line">        &#123;</span><br><span class="line">            w.WriteLine(&quot;\r\nLog Entry : &quot;);</span><br><span class="line">            w.WriteLine(&quot;DateTime 【&#123;0&#125;】&quot;, DateTime.Now.ToString(CultureInfo.InvariantCulture));</span><br><span class="line">            w.WriteLine(errorMessage);</span><br><span class="line">            w.WriteLine(&quot;***********************************************************************************************&quot;);</span><br><span class="line">            w.Flush();</span><br><span class="line">            w.Close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        WriteError(ex.Message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>网上大神写的，他分得比较的细：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">public class BaseHandleErrorAttribute : FilterAttribute, IExceptionFilter</span><br><span class="line">&#123;</span><br><span class="line">    public void OnException(ExceptionContext filterContext)</span><br><span class="line">    &#123;</span><br><span class="line">        if (filterContext.ExceptionHandled == true)</span><br><span class="line">        &#123;</span><br><span class="line">            HttpException httpExce = filterContext.Exception as HttpException;</span><br><span class="line">            if (httpExce != null &amp;&amp; httpExce.GetHttpCode() != 500)//为什么要特别强调500 因为MVC处理HttpException的时候，如果为500 则会自动将其ExceptionHandled设置为true，那么我们就无法捕获异常</span><br><span class="line">            &#123;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Exception exception = filterContext.Exception;            </span><br><span class="line">        if (exception != null)</span><br><span class="line">        &#123;</span><br><span class="line">            HttpException httpException = exception as HttpException;</span><br><span class="line">            if (httpException != null)</span><br><span class="line">            &#123;</span><br><span class="line">                //网络错误</span><br><span class="line">                filterContext.Controller.ViewBag.UrlRefer = filterContext.HttpContext.Request.UrlReferrer;</span><br><span class="line">                int DataEroorCode = httpException.GetHttpCode();</span><br><span class="line">                if (DataEroorCode == 404)</span><br><span class="line">                &#123;</span><br><span class="line">                    filterContext.HttpContext.Response.Redirect(&quot;~/SysError/404&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">                else if (DataEroorCode == 500)</span><br><span class="line">                &#123;</span><br><span class="line">                    filterContext.HttpContext.Response.Redirect(&quot;~/SysError/500&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                    filterContext.HttpContext.Response.Redirect(&quot;~/SysError/&quot; + DataEroorCode);</span><br><span class="line"></span><br><span class="line">                //写入日志 记录</span><br><span class="line">                filterContext.ExceptionHandled = true;//设置异常已经处理</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                //编程或者系统错误，不处理，留给HandError处理</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;                     </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/74/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/74/">74</a><span class="page-number current">75</span><a class="page-number" href="/page/76/">76</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/76/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

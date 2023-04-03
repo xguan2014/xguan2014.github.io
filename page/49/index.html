@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/49/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/49/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/11/15/%E3%80%90Gitlab%E3%80%91%E5%A6%82%E4%BD%95%E6%8A%8ASVN%E8%BF%81%E7%A7%BB%E5%88%B0Gitlab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/15/%E3%80%90Gitlab%E3%80%91%E5%A6%82%E4%BD%95%E6%8A%8ASVN%E8%BF%81%E7%A7%BB%E5%88%B0Gitlab/" class="post-title-link" itemprop="url">【Gitlab】如何把SVN迁移到Gitlab</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-15 13:21:51" itemprop="dateCreated datePublished" datetime="2018-11-15T13:21:51+08:00">2018-11-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">环境搭建</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">作者：JensenWong</span><br><span class="line">链接：https://www.jianshu.com/p/a68ff08f5856</span><br><span class="line">來源：简书</span><br><span class="line">简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。</span><br></pre></td></tr></table></figure>
+
+<p>把SVN上的代码仓库迁移到Gitlab上，实际上就是把SVN仓库转变成Git仓库，并且希望能保留原SVN仓库的Commit等历史记录，这一点很重要。<br>SVN迁移到Gitlab需要安装git-svn</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># yum install -y git-svn</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>保留原SVN仓库的Commit等历史记录，需要获取到SVN使用的作者名字列表，为了获得 SVN 使用的作者名字列表，可以在checkout到本地的仓库路径下运行这个：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># svn co --username tom --password 123456 http://my-project.googlecode.com/svn/  code</span><br><span class="line"># cd code</span><br><span class="line"># svn log --xml | grep author | sort -u | perl -pe &#x27;s/.*&gt;(.*?)&lt;.*/$1 = /&#x27; &gt; /root/users.txt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这会将日志输出为 XML 格式，然后保留作者信息行、去除重复、去除 XML 标记。 然后，将输出重定向到你的 users.txt 文件中，这样就可以在每一个记录后面加入对应的 Git 用户数据，修改users.txt文件满足以下的格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># vim /root/users.txt</span><br><span class="line">schacon = schacon &lt;schacon@geemail.com&gt;</span><br><span class="line">selse =  selse &lt;selse@geemail.com&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后开始把SVN仓库转变成Git仓库，执行以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># git svn clone http://my-project.googlecode.com/svn/   --authors-file=/root/users.txt  --no-metadata  my_project</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>为了将标签变为合适的 Git 标签，运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># cd  my_project</span><br><span class="line"># cp -Rf .git/refs/remotes/origin/tags/* .git/refs/tags/</span><br><span class="line"># rm -Rf .git/refs/remotes/origin/tags</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这会使原来在 remotes/origin/tags/ 里的远程分支引用变成真正的（轻量）标签。</p>
+<p>接下来，将 refs/remotes 下剩余的引用移动为本地分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># cp -Rf .git/refs/remotes/* .git/refs/heads/</span><br><span class="line"># rm -Rf .git/refs/remotes</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>现在所有的旧分支都是真正的 Git 分支，并且所有的旧标签都是真正的 Git 标签。 最后一件要做的事情是，将你的新 Git 服务器添加为远程仓库并推送到上面。 下面是一个将你的服务器添加为远程仓库的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># git remote add origin git@my-git-server:myrepository.git</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>因为想要上传所有分支与标签，你现在可以运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin --all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>通过以上漂亮、干净地导入操作，你的所有分支与标签都应该在新 Git 服务器上，你可以去gitlab上查看结果了。</p>
+<p>参考资料： <a target="_blank" rel="noopener" href="https://blog.csdn.net/ouyang_peng/article/category/1590137">https://blog.csdn.net/ouyang_peng/article/category/1590137</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/11/13/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%89%AB%E7%9B%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/13/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%89%AB%E7%9B%B2/" class="post-title-link" itemprop="url">【算法】贝塞尔曲线扫盲</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-13 21:59:26" itemprop="dateCreated datePublished" datetime="2018-11-13T21:59:26+08:00">2018-11-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">算法竞赛</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转自：<a target="_blank" rel="noopener" href="http://www.html-js.com/article/1628">http://www.html-js.com/article/1628</a></p>
+<p>一个Demo Gihub：<a target="_blank" rel="noopener" href="https://github.com/sjzlei1989/Bezier-csharp">https://github.com/sjzlei1989/Bezier-csharp</a></p>
+<p>相信很多同学都知道“<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/B%C3%A9zier_curve">贝塞尔曲线</a>”这个词，我们在很多地方都能经常看到。但是，可能并不是每位同学都清楚地知道，到底什么是“贝塞尔曲线”，又是什么特点让它有这么高的知名度。</p>
+<p>贝塞尔曲线的数学基础是早在 1912 年就广为人知的<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Bernstein_polynomial">伯恩斯坦多项式</a>。但直到 1959 年，当时就职于雪铁龙的法国数学家 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Paul_de_Casteljau">Paul de Casteljau</a> 才开始对它进行图形化应用的尝试，并提出了一种数值稳定的 [de Casteljau 算法](<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/De_Casteljau&#39;">http://en.wikipedia.org/wiki/De_Casteljau&#39;</a> rel=)。然而贝塞尔曲线的得名，却是由于 1962 年另一位就职于雷诺的法国工程师 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Pierre_B%C3%A9zier">Pierre Bézier</a> 的广泛宣传。他使用这种只需要很少的控制点就能够生成复杂平滑曲线的方法，来辅助汽车车体的工业设计。</p>
+<p>正是因为控制简便却具有极强的描述能力，贝塞尔曲线在工业设计领域迅速得到了广泛的应用。不仅如此，在计算机图形学领域，尤其是矢量图形学，贝塞尔曲线也占有重要的地位。今天我们最常见的一些矢量绘图软件，如 Flash、Illustrator、CorelDraw 等，无一例外都提供了绘制贝塞尔曲线的功能。甚至像 Photoshop 这样的位图编辑软件，也把贝塞尔曲线作为仅有的矢量绘制工具（钢笔工具）包含其中。</p>
+<p>贝塞尔曲线在 web 开发领域同样占有一席之地。CSS3 新增了 <a target="_blank" rel="noopener" href="http://www.w3.org/TR/css3-transitions/#transition-timing-function-property">transition-timing-function</a> 属性，它的取值就可以设置为一个三次贝塞尔曲线方程。在此之前，也有不少 JavaScript 动画库使用贝塞尔曲线来实现美观逼真的缓动效果。</p>
+<p>下面我们就通过例子来了解一下如何用 de Casteljau 算法绘制一条贝塞尔曲线。</p>
+<p>在平面内任选 3 个不共线的点，依次用线段连接。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078245509-bezier-quadratic-start.png" alt="enter image description here"></p>
+<p>在第一条线段上任选一个点 D。计算该点到线段起点的距离 AD，与该线段总长 AB 的比例。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078258661-bezier-quadratic-step1.png" alt="enter image description here"></p>
+<p>根据上一步得到的比例，从第二条线段上找出对应的点 E，使得  <code>AD:AB = BE:BC</code> 。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078272369-bezier-quadratic-step2.png" alt="enter image description here"></p>
+<p>连接这两点 DE。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078284528-bezier-quadratic-step3.png" alt="enter image description here"></p>
+<p>从新的线段 DE 上再次找出相同比例的点 F，使得  <code>DF:DE = AD:AB = BE:BC</code> 。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078293828-bezier-quadratic-step4.png" alt="enter image description here"></p>
+<p>到这里，我们就确定了贝塞尔曲线上的一个点 F。接下来，请稍微回想一下中学所学的极限知识，让选取的点 D 在第一条线段上从起点 A 移动到终点 B，找出所有的贝塞尔曲线上的点 F。所有的点找出来之后，我们也得到了这条贝塞尔曲线。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078307084-bezier-quadratic-end.png" alt="enter image description here"></p>
+<p>如果你实在想象不出这个过程，没关系，看动画！<img src="http://htmljs.b0.upaiyun.com/uploads/1415845715278-bezier-quadratic-animation.gif" alt="enter image description here"></p>
+<p>回过头来看这条贝塞尔曲线，为了确定曲线上的一个点，需要进行两轮取点的操作，因此我们称得到的贝塞尔曲线为二次曲线（这样记忆很直观，但曲线的次数其实是由前面提到的伯恩斯坦多项式决定的）。</p>
+<p>当控制点个数为 4 时，情况是怎样的？<img src="http://htmljs.b0.upaiyun.com/uploads/1386078421816-bezier-cubic-start.png" alt="enter image description here"></p>
+<p>步骤都是相同的，只不过我们每确定一个贝塞尔曲线上的点，要进行三轮取点操作。如图， <code>AE:AB = BF:BC = CG:CD = EH:EF = FI:FG = HJ:HI</code> ，其中点 J 就是最终得到的贝塞尔曲线上的一个点。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078436764-bezier-cubic-points.png" alt="enter image description here"></p>
+<p>这样我们得到的是一条三次贝塞尔曲线。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078443819-bezier-cubic-end.png" alt="enter image description here"></p>
+<p>看过了二次和三次曲线，更高次的贝塞尔曲线大家应该也知道要怎么画了吧。那么比二次曲线更简单的一次（线性）贝塞尔曲线存在吗？长什么样？根据前面的介绍，只要稍作思考，想必你也能猜出来了。哈！就是一条直线~<img src="http://htmljs.b0.upaiyun.com/uploads/1415845739049-bezier-linear-animation.gif" alt="enter image description here"></p>
+<p>能画曲线也能画直线，是不是很厉害？要绘制更复杂的曲线，控制点的增加也仅仅是线性的。这一特点使其不光在工业设计领域大展拳脚，就连数学基础不好的人也可以比较容易地掌握，比如大多数平面美术设计师们。<img src="http://htmljs.b0.upaiyun.com/uploads/1415845756871-complex-bezier-curve.gif" alt="enter image description here"></p>
+<p>上面介绍的内容并不足以展示贝塞尔曲线的真正威力。推广到三维空间的<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/B%C3%A9zier_surface">贝塞尔曲面</a>，以及更进一步的<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Non-uniform_rational_B-spline">非均匀有理 B 样条（NURBS）</a>，早已成为当今计算机辅助设计（CAD）的行业标准，不论是我们平常用到的各种产品，还是在电影院看到的精彩大片，都少不了它们的功劳。<img src="http://htmljs.b0.upaiyun.com/uploads/1386078496790-bezier-surface.png" alt="enter image description here"></p>
+<p><img src="http://htmljs.b0.upaiyun.com/uploads/1386078505773-industrial-design.png" alt="enter image description here"></p>
+<p>动态绘制贝塞尔曲线的<a target="_blank" rel="noopener" href="http://myst729.github.io/bezier-curve">在线演示</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/11/01/%E3%80%90MySql%E3%80%91%E4%BA%8B%E4%BB%B6%EF%BC%88Event%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/01/%E3%80%90MySql%E3%80%91%E4%BA%8B%E4%BB%B6%EF%BC%88Event%EF%BC%89/" class="post-title-link" itemprop="url">【MySql】事件（Event）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-01 10:16:15" itemprop="dateCreated datePublished" datetime="2018-11-01T10:16:15+08:00">2018-11-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>作者：jesseyoung<br>来源：CSDN<br>原文：<a target="_blank" rel="noopener" href="https://blog.csdn.net/JesseYoung/article/details/35257527">https://blog.csdn.net/JesseYoung/article/details/35257527</a><br>版权声明：本文为博主原创文章，转载请附上博文链接！</p>
+<p>1 事件简介</p>
+<p>事件（event）是MySQL在相应的时刻调用的过程式数据库对象。一个事件可调用一次，也可周期性的启动，它由一个特定的线程来管理的，也就是所谓的“事件调度器”。</p>
+<p>事件和触发器类似，都是在某些事情发生的时候启动。当数据库上启动一条语句的时候，触发器就启动了，而事件是根据调度事件来启动的。由于他们彼此相似，所以事件也称为临时性触发器。</p>
+<p>事件取代了原先只能由操作系统的计划任务来执行的工作，而且MySQL的事件调度器可以精确到每秒钟执行一个任务，而操作系统的计划任务（如：Linux下的CRON或Windows下的任务计划）只能精确到每分钟执行一次。</p>
+<p>2 事件的优缺点<br>2.1 优点</p>
+<p>一些对数据定时性操作不再依赖外部程序，而直接使用数据库本身提供的功能。</p>
+<p>可以实现每秒钟执行一个任务，这在一些对实时性要求较高的环境下就非常实用了。</p>
+<p>2.2 缺点<br>定时触发，不可以调用。</p>
+<p>3 创建事件</p>
+<p>一条create event语句创建一个事件。每个事件由两个主要部分组成，第一部分是事件调度（event schedule），表示事件何时启动以及按什么频率启动，第二部分是事件动作（event action ），这是事件启动时执行的代码，事件的动作包含一条SQL语句，它可能是一个简单地insert或者update语句，也可以使一个存储过程或者benin…end语句块，这两种情况允许我们执行多条SQL。</p>
+<p>一个事件可以是活动（打开）的或停止（关闭）的，活动意味着事件调度器检查事件动作是否必须调用，停止意味着事件的声明存储在目录中，但调度器不会检查它是否应该调用。在一个事件创建之后，它立即变为活动的，一个活动的事件可以执行一次或者多次。</p>
+<p>3.1 创建语法如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">CREATE</span><br><span class="line">    [DEFINER = &#123; user | CURRENT_USER &#125;]</span><br><span class="line">    EVENT</span><br><span class="line">    [IF NOT EXISTS]</span><br><span class="line">    event_name</span><br><span class="line">    ON SCHEDULE schedule</span><br><span class="line">    [ON COMPLETION [NOT] PRESERVE]</span><br><span class="line">    [ENABLE | DISABLE | DISABLE ON SLAVE]</span><br><span class="line">    [COMMENT &#x27;comment&#x27;]</span><br><span class="line">    DO event_body;</span><br><span class="line"> </span><br><span class="line">schedule:</span><br><span class="line">    AT timestamp [+ INTERVAL interval] ...</span><br><span class="line">  | EVERY interval</span><br><span class="line">    [STARTS timestamp [+ INTERVAL interval] ...]</span><br><span class="line">    [ENDS timestamp [+ INTERVAL interval] ...]</span><br><span class="line"> </span><br><span class="line">interval:</span><br><span class="line">    quantity &#123;YEAR | QUARTER | MONTH | DAY | HOUR | MINUTE |</span><br><span class="line">              WEEK | SECOND | YEAR_MONTH | DAY_HOUR | DAY_MINUTE |</span><br><span class="line">              DAY_SECOND | HOUR_MINUTE | HOUR_SECOND | MINUTE_SECOND&#125;</span><br></pre></td></tr></table></figure>
+<p>名词解释：</p>
+<p>event_name ：创建的event名字（唯一确定的）。<br>ON SCHEDULE：计划任务。<br>schedule: 决定event的执行时间和频率（注意时间一定要是将来的时间，过去的时间会出错），有两种形式 AT和EVERY。<br>[ON COMPLETION [NOT] PRESERVE]： 可选项，默认是ON COMPLETION NOT PRESERVE 即计划任务执行完毕后自动drop该事件；ON COMPLETION PRESERVE则不会drop掉。<br>[COMMENT ‘comment’] ：可选项，comment 用来描述event；相当注释，最大长度64个字节。<br>[ENABLE | DISABLE] ：设定event的状态，默认ENABLE：表示系统尝试执行这个事件， DISABLE：关闭该事情，可以用alter修改<br>DO event_body: 需要执行的sql语句（可以是复合语句）。CREATE EVENT在存储过程中使用时合法的。</p>
+<p>3.2 开启关闭事件调度器</p>
+<p>3.2.1 MySQL事件调度器event_scheduler负责调用事件，它默认是关闭的。这个调度器不断地监视一个事件是否要调用， 要创建事件，必须打开调度器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%event_scheduler%&#x27;;</span><br><span class="line">+-----------------+-------+</span><br><span class="line">| Variable_name   | Value |</span><br><span class="line">+-----------------+-------+</span><br><span class="line">| event_scheduler | OFF   |</span><br><span class="line">+-----------------+-------+</span><br></pre></td></tr></table></figure>
+<p>3.2.2 开启事件调度器<br>通过命令行</p>
+<p>可通过如下任何一个命令行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SET GLOBAL event_scheduler = ON;</span><br><span class="line">SET @@global.event_scheduler = ON;</span><br><span class="line">SET GLOBAL event_scheduler = 1;</span><br><span class="line">SET @@global.event_scheduler = 1;</span><br></pre></td></tr></table></figure>
+<p>通过配置文件my.cnf</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">event_scheduler = 1 #或者ON</span><br></pre></td></tr></table></figure>
+<p>查看调度器线程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show processlist;</span><br><span class="line">+----+-----------------+-----------+------+---------+------+------------------------+------------------+</span><br><span class="line">| Id | User            | Host      | db   | Command | Time | State                  | Info             |</span><br><span class="line">+----+-----------------+-----------+------+---------+------+------------------------+------------------+</span><br><span class="line">|  2 | root            | localhost | NULL | Query   |    0 | NULL                   | show processlist |</span><br><span class="line">|  3 | event_scheduler | localhost | NULL | Daemon  |    6 | Waiting on empty queue | NULL             |</span><br><span class="line">+----+-----------------+-----------+------+---------+------+------------------------+------------------+</span><br></pre></td></tr></table></figure>
+<p>3.2.3 关闭事件调度器</p>
+<p>通过命令行</p>
+<p>可通过如下任何一个命令行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SET GLOBAL event_scheduler = OFF;</span><br><span class="line">SET @@global.event_scheduler = OFF;</span><br><span class="line">SET GLOBAL event_scheduler = 0;</span><br><span class="line">SET @@global.event_scheduler = 0;</span><br></pre></td></tr></table></figure>
+<p>通过配置文件my.cnf</p>
+<p>在[mysqld]下增加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">event_scheduler = 0 #或者OFF，DISABLED</span><br></pre></td></tr></table></figure>
+<p>查看调度器线程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show processlist;</span><br><span class="line">+----+------+-----------+------+---------+------+-------+------------------+</span><br><span class="line">| Id | User | Host      | db   | Command | Time | State | Info             |</span><br><span class="line">+----+------+-----------+------+---------+------+-------+------------------+</span><br><span class="line">|  2 | root | localhost | NULL | Query   |    0 | NULL  | show processlist |</span><br><span class="line">+----+------+-----------+------+---------+------+-------+------------------+</span><br></pre></td></tr></table></figure>
+<p>3.3 例如：创建一个表记录每次事件调度的名字和事件戳</p>
+<p>3.3.1 创建测试表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; drop table if exists events_list;</span><br><span class="line">mysql&gt; create table events_list(event_name varchar(20) not null, event_started timestamp not null);</span><br></pre></td></tr></table></figure>
+<p>3.3.2 创建事件1（立即启动事件）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create event event_now </span><br><span class="line">on schedule </span><br><span class="line">at now() </span><br><span class="line">do insert into events_list values(&#x27;event_now&#x27;, now());</span><br></pre></td></tr></table></figure>
+<p>查看事件执行结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from events_list;</span><br><span class="line">+------------+---------------------+</span><br><span class="line">| event_name | event_started       |</span><br><span class="line">+------------+---------------------+</span><br><span class="line">| event_now  | 2014-07-01 04:06:40 |</span><br><span class="line">+------------+---------------------+</span><br></pre></td></tr></table></figure>
+<p>3.3.3 创建事件2（每分钟启动事件）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create event test.event_minute </span><br><span class="line">on schedule </span><br><span class="line">every  1 minute  </span><br><span class="line">do insert into events_list values(&#x27;event_now&#x27;, now());</span><br></pre></td></tr></table></figure>
+<p>查看事件执行结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from events_list;</span><br><span class="line">+------------+---------------------+</span><br><span class="line">| event_name | event_started       |</span><br><span class="line">+------------+---------------------+</span><br><span class="line">| event_now  | 2014-07-01 04:26:53 |</span><br><span class="line">| event_now  | 2014-07-01 04:27:53 |</span><br><span class="line">| event_now  | 2014-07-01 04:28:53 |</span><br><span class="line">+------------+---------------------+</span><br></pre></td></tr></table></figure>
+<p>3.4 注意：</p>
+<p>默认创建事件存储在当前库中，也可显示指定事件创建在哪个库中</p>
+<p>通过show events只能查看当前库中创建的事件</p>
+<p>事件执行完即释放，如立即执行事件，执行完后，事件便自动删除，多次调用事件或等待执行事件可以查看到。</p>
+<p>如果两个事件需要在同一时刻调用，mysql会确定调用他们的顺序，如果要指定顺序，需要确保一个事件至少在另一个事件1秒后执行</p>
+<p>对于递归调度的事件，结束日期不能在开始日期之前。</p>
+<p>select可以包含在一个事件中，然而他的结果消失了，就好像没执行过。</p>
+<p>4 查看事件</p>
+<p>查看当前所在库的事件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show events;</span><br></pre></td></tr></table></figure>
+<p>查看所有事件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from mysql.event;</span><br></pre></td></tr></table></figure>
+<p>5 修改事件</p>
+<p>一条alter event语句可以修改事件的定义和属性。我们可以让一个事件成为停止的或者再次让它活动，也可以修改一个事件的名字或者整个调度。然而当一个使用 ON COMPLETION NOT PRESERVE 属性定义的事件最后一次执行后，事件直接就不存在了，不能修改。</p>
+<p>5.1 语法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ALTER</span><br><span class="line">    [DEFINER = &#123; user | CURRENT_USER &#125;]</span><br><span class="line">    EVENT event_name</span><br><span class="line">    [ON SCHEDULE schedule]</span><br><span class="line">    [ON COMPLETION [NOT] PRESERVE]</span><br><span class="line">    [RENAME TO new_event_name]</span><br><span class="line">    [ENABLE | DISABLE | DISABLE ON SLAVE]</span><br><span class="line">    [COMMENT &#x27;comment&#x27;]</span><br><span class="line">    [DO event_body]</span><br></pre></td></tr></table></figure>
+<p>5.2 例如</p>
+<p>修改上面例子3.3.3 每分钟启动事件为每30秒启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">alter event test.event_minute</span><br><span class="line">on schedule </span><br><span class="line">every  30 second  </span><br><span class="line">do insert into events_list values(&#x27;event_now&#x27;, now());</span><br><span class="line">    修改上面例子3.3.3 事件名字为event_second</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">alter event test.event_minute </span><br><span class="line">rename to test.event_second;</span><br><span class="line">    修改上面例子3.3.3 事件为不活动和再次活动</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">alter event test.event_second disable;</span><br><span class="line">alter event test.event_second enable;</span><br></pre></td></tr></table></figure>
+<p>6 删除事件</p>
+<p>如果一个事件不再需要，我们可以使用一条drop event 语句删除它。使用这条语句我们不需要等到最后一次事件调用。</p>
+<p>6.1 基本语法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP EVENT [IF EXISTS] event_name</span><br></pre></td></tr></table></figure>
+<p>6.2 例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop event if exists event_second;</span><br></pre></td></tr></table></figure>
+<p>7 事件和权限</p>
+<p>8 更多详细案例</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/48/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/48/">48</a><span class="page-number current">49</span><a class="page-number" href="/page/50/">50</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/50/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

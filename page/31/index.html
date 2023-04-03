@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/31/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/31/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/11/11/%E3%80%90mysql%E3%80%91%E5%AE%9A%E6%97%B6%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/11/%E3%80%90mysql%E3%80%91%E5%AE%9A%E6%97%B6%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">【MySql】定时删除数据</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-11 15:04:12" itemprop="dateCreated datePublished" datetime="2019-11-11T15:04:12+08:00">2019-11-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>794</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="删除三天前的数据的sql"><a href="#删除三天前的数据的sql" class="headerlink" title="删除三天前的数据的sql"></a>删除三天前的数据的sql</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM table WHERE created_on &lt; DATE_SUB(CURDATE(),INTERVAL 3 DAY);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>CURDATE() 返回当前日期</p>
+</blockquote>
+<blockquote>
+<p>CURNOW() 返回当前datetime</p>
+</blockquote>
+<blockquote>
+<p>INTERVAL 是mysql间隔值，用法为 <code>INTERVAL expr unit</code> 。 <code>INTERVAL 3 DAY</code> 表示三天的间隔</p>
+</blockquote>
+<blockquote>
+<p>DATE_SUB(start_date,INTERVAL expr unit);</p>
+</blockquote>
+<h3 id="写一个存储过程"><a href="#写一个存储过程" class="headerlink" title="写一个存储过程"></a>写一个存储过程</h3><p>存储过程相当于mysql的函数，它是存储在数据库服务器中的一组sql语句，通过调用这个函数的名称来执行这些sql语句命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DELIMITER // </span><br><span class="line">create procedure del_data()</span><br><span class="line">BEGIN</span><br><span class="line">    DELETE FROM table WHERE created_on &lt; DATE_SUB(CURDATE(),INTERVAL 3 DAY);</span><br><span class="line">END//</span><br><span class="line">DELIMITER ;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>DELIMITER是分割符的意思，声明存储过程前将”//“声明为分隔符，这样存储过程中的“;”才不会被当作分隔符处理。声明结束后再还原分隔符。<br> 存储过程也可以带参数， <code>存储过程名(参数)</code><br> 在声明存储过程前要先用 <code>use database_name</code> 切换到想要应用的数据库，否则存储过程会应用到默认数据库中</p>
+</blockquote>
+<h3 id="查看以及使用存储过程"><a href="#查看以及使用存储过程" class="headerlink" title="查看以及使用存储过程"></a>查看以及使用存储过程</h3><p>查看存储过程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from mysql.proc where db=’数据库名’;</span><br></pre></td></tr></table></figure>
+<p>使用存储过程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call del_data()</span><br></pre></td></tr></table></figure>
+<h3 id="写一个事件"><a href="#写一个事件" class="headerlink" title="写一个事件"></a>写一个事件</h3><p>开启事件调度器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET GLOBAL event_scheduler = ON;</span><br></pre></td></tr></table></figure>
+<p>创建事件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create event del_event  </span><br><span class="line">on schedule </span><br><span class="line">EVERY 1 day  </span><br><span class="line">STARTS &#x27;2019-3-28 00:00:00&#x27;  </span><br><span class="line">do call del_data()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>从明天的零点开始，每隔一天执行del_data存储过程</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/11/05/%E3%80%90Docker%E3%80%91mysql%E4%BD%BF%E7%94%A8mysqldump%E5%AE%9A%E6%97%B6%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/05/%E3%80%90Docker%E3%80%91mysql%E4%BD%BF%E7%94%A8mysqldump%E5%AE%9A%E6%97%B6%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">【Docker】MySql使用mysqldump定时备份数据库</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-05 09:51:35" itemprop="dateCreated datePublished" datetime="2019-11-05T09:51:35+08:00">2019-11-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">环境搭建</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>原文地址：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/be1e581acb8e">https://www.jianshu.com/p/be1e581acb8e</a></p>
+<p>1、crontab 是用来让使用者在固定时间或固定间隔执行程序之用<br>手动启动crontab服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service crond start</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://link.jianshu.com?t=http://www.cnblogs.com/peida/archive/2013/01/08/2850483.html">crontab相关知识</a>：参考，<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32688731/article/details/88203654">https://blog.csdn.net/qq_32688731/article/details/88203654</a></p>
+<p>2、mysqldump</p>
+<p>docker中mysqldump的完整路径docker exec /usr/bin/mysqldump。</p>
+<p><a target="_blank" rel="noopener" href="https://link.jianshu.com?t=http://www.cnblogs.com/zeroone/archive/2010/05/11/1732834.html">mysqldump详解</a></p>
+<p>3、数据库备份脚本<br>功能：mysql 每天定时备份， 并删除7天以前的备份<br>mysql_dumps.sh：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">docker_name = mysql</span><br><span class="line">data_dir = &quot;/opt/docker/mysql/backup/&quot;</span><br><span class="line">docker exec -it $&#123;docker_name&#125; mysqldump -uroot -pmysql@Pwd.. --all-databases &gt; &quot;$data_dir/data_`date +%Y%m%d`.sql&quot;</span><br><span class="line">send=`date &#x27;+%Y-%m-%d %H:%M:%S&#x27;`</span><br><span class="line">if [ $? -ne 0 ];</span><br><span class="line">then</span><br><span class="line"># 任务失败，发送邮件</span><br><span class="line">echo &quot;$send 任务失败，发送邮件&quot;</span><br><span class="line">exit -1</span><br><span class="line">else</span><br><span class="line">echo &quot;$send 数据备份成功！&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">find $data_dir -mtime +7 -name &#x27;data_[1-9].sql&#x27; -exec rm -rf &#123;&#125; \;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>4、通过linux cron设置定时任务<br>crontab -e：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0 2 * * * sh /opt/docker/mysql/mysql_dumps.sh &gt; /opt/docker/mysql/mysql_dumps.log 2&gt;&amp;1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>5、遇到的问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/bin/sh^M: bad interpreter: No such file or directory</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>原因：这是不同系统编码格式引起的：在windows系统中编辑的.sh文件可能有不可见字符，所以在Linux系统下执行会报以上异常信息。<br>解决：<br>1）.在windows下转换：<br>利用一些编辑器如UltraEdit或EditPlus等工具先将脚本编码转换，再放到Linux中执行。转换方式如下（UltraEdit）：File–&gt;Conversions–&gt;DOS-&gt;UNIX即可。<br>2）.在linux中编写改脚本。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/10/14/%E3%80%90SignalR%E3%80%91%E7%AE%80%E4%BB%8B%E5%8F%8A%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/10/14/%E3%80%90SignalR%E3%80%91%E7%AE%80%E4%BB%8B%E5%8F%8A%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">【SignalR】简介及使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-10-14 13:59:36" itemprop="dateCreated datePublished" datetime="2019-10-14T13:59:36+08:00">2019-10-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="SignalR"><a href="#SignalR" class="headerlink" title="SignalR"></a>SignalR</h1><p>SignalR是一个.NET Core/.NET Framework的开源实时框架. SignalR的可使用Web Socket, Server Sent Events 和 Long Polling作为底层传输方式.</p>
+<p>SignalR基于这三种技术构建, 抽象于它们之上, 它让你更好的关注业务问题而不是底层传输技术问题.</p>
+<p>SignalR这个框架分服务器端和客户端, 服务器端支持ASP.NET Core 和 ASP.NET; 而客户端除了支持浏览器里的javascript以外, 也支持其它类型的客户端, 例如桌面应用.</p>
+<h2 id="回落机制"><a href="#回落机制" class="headerlink" title="回落机制"></a>回落机制</h2><p>SignalR使用的三种底层传输技术分别是Web Socket, Server Sent Events 和 Long Polling.</p>
+<p>其中Web Socket仅支持比较现代的浏览器, Web服务器也不能太老.</p>
+<p>而Server Sent Events 情况可能好一点, 但是也存在同样的问题.</p>
+<p>所以SignalR采用了回落机制, SignalR有能力去协商支持的传输类型.</p>
+<p><img src="/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvOTg2MjY4LzIwMTgwOC85ODYyNjgtMjAxODA4MjIxMDE4MjU1MDYtNDA0MTE2ODYucG5n.png" alt=""></p>
+<p>Web Socket是最好的最有效的传输方式, 如果浏览器或Web服务器不支持它的话, 就会降级使用SSE, 实在不行就用Long Polling.</p>
+<p>一旦建立连接, SignalR就会开始发送keep alive消息, 来检查连接是否还正常. 如果有问题, 就会抛出异常.</p>
+<p>因为SignalR是抽象于三种传输方式的上层, 所以无论底层采用的哪种方式, SignalR的用法都是一样的.</p>
+<p>SignalR默认采用这种回落机制来进行传输和连接.</p>
+<p>但是也可以禁用回落机制, 只采用其中一种传输方式.</p>
+<h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><p>RPC (Remote Procedure Call). 它的优点就是可以像调用本地方法一样调用远程服务.</p>
+<p>SignalR采用RPC范式来进行客户端与服务器端之间的通信.</p>
+<p>SignalR利用底层传输来让服务器可以调用客户端的方法, 反之亦然, 这些方法可以带参数, 参数也可以是复杂对象, SignalR负责序列化和反序列化.</p>
+<h2 id="Hub"><a href="#Hub" class="headerlink" title="Hub"></a>Hub</h2><p>Hub是SignalR的一个组件, 它运行在ASP.NET Core应用里. 所以它是服务器端的一个类.</p>
+<p>Hub使用RPC接受从客户端发来的消息, 也能把消息发送给客户端. 所以它就是一个通信用的Hub.</p>
+<p>在ASP.NET Core里, 自己创建的Hub类需要继承于基类Hub.</p>
+<p>在Hub类里面, 我们就可以调用所有客户端上的方法了. 同样客户端也可以调用Hub类里的方法.</p>
+<p><img src="/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvOTg2MjY4LzIwMTgwOC85ODYyNjgtMjAxODA4MjIxMDU0MjkwMTItNTYwMDg2OTgzLnBuZw.png" alt=""></p>
+<p>这种Hub+RPC的方式还是非常适合实时场景的.</p>
+<p>之前说过方法调用的时候可以传递复杂参数, SignalR可以将参数序列化和反序列化. 这些参数被序列化的格式叫做Hub 协议, 所以Hub协议就是一种用来序列化和反序列化的格式.</p>
+<p>Hub协议的默认协议是JSON, 还支持另外一个协议是MessagePack. MessagePack是二进制格式的, 它比JSON更紧凑, 而且处理起来更简单快速, 因为它是二进制的.</p>
+<p>此外, SignalR也可以扩展使用其它协议..</p>
+<h2 id="横向扩展"><a href="#横向扩展" class="headerlink" title="横向扩展"></a>横向扩展</h2><p>随着系统的运行, 有时您可能需要进行横向扩展. 就是应用运行在多个服务器上.</p>
+<p>这时负载均衡器会保证每个进来的请求按照一定的逻辑分配到可能是不同的服务器上.</p>
+<p>在使用Web Socket的时候, 没什么问题, 因为一旦Web Socket的连接建立, 就像在浏览器和那个服务器之间打开了隧道一样, 服务器是不会切换的.</p>
+<p>但是如果使用Long Polling, 就可能有问题了, 因为使用Long Polling的情况下, 每次发送消息都是不同的请求, 而每次请求可能会到达不同的服务器. 不同的服务器可能不知道前一个服务器通信的内容, 这就会造成问题.</p>
+<p>针对这个问题, 我们需要使用<strong>Sticky Sessions (粘性会话)</strong>.</p>
+<p>Sticky Sessions 貌似有很多中实现方式, 但是主要是下面要介绍的这种方式.</p>
+<p>作为第一次请求的响应的一部分, 负载均衡器会在浏览器里面设置一个Cookie, 来表示使用过这个服务器. 在后续的请求里, 负载均衡器读取Cookie, 然后把请求分配给同一个服务器. </p>
+<h2 id="在ASP-NET-Core-中使用SignalR"><a href="#在ASP-NET-Core-中使用SignalR" class="headerlink" title="在ASP.NET Core 中使用SignalR"></a>在ASP.NET Core 中使用SignalR</h2><p>创建项目，新建SignalRHub：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">using Core.Parameters;</span><br><span class="line">using Microsoft.AspNetCore.SignalR;</span><br><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace XXXXX.SignalR</span><br><span class="line">&#123;</span><br><span class="line">    public class SignalRHub : Hub</span><br><span class="line">    &#123;</span><br><span class="line">        private readonly DcListService _dcListService;</span><br><span class="line">        public SignalRHub(DcListService dcListService)</span><br><span class="line">        &#123;</span><br><span class="line">            _dcListService = dcListService;</span><br><span class="line">        &#125;</span><br><span class="line">        public void AddMachineCode(string dcCode)</span><br><span class="line">        &#123;</span><br><span class="line">            _dcListService.Add(dcCode, Context.ConnectionId);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void Exec(Paramete paramete)</span><br><span class="line">        &#123;</span><br><span class="line">            string connectionId = Context.ConnectionId;</span><br><span class="line">            var toClient = _dcListService.FirstOrDefault(paramete.MachineCode);</span><br><span class="line">            if (toClient == null)</span><br><span class="line">            &#123;</span><br><span class="line">                Clients.Client(Context.ConnectionId).SendAsync(&quot;Result&quot;, connectionId, false, &quot;系统消息：当前设备不在线!&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                Clients.Client(toClient.ConnectionId).SendAsync(&quot;Exec&quot;, connectionId, paramete);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void Result(string connectionId,bool flag, string data)</span><br><span class="line">        &#123;</span><br><span class="line">            Clients.Client(connectionId).SendAsync(&quot;Result&quot;, connectionId, flag, data);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public async override Task OnDisconnectedAsync(Exception exception)</span><br><span class="line">        &#123;</span><br><span class="line">            _dcListService.Remove(Context.ConnectionId);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public async override Task OnConnectedAsync()</span><br><span class="line">        &#123;</span><br><span class="line">            //string connectionId = Context.ConnectionId;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public class Paramete</span><br><span class="line">    &#123;</span><br><span class="line">        public string MachineCode &#123; get; set; &#125;</span><br><span class="line">        public string ProcessPath &#123; get; set; &#125;</span><br><span class="line">        public string ExecType &#123; get; set; &#125;</span><br><span class="line">        public string ViewType &#123; get; set; &#125;</span><br><span class="line">        public DateTime? StartDate &#123; get; set; &#125;</span><br><span class="line">        public DateTime? EndDate &#123; get; set; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在Startup里添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">services.AddScoped&lt;DcListService&gt;();</span><br><span class="line">services.AddSignalR();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.UseSignalR(routes =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    apHub&lt;SignalRHub&gt;(&quot;/signalR&quot;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>Winform客户端代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br></pre></td><td class="code"><pre><span class="line">using Microsoft.AspNetCore.SignalR.Client;</span><br><span class="line">using System;</span><br><span class="line">using System.Drawing;</span><br><span class="line">using System.Windows.Forms;</span><br><span class="line"></span><br><span class="line">namespace WindowsFormsSample</span><br><span class="line">&#123;</span><br><span class="line">    public partial class ChatForm : Form</span><br><span class="line">    &#123;</span><br><span class="line">        private HubConnection _connection;</span><br><span class="line"></span><br><span class="line">        public ChatForm()</span><br><span class="line">        &#123;</span><br><span class="line">            InitializeComponent();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private void ChatForm_Load(object sender, EventArgs e)</span><br><span class="line">        &#123;</span><br><span class="line">            addressTextBox.Focus();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private void addressTextBox_Enter(object sender, EventArgs e)</span><br><span class="line">        &#123;</span><br><span class="line">            AcceptButton = connectButton;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private async void connectButton_Click(object sender, EventArgs e)</span><br><span class="line">        &#123;</span><br><span class="line">            UpdateState(connected: false);</span><br><span class="line"></span><br><span class="line">            _connection = new HubConnectionBuilder()</span><br><span class="line">                .WithUrl(addressTextBox.Text)</span><br><span class="line">                .Build();</span><br><span class="line"></span><br><span class="line">            _connection.On&lt;string, Paramete&gt;(&quot;Exec&quot;, Exec);</span><br><span class="line"></span><br><span class="line">            Log(Color.Gray, &quot;Starting connection...&quot;);</span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                await _connection.StartAsync();</span><br><span class="line">                await _connection.InvokeAsync(&quot;AddMachineCode&quot;, this.dcCodeTextBox.Text);</span><br><span class="line">            &#125;</span><br><span class="line">            catch (Exception ex)</span><br><span class="line">            &#123;</span><br><span class="line">                Log(Color.Red, ex.ToString());</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Log(Color.Gray, &quot;Connection established.&quot;);</span><br><span class="line"></span><br><span class="line">            UpdateState(connected: true);</span><br><span class="line"></span><br><span class="line">            messageTextBox.Focus();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private async void disconnectButton_Click(object sender, EventArgs e)</span><br><span class="line">        &#123;</span><br><span class="line">            Log(Color.Gray, &quot;Stopping connection...&quot;);</span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                await _connection.StopAsync();</span><br><span class="line">            &#125;</span><br><span class="line">            catch (Exception ex)</span><br><span class="line">            &#123;</span><br><span class="line">                Log(Color.Red, ex.ToString());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Log(Color.Gray, &quot;Connection terminated.&quot;);</span><br><span class="line"></span><br><span class="line">            UpdateState(connected: false);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private void messageTextBox_Enter(object sender, EventArgs e)</span><br><span class="line">        &#123;</span><br><span class="line">            AcceptButton = sendButton;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private async void sendButton_Click(object sender, EventArgs e)</span><br><span class="line">        &#123;</span><br><span class="line">            try</span><br><span class="line">            &#123;</span><br><span class="line">                await _connection.InvokeAsync(&quot;SendSingle&quot;, this.toDcCodeTextBox.Text, messageTextBox.Text);</span><br><span class="line">            &#125;</span><br><span class="line">            catch (Exception ex)</span><br><span class="line">            &#123;</span><br><span class="line">                Log(Color.Red, ex.ToString());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private void UpdateState(bool connected)</span><br><span class="line">        &#123;</span><br><span class="line">            disconnectButton.Enabled = connected;</span><br><span class="line">            connectButton.Enabled = !connected;</span><br><span class="line">            addressTextBox.Enabled = !connected;</span><br><span class="line"></span><br><span class="line">            messageTextBox.Enabled = connected;</span><br><span class="line">            sendButton.Enabled = connected;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private async void Exec(string connectionId, Paramete paramete)</span><br><span class="line">        &#123;</span><br><span class="line">            Log(Color.Black, &quot;&quot;);</span><br><span class="line">            Log(Color.Black, &quot;消息来了&quot;);</span><br><span class="line">            Log(Color.Black, $&quot;ConnectionId:&#123;connectionId&#125;&quot;);</span><br><span class="line">            Log(Color.Black, $&quot;MachineCode:&#123;paramete.MachineCode&#125;&quot;);</span><br><span class="line">            Log(Color.Black, $&quot;ProcessPath:&#123;paramete.ProcessPath&#125;&quot;);</span><br><span class="line">            Log(Color.Black, $&quot;ExecType:&#123;paramete.ExecType&#125;&quot;);</span><br><span class="line">            Log(Color.Black, $&quot;ViewType:&#123;paramete.ViewType&#125;&quot;);</span><br><span class="line">            Log(Color.Black, $&quot;StartDate:&#123;paramete.StartDate&#125;&quot;);</span><br><span class="line">            Log(Color.Black, $&quot;EndDate:&#123;paramete.EndDate&#125;&quot;);</span><br><span class="line"></span><br><span class="line">            await _connection.InvokeAsync(&quot;Result&quot;, connectionId, true, &quot;客户端执行成功！&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private void Log(Color color, string message)</span><br><span class="line">        &#123;</span><br><span class="line">            Action callback = () =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                messagesList.Items.Add(new LogMessage(color, message));</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            Invoke(callback);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private class LogMessage</span><br><span class="line">        &#123;</span><br><span class="line">            public Color MessageColor &#123; get; &#125;</span><br><span class="line"></span><br><span class="line">            public string Content &#123; get; &#125;</span><br><span class="line"></span><br><span class="line">            public LogMessage(Color messageColor, string content)</span><br><span class="line">            &#123;</span><br><span class="line">                MessageColor = messageColor;</span><br><span class="line">                Content = content;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private void messagesList_DrawItem(object sender, DrawItemEventArgs e)</span><br><span class="line">        &#123;</span><br><span class="line">            var message = (LogMessage)messagesList.Items[e.Index];</span><br><span class="line">            e.Graphics.DrawString(</span><br><span class="line">                message.Content,</span><br><span class="line">                messagesList.Font,</span><br><span class="line">                new SolidBrush(message.MessageColor),</span><br><span class="line">                e.Bounds);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public class Paramete</span><br><span class="line">    &#123;</span><br><span class="line">        public string MachineCode &#123; get; set; &#125;</span><br><span class="line">        public string ProcessPath &#123; get; set; &#125;</span><br><span class="line">        public string ExecType &#123; get; set; &#125;</span><br><span class="line">        public string ViewType &#123; get; set; &#125;</span><br><span class="line">        public DateTime? StartDate &#123; get; set; &#125;</span><br><span class="line">        public DateTime? EndDate &#123; get; set; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">using Core.Parameters;</span><br><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace XXXX.SignalR</span><br><span class="line">&#123;</span><br><span class="line">    public class DcListService</span><br><span class="line">    &#123;</span><br><span class="line">        private static List&lt;OnlineDcCode&gt; DcList = new List&lt;OnlineDcCode&gt;();</span><br><span class="line">        public OnlineDcCode FirstOrDefault(string dcCode)</span><br><span class="line">        &#123;</span><br><span class="line">            return DcList.Where(p =&gt; p.DcCode == dcCode).FirstOrDefault();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void Add(string dcCode, string connectionId)</span><br><span class="line">        &#123;</span><br><span class="line">            if (FirstOrDefault(dcCode) == null)</span><br><span class="line">            &#123;</span><br><span class="line">                DcList.Add(new OnlineDcCode()</span><br><span class="line">                &#123;</span><br><span class="line">                    ConnectionId = connectionId,</span><br><span class="line">                    DcCode = dcCode</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                DcList.Where(p =&gt; p.DcCode == dcCode).FirstOrDefault().ConnectionId = connectionId;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void Remove(string connectionId)</span><br><span class="line">        &#123;</span><br><span class="line">            var dc = DcList.FirstOrDefault(p =&gt; p.ConnectionId == connectionId);</span><br><span class="line">            if (dc != null)</span><br><span class="line">            &#123;</span><br><span class="line">                DcList.Remove(dc);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cgzl/p/9515516.html">https://www.cnblogs.com/cgzl/p/9515516.html</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/aspnet/SignalR-samples">https://github.com/aspnet/SignalR-samples</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/48300288/signalr-in-asp-net-core-behind-nginx">SignalR in ASP.NET Core behind Nginx</a><br>在Nginx中转发，配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    #charset koi8-r;</span><br><span class="line">    #access_log  /var/log/nginx/host.access.log  main;</span><br><span class="line"></span><br><span class="line">    add_header Access-Control-Allow-Origin *;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">        try_files $uri $uri/ /index.html =404;</span><br><span class="line"></span><br><span class="line">        if ($request_method = &#x27;OPTIONS&#x27;) &#123;</span><br><span class="line">                add_header Access-Control-Allow-Origin *;</span><br><span class="line">                add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;</span><br><span class="line">                return 204;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ^~ /api/signalR</span><br><span class="line">    &#123;</span><br><span class="line">        if ($request_method = &#x27;OPTIONS&#x27;) &#123;</span><br><span class="line">                add_header Access-Control-Allow-Origin *;</span><br><span class="line">                add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;</span><br><span class="line">                return 204;</span><br><span class="line">        &#125;</span><br><span class="line">        proxy_pass http://192.168.1.231:8091;</span><br><span class="line">        proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">        proxy_set_header Connection &quot;upgrade&quot;;</span><br><span class="line">        proxy_set_header Host $host;</span><br><span class="line">        proxy_cache_bypass $http_upgrade;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ^~ /api/                                                                                                                                                    &#123;</span><br><span class="line">        if ($request_method = &#x27;OPTIONS&#x27;) &#123;</span><br><span class="line">                add_header Access-Control-Allow-Origin *;</span><br><span class="line">                add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;</span><br><span class="line">                return 204;</span><br><span class="line">        &#125;</span><br><span class="line">        proxy_pass http://192.168.1.231:8091;</span><br><span class="line">    &#125;</span><br><span class="line">    #error_page  404              /404.html;</span><br><span class="line"></span><br><span class="line">    # redirect server error pages to the static page /50x.html</span><br><span class="line">    # error_page   500 502 503 504  /50x.html;</span><br><span class="line">    # location = /50x.html &#123;</span><br><span class="line">    #   root   /usr/share/nginx/html;</span><br><span class="line">    # &#125;</span><br><span class="line"></span><br><span class="line">    # proxy the PHP scripts to Apache listening on 127.0.0.1:80</span><br><span class="line">    #</span><br><span class="line">    #location ~ \.php$ &#123;</span><br><span class="line">    #    proxy_pass   http://127.0.0.1;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line">    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</span><br><span class="line">    #</span><br><span class="line">    #location ~ \.php$ &#123;</span><br><span class="line">    #    root           html;</span><br><span class="line">    #    fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">    #    fastcgi_index  index.php;</span><br><span class="line">    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span><br><span class="line">    #    include        fastcgi_params;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line">    # deny access to .htaccess files, if Apache&#x27;s document root</span><br><span class="line">    # concurs with nginx&#x27;s one</span><br><span class="line">    #</span><br><span class="line">    #location ~ /\.ht &#123;</span><br><span class="line">    #    deny  all;</span><br><span class="line">    #&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/20191014164049796.png" alt=""></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/48300288/signalr-in-asp-net-core-behind-nginx">https://stackoverflow.com/questions/48300288/signalr-in-asp-net-core-behind-nginx</a></p>
+<p>断开后自动重新连接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//2、彻底断开 重新连接</span><br><span class="line">_connection.Closed += async (error) =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    Log(Color.Red, $&quot;&#123;DateTime.Now.ToString(&quot;yyyy-MM-dd HH:mm:ss.ff&quot;)&#125; 断开连接: &quot; + error);</span><br><span class="line">    await Task.Delay(new Random().Next(0, 5) * 1000);</span><br><span class="line">    int count = 0;</span><br><span class="line">    while (_connection.State == HubConnectionState.Disconnected)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            //4、开启会话</span><br><span class="line">            await _connection.StartAsync();</span><br><span class="line">            //5、将 机器码 和 exe文件路径 与 当前连接关联上</span><br><span class="line">            await _connection.InvokeAsync(&quot;AddMachineCode&quot;, this.dcCodeTextBox.Text);</span><br><span class="line">            Log(Color.Green, $&quot;&#123;DateTime.Now.ToString(&quot;yyyy-MM-dd HH:mm:ss.ff&quot;)&#125; ----- 重新连接成功！ ------&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            Log(Color.Red, ex.ToString());</span><br><span class="line">        &#125;</span><br><span class="line">        Log(Color.Red, $&quot;&#123;DateTime.Now.ToString(&quot;yyyy-MM-dd HH:mm:ss.ff&quot;)&#125; ----- 第 &#123;++count&#125; 彻底断开 尝试重连 ------&quot;);</span><br><span class="line">        await Task.Delay(new Random().Next(0, 5) * 1000);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>JWT认证：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#region Authentication</span><br><span class="line">services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)</span><br><span class="line">    .AddJwtBearer(options =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        options.TokenValidationParameters = new TokenValidationParameters</span><br><span class="line">        &#123;</span><br><span class="line">            ValidateIssuer = true,</span><br><span class="line">            ValidateAudience = true,</span><br><span class="line">            ValidateLifetime = true,</span><br><span class="line">            ValidateIssuerSigningKey = true,</span><br><span class="line">            ValidIssuer = Configuration[&quot;Jwt:Issuer&quot;],</span><br><span class="line">            ValidAudience = Configuration[&quot;Jwt:Issuer&quot;],</span><br><span class="line">            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration[&quot;Jwt:Key&quot;]))</span><br><span class="line">        &#125;;</span><br><span class="line">        options.Events = new JwtBearerEvents()</span><br><span class="line">        &#123;</span><br><span class="line">            OnMessageReceived = context =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                if (context.Request.Path.ToString().StartsWith(&quot;/api/signalR&quot;))</span><br><span class="line">                    context.Token = context.Request.Query[&quot;access_token&quot;];</span><br><span class="line">                return Task.CompletedTask;</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;);</span><br><span class="line">#endregion</span><br></pre></td></tr></table></figure>
+
+<p>主要是这一段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">options.Events = new JwtBearerEvents()</span><br><span class="line">&#123;</span><br><span class="line">    OnMessageReceived = context =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        if (context.Request.Path.ToString().StartsWith(&quot;/api/signalR&quot;))</span><br><span class="line">            context.Token = context.Request.Query[&quot;access_token&quot;];</span><br><span class="line">        return Task.CompletedTask;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p> 客户端配置：<br><img src="/images/201910211427258.png" alt=""></p>
+<p>服务器端配置：<br><img src="/images/20191021142804271.png" alt=""></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/30/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><span class="page-number current">31</span><a class="page-number" href="/page/32/">32</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/32/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

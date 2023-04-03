@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转自：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;chenwolong&#x2F;archive&#x2F;2017&#x2F;05&#x2F;18&#x2F;6872672.html 原标题：C# 多线程 Parallel.For 和 For 谁的效率高？那么 Parallel.ForEach 和 ForEach 呢？ 今天和大家探讨一个问题：Parallel.For 和 For 谁的效率高呢？ 从CPU使用方面而言，Parallel.Fo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net】Parallel.For 和 For 谁的效率高呢？">
+<meta property="og:url" content="http://blog.bfsdfs.com/2018/10/17/%E3%80%90.Net%E3%80%91Parallel.For%20%E5%92%8C%20For%20%E8%B0%81%E7%9A%84%E6%95%88%E7%8E%87%E9%AB%98%E5%91%A2%EF%BC%9F/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="转自：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;chenwolong&#x2F;archive&#x2F;2017&#x2F;05&#x2F;18&#x2F;6872672.html 原标题：C# 多线程 Parallel.For 和 For 谁的效率高？那么 Parallel.ForEach 和 ForEach 呢？ 今天和大家探讨一个问题：Parallel.For 和 For 谁的效率高呢？ 从CPU使用方面而言，Parallel.Fo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/451016-20170518141813103-1433332785.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/451016-20170518142455010-1938998235.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/451016-20170519115856900-333831738.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/451016-20170519115942932-756096433.png">
+<meta property="article:published_time" content="2018-10-17T14:45:30.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.045Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net">
+<meta property="article:tag" content="多线程">
+<meta property="article:tag" content="C#基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/451016-20170518141813103-1433332785.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2018/10/17/%E3%80%90.Net%E3%80%91Parallel.For%20%E5%92%8C%20For%20%E8%B0%81%E7%9A%84%E6%95%88%E7%8E%87%E9%AB%98%E5%91%A2%EF%BC%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net】Parallel.For 和 For 谁的效率高呢？ | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/10/17/%E3%80%90.Net%E3%80%91Parallel.For%20%E5%92%8C%20For%20%E8%B0%81%E7%9A%84%E6%95%88%E7%8E%87%E9%AB%98%E5%91%A2%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net】Parallel.For 和 For 谁的效率高呢？
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-17 22:45:30" itemprop="dateCreated datePublished" datetime="2018-10-17T22:45:30+08:00">2018-10-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chenwolong/archive/2017/05/18/6872672.html">https://www.cnblogs.com/chenwolong/archive/2017/05/18/6872672.html</a></p>
+<p>原标题：C# 多线程 Parallel.For 和 For 谁的效率高？那么 Parallel.ForEach 和 ForEach 呢？</p>
+<p><strong>今天和大家探讨一个问题：Parallel.For 和 For 谁的效率高呢？</strong></p>
+<p>从CPU使用方面而言，Parallel.For 属于多线程范畴，可以开辟多个线程使用CPU内核，也就是说可以并行处理程序。For 循环是单线程的，一个线程执行完所有循环。</p>
+<p>因此你会认为：多线程的效率肯定高于单线程。但这样认为是错误的！</p>
+<p><strong>例如下面程序：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">    Stopwatch sw = new Stopwatch();</span><br><span class="line">    sw.Start();</span><br><span class="line"></span><br><span class="line">    ParallelLoopResult result =</span><br><span class="line">    Parallel.For(0, 10000, i =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        Console.Write(&quot;&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line">    sw.Stop();</span><br><span class="line">    TimeSpan ts2 = sw.Elapsed;</span><br><span class="line">    Console.WriteLine(&quot;Parallel.For总共花费&#123;0&#125;ms.&quot;, ts2.TotalMilliseconds);</span><br><span class="line"></span><br><span class="line">    //</span><br><span class="line">    Stopwatch sw_Eq = new Stopwatch();</span><br><span class="line">    sw_Eq.Start();</span><br><span class="line">    for (int i = 0; i &lt; 10000; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.Write(&quot;&quot;); </span><br><span class="line">    &#125;</span><br><span class="line">    sw_Eq.Stop();</span><br><span class="line">    TimeSpan tssw_Eq = sw_Eq.Elapsed;</span><br><span class="line">    Console.WriteLine(&quot;for总共花费&#123;0&#125;ms.&quot;, tssw_Eq.TotalMilliseconds);</span><br><span class="line">    Console.ReadKey();</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p><img src="/images/451016-20170518141813103-1433332785.png" alt=""></p>
+<p>额，为什么For 循环要比Parallel.For 效率要高呢？</p>
+<p>这是因为循环体内执行的任务开销太小，仅仅是输出一个空字符串而已。微软的文章已经指出任务的开销大小对并行任务的影响。如果任务很小，那么由于并行管理的附加开销（任务分配，调度，同步等成本），可能并行执行并不是优化方案。这也是上述程序For效率高出的原因。</p>
+<p>如果在循环体内执行向数据库插入操作，那么Parallel.For 效率就会高出，在此，我们认为每向数据库插入一条记录花费1毫秒时间，将程序修改如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">&#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Stopwatch sw = new Stopwatch();</span><br><span class="line">            sw.Start();</span><br><span class="line"></span><br><span class="line">            ParallelLoopResult result =</span><br><span class="line">            Parallel.For(0, 10, i =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(&quot;&quot;);</span><br><span class="line">                Thread.Sleep(1);</span><br><span class="line"></span><br><span class="line">            &#125;);</span><br><span class="line">            sw.Stop();</span><br><span class="line">            TimeSpan ts2 = sw.Elapsed;</span><br><span class="line">            Console.WriteLine(&quot;Parallel.For总共花费&#123;0&#125;ms.&quot;, ts2.TotalMilliseconds);</span><br><span class="line"></span><br><span class="line">            //</span><br><span class="line">            Stopwatch sw_Eq = new Stopwatch();</span><br><span class="line">            sw_Eq.Start();</span><br><span class="line">            for (int i = 0; i &lt; 10; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(&quot;&quot;);</span><br><span class="line">                Thread.Sleep(1);</span><br><span class="line">            &#125;</span><br><span class="line">            sw_Eq.Stop();</span><br><span class="line">            TimeSpan tssw_Eq = sw_Eq.Elapsed;</span><br><span class="line">            Console.WriteLine(&quot;for总共花费&#123;0&#125;ms.&quot;, tssw_Eq.TotalMilliseconds);</span><br><span class="line">            Console.ReadKey();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果大大改变：</p>
+<p><img src="/images/451016-20170518142455010-1938998235.png" alt=""></p>
+<p>相信到此，大家应该明白了吧！也就说For是同步，Parallel.For 是异步执行。当然，我们也可以使用Thread实现异步编程：</p>
+<p>代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">&#123;</span><br><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;主线程测试开始..&quot;);</span><br><span class="line">    Thread th = new Thread(ThMethod);</span><br><span class="line">    th.Start();</span><br><span class="line">    Thread.Sleep(1000);</span><br><span class="line">    Console.WriteLine(&quot;主线程测试结束..&quot;);</span><br><span class="line">    Console.ReadLine();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">static void ThMethod()</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;异步执行开始&quot;);</span><br><span class="line">    for (int i = 0; i &lt; 5; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;异步执行&quot; + i.ToString() + &quot;..&quot;);</span><br><span class="line">        Thread.Sleep(1000);</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine(&quot;异步执行完成&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Parallel.ForEach 和 ForEach 与 Parallel.For 和 For 一样，一个是异步执行，开辟多个线程。一个是同步执行，开辟一个线程。因此，效率方面同上，主要看执行的什么任务，在此不作具体说明。</p>
+<p>下面写了一些代码，从下面的代码中我们可以看出Parallel.ForEach具体开辟了几个线程，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Program</span><br><span class="line">&#123;</span><br><span class="line">    static void Main(string[] args)</span><br><span class="line">    &#123;</span><br><span class="line">        int[] intList = new int[] &#123; 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 &#125;;</span><br><span class="line">        ParallelLoopResult result = Parallel.ForEach(intList, (s,pls,longs) =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(longs + &quot;  &quot; + s);</span><br><span class="line">            pls.Stop();</span><br><span class="line">            if (pls.IsStopped)</span><br><span class="line">            &#123;</span><br><span class="line">                Parallel.Invoke(Gs,Ks);//异步调用多个方法</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        Console.ReadKey();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void Gs()</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;异步方法1&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void Ks()</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;异步方法2&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码中，调用了Stop()方法，我们都知道，如果是同步执行的，调用Stop()后，会立即停止执行，那么程序只会输出索引值为0的结果。而在异步中不是这样的，异步迭代是多线程且没有顺序的。其执行结果如下：</p>
+<p>多次执行的结果可能不同。</p>
+<p><img src="/images/451016-20170519115856900-333831738.png" alt=""></p>
+<p><img src="/images/451016-20170519115942932-756096433.png" alt=""></p>
+<p>如上图所示，第一个图开辟了三个线程，执行顺序为 0 2 1，第二个图开辟了两个线程，执行顺序为：1 0 </p>
+<p>下面的Invoke()方法是异步调用其他的方法，在此不作解释，可参考C# Invoke()</p>
+<p><strong>设置开启的线程的个数：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Parallel.ForEach(NameArray,new ParallelOptions&#123;MaxDegreeOfParallelism=3&#125;,(item,pls,i)=&gt;</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2018/10/17/%E3%80%90.Net%E3%80%91Parallel.For%20%E5%92%8C%20For%20%E8%B0%81%E7%9A%84%E6%95%88%E7%8E%87%E9%AB%98%E5%91%A2%EF%BC%9F/" title="【.Net】Parallel.For 和 For 谁的效率高呢？">http://blog.bfsdfs.com/2018/10/17/【.Net】Parallel.For 和 For 谁的效率高呢？/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net/" rel="tag"># .Net</a>
+              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
+              <a href="/tags/C-%E5%9F%BA%E7%A1%80/" rel="tag"># C#基础</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/09/18/%E3%80%90Angular%E3%80%91%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="prev" title="【Angular】配置文件之环境配置">
+      <i class="fa fa-chevron-left"></i> 【Angular】配置文件之环境配置
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/11/01/%E3%80%90MySql%E3%80%91%E4%BA%8B%E4%BB%B6%EF%BC%88Event%EF%BC%89/" rel="next" title="【MySql】事件（Event）">
+      【MySql】事件（Event） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '08edc731337d9d1a13e45ca17ce575fe',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

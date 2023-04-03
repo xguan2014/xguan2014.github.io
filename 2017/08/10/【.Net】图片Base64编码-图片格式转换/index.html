@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="http:&#x2F;&#x2F;www.cnblogs.com&#x2F;lindana&#x2F;archive&#x2F;2009&#x2F;03&#x2F;25&#x2F;1421345.html 一. Base64的编码规则 Base64编码的思想是是采用64个基本的ASCII码字符对数据进行重新编码。它将需要编码的数据拆分成字节数组。以3个字节为一组。按顺序排列24 位数据，再把这24位数据分成4组，即每组6位。再在每组的的最高位前补两个0凑足一个字节。这样就把一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net】图片Base64编码-图片格式转换">
+<meta property="og:url" content="http://blog.bfsdfs.com/2017/08/10/%E3%80%90.Net%E3%80%91%E5%9B%BE%E7%89%87Base64%E7%BC%96%E7%A0%81-%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="http:&#x2F;&#x2F;www.cnblogs.com&#x2F;lindana&#x2F;archive&#x2F;2009&#x2F;03&#x2F;25&#x2F;1421345.html 一. Base64的编码规则 Base64编码的思想是是采用64个基本的ASCII码字符对数据进行重新编码。它将需要编码的数据拆分成字节数组。以3个字节为一组。按顺序排列24 位数据，再把这24位数据分成4组，即每组6位。再在每组的的最高位前补两个0凑足一个字节。这样就把一">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-08-10T13:57:15.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.047Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2017/08/10/%E3%80%90.Net%E3%80%91%E5%9B%BE%E7%89%87Base64%E7%BC%96%E7%A0%81-%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net】图片Base64编码-图片格式转换 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/08/10/%E3%80%90.Net%E3%80%91%E5%9B%BE%E7%89%87Base64%E7%BC%96%E7%A0%81-%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net】图片Base64编码-图片格式转换
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-08-10 21:57:15" itemprop="dateCreated datePublished" datetime="2017-08-10T21:57:15+08:00">2017-08-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/lindana/archive/2009/03/25/1421345.html">http://www.cnblogs.com/lindana/archive/2009/03/25/1421345.html</a></p>
+<p><strong>一. Base64的编码规则</strong></p>
+<p>Base64编码的思想是是采用64个基本的ASCII码字符对数据进行重新编码。它将需要编码的数据拆分成字节数组。以3个字节为一组。按顺序排列24 位数据，再把这24位数据分成4组，即每组6位。再在每组的的最高位前补两个0凑足一个字节。这样就把一个3字节为一组的数据重新编码成了4个字节。当所要编码的数据的字节数不是3的整倍数，也就是说在分组时最后一组不够3个字节。这时在最后一组填充1到2个0字节。并在最后编码完成后在结尾添加1到2个 “=”。</p>
+<p>例：将对ABC进行BASE64编码：</p>
+<blockquote>
+<blockquote>
+<p> 1、首先取ABC对应的ASCII码值。A（65）B（66）C（67）；<br> 2、再取二进制值A（01000001）B（01000010）C（01000011）；<br> 3、然后把这三个字节的二进制码接起来（010000010100001001000011）；<br> 4、 再以6位为单位分成4个数据块,并在最高位填充两个0后形成4个字节的编码后的值，（00010000）（00010100）（00001001）（00000011），其中蓝色部分为真实数据；<br> 5、再把这四个字节数据转化成10进制数得（16）（20）（9）（3）；<br> 6、最后根据BASE64给出的64个基本字符表，查出对应的ASCII码字符（Q）（U）（J）（D），这里的值实际就是数据在字符表中的索引。</p>
+</blockquote>
+<p>注：BASE64字符表：ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/</p>
+</blockquote>
+<p><strong>二.解码规则</strong></p>
+<p>解码过程就是把4个字节再还原成3个字节再根据不同的数据形式把字节数组重新整理成数据。</p>
+<p><strong>三. C#中的实现</strong></p>
+<p>编码：</p>
+<p>byte[] bytes = Encoding.Default.GetBytes(“要转换的字符”);<br>string str = Convert.ToBase64String(bytes);  </p>
+<p>解码：</p>
+<p>byte[] outputb = Convert.FromBase64String(str);<br>string orgStr = Encoding.Default.GetString(outputb);  </p>
+<p><strong>**</strong>C#<strong><strong>图片的Base64编码和解码</strong></strong> **</p>
+<p>图片的Base64编码：</p>
+<p>System.IO.MemoryStream m = new System.IO.MemoryStream();<br>System.Drawing.Bitmap bp = new System.Drawing.Bitmap(@“c:\demo.GIF”);<br>bp.Save(m, System.Drawing.Imaging.ImageFormat.Gif);<br>byte[]b= m.GetBuffer();<br>string base64string=Convert.ToBase64String(b);  </p>
+<p>Base64字符串解码：</p>
+<p>byte[] bt = Convert.FromBase64String(base64string);<br>System.IO.MemoryStream stream = new System.IO.MemoryStream(bt);<br>Bitmap bitmap = new Bitmap(stream);<br>pictureBox1.Image = bitmap;  </p>
+<p><a target="_blank" rel="noopener" href="http://www.weste.net/html/200408/20040803QBI163429.html">http://www.weste.net/html/200408/20040803QBI163429.html</a>  </p>
+<p>把bmp图片转换为jpg图片（C#）  </p>
+<p><strong>[csharp]</strong> <a target="_blank" rel="noopener" href="http://blog.csdn.net/NRlovestudy/article/details/48137339#">view plain</a> <a target="_blank" rel="noopener" href="http://blog.csdn.net/NRlovestudy/article/details/48137339#">copy</a>   </p>
+<p>using System.IO;<br>using System.Drawing.Imaging; </p>
+<p>public class imgConvert<br>{<br>private void BMPToJPG(string bmpFileName,string jpgFileName)<br>{ </p>
+<p>System.Drawing.Image img;<br> img=ReturnPhoto(bmpFileName); </p>
+<p> img.Save(jpgFileName,ImageFormat.Jpeg);<br> } </p>
+<p> private Image ReturnPhoto(string bmpFileName)<br> {<br> System.IO.FileStream stream ;<br> stream=File.OpenRead(bmpFileName);<br> Bitmap bmp = new Bitmap(stream);<br> System.Drawing.Image image = bmp;//得到原图<br> //创建指定大小的图<br> System.Drawing.Image newImage = image.GetThumbnailImage(bmp.Width, bmp.Height,null, new IntPtr());<br> Graphics g=Graphics.FromImage(newImage);<br> g.DrawImage(newImage,0,0, newImage.Width, newImage.Height); //将原图画到指定的图上<br> g.Dispose();<br> stream.Close();<br> return newImage;<br> }<br> }   </p>
+<p><a target="_blank" rel="noopener" href="http://www.csframework.com/archive/2/arc-2-20110617-1635.htm">http://www.csframework.com/archive/2/arc-2-20110617-1635.htm</a>  </p>
+<p>PNG -&gt;JPG, BMP -&gt; PNG按比例缩小图片  </p>
+<p><strong>[csharp]</strong> <a target="_blank" rel="noopener" href="http://blog.csdn.net/NRlovestudy/article/details/48137339#">view plain</a> <a target="_blank" rel="noopener" href="http://blog.csdn.net/NRlovestudy/article/details/48137339#">copy</a>   </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line">sing System; </span><br><span class="line">sing System.Collections.Generic; </span><br><span class="line">sing System.Text; </span><br><span class="line">sing System.IO; </span><br><span class="line">sing System.Drawing; </span><br><span class="line">sing System.Drawing.Imaging; </span><br><span class="line"></span><br><span class="line">amespace www.CSFramework.com </span><br><span class="line"> </span><br><span class="line">public class CImageLibrary </span><br><span class="line">&#123; </span><br><span class="line">public enum ValidateImageResult &#123; OK, InvalidFileSize, InvalidImageSize &#125; </span><br><span class="line"></span><br><span class="line">//检查图片大小  </span><br><span class="line">public static ValidateImageResult ValidateImage(string file, int MAX_FILE_SIZE, int MAX_WIDTH, int MAX_HEIGHT) </span><br><span class="line">&#123; </span><br><span class="line">byte[] bs = File.ReadAllBytes(file); </span><br><span class="line"></span><br><span class="line">double size = (bs.Length / 1024); </span><br><span class="line">//大于50KB  </span><br><span class="line">if (size &gt; MAX_FILE_SIZE) return ValidateImageResult.InvalidFileSize; </span><br><span class="line">Image img = Image.FromFile(file); </span><br><span class="line">if (img.Width &gt; MAX_WIDTH || img.Height &gt; MAX_HEIGHT) return ValidateImageResult.InvalidImageSize; </span><br><span class="line">return ValidateImageResult.OK; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">//按宽度比例缩小图片  </span><br><span class="line">public static Image GetOutputSizeImage(Image imgSource, int MAX_WIDTH) </span><br><span class="line">&#123; </span><br><span class="line">Image imgOutput = imgSource; </span><br><span class="line"></span><br><span class="line">Size size = new Size(imgSource.Width, imgSource.Height); </span><br><span class="line">if (imgSource.Width &lt;= 3 || imgSource.Height &lt;= 3) return imgSource; //3X3大小的图片不转换  </span><br><span class="line"></span><br><span class="line">if (imgSource.Width &gt; MAX_WIDTH || imgSource.Height &gt; MAX_WIDTH) </span><br><span class="line">&#123; </span><br><span class="line">double rate = MAX_WIDTH / (double)imgSource.Width; </span><br><span class="line"></span><br><span class="line">if (imgSource.Height * rate &gt; MAX_WIDTH) </span><br><span class="line">rate = MAX_WIDTH / (double)imgSource.Height; </span><br><span class="line"></span><br><span class="line">size.Width = Convert.ToInt32(imgSource.Width * rate); </span><br><span class="line">size.Height = Convert.ToInt32(imgSource.Height * rate); </span><br><span class="line"></span><br><span class="line">imgOutput = imgSource.GetThumbnailImage(size.Width, size.Height, null, IntPtr.Zero); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">return imgOutput; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">//按比例缩小图片  </span><br><span class="line">public static Image GetOutputSizeImage(Image imgSource, Size outSize) </span><br><span class="line">&#123; </span><br><span class="line">Image imgOutput = imgSource.GetThumbnailImage(outSize.Width, outSize.Height, null, IntPtr.Zero); </span><br><span class="line">return imgOutput; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">/// &lt;summary&gt;  </span><br><span class="line">/// 由图片文件转字节  </span><br><span class="line">/// &lt;/summary&gt;  </span><br><span class="line">public static byte[] GetImageBytes(string imageFileName) </span><br><span class="line">&#123; </span><br><span class="line">Image img = Image.FromFile(imageFileName); </span><br><span class="line">return GetImageBytes(img); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">/// &lt;summary&gt;  </span><br><span class="line">/// 图片转字节  </span><br><span class="line">/// &lt;/summary&gt;  </span><br><span class="line">public static byte[] GetImageBytes(Image img) </span><br><span class="line">&#123; </span><br><span class="line">if (img == null) return null; </span><br><span class="line">try </span><br><span class="line">&#123; </span><br><span class="line">System.IO.MemoryStream ms = new MemoryStream(); </span><br><span class="line">img.Save(ms, ImageFormat.Jpeg); </span><br><span class="line">byte[] bs = ms.ToArray(); </span><br><span class="line">ms.Close(); </span><br><span class="line">return bs; </span><br><span class="line">&#125; </span><br><span class="line">catch &#123; return null; &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">/// &lt;summary&gt;  </span><br><span class="line">/// 字节转图片  </span><br><span class="line">/// &lt;/summary&gt;  </span><br><span class="line">public static Image FromBytes(byte[] bs) </span><br><span class="line">&#123; </span><br><span class="line">if (bs == null) return null; </span><br><span class="line">try </span><br><span class="line">&#123; </span><br><span class="line">MemoryStream ms = new MemoryStream(bs); </span><br><span class="line">Image returnImage = Image.FromStream(ms); </span><br><span class="line">ms.Close(); </span><br><span class="line">return returnImage; </span><br><span class="line">&#125; </span><br><span class="line">catch &#123; return null; &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> /// &lt;summary&gt;  </span><br><span class="line"> /// 将其它格式的图片转为JPG文件  </span><br><span class="line"> /// &lt;/summary&gt;  </span><br><span class="line"> public static Image ToJPG(Image source) </span><br><span class="line"> &#123; </span><br><span class="line"> //注意，先定义Bitmap类，否则会报A generic error occurred in GDI+  </span><br><span class="line"> Bitmap bmp = new Bitmap(source); </span><br><span class="line"> MemoryStream ms = new MemoryStream(); </span><br><span class="line"> bmp.Save(ms, ImageFormat.Jpeg); </span><br><span class="line"> return Bitmap.FromStream(ms); </span><br><span class="line"> &#125; </span><br><span class="line"> </span><br><span class="line"> /// &lt;summary&gt;  </span><br><span class="line"> /// 将其它格式的图片转为PNG文件  </span><br><span class="line"> /// &lt;/summary&gt;  </span><br><span class="line"> public static Image ToPNG(Image source) </span><br><span class="line"> &#123; </span><br><span class="line"> //注意，先定义Bitmap类，否则会报A generic error occurred in GDI+  </span><br><span class="line"> Bitmap bmp = new Bitmap(source); </span><br><span class="line"> MemoryStream ms = new MemoryStream(); </span><br><span class="line"> bmp.Save(ms, ImageFormat.Png); </span><br><span class="line"> return FromBytes(ms.ToArray()); </span><br><span class="line"> &#125; </span><br><span class="line"> </span><br><span class="line"> //保存文件  </span><br><span class="line"> public static void SaveFile(string fileName, Image source) </span><br><span class="line"> &#123; </span><br><span class="line"> source.Save(fileName, source.RawFormat); </span><br><span class="line"> &#125; </span><br><span class="line"> </span><br><span class="line"> &#125; </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2017/08/10/%E3%80%90.Net%E3%80%91%E5%9B%BE%E7%89%87Base64%E7%BC%96%E7%A0%81-%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/" title="【.Net】图片Base64编码-图片格式转换">http://blog.bfsdfs.com/2017/08/10/【.Net】图片Base64编码-图片格式转换/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net/" rel="tag"># .Net</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/08/10/%E3%80%90Asp.Net%E3%80%91%E5%9B%BE%E7%89%87%E5%92%8CBase64%E7%BC%96%E7%A0%81%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2/" rel="prev" title="【Asp.Net】图片和Base64编码互相转换">
+      <i class="fa fa-chevron-left"></i> 【Asp.Net】图片和Base64编码互相转换
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/08/14/%E3%80%90DIY%E3%80%91%E8%AE%BF%E5%AE%A2%E8%AE%B0%E5%BD%95%E6%9F%A5%E8%AF%A2/" rel="next" title="【DIY】访客记录查询">
+      【DIY】访客记录查询 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'e3b506f25dc6e17bf9975a59c25f0d4d',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="frp下载：https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp&#x2F;releases 服务器端配置：123456789101112131415161718192021[common]bind_port &#x3D; 17000vhost_http_port &#x3D; 8080#vhost_https_port &#x3D; 8080# dashboard admindashboard_port &#x3D; 端口dashbo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Frp】内网穿透相关配置">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/01/04/%E3%80%90frp%E3%80%91%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="frp下载：https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp&#x2F;releases 服务器端配置：123456789101112131415161718192021[common]bind_port &#x3D; 17000vhost_http_port &#x3D; 8080#vhost_https_port &#x3D; 8080# dashboard admindashboard_port &#x3D; 端口dashbo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/20200104113139598.png">
+<meta property="article:published_time" content="2020-01-04T03:39:33.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.084Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="Frp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/20200104113139598.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/01/04/%E3%80%90frp%E3%80%91%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【Frp】内网穿透相关配置 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/01/04/%E3%80%90frp%E3%80%91%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Frp】内网穿透相关配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-04 11:39:33" itemprop="dateCreated datePublished" datetime="2020-01-04T11:39:33+08:00">2020-01-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>frp下载：<a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/releases">https://github.com/fatedier/frp/releases</a></p>
+<h2 id="服务器端配置："><a href="#服务器端配置：" class="headerlink" title="服务器端配置："></a>服务器端配置：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 17000</span><br><span class="line">vhost_http_port = 8080</span><br><span class="line">#vhost_https_port = 8080</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># dashboard admin</span><br><span class="line">dashboard_port = 端口</span><br><span class="line">dashboard_user = 账号</span><br><span class="line">dashboard_pwd = 密码</span><br><span class="line"></span><br><span class="line">privilege_token = sgdf@dsfd.df</span><br><span class="line">#authentication_timeout = 60</span><br><span class="line">privilege_allow_ports = 10000-20000</span><br><span class="line"></span><br><span class="line">max_pool_count = 10</span><br><span class="line">subdomain_host = 你的域名.com</span><br><span class="line">log_file = ./frps.log</span><br><span class="line">log_level = info</span><br><span class="line">log_max_days = 7</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>服务端配置账号：</p>
+<p><img src="/images/20200104113139598.png" alt=""></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line"># token 和客户端配置的 accesstoken保持一致，不一致无法保持连接</span><br><span class="line">token=raspberrypi*密码</span><br><span class="line"># 服务截止日期</span><br><span class="line">expirydate=2020-10-01</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="客户端配置："><a href="#客户端配置：" class="headerlink" title="客户端配置："></a>客户端配置：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 公网ip </span><br><span class="line">server_port = 17000</span><br><span class="line"></span><br><span class="line">privilege_token = 对应服务器的token</span><br><span class="line">pool_count = 2</span><br><span class="line">log_file = ./frpc.log</span><br><span class="line">log_level = info</span><br><span class="line">log_max_days = 10</span><br><span class="line"></span><br><span class="line">#访问用户，与服务端用户配置文件名一致</span><br><span class="line">user=raspberrypi</span><br><span class="line"># 与服务端用户配置文件中的token保持一致</span><br><span class="line">accesstoken=raspberrypi****</span><br><span class="line"></span><br><span class="line"># [项目名称]，保持唯一,其余参考官方配置文件</span><br><span class="line"># [pi] </span><br><span class="line"># type = http</span><br><span class="line"># local_port = 80</span><br><span class="line"># 域名前缀为xx,结合服务端的域名，完整的网址为xx.***.***.com</span><br><span class="line"># subdomain = pi</span><br><span class="line"># use_encryption = true</span><br><span class="line"># use_compression = true </span><br><span class="line"></span><br><span class="line">[ssh]</span><br><span class="line">type = tcp</span><br><span class="line">local_port = 22</span><br><span class="line">remote_port = 10022</span><br><span class="line">use_encryption = true</span><br><span class="line">use_compression = true</span><br><span class="line"></span><br><span class="line">[web1]</span><br><span class="line">type = tcp</span><br><span class="line">local_port = 80</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">remote_port = 10080</span><br><span class="line"></span><br><span class="line">[web2]</span><br><span class="line">type = tcp</span><br><span class="line">local_port = 8080</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">remote_port = 18080</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line">type = tcp</span><br><span class="line">local_port = 3306</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">remote_port = 13306</span><br><span class="line"></span><br><span class="line">[redis]</span><br><span class="line">type = tcp</span><br><span class="line">local_port = 6379</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">remote_port = 16379</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-Systemd-设置-frp-开机启动："><a href="#使用-Systemd-设置-frp-开机启动：" class="headerlink" title="使用 Systemd 设置 frp 开机启动："></a>使用 Systemd 设置 frp 开机启动：</h2><p>Systemd 配置文件在  <code>/lib/systemd/system/</code>  目录下，不同类型的文件使用不同的后缀，如：  <code>.service</code>   <code>.socket</code>   <code>.timer</code>  。</p>
+<p>常用命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">systemctl status frps.service       # 查看 frps 服务状态</span><br><span class="line">systemctl cat frps.service          # 查看 frps 服务配置</span><br><span class="line">sudo systemctl start frps.service   # 启动 frps 服务</span><br><span class="line">sudo systemctl stop frps.service    # 停止 frps 服务</span><br><span class="line">sudo systemctl daemon-reload        # 重新加载配置，修改 systemd 配置执行</span><br><span class="line">sudo systemctl enable frps.service  # 设置开机启动，根据 install 建立软链</span><br><span class="line">sudo systemctl disable frps.service # 取消开机启动，根据 install 移除软链</span><br><span class="line"></span><br><span class="line">man systemd.directives              # 查看帮助</span><br><span class="line">man systemd.service</span><br><span class="line">man systemd.unit</span><br></pre></td></tr></table></figure>
+
+<h2 id="frps-Systemd-配置文件"><a href="#frps-Systemd-配置文件" class="headerlink" title="frps Systemd 配置文件"></a>frps Systemd 配置文件</h2><p>创建  <code>/lib/systemd/system/frpc.service</code>  文件，配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=frps server daemon</span><br><span class="line">Documentation=https://github.com/fatedier/frp</span><br><span class="line">After=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/local/bin/frps -c /usr/local/etc/frps.ini</span><br><span class="line">Type=simple</span><br><span class="line">User=nobody</span><br><span class="line">Group=nogroup</span><br><span class="line">WorkingDirectory=/tmp</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=60s</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>[Unit]</code>  </li>
+<li><code>After</code>  在网络就绪后启动服务，关于网络就绪 <a target="_blank" rel="noopener" href="https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget">NetworkTarget</a>  </li>
+<li><code>[Service]</code>  </li>
+<li><code>ExecStart</code>  启动时执行的命令 </li>
+<li><code>Type</code>  simple 执行 ExecStart 指定的命令，启动主进程，还有很多其他类别 </li>
+<li><code>User</code>  执行命令的用户为 nobody </li>
+<li><code>Group</code>  执行命令的组为 nogroup </li>
+<li><code>WorkingDirectory</code>  命令的工作目录 </li>
+<li><code>Restart</code>  失败后尝试重启，失败是根据退出状态码进行判断的 </li>
+<li><code>RestartSec</code>  失败 60s 后尝试重启  </li>
+<li><code>[Install]</code>  </li>
+<li><code>WantedBy</code>  执行  <code>systemctl enable frps</code>  命令，会在  <code>/etc/systemd/system/multi-user.target.wants/frps.service</code>  目录下创建一个软链  添加或修改配置后需要执行  <code>sudo systemctl daemon-reload</code>  重新加载配置，执行  <code>sudo systemctl enable frps.service</code>  之后会开机启动。</li>
+</ul>
+<h2 id="fprc-配置文件"><a href="#fprc-配置文件" class="headerlink" title="fprc 配置文件"></a>fprc 配置文件</h2><p>创建  <code>/lib/systemd/system/frpc.service</code>  文件，配置和 frps 类似：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=frpc server daemon</span><br><span class="line">Documentation=https://github.com/fatedier/frp</span><br><span class="line">After=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/local/bin/frpc -c /usr/local/etc/frpc.ini</span><br><span class="line">Type=simple</span><br><span class="line">User=nobody</span><br><span class="line">Group=nogroup</span><br><span class="line">WorkingDirectory=/tmp</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=60s</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>添加或修改配置后需要执行  <code>sudo systemctl daemon-reload</code>  重新加载配置，执行  <code>sudo systemctl enable frpc.service</code>  之后会开机启动。</p>
+<h2 id="frp后台运行和停止"><a href="#frp后台运行和停止" class="headerlink" title="frp后台运行和停止"></a>frp后台运行和停止</h2><p>centos<br>1.运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ./frps -c frps.ini &gt;/dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<p>或者客户端:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup ./frpc -c ./frpc.ini &gt;/dev/null 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>2.停止<br>先找到这个进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ps -aux|grep frp| grep -v grep</span><br><span class="line">root      3600  0.1  0.1 110188  9484 pts/0    Sl   15:04   0:00 ./frpc -c ./frpc.ini</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>执行之后如果显示这样则成功了</p>
+<p>然后kill -9 进程号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 3600</span><br></pre></td></tr></table></figure>
+<p>转自：<a target="_blank" rel="noopener" href="https://notfound.cn/posts/systemd-frp/">https://notfound.cn/posts/systemd-frp/</a></p>
+<p>转自：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000017911165">https://segmentfault.com/a/1190000017911165</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/01/04/%E3%80%90frp%E3%80%91%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/" title="【Frp】内网穿透相关配置">http://blog.bfsdfs.com/2020/01/04/【frp】内网穿透相关配置/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Frp/" rel="tag"># Frp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/14/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8NLog%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%E5%88%B0%E6%96%87%E4%BB%B6%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="prev" title="【.Net Core】使用NLog记录日志到文件和数据库">
+      <i class="fa fa-chevron-left"></i> 【.Net Core】使用NLog记录日志到文件和数据库
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/01/05/%E3%80%90.Net%20Core%E3%80%91%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%9A%E8%BF%87Signalr%E4%B8%8A%E4%BC%A0%E4%BC%A0%E6%84%9F%E5%99%A8%E6%95%B0%E6%8D%AE/" rel="next" title="【.Net Core】树莓派通过Signalr上传传感器数据">
+      【.Net Core】树莓派通过Signalr上传传感器数据 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">服务器端配置：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">客户端配置：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Systemd-%E8%AE%BE%E7%BD%AE-frp-%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">使用 Systemd 设置 frp 开机启动：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#frps-Systemd-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">frps Systemd 配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fprc-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">fprc 配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#frp%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E5%92%8C%E5%81%9C%E6%AD%A2"><span class="nav-number">6.</span> <span class="nav-text">frp后台运行和停止</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '8f3b52cb30641ffb47f6d7bb8e784aeb',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

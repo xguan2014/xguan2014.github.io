@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="原文地址：https:&#x2F;&#x2F;iter01.com&#x2F;537518.html  随着.Net Core 3.0及版本版本的出现，微软似乎正在完成一个Windows特征的WCF。作为WCF的备选者，VS Code或VS2019已经有了基于.Net Core 3.0平台的“gPRC专案模板”。极大地简化了gRPC的开发过程。 gRPC也可深入.Net Framework。由于VS2019没有提供基于.Ne">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net】在.Net Framework中使用gRPC">
+<meta property="og:url" content="http://blog.bfsdfs.com/2021/09/12/%E3%80%90.Net%E3%80%91%E5%9C%A8.Net%20Framework%E4%B8%AD%E4%BD%BF%E7%94%A8gRPC/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="原文地址：https:&#x2F;&#x2F;iter01.com&#x2F;537518.html  随着.Net Core 3.0及版本版本的出现，微软似乎正在完成一个Windows特征的WCF。作为WCF的备选者，VS Code或VS2019已经有了基于.Net Core 3.0平台的“gPRC专案模板”。极大地简化了gRPC的开发过程。 gRPC也可深入.Net Framework。由于VS2019没有提供基于.Ne">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/60cc98071db0274c5cb7d2a933d41ac4c1a530cddc51b5cd6083afcf5edbc423.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/0d52545e53259b3e8bb092e088258345885bf006a08ea7f10d7750a1e10fc1c4.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/afe9889d693ae79dfa2cbebc45a594c478932acd55e8eca077d8c6be8e8b7380.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/04e100813649e33ec37cc7f6b0e10c36c56573a5570ab29f0cc2456df94c9e43.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/198490f29084060e975c7cf5c71696c8daf9f0a5c70ccf15a25c823b543aaf76.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/133d130f7d980091cfc677147a3c7941d5bc423d68eaf968a5b0b8fe71ef1eb7.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/cd548a2a982f69c0a3746f4c1ec358d4962853287e370671b41266255471bd25.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/b3cda501a04c7599ae53cbafc5b672f87e1f28a24b285b7a1d6519be3c316bcd.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/cb9dae5f3abc3de0cac8c6ea83a14bd7b0fb95b871e8744d40eb69a0763d705e.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/00b2243f9bff2ad5339b23ee38706425fedc80732605263467962468e0c4e2a4.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/161da4e4d688a54001b50e8ffd4d601d02a7ef1c92c34a8fede0268a07a8f628.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/3033dd8edf065bdb6f52a238d79645e5c19bd794557dc444f05b311d3ed85f80.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/a133f4381f4ce5a06386cc385a4f1e10f96a7046d090ff66c5a4d67ce3b46d95.png">
+<meta property="article:published_time" content="2021-09-12T12:30:55.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.047Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/60cc98071db0274c5cb7d2a933d41ac4c1a530cddc51b5cd6083afcf5edbc423.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2021/09/12/%E3%80%90.Net%E3%80%91%E5%9C%A8.Net%20Framework%E4%B8%AD%E4%BD%BF%E7%94%A8gRPC/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net】在.Net Framework中使用gRPC | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/09/12/%E3%80%90.Net%E3%80%91%E5%9C%A8.Net%20Framework%E4%B8%AD%E4%BD%BF%E7%94%A8gRPC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net】在.Net Framework中使用gRPC
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-12 20:30:55" itemprop="dateCreated datePublished" datetime="2021-09-12T20:30:55+08:00">2021-09-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://iter01.com/537518.html">https://iter01.com/537518.html</a></p>
+</blockquote>
+<p>随着.Net Core 3.0及版本版本的出现，微软似乎正在完成一个Windows特征的WCF。作为WCF的备选者，VS Code或VS2019已经有了基于.Net Core 3.0平台的“gPRC专案模板”。极大地简化了gRPC的开发过程。</p>
+<p>gRPC也可深入.Net Framework。由于VS2019没有提供基于.Net Framework平台的“gPRC专案模板”，开发者需要用手工方式处理。本文采用VS2019，以.Net Framework 4.7.2为例，描述gPRC的实现步骤。</p>
+<h3 id="步骤一、建立解决方案及专案"><a href="#步骤一、建立解决方案及专案" class="headerlink" title="步骤一、建立解决方案及专案"></a>步骤一、建立解决方案及专案</h3><p><img src="/images/60cc98071db0274c5cb7d2a933d41ac4c1a530cddc51b5cd6083afcf5edbc423.png" alt=""></p>
+<ol>
+<li>Greeter，.Net Framework4.7.2类库专案，定义服务器与客户端之间的服务协议</li>
+<li>GreeterServer，.Net Framework4.7.2 证书程序，gRPC服务端，提供gPRC服务</li>
+<li>GreeterClinet，.Net Framework4.7.2 调试程序，gRPC客户端，呼叫GreetServer提供的服务</li>
+</ol>
+<h3 id="步骤二、NuGet获取程序包"><a href="#步骤二、NuGet获取程序包" class="headerlink" title="步骤二、NuGet获取程序包"></a>步骤二、NuGet获取程序包</h3><ol>
+<li>在“解决方案gRPCDemo”中滑鼠，“管理解决方案的NuGet程序包”</li>
+</ol>
+<p><img src="/images/0d52545e53259b3e8bb092e088258345885bf006a08ea7f10d7750a1e10fc1c4.png" alt=""></p>
+<ol start="2">
+<li>安装“Google.ProtoBuf”</li>
+</ol>
+<p><img src="/images/afe9889d693ae79dfa2cbebc45a594c478932acd55e8eca077d8c6be8e8b7380.png" alt=""></p>
+<p><img src="/images/04e100813649e33ec37cc7f6b0e10c36c56573a5570ab29f0cc2456df94c9e43.png" alt=""></p>
+<ol start="3">
+<li>安装“Grpc.Core”</li>
+</ol>
+<p><img src="/images/198490f29084060e975c7cf5c71696c8daf9f0a5c70ccf15a25c823b543aaf76.png" alt=""></p>
+<p><img src="/images/133d130f7d980091cfc677147a3c7941d5bc423d68eaf968a5b0b8fe71ef1eb7.png" alt=""></p>
+<ol start="4">
+<li>安装“Grpc.Tools”</li>
+</ol>
+<p><img src="/images/cd548a2a982f69c0a3746f4c1ec358d4962853287e370671b41266255471bd25.png" alt=""></p>
+<p><img src="/images/b3cda501a04c7599ae53cbafc5b672f87e1f28a24b285b7a1d6519be3c316bcd.png" alt=""></p>
+<h3 id="步骤三、此写服务协议并生成服务类（步骤需手工处理）"><a href="#步骤三、此写服务协议并生成服务类（步骤需手工处理）" class="headerlink" title="步骤三、此写服务协议并生成服务类（步骤需手工处理）"></a>步骤三、此写服务协议并生成服务类（步骤需手工处理）</h3><ol>
+<li>在类库专案“Greeter”中新增“helloworld.proto”档案，输入以下服务定义。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line"></span><br><span class="line">package Greeter;</span><br><span class="line"></span><br><span class="line">service Greet &#123;</span><br><span class="line">	rpc SayHello (HelloRequest) returns (HelloReply);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message HelloRequest &#123;</span><br><span class="line">	string name = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message HelloReply &#123;</span><br><span class="line">	string message = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>生成服务类</li>
+</ol>
+<p>在“解决方案”上点选滑鼠方案，“在档案资源管理中开启资料夹”</p>
+<p><img src="/images/cb9dae5f3abc3de0cac8c6ea83a14bd7b0fb95b871e8744d40eb69a0763d705e.png" alt=""></p>
+<p><img src="/images/00b2243f9bff2ad5339b23ee38706425fedc80732605263467962468e0c4e2a4.png" alt=""></p>
+<p>输入以下命令，将“hello.proto”转换为服务类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">packagesGrpc.Tools.2.32.0toolswindows_x86protoc.exe -I Greeter --csharp_out Greeter Greeterhello.proto --grpc_out Greeter --plugin=protoc-gen-grpc=packagesGrpc.Tools.2.32.0toolswindows_x86grpc_csharp_plugin.exe</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/161da4e4d688a54001b50e8ffd4d601d02a7ef1c92c34a8fede0268a07a8f628.png" alt=""></p>
+<ol start="3">
+<li>将生成的服务类Hello.cs和HelloGrpc.cs新增到“Greeter”专案中</li>
+</ol>
+<p><img src="/images/3033dd8edf065bdb6f52a238d79645e5c19bd794557dc444f05b311d3ed85f80.png" alt=""></p>
+<ol start="4">
+<li>编译类库“Greeter”</li>
+</ol>
+<h3 id="步骤四、写服务端"><a href="#步骤四、写服务端" class="headerlink" title="步骤四、写服务端"></a>步骤四、写服务端</h3><ol>
+<li><p>新增类库专案引援</p>
+</li>
+<li><p>服务端程序码</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">using Greeter;</span><br><span class="line">using Grpc.Core;</span><br><span class="line">using System;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace GreeterServer</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            const int port = 5555;</span><br><span class="line">            Server server = new Server</span><br><span class="line">            &#123;</span><br><span class="line">                Services = &#123; Greet.BindService(new GreetImpl()) &#125;,</span><br><span class="line">                Ports = &#123; new ServerPort(&quot;localhost&quot;, port, ServerCredentials.Insecure) &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">            server.Start();</span><br><span class="line"></span><br><span class="line">            Console.WriteLine($&quot;Greeter Server Listening on port &#123;port&#125;&quot;);</span><br><span class="line">            Console.WriteLine(&quot;Press Enter to exit&quot;);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line"></span><br><span class="line">            server.ShutdownAsync().Wait();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class GreetImpl: Greet.GreetBase</span><br><span class="line">    &#123;</span><br><span class="line">        public override Task&lt;HelloReply&gt; SayHello(HelloRequest request, ServerCallContext context)</span><br><span class="line">        &#123;</span><br><span class="line">            return Task.FromResult(new HelloReply &#123; Message = $&quot;Hello &#123;request.Name&#125;&quot; &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤五、写客户端程序码"><a href="#步骤五、写客户端程序码" class="headerlink" title="步骤五、写客户端程序码"></a>步骤五、写客户端程序码</h3><ol>
+<li><p>新增类库专案引援</p>
+</li>
+<li><p>客户端程序码</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">using Greeter;</span><br><span class="line">using Grpc.Core;</span><br><span class="line">using System;</span><br><span class="line"></span><br><span class="line">namespace GreeterClient</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Channel channel = new Channel(&quot;127.0.0.1:5555&quot;, ChannelCredentials.Insecure);</span><br><span class="line">            var client = new Greet.GreetClient(channel);</span><br><span class="line">            var replay = client.SayHello(new HelloRequest &#123; Name = &quot;Auto&quot; &#125;);</span><br><span class="line">            Console.WriteLine($&quot;&#123;replay.Message&#125;&quot;);</span><br><span class="line"></span><br><span class="line">            channel.ShutdownAsync().Wait();</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<p><img src="/images/a133f4381f4ce5a06386cc385a4f1e10f96a7046d090ff66c5a4d67ce3b46d95.png" alt=""></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2021/09/12/%E3%80%90.Net%E3%80%91%E5%9C%A8.Net%20Framework%E4%B8%AD%E4%BD%BF%E7%94%A8gRPC/" title="【.Net】在.Net Framework中使用gRPC">http://blog.bfsdfs.com/2021/09/12/【.Net】在.Net Framework中使用gRPC/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net/" rel="tag"># .Net</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/18/%E3%80%90CSharp%E3%80%91ZIP%E5%8E%8B%E7%BC%A9%E6%B5%81/" rel="prev" title="【CSharp】ZIP压缩流">
+      <i class="fa fa-chevron-left"></i> 【CSharp】ZIP压缩流
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/09/12/%E3%80%90.Net%E3%80%91SharpSvn%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/" rel="next" title="【.Net】SharpSvn使用简介">
+      【.Net】SharpSvn使用简介 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%80%E3%80%81%E5%BB%BA%E7%AB%8B%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E5%8F%8A%E4%B8%93%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">步骤一、建立解决方案及专案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%8C%E3%80%81NuGet%E8%8E%B7%E5%8F%96%E7%A8%8B%E5%BA%8F%E5%8C%85"><span class="nav-number">2.</span> <span class="nav-text">步骤二、NuGet获取程序包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%89%E3%80%81%E6%AD%A4%E5%86%99%E6%9C%8D%E5%8A%A1%E5%8D%8F%E8%AE%AE%E5%B9%B6%E7%94%9F%E6%88%90%E6%9C%8D%E5%8A%A1%E7%B1%BB%EF%BC%88%E6%AD%A5%E9%AA%A4%E9%9C%80%E6%89%8B%E5%B7%A5%E5%A4%84%E7%90%86%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">步骤三、此写服务协议并生成服务类（步骤需手工处理）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E5%9B%9B%E3%80%81%E5%86%99%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">4.</span> <span class="nav-text">步骤四、写服务端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%94%E3%80%81%E5%86%99%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%A8%8B%E5%BA%8F%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">步骤五、写客户端程序码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '3c873b37a711154461dd9ad62d4ed1ab',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

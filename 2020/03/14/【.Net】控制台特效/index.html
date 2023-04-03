@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lwqlun&#x2F;p&#x2F;12453593.html  在.NET生态系统中，控制台程序的表现相对较差。通常来说，这种项目经常作为Demo演示使用。现在是时候让控制台应用程序得到其应有的尊重了。 终端技术的发展开启了增强用户体验的复兴。 ITerm2, Hyper, Windows Terminal，所有这些工具都为单调的控制台体验增加了一些趣味。 虽然这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net】控制台特效">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/03/14/%E3%80%90.Net%E3%80%91%E6%8E%A7%E5%88%B6%E5%8F%B0%E7%89%B9%E6%95%88/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;lwqlun&#x2F;p&#x2F;12453593.html  在.NET生态系统中，控制台程序的表现相对较差。通常来说，这种项目经常作为Demo演示使用。现在是时候让控制台应用程序得到其应有的尊重了。 终端技术的发展开启了增强用户体验的复兴。 ITerm2, Hyper, Windows Terminal，所有这些工具都为单调的控制台体验增加了一些趣味。 虽然这">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/65831-20200310073108615-1464552182.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/65831-20200310073128378-2068894522.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/65831-20200310073142245-305801071.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/65831-20200310073148654-1985903242.png">
+<meta property="article:published_time" content="2020-03-14T11:24:02.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.048Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/65831-20200310073108615-1464552182.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/03/14/%E3%80%90.Net%E3%80%91%E6%8E%A7%E5%88%B6%E5%8F%B0%E7%89%B9%E6%95%88/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net】控制台特效 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/03/14/%E3%80%90.Net%E3%80%91%E6%8E%A7%E5%88%B6%E5%8F%B0%E7%89%B9%E6%95%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net】控制台特效
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-14 19:24:02" itemprop="dateCreated datePublished" datetime="2020-03-14T19:24:02+08:00">2020-03-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lwqlun/p/12453593.html">https://www.cnblogs.com/lwqlun/p/12453593.html</a></p>
+</blockquote>
+<p>在.NET生态系统中，控制台程序的表现相对较差。通常来说，这种项目经常作为Demo演示使用。现在是时候让控制台应用程序得到其应有的尊重了。</p>
+<p>终端技术的发展开启了增强用户体验的复兴。 <code>ITerm2</code>, <code>Hyper</code>, <code>Windows Terminal</code>，所有这些工具都为单调的控制台体验增加了一些趣味。 虽然这些工具都允许用户定制自己体验，但是对于开发人员来说，他们还希望向控制台应用程序中添加一些编程风格。</p>
+<p>在本篇博文中，我们将一起看一下如何使用一些出色的开源项目为我们的控制台程序增添趣味。这里说明的顺序并不表明项目的优劣，他们都是改善我们控制台程序体验的优秀方案。</p>
+<h2 id="Colorful-Console"><a href="#Colorful-Console" class="headerlink" title="Colorful.Console"></a><code>Colorful.Console</code></h2><p><code>Colorful.Console</code>是一个Nuget包，它可以增强我们对控制台输出文字样式的控制。我们可以使用<code>System.Drawing.Color</code>中定义的颜色来定义控制台程序的配色方案。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Drawing;</span><br><span class="line">using Console = Colorful.Console;</span><br><span class="line"></span><br><span class="line">Console.WriteLine(&quot;console in pink&quot;, Color.Pink);</span><br><span class="line">Console.WriteLine(&quot;console in default&quot;);`</span><br></pre></td></tr></table></figure>
+
+<p><a href="/images/65831-20200310073108615-1464552182.png"><img src="/images/65831-20200310073108615-1464552182.png" alt=""></a></p>
+<p>除此之外，<code>Colorful.Console</code>还允许我们使用<code>FIGlet</code>字体编写带颜色的ASCII码输出</p>
+<blockquote>
+<p>FIGLet: <a target="_blank" rel="noopener" href="http://www.figlet.org/">http://www.figlet.org/</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FigletFont font = FigletFont.Load(&quot;chunky.flf&quot;);</span><br><span class="line">Figlet figlet = new Figlet(font);</span><br><span class="line"></span><br><span class="line">Console.WriteLine(figlet.ToAscii(&quot;Belvedere&quot;), ColorTranslator.FromHtml(&quot;#8AFFEF&quot;));</span><br><span class="line">Console.WriteLine(figlet.ToAscii(&quot;ice&quot;), ColorTranslator.FromHtml(&quot;#FAD6FF&quot;));</span><br><span class="line">Console.WriteLine(figlet.ToAscii(&quot;cream.&quot;), ColorTranslator.FromHtml(&quot;#B8DBFF&quot;));`</span><br></pre></td></tr></table></figure>
+
+<p>这个输出的结果完全就是黑客的梦想。</p>
+<p><a href="/images/65831-20200310073128378-2068894522.png"><img src="/images/65831-20200310073128378-2068894522.png" alt=""></a></p>
+<p>我建议你访问一下<code>colorful.console</code>的官方站点，了解这个库能实现的所有效果，以便更好的改善控制台程序的体验。</p>
+<blockquote>
+<p>Colorful.Console: <a target="_blank" rel="noopener" href="http://colorfulconsole.com/">http://colorfulconsole.com/</a></p>
+</blockquote>
+<h2 id="ConsoleTables"><a href="#ConsoleTables" class="headerlink" title="ConsoleTables"></a><code>ConsoleTables</code></h2><p><code>ConsoleTables</code>包是我（作者）自己编写的，这里有一点厚颜无耻^.^。 使用这个库，可以让开发人员很轻松的将一组对象以表格的形式展示在控制台中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">static void Main(String[] args)</span><br><span class="line">&#123;</span><br><span class="line">    var table = new ConsoleTable(&quot;one&quot;, &quot;two&quot;, &quot;three&quot;);</span><br><span class="line">    table.AddRow(1, 2, 3)</span><br><span class="line">         .AddRow(&quot;this line should be longer&quot;, &quot;yes it is&quot;, &quot;oh&quot;);</span><br><span class="line"></span><br><span class="line">    table.Write();</span><br><span class="line">    Console.WriteLine();</span><br><span class="line"></span><br><span class="line">    var rows = Enumerable.Repeat(new Something(), 10);</span><br><span class="line"></span><br><span class="line">    ConsoleTable</span><br><span class="line">        .From&lt;Something&gt;(rows)</span><br><span class="line">        .Configure(o =&gt; o.NumberAlignment = Alignment.Right)</span><br><span class="line">        .Write(Format.Alternative);</span><br><span class="line"></span><br><span class="line">    Console.ReadKey();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以前，谁不希望能在控制台中输出一个表格呢？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">FORMAT: Default:</span><br><span class="line"></span><br><span class="line"> --------------------------------------------------</span><br><span class="line"> | one                        | two       | three |</span><br><span class="line"> --------------------------------------------------</span><br><span class="line"> | 1                          | 2         | 3     |</span><br><span class="line"> --------------------------------------------------</span><br><span class="line"> | this line should be longer | yes it is | oh    |</span><br><span class="line"> --------------------------------------------------</span><br><span class="line"></span><br><span class="line">Count: 2</span><br><span class="line"></span><br><span class="line">FORMAT: Alternative:</span><br><span class="line"></span><br><span class="line">+----------------------------+-----------+-------+</span><br><span class="line">| one                        | two       | three |</span><br><span class="line">+----------------------------+-----------+-------+</span><br><span class="line">| 1                          | 2         | 3     |</span><br><span class="line">+----------------------------+-----------+-------+</span><br><span class="line">| this line should be longer | yes it is | oh    |</span><br><span class="line">+----------------------------+-----------+-------+`</span><br></pre></td></tr></table></figure>
+
+<p>自从<code>ConsoleTables</code>发布以来，许多开发人员已经研发出自己的控制台表格库了。有一些甚至更好，你可以自行去查找一下。</p>
+<h2 id="ShellProgressBar"><a href="#ShellProgressBar" class="headerlink" title="ShellProgressBar"></a><code>ShellProgressBar</code></h2><p>和需要其他应用程序一样，控制台程序也可以执行长时任务。<code>ShellProgressBar</code>是一个非常棒的库，使用它，你可以在控制台输出一些非常惊艳的进度条。而且，<code>ShellProgressBar</code>是可以实现进度条的嵌套使用。例如，如下GIF动画中展示的效果。</p>
+<p><a href="/images/65831-20200310073142245-305801071.gif"><img src="/images/65831-20200310073142245-305801071.gif" alt=""></a></p>
+<p><code>ShellProgressBar</code>使用起来相当的直接。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const int totalTicks = 10;</span><br><span class="line">var options = new ProgressBarOptions</span><br><span class="line">&#123;</span><br><span class="line">    ProgressCharacter = &#x27;─&#x27;,</span><br><span class="line">    ProgressBarOnBottom = true</span><br><span class="line">&#125;;</span><br><span class="line">using (var pbar = new ProgressBar(totalTicks, &quot;Initial message&quot;, options))</span><br><span class="line">&#123;</span><br><span class="line">    pbar.Tick(); //will advance pbar to 1 out of 10.</span><br><span class="line">    //we can also advance and update the progressbar text</span><br><span class="line">    pbar.Tick(&quot;Step 2 of 10&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>谢谢你, <code>Martijin Larrman</code>, 这真的是一个非常好用的库。</p>
+<h2 id="GUI-CS"><a href="#GUI-CS" class="headerlink" title="GUI.CS"></a><code>GUI.CS</code></h2><p><code>GUI.CS</code>是一个非常棒的控制台UI工具包。它提供了一个功能完善的工具箱，开发人员可以使用它构建早期控制台常见的一种用户界面。</p>
+<p><a href="/images/65831-20200310073148654-1985903242.png"><img src="/images/65831-20200310073148654-1985903242.png" alt=""></a></p>
+<p>这个UI工具箱提供了如下控件：</p>
+<ul>
+<li>Buttons</li>
+<li>Labels</li>
+<li>Text Entry</li>
+<li>Text View</li>
+<li>User Inputs</li>
+<li>Windows</li>
+<li>Menus</li>
+<li>ScrollBars</li>
+</ul>
+<p>使用它，开发人员可以在控制台应用中实现一些令人难以置信的效果。这个库是由<code>Miguel De Icaza</code>编写的，是控制台技术的巅峰之作，下面让我们一起来看一个实例程序。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">using Terminal.Gui;</span><br><span class="line"></span><br><span class="line">class Demo &#123;</span><br><span class="line">    static void Main ()</span><br><span class="line">    &#123;</span><br><span class="line">        Application.Init ();</span><br><span class="line">        var top = Application.Top;</span><br><span class="line"></span><br><span class="line">    // 创建顶级窗体</span><br><span class="line">        var win = new Window (&quot;MyApp&quot;) &#123;</span><br><span class="line">        X = 0,</span><br><span class="line">        Y = 1, // 预留菜单行</span><br><span class="line"></span><br><span class="line">        // 使用Dim.Fill(), 它可以自动调整窗体大小，实现自适应，而无需手动敢于</span><br><span class="line">        Width = Dim.Fill (),</span><br><span class="line">        Height = Dim.Fill ()</span><br><span class="line">    &#125;;</span><br><span class="line">        top.Add (win);</span><br><span class="line"></span><br><span class="line">    // 创建一个菜单</span><br><span class="line">        var menu = new MenuBar (new MenuBarItem [] &#123;</span><br><span class="line">            new MenuBarItem (&quot;_File&quot;, new MenuItem [] &#123;</span><br><span class="line">                new MenuItem (&quot;_New&quot;, &quot;Creates new file&quot;, NewFile),</span><br><span class="line">                new MenuItem (&quot;_Close&quot;, &quot;&quot;, () =&gt; Close ()),</span><br><span class="line">                new MenuItem (&quot;_Quit&quot;, &quot;&quot;, () =&gt; &#123; if (Quit ()) top.Running = false; &#125;)</span><br><span class="line">            &#125;),</span><br><span class="line">            new MenuBarItem (&quot;_Edit&quot;, new MenuItem [] &#123;</span><br><span class="line">                new MenuItem (&quot;_Copy&quot;, &quot;&quot;, null),</span><br><span class="line">                new MenuItem (&quot;C_ut&quot;, &quot;&quot;, null),</span><br><span class="line">                new MenuItem (&quot;_Paste&quot;, &quot;&quot;, null)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;);</span><br><span class="line">        top.Add (menu);</span><br><span class="line"></span><br><span class="line">    var login = new Label (&quot;Login: &quot;) &#123; X = 3, Y = 2 &#125;;</span><br><span class="line">    var password = new Label (&quot;Password: &quot;) &#123;</span><br><span class="line">            X = Pos.Left (login),</span><br><span class="line">        Y = Pos.Top (login) + 1</span><br><span class="line">        &#125;;</span><br><span class="line">    var loginText = new TextField (&quot;&quot;) &#123;</span><br><span class="line">                X = Pos.Right (password),</span><br><span class="line">                Y = Pos.Top (login),</span><br><span class="line">                Width = 40</span><br><span class="line">        &#125;;</span><br><span class="line">        var passText = new TextField (&quot;&quot;) &#123;</span><br><span class="line">                Secret = true,</span><br><span class="line">                X = Pos.Left (loginText),</span><br><span class="line">                Y = Pos.Top (password),</span><br><span class="line">                Width = Dim.Width (loginText)</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">    // 添加一些其他控件</span><br><span class="line">    win.Add (</span><br><span class="line">        // 这是我最喜欢的布局</span><br><span class="line">        login, password, loginText, passText,</span><br><span class="line"></span><br><span class="line">        // 这里使用了绝对定位</span><br><span class="line">            new CheckBox (3, 6, &quot;Remember me&quot;),</span><br><span class="line">            new RadioGroup (3, 8, new [] &#123; &quot;_Personal&quot;, &quot;_Company&quot; &#125;),</span><br><span class="line">            new Button (3, 14, &quot;Ok&quot;),</span><br><span class="line">            new Button (10, 14, &quot;Cancel&quot;),</span><br><span class="line">            new Label (3, 18, &quot;Press F9 or ESC plus 9 to activate the menubar&quot;));</span><br><span class="line"></span><br><span class="line">        Application.Run ();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>作为开发人员，我们可以沉迷于GUI, 这是理所当然的，它使我们更有生产力。但是控制台应用程序同样也很强大。下次当你编写控制台程序的时候，你可以考虑使用以上介绍的某些库，以便为你的控制台应用增添色彩。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/03/14/%E3%80%90.Net%E3%80%91%E6%8E%A7%E5%88%B6%E5%8F%B0%E7%89%B9%E6%95%88/" title="【.Net】控制台特效">http://blog.bfsdfs.com/2020/03/14/【.Net】控制台特效/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net/" rel="tag"># .Net</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/09/%E3%80%90Docker%E3%80%91%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97%E6%9F%A5%E7%9C%8B%E4%B8%8E%E6%B8%85%E7%90%86/" rel="prev" title="【Docker】容器日志查看与清理">
+      <i class="fa fa-chevron-left"></i> 【Docker】容器日志查看与清理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/14/%E3%80%90.Net%E3%80%91%E5%88%86%E5%B8%83%E5%BC%8F%E8%87%AA%E5%A2%9EID%E7%AE%97%E6%B3%95snowflake%EF%BC%88%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%EF%BC%89/" rel="next" title="【.Net】分布式自增ID算法snowflake（雪花算法）">
+      【.Net】分布式自增ID算法snowflake（雪花算法） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Colorful-Console"><span class="nav-number">1.</span> <span class="nav-text">Colorful.Console</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConsoleTables"><span class="nav-number">2.</span> <span class="nav-text">ConsoleTables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ShellProgressBar"><span class="nav-number">3.</span> <span class="nav-text">ShellProgressBar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GUI-CS"><span class="nav-number">4.</span> <span class="nav-text">GUI.CS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '4f242743aec0820da1a8d9839fe7c2a0',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

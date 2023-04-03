@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一、概述首先说一下认证(authentication)与授权(authorization)，它们经常在一起工作，所以有时候会分不清楚。并且这两个英文单词长得也像兄弟。举例来说，我刷门禁卡进入公司，门禁【认证】了我是这里的员工，可以进入；但进入公司以后，我并不是所有房间都可以进，比如“机房重地，闲人免进”，我能进入哪些房间，需要公司的【授权】。这就是认证和授权的区别。 ASP.NET Core提倡的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net Core】JWT与用户授权（细化到Action）">
+<meta property="og:url" content="http://blog.bfsdfs.com/2019/09/04/%E3%80%90.Net%20Core%E3%80%91JWT%E4%B8%8E%E7%94%A8%E6%88%B7%E6%8E%88%E6%9D%83%EF%BC%88%E7%BB%86%E5%8C%96%E5%88%B0Action%EF%BC%89/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一、概述首先说一下认证(authentication)与授权(authorization)，它们经常在一起工作，所以有时候会分不清楚。并且这两个英文单词长得也像兄弟。举例来说，我刷门禁卡进入公司，门禁【认证】了我是这里的员工，可以进入；但进入公司以后，我并不是所有房间都可以进，比如“机房重地，闲人免进”，我能进入哪些房间，需要公司的【授权】。这就是认证和授权的区别。 ASP.NET Core提倡的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-09-04T08:12:39.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.040Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="JWT">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2019/09/04/%E3%80%90.Net%20Core%E3%80%91JWT%E4%B8%8E%E7%94%A8%E6%88%B7%E6%8E%88%E6%9D%83%EF%BC%88%E7%BB%86%E5%8C%96%E5%88%B0Action%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net Core】JWT与用户授权（细化到Action） | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/09/04/%E3%80%90.Net%20Core%E3%80%91JWT%E4%B8%8E%E7%94%A8%E6%88%B7%E6%8E%88%E6%9D%83%EF%BC%88%E7%BB%86%E5%8C%96%E5%88%B0Action%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net Core】JWT与用户授权（细化到Action）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-04 16:12:39" itemprop="dateCreated datePublished" datetime="2019-09-04T16:12:39+08:00">2019-09-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>首先说一下认证(authentication)与授权(authorization)，它们经常在一起工作，所以有时候会分不清楚。并且这两个英文单词长得也像兄弟。举例来说，我刷门禁卡进入公司，门禁【认证】了我是这里的员工，可以进入；但进入公司以后，我并不是所有房间都可以进，比如“机房重地，闲人免进”，我能进入哪些房间，需要公司的【授权】。这就是认证和授权的区别。</p>
+<p>ASP.NET Core提倡的是基于声明（<strong>Claim</strong>）的授权，关于这个Claim，上一章用到过，有如下这样的代码，但没有介绍：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Claim[] claims = new Claim[] &#123; new Claim(ClaimTypes.NameIdentifier, user.Code), new Claim(ClaimTypes.Name, user.Name) &#125;;</span><br></pre></td></tr></table></figure>
+<p>这是一个声明的集合，它包含了两个 声明，用于保存了用户的唯一ID和用户名。当然我们还可以添加更多的Claim。对应Claim，还有ClaimsIdentity 和ClaimsPrincipal 两个类型。</p>
+<p>ClaimsIdentity相当于是一个证件，例如上例的门禁卡；ClaimsPrincipal 则是证件的持有者，也就是我本人；那么对应的Claim就是门禁卡内存储的一些信息，例如证件号、持有人姓名等。</p>
+<p>我除了门禁卡还有身份证、银行卡等，也就是说一个ClaimsPrincipal中可以有多个ClaimsIdentity，而一个ClaimsIdentity中可以有多个Claim。ASP.NET Core的授权模型大概就是这样的一个体系。</p>
+<p>ASP.NET Core支持多种授权方式，包括兼容之前的角色授权。下面通过几个例子说明一下（例子依然以<a target="_blank" rel="noopener" href="https://www.cnblogs.com/FlyLolo/p/ASPNETCore2_26.html">上一章</a>的代码为基础）。</p>
+<h1 id="二、基于角色授权"><a href="#二、基于角色授权" class="headerlink" title="二、基于角色授权"></a>二、基于角色授权</h1><p>ASP.NET Core兼容之前的角色授权模式，如何使用呢？由于不是本文的重点，这里只是简要说一下。修改FlyLolo.JWT.Server的TokenHelper临时为张三添加了一个名为“TestPutBookRole”的权限（实际权限来源此处不做展示）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public ComplexToken CreateToken(User user)</span><br><span class="line">&#123;</span><br><span class="line">    Claim[] claims = new Claim[] &#123; new Claim(ClaimTypes.NameIdentifier, user.Code), new Claim(ClaimTypes.Name, user.Name) &#125;;</span><br><span class="line"></span><br><span class="line">    //下面对code为001的张三添加了一个Claim，用于测试在Token中存储用户的角色信息，对应测试在FlyLolo.JWT.API的BookController的Put方法，若用不到可删除</span><br><span class="line">    if (user.Code.Equals(&quot;001&quot;))</span><br><span class="line">    &#123;</span><br><span class="line">        claims = claims.Append(new Claim(ClaimTypes.Role, &quot;TestPutBookRole&quot;)).ToArray();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return CreateToken(claims);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>修改FlyLolo.JWT.API的BookController，添加了一个Action如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 测试在JWT的token中添加角色，在此验证  见TokenHelper</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">[HttpPut]</span><br><span class="line">[Authorize(Roles = &quot;TestPutBookRole&quot;)]</span><br><span class="line">public JsonResult Put()</span><br><span class="line">&#123;</span><br><span class="line">    return new JsonResult(&quot;Put  Book ...&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>访问这个Action，只有用张三登录后获取的Token能正常访问。</p>
+<h1 id="三、基于声明授权"><a href="#三、基于声明授权" class="headerlink" title="三、基于声明授权"></a>三、基于声明授权</h1><p>对于上例来说，本质上也是基于声明（Claim）的授权，因为张三的”TestPutBookRole”角色也是作为一个Claim添加到证书中的。只不过采用了特定的ClaimTypes.Role。那么是否可以将其他的普通Claim作为授权的依据呢？当然是可以的。</p>
+<p>这里涉及到了另一个单词“Policy”，翻译为策略？也就是说，可以把一系列的规则（例如要求姓名为李四，账号为002，国籍为中国等等）组合在一起，形成一个Policy，只有满足这个Policy的才可以被授权访问。</p>
+<p>下面我们就新建一个Policy，在Startup的ConfigureServices中添加授权代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">services.AddAuthorization(options=&gt;options.AddPolicy(&quot;Name&quot;,policy=&gt; &#123;</span><br><span class="line">    policy.RequireClaim(ClaimTypes.Name, &quot;张三&quot;);</span><br><span class="line">    policy.RequireClaim(ClaimTypes.NameIdentifier,&quot;001&quot;);</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<p>在BookController中添加一个Action如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[HttpDelete]</span><br><span class="line">[Authorize(Policy = &quot;TestPolicy&quot;)]</span><br><span class="line">public JsonResult Delete()</span><br><span class="line">&#123;</span><br><span class="line">    return new JsonResult(&quot;Delete Book ...&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以通过张三和李四的账号测试一下，只有使用张三的账号获取的Token能访问成功。</p>
+<h1 id="四、基于策略自定义授权"><a href="#四、基于策略自定义授权" class="headerlink" title="四、基于策略自定义授权"></a>四、基于策略自定义授权</h1><p>上面介绍了两种授权方式，现在有个疑问，通过角色授权，只适合一些小型项目，将几个功能通过角色区分开就可以了。</p>
+<p>通过声明的方式，目测实际项目中需要在Startup中先声明一系列的Policy，然后在Controller或Action中使用。</p>
+<p>这两种方式都感觉不好。例如经常存在这样的需求：一个用户可以有多个角色，每个角色对应多个可访问的API地址（将授权细化到具体的Action）。用户还可以被特殊的授予某个API地址的权限。</p>
+<p>这样的需求采用上面的两种方式实现起来都很麻烦，好在ASP.NET Core提供了方便的扩展方式。</p>
+<h2 id="1-样例数据"><a href="#1-样例数据" class="headerlink" title="1.样例数据"></a>1.样例数据</h2><p>将上面的需求汇总一下，最终可以形成如下形式的数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 虚拟数据，模拟从数据库或缓存中读取用户相关的权限</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">public static class TemporaryData</span><br><span class="line">&#123;</span><br><span class="line">    public readonly static List&lt;UserPermissions&gt; UserPermissions = new List&lt;UserPermissions&gt; &#123;</span><br><span class="line">        new UserPermissions &#123;</span><br><span class="line">            Code = &quot;001&quot;,</span><br><span class="line">            Permissions = new List&lt;Permission&gt; &#123;</span><br><span class="line">                new Permission &#123; Code = &quot;A1&quot;, Name = &quot;student.create&quot;, Url = &quot;/api/student&quot;,Method=&quot;post&quot; &#125;,</span><br><span class="line">                new Permission &#123; Code = &quot;A2&quot;, Name = &quot;student.delete&quot;, Url = &quot;/api/student&quot;,Method=&quot;delete&quot;&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        new UserPermissions &#123;</span><br><span class="line">            Code = &quot;002&quot;,</span><br><span class="line">            Permissions = new List&lt;Permission&gt; &#123;</span><br><span class="line">                new Permission &#123; Code = &quot;B1&quot;, Name = &quot;book.create&quot;, Url = &quot;/api/book&quot; ,Method=&quot;post&quot;&#125;,</span><br><span class="line">                new Permission &#123; Code = &quot;B2&quot;, Name = &quot;book.delete&quot;, Url = &quot;/api/book&quot; ,Method=&quot;delete&quot;&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    public static UserPermissions GetUserPermission(string code)</span><br><span class="line">    &#123;</span><br><span class="line">        return UserPermissions.FirstOrDefault(m =&gt; m.Code.Equals(code));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>涉及到的两个类如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Permission</span><br><span class="line">&#123;</span><br><span class="line">    public string Code &#123; get; set; &#125;</span><br><span class="line">    public string Name &#123; get; set; &#125;</span><br><span class="line">    public string Url &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public string Method &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class UserPermissions</span><br><span class="line">&#123;</span><br><span class="line">    public string Code &#123; get; set; &#125;</span><br><span class="line">    public List&lt;Permission&gt; Permissions &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-自定义处理程序"><a href="#2-自定义处理程序" class="headerlink" title="2.自定义处理程序"></a>2.自定义处理程序</h2><p>下面就是根据样例数据来制定相应的处理程序了。这涉及到IAuthorizationRequirement和AuthorizationHandler两个内容。</p>
+<p>IAuthorizationRequirement是一个空的接口，主要用于提供授权所需要满足的“要求”，或者说是“规则”。AuthorizationHandler则是对请求和“要求”的联合处理。</p>
+<p>新建一个PermissionRequirement实现IAuthorizationRequirement接口。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public class PermissionRequirement: IAuthorizationRequirement</span><br><span class="line">&#123;</span><br><span class="line">    public List&lt;UserPermissions&gt; UsePermissionList &#123; get &#123; return TemporaryData.UserPermissions; &#125; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很简单的内容。它的“要求”也就是用户的权限列表了，用户的权限列表中包含当前访问的API，则授权通过，否则不通过。</p>
+<p>判断逻辑放在新建的PermissionHandler中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public class PermissionHandler : AuthorizationHandler&lt;PermissionRequirement&gt;</span><br><span class="line">&#123;</span><br><span class="line">    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)</span><br><span class="line">    &#123;</span><br><span class="line">        var code = context.User.Claims.FirstOrDefault(m =&gt; m.Type.Equals(ClaimTypes.NameIdentifier));</span><br><span class="line">        if (null != code)</span><br><span class="line">        &#123;</span><br><span class="line">            UserPermissions userPermissions = requirement.UsePermissionList.FirstOrDefault(m =&gt; m.Code.Equals(code.Value.ToString()));</span><br><span class="line"></span><br><span class="line">            var Request = (context.Resource as AuthorizationFilterContext).HttpContext.Request;</span><br><span class="line"></span><br><span class="line">            if (null != userPermissions &amp;&amp; userPermissions.Permissions.Any(m =&gt; m.Url.ToLower().Equals(Request.Path.Value.ToLower()) &amp;&amp; m.Method.ToLower().Equals(Request.Method.ToLower()) ))</span><br><span class="line">            &#123;</span><br><span class="line">                context.Succeed(requirement);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                context.Fail();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            context.Fail();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return Task.CompletedTask;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>逻辑很简单不再描述。</p>
+<h2 id="3-使用自定义的处理程序"><a href="#3-使用自定义的处理程序" class="headerlink" title="3.使用自定义的处理程序"></a>3.使用自定义的处理程序</h2><p>在Startup的ConfigureServices中添加授权代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">services.AddAuthorization(options =&gt; options.AddPolicy(&quot;Permission&quot;, policy =&gt; policy.Requirements.Add(new PermissionRequirement())));</span><br><span class="line">services.AddSingleton&lt;IAuthorizationHandler, PermissionHandler&gt;();</span><br></pre></td></tr></table></figure>
+<p>将BookController的Delete Action修改一下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[HttpDelete]</span><br><span class="line">//[Authorize(Policy = &quot;TestPolicy&quot;)]</span><br><span class="line">[Authorize(Policy = &quot;Permission&quot;)]</span><br><span class="line">public JsonResult Delete()</span><br><span class="line">&#123;</span><br><span class="line">    return new JsonResult(&quot;Delete Book ...&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">测试一下只有李四可以访问这个Action。</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2019/09/04/%E3%80%90.Net%20Core%E3%80%91JWT%E4%B8%8E%E7%94%A8%E6%88%B7%E6%8E%88%E6%9D%83%EF%BC%88%E7%BB%86%E5%8C%96%E5%88%B0Action%EF%BC%89/" title="【.Net Core】JWT与用户授权（细化到Action）">http://blog.bfsdfs.com/2019/09/04/【.Net Core】JWT与用户授权（细化到Action）/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net-Core/" rel="tag"># .Net Core</a>
+              <a href="/tags/JWT/" rel="tag"># JWT</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/09/04/%E3%80%90.Net%20Core%E3%80%91%E5%BA%94%E7%94%A8JWT%E8%BF%9B%E8%A1%8C%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E5%8F%8AToken%E7%9A%84%E5%88%B7%E6%96%B0/" rel="prev" title="【.Net Core】应用JWT进行用户认证及Token的刷新">
+      <i class="fa fa-chevron-left"></i> 【.Net Core】应用JWT进行用户认证及Token的刷新
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/09/12/%E3%80%90.Net%20Core%E3%80%91%E6%B3%A8%E5%85%A5Quartz.Net%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="next" title="【.Net Core】注入Quartz.Net定时任务">
+      【.Net Core】注入Quartz.Net定时任务 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">一、概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%9F%BA%E4%BA%8E%E8%A7%92%E8%89%B2%E6%8E%88%E6%9D%83"><span class="nav-number">2.</span> <span class="nav-text">二、基于角色授权</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%9F%BA%E4%BA%8E%E5%A3%B0%E6%98%8E%E6%8E%88%E6%9D%83"><span class="nav-number">3.</span> <span class="nav-text">三、基于声明授权</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%9F%BA%E4%BA%8E%E7%AD%96%E7%95%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%88%E6%9D%83"><span class="nav-number">4.</span> <span class="nav-text">四、基于策略自定义授权</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%A0%B7%E4%BE%8B%E6%95%B0%E6%8D%AE"><span class="nav-number">4.1.</span> <span class="nav-text">1.样例数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="nav-number">4.2.</span> <span class="nav-text">2.自定义处理程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F"><span class="nav-number">4.3.</span> <span class="nav-text">3.使用自定义的处理程序</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '1652a2cfbffe737d468e316b9317f80b',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/102/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/102/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/01/06/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E8%8A%AF%E7%89%87%E6%B5%8B%E8%AF%95%E3%80%81FJ%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81Sine%E4%B9%8B%E8%88%9E%E3%80%81%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF%E4%BA%A4%E3%80%81%E5%9B%9E%E5%BD%A2%E5%8F%96%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/01/06/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E8%8A%AF%E7%89%87%E6%B5%8B%E8%AF%95%E3%80%81FJ%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81Sine%E4%B9%8B%E8%88%9E%E3%80%81%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF%E4%BA%A4%E3%80%81%E5%9B%9E%E5%BD%A2%E5%8F%96%E6%95%B0/" class="post-title-link" itemprop="url">【算法】芯片测试、FJ的字符串、Sine之舞、矩形面积交、回形取数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-01-06 21:12:23" itemprop="dateCreated datePublished" datetime="2017-01-06T21:12:23+08:00">2017-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">算法竞赛</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>基础练习 芯片测试<br>时间限制：1.0s 内存限制：512.0MB  </p>
+<p>问题描述<br>有n（2≤n≤20）块芯片，有好有坏，已知好芯片比坏芯片多。<br>每个芯片都能用来测试其他芯片。用好芯片测试其他芯片时，能正确给出被测试芯片是好还是坏。而用坏芯片测试其他芯片时，会随机给出好或是坏的测试结果（即此结果与被测试芯片实际的好坏无关）。<br>给出所有芯片的测试结果，问哪些芯片是好芯片。<br>输入格式<br>输入数据第一行为一个整数n，表示芯片个数。<br>第二行到第n+1行为n*n的一张表，每行n个数据。表中的每个数据为0或1，在这n行中的第i行第j列（1≤i, j≤n）的数据表示用第i块芯片测试第j块芯片时得到的测试结果，1表示好，0表示坏，i=j时一律为1（并不表示该芯片对本身的测试结果。芯片不能对本身进行测试）。<br>输出格式<br>按从小到大的顺序输出所有好芯片的编号<br>样例输入<br>3<br>1 0 1<br>0 1 0<br>1 0 1<br>样例输出<br>1 3  </p>
+<p>分析：我写的太麻烦了，其实只用一个数组，竖着对1进行累加，然后看它是否大于行数的一半就行了。</p>
+<h2 id="芯片测试-代码："><a href="#芯片测试-代码：" class="headerlink" title="芯片测试-代码："></a>芯片测试-代码：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		Scanner sc=new Scanner(System.in);</span><br><span class="line">		int n=Integer.parseInt(sc.nextLine());</span><br><span class="line">		</span><br><span class="line">		String[] arr=new String[n];</span><br><span class="line">		int[] count=new int[n];</span><br><span class="line">		for (int i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">			arr[i]=&quot;...&quot;;</span><br><span class="line">		&#125;</span><br><span class="line">		int k=0;</span><br><span class="line">		for (int i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">			String s=sc.nextLine();</span><br><span class="line">			boolean fa=true;</span><br><span class="line">			for (int j = 0; j &lt; arr.length; j++) &#123;</span><br><span class="line">				if(arr[j].equals(s))&#123;</span><br><span class="line">					count[j]++;</span><br><span class="line">					fa=false;</span><br><span class="line">					break;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			if(fa)&#123;</span><br><span class="line">				arr[k]=s;</span><br><span class="line">				count[k]=1;</span><br><span class="line">			&#125;</span><br><span class="line">			k++;</span><br><span class="line">		&#125;</span><br><span class="line">		int max=0;</span><br><span class="line">		for (int i = 0; i &lt; count.length; i++) &#123;</span><br><span class="line">			if(count[i]&gt;max)&#123;</span><br><span class="line">				max=count[i];</span><br><span class="line">				k=i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		char[] ch=arr[k].replaceAll(&quot; &quot;, &quot;&quot;).toCharArray();</span><br><span class="line">		for (int i = 0; i &lt; ch.length; i++) &#123;</span><br><span class="line">			if(ch[i]==&#x27;1&#x27;)</span><br><span class="line">				System.out.print(i+1+&quot; &quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基础练习 FJ的字符串<br>时间限制：1.0s 内存限制：512.0MB  </p>
+<p>问题描述<br>FJ在沙盘上写了这样一些字符串：<br>A1 = “A”<br>A2 = “ABA”<br>A3 = “ABACABA”<br>A4 = “ABACABADABACABA”<br>… …<br>你能找出其中的规律并写所有的数列AN吗？<br>输入格式<br>仅有一个数：N ≤ 26。<br>输出格式<br>请输出相应的字符串AN，以一个换行符结束。输出中不得含有多余的空格或换行、回车符。<br>样例输入<br>3<br>样例输出<br>ABACABA  </p>
+<p>分析：用递归和直接循环做都是很简单的。题目中说N&lt;=26但是这两种方法测大于15以上的好像都出来不了结果。蓝桥杯上面的数据还是太少了，居然让我过了。  </p>
+<h2 id="FJ的字符串-代码："><a href="#FJ的字符串-代码：" class="headerlink" title="FJ的字符串-代码："></a>FJ的字符串-代码：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		Scanner sc=new Scanner(System.in);</span><br><span class="line">		int n=sc.nextInt();</span><br><span class="line">		</span><br><span class="line">		//直接拼接</span><br><span class="line">		String str=&quot;A&quot;;</span><br><span class="line">		for (int i = 1; i &lt; n; i++) &#123;</span><br><span class="line">			str=str+(char)(&#x27;A&#x27;+i)+str;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(str);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//递归做的</span><br><span class="line">//	private static String getAN(int n) &#123;</span><br><span class="line">//		if(n==0)</span><br><span class="line">//			return &quot;A&quot;;</span><br><span class="line">//		return getAN(n-1)+(char)(n+&#x27;A&#x27;)+getAN(n-1);</span><br><span class="line">//	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基础练习 Sine之舞<br>时间限制：1.0s 内存限制：512.0MB  </p>
+<p>问题描述<br>最近FJ为他的奶牛们开设了数学分析课，FJ知道若要学好这门课，必须有一个好的三角函数基本功。所以他准备和奶牛们做一个“Sine之舞”的游戏，寓教于乐，提高奶牛们的计算能力。<br>不妨设<br>An=sin(1–sin(2+sin(3–sin(4+…sin(n))…)<br>Sn=(…(A1+n)A2+n-1)A3+…+2)An+1<br>FJ想让奶牛们计算Sn的值，请你帮助FJ打印出Sn的完整表达式，以方便奶牛们做题。<br>输入格式<br>仅有一个数：N&lt;201。<br>输出格式<br>请输出相应的表达式Sn，以一个换行符结束。输出中不得含有多余的空格或换行、回车符。<br>样例输入<br>3<br>样例输出<br>((sin(1)+3)sin(1–sin(2))+2)sin(1–sin(2+sin(3)))+1  </p>
+<p>分析：这个是参考别人的，看了半天没发现里面的规律，它应该多弄几个测试样例的。然后它的测试数据也居然只有一个。  </p>
+<h2 id="Sine之舞-代码："><a href="#Sine之舞-代码：" class="headerlink" title="Sine之舞-代码："></a>Sine之舞-代码：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;  </span><br><span class="line">  </span><br><span class="line">public class Sine至舞 &#123;  </span><br><span class="line">  </span><br><span class="line">    public static void main(String[] args) &#123;  </span><br><span class="line">        Scanner scanner = new Scanner(System.in);  </span><br><span class="line">        while (scanner.hasNext()) &#123;  </span><br><span class="line">  </span><br><span class="line">            int n = scanner.nextInt();   </span><br><span class="line">  </span><br><span class="line">            StringBuffer sn = new StringBuffer();  </span><br><span class="line">            for (int i = 1; i &lt;= n; i++) &#123;  </span><br><span class="line">                StringBuffer ai = new StringBuffer();  </span><br><span class="line">                getAi(ai, i);  </span><br><span class="line">                ai.append(&quot;+&quot; + (n - i + 1));  </span><br><span class="line">  </span><br><span class="line">                sn.append(ai);  </span><br><span class="line">  </span><br><span class="line">                if ((n - i + 1) != 1) &#123;  </span><br><span class="line">                    sn.insert(0, &quot;(&quot;);  </span><br><span class="line">                    sn.append(&quot;)&quot;);  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">  </span><br><span class="line">            System.out.println(sn.toString());  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    private static void getAi(StringBuffer ai, int i) &#123;  </span><br><span class="line">        ai.append(&quot;sin(1)&quot;);  </span><br><span class="line">        for (int j = 2; j &lt;= i; j++) &#123;  </span><br><span class="line">            int len = ai.length();  </span><br><span class="line">            for (int j2 = len - 1; j2 &gt; 0; j2--) &#123;  </span><br><span class="line">                if (ai.charAt(j2) != &#x27;)&#x27;) &#123;  </span><br><span class="line">                    if (j % 2 == 0) &#123;  </span><br><span class="line">                        String temp = (j - 1) + &quot;-sin(&quot; + j + &quot;)&quot;;  </span><br><span class="line">                        ai.replace(j2, j2 + 1, temp);  </span><br><span class="line">                    &#125; else &#123;  </span><br><span class="line">                        String temp = (j - 1) + &quot;+sin(&quot; + j + &quot;)&quot;;  </span><br><span class="line">                        ai.replace(j2, j2 + 1, temp);  </span><br><span class="line">                    &#125;  </span><br><span class="line">                    break;  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>基础练习 矩形面积交<br>时间限制：1.0s 内存限制：512.0MB  </p>
+<p>问题描述<br>平面上有两个矩形，它们的边平行于直角坐标系的X轴或Y轴。对于每个矩形，我们给出它的一对相对顶点的坐标，请你编程算出两个矩形的交的面积。<br>输入格式<br>输入仅包含两行，每行描述一个矩形。<br>在每行中，给出矩形的一对相对顶点的坐标，每个点的坐标都用两个绝对值不超过10^7的实数表示。<br>输出格式<br>输出仅包含一个实数，为交的面积，保留到小数后两位。<br>样例输入<br>1 1 3 3<br>2 2 4 4<br>样例输出<br>1.00  </p>
+<p>分析：两个矩形可以看出四个横着的线，和四个竖着的线。中间两根的距离即相交部分的长宽，当然首先应该判断是否有相交的部分，其实可以用数学知识来解，即相交圆的知识。  </p>
+<h2 id="矩形面积交-代码："><a href="#矩形面积交-代码：" class="headerlink" title="矩形面积交-代码："></a>矩形面积交-代码：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line">import java.math.BigDecimal;</span><br><span class="line"></span><br><span class="line">public class 矩形面积交 &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		double[] arr1=new double[4];</span><br><span class="line">		double[] arr2=new double[4];</span><br><span class="line">		</span><br><span class="line">		Scanner sc=new Scanner(System.in);</span><br><span class="line">		while(sc.hasNext())&#123;</span><br><span class="line">		for (int i = 0; i &lt; arr1.length; i++) &#123;</span><br><span class="line">			arr1[i]=sc.nextDouble();</span><br><span class="line">		&#125;</span><br><span class="line">		for (int i = 0; i &lt; arr1.length; i++) &#123;</span><br><span class="line">			arr2[i]=sc.nextDouble();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		double[] arr3=new double[4];</span><br><span class="line">		double[] arr4=new double[4];</span><br><span class="line">		</span><br><span class="line">		//长</span><br><span class="line">		arr3[0]=arr1[0];</span><br><span class="line">		arr3[1]=arr1[2];</span><br><span class="line">		arr3[2]=arr2[0];</span><br><span class="line">		arr3[3]=arr2[2];</span><br><span class="line">		</span><br><span class="line">		if((arr1[0]&gt;arr2[0]&amp;&amp;arr1[0]&gt;arr2[2])&amp;&amp;(arr1[2]&gt;arr2[0]&amp;&amp;arr1[2]&gt;arr2[2]))&#123;</span><br><span class="line">			System.out.println(&quot;0.00&quot;);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		if((arr1[0]&lt;arr2[0]&amp;&amp;arr1[0]&lt;arr2[2])&amp;&amp;(arr1[2]&lt;arr2[0]&amp;&amp;arr1[2]&lt;arr2[2]))&#123;</span><br><span class="line">			System.out.println(&quot;0.00&quot;);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		for (int i = 0; i &lt; arr4.length; i++) &#123;</span><br><span class="line">			for (int j = 0; j &lt; arr4.length; j++) &#123;</span><br><span class="line">				if(arr3[i]&lt;arr3[j])&#123;</span><br><span class="line">					double t=arr3[i];</span><br><span class="line">					arr3[i]=arr3[j];</span><br><span class="line">					arr3[j]=t;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		double chang=Math.abs(arr3[2]-arr3[1]);</span><br><span class="line">		</span><br><span class="line">		//宽</span><br><span class="line">		arr4[0]=arr1[1];</span><br><span class="line">		arr4[1]=arr1[3];</span><br><span class="line">		arr4[2]=arr2[1];</span><br><span class="line">		arr4[3]=arr2[3];</span><br><span class="line">		for (int i = 0; i &lt; arr4.length; i++) &#123;</span><br><span class="line">			for (int j = 0; j &lt; arr4.length; j++) &#123;</span><br><span class="line">				if(arr4[i]&lt;arr4[j])&#123;</span><br><span class="line">					double t=arr4[i];</span><br><span class="line">					arr4[i]=arr4[j];</span><br><span class="line">					arr4[j]=t;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		double kuan=Math.abs(arr4[2]-arr4[1]);</span><br><span class="line">		double d=kuan*chang;</span><br><span class="line">		</span><br><span class="line">		BigDecimal bd=BigDecimal.valueOf(d);</span><br><span class="line">		String str=bd.setScale(2, BigDecimal.ROUND_HALF_UP).toString();</span><br><span class="line">		System.out.println(str);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基础练习 回形取数<br>时间限制：1.0s 内存限制：512.0MB  </p>
+<p>问题描述<br>回形取数就是沿矩阵的边取数，若当前方向上无数可取或已经取过，则左转90度。一开始位于矩阵左上角，方向向下。<br>输入格式<br>输入第一行是两个不超过200的正整数m, n，表示矩阵的行和列。接下来m行每行n个整数，表示这个矩阵。<br>输出格式<br>输出只有一行，共mn个数，为输入矩阵回形取数得到的结果。数之间用一个空格分隔，行末不要有多余的空格。<br>样例输入<br>3 3<br>1 2 3<br>4 5 6<br>7 8 9<br>样例输出<br>1 4 7 8 9 6 3 2 5<br>样例输入<br>3 2<br>1 2<br>3 4<br>5 6<br>样例输出<br>1 3 5 6 4 2  </p>
+<p>分析：同学之前问过和这类似的个题，前几天写了下转方向时写烦了，就没写了。今天再写了下，居然一下子就写出来了。就是那么一圈圈的输出的 </p>
+<h2 id="回形取数-代码："><a href="#回形取数-代码：" class="headerlink" title="回形取数-代码："></a>回形取数-代码：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class 回形取数 &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		Scanner sc=new Scanner(System.in);</span><br><span class="line">		int c=sc.nextInt();</span><br><span class="line">		int r=sc.nextInt();</span><br><span class="line">		</span><br><span class="line">		int[][] arr=new int[c][r];</span><br><span class="line">		for (int i = 0; i &lt; c; i++) &#123;</span><br><span class="line">			for (int j = 0; j &lt; r; j++) &#123;</span><br><span class="line">				arr[i][j]=sc.nextInt();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		 </span><br><span class="line">		int count=0;</span><br><span class="line">		int quanshu=0;</span><br><span class="line">		while(count&lt;c*r)&#123;</span><br><span class="line">			</span><br><span class="line">			//下</span><br><span class="line">			for (int i = quanshu; i &lt; c-quanshu; i++) &#123;</span><br><span class="line">				if(count==c*r)break;</span><br><span class="line">				System.out.print(arr[i][quanshu]+&quot; &quot;);</span><br><span class="line">				count++;</span><br><span class="line">			&#125;</span><br><span class="line">			quanshu++;</span><br><span class="line">			//右</span><br><span class="line">			for (int i = quanshu; i &lt;= r-quanshu; i++) &#123;</span><br><span class="line">				if(count==c*r)break;</span><br><span class="line">				System.out.print(arr[c-quanshu][i]+&quot; &quot;);</span><br><span class="line">				count++;</span><br><span class="line">			&#125;</span><br><span class="line">			//上</span><br><span class="line">			for (int i =c-quanshu-1; i &gt;=quanshu-1; i--) &#123;</span><br><span class="line">				if(count==c*r)break;</span><br><span class="line">				System.out.print(arr[i][r-quanshu]+&quot; &quot;);</span><br><span class="line">				count++;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			//左</span><br><span class="line">			for (int i =r-quanshu-1; i &gt;=quanshu; i--) &#123;</span><br><span class="line">				if(count==c*r)break;</span><br><span class="line">				System.out.print(arr[quanshu-1][i]+&quot; &quot;);</span><br><span class="line">				count++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>放假的第二天了，明天可能有事写不了。今天就多写点。。。  </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/01/05/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%88%86%E8%A7%A3%E8%B4%A8%E5%9B%A0%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/01/05/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%88%86%E8%A7%A3%E8%B4%A8%E5%9B%A0%E6%95%B0/" class="post-title-link" itemprop="url">【算法】分解质因数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-01-05 23:22:51" itemprop="dateCreated datePublished" datetime="2017-01-05T23:22:51+08:00">2017-01-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">算法竞赛</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>基础练习 分解质因数<br>时间限制：1.0s 内存限制：512.0MB  </p>
+<p>问题描述<br>求出区间[a,b]中所有整数的质因数分解。<br>输入格式<br>输入两个整数a，b。<br>输出格式<br>每行输出一个数的分解，形如k=a1<em>a2</em>a3…(a1&lt;=a2&lt;=a3…，k也是从小到大的)(具体可看样例)<br>样例输入<br>3 10<br>样例输出<br>3=3<br>4=2<em>2<br>5=5<br>6=2</em>3<br>7=7<br>8=2<em>2</em>2<br>9=3<em>3<br>10=2</em>5<br>提示<br>先筛出所有素数，然后再分解。<br>数据规模和约定<br>2&lt;=a&lt;=b&lt;=10000  </p>
+<p>分析：这个题之前写过但是得分不全，主要问题是超时了。今天再看到了先把所有的质因数选达成表，这可省好多时间的。看着有点吓人。</p>
+<h2 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">	static int[] arr=new int[]&#123;2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,311,313,317,331,337,347,349,353,359,367,373,379,383,389,397,401,409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,503,509,521,523,541,547,557,563,569,571,577,587,593,599,601,607,613,617,619,631,641,643,647,653,659,661,673,677,683,691,701,709,719,727,733,739,743,751,757,761,769,773,787,797,809,811,821,823,827,829,839,853,857,859,863,877,881,883,887,907,911,919,929,937,941,947,953,967,971,977,983,991,997,1009,1013,1019,1021,1031,1033,1039,1049,1051,1061,1063,1069,1087,1091,1093,1097,1103,1109,1117,1123,1129,1151,1153,1163,1171,1181,1187,1193,1201,1213,1217,1223,1229,1231,1237,1249,1259,1277,1279,1283,1289,1291,1297,1301,1303,1307,1319,1321,1327,1361,1367,1373,1381,1399,1409,1423,1427,1429,1433,1439,1447,1451,1453,1459,1471,1481,1483,1487,1489,1493,1499,1511,1523,1531,1543,1549,1553,1559,1567,1571,1579,1583,1597,1601,1607,1609,1613,1619,1621,1627,1637,1657,1663,1667,1669,1693,1697,1699,1709,1721,1723,1733,1741,1747,1753,1759,1777,1783,1787,1789,1801,1811,1823,1831,1847,1861,1867,1871,1873,1877,1879,1889,1901,1907,1913,1931,1933,1949,1951,1973,1979,1987,1993,1997,1999,2003,2011,2017,2027,2029,2039,2053,2063,2069,2081,2083,2087,2089,2099,2111,2113,2129,2131,2137,2141,2143,2153,2161,2179,2203,2207,2213,2221,2237,2239,2243,2251,2267,2269,2273,2281,2287,2293,2297,2309,2311,2333,2339,2341,2347,2351,2357,2371,2377,2381,2383,2389,2393,2399,2411,2417,2423,2437,2441,2447,2459,2467,2473,2477,2503,2521,2531,2539,2543,2549,2551,2557,2579,2591,2593,2609,2617,2621,2633,2647,2657,2659,2663,2671,2677,2683,2687,2689,2693,2699,2707,2711,2713,2719,2729,2731,2741,2749,2753,2767,2777,2789,2791,2797,2801,2803,2819,2833,2837,2843,2851,2857,2861,2879,2887,2897,2903,2909,2917,2927,2939,2953,2957,2963,2969,2971,2999,3001,3011,3019,3023,3037,3041,3049,3061,3067,3079,3083,3089,3109,3119,3121,3137,3163,3167,3169,3181,3187,3191,3203,3209,3217,3221,3229,3251,3253,3257,3259,3271,3299,3301,3307,3313,3319,3323,3329,3331,3343,3347,3359,3361,3371,3373,3389,3391,3407,3413,3433,3449,3457,3461,3463,3467,3469,3491,3499,3511,3517,3527,3529,3533,3539,3541,3547,3557,3559,3571,3581,3583,3593,3607,3613,3617,3623,3631,3637,3643,3659,3671,3673,3677,3691,3697,3701,3709,3719,3727,3733,3739,3761,3767,3769,3779,3793,3797,3803,3821,3823,3833,3847,3851,3853,3863,3877,3881,3889,3907,3911,3917,3919,3923,3929,3931,3943,3947,3967,3989,4001,4003,4007,4013,4019,4021,4027,4049,4051,4057,4073,4079,4091,4093,4099,4111,4127,4129,4133,4139,4153,4157,4159,4177,4201,4211,4217,4219,4229,4231,4241,4243,4253,4259,4261,4271,4273,4283,4289,4297,4327,4337,4339,4349,4357,4363,4373,4391,4397,4409,4421,4423,4441,4447,4451,4457,4463,4481,4483,4493,4507,4513,4517,4519,4523,4547,4549,4561,4567,4583,4591,4597,4603,4621,4637,4639,4643,4649,4651,4657,4663,4673,4679,4691,4703,4721,4723,4729,4733,4751,4759,4783,4787,4789,4793,4799,4801,4813,4817,4831,4861,4871,4877,4889,4903,4909,4919,4931,4933,4937,4943,4951,4957,4967,4969,4973,4987,4993,4999,5003,5009,5011,5021,5023,5039,5051,5059,5077,5081,5087,5099,5101,5107,5113,5119,5147,5153,5167,5171,5179,5189,5197,5209,5227,5231,5233,5237,5261,5273,5279,5281,5297,5303,5309,5323,5333,5347,5351,5381,5387,5393,5399,5407,5413,5417,5419,5431,5437,5441,5443,5449,5471,5477,5479,5483,5501,5503,5507,5519,5521,5527,5531,5557,5563,5569,5573,5581,5591,5623,5639,5641,5647,5651,5653,5657,5659,5669,5683,5689,5693,5701,5711,5717,5737,5741,5743,5749,5779,5783,5791,5801,5807,5813,5821,5827,5839,5843,5849,5851,5857,5861,5867,5869,5879,5881,5897,5903,5923,5927,5939,5953,5981,5987,6007,6011,6029,6037,6043,6047,6053,6067,6073,6079,6089,6091,6101,6113,6121,6131,6133,6143,6151,6163,6173,6197,6199,6203,6211,6217,6221,6229,6247,6257,6263,6269,6271,6277,6287,6299,6301,6311,6317,6323,6329,6337,6343,6353,6359,6361,6367,6373,6379,6389,6397,6421,6427,6449,6451,6469,6473,6481,6491,6521,6529,6547,6551,6553,6563,6569,6571,6577,6581,6599,6607,6619,6637,6653,6659,6661,6673,6679,6689,6691,6701,6703,6709,6719,6733,6737,6761,6763,6779,6781,6791,6793,6803,6823,6827,6829,6833,6841,6857,6863,6869,6871,6883,6899,6907,6911,6917,6947,6949,6959,6961,6967,6971,6977,6983,6991,6997,7001,7013,7019,7027,7039,7043,7057,7069,7079,7103,7109,7121,7127,7129,7151,7159,7177,7187,7193,7207,7211,7213,7219,7229,7237,7243,7247,7253,7283,7297,7307,7309,7321,7331,7333,7349,7351,7369,7393,7411,7417,7433,7451,7457,7459,7477,7481,7487,7489,7499,7507,7517,7523,7529,7537,7541,7547,7549,7559,7561,7573,7577,7583,7589,7591,7603,7607,7621,7639,7643,7649,7669,7673,7681,7687,7691,7699,7703,7717,7723,7727,7741,7753,7757,7759,7789,7793,7817,7823,7829,7841,7853,7867,7873,7877,7879,7883,7901,7907,7919,7927,7933,7937,7949,7951,7963,7993,8009,8011,8017,8039,8053,8059,8069,8081,8087,8089,8093,8101,8111,8117,8123,8147,8161,8167,8171,8179,8191,8209,8219,8221,8231,8233,8237,8243,8263,8269,8273,8287,8291,8293,8297,8311,8317,8329,8353,8363,8369,8377,8387,8389,8419,8423,8429,8431,8443,8447,8461,8467,8501,8513,8521,8527,8537,8539,8543,8563,8573,8581,8597,8599,8609,8623,8627,8629,8641,8647,8663,8669,8677,8681,8689,8693,8699,8707,8713,8719,8731,8737,8741,8747,8753,8761,8779,8783,8803,8807,8819,8821,8831,8837,8839,8849,8861,8863,8867,8887,8893,8923,8929,8933,8941,8951,8963,8969,8971,8999,9001,9007,9011,9013,9029,9041,9043,9049,9059,9067,9091,9103,9109,9127,9133,9137,9151,9157,9161,9173,9181,9187,9199,9203,9209,9221,9227,9239,9241,9257,9277,9281,9283,9293,9311,9319,9323,9337,9341,9343,9349,9371,9377,9391,9397,9403,9413,9419,9421,9431,9433,9437,9439,9461,9463,9467,9473,9479,9491,9497,9511,9521,9533,9539,9547,9551,9587,9601,9613,9619,9623,9629,9631,9643,9649,9661,9677,9679,9689,9697,9719,9721,9733,9739,9743,9749,9767,9769,9781,9787,9791,9803,9811,9817,9829,9833,9839,9851,9857,9859,9871,9883,9887,9901,9907,9923,9929,9931,9941,9949,9967,9973&#125;;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">		Scanner sc=new Scanner(System.in);</span><br><span class="line">		int min=sc.nextInt();</span><br><span class="line">		int max=sc.nextInt();</span><br><span class="line">		for (int i = min; i &lt;= max; i++) &#123;</span><br><span class="line">			fenjie(i);	</span><br><span class="line">			System.out.println();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static void fenjie(int n) &#123;</span><br><span class="line">		System.out.print(n+&quot;=&quot;);</span><br><span class="line">		int i=0;</span><br><span class="line">		int r=arr[i];</span><br><span class="line">		while(n!=1)&#123;</span><br><span class="line">			if(n%r==0)&#123;</span><br><span class="line">				n=n/r;</span><br><span class="line">				System.out.print(r);</span><br><span class="line">				if(n!=1)</span><br><span class="line">					System.out.print(&quot;*&quot;);</span><br><span class="line">			&#125;else&#123;</span><br><span class="line">				r=arr[i++];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>基础练习 完美的代价<br>时间限制：1.0s 内存限制：512.0MB  </p>
+<p>问题描述<br>回文串，是一种特殊的字符串，它从左往右读和从右往左读是一样的。小龙龙认为回文串才是完美的。现在给你一个串，它不一定是回文的，请你计算最少的交换次数使得该串变成一个完美的回文串。<br>交换的定义是：交换两个相邻的字符<br>例如mamad<br>第一次交换 ad : mamda<br>第二次交换 md : madma<br>第三次交换 ma : madam (回文！完美！)<br>输入格式<br>第一行是一个整数N，表示接下来的字符串的长度(N &lt;= 8000)<br>第二行是一个字符串，长度为N.只包含小写字母<br>输出格式<br>如果可能，输出最少的交换次数。<br>否则输出Impossible<br>样例输入<br>5<br>mamad<br>样例输出<br>3  </p>
+<p>分析：这个题大概思路有，但是有点混乱。写了几次然后有问题。参考了下别人的  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class 完美的代价 &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		Scanner sc=new Scanner(System.in);</span><br><span class="line"></span><br><span class="line">		int n=Integer.parseInt(sc.nextLine());</span><br><span class="line">		String s=sc.nextLine();</span><br><span class="line">		</span><br><span class="line">		char[] chs=s.toCharArray();</span><br><span class="line">		int[] count=new int[26];</span><br><span class="line">		char ch=&#x27;0&#x27;;</span><br><span class="line">		int oddchar=0;</span><br><span class="line">		</span><br><span class="line">		for (int i = 0; i &lt; chs.length; i++) &#123;</span><br><span class="line">			int index=chs[i]-&#x27;a&#x27;;</span><br><span class="line">			count[index]++;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		for (int i = 0; i &lt; count.length; i++) &#123;</span><br><span class="line">			if(count[i]%2!=0)&#123;</span><br><span class="line">				oddchar++;</span><br><span class="line">				ch=(char)(i+&#x27;a&#x27;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		if (oddchar&gt;1) &#123;</span><br><span class="line">			System.out.println(&quot;Impossible&quot;);</span><br><span class="line">		&#125;else&#123;</span><br><span class="line">			int result=exchange(chs,n,ch);</span><br><span class="line">			System.out.println(result);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static int exchange(char[] chs, int n, char ch) &#123;</span><br><span class="line">		int count=0,i,j,k;</span><br><span class="line">		for (i=0;i&lt;n/2;i++) &#123;</span><br><span class="line">			if(chs[i]==ch)&#123;</span><br><span class="line">				for(j=i;j&lt;n-i-1;j++)&#123;</span><br><span class="line">					if(chs[j]==chs[n-i-1])</span><br><span class="line">						break;</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">				count+=j-i;</span><br><span class="line">				</span><br><span class="line">				for (k=j;k&gt;i;k--) &#123;</span><br><span class="line">					chs[k]=chs[k-1];</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;else&#123;</span><br><span class="line">				for(j=n-i-1;j&gt;=i;j--)&#123;</span><br><span class="line">					if(chs[j]==chs[i])</span><br><span class="line">						break;</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">				count+=n-i-1-j;</span><br><span class="line">				for(k=j;k&lt;n-i-1;k++)&#123;</span><br><span class="line">					chs[k]=chs[k+1];</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		return count;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基础练习 数的读法<br>时间限制：1.0s 内存限制：512.0MB  </p>
+<p>问题描述<br>Tom教授正在给研究生讲授一门关于基因的课程，有一件事情让他颇为头疼：一条染色体上有成千上万个碱基对，它们从0开始编号，到几百万，几千万，甚至上亿。<br>比如说，在对学生讲解第1234567009号位置上的碱基时，光看着数字是很难准确的念出来的。<br>所以，他迫切地需要一个系统，然后当他输入12 3456 7009时，会给出相应的念法：<br>十二亿三千四百五十六万七千零九<br>用汉语拼音表示为<br>shi er yi san qian si bai wu shi liu wan qi qian ling jiu<br>这样他只需要照着念就可以了。<br>你的任务是帮他设计这样一个系统：给定一个阿拉伯数字串，你帮他按照中文读写的规范转为汉语拼音字串，相邻的两个音节用一个空格符格开。<br>注意必须严格按照规范，比如说“10010”读作“yi wan ling yi shi”而不是“yi wan ling shi”，“100000”读作“shi wan”而不是“yi shi wan”，“2000”读作“er qian”而不是“liang qian”。<br>输入格式<br>有一个数字串，数值大小不超过2,000,000,000。<br>输出格式<br>是一个由小写英文字母，逗号和空格组成的字符串，表示该数的英文读法。<br>样例输入<br>1234567009<br>样例输出<br>shi er yi san qian si bai wu shi liu wan qi qian ling jiu  </p>
+<p>分析：瞎写的，然后要考虑到的地方好多，还有蓝桥杯上面的测试数据非常的不全。  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class BASIC20数的读法 &#123;</span><br><span class="line"></span><br><span class="line">	static String[] data=new String[]&#123;&quot;ling&quot;,&quot;yi&quot;,&quot;er&quot;,&quot;san&quot;,&quot;si&quot;,&quot;wu&quot;,&quot;liu&quot;,&quot;qi&quot;,&quot;ba&quot;,&quot;jiu&quot;&#125;;</span><br><span class="line">	static String[] dw=new String[]&#123;&quot;shi&quot;,&quot;bai&quot;,&quot;qian&quot;,&quot;wan&quot;,&quot;shi&quot;,&quot;bai&quot;,&quot;qian&quot;,&quot;yi&quot;,&quot;shi&quot;&#125;;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		Scanner sc=new Scanner(System.in);</span><br><span class="line">		String s=sc.nextLine();</span><br><span class="line">		</span><br><span class="line">		//转成拼音</span><br><span class="line">		String[] arr=getNun(s);</span><br><span class="line">		</span><br><span class="line">		//加单位</span><br><span class="line">		String str=getDW(arr);</span><br><span class="line">		</span><br><span class="line">		//替换，修改零</span><br><span class="line">		str=getLing(str);</span><br><span class="line">		System.out.println(str.trim());</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static String getLing(String str) &#123;</span><br><span class="line">		str=str.replaceAll(&quot;ling qian ling bai ling shi ling wan&quot;, &quot;ling&quot;);</span><br><span class="line">		str=str.replaceAll(&quot;ling qian ling bai ling shi&quot;, &quot;ling&quot;);</span><br><span class="line">		str=str.replaceAll(&quot;ling qian ling bai&quot;, &quot;ling&quot;);</span><br><span class="line">		str=str.replaceAll(&quot;ling bai ling shi&quot;, &quot;ling&quot;);</span><br><span class="line">		str=str.replaceAll(&quot;ling shi&quot;, &quot;ling&quot;);</span><br><span class="line">		str=str.replaceAll(&quot;ling bai&quot;, &quot;ling&quot;);</span><br><span class="line">		str=str.replaceAll(&quot;ling qian&quot;, &quot;ling&quot;);</span><br><span class="line">		str=str.replaceAll(&quot;ling wan&quot;, &quot;wan&quot;);</span><br><span class="line">		str=str.replaceAll(&quot;ling ling&quot;, &quot;ling&quot;);</span><br><span class="line">		str=str.replaceAll(&quot;shi ling&quot;, &quot;shi&quot;);</span><br><span class="line">		if(str.startsWith(&quot;yi shi&quot;))</span><br><span class="line">			str=&quot;shi &quot;+str.substring(7);</span><br><span class="line">		if(str.endsWith(&quot; ling &quot;))</span><br><span class="line">			str=str.substring(0,str.length()-6);</span><br><span class="line">		if(str.endsWith(&quot; ling&quot;))</span><br><span class="line">			str=str.substring(0,str.length()-5);</span><br><span class="line">		return str;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static String getDW(String[] arr) &#123;</span><br><span class="line">		String str=&quot;&quot;;</span><br><span class="line">		int k=0;</span><br><span class="line">		for (int i = arr.length-1; i &gt;0; i--) &#123;</span><br><span class="line">			str=dw[k]+&quot; &quot;+arr[i]+&quot; &quot;+str;</span><br><span class="line">			k++;</span><br><span class="line">		&#125;</span><br><span class="line">		return arr[0]+&quot; &quot;+str;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static String[] getNun(String s) &#123;</span><br><span class="line">		String[] arr=new String[s.length()];</span><br><span class="line">		for (int j = 0; j &lt; s.length(); j++) &#123;</span><br><span class="line">			arr[j]=data[s.charAt(j)-&#x27;0&#x27;];</span><br><span class="line">		&#125;</span><br><span class="line">		return arr;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>PS:寒假第一天咯！ </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/01/04/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98-%E5%9B%9B%E7%A7%8D%E8%A7%A3%E6%B3%95%EF%BC%88%E7%A9%B7%E4%B8%BE%EF%BC%8C%E9%80%92%E5%BD%92%EF%BC%8C%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%EF%BC%8C%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/01/04/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98-%E5%9B%9B%E7%A7%8D%E8%A7%A3%E6%B3%95%EF%BC%88%E7%A9%B7%E4%B8%BE%EF%BC%8C%E9%80%92%E5%BD%92%EF%BC%8C%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%EF%BC%8C%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%EF%BC%89/" class="post-title-link" itemprop="url">【算法】背包问题-四种解法（穷举，递归，二维数组，一维数组）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-01-04 23:06:17" itemprop="dateCreated datePublished" datetime="2017-01-04T23:06:17+08:00">2017-01-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">算法竞赛</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>01背包问题，是用来介绍动态规划<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/datastructure">算法</a>最经典的例子，网上关于01背包问题的讲解也很多。</p>
+<p>我写这篇的不在于把这个问题讲得透彻，主要写下四种大概思路。</p>
+<h3 id="01背包的状态转换方程-f-i-j-Max-f-i-1-j-Wi-Pi-j-gt-Wi-f-i-1-j"><a href="#01背包的状态转换方程-f-i-j-Max-f-i-1-j-Wi-Pi-j-gt-Wi-f-i-1-j" class="headerlink" title="01背包的状态转换方程 f[i,j] = Max{ f[i-1,j-Wi]+Pi( j &gt;= Wi ), f[i-1,j] }"></a>01背包的状态转换方程 f[i,j] = Max{ f[i-1,j-Wi]+Pi( j &gt;= Wi ), f[i-1,j] }</h3><p>f[i,j]表示在前i件物品中选择若干件放在承重为 j 的背包中，可以取得的最大价值。<br>Pi表示第i件物品的价值。<br>决策：为了背包中物品总价值最大化，第 i件物品应该放入背包中吗 ？<br><strong>题目描述：</strong></p>
+<p>有编号分别为a,b,c,d,e的五件物品，它们的重量分别是2,2,6,5,4，它们的价值分别是6,3,5,4,6，现在给你个承重为10的背包，如何让背包里装入的物品具有最大的价值总和？  </p>
+<h2 id="一、穷举（主要就是要不要，和放不放得下的问题）"><a href="#一、穷举（主要就是要不要，和放不放得下的问题）" class="headerlink" title="一、穷举（主要就是要不要，和放不放得下的问题）"></a>一、穷举（主要就是要不要，和放不放得下的问题）</h2><p>由于物件应该有用户输入，所以数量是不确定的。用二进制穷举能很好的解决这个问题。这里省略输入过程。  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">public class A &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">		int n=5;</span><br><span class="line">		int[] weight=&#123;2,2,6,5,4&#125;;</span><br><span class="line">		int[] value=&#123;6,3,5,4,6&#125;;</span><br><span class="line">		int bigBao=10;</span><br><span class="line">		</span><br><span class="line">		int max=(int)Math.pow(2, n);</span><br><span class="line">		int[] er=new int[n];</span><br><span class="line">		</span><br><span class="line">		int M=0;</span><br><span class="line">		for (int i = 1; i &lt; max; i++) &#123;</span><br><span class="line">			er=getData(i,er);</span><br><span class="line">			</span><br><span class="line">			//算空间，和价值</span><br><span class="line">			int sum=0;</span><br><span class="line">			int jiazhi=0;</span><br><span class="line">			for (int j = 0; j &lt; er.length; j++) &#123;</span><br><span class="line">				sum+=weight[j]*er[j];</span><br><span class="line">				if(sum&gt;bigBao)&#123;</span><br><span class="line">					break;</span><br><span class="line">				&#125;</span><br><span class="line">				jiazhi+=value[j]*er[j];</span><br><span class="line">			&#125;</span><br><span class="line">			if(jiazhi&gt;M)&#123;</span><br><span class="line">				M=jiazhi;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(M);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//转成二进制</span><br><span class="line">	private static int[] getData(int i,int[] er) &#123;</span><br><span class="line">		int k=er.length-1;</span><br><span class="line">		while(i!=0)&#123;</span><br><span class="line">			er[k]=i%2;</span><br><span class="line">			i=i/2;</span><br><span class="line">			k--;</span><br><span class="line">		&#125;</span><br><span class="line">		return er;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、递归"><a href="#二、递归" class="headerlink" title="二、递归"></a>二、递归</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class B&#123;</span><br><span class="line"></span><br><span class="line">	static int bigBao;</span><br><span class="line">	static int n=5;</span><br><span class="line">	static int[] weight=&#123;0,3,4,5&#125;;//&#123;2,2,6,5,4&#125;</span><br><span class="line">	static int[] value=&#123;0,4,5,6&#125;;//&#123;6,3,5,4,6&#125;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		System.out.println(getM(3,10));</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static int getM(int i, int v) &#123;</span><br><span class="line">		if(i&lt;0||v&lt;0)</span><br><span class="line">			return 0;</span><br><span class="line">		int k=getBool(i,v);//看装不装的下</span><br><span class="line">		</span><br><span class="line">		return Math.max(getM(i-1,v-weight[i])+k, getM(i-1,v));//要或者不要</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//装不装得下</span><br><span class="line">	private static int getBool(int i, int v) &#123;</span><br><span class="line">		if(weight[i]&gt;v)</span><br><span class="line">			return 0;</span><br><span class="line">		else</span><br><span class="line">			return value[i];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="三、二维数组"><a href="#三、二维数组" class="headerlink" title="三、二维数组"></a>三、二维数组</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class  C &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		int n=5;</span><br><span class="line">		int[] weight=&#123;0,4,5,6,2,2&#125;;</span><br><span class="line">		int[] value=&#123;0,6,4,5,3,6&#125;;</span><br><span class="line">		int bigBao=10;</span><br><span class="line">		</span><br><span class="line">		int[][] arr=new int[n+1][bigBao+1];</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		for (int i = 1; i &lt; weight.length; i++) &#123;</span><br><span class="line">			for (int j = 1; j &lt; arr[0].length; j++) &#123;</span><br><span class="line">				if(j&gt;=weight[i])</span><br><span class="line">					arr[i][j]=Math.max(arr[i-1][j],arr[i-1][j-weight[i]]+value[i]);</span><br><span class="line">				else</span><br><span class="line">					arr[i][j]=arr[i-1][j];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		//打表输出</span><br><span class="line">		for (int i = 0; i &lt; weight.length; i++) &#123;</span><br><span class="line">			for (int j = 0; j &lt; arr[0].length; j++) &#123;</span><br><span class="line">				System.out.print(arr[i][j]+&quot; &quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="四、由二维转一维数组"><a href="#四、由二维转一维数组" class="headerlink" title="四、由二维转一维数组"></a>四、由二维转一维数组</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class D &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		int n=5;</span><br><span class="line">		int[] weight=&#123;0,3,2,5&#125;;</span><br><span class="line">		int[] value=&#123;0,4,3,6&#125;;</span><br><span class="line">		int bigBao=10;</span><br><span class="line">		</span><br><span class="line">		int[] arr=new int[bigBao+1];</span><br><span class="line">		</span><br><span class="line">		for (int i = 1; i &lt; weight.length; i++) &#123;</span><br><span class="line">			for (int j = arr.length-1; j &gt;0; j--) &#123;</span><br><span class="line">				if(j&gt;=weight[i])&#123;</span><br><span class="line">					arr[j]=Math.max(arr[j],arr[j-weight[i]]+value[i]);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			for (int j = 0; j &lt; arr.length; j++) &#123;</span><br><span class="line">				System.out.print(arr[j]+&quot; &quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println();				</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>PS：能力有限，有些地方我也表述不清楚。反正我是懂了的  </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/101/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/101/">101</a><span class="page-number current">102</span><a class="page-number" href="/page/103/">103</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/103/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="http:&#x2F;&#x2F;www.apeit.cn&#x2F;mysql-xwadg  四个库  information_schema 数据库元数据信息 mysql 数据库构建信息 performance_schema 数据库执行信息 sys 数据库配置信息  常用系统命令 desc tableName ， describe tableName, show columns from tableName [from d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【MySql】系统表">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/08/18/%E3%80%90MySql%E3%80%91%E7%B3%BB%E7%BB%9F%E8%A1%A8/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="http:&#x2F;&#x2F;www.apeit.cn&#x2F;mysql-xwadg  四个库  information_schema 数据库元数据信息 mysql 数据库构建信息 performance_schema 数据库执行信息 sys 数据库配置信息  常用系统命令 desc tableName ， describe tableName, show columns from tableName [from d">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-18T02:46:46.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.076Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="MySql">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/08/18/%E3%80%90MySql%E3%80%91%E7%B3%BB%E7%BB%9F%E8%A1%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【MySql】系统表 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/08/18/%E3%80%90MySql%E3%80%91%E7%B3%BB%E7%BB%9F%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【MySql】系统表
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-18 10:46:46" itemprop="dateCreated datePublished" datetime="2020-08-18T10:46:46+08:00">2020-08-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.apeit.cn/mysql-xwadg">http://www.apeit.cn/mysql-xwadg</a></p>
+</blockquote>
+<p>四个库</p>
+<ul>
+<li>information_schema 数据库元数据信息</li>
+<li>mysql 数据库构建信息</li>
+<li>performance_schema 数据库执行信息</li>
+<li>sys 数据库配置信息</li>
+</ul>
+<h3 id="常用系统命令"><a href="#常用系统命令" class="headerlink" title="常用系统命令"></a>常用系统命令</h3><ul>
+<li><code>desc tableName</code> ， <code>describe tableName</code>, <code>show columns from tableName [from databaesName]</code>，<code>show columns from databaseName.tableName</code> # 表字段信息</li>
+<li><code>show create table tableName</code> # 表创建语句</li>
+<li><code>show create database databaseName</code> # 数据库创建语句</li>
+<li><code>show table status from databaseName</code> # 显示库中表的情况</li>
+<li><code>show tables [from databaseName]</code> # 显示数据库中所有表的表名</li>
+<li><code>show databases</code> # 显示所有数据库名称</li>
+<li><code>show processlist</code> # 显示系统中正在进行的所有进程，也就是正在执行的查询。</li>
+<li><code>show table status [from databaseName]</code> #  显示数据库中所有表的详情。</li>
+<li><code>show grants for userName@localhost</code> #  显示用户的授权语句</li>
+<li><code>show index from [databaseName.]tableName</code> # 显示表的索引</li>
+<li><code>show status</code> # 显示系统特定资源的信息，例如，正在运行的线程数量</li>
+<li><code>show errors</code> # 显示最后一个执行语句产生的错误</li>
+<li><code>show warngings</code> # 显示最后一个执行语句产生的错误，警告和通知。</li>
+<li><code>show character set</code> # 显示可用字符集信息。</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p><code>show status like &#39;last_query_cost&#39;</code> # 查询上一次查询SQL执行的开销，包括IO和CPU开销</p>
+<h3 id="information-schema数据库"><a href="#information-schema数据库" class="headerlink" title="information_schema数据库"></a>information_schema数据库</h3><p>information_schema数据库框架信息数据库，存储了数据库元数据。<br>元数据是关于数据的数据，如数据库或表名，列的数据类型，或访问权限等。有些时候表述该信息的其他术语包括”数据词典“，”系统目录“。</p>
+<ul>
+<li>SCHEMATA表：纲要，框架。mysql实例所有数据库的信息。show databases结果取之于此表。</li>
+<li>TABLES表: 所有数据库中表的信息（包括视图），show tables from databaseName的结果取之于此。</li>
+<li>COLUMNS表：表中列的信息。show columns from databaseName.tableName结果取之于此。</li>
+<li>STATISTICS表：统计表。表索引的信息。show index from databaseName.tableName结果取之于此。</li>
+<li>USER_PRIVILEGES表: 用户权限表。源自于mysql.user授权表。</li>
+<li>SCHEMA_PRIVILEGES表 : 数据库（框架，模式）权限。源自于mysql.db授权表。</li>
+<li>TABLE_PRIVILEGES 表: 表权限。源自于mysql.tables_priv授权表。</li>
+<li>CHARACTER_SETS表 : 字符集表。可用字符集信息。show character set结果取之于此表。</li>
+<li>COLLATIONS表：核对。存储了各字符集的对照信息。</li>
+<li>COLLATION_CHARACTER_SET_APPLICABILITY表 ： 指明了可用于校对的字符集。等效于show collation的前两个字段。</li>
+<li>TABLE_CONSTRAINTS 表：存储了存在约束的表，以及表的约束类型。</li>
+<li>KEY_COLUMN_USAGE表：具有约束的键列。</li>
+<li>ROUTINES表： 关于存储子程序（存储程序和函数）信息。不包含自定义函数。与mysql.proc name像对应。</li>
+<li>VIEWS表：视图信息。必须有show views权限才能查看。</li>
+<li>TRIGGERS表：触发程序信息。必须有super权限才能查看。</li>
+</ul>
+<h4 id="TABLES表"><a href="#TABLES表" class="headerlink" title="TABLES表"></a>TABLES表</h4><p>mysql实例所有表的信息。show tables from databaseName的结果取之于此。</p>
+<ul>
+<li>查找某个数据库的表<br><code>SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA=&#39;databaseName&#39;</code></li>
+<li>查找表的占用空间（M）<br><code>select DATA_LENGTH/1024/1024 from information_schema.TABLES where TABLE_SCHEMA=&#39;databaseName&#39; and TABLE_NAME=&#39;tableName&#39;</code></li>
+</ul>
+<h5 id="TABLES表的字段"><a href="#TABLES表的字段" class="headerlink" title="TABLES表的字段"></a>TABLES表的字段</h5><ul>
+<li>TABLE_CATALOG # 数据表登记目录</li>
+<li>TABLE_SCHEMA # 数据表所属的数据库名</li>
+<li>TABLE_NAME #  表名称</li>
+<li>TABLE_TYPE # 表类型(system view | base table | view)</li>
+<li>ENGINE # 使用的数据库引擎(myisam | innodb | csv)</li>
+<li>VERSION # 版本,默认10.</li>
+<li>ROW_FORMAT # 行格式（compact | dynamic | fixed）</li>
+<li>TABLE_ROWS # 表里存了多少行数据</li>
+<li>AVG_ROW_LENGTH # 平均行长度</li>
+<li>DATA_LENGTH # 数据长度</li>
+<li>MAX_DATA_LENGTH # 最大数据长度</li>
+<li>INDEX_LENGTH # 索引长度</li>
+<li>DATA_FREE # 空洞所占据的存储空间。</li>
+<li>AUTO_INCREMENT # 自增主键当前值</li>
+<li>CREATE_TIME # 表的创建时间</li>
+<li>UPDATE_TIME # 表的更新时间</li>
+<li>TABLE_COLLATION # 表的字符检验编码集</li>
+<li>CHECKSUM # 校验和</li>
+<li>CREATE_OPTIONS # 创建选项</li>
+<li>TABLE_COMMENT # 表的注释</li>
+</ul>
+<h4 id="整理数据库空间"><a href="#整理数据库空间" class="headerlink" title="整理数据库空间"></a>整理数据库空间</h4><p><code>OPTIMIZE TABLE tableName</code><br>将整理数据文件的碎片，重新利用未使用的空间。</p>
+<p>使用情景：</p>
+<ul>
+<li>删除表的部分数据之后<br>delete from…where清除表的数据的时候，表占用的空间大小并没有多少改变。<br>delete带有where条件的，不是真删除，只是MySQL给记录加了个删除标识，自然这样操作后表数据占有空间也不会变小了。</li>
+<li>优化表的数据结构之后</li>
+<li>定期优化（1个月优化一次）</li>
+</ul>
+<h4 id="COLUMNS表"><a href="#COLUMNS表" class="headerlink" title="COLUMNS表"></a>COLUMNS表</h4><p>表中列的信息。show columns from databaseName.tableName结果取之于此。</p>
+<ul>
+<li>查找表中的列<br><code>select * from information_schema.COLUMNS where TABLE_SCHEMA=&#39;databaseName&#39; and TABLE_NAME=&#39;tableName&#39;</code></li>
+</ul>
+<h5 id="COLUMNS表的字段"><a href="#COLUMNS表的字段" class="headerlink" title="COLUMNS表的字段"></a>COLUMNS表的字段</h5><ul>
+<li>TABLE_CATALOG # 数据表登记目录</li>
+<li>TABLE_SCHEMA # 数据表所属的数据库名</li>
+<li>TABLE_NAME # 所属的表名称</li>
+<li>COLUMN_NAME # 列名称</li>
+<li>ORDINAL_POSITION # 字段再表中的第几列</li>
+<li>IS_NULLABLE # 字段是否为空</li>
+<li>DATA_TYPE # 数据类型</li>
+<li>CHARACTER_MAXIMUM_LENGTH # 字符最大长度</li>
+<li>CHARACTER_OCTET_LENGTH</li>
+<li>NUMERIC_PRECISION # 数据精度</li>
+<li>NUMERIC_SCALE # 数据规模</li>
+<li>CHARACTER_SET_NAME # 字符集名称</li>
+<li>COLLATION_NAME # 字符集校验名称</li>
+<li>COLUMN_TYPE # 列类型</li>
+<li>COLUMN_KEY # 关键列[NULL | MUL | PRI]</li>
+<li>EXTRA # 额外描述[NULL | ON UPDATE | CURRENT_TIMESTAMP | AUTO_INCREMENT]</li>
+<li>PRIVILEGES # 字段操作权限[select | select, insert, update, references]</li>
+<li>COLUMN_COMMENT # 字段注释</li>
+</ul>
+<h4 id="KEY-COLUMN-USAGE表"><a href="#KEY-COLUMN-USAGE表" class="headerlink" title="KEY_COLUMN_USAGE表"></a>KEY_COLUMN_USAGE表</h4><p>具有约束的键列信息。</p>
+<ul>
+<li>获取表键值<br><code>SELECT * FROM information_schema.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA=&#39;databaseName&#39; AND TABLE_NAME=&#39;tableName&#39;</code></li>
+</ul>
+<h5 id="KEY-COLUMN-USAGE表字段"><a href="#KEY-COLUMN-USAGE表字段" class="headerlink" title="KEY_COLUMN_USAGE表字段"></a>KEY_COLUMN_USAGE表字段</h5><ul>
+<li>CONSTRAINT_CATALOG # 约束登记目录</li>
+<li>CONSTRAINT_SCHEMA # 约束所属的数据库名</li>
+<li>CONSTRAINT_NAME # 约束的名称</li>
+<li>TABLE_CATALOG # 数据表等级目录</li>
+<li>TABLE_SCHEMA # 键值所属表的所属数据库名（一般与CONSTRAINT_SCHEMA值相同）</li>
+<li>TABLE_NAME # 键值所属的表名</li>
+<li>COLUMN_NAME # 键值所属的列名</li>
+<li>ORDINAL_POSITION # 键值所属的字段在表中第几列。</li>
+<li>POSITION_IN_UNIQUE_CONSTRAINT # 键值所属的字段在唯一约束的位置（若为外键值为1）</li>
+<li>REFERENCED_TABLE_SCHEMA # 外键依赖的数据库名（一般与CONSTRAINT_SCHEMA值相同）</li>
+<li>REFERENCED_TABLE_NAME # 外键依赖的表名</li>
+<li>REFERENCED_COLUMN_NAME # 外键依赖的列名</li>
+</ul>
+<h4 id="TABLE-CONSTRAINTS表"><a href="#TABLE-CONSTRAINTS表" class="headerlink" title="TABLE_CONSTRAINTS表"></a>TABLE_CONSTRAINTS表</h4><p>存储了存在约束的表，以及表的约束类型（主键约束，外键约束，唯一约束，check约束）。</p>
+<ul>
+<li>查看表的约束<br><code>SELECT * FROM information_schema.TABLE_CONSTRAINTS WHERE TABLE_SCHEMA=&#39;databaseName&#39; AND TABLE_NAME=&#39;tableName&#39;</code></li>
+</ul>
+<h5 id="TABLE-CONSTRAINTS表字段"><a href="#TABLE-CONSTRAINTS表字段" class="headerlink" title="TABLE_CONSTRAINTS表字段"></a>TABLE_CONSTRAINTS表字段</h5><ul>
+<li>CONSTRAINT_CATALOG # 约束等级目录</li>
+<li>CONSTRAINT_SCHEMA # 约束所属的数据库名</li>
+<li>CONSTRAINT_NAME # 约束的名称</li>
+<li>TABLE_SCHEMA # 约束依赖表所属的数据库名（一般与CONSTRAINT_SCHEMA值相同）</li>
+<li>TABLE_NAME # 约束所属的表名</li>
+<li>CONSTRAINT_TYPE # 约束类型[primary key | foreign key | unique | check]</li>
+</ul>
+<h4 id="STATISTICS表"><a href="#STATISTICS表" class="headerlink" title="STATISTICS表"></a>STATISTICS表</h4><p>统计表。表索引的信息。</p>
+<ul>
+<li>查看表的索引<br><code>SELECT * FROM information_schema.STATISTICS WHERE TABLE_SCHEMA=&#39;databaseName&#39; AND TABLE_NAME=&#39;tableName&#39;</code></li>
+</ul>
+<h5 id="STATISTICS表字段"><a href="#STATISTICS表字段" class="headerlink" title="STATISTICS表字段"></a>STATISTICS表字段</h5><ul>
+<li>TABLE_CATALOG # 数据表登记目录</li>
+<li>TABLE_SCHEMA # 索引所属表的数据库名</li>
+<li>TABLE_NAME # 索引所属的表名</li>
+<li>NON_UNIQUE # 字段不唯一标识</li>
+<li>INDEX_SCHEMA # 索引所属的数据库名（一般与TABLE_SCHEMA相同）</li>
+<li>SEQ_IN_INDEX</li>
+<li>COLUMN_NAME # 索引列的列名</li>
+<li>COLLATION # 校对，列值全显示为A</li>
+<li>CARDINALITY # 基数（一般与该表的数据行数相同）</li>
+<li>SUB_PART</li>
+<li>PACKED # 是否包装过，默认为NULL</li>
+<li>NULLABLE # 是否为空[YES | NO]</li>
+<li>INDEX_TYPE # 索引的类型，列值全显示为BTREE（平衡树索引）</li>
+<li>COMMENT # 索引注释</li>
+</ul>
+<h4 id="PROCESSLIST表"><a href="#PROCESSLIST表" class="headerlink" title="PROCESSLIST表"></a>PROCESSLIST表</h4><p>显示系统中正在进行的所有进程，也就是正在执行的查询。可以帮助识别出有问题的查询语句。</p>
+<p>使用：</p>
+<ul>
+<li>查看当前数据库的各IP连接数:<br><code>select SUBSTRING_INDEX(host,&#39;:&#39;,1) as ip, count(*) from information_schema.processlist group by ip</code></li>
+<li>查看正在执行的线程，并按 Time 倒排序，看看有没有执行时间特别长的线程：<br><code>select * from information_schema.processlist where Command != &#39;Sleep&#39; order by Time desc;</code></li>
+<li>找出所有执行时间超过 5 分钟的线程，拼凑出 kill 语句，方便后面查杀:<br><code>select concat(&#39;kill &#39;, id, &#39;;&#39;) from information_schema.processlist where Command != &#39;Sleep&#39; and Time &gt; 300 order by Time desc;</code></li>
+</ul>
+<h5 id="PROCESSLIST表字段"><a href="#PROCESSLIST表字段" class="headerlink" title="PROCESSLIST表字段"></a>PROCESSLIST表字段</h5><ul>
+<li>ID 会话id，在mysql层面查杀使用的</li>
+<li>USER 访问的用户，这个命令就只显示你权限范围内的sql语句。</li>
+<li>HOST 显示这个语句是从哪个ip的哪个端口上发出的。</li>
+<li>DB 显示这个进程目前连接的是哪个数据库。</li>
+<li>COMMAND 显示当前连接的执行的命令。</li>
+<li>TIME 此这个状态持续的时间，单位是秒，如果后面有语句，要小心了，说明该语句有问题。</li>
+<li>STATE 显示使用当前连接的sql语句的状态</li>
+<li>INFO 显示这个sql语句，因为长度有限，所以长的sql语句就显示不全</li>
+</ul>
+<h5 id="STATE字段"><a href="#STATE字段" class="headerlink" title="STATE字段"></a>STATE字段</h5><p>state只是语句执行中的某一个状态，一个sql语句，已查询为例，可能需要经过copying to tmp table，Sorting result，Sending data等状态才可以完成。<br>大部分状态对应很快的操作，只要有一个线程保持同一个状态好几秒钟，那么可能是有问题发生了，需要检查一下。<br>它们大部分只是在查看服务器是否有存在错误是才用得着。</p>
+<ul>
+<li>Checking table 正在检查数据表（这是自动的）。</li>
+<li>Closing tables 正在将表中修改的数据刷新到磁盘中，同时正在关闭已经用完的表。这是一个很快的操作，如果不是这样的话，就应该确认磁盘空间是否已经满了或者磁盘是否正处于重负中。</li>
+<li>Connect Out 复制从服务器正在连接主服务器。</li>
+<li>Copying to tmp table on disk 由于临时结果集大于tmp_table_size，正在将临时表从内存存储转为磁盘存储以此节省内存。</li>
+<li>Creating tmp table 正在创建临时表以存放部分查询结果。</li>
+<li>deleting from main table 服务器正在执行多表删除中的第一部分，刚删除第一个表。</li>
+<li>deleting from reference tables 服务器正在执行多表删除中的第二部分，正在删除其他表的记录。</li>
+<li>Flushing tables 正在执行FLUSH TABLES，等待其他线程关闭数据表。</li>
+<li>Killed 发送了一个kill请求给某线程，那么这个线程将会检查kill标志位，同时会放弃下一个kill请求。MySQL会在每次的主循环中检查kill标志位，不过有些情况下该线程可能会过一小段才能死掉。如果该线程程被其他线程锁住了，那么kill请求会在锁释放时马上生效。</li>
+<li>Locked 被其他查询锁住了。</li>
+<li>Sending data 正在处理Select查询的记录，同时正在把结果发送给客户端。Sending data”状态的含义，原来这个状态的名称很具有误导性，所谓的“Sending data”并不是单纯的发送数据，而是包括“收集 + 发送 数据”。</li>
+<li>Sorting for group 正在为GROUP BY做排序。</li>
+<li>Sorting for order 正在为ORDER BY做排序。</li>
+<li>Opening tables 这个过程应该会很快，除非受到其他因素的干扰。例如，在执Alter TABLE或LOCK TABLE语句行完以前，数据表无法被其他线程打开。正尝试打开一个表。</li>
+<li>Removing duplicates 正在执行一个Select DISTINCT方式的查询，但是MySQL无法在前一个阶段优化掉那些重复的记录。因此，MySQL需要再次去掉重复的记录，然后再把结果发送给客户端。</li>
+<li>Reopen table 获得了对一个表的锁，但是必须在表结构修改之后才能获得这个锁。已经释放锁，关闭数据表，正尝试重新打开数据表。</li>
+<li>Repair by sorting 修复指令正在排序以创建索引。</li>
+<li>Repair with keycache 修复指令正在利用索引缓存一个一个地创建新索引。它会比Repair by sorting慢些。</li>
+<li>Searching rows for update 正在讲符合条件的记录找出来以备更新。它必须在Update要修改相关的记录之前就完成了。</li>
+<li>Sleeping 正在等待客户端发送新请求.</li>
+<li>System lock 正在等待取得一个外部的系统锁。如果当前没有运行多个mysqld服务器同时请求同一个表，那么可以通过增加# skip-external-locking参数来禁止外部系统锁。</li>
+<li>Upgrading lock</li>
+<li>Insert DELAYED 正在尝试取得一个锁表以插入新记录。</li>
+<li>Updating 正在搜索匹配的记录，并且修改它们。</li>
+<li>User Lock 正在等待GET_LOCK()。</li>
+<li>Waiting for tables 该线程得到通知，数据表结构已经被修改了，需要重新打开数据表以取得新的结构。然后，为了能的重新打开数据表，必须等到所有其他线程关闭这个表。以下几种情况下会产生这个通知：FLUSH TABLES tbl_name, Alter TABLE, RENAME TABLE, REPAIR TABLE, ANALYZE TABLE,或OPTIMIZE TABLE。</li>
+<li>waiting for handler insert</li>
+<li>Insert DELAYED 已经处理完了所有待处理的插入操作，正在等待新的请求。</li>
+</ul>
+<h3 id="mysql数据库"><a href="#mysql数据库" class="headerlink" title="mysql数据库"></a>mysql数据库</h3><p>由mysql_install_db脚本初始化权限表。</p>
+<h3 id="performance-schema数据库"><a href="#performance-schema数据库" class="headerlink" title="performance_schema数据库"></a>performance_schema数据库</h3><p>数据库的执行。<br>PERFORMANCE_SCHEMA这个功能默认是关闭的。需要设置参数： performance_schema 才可以启动该功能，这个参数是静态参数，只能写在my.cnf 中 不能动态修改。</p>
+<h3 id="sys数据库"><a href="#sys数据库" class="headerlink" title="sys数据库"></a>sys数据库</h3><p>sys_config表：系统配置变量</p>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Touatou/article/details/80775601">https://blog.csdn.net/Touatou/article/details/80775601</a> <a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/information-schema-introduction.html">https://dev.mysql.com/doc/refman/8.0/en/information-schema-introduction.html</a> <a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_7a9735620102v03b.html">http://blog.sina.com.cn/s/blog_7a9735620102v03b.html</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/08/18/%E3%80%90MySql%E3%80%91%E7%B3%BB%E7%BB%9F%E8%A1%A8/" title="【MySql】系统表">http://blog.bfsdfs.com/2020/08/18/【MySql】系统表/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySql/" rel="tag"># MySql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/10/%E3%80%90MySql%E3%80%91%E6%95%B0%E6%8D%AE%E5%BA%93binlog%E6%81%A2%E5%A4%8D%E6%95%B0%E6%8D%AE/" rel="prev" title="【MySql】数据库binlog恢复数据">
+      <i class="fa fa-chevron-left"></i> 【MySql】数据库binlog恢复数据
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/19/%E3%80%90.Net%20Core%E3%80%91API%E7%9A%84%E5%AE%89%E5%85%A8%E5%AE%9E%E8%B7%B5/" rel="next" title="【.Net Core】API的安全实践">
+      【.Net Core】API的安全实践 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">常用系统命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">2.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#information-schema%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.</span> <span class="nav-text">information_schema数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TABLES%E8%A1%A8"><span class="nav-number">3.1.</span> <span class="nav-text">TABLES表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#TABLES%E8%A1%A8%E7%9A%84%E5%AD%97%E6%AE%B5"><span class="nav-number">3.1.1.</span> <span class="nav-text">TABLES表的字段</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B4%E7%90%86%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A9%BA%E9%97%B4"><span class="nav-number">3.2.</span> <span class="nav-text">整理数据库空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#COLUMNS%E8%A1%A8"><span class="nav-number">3.3.</span> <span class="nav-text">COLUMNS表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#COLUMNS%E8%A1%A8%E7%9A%84%E5%AD%97%E6%AE%B5"><span class="nav-number">3.3.1.</span> <span class="nav-text">COLUMNS表的字段</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KEY-COLUMN-USAGE%E8%A1%A8"><span class="nav-number">3.4.</span> <span class="nav-text">KEY_COLUMN_USAGE表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#KEY-COLUMN-USAGE%E8%A1%A8%E5%AD%97%E6%AE%B5"><span class="nav-number">3.4.1.</span> <span class="nav-text">KEY_COLUMN_USAGE表字段</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TABLE-CONSTRAINTS%E8%A1%A8"><span class="nav-number">3.5.</span> <span class="nav-text">TABLE_CONSTRAINTS表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#TABLE-CONSTRAINTS%E8%A1%A8%E5%AD%97%E6%AE%B5"><span class="nav-number">3.5.1.</span> <span class="nav-text">TABLE_CONSTRAINTS表字段</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#STATISTICS%E8%A1%A8"><span class="nav-number">3.6.</span> <span class="nav-text">STATISTICS表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#STATISTICS%E8%A1%A8%E5%AD%97%E6%AE%B5"><span class="nav-number">3.6.1.</span> <span class="nav-text">STATISTICS表字段</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PROCESSLIST%E8%A1%A8"><span class="nav-number">3.7.</span> <span class="nav-text">PROCESSLIST表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#PROCESSLIST%E8%A1%A8%E5%AD%97%E6%AE%B5"><span class="nav-number">3.7.1.</span> <span class="nav-text">PROCESSLIST表字段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#STATE%E5%AD%97%E6%AE%B5"><span class="nav-number">3.7.2.</span> <span class="nav-text">STATE字段</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.</span> <span class="nav-text">mysql数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#performance-schema%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">5.</span> <span class="nav-text">performance_schema数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sys%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">6.</span> <span class="nav-text">sys数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">7.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'b0e200c904c004758c9014947c400814',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

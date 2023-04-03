@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="原文地址：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;drawnkid&#x2F;p&#x2F;8487337.html  Swarm简介 Swarm是Docker的一个编排工具，参考官网：https:&#x2F;&#x2F;docs.docker.com&#x2F;engine&#x2F;swarm&#x2F;  Swarm 模式简介 要在Swarm模式下运行docker，需要先安装docker，参考安装教程 当前版本的docker包含了swarm模式，用于">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Docker】Swarm从部署到基本操作">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/06/20/%E3%80%90Docker%E3%80%91Swarm%E4%BB%8E%E9%83%A8%E7%BD%B2%E5%88%B0%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="原文地址：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;drawnkid&#x2F;p&#x2F;8487337.html  Swarm简介 Swarm是Docker的一个编排工具，参考官网：https:&#x2F;&#x2F;docs.docker.com&#x2F;engine&#x2F;swarm&#x2F;  Swarm 模式简介 要在Swarm模式下运行docker，需要先安装docker，参考安装教程 当前版本的docker包含了swarm模式，用于">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://docs.docker.com/engine/swarm/images/ingress-routing-mesh.png">
+<meta property="og:image" content="https://docs.docker.com/engine/swarm/images/ingress-lb.png">
+<meta property="article:published_time" content="2020-06-20T13:14:31.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.066Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://docs.docker.com/engine/swarm/images/ingress-routing-mesh.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/06/20/%E3%80%90Docker%E3%80%91Swarm%E4%BB%8E%E9%83%A8%E7%BD%B2%E5%88%B0%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【Docker】Swarm从部署到基本操作 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/06/20/%E3%80%90Docker%E3%80%91Swarm%E4%BB%8E%E9%83%A8%E7%BD%B2%E5%88%B0%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Docker】Swarm从部署到基本操作
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-20 21:14:31" itemprop="dateCreated datePublished" datetime="2020-06-20T21:14:31+08:00">2020-06-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">环境搭建</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>25k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>23 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/drawnkid/p/8487337.html">https://www.cnblogs.com/drawnkid/p/8487337.html</a></p>
+</blockquote>
+<h2 id="Swarm简介"><a href="#Swarm简介" class="headerlink" title="Swarm简介"></a>Swarm简介</h2><ul>
+<li>Swarm是Docker的一个编排工具，参考官网：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/swarm/">https://docs.docker.com/engine/swarm/</a></li>
+</ul>
+<h3 id="Swarm-模式简介"><a href="#Swarm-模式简介" class="headerlink" title="Swarm 模式简介"></a>Swarm 模式简介</h3><ul>
+<li>要在Swarm模式下运行docker，需要先安装docker，参考<a target="_blank" rel="noopener" href="https://docs.docker.com/install/">安装教程</a></li>
+<li>当前版本的docker包含了swarm模式，用于管理docker集群。可以使用命令行来创建swarm集群，部署应用，管理swarm的行为。</li>
+<li>如果你使用低于1.12.0版本的docker，可以使用<a target="_blank" rel="noopener" href="https://docs.docker.com/swarm/">独立模式的是swarm</a>，但是建议使用最新版本</li>
+</ul>
+<h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><ul>
+<li>与docker集成的集群管理工具</li>
+<li>去中心化设计，只使用docker引擎即可创建各类节点</li>
+<li>声明式服务模型。可以声明的方式来定义应用。</li>
+<li>动态伸缩。管理节点自动调整服务数量。</li>
+<li>高可用，对于服务期望状态做到动态调整，swarm的管理节点会持续监控集群状态，集群中有没有达到期望状态的服务，管理节点会自动调度来达到期望状态。</li>
+<li>自定义网络。可以为你的服务指定一个网络，容器创建的时候分配一个IP</li>
+<li>服务发现。管理节点给集群中每个服务一个特定的DNS名字，并给运行的容器提供负载均衡。</li>
+<li>负载均衡。你可以暴露服务端口给外部的负载均衡。内部swarm提供可配置的容器分配到节点的策略。</li>
+<li>默认的安全机制。swarm集群中各个节点强制TLS协议验证。连接加密，你可以自定义根证书。</li>
+<li>滚动更新。增量跟新，可以自定义更新下个节点的时间间隔，如果有问题，可以会滚到上个版本。</li>
+</ul>
+<h3 id="Swarm主要概念"><a href="#Swarm主要概念" class="headerlink" title="Swarm主要概念"></a>Swarm主要概念</h3><h3 id="开始使用Swarm模式"><a href="#开始使用Swarm模式" class="headerlink" title="开始使用Swarm模式"></a>开始使用Swarm模式</h3><ul>
+<li>本教程进行如下指导：<ul>
+<li>在swarm模式下初始化一个基于docker引擎的swarm集群</li>
+<li>在swarm集群中添加节点</li>
+<li>部署应用服务到swarm集群中</li>
+<li>管理swarm集群</li>
+</ul>
+</li>
+<li>本教程使用docker命令行的方式交互</li>
+</ul>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><ul>
+<li>安装环境要求：<ul>
+<li>3台可以网络通信的Linux主机，并且安装了docker</li>
+<li>安装1.12.0以上的docker</li>
+<li>管理节点的IP地址</li>
+<li>主机之间开放端口</li>
+</ul>
+</li>
+</ul>
+<h5 id="准备3台主机"><a href="#准备3台主机" class="headerlink" title="准备3台主机"></a>准备3台主机</h5><ul>
+<li>3台主机可以是物理机，虚拟机，云主机，甚至是docker machine创建的主机。并安装docker。三台主机分别是manager1，work1和worker2.</li>
+</ul>
+<h5 id="安装1-12-0以上的docker"><a href="#安装1-12-0以上的docker" class="headerlink" title="安装1.12.0以上的docker"></a>安装1.12.0以上的docker</h5><ul>
+<li>参考：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/swarm/swarm-tutorial/#install-docker-engine-on-linux-machines">在linux上安装docker</a></li>
+</ul>
+<h5 id="管理节点的IP地址"><a href="#管理节点的IP地址" class="headerlink" title="管理节点的IP地址"></a>管理节点的IP地址</h5><ul>
+<li>所有swarm集群中的节点都会连接到管理节点的IP地址</li>
+</ul>
+<h5 id="主机间开放端口"><a href="#主机间开放端口" class="headerlink" title="主机间开放端口"></a>主机间开放端口</h5><ul>
+<li>以下端口必须是开放的：<ul>
+<li>TCP port 2377为集群管理通信</li>
+<li>TCP and UDP port 7946 为节点间通信</li>
+<li>UDP port 4789 为网络间流量</li>
+</ul>
+</li>
+<li>如果你想使用加密网络（--opt encrypted）也需要确保ip protocol 50 (ESP)是可用的</li>
+</ul>
+<h3 id="创建一个Swarm集群"><a href="#创建一个Swarm集群" class="headerlink" title="创建一个Swarm集群"></a>创建一个Swarm集群</h3><ul>
+<li>完成上面的开始过程后，可以开始创建一个swarm集群。确保docker的后台应用已经在主机上运行了。</li>
+</ul>
+<ol>
+<li>登陆到manager1上，如果使用docker-machine创建的主机，可以docker-machine ssh manager1</li>
+<li>运行以下命令来创建一个新的swarm集群：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker swarm init --advertise-addr &lt;MANAGER1-IP&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>本教程中使用如下命令在manager1上创建swarm集群：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker swarm init --advertise-addr 192.168.99.1</span><br><span class="line">Swarm initialized: current node (5n1l6261akogeuxysrgn2ipxz) is now a manager.</span><br><span class="line"></span><br><span class="line">To add a worker to this swarm, run the following command:</span><br><span class="line"></span><br><span class="line">    docker swarm join --token SWMTKN-1-2bgkinnbc0rmlj6kpotyrlj0uz51l2ikinttsk960dxro558x4-6zajfnahtv9ye39momddh5kru 192.168.99.1:2377</span><br><span class="line"></span><br><span class="line">To add a manager to this swarm, run &#x27;docker swarm join-token manager&#x27; and follow the instructions.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>--advertise-addr选项表示管理节点公布它的IP是多少。其它节点必须能通过这个IP找到管理节点。</li>
+<li>命令输出了加入swarm集群的命令。通过--token选项来判断是加入为管理节点还是工作节点</li>
+</ul>
+<ol start="3">
+<li>运行docker info来查看当前swarm集群的状态：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker info</span><br><span class="line">Containers: 4</span><br><span class="line"> Running: 2</span><br><span class="line"> Paused: 0</span><br><span class="line"> Stopped: 2</span><br><span class="line">Images: 7</span><br><span class="line">Server Version: 17.12.0-ce</span><br><span class="line">Storage Driver: aufs</span><br><span class="line"> Root Dir: /var/lib/docker/aufs</span><br><span class="line"> Backing Filesystem: extfs</span><br><span class="line"> Dirs: 37</span><br><span class="line"> Dirperm1 Supported: true</span><br><span class="line">Logging Driver: json-file</span><br><span class="line">Cgroup Driver: cgroupfs</span><br><span class="line">Plugins:</span><br><span class="line"> Volume: local</span><br><span class="line"> Network: bridge host macvlan null overlay</span><br><span class="line"> Log: awslogs fluentd gcplogs gelf journald json-file logentries splunk syslog</span><br><span class="line">Swarm: active</span><br><span class="line"> NodeID: 5n1l6261akogeuxysrgn2ipxz</span><br><span class="line"> Is Manager: true</span><br><span class="line"> ClusterID: nhkp9f1l5yq76e0zu0bage2h4</span><br><span class="line"> Managers: 1</span><br><span class="line"> Nodes: 1</span><br><span class="line"> Orchestration:</span><br><span class="line">  Task History Retention Limit: 5</span><br><span class="line"> Raft:</span><br><span class="line">  Snapshot Interval: 10000</span><br><span class="line">  Number of Old Snapshots to Retain: 0</span><br><span class="line">  Heartbeat Tick: 1</span><br><span class="line">  Election Tick: 3</span><br><span class="line"> Dispatcher:</span><br><span class="line">  Heartbeat Period: 5 seconds</span><br><span class="line"> CA Configuration:</span><br><span class="line">  Expiry Duration: 3 months</span><br><span class="line">  Force Rotate: 0</span><br><span class="line"> Autolock Managers: false</span><br><span class="line"> Root Rotation In Progress: false</span><br><span class="line"> Node Address: 192.168.99.1</span><br><span class="line"> Manager Addresses:</span><br><span class="line">  192.168.99.1:2377</span><br><span class="line">Runtimes: runc</span><br><span class="line">Default Runtime: runc</span><br><span class="line">Init Binary: docker-init</span><br><span class="line">containerd version: 89623f28b87a6004d4b785663257362d1658a729</span><br><span class="line">runc version: b2567b37d7b75eb4cf325b77297b140ea686ce8f</span><br><span class="line">init version: 949e6fa</span><br><span class="line">Security Options:</span><br><span class="line"> apparmor</span><br><span class="line">Kernel Version: 3.19.0-32-generic</span><br><span class="line">Operating System: Ubuntu 14.04.3 LTS</span><br><span class="line">OSType: linux</span><br><span class="line">Architecture: x86_64</span><br><span class="line">CPUs: 4</span><br><span class="line">Total Memory: 3.755GiB</span><br><span class="line">Name: james-CW65</span><br><span class="line">ID: EMVF:D3TL:KMEY:2QTR:HESQ:J5ZA:WDYM:GSEV:INSU:Z4QI:DCIX:LMGK</span><br><span class="line">Docker Root Dir: /var/lib/docker</span><br><span class="line">Debug Mode (client): false</span><br><span class="line">Debug Mode (server): false</span><br><span class="line">Registry: https://index.docker.io/v1/</span><br><span class="line">Labels:</span><br><span class="line">Experimental: false</span><br><span class="line">Insecure Registries:</span><br><span class="line"> 127.0.0.0/8</span><br><span class="line">Live Restore Enabled: false</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>运行docker node ls来查看节点信息：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker node ls</span><br><span class="line">ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS</span><br><span class="line">5n1l6261akogeuxysrgn2ipxz *   james-CW65          Ready               Active              Leader</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>nodeId旁边的*号表示你当前连接到的节点。</li>
+<li>docker引擎的swarm模式自动使用宿主机的主机名作为节点名。</li>
+</ul>
+<h3 id="将节点加入到swarm集群中"><a href="#将节点加入到swarm集群中" class="headerlink" title="将节点加入到swarm集群中"></a>将节点加入到swarm集群中</h3><ul>
+<li>一旦前面的创建swarm集群完成，你就可以加入工作节点了。</li>
+</ul>
+<ol>
+<li>ssh到要加入集群的节点上，我们要加入worker1.</li>
+<li>运行创建swarm集群时候产生的命令来将woker1加入到集群中：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker@default:~$ docker swarm join --token SWMTKN-1-2bgkinnbc0rmlj6kpotyrlj0uz51l2ikinttsk960dxro558x4-6zajfnahtv9ye39momd</span><br><span class="line">dh5kru 192.168.99.1:2377</span><br><span class="line">This node joined a swarm as a worker.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果你找不到加入命令了，可以在管理节点运行下列命令找回加入命令：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker swarm join-token worker</span><br><span class="line">To add a worker to this swarm, run the following command:</span><br><span class="line"></span><br><span class="line">    docker swarm join --token SWMTKN-1-2bgkinnbc0rmlj6kpotyrlj0uz51l2ikinttsk960dxro558x4-6zajfnahtv9ye39momddh5kru 192.168.99.1:2377</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>ssh到worker2</li>
+<li>运行加入集群的命令来将worker2加入到集群：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Boot2Docker version 17.12.0-ce, build HEAD : 378b049 - Wed Dec 27 23:39:20 UTC 2017</span><br><span class="line">Docker version 17.12.0-ce, build c97c6d6</span><br><span class="line">docker@lab:~$ docker swarm join --token SWMTKN-1-2bgkinnbc0rmlj6kpotyrlj0uz51l2ikinttsk960dxro558x4-6zajfnahtv9ye39momddh5k</span><br><span class="line">ru 192.168.99.1:2377</span><br><span class="line">This node joined a swarm as a worker.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>ssh到manager节点运行docker node ls命令来查看集群节点情况：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker node ls</span><br><span class="line">ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS</span><br><span class="line">k89s71elf81vbn7pytwszmgr5     default             Ready               Active</span><br><span class="line">5n1l6261akogeuxysrgn2ipxz *   james-CW65          Ready               Active              Leader</span><br><span class="line">ye5x8hci1chmo8nyjx8y4thhy     lab                 Ready               Active</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>MANAGER列表明了集群中的管理节点。worker节点的空意味着它们是工作节点</li>
+</ul>
+<h3 id="在swarm集群上部署一个服务"><a href="#在swarm集群上部署一个服务" class="headerlink" title="在swarm集群上部署一个服务"></a>在swarm集群上部署一个服务</h3><ul>
+<li>在创建一个swarm集群后，就可以部署服务了。本教程中你也可以加入工作节点，但是不是必须的。</li>
+</ul>
+<ol>
+<li>ssh到manager节点</li>
+<li>运行如下命令：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service create --replicas 1 --name helloworld alpine ping docker.com</span><br><span class="line">060zo3u0g3mjdmrilezzbckbe</span><br><span class="line">overall progress: 1 out of 1 tasks</span><br><span class="line">1/1: running   [==================================================&gt;]</span><br><span class="line">verify: Service converged</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>docker service create用来创建服务</li>
+<li>--name表明服务名字是helloworld</li>
+<li>--replicas 表示期望1个服务实例</li>
+<li>alpine ping docker.com 表示运行镜像是alpine，命令是ping</li>
+</ul>
+<ol start="3">
+<li>运行docker service ls来查看运行的服务：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service ls</span><br><span class="line">ID                  NAME                MODE                REPLICAS            IMAGE               PORTS</span><br><span class="line">060zo3u0g3mj        helloworld          replicated          1/1                 alpine:latest</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="检查Swarm集群上的服务"><a href="#检查Swarm集群上的服务" class="headerlink" title="检查Swarm集群上的服务"></a>检查Swarm集群上的服务</h3><ul>
+<li>在你部署服务到Swarm集群上后，可以使用命令行来检查运行的服务</li>
+</ul>
+<ol>
+<li>ssh到管理节点</li>
+<li>运行命令docker service inspect --pretty 来查看优化显示的服务详情</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service inspect --pretty 060zo3u0g3mj</span><br><span class="line"></span><br><span class="line">ID:		060zo3u0g3mjdmrilezzbckbe</span><br><span class="line">Name:		helloworld</span><br><span class="line">Service Mode:	Replicated</span><br><span class="line"> Replicas:	1</span><br><span class="line">Placement:</span><br><span class="line">UpdateConfig:</span><br><span class="line"> Parallelism:	1</span><br><span class="line"> On failure:	pause</span><br><span class="line"> Monitoring Period: 5s</span><br><span class="line"> Max failure ratio: 0</span><br><span class="line"> Update order:      stop-first</span><br><span class="line">RollbackConfig:</span><br><span class="line"> Parallelism:	1</span><br><span class="line"> On failure:	pause</span><br><span class="line"> Monitoring Period: 5s</span><br><span class="line"> Max failure ratio: 0</span><br><span class="line"> Rollback order:    stop-first</span><br><span class="line">ContainerSpec:</span><br><span class="line"> Image:		alpine:latest@sha256:7b848083f93822dd21b0a2f14a110bd99f6efb4b838d499df6d04a49d0debf8b</span><br><span class="line"> Args:		ping docker.com</span><br><span class="line">Resources:</span><br><span class="line">Endpoint Mode:	vip</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>去掉--pretty选项将以json格式输出</li>
+</ul>
+<ol start="3">
+<li>运行docker service ps 将查看到哪些节点在运行该服务实例：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service ps  060zo3u0g3mj</span><br><span class="line">ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE           ERROR               PORTS</span><br><span class="line">cbiq1ne3ij9a        helloworld.1        alpine:latest       james-CW65          Running             Running 9 minutes ago</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>服务可能运行在管理或工作节点上，默认的管理节点可以像工作节点一样运行任务。</li>
+<li>该命令也显示服务期望的状态DESIRED STATE ，和实际的状态CURRENT STATE。</li>
+</ul>
+<ol start="4">
+<li>在运行任务的节点上运行docker ps也能看到这个任务运行的容器</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker ps</span><br><span class="line">CONTAINER ID        IMAGE                   COMMAND                  CREATED             STATUS              PORTS                                                                    NAMES</span><br><span class="line">cad59e7398de        alpine:latest           &quot;ping docker.com&quot;        2 minutes ago       Up 2 minutes                                                                                 helloworld.1.ngbknb89dzyxdas81emw0jz63</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="在swarm集群中动态伸缩服务实例数"><a href="#在swarm集群中动态伸缩服务实例数" class="headerlink" title="在swarm集群中动态伸缩服务实例数"></a>在swarm集群中动态伸缩服务实例数</h3><ul>
+<li>一旦你在swarm集群中部署一个服务后，你就可以使用命令行来改变服务的实例个数。在服务中运行的容器称为“任务”</li>
+</ul>
+<ol>
+<li>ssh到manager节点</li>
+<li>运行以下命令来改变服务的期望实例数：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service scale 060zo3u0g3mj=3</span><br><span class="line">060zo3u0g3mj scaled to 3</span><br><span class="line">overall progress: 3 out of 3 tasks</span><br><span class="line">1/3: running   [==================================================&gt;]</span><br><span class="line">2/3: running   [==================================================&gt;]</span><br><span class="line">3/3: running   [==================================================&gt;]</span><br><span class="line">verify: Waiting 1 seconds to verify that tasks are stable...</span><br><span class="line">verify: Service converged</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>运行以下命令来查看更新的任务列表：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service ls</span><br><span class="line">ID                  NAME                MODE                REPLICAS            IMAGE               PORTS</span><br><span class="line">060zo3u0g3mj        helloworld          replicated          3/3                 alpine:latest</span><br><span class="line">james@james-CW65:~ &gt; docker service ps 060zo3u0g3mj</span><br><span class="line">ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE                ERROR                       PORTS</span><br><span class="line">ngbknb89dzyx        helloworld.1        alpine:latest       james-CW65          Running             Running 9 minutes ago</span><br><span class="line">cbiq1ne3ij9a         \_ helloworld.1    alpine:latest       james-CW65          Shutdown            Failed 9 minutes ago         &quot;task: non-zero exit (1)&quot;</span><br><span class="line">3fl3mfrvubu1        helloworld.2        alpine:latest       default             Running             Running about a minute ago</span><br><span class="line">hy5pqcmqfw67        helloworld.3        alpine:latest       lab                 Running             Running about a minute ago</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以看到这3个任务被分布到了集群中的不同节点</li>
+</ul>
+<ol start="4">
+<li>ssh到运行服务的主机上运行docker ps查看运行的容器：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker@default:~$ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line">cad897086027        alpine:latest       &quot;ping docker.com&quot;   4 minutes ago       Up 4 minutes                            helloworld.2.3fl3mfrvubu1hf16argabe5qt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="从swarm集群上删除应用"><a href="#从swarm集群上删除应用" class="headerlink" title="从swarm集群上删除应用"></a>从swarm集群上删除应用</h3><ul>
+<li>接下来删除应用</li>
+</ul>
+<ol>
+<li>ssh到管理节点</li>
+<li>运行docker service rm helloworld来删除服务：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service ls</span><br><span class="line">ID                  NAME                MODE                REPLICAS            IMAGE               PORTS</span><br><span class="line">060zo3u0g3mj        helloworld          replicated          3/3                 alpine:latest</span><br><span class="line">james@james-CW65:~ &gt; docker service rm 060zo3u0g3mj</span><br><span class="line">060zo3u0g3mj</span><br><span class="line">james@james-CW65:~ &gt; docker service ls</span><br><span class="line">ID                  NAME                MODE                REPLICAS            IMAGE               PORTS</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>运行docker service inspect 会发现服务不存在了</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service inspect  060zo3u0g3mj</span><br><span class="line">[]</span><br><span class="line">Status: Error: no such service: 060zo3u0g3mj, Code: 1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>尽管服务不存在了，任务容器还需要几秒钟来清理，你可以在节点上docker ps查看任务什么时候被移除。</li>
+</ol>
+<h3 id="滚动更新"><a href="#滚动更新" class="headerlink" title="滚动更新"></a>滚动更新</h3><ul>
+<li>在前面的章节中，修改了实例数。本节使用Ghost0.11.12 镜像来部署服务，然后滚动升级到Ghost1.21.3</li>
+</ul>
+<ol>
+<li>ssh到管理节点</li>
+<li>部署Ghost0.11.12 服务，配置10s的更新间隔:</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service create --replicas 2 --name ghost --update-delay 10s ghost:0.11.12</span><br><span class="line">tynb9d9pu0nqm7f1vmmffy9j0</span><br><span class="line">overall progress: 2 out of 2 tasks</span><br><span class="line">1/2: running   [==================================================&gt;]</span><br><span class="line">2/2: running   [==================================================&gt;]</span><br><span class="line">verify: Service converged</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意：教程使用的是redis镜像，我使用的是Ghost博客镜像，拉</li>
+<li>在服务部署阶段就指定滚动升级策略</li>
+<li>--update-delay配置了更新服务的时间间隔,你可以指定时间T为秒是Ts，分是Tm，或时是Th，所以10m30s就是10分30秒的延迟</li>
+<li>默认的调度器scheduler一次更新一个任务.你可以传入参数--update-parallelism来配置调度器同时更新的最大任务数量</li>
+<li>默认的当一个更新任务返回RUNNING状态后，调度器才调度另一个更新任务，直到所有任务都更新了。如果更新过程中任何任务返回了FAILED，调度器就会停止更新。你可以给命令docker service create or docker service update配置配置--update-failure-action，来配置这个行为。</li>
+</ul>
+<ol start="3">
+<li>查看redis服务：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service inspect --pretty ghost</span><br><span class="line"></span><br><span class="line">ID:		tynb9d9pu0nqm7f1vmmffy9j0</span><br><span class="line">Name:		ghost</span><br><span class="line">Service Mode:	Replicated</span><br><span class="line"> Replicas:	2</span><br><span class="line">Placement:</span><br><span class="line">UpdateConfig:</span><br><span class="line"> Parallelism:	1</span><br><span class="line"> Delay:		10s</span><br><span class="line"> On failure:	pause</span><br><span class="line"> Monitoring Period: 5s</span><br><span class="line"> Max failure ratio: 0</span><br><span class="line"> Update order:      stop-first</span><br><span class="line">RollbackConfig:</span><br><span class="line"> Parallelism:	1</span><br><span class="line"> On failure:	pause</span><br><span class="line"> Monitoring Period: 5s</span><br><span class="line"> Max failure ratio: 0</span><br><span class="line"> Rollback order:    stop-first</span><br><span class="line">ContainerSpec:</span><br><span class="line"> Image:		ghost:0.11.12@sha256:45811b5a50254bdf0a05d683ddf1dd9eb1be98640305fb82317bcaa35a00c20e</span><br><span class="line">Resources:</span><br><span class="line">Endpoint Mode:	vip</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>现在可以更新redis的容器镜像了。运行以下命令，swarm的管理节点将会根据更新策略UpdateConfig来更新各个节点：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service update --image ghost:1.21.3 ghost</span><br><span class="line">ghost</span><br><span class="line">overall progress: 2 out of 2 tasks</span><br><span class="line">1/2: running   [==================================================&gt;]</span><br><span class="line">2/2: running   [==================================================&gt;]</span><br><span class="line">verify: Service converged</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>调度器依照以下步骤来滚动更新：<ul>
+<li>停止第一个任务</li>
+<li>对停止的任务进行更新</li>
+<li>对更新的任务进行启动</li>
+<li>如果更新的任务返回RUNNING，等待特定间隔后启动下一个任务</li>
+<li>如果在任何更新的时间，任务返回了FAILED，则停止更新。</li>
+</ul>
+</li>
+</ul>
+<ol start="5">
+<li>运行命令docker service inspect --pretty redis来查看新镜像的期望状态,可以看到显示了UpdateStatus完成。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service  inspect  --pretty ghost</span><br><span class="line"></span><br><span class="line">ID:		tynb9d9pu0nqm7f1vmmffy9j0</span><br><span class="line">Name:		ghost</span><br><span class="line">Service Mode:	Replicated</span><br><span class="line"> Replicas:	2</span><br><span class="line">UpdateStatus:</span><br><span class="line"> State:		completed</span><br><span class="line"> Started:	2 minutes ago</span><br><span class="line"> Completed:	2 minutes ago</span><br><span class="line"> Message:	update completed</span><br><span class="line">Placement:</span><br><span class="line">UpdateConfig:</span><br><span class="line"> Parallelism:	1</span><br><span class="line"> Delay:		10s</span><br><span class="line"> On failure:	pause</span><br><span class="line"> Monitoring Period: 5s</span><br><span class="line"> Max failure ratio: 0</span><br><span class="line"> Update order:      stop-first</span><br><span class="line">RollbackConfig:</span><br><span class="line"> Parallelism:	1</span><br><span class="line"> On failure:	pause</span><br><span class="line"> Monitoring Period: 5s</span><br><span class="line"> Max failure ratio: 0</span><br><span class="line"> Rollback order:    stop-first</span><br><span class="line">ContainerSpec:</span><br><span class="line"> Image:		ghost:1.21.3@sha256:4c8868f41180589583e6eb208a8529ca8dad3d18bddf56834740b715f3e6b691</span><br><span class="line">Resources:</span><br><span class="line">Endpoint Mode:	vip</span><br><span class="line">james@james-CW65:~ &gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果中间有升级失败的，则会显示如下信息：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ docker service inspect --pretty redis</span><br><span class="line"></span><br><span class="line">ID:             0u6a4s31ybk7yw2wyvtikmu50</span><br><span class="line">Name:           redis</span><br><span class="line">...snip...</span><br><span class="line">Update status:</span><br><span class="line"> State:      paused</span><br><span class="line"> Started:    11 seconds ago</span><br><span class="line"> Message:    update paused due to failure or early termination of task 9p7ith557h8ndf0ui9s0q951b</span><br><span class="line">...snip...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>重新开始一个升级过程：docker service update</li>
+<li>为了避免重复失败升级，要重新配置服务服务，添加适当的参数在运行docker service update</li>
+</ul>
+<ol start="6">
+<li>运行docker service ps 来查看本次滚动更新的过程：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service ps ghost</span><br><span class="line">ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE             ERROR               PORTS</span><br><span class="line">5ae8hwemegrg        ghost.1             ghost:1.21.3        james-CW65          Running             Running 54 seconds ago</span><br><span class="line">akwqfsarjvy1         \_ ghost.1         ghost:0.11.12       james-CW65          Shutdown            Shutdown 54 seconds ago</span><br><span class="line">hzzq00ckovdg        ghost.2             ghost:1.21.3        default             Running             Running 41 seconds ago</span><br><span class="line">ivtd60xuggk0         \_ ghost.2         ghost:0.11.12       default             Shutdown            Shutdown 42 seconds ago</span><br><span class="line">james@james-CW65:~ &gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意升级后老的容器只是停止了，并没有删除</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker@default:~$ docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE                    COMMAND                  CREATED             STATUS                     PORTS               NAMES</span><br><span class="line">f855c00da7b7        ghost:1.21.3             &quot;docker-entrypoint.s…&quot;   6 minutes ago       Up 6 minutes               2368/tcp            ghost.2.hzzq00ckovdgb48373lwn8xp6</span><br><span class="line">c151f3535a3b        ghost:0.11.12            &quot;docker-entrypoint.s…&quot;   32 minutes ago      Exited (0) 6 minutes ago                       ghost.2.ivtd60xuggk0y56oguehtirni</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="从集群中下线一个节点"><a href="#从集群中下线一个节点" class="headerlink" title="从集群中下线一个节点"></a>从集群中下线一个节点</h3><ul>
+<li>前面的教程中管理节点会把任务分配给ACTIVE的节点，所有ACTIVE的节点都能接到任务</li>
+<li>有时候，例如特定的维护时间，我们就需要从集群中下线一个节点。下线节点使节点不会接受新任务，管理节点会停止该节点上的任务，分配到别的ACTIVE的节点上。</li>
+<li>注意：下线一个节点不移除节点中的独立容器，如docker run，docker-compose up或docker API启动的容器都不会删除。节点的状态仅影响集群服务的负载是否分到该节点。</li>
+</ul>
+<ol>
+<li>ssh到manageer1</li>
+<li>运行docker node ls，验证所有节点都是ACTIVE的：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker node ls</span><br><span class="line">ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS</span><br><span class="line">k89s71elf81vbn7pytwszmgr5     default             Ready               Active</span><br><span class="line">5n1l6261akogeuxysrgn2ipxz *   james-CW65          Ready               Active              Leader</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>如果弄的redis服务还没有从滚动更新中起来，需要启动起来：</li>
+<li>运行docker service ps redis查看管理节点如何分配任务到不同节点：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service ps ghost</span><br><span class="line">ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE             ERROR               PORTS</span><br><span class="line">5ae8hwemegrg        ghost.1             ghost:1.21.3        james-CW65          Running             Running 19 minutes ago</span><br><span class="line">akwqfsarjvy1         \_ ghost.1         ghost:0.11.12       james-CW65          Shutdown            Shutdown 19 minutes ago</span><br><span class="line">hzzq00ckovdg        ghost.2             ghost:1.21.3        default             Running             Running 19 minutes ago</span><br><span class="line">ivtd60xuggk0         \_ ghost.2         ghost:0.11.12       default             Shutdown            Shutdown 19 minutes ago</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>运行docker node update --availability drain 来下线一个节点：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker node update --availability drain default</span><br><span class="line">default</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>运行以下来检查节点的可用性：</li>
+</ol>
+<ul>
+<li>可以看到该节点的可用性是Drain</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker node ls</span><br><span class="line">ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS</span><br><span class="line">k89s71elf81vbn7pytwszmgr5     default             Ready               Drain</span><br><span class="line">5n1l6261akogeuxysrgn2ipxz *   james-CW65          Ready               Active              Leader</span><br><span class="line">james@james-CW65:~ &gt; docker node inspect --pretty default</span><br><span class="line">ID:			k89s71elf81vbn7pytwszmgr5</span><br><span class="line">Hostname:              	default</span><br><span class="line">Joined at:             	2018-02-28 06:25:23.718220559 +0000 utc</span><br><span class="line">Status:</span><br><span class="line"> State:			Ready</span><br><span class="line"> Availability:         	Drain</span><br><span class="line"> Address:		192.168.99.100</span><br><span class="line">Platform:</span><br><span class="line"> Operating System:	linux</span><br><span class="line"> Architecture:		x86_64</span><br><span class="line">Resources:</span><br><span class="line"> CPUs:			1</span><br><span class="line"> Memory:		995.9MiB</span><br><span class="line">Plugins:</span><br><span class="line"> Log:		awslogs, fluentd, gcplogs, gelf, journald, json-file, logentries, splunk, syslog</span><br><span class="line"> Network:		bridge, host, macvlan, null, overlay</span><br><span class="line"> Volume:		local</span><br><span class="line">Engine Version:		17.12.0-ce</span><br><span class="line">Engine Labels:</span><br><span class="line"> - provider=virtualbox</span><br><span class="line">TLS Info:</span><br><span class="line"> TrustRoot:</span><br><span class="line">-----BEGIN CERTIFICATE-----</span><br><span class="line">MIIBajCCARCgAwIBAgIUJdysIbjEKr/Xr+SvWKd8S0UpgqcwCgYIKoZIzj0EAwIw</span><br><span class="line">EzERMA8GA1UEAxMIc3dhcm0tY2EwHhcNMTgwMjI4MDYwNDAwWhcNMzgwMjIzMDYw</span><br><span class="line">NDAwWjATMREwDwYDVQQDEwhzd2FybS1jYTBZMBMGByqGSM49AgEGCCqGSM49AwEH</span><br><span class="line">A0IABFgzZnc/77Zo87KKNrJK83z6ASk1YNHwXYWQvfnyf5aqhLUuOOdGXMgvEj5s</span><br><span class="line">GHGkNitCK2y11XQdSzsRQE5JsGKjQjBAMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMB</span><br><span class="line">Af8EBTADAQH/MB0GA1UdDgQWBBSaliomGnuL2p+xndnzrIfncS9TezAKBggqhkjO</span><br><span class="line">PQQDAgNIADBFAiA8c7Qn3OA62I4APdAqzwK8z4rNgJug7Nheuo7pOOBybgIhAM5W</span><br><span class="line">t2NvL1EBMjCQZGRk45W/X0C2UN2NQ+cA7CVBHh7I</span><br><span class="line">-----END CERTIFICATE-----</span><br><span class="line"></span><br><span class="line"> Issuer Subject:	MBMxETAPBgNVBAMTCHN3YXJtLWNh</span><br><span class="line"> Issuer Public Key:	MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEWDNmdz/vtmjzsoo2skrzfPoBKTVg0fBdhZC9+fJ/lqqEtS4450ZcyC8SPmwYcaQ2K0IrbLXVdB1LOxFATkmwYg==</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>运行docker service ps redis来查看管理节点是如何重新分配任务的：</li>
+</ol>
+<ul>
+<li>可以看到管理节点将下线节点的任务停止了，为了保障副本数量，重新在active的节点上调度了任务。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service ps ghost</span><br><span class="line">ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE             ERROR               PORTS</span><br><span class="line">5ae8hwemegrg        ghost.1             ghost:1.21.3        james-CW65          Running             Running 21 minutes ago</span><br><span class="line">akwqfsarjvy1         \_ ghost.1         ghost:0.11.12       james-CW65          Shutdown            Shutdown 21 minutes ago</span><br><span class="line">lefwcfo1s44k        ghost.2             ghost:1.21.3        james-CW65          Running             Running 22 seconds ago</span><br><span class="line">hzzq00ckovdg         \_ ghost.2         ghost:1.21.3        default             Shutdown            Shutdown 22 seconds ago</span><br><span class="line">ivtd60xuggk0         \_ ghost.2         ghost:0.11.12       default             Shutdown            Shutdown 21 minutes ago</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>运行docker node update --availability active 来重新active该节点：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker node update --availability active default</span><br><span class="line">default</span><br><span class="line">james@james-CW65:~ &gt; docker node ls</span><br><span class="line">ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS</span><br><span class="line">k89s71elf81vbn7pytwszmgr5     default             Ready               Active</span><br><span class="line">5n1l6261akogeuxysrgn2ipxz *   james-CW65          Ready               Active              Leader</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>查看节点状态，可以看到节点状态重新为ACtive：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker node inspect --pretty default</span><br><span class="line">ID:			k89s71elf81vbn7pytwszmgr5</span><br><span class="line">Hostname:              	default</span><br><span class="line">Joined at:             	2018-02-28 06:25:23.718220559 +0000 utc</span><br><span class="line">Status:</span><br><span class="line"> State:			Ready</span><br><span class="line"> Availability:         	Active</span><br><span class="line"> Address:		192.168.99.100</span><br><span class="line">Platform:</span><br><span class="line"> Operating System:	linux</span><br><span class="line"> Architecture:		x86_64</span><br><span class="line">Resources:</span><br><span class="line"> CPUs:			1</span><br><span class="line"> Memory:		995.9MiB</span><br><span class="line">Plugins:</span><br><span class="line"> Log:		awslogs, fluentd, gcplogs, gelf, journald, json-file, logentries, splunk, syslog</span><br><span class="line"> Network:		bridge, host, macvlan, null, overlay</span><br><span class="line"> Volume:		local</span><br><span class="line">Engine Version:		17.12.0-ce</span><br><span class="line">Engine Labels:</span><br><span class="line"> - provider=virtualbox</span><br><span class="line">TLS Info:</span><br><span class="line"> TrustRoot:</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当节点重新active的时候，在以下情况下它会重新接受任务：<ul>
+<li>当一个服务缩容扩容时</li>
+<li>在滚动更新的时候</li>
+<li>当另一个节点Drain下线的时候</li>
+<li>当一个任务在另一个active节点上运行失败的时候</li>
+</ul>
+</li>
+</ul>
+<h3 id="使用swarm模式的路由网络"><a href="#使用swarm模式的路由网络" class="headerlink" title="使用swarm模式的路由网络"></a>使用swarm模式的路由网络</h3><ul>
+<li>docker的swarm模式使服务暴露给外部端口更加方便。所有的节点都在一个路由网络里。这个路由网络使得集群内的所有节点都能在开放的端口上接受请求。即使节点上没有任务运行，这个服务的端口也暴露的。路由网络路由所有的请求到暴露端口的节点上。</li>
+<li>前提是需要暴露以下端口来使节点间能通信<ul>
+<li>Port 7946 TCP/UDP for container network discovery.用于容器间网络发现</li>
+<li>Port 4789 UDP for the container ingress network.用于容器进入网络</li>
+</ul>
+</li>
+<li>你也必须开放节点之间的公开端口，和任何外部资源端口，例如一个外部的负载均衡。</li>
+<li>你也可以使特定服务<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/swarm/ingress/#bypass-the-routing-mesh">绕过路由网络</a></li>
+</ul>
+<h4 id="为一个服务暴露端口"><a href="#为一个服务暴露端口" class="headerlink" title="为一个服务暴露端口"></a>为一个服务暴露端口</h4><ul>
+<li>使用--publish来在创建一个服务的时候暴露端口。target指明容器内暴露的端口。published指明绑定到路由网络上的端口。如果不写published，就会为每个服务绑定一个随机的高数字端口。你需要检查任务才能确定端口</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service create --name ghostBlog --publish published=80,target=2368 --replicas 1 ghost:1.21.3</span><br><span class="line">xpnc3ga8yvh71zx5dvq94fbsn</span><br><span class="line">overall progress: 1 out of 1 tasks</span><br><span class="line">1/1: running   [==================================================&gt;]</span><br><span class="line">verify: Service converged</span><br><span class="line">james@james-CW65:~ &gt; docker service ps ghostBlog</span><br><span class="line">ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE            ERROR               PORTS</span><br><span class="line">5a0tepfqasqu        ghostBlog.1         ghost:1.21.3        default             Running             Running 18 seconds ago</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意旧版的语法是冒号分开的published：target，例如 -p 8080:80。新语法更易读且灵活。</li>
+<li>当你在任何节点访问8080端口时，路由网络将把请求分发到一个active的容器中。在各个节点，8080端口可能并没有绑定，但是路由网络知道如何路由流量，并防止任何端口冲突。</li>
+<li>路由网络监听各个节点的IP上的 published port 。从外面看，这些端口是各个节点暴露的。对于别的IP地址，只在该主机内可以访问。<br><img src="https://docs.docker.com/engine/swarm/images/ingress-routing-mesh.png" alt="image"><br><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/swarm/images/ingress-routing-mesh.png">https://docs.docker.com/engine/swarm/images/ingress-routing-mesh.png</a></li>
+<li>你可以用以下命令给一个已经存在的服务暴露端口。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service ls</span><br><span class="line">ID                  NAME                MODE                REPLICAS            IMAGE               PORTS</span><br><span class="line">tynb9d9pu0nq        ghost               replicated          2/2                 ghost:1.21.3</span><br><span class="line">xpnc3ga8yvh7        ghostBlog           replicated          1/1                 ghost:1.21.3        *:80-&gt;2368/tcp</span><br><span class="line">james@james-CW65:~ &gt; docker service update --publish-add published=8080,target=2368 ghost</span><br><span class="line">ghost</span><br><span class="line">overall progress: 2 out of 2 tasks</span><br><span class="line">1/2: running   [==================================================&gt;]</span><br><span class="line">2/2: running   [==================================================&gt;]</span><br><span class="line">verify: Service converged</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>你可以使用docker service inspect来查看服务暴露的端口：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">james@james-CW65:~ &gt; docker service inspect --format=&quot;&#123;&#123;json .Endpoint.Spec.Ports&#125;&#125;&quot; ghost</span><br><span class="line">[&#123;&quot;Protocol&quot;:&quot;tcp&quot;,&quot;TargetPort&quot;:2368,&quot;PublishedPort&quot;:8080,&quot;PublishMode&quot;:&quot;ingress&quot;&#125;]</span><br><span class="line">james@james-CW65:~ &gt; docker service inspect --format=&quot;&#123;&#123;json .Endpoint.Spec.Ports&#125;&#125;&quot; ghostBlog</span><br><span class="line">[&#123;&quot;Protocol&quot;:&quot;tcp&quot;,&quot;TargetPort&quot;:2368,&quot;PublishedPort&quot;:80,&quot;PublishMode&quot;:&quot;ingress&quot;&#125;]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>The output shows the (labeled TargetPort) from the containers and the (labeled PublishedPort) where nodes listen for requests for the service.</li>
+</ul>
+<h4 id="仅暴露一个TCP或UDP端口"><a href="#仅暴露一个TCP或UDP端口" class="headerlink" title="仅暴露一个TCP或UDP端口"></a>仅暴露一个TCP或UDP端口</h4><ul>
+<li>默认你暴露的端口都是TCP的。如果你使用长语法（Docker 1.13 and higher），设置protocol为tcp或udp即可暴露相应端口</li>
+</ul>
+<h5 id="仅TCP"><a href="#仅TCP" class="headerlink" title="仅TCP"></a>仅TCP</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">长语法</span><br><span class="line">$ docker service create --name dns-cache \</span><br><span class="line">  --publish published=53,target=53 \</span><br><span class="line">  dns-cache</span><br><span class="line">短语法</span><br><span class="line">$ docker service create --name dns-cache \</span><br><span class="line">  -p 53:53 \</span><br><span class="line">  dns-cache</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="TCP和UDP"><a href="#TCP和UDP" class="headerlink" title="TCP和UDP"></a>TCP和UDP</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">长语法</span><br><span class="line">$ docker service create --name dns-cache \</span><br><span class="line">  --publish published=53,target=53 \</span><br><span class="line">  --publish published=53,target=53,protocol=udp \</span><br><span class="line">  dns-cache</span><br><span class="line"> 短语法</span><br><span class="line">$ docker service create --name dns-cache \</span><br><span class="line">  -p 53:53 \</span><br><span class="line">  -p 53:53/udp \</span><br><span class="line">  dns-cache</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="只暴露UDP"><a href="#只暴露UDP" class="headerlink" title="只暴露UDP"></a>只暴露UDP</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">长语法</span><br><span class="line">$ docker service create --name dns-cache \</span><br><span class="line">  --publish published=53,target=53,protocol=udp \</span><br><span class="line">  dns-cache</span><br><span class="line">短语法</span><br><span class="line">$ docker service create --name dns-cache \</span><br><span class="line">  -p 53:53/udp \</span><br><span class="line">  dns-cache</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="绕过路由网络"><a href="#绕过路由网络" class="headerlink" title="绕过路由网络"></a>绕过路由网络</h4><ul>
+<li>你可以绕过路由网络，直接和一个节点上的端口通信，来访问服务。这叫做Host模式：<ul>
+<li>如果该节点上没有服务运行，服务也没有监听端口，则可能无法通信。</li>
+<li>你不能在一个节点上运行多个服务实例他们绑定同一个静态target端口。或者你让docker分配随机高数字端口（通过空配置target），或者确保该节点上只运行一个服务实例（通过配置全局服务global service 而不是副本服务，或者使用配置限制）。</li>
+</ul>
+</li>
+<li>为了绕过路由网络，必须使用长格式--publish，设置模式mode为host模式。如果你忽略了mode设置或者设置为内网ingress，则路由网络将启动。下面的命令创建了全局应用使用host模式绕过路由网络：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker service create --name dns-cache \</span><br><span class="line">  --publish published=53,target=53,protocol=udp,mode=host \</span><br><span class="line">  --mode global \</span><br><span class="line">  dns-cache</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="配置外部的负载均衡"><a href="#配置外部的负载均衡" class="headerlink" title="配置外部的负载均衡"></a>配置外部的负载均衡</h3><ul>
+<li>你可以为swarm集群配置外部的负载均衡，或者结合路由网络使用或者完全不使用：</li>
+</ul>
+<h4 id="使用路由网络"><a href="#使用路由网络" class="headerlink" title="使用路由网络"></a>使用路由网络</h4><ul>
+<li>你可以使用一个外部的<a target="_blank" rel="noopener" href="http://www.haproxy.org/">HAProxy</a>来负载均衡，服务是8080端口上的nginx服务：<br><img src="https://docs.docker.com/engine/swarm/images/ingress-lb.png" alt="image"></li>
+<li>在这个例子中负载均衡器和集群节点之间的8080端口必须是开放的。swarm集群节点在一个外部不可访问的内网中，节点可以与HAProxy通信。</li>
+<li>你可以配置负载均衡器分流请求到不同的集群节点，即使节点上没有服务运行。例如你可以如下配置HAProxy：/etc/haproxy/haproxy.cfg：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">global</span><br><span class="line">        log /dev/log    local0</span><br><span class="line">        log /dev/log    local1 notice</span><br><span class="line">...snip...</span><br><span class="line"></span><br><span class="line"># Configure HAProxy to listen on port 80</span><br><span class="line">frontend http_front</span><br><span class="line">   bind *:80</span><br><span class="line">   stats uri /haproxy?stats</span><br><span class="line">   default_backend http_back</span><br><span class="line"></span><br><span class="line"># Configure HAProxy to route requests to swarm nodes on port 8080</span><br><span class="line">backend http_back</span><br><span class="line">   balance roundrobin</span><br><span class="line">   server node1 192.168.99.100:8080 check</span><br><span class="line">   server node2 192.168.99.101:8080 check</span><br><span class="line">   server node3 192.168.99.102:8080 check</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当你请求HAProxy的80端口的时候，它会转发请求到后端节点。swarm的路由网络会路由到相应的服务节点。这样无论任何原因swarm的调度器调度服务到不同节点，都不需要重新配置负载均衡。</li>
+<li>你可以配置任何类型的负载均衡来分流请求。关于HAProxy参考 <a target="_blank" rel="noopener" href="https://cbonte.github.io/haproxy-dconv/">HAProxy documentation</a></li>
+</ul>
+<h4 id="不使用路由网络"><a href="#不使用路由网络" class="headerlink" title="不使用路由网络"></a>不使用路由网络</h4><ul>
+<li>如果不使用路由网络，配置--endpoint-mode的值为dnsrr，而不是vip。在本例子中没有一个固定的虚拟IP。Docker为服务做了DNS注册，这样一个服务的DNS查询会返回一系列IP地址。客户端就可以直接连接其中一个节点。你负责提供这一系列的IP地址，开放端口给你的负载均衡器。参考<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/swarm/networking/#configure-service-discovery">Configure service discovery.</a></li>
+</ul>
+<h3 id="相关补充内容"><a href="#相关补充内容" class="headerlink" title="相关补充内容"></a>相关补充内容</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br></pre></td><td class="code"><pre><span class="line"># 三台虚拟机</span><br><span class="line">192.168.43.129 node1</span><br><span class="line">192.168.43.130 node2</span><br><span class="line">192.168.43.131 node3</span><br><span class="line"></span><br><span class="line"># 分别设置hosts</span><br><span class="line"></span><br><span class="line">vi /etc/hosts </span><br><span class="line"></span><br><span class="line">添加</span><br><span class="line"></span><br><span class="line">192.168.43.129 node1</span><br><span class="line">192.168.43.130 node2</span><br><span class="line">192.168.43.131 node3</span><br><span class="line"></span><br><span class="line">### copy hosts文件</span><br><span class="line">scp /etc/hosts root@192.168.43.130:/etc/</span><br><span class="line">scp /etc/hosts root@192.168.43.131:/etc/</span><br><span class="line"></span><br><span class="line">### 分别设置hostname</span><br><span class="line">hostname node1</span><br><span class="line">bash</span><br><span class="line">hostname node2</span><br><span class="line">bash</span><br><span class="line">hostname node3</span><br><span class="line">bash</span><br><span class="line"></span><br><span class="line">### 免密登录</span><br><span class="line"></span><br><span class="line">ssh-keygen</span><br><span class="line"></span><br><span class="line">ssh-copy-id -i /root/.ssh/id_rsa.pub root@192.168.43.130</span><br><span class="line">ssh-copy-id -i /root/.ssh/id_rsa.pub root@192.168.43.131</span><br><span class="line"></span><br><span class="line">### 初始化 swarm</span><br><span class="line"></span><br><span class="line"># 开放端口</span><br><span class="line">firewall-cmd --zone=public --add-port=2377/tcp --permanent </span><br><span class="line">firewall-cmd --reload</span><br><span class="line">firewall-cmd --zone=public --query-port=2377/tcp</span><br><span class="line"></span><br><span class="line">docker swarm init --advertise-addr  192.168.43.129</span><br><span class="line"></span><br><span class="line"># 会输出：</span><br><span class="line">docker swarm join --token SWMTKN-1-24y9d5k1hzc8lcdg38kyhj7belzmxp0m7i46eeaj446exmp9gx-5inweyo0dmkqz43kkye2887k5 192.168.43.129:2377</span><br><span class="line"></span><br><span class="line"># 在node2、node3中执行</span><br><span class="line"></span><br><span class="line">docker swarm join --token SWMTKN-1-24y9d5k1hzc8lcdg38kyhj7belzmxp0m7i46eeaj446exmp9gx-5inweyo0dmkqz43kkye2887k5 192.168.43.129:2377</span><br><span class="line"></span><br><span class="line"># 升级/降级</span><br><span class="line">docker node promote node2</span><br><span class="line">docker node demote node2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 搭建本地私有仓库</span><br><span class="line"></span><br><span class="line">* 在node1节点下</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vi /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line"># 添加</span><br><span class="line">net.ipv4.ip_forward = 1</span><br><span class="line"></span><br><span class="line"># 退出执行</span><br><span class="line">sysctl -p</span><br><span class="line"></span><br><span class="line"># scp到其他节点</span><br><span class="line">scp /etc/sysctl root@192.168.43.130:/etc/</span><br><span class="line">sysctl -p</span><br><span class="line"></span><br><span class="line">scp /etc/sysctl root@192.168.43.130:/etc/</span><br><span class="line">sysctl -p</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* 在node1节点下</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker pull registry:2</span><br><span class="line"></span><br><span class="line"># 创建一个mul</span><br><span class="line">mkdir - p /opt/docker/registry</span><br><span class="line"></span><br><span class="line"># 运行仓库</span><br><span class="line">docker run -itd -p 5000:5000 --restart always -v /opt/docker/registry/:/var/lib/registry --name registry registry:2</span><br><span class="line"></span><br><span class="line"># 查看数据</span><br><span class="line">curl 192.168.43.129:5000/v2/_catalog</span><br><span class="line">&#123;&quot;repositories&quot;:[]&#125; # 空的</span><br><span class="line"></span><br><span class="line"># 使用私有仓库</span><br><span class="line">vi /usr/lib/systemd/system/docker.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=Docker Application Container Engine</span><br><span class="line">Documentation=https://docs.docker.com</span><br><span class="line">BindsTo=containerd.service</span><br><span class="line">After=network-online.target firewalld.service containerd.service</span><br><span class="line">Wants=network-online.target</span><br><span class="line">Requires=docker.socket</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=notify</span><br><span class="line"># the default is not to use systemd for cgroups because the delegate issues still</span><br><span class="line"># exists and systemd currently does not support the cgroup feature set required</span><br><span class="line"># for containers run by docker</span><br><span class="line">ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --insecure-registry 192.168.43.129:5000 #修改此处</span><br><span class="line">ExecReload=/bin/kill -s HUP $MAINPID</span><br><span class="line">TimeoutSec=0</span><br><span class="line">RestartSec=2</span><br><span class="line">Restart=always</span><br><span class="line"></span><br><span class="line"># Note that StartLimit* options were moved from &quot;Service&quot; to &quot;Unit&quot; in systemd 229.</span><br><span class="line"># Both the old, and new location are accepted by systemd 229 and up, so using the old location</span><br><span class="line"># to make them work for either version of systemd.</span><br><span class="line">StartLimitBurst=3</span><br><span class="line"></span><br><span class="line"># Note that StartLimitInterval was renamed to StartLimitIntervalSec in systemd 230.</span><br><span class="line"># Both the old, and new name are accepted by systemd 230 and up, so using the old name to make</span><br><span class="line"># this option work for either version of systemd.</span><br><span class="line">StartLimitInterval=60s</span><br><span class="line"></span><br><span class="line"># Having non-zero Limit*s causes performance problems due to accounting overhead</span><br><span class="line"># in the kernel. We recommend using cgroups to do container-local accounting.</span><br><span class="line">LimitNOFILE=infinity</span><br><span class="line">LimitNPROC=infinity</span><br><span class="line">LimitCORE=infinity</span><br><span class="line"></span><br><span class="line"># Comment TasksMax if your systemd version does not support it.</span><br><span class="line"># Only systemd 226 and above support this option.</span><br><span class="line">TasksMax=infinity</span><br><span class="line"></span><br><span class="line"># set delegate yes so that systemd does not reset the cgroups of docker containers</span><br><span class="line">Delegate=yes</span><br><span class="line"></span><br><span class="line"># kill only the docker process, not all processes in the cgroup</span><br><span class="line">KillMode=process</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"># scp 到其他节点</span><br><span class="line">scp /usr/lib/systemd/system/docker.service root@192.168.43.130:/usr/lib/systemd/system/</span><br><span class="line">scp /usr/lib/systemd/system/docker.service root@192.168.43.131:/usr/lib/systemd/system/</span><br><span class="line"></span><br><span class="line"># 重新启动下docker</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker.service</span><br><span class="line"></span><br><span class="line"># 给镜像打标签</span><br><span class="line">docker tag mysql:latest 192.168.43.129:5000/mysql </span><br><span class="line"></span><br><span class="line"># 推送镜像</span><br><span class="line">docker push 192.168.43.129:5000/mysql </span><br><span class="line"></span><br><span class="line"># 在其他节点获取</span><br><span class="line">docker pull 192.168.43.129:5000/mysql </span><br><span class="line"></span><br><span class="line"># 创建网络</span><br><span class="line">docker network create --driver overlay docker-network</span><br><span class="line"></span><br><span class="line"># 查看</span><br><span class="line">docker network ls</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### portainer 集群配置</span><br><span class="line"></span><br><span class="line">~~修改 &lt;kbd&gt;vi /usr/lib/systemd/system/docker.service&lt;/kbd&gt;~~</span><br><span class="line">~~在 &lt;kbd&gt; ExecStart= &lt;/kbd&gt; 后面添加 &lt;kbd&gt;-H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock&lt;/kbd&gt;~~</span><br><span class="line"></span><br><span class="line">~~重新加载配置~~</span><br><span class="line"></span><br><span class="line">~~systemctl daemon-reload~~</span><br><span class="line"></span><br><span class="line">~~重启docker~~</span><br><span class="line"></span><br><span class="line">~~systemctl restart docker.service~~</span><br><span class="line"></span><br><span class="line">~~开发2375端口或关闭防火墙~~</span><br><span class="line"></span><br><span class="line">不需要开发2375端口 开了还很危险</span><br><span class="line"></span><br><span class="line"># 注意开放端口</span><br><span class="line">docker network create --driver overlay --attachable portainer_agent_network</span><br><span class="line"></span><br><span class="line">docker service create \</span><br><span class="line">    --name portainer_agent \</span><br><span class="line">    --network portainer_agent_network \</span><br><span class="line">    --mode global \</span><br><span class="line">    --constraint &#x27;node.platform.os == linux&#x27; \</span><br><span class="line">    --mount type=bind,src=//var/run/docker.sock,dst=/var/run/docker.sock \</span><br><span class="line">    --mount type=bind,src=//var/lib/docker/volumes,dst=/var/lib/docker/volumes \</span><br><span class="line">    portainer/agent</span><br><span class="line"></span><br><span class="line">docker service create \</span><br><span class="line">    --name portainer \</span><br><span class="line">    --network portainer_agent_network \</span><br><span class="line">    --publish 8900:9000 \</span><br><span class="line">    --publish 8800:8000 \</span><br><span class="line">    --replicas=1 \</span><br><span class="line">    --constraint &#x27;node.role == manager&#x27; \</span><br><span class="line">    portainer/portainer -H &quot;tcp://tasks.portainer_agent:9001&quot; --tlsskipverify</span><br></pre></td></tr></table></figure>
+
+<p><strong>添加标签</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker node update --label-add role=web node1</span><br></pre></td></tr></table></figure>
+
+<p><strong>删除标签</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker node update --label-rm role node1</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2a11a40a9573">https://www.jianshu.com/p/2a11a40a9573</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/06/20/%E3%80%90Docker%E3%80%91Swarm%E4%BB%8E%E9%83%A8%E7%BD%B2%E5%88%B0%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" title="【Docker】Swarm从部署到基本操作">http://blog.bfsdfs.com/2020/06/20/【Docker】Swarm从部署到基本操作/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/13/%E3%80%90%E8%BD%AF%E4%BB%B6%E3%80%91Navicat%E8%BF%87%E6%9C%9F%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E/" rel="prev" title="【软件】Navicat过期了怎么办">
+      <i class="fa fa-chevron-left"></i> 【软件】Navicat过期了怎么办
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/21/%E3%80%90MySql%E3%80%91%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8C%E6%AD%A5%E5%B7%A5%E5%85%B7/" rel="next" title="【MySql】数据库同步工具">
+      【MySql】数据库同步工具 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Swarm%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">Swarm简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Swarm-%E6%A8%A1%E5%BC%8F%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">Swarm 模式简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E6%80%A7"><span class="nav-number">1.1.1.</span> <span class="nav-text">特性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Swarm%E4%B8%BB%E8%A6%81%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">Swarm主要概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8Swarm%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">开始使用Swarm模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%86%E5%A4%873%E5%8F%B0%E4%B8%BB%E6%9C%BA"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">准备3台主机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%851-12-0%E4%BB%A5%E4%B8%8A%E7%9A%84docker"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">安装1.12.0以上的docker</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E8%8A%82%E7%82%B9%E7%9A%84IP%E5%9C%B0%E5%9D%80"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">管理节点的IP地址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BB%E6%9C%BA%E9%97%B4%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">主机间开放端口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AASwarm%E9%9B%86%E7%BE%A4"><span class="nav-number">1.4.</span> <span class="nav-text">创建一个Swarm集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E8%8A%82%E7%82%B9%E5%8A%A0%E5%85%A5%E5%88%B0swarm%E9%9B%86%E7%BE%A4%E4%B8%AD"><span class="nav-number">1.5.</span> <span class="nav-text">将节点加入到swarm集群中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8swarm%E9%9B%86%E7%BE%A4%E4%B8%8A%E9%83%A8%E7%BD%B2%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.6.</span> <span class="nav-text">在swarm集群上部署一个服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5Swarm%E9%9B%86%E7%BE%A4%E4%B8%8A%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.7.</span> <span class="nav-text">检查Swarm集群上的服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8swarm%E9%9B%86%E7%BE%A4%E4%B8%AD%E5%8A%A8%E6%80%81%E4%BC%B8%E7%BC%A9%E6%9C%8D%E5%8A%A1%E5%AE%9E%E4%BE%8B%E6%95%B0"><span class="nav-number">1.8.</span> <span class="nav-text">在swarm集群中动态伸缩服务实例数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8Eswarm%E9%9B%86%E7%BE%A4%E4%B8%8A%E5%88%A0%E9%99%A4%E5%BA%94%E7%94%A8"><span class="nav-number">1.9.</span> <span class="nav-text">从swarm集群上删除应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E6%9B%B4%E6%96%B0"><span class="nav-number">1.10.</span> <span class="nav-text">滚动更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E9%9B%86%E7%BE%A4%E4%B8%AD%E4%B8%8B%E7%BA%BF%E4%B8%80%E4%B8%AA%E8%8A%82%E7%82%B9"><span class="nav-number">1.11.</span> <span class="nav-text">从集群中下线一个节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8swarm%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%B7%AF%E7%94%B1%E7%BD%91%E7%BB%9C"><span class="nav-number">1.12.</span> <span class="nav-text">使用swarm模式的路由网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%B8%80%E4%B8%AA%E6%9C%8D%E5%8A%A1%E6%9A%B4%E9%9C%B2%E7%AB%AF%E5%8F%A3"><span class="nav-number">1.12.1.</span> <span class="nav-text">为一个服务暴露端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%85%E6%9A%B4%E9%9C%B2%E4%B8%80%E4%B8%AATCP%E6%88%96UDP%E7%AB%AF%E5%8F%A3"><span class="nav-number">1.12.2.</span> <span class="nav-text">仅暴露一个TCP或UDP端口</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%85TCP"><span class="nav-number">1.12.2.1.</span> <span class="nav-text">仅TCP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TCP%E5%92%8CUDP"><span class="nav-number">1.12.2.2.</span> <span class="nav-text">TCP和UDP</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%AA%E6%9A%B4%E9%9C%B2UDP"><span class="nav-number">1.12.2.3.</span> <span class="nav-text">只暴露UDP</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%95%E8%BF%87%E8%B7%AF%E7%94%B1%E7%BD%91%E7%BB%9C"><span class="nav-number">1.12.3.</span> <span class="nav-text">绕过路由网络</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%A4%96%E9%83%A8%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">1.13.</span> <span class="nav-text">配置外部的负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%B7%AF%E7%94%B1%E7%BD%91%E7%BB%9C"><span class="nav-number">1.13.1.</span> <span class="nav-text">使用路由网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E4%BD%BF%E7%94%A8%E8%B7%AF%E7%94%B1%E7%BD%91%E7%BB%9C"><span class="nav-number">1.13.2.</span> <span class="nav-text">不使用路由网络</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E8%A1%A5%E5%85%85%E5%86%85%E5%AE%B9"><span class="nav-number">1.14.</span> <span class="nav-text">相关补充内容</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '51915b5f1d08ec87dab53ee86e602a8d',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

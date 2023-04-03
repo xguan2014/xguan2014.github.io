@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;cgzl&#x2F;p&#x2F;12354204.html  gRPC的结构 在我们搭建gRPC通信系统之前，首先需要知道gRPC的结构组成。 首先，需要一个server（服务器），它用来接收和处理请求，然后返回响应。 既然有server，那么肯定有client（客户端），client的作用就是向server发送请求，具体就是生成一个请求，然后把它发送到server">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net Core】ASP.NET Core 3.x-gRPC简介">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/04/16/%E3%80%90.Net%20Core%E3%80%91ASP.NET%20Core%203.x-gRPC%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;cgzl&#x2F;p&#x2F;12354204.html  gRPC的结构 在我们搭建gRPC通信系统之前，首先需要知道gRPC的结构组成。 首先，需要一个server（服务器），它用来接收和处理请求，然后返回响应。 既然有server，那么肯定有client（客户端），client的作用就是向server发送请求，具体就是生成一个请求，然后把它发送到server">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/grpc-1.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/grpc-2.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/grpc-3.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/grpc-4.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/grpc-5.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/grpc-6.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/grpc-7.png">
+<meta property="article:published_time" content="2020-04-16T12:56:28.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.039Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="gRPC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/grpc-1.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/04/16/%E3%80%90.Net%20Core%E3%80%91ASP.NET%20Core%203.x-gRPC%E7%AE%80%E4%BB%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net Core】ASP.NET Core 3.x-gRPC简介 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/04/16/%E3%80%90.Net%20Core%E3%80%91ASP.NET%20Core%203.x-gRPC%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net Core】ASP.NET Core 3.x-gRPC简介
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-16 20:56:28" itemprop="dateCreated datePublished" datetime="2020-04-16T20:56:28+08:00">2020-04-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cgzl/p/12354204.html">https://www.cnblogs.com/cgzl/p/12354204.html</a></p>
+</blockquote>
+<h1 id="gRPC的结构"><a href="#gRPC的结构" class="headerlink" title="gRPC的结构"></a>gRPC的结构</h1><p><img src="/images/grpc-1.png" alt=""></p>
+<p>在我们搭建gRPC通信系统之前，首先需要知道gRPC的结构组成。</p>
+<p>首先，需要一个server（服务器），它用来接收和处理请求，然后返回响应。</p>
+<p>既然有server，那么肯定有client（客户端），client的作用就是向server发送请求，具体就是生成一个请求，然后把它发送到server，然后等待server的响应。</p>
+<p>但是它们不必是一对一的关系，在整个系统里，可以有多个server，也可以有多个client。根据实际情况，一个应用程序可能是gRPC的server，也可能是gRPC的client，也可能两者都是。</p>
+<p>gRPC里面server和client并不是直接通信的，gRPC可以使用protocol buffer定义的消息来生成代码。</p>
+<p>当client发送请求的时候，它会和server端生成的代码进行交互；同样在client端也有生成的代码，client端生成的代码负责提供一个隧道，这个隧道被用来吧client端生成的消息发送给server。</p>
+<p>因为server和client两端都有生成的代码，所以如何序列化和反序列化，以及如何进行来回的传输等细节，我们都可以不了解。</p>
+<p>但是为了让server和client端来回传输通信，我们还需要一个协议，传输协议就负责把消息来回的传递。所以它并不需要懂得这些消息的内容，生成的代码会负责理解这些消息，但是传输协议需要负责把消息从一端传递到另一端。</p>
+<p>目前，好像gRPC只能使用Protocol Buffer这一个传输协议。但是gRPC在设计的时候，它的传输层是可插拔的，所以如果我们想把Protocol Buffer使用某种JSON或XML的协议替换掉，是可行的。如果你有特定的需求使用Protocol Buffer无法实现的话，那么你也可以创建自己的传输协议。</p>
+<h1 id="设计步骤"><a href="#设计步骤" class="headerlink" title="设计步骤"></a>设计步骤</h1><p>总共应该分三步。设计原则是从里到外（看上面结构图）。</p>
+<p><img src="/images/grpc-2.png" alt=""></p>
+<p>所以：</p>
+<ol>
+<li><p>首先我们应该定义消息（message）。这些消息使用Protocol Buffer来进行定义</p>
+</li>
+<li><p>定义完消息，我们使用Proto-c编译器来生成server和client端的代码，它们会负责把消息在两端之间来回传递</p>
+</li>
+<li><p>现在，我们就可以写client和server了。</p>
+</li>
+</ol>
+<h1 id="gRPC-生命周期"><a href="#gRPC-生命周期" class="headerlink" title="gRPC 生命周期"></a>gRPC 生命周期</h1><p><img src="/images/grpc-3.png" alt=""></p>
+<p>gRPC或者RPC的生命周期可以参考上图。</p>
+<p>首先，需要创建一个隧道，该隧道会包装实际用来传输消息的线路协议。</p>
+<p>例如如果我们的server和client之间使用HTTP/2协议，那么这个隧道就会包装一个server和client之间的TCP连接。</p>
+<p>这些隧道的优点是，它们只需要创建一次。一旦隧道创建了，你就可以在你应用程序的生命周期之内持续的使该隧道来回发送消息。</p>
+<p>隧道建立好之后，就该创建client了。client也是可以复用的，不必没有个rpc调用都重建client。但是在调用之前，我们需要把client建立好。</p>
+<p>现在client进入隧道，这个client通常是提供给我们的，我们不需要自己实现任何代码。使用Proto-c编译消息定义生成的代码将会给我们提供client需要的一切。我们只需要提供隧道即可。</p>
+<p>client创建好之后，client就准备好给server发送请求了。这一步是必须的，gRPC无法让server端初始化请求发送给client端，请求都是client端初始化的。</p>
+<p>但是client初始化请求之后，server端是可以发送多个响应回来的，这个以后再说。这时，client可以随着请求发送一些metadata（元数据），这些metadata是关于请求的，但不是请求对象本身。</p>
+<p>请求被发送以后呢，server可以（但不是必须）把metadata返回。所以，你实际上可以在client和server之间进行这种“预约对话”。client可以发送一些metadata，然后server可以把一些metadata发送回来，这些都是发生在server开始处理请求之前。</p>
+<p>生命周期的最后一部分就是发送和接收消息。就以简单的情况为例，现在server就应该把响应发送回去了，因为client已经发送了请求，所以响应就是要返回。</p>
+<p>注意，关于metadata需要注意的是，gRPC内置的身份认证系统是用来做client和server的身份认证的。</p>
+<p>但是这个metadata也为你提供了检查实际用户身份的机制。所以，如果你需要认证或者授权实际用户，就需要在RPC请求这个级别来实现。也就是在这里。</p>
+<p>如果是client和server的身份认证，以后再写。。</p>
+<h1 id="身份认证"><a href="#身份认证" class="headerlink" title="身份认证"></a>身份认证</h1><p>这里指的不是用户的身份认证，而是指多个server和client之间，它们如何识别出来谁是谁，并且能安全的进行消息传输。</p>
+<p>在身份认证这方面，gRPC一共有4种身份认证的 机制：</p>
+<ul>
+<li>不采取任何措施的连接，也就是不安全的连接。</li>
+<li>TLS/SSL 连接。</li>
+<li>基于 Google Token 的身份认证。</li>
+<li>自定义的身份认证提供商。</li>
+</ul>
+<p>针对第一种不安全的连接，client和server默认将会采用HTTP/1，没有其他特殊的安全措施，也就是使用明文在网络上传输。所以尽量别用不安全连接，容易被截获。 但是不安全连接却不需要其他任何特殊的处理，不需要CA证书等等，所以适合于快速建立gRPC的情况，后期再添加其他安全措施也行。</p>
+<p>如果采用了TLS/SSL，那么想截获传输的消息就比较困难了，而且默认也是使用HTTP/2。HTTP/2的很多实现根本就不支持不安全连接，所以gRPC也不会尝试使用这些不安全连接，但是如果gRPC发现它是在一个安全的连接上面，它就会尝试把这些连接升级到HTTP/2，这时你的消息的传输速度就会变得更快，因为HTTP/2协议的效率更高。</p>
+<p>但是需要注意的是，client会对这些证书进行验证，所以不能因为这是一个安全连接，那么就啥也不用干。 client会去检查证书的授权来确保证书的真实性。所以如果你使用的是生成的证书，那么你还需要在client端做一些额外的工作来确保client能够识别出这些server证书的合理性。</p>
+<p>当使用基于 Google Token 的身份认证方式时，需要注意的是它需要安全的连接，所以你可以把这种认证方式想象为在SSL/TLS上面的一层。所以你需要有安全连接，在此之上，你才能使用基于Google Token的认证方式。</p>
+<p>最后一个是自定义身份认证，你可能想要的是OAuth 2.0这种认证协议，但是gRPC并没有自带OAuth 2.0协议，但是还是有很多用于不同语言的插件可以支持OAuth 2.0的。所以如果有需要的话，可以去官网查一下。</p>
+<p>你也可以自己实现一个身份认证协议，但是自己实现的肯定是和语言有关的，而且gRPC也会尽量配合这种语言。所以不是让你的认证协议像gRPC这样工作，而是让你尽量用该语言惯用的方式。所以使用C#开发一个身份认证提供商和使用Go语言可能会不太一样。这块的详细信息需要去官网查阅。</p>
+<h1 id="消息传输类型"><a href="#消息传输类型" class="headerlink" title="消息传输类型"></a>消息传输类型</h1><p>gRPC的消息传输类型有4种。</p>
+<ul>
+<li>第一种是一元的消息，就是简单的请求--响应。</li>
+<li>第二种是server streaming（流），server会把数据streaming回给client。</li>
+<li>第三种是client streaming，也就是client会把数据streaming给server。</li>
+<li>最后是双向streaming。</li>
+</ul>
+<h2 id="一元消息"><a href="#一元消息" class="headerlink" title="一元消息"></a>一元消息</h2><p><img src="/images/grpc-4.png" alt=""></p>
+<p>这里有一个server，一个client。gRPC从client发送请求到server开始，然后server做一些处理，生成一个响应并返回。所以在这次远程调用里，有一个请求，一个响应。</p>
+<p>这个Protocol Buffer的消息格式大约是这样：</p>
+<p>rpc 方法名(请求类型) returns(响应类型)</p>
+<p>在这里，即使请求的时候不需要带有数据（参数），你仍然需要传递一个空的请求类型的对象。所以在gRPC里就必须有请求类型和响应类型，因为gRPC不知道你带没带数据，而且未来你有可能需要带上 数据。</p>
+<h2 id="Server-Streaming"><a href="#Server-Streaming" class="headerlink" title="Server Streaming"></a>Server Streaming</h2><p><img src="/images/grpc-5.png" alt=""></p>
+<p>Server Streaming的请求和响应管道还是一样的，但不同的是，虽然一切也是始于client到server的一个请求，然后server处理完之后或者当server正在生成响应的时候，server会一次发送一部分结果回来，也就是把响应sreaming回来。</p>
+<p>一个常见的用例就是流式视频。你发送一个请求，想要看某种类型的动作片，然后server会把视频数据的一部分缓冲流发送回来，这样client就不需要等到整个视频一次性返回再看，一次返回一块即可。</p>
+<p>当使用这种远程调用的时候，我们只需要在响应类型前面加一个关键字stream即可：</p>
+<p>rpc 方法名(请求类型) returns(stream 响应类型)</p>
+<p>这样的话，server就相当于会返回一个数组的响应，但是一次只返回一个。</p>
+<h2 id="Client-Streaming"><a href="#Client-Streaming" class="headerlink" title="Client Streaming"></a>Client Streaming</h2><p><img src="/images/grpc-6.png" alt=""></p>
+<p>与Server streaming对应的就是Client streaming。</p>
+<p>常见的用例就是上传文件，你可能需要缓冲，这样的话就会把请求分为多块来执行，一次包含一部分数据。需要注意的时候，在发送期间，server会一直等待，直到整个请求都被接收到。在接收到整个请求之前，server不会做任何处理动作。最后当server接收到所有数据并处理完之后，server会发送一个响应返回给client。</p>
+<p>不难猜，client streaming的格式是这样的：</p>
+<p>rpc 方法名(stream 请求类型) returns(响应类型)</p>
+<p>这个远程调用就相当于，一个请求数据的数组，一次发送一个元素，最后所有请求处理完成后返回单个响应。</p>
+<h2 id="双向Streaming"><a href="#双向Streaming" class="headerlink" title="双向Streaming"></a>双向Streaming</h2><p><img src="/images/grpc-7.png" alt=""></p>
+<p>最后一种就是双向streaming。在这种方式下，client会发送一个初始的请求，也许接下来还会发送几个请求，与此同时server就开始把响应发送回来了，这时client可以继续发送额外的请求。所以整个过程非常的异步，而且没有什么预定义的结构来规定请求和响应如何构造。所以你也可以想到，在你的server和client之间，肯定是需要异步处理的。</p>
+<p>双向streaming的格式如下：</p>
+<p>rpc 方法名(stream 请求类型) returns((stream 响应类型)</p>
+<p>这也就意味着一个数组的数据将会被发送，一个数组的数据也将会被响应，但都是一次只发送一个数据。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/04/16/%E3%80%90.Net%20Core%E3%80%91ASP.NET%20Core%203.x-gRPC%E7%AE%80%E4%BB%8B/" title="【.Net Core】ASP.NET Core 3.x-gRPC简介">http://blog.bfsdfs.com/2020/04/16/【.Net Core】ASP.NET Core 3.x-gRPC简介/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net-Core/" rel="tag"># .Net Core</a>
+              <a href="/tags/gRPC/" rel="tag"># gRPC</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/15/%E3%80%90CSharp%E3%80%91DataAnnotations%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/" rel="prev" title="【CSharp】DataAnnotations常用属性">
+      <i class="fa fa-chevron-left"></i> 【CSharp】DataAnnotations常用属性
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/16/%E3%80%90.Net%20Core%E3%80%91ASP.NET%20Core%203.x-gRPC%E5%B0%8F%E4%BE%8B%E5%AD%90/" rel="next" title="【.Net Core】ASP.NET Core 3.x-gRPC小例子">
+      【.Net Core】ASP.NET Core 3.x-gRPC小例子 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#gRPC%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">gRPC的结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">设计步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gRPC-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.</span> <span class="nav-text">gRPC 生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="nav-number">4.</span> <span class="nav-text">身份认证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E4%BC%A0%E8%BE%93%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">消息传输类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%85%83%E6%B6%88%E6%81%AF"><span class="nav-number">5.1.</span> <span class="nav-text">一元消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-Streaming"><span class="nav-number">5.2.</span> <span class="nav-text">Server Streaming</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-Streaming"><span class="nav-number">5.3.</span> <span class="nav-text">Client Streaming</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E5%90%91Streaming"><span class="nav-number">5.4.</span> <span class="nav-text">双向Streaming</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'aff7bb8a31c94003e32b7727e999d5eb',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

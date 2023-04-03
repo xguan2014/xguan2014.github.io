@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/53/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/53/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/08/30/%E3%80%90Word%E3%80%91%E6%A0%B9%E6%8D%AEword%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/30/%E3%80%90Word%E3%80%91%E6%A0%B9%E6%8D%AEword%E6%A8%A1%E6%9D%BF%E7%94%9F%E6%88%90%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">【Word】根据word模板生成文件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-30 15:30:48" itemprop="dateCreated datePublished" datetime="2018-08-30T15:30:48+08:00">2018-08-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>读取word —&gt;填充数据 —&gt;保存word</p>
+<p>SpireWordHelper:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">public class SpireWordHelper</span><br><span class="line">&#123;</span><br><span class="line">    public void CreateWord(CreatePaymentData data)</span><br><span class="line">    &#123;</span><br><span class="line">        Document doc = new Document(data.TempWord);</span><br><span class="line">        doc.Properties.FormFieldShading = false;</span><br><span class="line">        var sections = doc.Sections[0];</span><br><span class="line">        var paraList = sections.Paragraphs;</span><br><span class="line">        paraList[2].Text = &quot;至：&quot; + data.sName;</span><br><span class="line">        paraList[17].Text = &quot;至：&quot; + data.sName;</span><br><span class="line"></span><br><span class="line">        var nowDate = DateTime.Now;</span><br><span class="line"></span><br><span class="line">        paraList[13].Text = nowDate.ToString(&quot;yyyy年MM月&quot;);</span><br><span class="line">        paraList[28].Text = nowDate.ToString(&quot;yyyy年MM月&quot;);</span><br><span class="line"></span><br><span class="line">        Table table1 = doc.Sections[0].Tables[0] as Table;</span><br><span class="line">        Table table2 = doc.Sections[0].Tables[1] as Table;</span><br><span class="line">        var printer = data.BillingPrinters;</span><br><span class="line">        decimal serviceTotal = 0, fixedTotal = 0;</span><br><span class="line">        for (int i = 0; i &lt; printer.Count; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            table1.AddRow();</span><br><span class="line">            table2.AddRow();</span><br><span class="line">            table1 = GetRange(table1, printer[i].AssetModel, i + 1, 0);</span><br><span class="line">            table2 = GetRange(table2, printer[i].AssetModel, i + 1, 0);</span><br><span class="line"></span><br><span class="line">            table1 = GetRange(table1, printer[i].SerialNo, i + 1, 1);</span><br><span class="line">            table2 = GetRange(table2, printer[i].SerialNo, i + 1, 1);</span><br><span class="line"></span><br><span class="line">            table1 = GetRange(table1, printer[i].Address, i + 1, 2);</span><br><span class="line">            table2 = GetRange(table2, printer[i].Address, i + 1, 2);</span><br><span class="line"></span><br><span class="line">            table1 = GetRange(table1, &quot;XXX&quot;, i + 1, 3);</span><br><span class="line">            table2 = GetRange(table2, &quot;XXX&quot;, i + 1, 3);</span><br><span class="line"></span><br><span class="line">            table1 = GetRange(table1, printer[i].ServicePeriod1, i + 1, 4, 0);</span><br><span class="line">            table1 = GetRange(table1, printer[i].ServicePeriod2, i + 1, 4, 1);</span><br><span class="line"></span><br><span class="line">            table2 = GetRange(table2, printer[i].ServicePeriod1, i + 1, 4, 0);</span><br><span class="line">            table2 = GetRange(table2, printer[i].ServicePeriod2, i + 1, 4, 1);</span><br><span class="line"></span><br><span class="line">            table1 = GetRange(table1,printer[i].ServiceTotalAmount.ToString(), i + 1, 5);</span><br><span class="line">            table2 = GetRange(table2, printer[i].FixedTotalAmount.ToString(), i + 1, 5);</span><br><span class="line">            serviceTotal += printer[i].ServiceTotalAmount;</span><br><span class="line">            fixedTotal += printer[i].FixedTotalAmount;</span><br><span class="line">        &#125;</span><br><span class="line">        //汇总数据</span><br><span class="line">        table1.AddRow();</span><br><span class="line">        table1 = GetRange(table1, &quot;XXXX&quot;, printer.Count + 1, 4);</span><br><span class="line">        table1 = GetRange(table1, serviceTotal.ToString(), printer.Count + 1, 5);</span><br><span class="line">        table2.AddRow();</span><br><span class="line">        table2 = GetRange(table2, &quot;XXXX&quot;, printer.Count + 1, 4);</span><br><span class="line">        table2 = GetRange(table2, fixedTotal.ToString(), printer.Count + 1, 5);</span><br><span class="line"></span><br><span class="line">        string filePath = data.SavePath + &quot;/&quot; + data.FileNameWord;</span><br><span class="line">        doc.SaveToFile(filePath, FileFormat.Docx);</span><br><span class="line">        WordHelper wordHelper = new WordHelper();</span><br><span class="line">        wordHelper.RemoveWatermark(filePath);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private Table GetRange(Table table, string text, int i, int j, int k = 0)</span><br><span class="line">    &#123;</span><br><span class="line">        var range = table[i, j].AddParagraph().AppendText(text);</span><br><span class="line">        range.CharacterFormat.FontName = &quot;Arial&quot;;</span><br><span class="line">        range.CharacterFormat.FontSize = 9;</span><br><span class="line">        range.CharacterFormat.TextColor = Color.Black;</span><br><span class="line">        range.CharacterFormat.Bold = false;</span><br><span class="line">        table[i, j].CellFormat.VerticalAlignment = VerticalAlignment.Middle;</span><br><span class="line">        table[i, j].Paragraphs[k].Format.HorizontalAlignment = HorizontalAlignment.Center;</span><br><span class="line">        return table;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>NPOI版：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line">public bool CreatePayment(CreatePaymentData data)</span><br><span class="line">&#123;</span><br><span class="line">    using (FileStream stream = File.OpenRead(data.TempPlatePath))</span><br><span class="line">    &#123;</span><br><span class="line">        XWPFDocument doc = new XWPFDocument(stream);</span><br><span class="line">        var paraList = doc.Paragraphs;</span><br><span class="line"></span><br><span class="line">        var toTitle1 = paraList[2].Runs[1];</span><br><span class="line">        toTitle1.SetText(data.sName);</span><br><span class="line"></span><br><span class="line">        var toTitle2 = paraList[17].Runs[1];</span><br><span class="line">        toTitle2.SetText(data.sName);</span><br><span class="line"></span><br><span class="line">        var nowDate = DateTime.Now;</span><br><span class="line">        var year1 = paraList[13].Runs[0];</span><br><span class="line">        year1.SetText(nowDate.ToString(&quot;yyyy&quot;));</span><br><span class="line">        var month1 = paraList[13].Runs[2];</span><br><span class="line">        month1.SetText(nowDate.ToString(&quot;MM&quot;));</span><br><span class="line"></span><br><span class="line">        var year2 = paraList[28].Runs[0];</span><br><span class="line">        year2.SetText(nowDate.ToString(&quot;yyyy&quot;));</span><br><span class="line">        var month2 = paraList[28].Runs[2];</span><br><span class="line">        month2.SetText(nowDate.ToString(&quot;MM&quot;));</span><br><span class="line"></span><br><span class="line">        #region 填充table1中的数据</span><br><span class="line">        var table = doc.Tables[0];</span><br><span class="line">        //table.RemoveRow(0);</span><br><span class="line">        for (int i = 0; i &lt; 5; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            CT_Row m_NewRow = new CT_Row();</span><br><span class="line">            XWPFTableRow m_Row = new XWPFTableRow(m_NewRow, table);</span><br><span class="line"></span><br><span class="line">            var c0 = m_Row.CreateCell();</span><br><span class="line">            c0.SetBorderBottom(XWPFTable.XWPFBorderType.THICK, 1, 4, &quot;#000000&quot;);</span><br><span class="line">            c0.SetParagraph(SetCellText(table, JoinN(data.AssetModel + i)));</span><br><span class="line"></span><br><span class="line">            var c1 = m_Row.CreateCell();</span><br><span class="line">            c1.SetParagraph(SetCellText(table, JoinN(data.SerialNo)));</span><br><span class="line"></span><br><span class="line">            var c2 = m_Row.CreateCell();</span><br><span class="line">            c2.SetParagraph(SetCellText(table, JoinN(data.Address)));</span><br><span class="line"></span><br><span class="line">            var c3 = m_Row.CreateCell();</span><br><span class="line">            c3.SetParagraph(SetCellText(table, &quot;XXXX&quot;));</span><br><span class="line"></span><br><span class="line">            var c4 = m_Row.CreateCell();</span><br><span class="line">            c4.SetParagraph(SetCellText(table, data.ServicePeriod1 + &quot;\n&quot; + data.ServicePeriod2));</span><br><span class="line"></span><br><span class="line">            var c5 = m_Row.CreateCell();</span><br><span class="line">            c5.SetParagraph(SetCellText(table, JoinN(&quot;1234&quot;)));</span><br><span class="line"></span><br><span class="line">            table.AddRow(m_Row);</span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line">        if (!Directory.Exists(data.SavePath))</span><br><span class="line">        &#123;</span><br><span class="line">            Directory.CreateDirectory(data.SavePath);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        FileStream outFile = new FileStream(data.SavePath + &quot;/&quot; + data.FileName, FileMode.Create);</span><br><span class="line">        doc.Write(outFile);</span><br><span class="line">        outFile.Close();</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private string JoinN(string address)</span><br><span class="line">&#123;</span><br><span class="line">    for (int i = 10; i &lt; address.Length; i+=10)</span><br><span class="line">    &#123;</span><br><span class="line">        address = address.Insert(i,&quot;\n&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return address;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 设置字体格式</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;param name=&quot;doc&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;table&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;setText&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">public XWPFParagraph SetCellText(XWPFTable table, string setText)</span><br><span class="line">&#123;</span><br><span class="line">    CT_P para = new CT_P();</span><br><span class="line">    XWPFParagraph pCell = new XWPFParagraph(para, table.Body);</span><br><span class="line">    pCell.Alignment = ParagraphAlignment.CENTER;//字体居中</span><br><span class="line">    pCell.VerticalAlignment = TextAlignment.CENTER;//字体居中</span><br><span class="line">    pCell.BorderLeft = Borders.Thick;</span><br><span class="line">    pCell.BorderRight = Borders.Thick;</span><br><span class="line">    pCell.BorderTop = Borders.Thick;</span><br><span class="line">    pCell.BorderBottom = Borders.Thick;</span><br><span class="line">    XWPFRun r1c1 = pCell.CreateRun();</span><br><span class="line">    r1c1.SetText(setText);</span><br><span class="line">    r1c1.FontSize = 10;</span><br><span class="line">    //r1c1.SetFontFamily(&quot;华文楷体&quot;, FontCharRange.None);//设置雅黑字体</span><br><span class="line">    r1c1.SetTextPosition(15);//设置高度</span><br><span class="line">    return pCell;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void RemoveWatermark(string filePath)</span><br><span class="line">&#123;</span><br><span class="line">    using (FileStream stream = File.OpenRead(filePath))</span><br><span class="line">    &#123;</span><br><span class="line">        XWPFDocument doc = new XWPFDocument(stream);</span><br><span class="line">        var paraList = doc.Paragraphs;</span><br><span class="line">        paraList[0].RemoveRun(0);</span><br><span class="line"></span><br><span class="line">        FileStream outFile = new FileStream(filePath, FileMode.Create);</span><br><span class="line">        doc.Write(outFile);</span><br><span class="line">        outFile.Close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/08/30/%E3%80%90%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E3%80%91%E5%B0%86IList%E5%AF%B9%E8%B1%A1%E9%9B%86%E5%90%88%E5%AF%BC%E5%87%BAExcel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/30/%E3%80%90%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E3%80%91%E5%B0%86IList%E5%AF%B9%E8%B1%A1%E9%9B%86%E5%90%88%E5%AF%BC%E5%87%BAExcel/" class="post-title-link" itemprop="url">【常用代码】将IList对象集合导出Excel</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-30 15:23:02" itemprop="dateCreated datePublished" datetime="2018-08-30T15:23:02+08:00">2018-08-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">常用代码</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近项目中有许多地方需要将数据导出成Excel文件，因此写了个公共模块做Excel的导出！</p>
+<p>代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 将IList对象导出Excel</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;typeparam name=&quot;T&quot;&gt;&lt;/typeparam&gt;</span><br><span class="line">/// &lt;param name=&quot;list&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;columnTitle&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;title&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;path&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">public string DataToExcel&lt;T&gt;(IList&lt;T&gt; list, List&lt;DataKeyValue&gt; columnTitle, string title,string path)</span><br><span class="line">    where T : class</span><br><span class="line">&#123;</span><br><span class="line">    DataTable dt = ListToDataTable(list);</span><br><span class="line">    HSSFWorkbook book = new HSSFWorkbook();</span><br><span class="line">    HSSFSheet sheet = book.CreateSheet(&quot;Sheet1&quot;) as HSSFSheet;</span><br><span class="line"></span><br><span class="line">    HSSFRow dataRow = sheet.CreateRow(0) as HSSFRow;</span><br><span class="line">    dataRow = sheet.CreateRow(0) as HSSFRow;</span><br><span class="line">    CellRangeAddress region = new CellRangeAddress(0, 0, 0, columnTitle.Count - 1);</span><br><span class="line">    sheet.AddMergedRegion(region);</span><br><span class="line">    IRow hrow = sheet.CreateRow(0);</span><br><span class="line">    hrow.Height = 20 * 20;</span><br><span class="line">    ICell icellltop0 = hrow.CreateCell(0);</span><br><span class="line"></span><br><span class="line">    IFont font12 = book.CreateFont();</span><br><span class="line">    font12.FontHeightInPoints = 12;</span><br><span class="line">    font12.FontName = &quot;微软雅黑&quot;;</span><br><span class="line">    font12.Boldweight = short.MaxValue;</span><br><span class="line">    font12.Color = Black.Index;</span><br><span class="line"></span><br><span class="line">    ICellStyle cellStyle = book.CreateCellStyle();</span><br><span class="line">    cellStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;</span><br><span class="line">    cellStyle.BorderBottom = BorderStyle.Thin;</span><br><span class="line">    cellStyle.BorderLeft = BorderStyle.Thin;</span><br><span class="line">    cellStyle.BorderRight = BorderStyle.Thin;</span><br><span class="line">    cellStyle.BorderTop = BorderStyle.Thin;</span><br><span class="line">    for (int i = region.FirstRow; i &lt;= region.LastRow; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        IRow row = HSSFCellUtil.GetRow(i, sheet);</span><br><span class="line">        for (int j = region.FirstColumn; j &lt;= region.LastColumn; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            ICell singleCell = HSSFCellUtil.GetCell(row, (short)j);</span><br><span class="line">            singleCell.CellStyle = cellStyle;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cellStyle.SetFont(font12);</span><br><span class="line">    cellStyle.FillBackgroundColor = BlueGrey.Index;</span><br><span class="line">    icellltop0.CellStyle = cellStyle;</span><br><span class="line">    icellltop0.SetCellValue(title + &quot;_&quot; + DateTime.Now.ToString(&quot;yyyy-MM-dd&quot;));</span><br><span class="line"></span><br><span class="line">    ICellStyle TitleStyle = book.CreateCellStyle();</span><br><span class="line">    TitleStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.PaleBlue.Index;</span><br><span class="line">    TitleStyle.FillPattern = FillPattern.SolidForeground;</span><br><span class="line">    TitleStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;</span><br><span class="line">    TitleStyle.BorderBottom = BorderStyle.Thin;</span><br><span class="line">    TitleStyle.BorderLeft = BorderStyle.Thin;</span><br><span class="line">    TitleStyle.BorderRight = BorderStyle.Thin;</span><br><span class="line">    TitleStyle.BorderTop = BorderStyle.Thin;</span><br><span class="line"></span><br><span class="line">    IRow TitleRow = sheet.CreateRow(1);</span><br><span class="line">    TitleRow.Height = 20 * 15;</span><br><span class="line">    for (int i = 0; i &lt; columnTitle.Count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        ICell cell = TitleRow.CreateCell(i);</span><br><span class="line">        cell.CellStyle = TitleStyle;</span><br><span class="line">        cell.SetCellValue(columnTitle[i].Value);</span><br><span class="line">        sheet.SetColumnWidth(i, columnTitle[i].ColumnWidth);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // data</span><br><span class="line">    for (int i = 0; i &lt; dt.Rows.Count; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        IRow row = sheet.CreateRow(i + 2);</span><br><span class="line">        for (int j = 0; j &lt; dt.Columns.Count; j++)</span><br><span class="line">        &#123;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int j = 0; j &lt; columnTitle.Count; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            row.CreateCell(j).SetCellValue(dt.Rows[i][columnTitle[j].key].ToString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ICellStyle borStyle = book.CreateCellStyle();</span><br><span class="line">    borStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.Center;</span><br><span class="line">    borStyle.BorderBottom = BorderStyle.Thin;</span><br><span class="line">    borStyle.BorderLeft = BorderStyle.Thin;</span><br><span class="line">    borStyle.BorderRight = BorderStyle.Thin;</span><br><span class="line">    borStyle.BorderTop = BorderStyle.Thin;</span><br><span class="line"></span><br><span class="line">    for (int i = 1; i &lt;= dt.Rows.Count+1; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        IRow row = HSSFCellUtil.GetRow(i, sheet);</span><br><span class="line">        row.Height = 20 * 16;</span><br><span class="line">        for (int j = 0; j &lt; columnTitle.Count; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            ICell singleCell = HSSFCellUtil.GetCell(row, (short)j);</span><br><span class="line">            singleCell.CellStyle = borStyle;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (!Directory.Exists(path))</span><br><span class="line">    &#123;</span><br><span class="line">        Directory.CreateDirectory(path);</span><br><span class="line">    &#125;</span><br><span class="line">    string fileName = title + DateTime.Now.ToString(&quot;yyyyMMddHHmmssff&quot;) + &quot;.xls&quot;;</span><br><span class="line">    using (FileStream fsWrite = File.OpenWrite(path + fileName))</span><br><span class="line">    &#123;</span><br><span class="line">        book.Write(fsWrite);</span><br><span class="line">    &#125;</span><br><span class="line">    return fileName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>IList To DataTable:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 实体列表转换成DataTable</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;typeparam name=&quot;T&quot;&gt;实体&lt;/typeparam&gt;</span><br><span class="line">/// &lt;param name=&quot;list&quot;&gt; 实体列表&lt;/param&gt;</span><br><span class="line">/// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">public DataTable ListToDataTable&lt;T&gt;(IList&lt;T&gt; list)</span><br><span class="line">    where T : class</span><br><span class="line">&#123;</span><br><span class="line">    if (list == null || list.Count &lt;= 0)</span><br><span class="line">    &#123;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">    DataTable dt = new DataTable(typeof(T).Name);</span><br><span class="line">    DataColumn column;</span><br><span class="line">    DataRow row;</span><br><span class="line"></span><br><span class="line">    PropertyInfo[] myPropertyInfo = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);</span><br><span class="line"></span><br><span class="line">    int length = myPropertyInfo.Length;</span><br><span class="line">    bool createColumn = true;</span><br><span class="line"></span><br><span class="line">    foreach (T t in list)</span><br><span class="line">    &#123;</span><br><span class="line">        if (t == null)</span><br><span class="line">        &#123;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        row = dt.NewRow();</span><br><span class="line">        for (int i = 0; i &lt; length; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            PropertyInfo pi = myPropertyInfo[i];</span><br><span class="line">            string name = pi.Name;</span><br><span class="line">            if (createColumn)</span><br><span class="line">            &#123;</span><br><span class="line">                column = new DataColumn(name, typeof(string));</span><br><span class="line">                dt.Columns.Add(column);</span><br><span class="line">            &#125;</span><br><span class="line">            row[name] = pi.GetValue(t,null) is null ?&quot;&quot;: pi.GetValue(t, null).ToString();</span><br><span class="line">        &#125;</span><br><span class="line">        if (createColumn)</span><br><span class="line">        &#123;</span><br><span class="line">            createColumn = false;</span><br><span class="line">        &#125;</span><br><span class="line">        dt.Rows.Add(row);</span><br><span class="line">    &#125;</span><br><span class="line">    return dt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置列信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class DataKeyValue</span><br><span class="line">&#123;</span><br><span class="line">    public string key &#123; get; set; &#125;</span><br><span class="line">    public string Value &#123; get; set; &#125;</span><br><span class="line">    public int ColumnWidth &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ExcelHelper excelHelper = new ExcelHelper();</span><br><span class="line">List&lt;DataKeyValue&gt; list = new List&lt;DataKeyValue&gt;() &#123;</span><br><span class="line">    new DataKeyValue()&#123;key=&quot;ID&quot;,Value=&quot;编号&quot;,ColumnWidth=256*10&#125;,</span><br><span class="line">    new DataKeyValue()&#123;key=&quot;XXX&quot;,Value=&quot;XXX&quot;,ColumnWidth=256*20&#125;,</span><br><span class="line">    new DataKeyValue()&#123;key=&quot;XXX&quot;,Value=&quot;XXX&quot;,ColumnWidth=256*20&#125;,</span><br><span class="line">    new DataKeyValue()&#123;key=&quot;XXX&quot;,Value=&quot;XXX&quot;,ColumnWidth=256*10&#125;,</span><br><span class="line">    new DataKeyValue()&#123;key=&quot;XXX&quot;,Value=&quot;XXX&quot;,ColumnWidth=256*35&#125;,</span><br><span class="line"></span><br><span class="line">    new DataKeyValue()&#123;key=&quot;XXX&quot;,Value=&quot;XXX&quot;,ColumnWidth=256*45&#125;,</span><br><span class="line">    new DataKeyValue()&#123;key=&quot;XXX&quot;,Value=&quot;XXX&quot;,ColumnWidth=256*45&#125;,</span><br><span class="line">    new DataKeyValue()&#123;key=&quot;XXX&quot;,Value=&quot;XXX&quot;,ColumnWidth=256*45&#125;,</span><br><span class="line">    new DataKeyValue()&#123;key=&quot;XXX&quot;,Value=&quot;XXX&quot;,ColumnWidth=256*45&#125;,</span><br><span class="line">&#125;;</span><br><span class="line">string path = ConfigurationManager.AppSettings[&quot;ExportPath&quot;].ToString();</span><br><span class="line">string result = excelHelper.DataToExcel(allCustomerList, list, &quot;Customer_&quot;, path);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/08/19/%E3%80%90WeChat%E3%80%91Canvas%E7%BB%98%E5%88%B6%E5%88%86%E4%BA%AB%E6%9C%8B%E5%8F%8B%E5%9C%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/19/%E3%80%90WeChat%E3%80%91Canvas%E7%BB%98%E5%88%B6%E5%88%86%E4%BA%AB%E6%9C%8B%E5%8F%8B%E5%9C%88/" class="post-title-link" itemprop="url">【WeChat】Canvas绘制分享朋友圈</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-19 20:23:09" itemprop="dateCreated datePublished" datetime="2018-08-19T20:23:09+08:00">2018-08-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>似乎WeChat目前也还没有提供小程序直接分享到朋友圈的API接口。</p>
+<p>如果想要分享到朋友圈只能间接的通过图片，识别二维码的方式，有点繁琐。</p>
+<p>效果图：</p>
+<p><img src="/images/20180819202034852.png" alt=""></p>
+<p>share.wxml 代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- canvas绘制分享图 --&gt;</span><br><span class="line">&lt;view class=&#x27;body&#x27;&gt;</span><br><span class="line">  &lt;canvas canvas-id=&quot;myCanvas&quot; class=&#x27;canvas-box&#x27;&gt;&lt;/canvas&gt;</span><br><span class="line">  &lt;button bindtap=&quot;ShowCanvas&quot;&gt;Show&lt;/button&gt;</span><br><span class="line">&lt;/view&gt;</span><br></pre></td></tr></table></figure>
+
+<p>share.wxss 代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.canvas-box &#123;</span><br><span class="line">  width: 620rpx;</span><br><span class="line">  height: 990rpx;</span><br><span class="line">  margin: 0 auto;</span><br><span class="line">  border-radius: 20rpx;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.body &#123;</span><br><span class="line">  background-color: rgba(0, 0, 0, 0.5);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>share.js 代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">// pages/share/share.js</span><br><span class="line">Page(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    avatarUrl: &#x27;http://120.77.181.53/img/avatarUrl.jpg&#x27;,</span><br><span class="line">    qrcode: &#x27;http://120.77.181.53/img/qrcode.png&#x27;,</span><br><span class="line">    qrcode_temp: null,</span><br><span class="line">    windowWidth: 0,</span><br><span class="line">    scale: 1.38,</span><br><span class="line">  &#125;,</span><br><span class="line">  onLoad: function (options) &#123;</span><br><span class="line">    this.setData(&#123;</span><br><span class="line">      windowWidth: wx.getSystemInfoSync().windowWidth * 0.825</span><br><span class="line">    &#125;)</span><br><span class="line">    var that = this;</span><br><span class="line">    wx.downloadFile(&#123;</span><br><span class="line">      url: that.data.avatarUrl,</span><br><span class="line">      success: function (res1) &#123;</span><br><span class="line">        //缓存头像图片</span><br><span class="line">        that.setData(&#123;</span><br><span class="line">          portrait_temp: res1.tempFilePath</span><br><span class="line">        &#125;)</span><br><span class="line">        //缓存canvas绘制小程序二维码</span><br><span class="line">        wx.downloadFile(&#123;</span><br><span class="line">          url: that.data.qrcode,</span><br><span class="line">          success: function (res2) &#123;</span><br><span class="line">            console.log(&#x27;二维码：&#x27; + res2.tempFilePath)</span><br><span class="line">            //缓存二维码</span><br><span class="line">            that.setData(&#123;</span><br><span class="line">              qrcode_temp: res2.tempFilePath</span><br><span class="line">            &#125;)</span><br><span class="line">            console.log(&#x27;开始绘制图片&#x27;);</span><br><span class="line">            that.drawImage();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  canvasToImage: function () &#123;</span><br><span class="line">    var that = this</span><br><span class="line">    wx.canvasToTempFilePath(&#123;</span><br><span class="line">      x: 0,</span><br><span class="line">      y: 0,</span><br><span class="line">      width: that.data.windowWidth,</span><br><span class="line">      height: that.data.windowWidth * that.data.scale,</span><br><span class="line">      destWidth: that.data.windowWidth * 4,</span><br><span class="line">      destHeight: that.data.windowWidth * 4 * that.data.scale,</span><br><span class="line">      canvasId: &#x27;myCanvas&#x27;,</span><br><span class="line">      success: function (res) &#123;</span><br><span class="line">        console.log(&#x27;朋友圈分享图生成成功:&#x27; + res.tempFilePath)</span><br><span class="line">        wx.previewImage(&#123;</span><br><span class="line">          current: res.tempFilePath, // 当前显示图片的http链接</span><br><span class="line">          urls: [res.tempFilePath] // 需要预览的图片http链接列表</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;,</span><br><span class="line">      fail: function (err) &#123;</span><br><span class="line">        console.log(&#x27;失败&#x27;)</span><br><span class="line">        console.log(err)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  drawImage: function () &#123;</span><br><span class="line">    //绘制canvas图片</span><br><span class="line">    var that = this</span><br><span class="line">    const ctx = wx.createCanvasContext(&#x27;myCanvas&#x27;)</span><br><span class="line">    var bgPath = &#x27;../../img/card_bg.jpg&#x27;</span><br><span class="line">    var portraitPath = that.data.portrait_temp</span><br><span class="line">    var hostNickname = &#x27;Guan Xing&#x27;</span><br><span class="line"></span><br><span class="line">    var qrPath = that.data.qrcode_temp</span><br><span class="line">    var windowWidth = that.data.windowWidth</span><br><span class="line">    that.setData(&#123;</span><br><span class="line">      scale: 1.6</span><br><span class="line">    &#125;)</span><br><span class="line">    //绘制背景图片</span><br><span class="line">    ctx.drawImage(bgPath, 0, 0, windowWidth, that.data.scale * windowWidth)</span><br><span class="line"></span><br><span class="line">    //绘制头像</span><br><span class="line">    ctx.save();</span><br><span class="line">    ctx.beginPath();</span><br><span class="line">    ctx.arc(windowWidth / 2, 0.32 * windowWidth, 0.15 * windowWidth, 0, 2 * Math.PI);</span><br><span class="line">    ctx.clip();</span><br><span class="line">    ctx.drawImage(portraitPath, 0.7 * windowWidth / 2, 0.17 * windowWidth, 0.3 * windowWidth, 0.3 * windowWidth);</span><br><span class="line">    ctx.restore();</span><br><span class="line">    //绘制第一段文本</span><br><span class="line">    ctx.setFillStyle(&#x27;#000&#x27;);</span><br><span class="line">    ctx.setFontSize(0.037 * windowWidth);</span><br><span class="line">    ctx.setTextAlign(&#x27;center&#x27;);</span><br><span class="line">    ctx.fillText(hostNickname + &#x27; 正在参加疯狂红包活动&#x27;, windowWidth / 2, 0.70 * windowWidth);</span><br><span class="line">    //绘制第二段文本</span><br><span class="line">    ctx.setFillStyle(&#x27;#000&#x27;);</span><br><span class="line">    ctx.setFontSize(0.037 * windowWidth);</span><br><span class="line">    ctx.setTextAlign(&#x27;center&#x27;);</span><br><span class="line">    ctx.fillText(&#x27;邀请你一起来领券抢红包啦~&#x27;, windowWidth / 2, 0.76 * windowWidth);</span><br><span class="line">    //绘制二维码</span><br><span class="line">    ctx.drawImage(qrPath, 0.64 * windowWidth / 2, 0.90 * windowWidth, 0.36 * windowWidth, 0.36 * windowWidth);</span><br><span class="line">    //绘制第三段文本</span><br><span class="line">    ctx.setFillStyle(&#x27;#000&#x27;);</span><br><span class="line">    ctx.setFontSize(0.037 * windowWidth);</span><br><span class="line">    ctx.setTextAlign(&#x27;center&#x27;);</span><br><span class="line">    ctx.fillText(&#x27;长按二维码保存至手机&#x27;, windowWidth / 2, 1.42 * windowWidth);</span><br><span class="line"></span><br><span class="line">    ctx.lineWidth = 2;</span><br><span class="line">    ctx.strokeStyle = &quot;#070616&quot;;</span><br><span class="line">    ctx.strokeRect(0, 0, windowWidth, that.data.scale * windowWidth);</span><br><span class="line">    ctx.draw();</span><br><span class="line">  &#125;,</span><br><span class="line">  ShowCanvas: function (event) &#123;</span><br><span class="line">    wx.hideLoading();</span><br><span class="line">    this.canvasToImage();</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/52/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/52/">52</a><span class="page-number current">53</span><a class="page-number" href="/page/54/">54</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/54/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

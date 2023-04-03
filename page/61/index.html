@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/61/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/61/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/05/23/%E3%80%90Python%E3%80%91%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%92%8C%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/23/%E3%80%90Python%E3%80%91%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%92%8C%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/" class="post-title-link" itemprop="url">【Python】局部变量和全局变量</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-05-23 22:06:11" itemprop="dateCreated datePublished" datetime="2018-05-23T22:06:11+08:00">2018-05-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Vincent_ceso/article/details/76462320">https://blog.csdn.net/Vincent_ceso/article/details/76462320</a></p>
+<p>全局变量：所有函数之外定义的变量<br>局部变量：函数内部定义的变量 或者代码块里的变量</p>
+<p>1.函数内部的变量名如果第一次出现，且出现在=前面，即被视为定义了一个局部变量，不管全局域中有没有该变量名，函数中使用的将是局部变量。<br>(即声明了一个新的局部变量。如果这个变量名字和全部变量名字相同，那么局部变量名字会覆盖全局变量名字。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#[demo1]</span><br><span class="line">num = 100  </span><br><span class="line">def func():  </span><br><span class="line">    newValue = 123   #一个全新的局部变量newValue </span><br><span class="line">    print(newValue)  </span><br><span class="line"></span><br><span class="line">func()  #输出局部变量newValue 即新的局部变量</span><br><span class="line"></span><br><span class="line">#[demo2]</span><br><span class="line">num = 100  </span><br><span class="line">def func():  </span><br><span class="line">    num= 123  #声明一个全新的局部变量num，虽然名字和外界的全部变量相同 但是是新的一个变量且是局部有效的。屏蔽了外面的同名的全部变量</span><br><span class="line">    print(num)  </span><br><span class="line"></span><br><span class="line">func()  #输出局部变量num=123 即新的局部变量。</span><br></pre></td></tr></table></figure>
+
+<p>2.如果局部变量用到了一个变量。该变量是全局存在的，但是局部并没有声明这么一个变量。那么此时参与运算的是全局变量。但是这个参与运算是不能被赋值的，因为你赋值的时候按照python的语法那就是新生成一个局部变量，而且你在右侧使用的话。那就是会报错。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#[demo1]</span><br><span class="line">num = 100  </span><br><span class="line">def func():  </span><br><span class="line">    x = num+200  #使用值做参数，那么其实是copy一份num全部变量的值</span><br><span class="line">    print(x)</span><br><span class="line">    print(id(num))  #id值</span><br><span class="line"></span><br><span class="line">func()  #输出300  即没有局部变量声明 那么使用就是全局变量</span><br><span class="line">print(id(num))  #id值</span><br><span class="line"></span><br><span class="line">#[demo2]</span><br><span class="line"></span><br><span class="line">list = [100] </span><br><span class="line">def func():  </span><br><span class="line">    list.append(200) #直接使用变量，那么得到了全局变量 操作全局变量。</span><br><span class="line">    print(list)</span><br><span class="line">    print(id(list))</span><br><span class="line"></span><br><span class="line">func()  #输出[100,200]</span><br></pre></td></tr></table></figure>
+
+<p>3.如果你想在局部变量修改全局变量。<br>因为本身是不能的，你修改然后赋值的时候会出现矛盾。即你涉及到赋值var = xxx 修改的时候，那么会被语法解析会声明一个新的局部变量var。当然对象类型除外，你可以直接操作他的元素。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#[demo1]</span><br><span class="line">num = 100  </span><br><span class="line">def func():  </span><br><span class="line">    num= 123   #本来你的意图是赋值给全局变量Num,但是此处会被解析为声明一个全新的局部变量num</span><br><span class="line">    print(id(num))  </span><br><span class="line"></span><br><span class="line">func()  #输出局部变量newValue 即新的局部变量</span><br><span class="line">print(id(num))</span><br><span class="line"></span><br><span class="line">那么怎么办？才能在局部变量赋值修改全局变量</span><br></pre></td></tr></table></figure>
+<p>关键字 global</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#[demo1]</span><br><span class="line">Num = 100  </span><br><span class="line">def func():  </span><br><span class="line">    global Num  #声明这个Num是全局的哦。如果全局变量已经有这个Num变量那就是指的它 如果全局没这个Num那就新定义一个全局变量。</span><br><span class="line">    Num  = 200  #此时此刻 凡是在函数内部Num的意思始终是指全局变量。不可能有个局部变量叫Num的。</span><br><span class="line">    print(Num )  </span><br><span class="line"></span><br><span class="line">func()  </span><br><span class="line">print(Num ) #输出200 说明修改的就是全局变量啊</span><br><span class="line"></span><br><span class="line">#[demo2]</span><br><span class="line">def func():  </span><br><span class="line">    global Num  #声明这个Num是全局的哦。而且恰恰是此时没有一个全局变量是Num。那么如果全局没这个Num那就新定义一个Num的全局变量。</span><br><span class="line">    Num  = 200  </span><br><span class="line">    print(Num )  </span><br><span class="line"></span><br><span class="line">func()  </span><br><span class="line">print(Num ) #输出200 说明新定义了一个全局变量Num</span><br></pre></td></tr></table></figure>
+
+<p>4.总结</p>
+<blockquote>
+<ul>
+<li>如果不是明显要局部变量和全局变量纠缠 能不纠缠就不纠缠。也就是定义变量名字的时候 要严格规范。按照开发规范来定义名字。全局大写或者加上“_”开头   </li>
+<li>这是避免不必要问题的根本 消灭问题 </li>
+<li>如果实在是场景需求 局部要操作修改赋值全局变量。那就使用global。 </li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/05/23/%E3%80%90Python%E3%80%91%E4%BB%8E%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E5%88%B0%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/23/%E3%80%90Python%E3%80%91%E4%BB%8E%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E5%88%B0%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/" class="post-title-link" itemprop="url">【Python】从环境配置到实现一个简单聊天机器人</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-05-23 13:01:16" itemprop="dateCreated datePublished" datetime="2018-05-23T13:01:16+08:00">2018-05-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、下载Python3-6-5"><a href="#一、下载Python3-6-5" class="headerlink" title="一、下载Python3.6.5"></a><strong>一、下载Python3.6.5</strong></h3><p>地址：<a target="_blank" rel="noopener" href="https://www.python.org/downloads/windows/">https://www.python.org/downloads/windows/</a><br><img src="/images/20180523105520513.png" alt=""><br><img src="/images/20180523105615824.png" alt=""></p>
+<p>似乎那个站点网络比较慢，下载时需要耐心等待！</p>
+<h3 id="二、安装Python3-6-5"><a href="#二、安装Python3-6-5" class="headerlink" title="二、安装Python3.6.5"></a>二、安装<strong>Python3.6.5</strong></h3><p><strong><img src="/images/20180523110425126.png" alt=""></strong><br><strong><img src="/images/20180523110624157.png" alt=""></strong></p>
+<h3 id="三、测试环境变量配置"><a href="#三、测试环境变量配置" class="headerlink" title="三、测试环境变量配置"></a>三、测试环境变量配置</h3><p>win+R 运行cmd<br>在黑框中输入: python<br>结果如下则安装环境配置正确，输入：exit()，可退出<br><img src="/images/20180523110930868.png" alt=""><br>继续输入：pip</p>
+<p>结果如下则pip的环境配置正常<br><img src="/images/20180523111159352.png" alt=""></p>
+<p>打印一句话试试：<br>继续输入：print(“hello Guanxing”)<br><img src="/images/20180523111447804.png" alt=""></p>
+<p>到此为止python环境配置完毕！</p>
+<p>四、WeChat聊天机器人<br>1.安装以管理员身份运行Cmd<br>2.输入pip install requsts 回车<br>3.输入pip install itchat<br>ps:如电脑上有多个版本的，用pip加版本号进行安装（如pip2.7）<br><img src="/images/20180523125426577.png" alt=""></p>
+<p>4.编写程序<br>demo1:自动进行回复消息机器人</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding=utf-8 -*-</span><br><span class="line">import requests</span><br><span class="line">import itchat</span><br><span class="line">import random</span><br><span class="line"></span><br><span class="line">KEY = &#x27;6244875a21b14000b1f350f9145e41f1&#x27;</span><br><span class="line"></span><br><span class="line">def get_response(msg):</span><br><span class="line">    print(msg)</span><br><span class="line">    apiUrl = &#x27;http://www.tuling123.com/openapi/api&#x27;</span><br><span class="line">    data = &#123;</span><br><span class="line">        &#x27;key&#x27;    : KEY,</span><br><span class="line">        &#x27;info&#x27;   : msg,</span><br><span class="line">        &#x27;userid&#x27; : &#x27;wechat-robot&#x27;,</span><br><span class="line">    &#125;</span><br><span class="line">    try:</span><br><span class="line">        r = requests.post(apiUrl, data=data).json()</span><br><span class="line">        # print(r)</span><br><span class="line">        # print(r.get(&#x27;text&#x27;))</span><br><span class="line">        return r.get(&#x27;text&#x27;)</span><br><span class="line">    except:</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">@itchat.msg_register(itchat.content.TEXT)</span><br><span class="line">def tuling_reply(msg):</span><br><span class="line">    defaultReply = &#x27;I received: &#x27; + msg[&#x27;Text&#x27;]</span><br><span class="line">    robots=[&#x27;——Gx&#x27;]</span><br><span class="line">    reply = get_response(msg[&#x27;Text&#x27;])+random.choice(robots)</span><br><span class="line">    return reply or defaultReply</span><br><span class="line"></span><br><span class="line">itchat.auto_login(enableCmdQR=True)</span><br><span class="line">itchat.run()</span><br></pre></td></tr></table></figure>
+
+<p>demo2:指定时间给指定人发送消息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">from __future__ import unicode_literals</span><br><span class="line">from threading import Timer</span><br><span class="line">from wxpy import *</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">bot = Bot()</span><br><span class="line"></span><br><span class="line">def get_news1():</span><br><span class="line">    # 获取金山词霸每日一句，英文和翻译</span><br><span class="line">    url = &quot;http://open.iciba.com/dsapi/&quot;</span><br><span class="line">    r = requests.get(url)</span><br><span class="line">    contents = r.json()[&#x27;content&#x27;]</span><br><span class="line">    translation = r.json()[&#x27;translation&#x27;]</span><br><span class="line">    print(contents)</span><br><span class="line">    return contents, translation</span><br><span class="line"></span><br><span class="line">def send_news():</span><br><span class="line">    try:</span><br><span class="line">        my_friend = bot.friends().search(u&#x27;Summer°&#x27;)[0]</span><br><span class="line">        # 你朋友的微信名称，不是备注，也不是微信帐号。</span><br><span class="line">        my_friend.send(get_news1()[0])</span><br><span class="line">        my_friend.send(get_news1()[1][5:])</span><br><span class="line">        my_friend.send(u&quot;--来自爸爸的心灵鸡汤！&quot;)</span><br><span class="line">        #每86400秒（1天），发送1次，不用linux的定时任务是因为每次登陆都需要扫描二维码登陆，很麻烦的一件事，就让他一直挂着吧 </span><br><span class="line">        t = Timer(86400, send_news)</span><br><span class="line">        t.start()</span><br><span class="line">    except:</span><br><span class="line">        my_friend = bot.friends().search(&#x27;管星&#x27;)[0]</span><br><span class="line">        # # 你的微信名称，不是微信帐号。</span><br><span class="line">        my_friend.send(u&quot;今天消息发送失败了&quot;)</span><br><span class="line"></span><br><span class="line">#     # if __name__ == &quot;__main__&quot;:</span><br><span class="line">send_news()</span><br></pre></td></tr></table></figure>
+<p>将代码复制进记事本中，然后后缀改成.py即可！</p>
+<p>后面有时间再补充VS Code中编辑器环境的配置</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/05/16/%E3%80%90%E9%98%BF%E9%87%8C%E4%BA%91%E3%80%91API%20%E7%AD%BE%E5%90%8D%E6%9C%BA%E5%88%B6%EF%BC%88C#%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/05/16/%E3%80%90%E9%98%BF%E9%87%8C%E4%BA%91%E3%80%91API%20%E7%AD%BE%E5%90%8D%E6%9C%BA%E5%88%B6%EF%BC%88C#%EF%BC%89/" class="post-title-link" itemprop="url">【阿里云】API签名机制（C#）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-05-16 21:50:06" itemprop="dateCreated datePublished" datetime="2018-05-16T21:50:06+08:00">2018-05-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今天想弄个服务器监控的API，发现阿里云上面本来就提供api接口。</p>
+<p><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/27208.html?spm=a2c4g.11186623.6.673.P6XLr2">https://help.aliyun.com/document_detail/27208.html?spm=a2c4g.11186623.6.673.P6XLr2</a></p>
+<p><a target="_blank" rel="noopener" href="https://error-center.aliyun.com/status/product/Cdn?spm=a2c69.11428812.0.0.47435e6a25YlIH">https://error-center.aliyun.com/status/product/Cdn?spm=a2c69.11428812.0.0.47435e6a25YlIH</a></p>
+<p>但是没有C#版的示例，很蛋疼，那就自己写呗，显示照着Java的示例改成C#的，发现那个签名好像还是计算错误了。</p>
+<p>百度也没搜到有用的文章，最后Google.com搜索到了一个例子，完美解决了！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Net.Http;</span><br><span class="line">using System.Security.Cryptography;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using System.Web;</span><br><span class="line"></span><br><span class="line">namespace DomainRequest</span><br><span class="line">&#123;</span><br><span class="line">    public class RequestHelper</span><br><span class="line">    &#123;</span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 返回值的类型，支持JSON与XML。默认为XML</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public string Format &#123; get; set; &#125; = &quot;JSON&quot;;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// API版本号，为日期形式：YYYY-MM-DD，本版本对应为2016-05-11</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public string Version &#123; get; &#125; = &quot;2014-11-11&quot;;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 阿里云颁发给用户的访问服务所用的密钥ID</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public string AccessKeyId &#123; get; set; &#125; = &quot;****************&quot;;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 签名结果串</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public string Signature &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 签名方式，目前支持HMAC-SHA1</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public string SignatureMethod &#123; get; &#125; = &quot;HMAC-SHA1&quot;;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 请求的时间戳。日期格式按照ISO8601标准表示，并需要使用UTC时间。格式为YYYY-MM-DDThh:mm:ssZ例如，2015-01-09T12:00:00Z（为UTC时间2015年1月9日12点0分0秒）</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public string Timestamp &#123; get; set; &#125; = DateTime.UtcNow.ToString(&quot;yyyy-MM-ddTHH:mm:ssZ&quot;);</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 签名算法版本，目前版本是1.0</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public string SignatureVersion &#123; get; &#125; = &quot;1.0&quot;;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 唯一随机数，用于防止网络重放攻击。用户在不同请求间要使用不同的随机数值</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        public string SignatureNonce &#123; get; &#125; = Guid.NewGuid().ToString();</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        ///</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        private readonly HttpMethod _httpMethod;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        /// 阿里云颁发给用户的访问服务所用的密钥</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        private string AccessKeySecret &#123; get; set; &#125; = &quot;******************&quot;;</span><br><span class="line"></span><br><span class="line">        /// &lt;summary&gt;</span><br><span class="line">        ///</span><br><span class="line">        /// &lt;/summary&gt;</span><br><span class="line">        private readonly Dictionary&lt;string, string&gt; _parameters;</span><br><span class="line"></span><br><span class="line">        public RequestHelper(HttpMethod httpMethod, Dictionary&lt;string, string&gt; parameters)</span><br><span class="line">        &#123;</span><br><span class="line">            _httpMethod = httpMethod;</span><br><span class="line">            _parameters = parameters;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private void BuildParameters()</span><br><span class="line">        &#123;</span><br><span class="line">            _parameters.Add(nameof(Format), Format.ToUpper());</span><br><span class="line">            _parameters.Add(nameof(Version), Version);</span><br><span class="line">            _parameters.Add(nameof(AccessKeyId), AccessKeyId);</span><br><span class="line">            _parameters.Add(nameof(SignatureVersion), SignatureVersion);</span><br><span class="line">            _parameters.Add(nameof(SignatureMethod), SignatureMethod);</span><br><span class="line">            _parameters.Add(nameof(SignatureNonce), SignatureNonce);</span><br><span class="line">            _parameters.Add(nameof(Timestamp), Timestamp);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void ComputeSignature()</span><br><span class="line">        &#123;</span><br><span class="line">            BuildParameters();</span><br><span class="line">            var canonicalizedQueryString = string.Join(&quot;&amp;&quot;,</span><br><span class="line">                _parameters.OrderBy(x =&gt; x.Key)</span><br><span class="line">                .Select(x =&gt; PercentEncode(x.Key) + &quot;=&quot; + PercentEncode(x.Value)));</span><br><span class="line"></span><br><span class="line">            var stringToSign = _httpMethod.ToString().ToUpper() + &quot;&amp;%2F&amp;&quot; + PercentEncode(canonicalizedQueryString);</span><br><span class="line"></span><br><span class="line">            var keyBytes = Encoding.UTF8.GetBytes(AccessKeySecret + &quot;&amp;&quot;);</span><br><span class="line">            var hmac = new HMACSHA1(keyBytes);</span><br><span class="line">            var hashBytes = hmac.ComputeHash(Encoding.UTF8.GetBytes(stringToSign));</span><br><span class="line">            Signature = Convert.ToBase64String(hashBytes);</span><br><span class="line">            _parameters.Add(nameof(Signature), Signature);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private string PercentEncode(string value)</span><br><span class="line">        &#123;</span><br><span class="line">            return UpperCaseUrlEncode(value)</span><br><span class="line">                .Replace(&quot;+&quot;, &quot;%20&quot;)</span><br><span class="line">                .Replace(&quot;*&quot;, &quot;%2A&quot;)</span><br><span class="line">                .Replace(&quot;%7E&quot;, &quot;~&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private static string UpperCaseUrlEncode(string s)</span><br><span class="line">        &#123;</span><br><span class="line">            char[] temp = HttpUtility.UrlEncode(s).ToCharArray();</span><br><span class="line">            for (int i = 0; i &lt; temp.Length - 2; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                if (temp[i] == &#x27;%&#x27;)</span><br><span class="line">                &#123;</span><br><span class="line">                    temp[i + 1] = char.ToUpper(temp[i + 1]);</span><br><span class="line">                    temp[i + 2] = char.ToUpper(temp[i + 2]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return new string(temp);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public string GetUrl(string url)</span><br><span class="line">        &#123;</span><br><span class="line">            ComputeSignature();</span><br><span class="line">            return &quot;http://&quot;+ url + &quot;/?&quot; +</span><br><span class="line">                string.Join(&quot;&amp;&quot;, _parameters.Select(x =&gt; x.Key + &quot;=&quot; + HttpUtility.UrlEncode(x.Value)));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">private static async void CheckDomain(string domain= &quot;cdn.aliyuncs.com&quot;)</span><br><span class="line">&#123;</span><br><span class="line">    var parameters = new Dictionary&lt;string, string&gt;()</span><br><span class="line">        &#123;</span><br><span class="line">            &#123;&quot;Action&quot;, &quot;DescribeDomainSrcFlowData&quot;&#125;,</span><br><span class="line">        &#125;;</span><br><span class="line">    var request = new RequestHelper(HttpMethod.Get, parameters);</span><br><span class="line">    var url = request.GetUrl(domain);</span><br><span class="line">    string result;</span><br><span class="line">    using (var httpClient = new HttpClient())</span><br><span class="line">    &#123;</span><br><span class="line">        var response = await httpClient.GetAsync(url);</span><br><span class="line">        // response.EnsureSuccessStatusCode();</span><br><span class="line">        result = await response.Content.ReadAsStringAsync();</span><br><span class="line">        //剩下的该干嘛干嘛</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果：<br><img src="/images/20180516214912642.png" alt=""></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/60/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/60/">60</a><span class="page-number current">61</span><a class="page-number" href="/page/62/">62</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/62/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

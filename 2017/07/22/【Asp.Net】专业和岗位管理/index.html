@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="这个项目这前面做省份管理，校区管理，岗位管理，专业岗位等，全部都是增删改查 把省份管理做完了，后面的几乎都可以复制粘贴前面的代码了，改一下绑定字段即可。 也没啥新意的，做着做着就失去了动力，如果以后工作都是增删改查，那就太可怕，没劲。 在做专业管理和岗位管理时，两个表很明显是多对多的关系，但设计数据库的人，似乎忘了给关系表 数据库表与表之间多对多关系怎么处理？1234567拆分关系。增加一个表。使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Asp.Net】专业和岗位管理">
+<meta property="og:url" content="http://blog.bfsdfs.com/2017/07/22/%E3%80%90Asp.Net%E3%80%91%E4%B8%93%E4%B8%9A%E5%92%8C%E5%B2%97%E4%BD%8D%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="这个项目这前面做省份管理，校区管理，岗位管理，专业岗位等，全部都是增删改查 把省份管理做完了，后面的几乎都可以复制粘贴前面的代码了，改一下绑定字段即可。 也没啥新意的，做着做着就失去了动力，如果以后工作都是增删改查，那就太可怕，没劲。 在做专业管理和岗位管理时，两个表很明显是多对多的关系，但设计数据库的人，似乎忘了给关系表 数据库表与表之间多对多关系怎么处理？1234567拆分关系。增加一个表。使">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/20170722172536270.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/20170722172520080.png">
+<meta property="article:published_time" content="2017-07-22T09:40:54.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.055Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="Asp.Net">
+<meta property="article:tag" content="DIY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/20170722172536270.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2017/07/22/%E3%80%90Asp.Net%E3%80%91%E4%B8%93%E4%B8%9A%E5%92%8C%E5%B2%97%E4%BD%8D%E7%AE%A1%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【Asp.Net】专业和岗位管理 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/07/22/%E3%80%90Asp.Net%E3%80%91%E4%B8%93%E4%B8%9A%E5%92%8C%E5%B2%97%E4%BD%8D%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Asp.Net】专业和岗位管理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-22 17:40:54" itemprop="dateCreated datePublished" datetime="2017-07-22T17:40:54+08:00">2017-07-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这个项目这前面做省份管理，校区管理，岗位管理，专业岗位等，全部都是增删改查</p>
+<p>把省份管理做完了，后面的几乎都可以复制粘贴前面的代码了，改一下绑定字段即可。</p>
+<p>也没啥新意的，做着做着就失去了动力，如果以后工作都是增删改查，那就太可怕，没劲。</p>
+<p>在做专业管理和岗位管理时，两个表很明显是多对多的关系，但设计数据库的人，似乎忘了给关系表</p>
+<h1 id="数据库表与表之间多对多关系怎么处理？"><a href="#数据库表与表之间多对多关系怎么处理？" class="headerlink" title="数据库表与表之间多对多关系怎么处理？"></a>数据库表与表之间多对多关系怎么处理？</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">拆分关系。增加一个表。使之符合范式。  </span><br><span class="line">比如做学生选课系统。多个学生选多门课。这是[多对多关系](https://www.baidu.com/s?wd=%E5%A4%9A%E5%AF%B9%E5%A4%9A%E5%85%B3%E7%B3%BB&amp;amp;tn=44039180_cpr&amp;amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1d9n1fsmyc1rH63Phm4uA7W0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EPHT3nj6Lnj6L)。  </span><br><span class="line">这样可以写成三个表。  </span><br><span class="line">分别为。学生表（学号，姓名）  </span><br><span class="line">[课程表](https://www.baidu.com/s?wd=%E8%AF%BE%E7%A8%8B%E8%A1%A8&amp;amp;tn=44039180_cpr&amp;amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1d9n1fsmyc1rH63Phm4uA7W0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EPHT3nj6Lnj6L)（课程号，课程名）  </span><br><span class="line">选[课表](https://www.baidu.com/s?wd=%E8%AF%BE%E8%A1%A8&amp;amp;tn=44039180_cpr&amp;amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1d9n1fsmyc1rH63Phm4uA7W0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EPHT3nj6Lnj6L)（学号，课程号）  </span><br><span class="line">通过选[课表](https://www.baidu.com/s?wd=%E8%AF%BE%E8%A1%A8&amp;amp;tn=44039180_cpr&amp;amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1d9n1fsmyc1rH63Phm4uA7W0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EPHT3nj6Lnj6L)，将学生和课程联系起来了。</span><br></pre></td></tr></table></figure>
+<p>通常情况是这么处理，但自己不想再建表了。<br>于是乎想了个用一个字段关系也能表示其内在的关联。  </p>
+<p>想法比较大胆，思想比较歪。</p>
+<p>任何一个整数都可以转化成一个二进制数，</p>
+<p>如0==》0000，1==》0001，2==》0010，3==》0011，4==》0100，5==》1001</p>
+<p>而0，1就能代表关联表中有哪些对应的字段</p>
+<p>数据设计是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">--4,岗位表</span><br><span class="line">create table Station</span><br><span class="line">(</span><br><span class="line">	StationID int primary key ,				 --岗位ID</span><br><span class="line">	StationName varchar(50) not null,		 --岗位名称</span><br><span class="line">	Remarks varchar(50),					 --岗位被准</span><br><span class="line">)</span><br><span class="line">insert into Station values(1,&#x27;软件测试&#x27;,&#x27;软测&#x27;);</span><br><span class="line">insert into Station values(2,&#x27;软件开发&#x27;,&#x27;开发&#x27;);</span><br><span class="line">insert into Station values(4,&#x27;php&#x27;,&#x27;最好的语言&#x27;);</span><br><span class="line">insert into Station values(8,&#x27;.net开发&#x27;,&#x27;aa&#x27;);</span><br><span class="line">insert into Station values(16,&#x27;Android开发&#x27;,&#x27;bb&#x27;);</span><br><span class="line">insert into Station values(32,&#x27;java开发&#x27;,&#x27;cc&#x27;);</span><br><span class="line">insert into Station values(64,&#x27;javaScript&#x27;,&#x27;cc&#x27;);</span><br><span class="line"></span><br><span class="line">select * from Station where StationName like&#x27;%%&#x27; order by StationID desc</span><br><span class="line"></span><br><span class="line">go</span><br><span class="line">--5,专业表</span><br><span class="line">create table Major</span><br><span class="line">(</span><br><span class="line">	proID int primary key identity(1,1),				--专业ID</span><br><span class="line">	proName varchar(50) not null,						--专业名称</span><br><span class="line">	SchoolID int not null references School(SchoolID),	--校区ID(外键)</span><br><span class="line">	StationS int,										--和岗位关系</span><br><span class="line">	Remarks varchar(50),								--岗位备注</span><br><span class="line">)</span><br><span class="line">insert into Major values(&#x27;软件测试&#x27;,1,0,&#x27;测试&#x27;)</span><br><span class="line">insert into Major values(&#x27;软件工程&#x27;,1,3,&#x27;&#x27;);</span><br><span class="line">insert into Major values(&#x27;软件测试&#x27;,1,11,&#x27;&#x27;);</span><br><span class="line">insert into Major values(&#x27;网络工程&#x27;,1,4,&#x27;&#x27;);</span><br><span class="line">insert into Major values(&#x27;图形图像&#x27;,2,38,&#x27;&#x27;);</span><br><span class="line">insert into Major values(&#x27;软件测试&#x27;,3,21,&#x27;&#x27;);</span><br><span class="line">insert into Major values(&#x27;网络工程&#x27;,3,7,&#x27;&#x27;);</span><br><span class="line">insert into Major values(&#x27;图形图像&#x27;,3,38,&#x27;&#x27;);</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/images/20170722172536270.png" alt="">  </p>
+<p>岗位表的编号采用2的n次幂，专业表中的StationS用一个数字可以代表岗位表中关联的岗位</p>
+<p>如岗位表中的80，可以推算出岗位表中有64+16这两个岗位组成的</p>
+<p>大概关系就是那样的，主要是每次把数组转换成”外键关系“，需要进行计算，然后做增删改查也比较麻烦</p>
+<p><img src="/images/20170722172520080.png" alt=""></p>
+<p>岗位的查询，添加，取消</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 绑定专业对应的岗位信息</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;param name=&quot;majorID&quot;&gt;&lt;/param&gt;</span><br><span class="line">private void GetHideMajorInfo(string majorID)</span><br><span class="line">&#123;</span><br><span class="line">    Model.majorModel model = new Model.majorModel();</span><br><span class="line">    model.PproName = &quot;&quot;;</span><br><span class="line">    model.PproID = int.Parse(majorID);</span><br><span class="line">    DataTable dt = bll.MajorAndSchool(model);</span><br><span class="line">    this.txtMajorName.Text=dt.Rows[0][&quot;proName&quot;].ToString();</span><br><span class="line">    this.txtSchool.Text=dt.Rows[0][&quot;SchoolName&quot;].ToString();</span><br><span class="line">    int GGNumber=int.Parse(dt.Rows[0][&quot;StationS&quot;].ToString());</span><br><span class="line"></span><br><span class="line">    DataTable gws = bll.selectStation();</span><br><span class="line">    this.DDLStationMy.Items.Clear();</span><br><span class="line">    foreach (DataRow row in gws.Rows)</span><br><span class="line">    &#123;</span><br><span class="line">        int p = int.Parse(row[&quot;StationID&quot;].ToString());</span><br><span class="line">        if(p&lt;= GGNumber)</span><br><span class="line">        &#123;</span><br><span class="line">            GGNumber -= p;</span><br><span class="line">            string key = row[&quot;StationName&quot;].ToString();</span><br><span class="line">            string value = row[&quot;StationID&quot;].ToString();</span><br><span class="line">            this.DDLStationMy.Items.Add(new ListItem(key, value));</span><br><span class="line">            if (GGNumber == 0) break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 绑定所有岗位信息</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">private void GetBindDDLStation()</span><br><span class="line">&#123;</span><br><span class="line">    this.DDLStationAll.DataSource = bll.selectStation();</span><br><span class="line">    this.DDLStationAll.DataTextField = &quot;StationName&quot;;</span><br><span class="line">    this.DDLStationAll.DataValueField = &quot;StationID&quot;;</span><br><span class="line">    this.DDLStationAll.DataBind();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 添加岗位</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;e&quot;&gt;&lt;/param&gt;</span><br><span class="line">protected void btnAdd_Click(object sender, EventArgs e)</span><br><span class="line">&#123;</span><br><span class="line">    string MajorID = Request.QueryString[&quot;MajorID&quot;];</span><br><span class="line">    int number =int.Parse(this.DDLStationAll.SelectedValue);</span><br><span class="line">    foreach ( ListItem ll in DDLStationMy.Items)</span><br><span class="line">    &#123;</span><br><span class="line">        if(ll.Value== number.ToString())</span><br><span class="line">        &#123;</span><br><span class="line">            ClientScript.RegisterStartupScript(GetType(), &quot;UserMain&quot;, &quot;alert(&#x27;该专业已经存在！&#x27;)&quot;, true);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    bll.AddStationbyNumber(&#x27;+&#x27;, number,int.Parse(MajorID));</span><br><span class="line">    GetHideMajorInfo(MajorID);</span><br><span class="line">&#125;</span><br><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 取消岗位</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;param name=&quot;sender&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;e&quot;&gt;&lt;/param&gt;</span><br><span class="line">protected void btnUpa_Click(object sender, EventArgs e)</span><br><span class="line">&#123;</span><br><span class="line">    string MajorID = Request.QueryString[&quot;MajorID&quot;];</span><br><span class="line">    int number = int.Parse(this.DDLStationMy.SelectedValue);</span><br><span class="line">    bll.AddStationbyNumber(&#x27;-&#x27;, number, int.Parse(MajorID));</span><br><span class="line">    GetHideMajorInfo(MajorID);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>设置添加新岗位的ID编号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">BLL.StationBLL bll = new BLL.StationBLL();</span><br><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 设置新加的岗位ID</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">private void GetTxtStationID()</span><br><span class="line">&#123;</span><br><span class="line">    DataTable dt = bll.SelectStationID();//查询Station表中所有的ID</span><br><span class="line">    for (int newId = 1; newId &lt; Math.Pow(2,31); newId *= 2)</span><br><span class="line">    &#123;</span><br><span class="line">        bool falg = true;//新创建的id能否使用</span><br><span class="line">        foreach (DataRow row in dt.Rows)</span><br><span class="line">        &#123;</span><br><span class="line">            int id = int.Parse(row[&quot;StationID&quot;].ToString());//数据库中的id</span><br><span class="line">            if(id== newId)//新创建的id数据库中已经存在</span><br><span class="line">            &#123;</span><br><span class="line">                falg = false;//新创建的id不能用</span><br><span class="line">                break;//跳出循环，在创建一个newID</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (falg)//新创建的id可以用,找到了,赋值，跳出循环</span><br><span class="line">        &#123;</span><br><span class="line">            this.txtStationID.Text = newId.ToString();</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改专业的岗位SQL语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 修改专业的岗位信息</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;param name=&quot;addNumber&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;majorId&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">public bool AddStationbyNumber(char fuhao, int Number,int majorId)</span><br><span class="line">&#123;</span><br><span class="line">    string sql = string.Format(&quot;update Major set StationS&#123;0&#125;=&#123;1&#125; where proID=&#123;2&#125;&quot;, fuhao, Number, majorId);</span><br><span class="line">    return DbHelperSQL.ExecuteSql(sql)&gt;0?true:false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>数据库删除某个岗位，对应专业中减去该岗位的数值 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 删除岗位表中的数据</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;param name=&quot;id&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">public bool DeleteStationByID(int id)</span><br><span class="line">&#123;</span><br><span class="line">    string sql = &quot;delete Station where StationID=&quot;+id;</span><br><span class="line">    UpdateMajorByStation(id);</span><br><span class="line">    return DbHelperSQL.ExecuteSql(sql) &gt; 0 ? true : false;</span><br><span class="line">&#125;</span><br><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 删除岗位表中数据更新专业表中number</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;param name=&quot;id&quot;&gt;&lt;/param&gt;</span><br><span class="line">public void UpdateMajorByStation(int id)</span><br><span class="line">&#123;</span><br><span class="line">    DAL.majorDAL major = new majorDAL();</span><br><span class="line">    DataTable dt = major.selectMajorAll();</span><br><span class="line">    DataTable Station = SelectStationInfo(&quot;&quot;);</span><br><span class="line">    foreach (DataRow row in dt.Rows)</span><br><span class="line">    &#123;</span><br><span class="line">        int number = int.Parse(row[&quot;StationS&quot;].ToString());</span><br><span class="line">        foreach (DataRow item in Station.Rows)</span><br><span class="line">        &#123;</span><br><span class="line">            int p = int.Parse(item[&quot;StationID&quot;].ToString());</span><br><span class="line">            if (number &gt;= p)</span><br><span class="line">            &#123;</span><br><span class="line">                number -= p;</span><br><span class="line">                if (p == id)</span><br><span class="line">                &#123;</span><br><span class="line">                    updateMajorNumber(row[&quot;proID&quot;].ToString(), id);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void updateMajorNumber(string Majorid,int id)</span><br><span class="line">&#123;</span><br><span class="line">    string sql =string.Format(&quot;update Major set StationS-=&#123;0&#125; where proID=&#123;1&#125;&quot;,id,Majorid);</span><br><span class="line">    DbHelperSQL.ExecuteSql(sql);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ps:好多没解释清楚。算了就这样把   </p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2017/07/22/%E3%80%90Asp.Net%E3%80%91%E4%B8%93%E4%B8%9A%E5%92%8C%E5%B2%97%E4%BD%8D%E7%AE%A1%E7%90%86/" title="【Asp.Net】专业和岗位管理">http://blog.bfsdfs.com/2017/07/22/【Asp.Net】专业和岗位管理/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Asp-Net/" rel="tag"># Asp.Net</a>
+              <a href="/tags/DIY/" rel="tag"># DIY</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/07/01/%E3%80%90SqlServer%E3%80%91%E5%88%A0%E9%99%A4%E8%A1%A8%E5%8F%8A%E5%88%A0%E9%99%A4%E8%A1%A8%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E6%96%B9%E6%B3%95/" rel="prev" title="【SqlServer】删除表及删除表中数据的方法">
+      <i class="fa fa-chevron-left"></i> 【SqlServer】删除表及删除表中数据的方法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/07/25/%E3%80%90DIY%E3%80%91%E5%AE%9E%E6%97%B6%E6%88%AA%E5%B1%8F%E4%B8%8A%E4%BC%A0%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="next" title="【DIY】实时截屏上传到服务器">
+      【DIY】实时截屏上传到服务器 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E4%B8%8E%E8%A1%A8%E4%B9%8B%E9%97%B4%E5%A4%9A%E5%AF%B9%E5%A4%9A%E5%85%B3%E7%B3%BB%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">数据库表与表之间多对多关系怎么处理？</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'da60d516a4156ecafd44bc0036942a33',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

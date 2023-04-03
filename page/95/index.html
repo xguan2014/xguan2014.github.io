@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/95/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/02/20/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E7%9F%A9%E9%98%B5%E7%BF%BB%E7%A1%AC%E5%B8%81(%E5%A4%A7%E6%95%B0%E5%BC%80%E6%96%B9)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/20/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E7%9F%A9%E9%98%B5%E7%BF%BB%E7%A1%AC%E5%B8%81(%E5%A4%A7%E6%95%B0%E5%BC%80%E6%96%B9)/" class="post-title-link" itemprop="url">【算法】矩阵翻硬币(大数开方)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-20 16:11:40" itemprop="dateCreated datePublished" datetime="2017-02-20T16:11:40+08:00">2017-02-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">算法竞赛</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>历届试题 矩阵翻硬币 </p>
+<p>时间限制：1.0s 内存限制：256.0MB</p>
+<p>问题描述</p>
+<p>小明先把硬币摆成了一个 n 行 m 列的矩阵。  </p>
+<p>随后，小明对每一个硬币分别进行一次 Q 操作。  </p>
+<p>对第x行第y列的硬币进行 Q 操作的定义：将所有第 i<em>x 行，第 j</em>y 列的硬币进行翻转。  </p>
+<p>其中i和j为任意使操作可行的正整数，行号和列号都是从1开始。  </p>
+<p>当小明对所有硬币都进行了一次 Q 操作后，他发现了一个奇迹——所有硬币均为正面朝上。  </p>
+<p>小明想知道最开始有多少枚硬币是反面朝上的。于是，他向他的好朋友小M寻求帮助。  </p>
+<p>聪明的小M告诉小明，只需要对所有硬币再进行一次Q操作，即可恢复到最开始的状态。然而小明很懒，不愿意照做。于是小明希望你给出他更好的方法。帮他计算出答案。</p>
+<p>输入格式</p>
+<p>输入数据包含一行，两个正整数 n m，含义见题目描述。</p>
+<p>输出格式</p>
+<p>输出一个正整数，表示最开始有多少枚硬币是反面朝上的。</p>
+<p>样例输入</p>
+<p>2 3</p>
+<p>样例输出</p>
+<p>1</p>
+<p>数据规模和约定</p>
+<p>对于10%的数据，n、m &lt;= 10^3；<br>对于20%的数据，n、m &lt;= 10^7；<br>对于40%的数据，n、m &lt;= 10^15；<br>对于10%的数据，n、m &lt;= 10^1000（10的1000次方）。</p>
+<p>这个题最先是想着通过模拟翻硬币的那个过程做的，但是提交后数据量非常大只过了10%的数据，然后打印出翻硬币的情况，从中发现了规律。</p>
+<p>最终，归结为n开方数*m的开方数即为最终输出的结果。燃鹅，n和m都是非常的数，这就涉及到大数开方的算法。</p>
+<p>模拟翻硬币的过程代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class 矩阵翻硬币 &#123;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		Scanner sc=new Scanner(System.in);</span><br><span class="line">		int n=sc.nextInt();</span><br><span class="line">		int m=sc.nextInt();</span><br><span class="line">				</span><br><span class="line">		int count=getFan(n+1,m+1);</span><br><span class="line">		System.out.println(count);</span><br><span class="line">	&#125;</span><br><span class="line">	private static int getFan(int n,int m) &#123;</span><br><span class="line">		</span><br><span class="line">		int[][] data=new int[n][m];</span><br><span class="line">		</span><br><span class="line">		for (int i = 1; i &lt; n+1; i++) &#123;</span><br><span class="line">			for (int j = 1; j &lt; m+1; j++) &#123;</span><br><span class="line">				int x=i,y=j;</span><br><span class="line">				for (int k = 1; k*x &lt; n; k++) &#123;</span><br><span class="line">					for (int h = 1; h*y &lt; m ; h++) &#123;</span><br><span class="line">						if(data[k*x][h*y]==0)</span><br><span class="line">							data[k*x][h*y]=1;</span><br><span class="line">						else</span><br><span class="line">							data[k*x][h*y]=0;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		int count=0;</span><br><span class="line">		for (int i = 1; i &lt; n; i++) &#123;</span><br><span class="line">			for (int j = 1; j &lt; m; j++) &#123;</span><br><span class="line">				System.out.print(data[i][j]+&quot;,&quot;);</span><br><span class="line">				if(data[i][j]==1)</span><br><span class="line">					count++;</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println();</span><br><span class="line">		&#125;</span><br><span class="line">		return count;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>找到规律后用n开方*m开方：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import java.math.BigInteger;</span><br><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class 大数开方2 &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		Scanner sc=new Scanner(System.in);</span><br><span class="line">		</span><br><span class="line">		BigInteger n=sc.nextBigInteger();</span><br><span class="line">		BigInteger m=sc.nextBigInteger();</span><br><span class="line">		</span><br><span class="line">		System.out.println(sqrt(n).multiply(sqrt(m)));</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static BigInteger sqrt(BigInteger n) &#123;</span><br><span class="line">		BigInteger a;</span><br><span class="line">		BigInteger b;</span><br><span class="line">		</span><br><span class="line">		a=BigInteger.TEN.pow((int)n.toString().length()/2);</span><br><span class="line">		b=n.divide(a);</span><br><span class="line">		</span><br><span class="line">		while(!(a.equals(b)||a.equals(b.add(new BigInteger(&quot;-1&quot;)))||b.equals(a.add(new BigInteger(&quot;-1&quot;)))))&#123;</span><br><span class="line">				a=a.add(b).divide(new BigInteger(&quot;2&quot;));//a=(a+b)/2</span><br><span class="line">				b=n.divide(a);</span><br><span class="line">			&#125;</span><br><span class="line">		</span><br><span class="line">		if (a.equals(b.add(new BigInteger(&quot;-1&quot;)))) &#123;</span><br><span class="line">			return a;</span><br><span class="line">		&#125;</span><br><span class="line">		return b;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大数开方的算法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import java.math.BigInteger;</span><br><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class 大数开方3 &#123;</span><br><span class="line">	public static BigInteger getSqrt(BigInteger n)&#123;</span><br><span class="line">		BigInteger a,b;</span><br><span class="line">		BigInteger cs=new BigInteger(&quot;2&quot;);</span><br><span class="line">		int len=n.toString().length();</span><br><span class="line">		a=BigInteger.TEN.pow(len/2);</span><br><span class="line">		b=n.divide(a);</span><br><span class="line">		int k=1;</span><br><span class="line">		while(k==1)&#123;</span><br><span class="line">			if(a.equals(b)||a.equals(BigInteger.ONE.add(b))||b.equals(BigInteger.ONE.add(a)))&#123;</span><br><span class="line">				k=0;</span><br><span class="line">			&#125;else&#123;</span><br><span class="line">				a=a.add(b).divide(cs);</span><br><span class="line">				b=n.divide(a);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return a;</span><br><span class="line">	&#125;</span><br><span class="line">	/**</span><br><span class="line">	 * @param args</span><br><span class="line">	 */</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		// TODO Auto-generated method stub</span><br><span class="line">		Scanner sc=new Scanner(System.in);</span><br><span class="line">		for (int i = 1; i &lt; 20; i++) &#123;</span><br><span class="line">			BigInteger n=BigInteger.valueOf(i);</span><br><span class="line">			System.out.println(i+&quot;开方为：&quot;+getSqrt(n));</span><br><span class="line">		&#125;</span><br><span class="line">		//BigInteger n=sc.nextBigInteger();</span><br><span class="line">		//System.out.println(getSqrt(n));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/02/15/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B4%E6%95%B0%E7%9A%84%E6%8B%86%E5%88%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/15/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E6%95%B4%E6%95%B0%E7%9A%84%E6%8B%86%E5%88%86/" class="post-title-link" itemprop="url">【算法】整数的拆分</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-15 19:57:40" itemprop="dateCreated datePublished" datetime="2017-02-15T19:57:40+08:00">2017-02-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">算法竞赛</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>题目：</p>
+<p>给定一个正整数n，求一共有多少种方式将它写成若干个正整数之和。</p>
+<p>例如：<br>n=4，则输出5.因为4只有如下五种求和方式：<br>4 = 4<br>4 = 3 + 1<br>4 = 2 + 2<br>4 = 2 + 1 + 1<br>4 = 1 + 1 + 1 + 1</p>
+<p>第一种方法，简单递归。<br>n的拆分，太复杂，但是如果我们限制了最多拆成几个整数之和，就简单些<br>例如<br>拆成一个整数：4 = 4 一种<br>拆成两个整数：4 = 3 + 1；4 = 2 + 2 两种……</p>
+<h2 id="递归（记忆化）"><a href="#递归（记忆化）" class="headerlink" title="递归（记忆化）"></a>递归（记忆化）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class 整数拆分1 &#123;</span><br><span class="line"></span><br><span class="line">	static int[][] data;</span><br><span class="line">	static int p(int n, int m)&#123;</span><br><span class="line"></span><br><span class="line">		System.out.println(n+&quot;+&quot;+m);</span><br><span class="line">		if(n&lt;m)return 0;</span><br><span class="line">		</span><br><span class="line">		if(n==1||m==1||n==m) return 1;</span><br><span class="line">		</span><br><span class="line">		if(n&gt;m)&#123; </span><br><span class="line">			if(data[n][m]==-1)</span><br><span class="line">				data[n][m]=p(n-1,m-1)+p(n-m,m);</span><br><span class="line">			return data[n][m];</span><br><span class="line">		&#125;</span><br><span class="line">		return 0;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		Scanner sc = new Scanner(System.in);</span><br><span class="line">		int n = sc.nextInt();</span><br><span class="line">		data=new int[n+1][n+1];</span><br><span class="line">		</span><br><span class="line">		for (int i = 0; i &lt; n+1; i++) &#123;</span><br><span class="line">			for (int j = 0; j &lt; n+1; j++) &#123;</span><br><span class="line">				data[i][j]=-1;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		int result = 0;</span><br><span class="line">		for(int i=1; i&lt;=n; i++)&#123;</span><br><span class="line">			result += p(n, i);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(result);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class 数的拆分dp &#123;</span><br><span class="line"></span><br><span class="line">	static int[][] dp;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		Scanner sc = new Scanner(System.in);</span><br><span class="line">		int n = sc.nextInt();</span><br><span class="line">		dp=new int[n+1][n+1];</span><br><span class="line"></span><br><span class="line">		for (int i = 1; i &lt; n+1; i++) &#123;</span><br><span class="line">			dp[i][1]=1;</span><br><span class="line">			dp[i][i]=1;</span><br><span class="line">			for (int j = 1; j &lt; n+1; j++) &#123;</span><br><span class="line">				if(i&gt;j)&#123;</span><br><span class="line">					dp[i][j]=dp[i-1][j-1]+dp[i-j][j];</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			for (int j = 1; j &lt; i+1; j++) &#123;</span><br><span class="line">				dp[i][n]+=dp[i][j];</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			//打表</span><br><span class="line">			for (int j = 0; j &lt; n+1; j++) &#123;</span><br><span class="line">				System.out.print(dp[i][j]+&quot;,&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println();</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(dp[n][n]/2);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="用dfs写的"><a href="#用dfs写的" class="headerlink" title="用dfs写的"></a>用dfs写的</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class 数的拆分 &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		int[] data=new int[100];</span><br><span class="line">		f(6,0,data);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static void f(int m, int k,int[] data) &#123;</span><br><span class="line">		if(m==0)</span><br><span class="line">		&#123;</span><br><span class="line">			for (int i = 0; i &lt; k; i++) &#123;</span><br><span class="line">				System.out.print(data[i]+&quot; &quot;);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		for (int i = m; i &gt; 0; i--) &#123;</span><br><span class="line">			if(k&gt;0 &amp;&amp; data[k-1]&lt;i)continue;</span><br><span class="line">			data[k]=i;</span><br><span class="line">			f(m-i,k+1,data);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/02/11/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%9C%B0%E5%AE%AB%E5%8F%96%E5%AE%9D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/02/11/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%9C%B0%E5%AE%AB%E5%8F%96%E5%AE%9D/" class="post-title-link" itemprop="url">【算法】地宫取宝</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-02-11 17:08:59" itemprop="dateCreated datePublished" datetime="2017-02-11T17:08:59+08:00">2017-02-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">算法竞赛</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>历届试题 地宫取宝 </p>
+<p>时间限制：1.0s 内存限制：256.0MB</p>
+<p>问题描述</p>
+<p>X 国王有一个地宫宝库。是 n x m 个格子的矩阵。每个格子放一件宝贝。每个宝贝贴着价值标签。  </p>
+<p>地宫的入口在左上角，出口在右下角。  </p>
+<p>小明被带到地宫的入口，国王要求他只能向右或向下行走。  </p>
+<p>走过某个格子时，如果那个格子中的宝贝价值比小明手中任意宝贝价值都大，小明就可以拿起它（当然，也可以不拿）。  </p>
+<p>当小明走到出口时，如果他手中的宝贝恰好是k件，则这些宝贝就可以送给小明。  </p>
+<p>请你帮小明算一算，在给定的局面下，他有多少种不同的行动方案能获得这k件宝贝。</p>
+<p>输入格式</p>
+<p>输入一行3个整数，用空格分开：n m k (1&lt;=n,m&lt;=50, 1&lt;=k&lt;=12)  </p>
+<p>接下来有 n 行数据，每行有 m 个整数 Ci (0&lt;=Ci&lt;=12)代表这个格子上的宝物的价值</p>
+<p>输出格式</p>
+<p>要求输出一个整数，表示正好取k个宝贝的行动方案数。该数字可能很大，输出它对 1000000007 取模的结果。</p>
+<p>样例输入</p>
+<p>2 2 2<br>1 2<br>2 1</p>
+<p>样例输出</p>
+<p>2</p>
+<p>样例输入</p>
+<p>2 3 2<br>1 2 3<br>2 1 5</p>
+<p>样例输出</p>
+<p>14</p>
+<p>类似迷宫问题，然后刚学了。只过了42%的数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">	static int n,m,k;</span><br><span class="line">	static int[][] map;</span><br><span class="line">	static int t=0;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		</span><br><span class="line">		Scanner sc=new Scanner(System.in);</span><br><span class="line">		n=sc.nextInt();</span><br><span class="line">		m=sc.nextInt();</span><br><span class="line">		k=sc.nextInt();</span><br><span class="line">		map=new int[2+n][2+m];</span><br><span class="line">		</span><br><span class="line">		for (int i = 0; i &lt; 2+n; i++) &#123;</span><br><span class="line">			for (int j = 0; j &lt; 2+m; j++) &#123;</span><br><span class="line">				if(i==0||j==0||i==1+n||j==1+m)//加一道墙</span><br><span class="line">					map[i][j]=-1;</span><br><span class="line">				else</span><br><span class="line">					map[i][j]=sc.nextInt();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		dfs(1,1,-1,0);</span><br><span class="line">		dfs(1,1,map[1][1],1);</span><br><span class="line">		System.out.println(t);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//max当前拿到手中的最大个，count已经拿了多少个</span><br><span class="line">	private static void dfs(int i, int j,int max,int count) &#123;</span><br><span class="line">		</span><br><span class="line">		//System.out.println(&quot;(&quot;+i+&quot;,&quot;+j+&quot;),count=&quot;+count+&quot;,max=&quot;+max);</span><br><span class="line">		//到达终点</span><br><span class="line">		if(i==n&amp;&amp;j==m)&#123;</span><br><span class="line">			if(count==k)&#123;</span><br><span class="line">				t=(t+1)%1000000007;</span><br><span class="line">				//System.out.println(&quot;OK!&quot;);</span><br><span class="line">				return;</span><br><span class="line">			&#125;			</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		if(!check(i,j))&#123;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		//向右走</span><br><span class="line">		if(check(i,j+1))&#123;</span><br><span class="line">			dfs(i,j+1,max,count);</span><br><span class="line">			//能不能拿起</span><br><span class="line">			if(map[i][j+1]&gt;max)&#123;</span><br><span class="line">				dfs(i,j+1,map[i][j+1],count+1);//拿不拿起</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		//向下走</span><br><span class="line">		if(check(i+1,j))&#123;</span><br><span class="line">			dfs(i+1,j,max,count);</span><br><span class="line">			if(map[i+1][j]&gt;max)&#123;</span><br><span class="line">				dfs(i+1,j,map[i+1][j],count+1);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static boolean check(int i, int j) &#123;</span><br><span class="line">		if(map[i][j]!=-1)</span><br><span class="line">			return true;</span><br><span class="line">		else</span><br><span class="line">			return false;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p> 优化后的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"> import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * 修改后的递归</span><br><span class="line"> */</span><br><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">	static int n,m,k;</span><br><span class="line">	static int[][] map;</span><br><span class="line">	static long[][][][] data;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) &#123;		</span><br><span class="line">		Scanner sc=new Scanner(System.in);</span><br><span class="line">		n=sc.nextInt();</span><br><span class="line">		m=sc.nextInt();</span><br><span class="line">		k=sc.nextInt();</span><br><span class="line">		map=new int[n+2][m+2];</span><br><span class="line">		data=new long[52][52][14][14];</span><br><span class="line">		</span><br><span class="line">		for(int i=0;i&lt;52;i++)&#123;</span><br><span class="line">			for(int ii=0;ii&lt;52;ii++)&#123;</span><br><span class="line">				for(int iii=0;iii&lt;14;iii++)&#123;</span><br><span class="line">					for(int iiii=0;iiii&lt;14;iiii++)&#123;</span><br><span class="line">						data[i][ii][iii][iiii]=-1;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		for (int i = 0; i &lt; n+2; i++) &#123;</span><br><span class="line">			for (int j = 0; j &lt; m+2; j++) &#123;</span><br><span class="line">				if(i==0||j==0||i==n+1||j==m+1)//加一道墙</span><br><span class="line">					map[i][j]=-1;</span><br><span class="line">				else</span><br><span class="line">					map[i][j]=sc.nextInt();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		long total = dfs(1,1,-1,k); //从(1,1)开始，还可以拿k个，现在可拿&quot;&gt;-1&quot;的值</span><br><span class="line">									//这里写dfs(1,1,0,k)效果是一样的，为防止map中有质量为0的物品，写-1更稳妥</span><br><span class="line">		System.out.println(total%1000000007);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//max当前拿到手中的最大个，count还可以拿多少个</span><br><span class="line">	private static long dfs(int i, int j,int max,int count) &#123;		</span><br><span class="line">		//System.out.println(&quot;(&quot;+i+&quot;,&quot;+j+&quot;),count=&quot;+count+&quot;,max=&quot;+max);</span><br><span class="line">		</span><br><span class="line">		//无意义</span><br><span class="line">		if(!check(i, j, count))&#123;</span><br><span class="line">			return 0;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		//到达</span><br><span class="line">		if(i==n &amp;&amp; j==m &amp;&amp; count==0)&#123;</span><br><span class="line">			//System.out.println(&quot;成功！&quot;);</span><br><span class="line">			return data[i][j][max+1][count]=1;</span><br><span class="line">		&#125;		</span><br><span class="line">		</span><br><span class="line">		if(i==n &amp;&amp; j==m &amp;&amp; count==1 &amp;&amp; map[i][j]&gt;max)&#123;</span><br><span class="line">			//System.out.println(&quot;成功！取最后一个&quot;);</span><br><span class="line">			return data[i][j][max+1][count]=1;</span><br><span class="line">		&#125;		</span><br><span class="line">		</span><br><span class="line">		if(data[i][j][max+1][count]!=-1)&#123;</span><br><span class="line">			return data[i][j][max+1][count];</span><br><span class="line">		&#125;</span><br><span class="line">		//如果现在的可以拿，则有四种情况：拿起，向右走；拿起，向下走；不拿，向右走；不拿向下走。</span><br><span class="line">		if(map[i][j]&gt;max)&#123;</span><br><span class="line">			data[i][j][max+1][count]=dfs(i,j+1,map[i][j],count-1)+dfs(i+1,j,map[i][j],count-1)+dfs(i,j+1,max,count)+dfs(i+1,j,max,count);</span><br><span class="line">			return data[i][j][max+1][count];</span><br><span class="line">		&#125;		</span><br><span class="line">		</span><br><span class="line">		//如果现在的不能拿，则有两种情况：不拿，向右走；不拿向下走。</span><br><span class="line">		if(map[i][j]&lt;=max)&#123;</span><br><span class="line">			data[i][j][max+1][count]=dfs(i+1,j,max,count)+dfs(i,j+1,max,count);</span><br><span class="line">			return data[i][j][max+1][count];</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		return 0;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static boolean check(int i, int j, int count) &#123;</span><br><span class="line">		if(map[i][j]!=-1 &amp;&amp; count&gt;=0)</span><br><span class="line">			return true;</span><br><span class="line">		else</span><br><span class="line">			return false;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/94/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/94/">94</a><span class="page-number current">95</span><a class="page-number" href="/page/96/">96</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/96/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

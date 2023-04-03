@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转载自：http:&#x2F;&#x2F;www.cnblogs.com&#x2F;madyina&#x2F;p&#x2F;4121458.html 1.ActiveMQ简介 先分析这么一个场景：当我们在网站上购物时，必须经过，下订单、发票创建、付款处理、订单履行、航运等。但是，当用户下单后，立即跳转到“感谢那您的订单” 页面。不仅如此，若果没有延迟，用户还会受到一封电子邮件。如果我们使用传统方式去实现，一般是对数据库操作一通，然后调用各种接口、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net】平台下ActiveMQ入门实例">
+<meta property="og:url" content="http://blog.bfsdfs.com/2018/03/28/%E3%80%90.Net%E3%80%91%E5%B9%B3%E5%8F%B0%E4%B8%8BActiveMQ%E5%85%A5%E9%97%A8%E5%AE%9E%E4%BE%8B/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="转载自：http:&#x2F;&#x2F;www.cnblogs.com&#x2F;madyina&#x2F;p&#x2F;4121458.html 1.ActiveMQ简介 先分析这么一个场景：当我们在网站上购物时，必须经过，下订单、发票创建、付款处理、订单履行、航运等。但是，当用户下单后，立即跳转到“感谢那您的订单” 页面。不仅如此，若果没有延迟，用户还会受到一封电子邮件。如果我们使用传统方式去实现，一般是对数据库操作一通，然后调用各种接口、">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images0.cnblogs.com/blog/16765/201411/252031275743741.jpg">
+<meta property="og:image" content="https://images0.cnblogs.com/blog/16765/201411/252031290908010.png">
+<meta property="og:image" content="https://images0.cnblogs.com/blog/16765/201411/252031305127009.png">
+<meta property="article:published_time" content="2018-03-28T02:15:06.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.048Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net">
+<meta property="article:tag" content="ActiveMQ">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images0.cnblogs.com/blog/16765/201411/252031275743741.jpg">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2018/03/28/%E3%80%90.Net%E3%80%91%E5%B9%B3%E5%8F%B0%E4%B8%8BActiveMQ%E5%85%A5%E9%97%A8%E5%AE%9E%E4%BE%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net】平台下ActiveMQ入门实例 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/03/28/%E3%80%90.Net%E3%80%91%E5%B9%B3%E5%8F%B0%E4%B8%8BActiveMQ%E5%85%A5%E9%97%A8%E5%AE%9E%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net】平台下ActiveMQ入门实例
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-28 10:15:06" itemprop="dateCreated datePublished" datetime="2018-03-28T10:15:06+08:00">2018-03-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>转载自：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/madyina/p/4121458.html">http://www.cnblogs.com/madyina/p/4121458.html</a></p>
+<p>1.ActiveMQ简介</p>
+<p>先分析这么一个场景：当我们在网站上购物时，必须经过，下订单、发票创建、付款处理、订单履行、航运等。但是，当用户下单后，立即跳转到“感谢那您的订单” 页面。不仅如此，若果没有延迟，用户还会受到一封电子邮件。如果我们使用传统方式去实现，一般是对数据库操作一通，然后调用各种接口、各种服务等待各种响应，这样一来下个订单需要很久时间才能看到结果，如果某个环节出了问题，那这个订单结果一时半会是看不到了，对于现代电子商务来说，这是不能容忍的。 那么ActiveMQ久可以很好的解决这个问题：当用户下单后，有一个对ActiveMQ的调用，用来提交订单，然后系统就可以返回结果页面，而整个订单流程不会同步调用，后台JOB可以边聊天边跑。前台订单量很大的情况下每个订单也只需要调用一次，后台一下子处理不了？ 慢慢来，没人逼你，订单都在ActiveMQ中排队等待呢，他们可不会烦躁。 这个场景非常适合一种缓存队列，这种队列叫消息队列，很多产品都能实现这个功能，顺便回答下一个潜在的问题：他可比数据库操作快多了。</p>
+<p>本文就从基础开始一起学习下，本文系统运行环境：Window7 32位</p>
+<p>2.下载ActiveMQ</p>
+<p>官方网站下载地址：<a target="_blank" rel="noopener" href="http://activemq.apache.org/">http://activemq.apache.org/</a></p>
+<p>3.运行ActiveMQ</p>
+<p>解压缩apache-activemq-5.10.0-bin.zip，然后双击apache-activemq-5.10.0\bin\win32\activemq.bat运行ActiveMQ程序。</p>
+<p>看见控制台最后一行输出： “access to all MBeans is allowed” 证明启动成功。</p>
+<p>启动ActiveMQ以后，可以使用浏览器登陆：<a target="_blank" rel="noopener" href="http://localhost:8161/admin/">http://localhost:8161/admin/</a>验证， 默认用户名是：admin 密码是：admin</p>
+<p>（前提是安装好Java环境）</p>
+<p>同时下载.net版Dll：Apache.NMS-1.6.0-bin.zip和Apache.NMS.ActiveMQ-1.6.4-bin.zip</p>
+<p>都从这里下载：<a target="_blank" rel="noopener" href="http://archive.apache.org/dist/activemq/apache-nms/1.6.0/">http://archive.apache.org/dist/activemq/apache-nms/1.6.0/</a></p>
+<p>3.第一个ActiveMQ例子</p>
+<p>先使用C#编写一个消息源，也就是生产者：</p>
+<p>界面很简单，一个Lable，一个TextBox，一个Button，然后添加Apache.NMS.dll和Apache.NMS.ActiveMQ.dll引用，在上述另外2个下载包里面找，注意版本号。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">public Form1()</span><br><span class="line">&#123;</span><br><span class="line">    InitializeComponent();</span><br><span class="line">    InitProducer();</span><br><span class="line">&#125;</span><br><span class="line">private IConnectionFactory factory;</span><br><span class="line"></span><br><span class="line">public void InitProducer()</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        //初始化工厂，这里默认的URL是不需要修改的</span><br><span class="line">        factory = new  ConnectionFactory(&quot;tcp://localhost:61616&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        lbMessage.Text = &quot;初始化失败!!&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void btnConfirm_Click(object sender, EventArgs e)</span><br><span class="line">&#123;</span><br><span class="line">    //通过工厂建立连接</span><br><span class="line">    using (IConnection connection = factory.CreateConnection())</span><br><span class="line">    &#123;</span><br><span class="line">        //通过连接创建Session会话</span><br><span class="line">        using (ISession session = connection.CreateSession())</span><br><span class="line">        &#123;</span><br><span class="line">            //通过会话创建生产者，方法里面new出来的是MQ中的Queue</span><br><span class="line">            IMessageProducer prod = session.CreateProducer(new Apache.NMS.ActiveMQ.Commands.ActiveMQQueue(&quot;firstQueue&quot;));</span><br><span class="line">            //创建一个发送的消息对象</span><br><span class="line">            ITextMessage message = prod.CreateTextMessage();</span><br><span class="line">            //给这个对象赋实际的消息</span><br><span class="line">            message.Text = txtMessage.Text;</span><br><span class="line">            //设置消息对象的属性，这个很重要哦，是Queue的过滤条件，也是P2P消息的唯一指定属性</span><br><span class="line">            message.Properties.SetString(&quot;filter&quot;,&quot;demo&quot;);</span><br><span class="line">            //生产者把消息发送出去，几个枚举参数MsgDeliveryMode是否长链，MsgPriority消息优先级别，发送最小单位，当然还有其他重载</span><br><span class="line">            prod.Send(message, MsgDeliveryMode.NonPersistent, MsgPriority.Normal, TimeSpan.MinValue);</span><br><span class="line">            lbMessage.Text = &quot;发送成功!!&quot;;</span><br><span class="line">            txtMessage.Text = &quot;&quot;;</span><br><span class="line">            txtMessage.Focus();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://images0.cnblogs.com/blog/16765/201411/252031270275841.jpg"><img src="https://images0.cnblogs.com/blog/16765/201411/252031275743741.jpg" alt="无标题"></a></p>
+<p>可以点击按钮发送一些消息，这些消息就被暂存到ActiveMQ中了，可以登录刚才要密码的那个网页去查看。</p>
+<p><a target="_blank" rel="noopener" href="https://images0.cnblogs.com/blog/16765/201411/252031284028854.png"><img src="https://images0.cnblogs.com/blog/16765/201411/252031290908010.png" alt="无标题2"></a></p>
+<p>然后编写接收端，也就是消费者：</p>
+<p>同样添加那2个DLL的引用，界面很简单只有一个Lable：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">public Form1()</span><br><span class="line">&#123;</span><br><span class="line">InitializeComponent();</span><br><span class="line">InitConsumer();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">public void InitConsumer()</span><br><span class="line">&#123;</span><br><span class="line">    //创建连接工厂</span><br><span class="line">    IConnectionFactory factory = new ConnectionFactory(&quot;tcp://localhost:61616&quot;);</span><br><span class="line">    //通过工厂构建连接</span><br><span class="line">    IConnection connection = factory.CreateConnection();</span><br><span class="line">    //这个是连接的客户端名称标识</span><br><span class="line">    connection.ClientId = &quot;firstQueueListener&quot;;</span><br><span class="line">    //启动连接，监听的话要主动启动连接</span><br><span class="line">    connection.Start();</span><br><span class="line">    //通过连接创建一个会话</span><br><span class="line">    ISession session = connection.CreateSession();</span><br><span class="line">    //通过会话创建一个消费者，这里就是Queue这种会话类型的监听参数设置</span><br><span class="line">    IMessageConsumer consumer = session.CreateConsumer(new Apache.NMS.ActiveMQ.Commands.ActiveMQQueue(&quot;firstQueue&quot;), &quot;filter=&#x27;demo&#x27;&quot;);</span><br><span class="line">    //注册监听事件</span><br><span class="line">    consumer.Listener += new MessageListener(consumer_Listener);</span><br><span class="line">    //connection.Stop();</span><br><span class="line">    //connection.Close();  </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void consumer_Listener(IMessage message)</span><br><span class="line">&#123;</span><br><span class="line">    ITextMessage msg = (ITextMessage)message;</span><br><span class="line">    //异步调用下，否则无法回归主线程</span><br><span class="line">    tbReceiveMessage.Invoke(new DelegateRevMessage(RevMessage),msg);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public delegate void DelegateRevMessage(ITextMessage message);</span><br><span class="line"></span><br><span class="line">public void RevMessage(ITextMessage message)</span><br><span class="line">&#123;</span><br><span class="line">    tbReceiveMessage.Text += string.Format(@&quot;接收到:&#123;0&#125;&#123;1&#125;&quot;, message.Text, Environment.NewLine);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一启动就会发现，这边已经接收到了这些消息，并且服务器端的已经被删除了。</p>
+<p><a target="_blank" rel="noopener" href="https://images0.cnblogs.com/blog/16765/201411/252031296995125.png"><img src="https://images0.cnblogs.com/blog/16765/201411/252031305127009.png" alt="无标题3"></a> 4.总结</p>
+<p>以上实现了一个p2p方式的消息队列，就是暂时存进去等待处理，处理完了这个消息就没了，保证送达，不会丢失，也不会被掉包。这种模式使用场合有限，而且客户只能有一个，属于快递形式，满足不了订单处理要求，原因很简单：黑名单检查环节获取了这个订单信息，审核环节就获取不到了，下一节我们一起学习“消息群发”，就是大喊一声，订单来了，大家开始忙吧…</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2018/03/28/%E3%80%90.Net%E3%80%91%E5%B9%B3%E5%8F%B0%E4%B8%8BActiveMQ%E5%85%A5%E9%97%A8%E5%AE%9E%E4%BE%8B/" title="【.Net】平台下ActiveMQ入门实例">http://blog.bfsdfs.com/2018/03/28/【.Net】平台下ActiveMQ入门实例/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net/" rel="tag"># .Net</a>
+              <a href="/tags/ActiveMQ/" rel="tag"># ActiveMQ</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/03/27/%E3%80%90.Net%E3%80%91%E5%AF%B9%E8%B1%A1%E6%98%A0%E5%B0%84%E7%BB%84%E4%BB%B6Tiny%20Mapper/" rel="prev" title="【.Net】对象映射组件Tiny Mapper">
+      <i class="fa fa-chevron-left"></i> 【.Net】对象映射组件Tiny Mapper
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/03/28/%E3%80%90EF%E3%80%91%E4%BD%BF%E7%94%A8MySql%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" rel="next" title="【EF】使用MySql遇到的问题">
+      【EF】使用MySql遇到的问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '67e1282d6e9e91bf1182a9c00a4ae313',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

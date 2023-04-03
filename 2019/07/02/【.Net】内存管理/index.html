@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转自：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;kiba&#x2F;p&#x2F;10971744.html 托管内存与非托管内存 托管内存 C#语言开发的程序所使用的内存，我们称之为托管内存。那么什么是托管内存呢？我们可以先理解为，C#专用内存；即当C#的程序运行起来，会向电脑内存申请一块专用的内存区，而这块内存区，就叫做托管内存。 在C#语言开发的程序中，我们所声明的变量，不论是常量，还变量，都在这块内">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net】内存管理">
+<meta property="og:url" content="http://blog.bfsdfs.com/2019/07/02/%E3%80%90.Net%E3%80%91%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="转自：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;kiba&#x2F;p&#x2F;10971744.html 托管内存与非托管内存 托管内存 C#语言开发的程序所使用的内存，我们称之为托管内存。那么什么是托管内存呢？我们可以先理解为，C#专用内存；即当C#的程序运行起来，会向电脑内存申请一块专用的内存区，而这块内存区，就叫做托管内存。 在C#语言开发的程序中，我们所声明的变量，不论是常量，还变量，都在这块内">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/243596-20190603105634211-514076443.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/243596-20190609101111517-2044367084.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/243596-20190608164211901-1338481044.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/243596-20190613094114368-1865511434.png">
+<meta property="article:published_time" content="2019-07-02T02:41:56.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.046Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/243596-20190603105634211-514076443.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2019/07/02/%E3%80%90.Net%E3%80%91%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net】内存管理 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/07/02/%E3%80%90.Net%E3%80%91%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net】内存管理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-02 10:41:56" itemprop="dateCreated datePublished" datetime="2019-07-02T10:41:56+08:00">2019-07-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>  <a target="_blank" rel="noopener" href="https://www.cnblogs.com/kiba/p/10971744.html">转自：https://www.cnblogs.com/kiba/p/10971744.html</a></p>
+<p><strong>托管内存与非托管内存</strong></p>
+<p><strong>托管内存</strong></p>
+<p>C#语言开发的程序所使用的内存，我们称之为托管内存。那么什么是托管内存呢？我们可以先理解为，C#专用内存；即当C#的程序运行起来，会向电脑内存申请一块专用的内存区，而这块内存区，就叫做托管内存。</p>
+<p>在C#语言开发的程序中，我们所声明的变量，不论是常量，还变量，都在这块内存中。即，我们声明一个int k或是声明一个对象 new Class，他们都是在这块内存中的。</p>
+<p>而这块内存（托管内存），它很特别，它自身是带管理功能的，即，它自己会判断，你声明的内存还用不用，不用他就给回收了。</p>
+<p>既然是管理，那就肯定有个管理工具，那么，托管内存的管理工具是什么呢？</p>
+<p>GC——控制系统垃圾回收器，这个就是托管内存的管理工具了，他是专门管理内存回收的，这里就不过多的讲解GC了，有兴趣的朋友可以参考下面的网址。</p>
+<p>参考网址：</p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.gc?redirectedfrom=MSDN&amp;view=netframework-4.8">GC——控制系统垃圾回收器</a> </p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/api/system.weakreference?redirectedfrom=MSDN&amp;view=netframework-4.7.2">弱引用 WeakReference</a></p>
+<p><strong>非托管内存</strong></p>
+<p>既然，C#语言开发的程序所使用的内存，都叫托管内存，那么非托管内存自然就是C#程序不使用的内存了。</p>
+<p>那么，C#程序不使用的内存，有什么用呢？我们为什么要学习呢？</p>
+<p>因为，很多语言并不像C#这么优秀，有专门的内存管理机制，比如C++；所以，他们的变量和常量都是存储在非托管内存区的（对于很多语言而言，并没有托管内存和非托管内存之分，他们就一个内存，在内存中找个地址，然后存储数据）。</p>
+<p>所以，当我们在做项目遇到要和其他语言进行交互时，就要接触非托管内存了，因为很多时候，我们需要从非托管内存中获取一些的变量，或者向非托管内存中写入一些数据供其他语言调用。</p>
+<p>因此，从理论上来讲，C#语言对内存的管理是最复杂的，远大于C++，因为它不仅自己开辟了一块内存专区，同时又兼顾着控制专区外的内存。</p>
+<p>下图为托管内存与非托管内存的关系。</p>
+<p><img src="/images/243596-20190603105634211-514076443.png" alt=""></p>
+<p><strong>安全代码与非安全代码</strong></p>
+<p><strong>安全代码</strong></p>
+<p>C#的安全代码就是C#日常写的代码，其特点就是代码中声明的变量都在托管内存；而之所以叫安全代码，则是因为内存全部托管给了内存管理器，不存在内存泄漏的问题（当然，这是理论上，实际情况某些微软的控件还是存在内存泄漏的问题，相信一定有人遇到过，不过99%的情况下是没问题的）。</p>
+<p><strong>非安全代码</strong></p>
+<p>非安全代码显然是与安全代码相对的，即非安全代码的变量所使用的内存都在非托管内存区。</p>
+<p>因为常规状态下我们写的代码都是安全代码，所以想写非安全代码一定要加个特殊标记，那就是unsafe。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">unsafe</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但C#项目在默认的情况下是不支持非安全代码的，即当我们尝试些unsafe时，编译器会报错。为什么不默认不允许我们使用非安全代码呢？很简单因为它不安全嘛。如上述代码，在unsafe的区域内，我们就可以编写非安全代码。</p>
+<p>想启用C#的非安全代码设置也很简单，右键项目—属性—生成，如下图所示：</p>
+<p><img src="/images/243596-20190609101111517-2044367084.png" alt=""></p>
+<p>默认情况下，【允许不安全代码】是非勾选状态；当我们勾选上之后，编译器就允许我们使用unsafe了。</p>
+<p>那么，在unsafe区间如何控制非托管区域的内存呢？</p>
+<p>这就需要使用到指针了，下面我们讲一下C#中的指针。</p>
+<p><strong>注意：非安全代码并不是C#的主要功能，而是为了兼容其他使用非托管内存的语言而存在的，所以即便你不了解也并不会影响你的技术水平，但在职场中，这块的内容非常容易成为菜鸟攻击你的利器，所以学会它是职场生存的重要手段之一。</strong></p>
+<p><strong>指针(</strong>Pointer)<strong>与句柄(IntPtr)</strong></p>
+<p><strong>作为C#开发，我们要知道【宏】和【指针】</strong>会严重扰乱代码的脉络<strong>，在开发中一定要尽量避免使用。</strong></p>
+<p>比如，你定义了一个Void<em>的指针，那Void</em>到底是个什么东西啊！没人知道，因为它什么都能指向，很明显，这严重的影响了代码的正常阅读，因为我需要读到Void*的时候，还有调查下它是个什么东西；但我们又不是在看论文，看到特有名词还得查一下他的含义，这简直太荒唐了。</p>
+<p>但在职场中，这些我们要尽量避免使用的东西，却是最被经常谈论的知识点，因为现在任何大学都会教C语言，所以，不论你的同事是程序员还是非技术人员，他们都多少听过指针。而且【不会指针就不能算好程序员】几乎已经是一个职场准则了。</p>
+<p>因此，尽管C#开发不用这部分内容，也一定要了解起来，不能授人以柄不是嘛。</p>
+<p><strong>指针(Pointer)</strong></p>
+<p>指针简单来说就是指向一块内存的内存，我们可以通过指针指向的内存地址找到变量的值，并且改变它。</p>
+<p>在C#中，我们也是可以定义指针的，不过那需要在非安全代码内定义；因为指针直接从内存中获取地址的，也就是说，它并不是通过C#的内存管理工具来开辟内存的，所以，指针申请的这块内存并不在托管代码的内存区中，那么，很自然的，这块内存就在非托管代码的内存区中了。</p>
+<p>下面我们先看这样一段代码，来了解一下指针：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">string str = &quot;I am Kiba518!&quot;;</span><br><span class="line">int strlen = str.Length;</span><br><span class="line">IntPtr sptr = MarshalHelper.StringToIntPtr(str);</span><br><span class="line">unsafe</span><br><span class="line">&#123;</span><br><span class="line">    char* src = (char*)sptr.ToPointer();</span><br><span class="line">    //Console.WriteLine(&quot;地址&quot; + (&amp;src)); //这样写会报错，C#并不支持这样取指针地址</span><br><span class="line">    for (int i = 0; i &lt;= strlen; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.Write(src[i]);</span><br><span class="line">        src[i] = &#x27;0&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine();</span><br><span class="line">    Console.WriteLine(&quot;========不安全代码改值=========&quot;);</span><br><span class="line">    for (int i = 0; i &lt;= strlen; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.Write(src[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Console.ReadKey();</span><br></pre></td></tr></table></figure>
+<p>PS：代码中的MarshalHelper是我封装的一个类，用于处理类型与IntPtr的转换，下方github中有该类代码。上述代码非常简单，我先将字符串发送给MarshalHelper帮助类转换成句柄（MarshalHelper中会开辟一个非托管区内存空间，然后把托管区的字符串str的值赋值到这个非托管区内存，再生成一个指针指向这块内存，最后在将这个指针转换成IntPtr句柄，当然描述起来很复杂其实也就一句话Marshal.StringToHGlobalAnsi(str)）然后调用转换出来的句柄的ToPointer方法获取到指针，接着在在非全代码区域使用指针输出它的内容，再修改该它的值，最后将修改后值的指针内容打印出来。</p>
+<hr>
+<p>其实指针在C#中有意义的功能就只剩下内存偏移量调整了，但实际开发中，C#项目是不需要做内存偏移量调整这种操作的。所以，纯C#项目几乎可以说已经弃用指针了。</p>
+<p><strong>句柄</strong>(IntPtr)****</p>
+<p>句柄其实是一个指针的封装，同样的，它也不常用，因为C#项目中指针都被弃用了，那指针的封装—句柄自然也被弃用了。</p>
+<p>但总有特殊的地方会用到指针，比如调用C++动态库之类的；所以微软贴心的为我们做了个句柄，毕竟指针用起来太难受了。</p>
+<p>句柄是一个结构体，简单的来说，它是指针的一个封装，是C#中指针的替代者，下面我们看下句柄的定义。</p>
+<p><img src="/images/243596-20190608164211901-1338481044.png" alt=""></p>
+<p>从图中我们可以看到，句柄IntPtrt里包含创建指针，获取指针长度，设置偏移量等等方法，并且为了编码方便还声明了些强制转换的方法。</p>
+<p>看了句柄的结构体定义，相信稍微有点基础的人已经明白了，在C#中，微软是希望抛弃指针而改用更优秀的句柄代替它的。</p>
+<p>但我们还会发现，句柄里还提供一个方法是<strong>ToPointer()</strong>，它的返回类型是Void*，也就是说，我们还是可以从句柄里拿到C++中的指针，既然，微软期望在C#中不要使用指针，那为什么还要提供这样的方法呢？</p>
+<p>这是因为，在项目开发中总是会有极特殊的情况，比如，你有一段C++写的非常复杂、完美的函数，而将这个函数转换成C#又及其耗时，那么最简单省力的方法就是直接在C#里启用指针进行移植。</p>
+<p>也就是说，C#支持指针，其实是为了体现它的兼容性，并不是提倡大家去使用指针。</p>
+<p><strong><strong>内存释放</strong></strong></p>
+<p>我先看如下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">    int retNoFree = Int32ToIntPtr_NoFree();</span><br><span class="line">    IntPtr retNoFreeIP = new IntPtr(retNoFree);</span><br><span class="line">    int retFree = Int32ToIntPtr_Free();</span><br><span class="line">    IntPtr retFreeIP = new IntPtr(retFree);</span><br><span class="line"></span><br><span class="line">    new Task(() =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        int afterNoFree = MarshalHelper.IntPtrToInt32(retNoFreeIP);</span><br><span class="line">        Console.WriteLine(&quot;Int32ToIntPtr_NoFree-未释放Intptr的线程取值&quot; + afterNoFree);</span><br><span class="line">        int afterFree = MarshalHelper.IntPtrToInt32(retFreeIP);</span><br><span class="line">        Console.WriteLine(&quot;Int32ToIntPtr_Free-已释放Intptr的线程取值&quot; + afterFree);</span><br><span class="line">    &#125;).Start();</span><br><span class="line">    Console.ReadKey();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static int Int32ToIntPtr_Free()</span><br><span class="line">&#123;</span><br><span class="line">    IntPtr pointerInt = new IntPtr();</span><br><span class="line">    int testint = 518;</span><br><span class="line">    pointerInt = MarshalHelper.Int32ToIntPtr(testint);</span><br><span class="line">    int testintT = MarshalHelper.IntPtrToInt32(pointerInt);</span><br><span class="line">    Console.WriteLine(&quot;Int32ToIntPtr_Free-取IntPtr的值&quot; + testintT);</span><br><span class="line">    MarshalHelper.Free(pointerInt);</span><br><span class="line">    int testintT2 = (int)pointerInt;</span><br><span class="line">    return testintT2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static int Int32ToIntPtr_NoFree()</span><br><span class="line">&#123;</span><br><span class="line">    IntPtr pointerInt = new IntPtr();</span><br><span class="line">    int testint = 518;</span><br><span class="line">    pointerInt = MarshalHelper.Int32ToIntPtr(testint);</span><br><span class="line">    int testintT = MarshalHelper.IntPtrToInt32(pointerInt);</span><br><span class="line">    Console.WriteLine(&quot;Int32ToIntPtr_NoFree-取IntPtr的值&quot; + testintT);</span><br><span class="line">    int testintT2 = (int)pointerInt;</span><br><span class="line">    return testintT2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个函数执行完成后，开启线程，通过其返回的指针的地址，在重新查找指针对应的内容，结果如下图：代码中有两个函数Int32ToIntPtr_Free和Int32ToIntPtr_NoFree，两个函数都是将变量testint转换成指针，然后返回该指针的地址（int类型），区别是一个调用了MarshalHelper.Free(pointerInt)进行指针内存释放，一个没有调用。</p>
+<p><img src="/images/243596-20190613094114368-1865511434.png" alt=""></p>
+<p>从图中我们可以看到，未进行Free的IntPtr，仍然可以通过指针地址获取到他的内容，而已释放的IntPtr，通过地址再获取内容，则已经是其他内容了。</p>
+<p>PS：在C#中指针的内存释放需要 Marshal.FreeHGlobal(IntPtr)方法，同样的我将其封装到了MarshalHelper中了。</p>
+<p><strong>结语</strong></p>
+<p>在职场，我们需要防备的通常不是高手，而是菜鸟，所以我们必须要增加各种各样的知识储备来应对这些奇奇怪怪的事情。</p>
+<hr>
+<p>到此，C#内存管理讲解就结束了。</p>
+<p>代码已经传到Github上了，欢迎大家下载。</p>
+<p>Github地址：<a target="_blank" rel="noopener" href="https://github.com/kiba518/MarshalHelper">https://github.com/kiba518/MarshalHelper</a></p>
+<hr>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2019/07/02/%E3%80%90.Net%E3%80%91%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" title="【.Net】内存管理">http://blog.bfsdfs.com/2019/07/02/【.Net】内存管理/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net/" rel="tag"># .Net</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/21/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%85%A8%E6%8E%92%E5%88%97-%E6%8E%92%E9%98%9F/" rel="prev" title="【算法】全排列-排队">
+      <i class="fa fa-chevron-left"></i> 【算法】全排列-排队
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/07/08/%E3%80%90%E9%9D%A2%E8%AF%95%E3%80%91TCP%E5%92%8CUDP%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%8F%8A%E5%8C%BA%E5%88%AB/" rel="next" title="【面试】TCP和UDP的优缺点及区别">
+      【面试】TCP和UDP的优缺点及区别 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '3903697c6e6210216bb3634877d368cf',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

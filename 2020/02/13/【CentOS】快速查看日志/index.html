@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="因为在生产环境会遇到很多问题，那么最快的定位方式莫过于去看日志，我们都知道服务器每天会产生大量的日志，那么如何快速的定位也就是最关键的。  本文介绍六种查看日志的命令：tail、head、cat、more、less、sed。 tail命令功能tail 命令从指定点开始将文件写到标准输出。 命令格式tail[必要参数][选择参数][文件] 命令参数1234567-f 循环读取-q 不显示处理信息-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【CentOS】快速查看日志">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/02/13/%E3%80%90CentOS%E3%80%91%E5%BF%AB%E9%80%9F%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="因为在生产环境会遇到很多问题，那么最快的定位方式莫过于去看日志，我们都知道服务器每天会产生大量的日志，那么如何快速的定位也就是最关键的。  本文介绍六种查看日志的命令：tail、head、cat、more、less、sed。 tail命令功能tail 命令从指定点开始将文件写到标准输出。 命令格式tail[必要参数][选择参数][文件] 命令参数1234567-f 循环读取-q 不显示处理信息-">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-13T13:12:04.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.061Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="CentOS">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/02/13/%E3%80%90CentOS%E3%80%91%E5%BF%AB%E9%80%9F%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【CentOS】快速查看日志 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/02/13/%E3%80%90CentOS%E3%80%91%E5%BF%AB%E9%80%9F%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【CentOS】快速查看日志
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-13 21:12:04" itemprop="dateCreated datePublished" datetime="2020-02-13T21:12:04+08:00">2020-02-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">Linux知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>因为在生产环境会遇到很多问题，那么最快的定位方式莫过于去看日志，我们都知道服务器每天会产生大量的日志，那么如何快速的定位也就是最关键的。</p>
+</blockquote>
+<p>本文介绍六种查看日志的命令：<code>tail</code>、<code>head</code>、<code>cat</code>、<code>more</code>、<code>less</code>、<code>sed</code>。</p>
+<h2 id="tail"><a href="#tail" class="headerlink" title="tail"></a><code>tail</code></h2><h3 id="命令功能"><a href="#命令功能" class="headerlink" title="命令功能"></a>命令功能</h3><p><code>tail</code> 命令从指定点开始将文件写到标准输出。</p>
+<h3 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h3><p><code>tail[必要参数][选择参数][文件]</code></p>
+<h3 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-f 循环读取</span><br><span class="line">-q 不显示处理信息</span><br><span class="line">-v 显示详细的处理信息</span><br><span class="line">-c&lt;数目&gt; 显示的字节数</span><br><span class="line">-n&lt;行数&gt; 显示行数</span><br><span class="line">-q, --quiet, --silent 从不输出给出文件名的首部</span><br><span class="line">-s, --sleep-interval=S 与-f合用,表示在每次反复的间隔休眠S秒</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tail  -n  10   file.log   查询日志尾部最后10行的日志;</span><br><span class="line">tail  -n +10   file.log   查询第10行之后的所有日志;</span><br><span class="line">tail  -fn 100   file.log   循环实时查看最后100行记录</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>tail</code>一般还会配合着<code>grep</code>用</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -fn 1000 file.log | grep &#x27;关键字&#x27;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果查询的数据量太大,<code>Ctrl + F</code> 或者 空格键可以翻页查看</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -n 5000  file.log |more -1000</span><br></pre></td></tr></table></figure>
+
+<h2 id="head"><a href="#head" class="headerlink" title="head"></a><code>head</code></h2><h3 id="命令功能-1"><a href="#命令功能-1" class="headerlink" title="命令功能"></a>命令功能</h3><p><code>head</code>跟<code>tail</code>是相反，用来显示档案的开头至标准输出中，默认<code>head</code>命令打印其相应文件的开头<code>10</code>行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">head -n  10  file.log   查询日志文件中的头10行日志;</span><br><span class="line">head -n -10  file.log   查询日志文件除了最后10行的其他所有日志;</span><br></pre></td></tr></table></figure>
+
+<h3 id="命令格式-1"><a href="#命令格式-1" class="headerlink" title="命令格式"></a>命令格式</h3><p><code>tail[必要参数][选择参数][文件]</code></p>
+<h3 id="命令参数-1"><a href="#命令参数-1" class="headerlink" title="命令参数"></a>命令参数</h3><p>参考<code>tail</code></p>
+<h2 id="cat"><a href="#cat" class="headerlink" title="cat"></a><code>cat</code></h2><h3 id="命令功能-2"><a href="#命令功能-2" class="headerlink" title="命令功能"></a>命令功能</h3><ol>
+<li>一次显示整个文件：<code>cat filename</code></li>
+<li>从键盘创建一个文件（只能创建新文件,不能编辑已有文件）：<code>cat &gt; filename</code></li>
+<li>将几个文件合并为一个文件：<code>cat file1 file2 &gt; file</code></li>
+</ol>
+<h3 id="命令格式-2"><a href="#命令格式-2" class="headerlink" title="命令格式"></a>命令格式</h3><p><code>cat [选项] [文件]...</code></p>
+<h3 id="命令参数-2"><a href="#命令参数-2" class="headerlink" title="命令参数"></a>命令参数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-A, --show-all           等价于 -vET</span><br><span class="line">-b, --number-nonblank    对非空输出行编号</span><br><span class="line">-e                       等价于 -vE</span><br><span class="line">-E, --show-ends          在每行结束处显示 $</span><br><span class="line">-n, --number     对输出的所有行编号,由1开始对所有输出的行数编号</span><br><span class="line">-s, --squeeze-blank  有连续两行以上的空白行，就代换为一行的空白行</span><br><span class="line">-t                       与 -vT 等价</span><br><span class="line">-T, --show-tabs          将跳格字符显示为 ^I</span><br><span class="line">-v, --show-nonprinting   使用 ^ 和 M- 引用，除了 LFD 和 TAB 之外</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用实例-1"><a href="#使用实例-1" class="headerlink" title="使用实例"></a>使用实例</h3><ul>
+<li>把 <code>file1.log</code> 的文件内容加上行号后输入 <code>file2.log</code> 这个文件里</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat -n file1.log file2.log</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>把 <code>file1.log</code> 和 <code>file2.log</code> 的文件内容加上行号（空白行不加）之后将内容附加到 <code>file.log</code> 里</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat -b file1.log file1.log file.log</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>把 <code>file1.log</code> 的文件内容加上行号后输入 <code>file.log</code> 这个文件里</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat -n file1.log &gt; file.log</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>tac</code> 是将 <code>cat</code> 反写过来，所以他的功能就跟 <code>cat</code> 相反</p>
+</blockquote>
+<h2 id="more"><a href="#more" class="headerlink" title="more"></a><code>more</code></h2><h3 id="命令功能-3"><a href="#命令功能-3" class="headerlink" title="命令功能"></a>命令功能</h3><p><code>more</code>命令和<code>cat</code>的功能一样都是查看文件里的内容，但有所不同的是<code>more</code>可以按页来查看文件的内容，还支持直接跳转行等功能。</p>
+<h3 id="命令语法"><a href="#命令语法" class="headerlink" title="命令语法"></a>命令语法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more [-dlfpcsu ] [-num ] [+/ pattern] [+ linenum] [file ... ]</span><br></pre></td></tr></table></figure>
+
+<h3 id="命令参数-3"><a href="#命令参数-3" class="headerlink" title="命令参数"></a>命令参数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+n      从笫n行开始显示</span><br><span class="line">-n       定义屏幕大小为n行</span><br><span class="line">+/pattern 在每个档案显示前搜寻该字串（pattern），然后从该字串前两行之后开始显示</span><br><span class="line">-c       从顶部清屏，然后显示</span><br><span class="line">-d       提示“Press space to continue，’q’ to quit（按空格键继续，按q键退出）”，禁用响铃功能</span><br><span class="line">-l        忽略Ctrl+l（换页）字符</span><br><span class="line">-p       通过清除窗口而不是滚屏来对文件进行换页，与-c选项相似</span><br><span class="line">-s       把连续的多个空行显示为一行</span><br><span class="line">-u       把文件内容中的下画线去掉</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用操作命令"><a href="#常用操作命令" class="headerlink" title="常用操作命令"></a>常用操作命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Enter 向下n行，需要定义，默认为1行</span><br><span class="line">Ctrl + F 向下滚动一屏</span><br><span class="line">空格键 向下滚动一屏</span><br><span class="line">Ctrl + B 返回上一屏</span><br><span class="line">= 输出当前行的行号</span><br><span class="line">:f 输出文件名和当前行的行号</span><br><span class="line">V 调用vi编辑器</span><br><span class="line">!命令 调用Shell，并执行命令</span><br><span class="line">q 退出more</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><ul>
+<li>显示文件中从第<code>3</code>行起的内容</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more +3 file.log</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>从文件中查找第一个出现<code>test</code>字符串的行，并从该处前两行开始显示输出</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more +/test file.log</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设定每屏显示行数</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more -5 log2012.log</span><br></pre></td></tr></table></figure>
+
+<h2 id="less"><a href="#less" class="headerlink" title="less"></a><code>less</code></h2><h3 id="命令功能-4"><a href="#命令功能-4" class="headerlink" title="命令功能"></a>命令功能</h3><p><code>less</code>与<code>more</code>类似，使用<code>less</code>可以随意浏览文件，而<code>more</code>仅能向前移动，不能向后移动，而 <code>less</code> 既可以向前移动，也可以向后移动。</p>
+<h3 id="命令格式-3"><a href="#命令格式-3" class="headerlink" title="命令格式"></a>命令格式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">less [参数]  文件</span><br></pre></td></tr></table></figure>
+
+<h3 id="命令参数-4"><a href="#命令参数-4" class="headerlink" title="命令参数"></a>命令参数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-b &lt;缓冲区大小&gt; 设置缓冲区的大小</span><br><span class="line">-e  当文件显示结束后，自动离开</span><br><span class="line">-f  强迫打开特殊文件，例如外围设备代号、目录和二进制文件</span><br><span class="line">-g  只标志最后搜索的关键词</span><br><span class="line">-i  忽略搜索时的大小写</span><br><span class="line">-m  显示类似more命令的百分比</span><br><span class="line">-N  显示每行的行号</span><br><span class="line">-o &lt;文件名&gt; 将less 输出的内容在指定文件中保存起来</span><br><span class="line">-Q  不使用警告音</span><br><span class="line">-s  显示连续空行为一行</span><br><span class="line">-S  行过长时间将超出部分舍弃</span><br><span class="line">-x &lt;数字&gt; 将“tab”键显示为规定的数字空格</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用操作命令-1"><a href="#常用操作命令-1" class="headerlink" title="常用操作命令"></a>常用操作命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/字符串：向下搜索“字符串”的功能</span><br><span class="line">?字符串：向上搜索“字符串”的功能</span><br><span class="line">n：重复前一个搜索（与 / 或 ? 有关）</span><br><span class="line">N：反向重复前一个搜索（与 / 或 ? 有关）</span><br><span class="line">b  向后翻一页</span><br><span class="line">d  向后翻半页</span><br><span class="line">h  显示帮助界面</span><br><span class="line">Q  退出less 命令</span><br><span class="line">u  向前滚动半页</span><br><span class="line">y  向前滚动一行</span><br><span class="line">空格键 滚动一行</span><br><span class="line">回车键 滚动一页</span><br><span class="line">[pagedown]： 向下翻动一页</span><br><span class="line">[pageup]：   向上翻动一页</span><br></pre></td></tr></table></figure>
+
+<h3 id="less命令在查询日志时，一般流程是这样的"><a href="#less命令在查询日志时，一般流程是这样的" class="headerlink" title="less命令在查询日志时，一般流程是这样的"></a><code>less</code>命令在查询日志时，一般流程是这样的</h3><ol>
+<li><code>less file.log</code></li>
+<li><code>shift + G</code> 命令到文件尾部 然后输入 <code>？</code> 加上你要搜索的关键字例如：<code>？test</code></li>
+<li>按 <code>n</code> 向上查找关键字</li>
+<li><code>shift + n</code> 反向查找关键字</li>
+</ol>
+<h2 id="sed"><a href="#sed" class="headerlink" title="sed"></a><code>sed</code></h2><h3 id="命令功能-5"><a href="#命令功能-5" class="headerlink" title="命令功能"></a>命令功能</h3><p>这个命令可以查找日志文件特定的一段 , 根据时间的一个范围查询，可以按照行号和时间范围查询</p>
+<h3 id="使用示例-1"><a href="#使用示例-1" class="headerlink" title="使用示例"></a>使用示例</h3><ul>
+<li>按照行号：只查看文件的第<code>5</code>行到第<code>10</code>行</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n &#x27;5,10p&#x27; file.log</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>按照时间段</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n &#x27;/2019-12-17 16:17:20/,/2019-12-17 16:17:36/p&#x27;  file.log</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/02/13/%E3%80%90CentOS%E3%80%91%E5%BF%AB%E9%80%9F%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97/" title="【CentOS】快速查看日志">http://blog.bfsdfs.com/2020/02/13/【CentOS】快速查看日志/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CentOS/" rel="tag"># CentOS</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/12/%E3%80%90Windows%E3%80%91%E5%B0%86FRP%E8%AE%BE%E7%BD%AE%E4%B8%BA%E6%9C%8D%E5%8A%A1%E5%B9%B6%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/" rel="prev" title="【Windows】将FRP设置为服务并开机自启">
+      <i class="fa fa-chevron-left"></i> 【Windows】将FRP设置为服务并开机自启
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/20/%E3%80%90%E8%AE%BE%E8%AE%A1%E3%80%91API%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/" rel="next" title="【设计】API设计规范">
+      【设计】API设计规范 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tail"><span class="nav-number">1.</span> <span class="nav-text">tail</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%8A%9F%E8%83%BD"><span class="nav-number">1.1.</span> <span class="nav-text">命令功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">命令格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">命令参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.4.</span> <span class="nav-text">使用实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#head"><span class="nav-number">2.</span> <span class="nav-text">head</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%8A%9F%E8%83%BD-1"><span class="nav-number">2.1.</span> <span class="nav-text">命令功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A0%BC%E5%BC%8F-1"><span class="nav-number">2.2.</span> <span class="nav-text">命令格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0-1"><span class="nav-number">2.3.</span> <span class="nav-text">命令参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cat"><span class="nav-number">3.</span> <span class="nav-text">cat</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%8A%9F%E8%83%BD-2"><span class="nav-number">3.1.</span> <span class="nav-text">命令功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A0%BC%E5%BC%8F-2"><span class="nav-number">3.2.</span> <span class="nav-text">命令格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0-2"><span class="nav-number">3.3.</span> <span class="nav-text">命令参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B-1"><span class="nav-number">3.4.</span> <span class="nav-text">使用实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#more"><span class="nav-number">4.</span> <span class="nav-text">more</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%8A%9F%E8%83%BD-3"><span class="nav-number">4.1.</span> <span class="nav-text">命令功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%AF%AD%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">命令语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0-3"><span class="nav-number">4.3.</span> <span class="nav-text">命令参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="nav-number">4.4.</span> <span class="nav-text">常用操作命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">4.5.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less"><span class="nav-number">5.</span> <span class="nav-text">less</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%8A%9F%E8%83%BD-4"><span class="nav-number">5.1.</span> <span class="nav-text">命令功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A0%BC%E5%BC%8F-3"><span class="nav-number">5.2.</span> <span class="nav-text">命令格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0-4"><span class="nav-number">5.3.</span> <span class="nav-text">命令参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-1"><span class="nav-number">5.4.</span> <span class="nav-text">常用操作命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#less%E5%91%BD%E4%BB%A4%E5%9C%A8%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97%E6%97%B6%EF%BC%8C%E4%B8%80%E8%88%AC%E6%B5%81%E7%A8%8B%E6%98%AF%E8%BF%99%E6%A0%B7%E7%9A%84"><span class="nav-number">5.5.</span> <span class="nav-text">less命令在查询日志时，一般流程是这样的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sed"><span class="nav-number">6.</span> <span class="nav-text">sed</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%8A%9F%E8%83%BD-5"><span class="nav-number">6.1.</span> <span class="nav-text">命令功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B-1"><span class="nav-number">6.2.</span> <span class="nav-text">使用示例</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'd683aac4c6fbe316abfdb23b34450ffc',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

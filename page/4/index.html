@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/4/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/08/09/%E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/09/%E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">【树莓派】环境配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-09 21:51:18" itemprop="dateCreated datePublished" datetime="2021-08-09T21:51:18+08:00">2021-08-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/TommyZihao/ZihaoTutorialOfRaspberryPi/blob/master/">https://github.com/TommyZihao/ZihaoTutorialOfRaspberryPi/blob/master/</a></p>
+</blockquote>
+<h2 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://win32diskimager.org/">制作镜像Win32DiskImager</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.sdcard.org/downloads/formatter_4/">SD卡格式化工具 SD Formatter</a></li>
+<li><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/raspberry-pi-os-images/raspbian/images/">树莓派官方操作系统Raspbian</a></li>
+</ul>
+<h2 id="开机配置"><a href="#开机配置" class="headerlink" title="开机配置"></a>开机配置</h2><ul>
+<li>允许SSH连接</li>
+</ul>
+<p>在boot目录下新建一个ssh文件，不带文件后缀</p>
+<ul>
+<li>配置wifi文件</li>
+</ul>
+<p>用同样的方法新建一个空白文件<code>wpa_supplicant.conf</code>（注意要删掉扩展名.txt）</p>
+<p>用文本编辑器打开<code>wpa_supplicant.conf</code>,输入以下配置，可以用多个network{}来配置多个wifi：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">country=GB</span><br><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line">update_config=1</span><br><span class="line">network=&#123;</span><br><span class="line">	ssid=&quot;将我替换成第一个WiFi的名字，不删除引号,不能有中文&quot;</span><br><span class="line">	psk=&quot;将我替换成WiFi密码，不删除引号&quot;</span><br><span class="line">	priority=将我替换成数字，数字越大代表优先级越高</span><br><span class="line">&#125;</span><br><span class="line">network=&#123;</span><br><span class="line">	ssid=&quot;将我替换成第二个WiFi的名字，不删除引号,不能有中文&quot;</span><br><span class="line">	psk=&quot;将我替换成WiFi密码，不删除引号&quot;</span><br><span class="line">	priority=将我替换成数字，数字越大代表优先级越高</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="软件配置"><a href="#软件配置" class="headerlink" title="软件配置"></a>软件配置</h2><h3 id="用户配置"><a href="#用户配置" class="headerlink" title="用户配置"></a>用户配置</h3><ul>
+<li>pi用户登录，默认密码为：raspberry</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh pi@192.168.1.109</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启用root用户登录</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd root</span><br><span class="line">sudo passwd --unlock root</span><br><span class="line">su root</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改pi的默认密码</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd pi</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>root用户远程登录</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/ssh/sshd_config</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Ctrl + W 快捷键 搜索 PermitRootLogin without-password</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改 PermitRootLogin without-password 为 PermitRootLogin <span class="built_in">yes</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Ctrl + O 快捷键 保存</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Ctrl + O 快捷键 退出 Nano 编辑器</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="源配置"><a href="#源配置" class="headerlink" title="源配置"></a>源配置</h3><ul>
+<li>换源，选择：bebian10 buster </li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/help/raspbian/">https://mirrors.tuna.tsinghua.edu.cn/help/raspbian/</a></p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除原文件所有内容，用以下内容取代：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deb [arch=armhf] http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib rpi</span><br><span class="line">deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib rpi</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/apt/sources.list.d/raspi.list</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除原文件所有内容，用以下内容取代：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ buster main</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>更新源</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>更新系统</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><ul>
+<li>一键安装</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</span><br></pre></td></tr></table></figure>
+
+<h4 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h4><ul>
+<li>安装</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 3306:3306 --name mysql \</span><br><span class="line">-v /opt/docker/mysql/conf:/etc/mysql/conf.d \</span><br><span class="line">-v /opt/docker/mysql/logs:/var/log/mysql \</span><br><span class="line">-v /opt/docker/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root -d --restart=always ibex/debian-mysql-server-5.7</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入docker</span></span><br><span class="line">docker exec -it mysql /bin/bash</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入mysql</span></span><br><span class="line">mysql -uroot -proot</span><br><span class="line"></span><br><span class="line">use mysql;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">允许远程登录，修改密码</span></span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;password&#x27; WITH GRANT OPTION;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Portainer"><a href="#Portainer" class="headerlink" title="Portainer"></a>Portainer</h4><ul>
+<li>安装</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 9000:9000 \</span><br><span class="line">    --restart=always \</span><br><span class="line">    -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">    --name portainer \</span><br><span class="line">    docker.io/portainer/portainer</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置</li>
+</ul>
+<p>访问：<a target="_blank" rel="noopener" href="http://ip:9000">http://ip:9000</a></p>
+<h4 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h4><ul>
+<li>安装</li>
+</ul>
+<p>下载配置：<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/redis/redis/6.0.8/redis.conf">https://raw.githubusercontent.com/redis/redis/6.0.8/redis.conf</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d --sysctl net.core.somaxconn=1024 --name redis \</span><br><span class="line">  -v /opt/docker/redis/conf/redis.conf:/etc/redis/redis.conf  \</span><br><span class="line">  -v /opt/docker/redis/data:/data -p 6379:6379 --privileged=true \</span><br><span class="line">  redis:6.0.8 redis-server /etc/redis/redis.conf</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置</li>
+</ul>
+<p>修改<code>opt/docker/redis/conf/redis.conf</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">允许远程连接</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">bind</span> 127.0.0.1</span> </span><br><span class="line">protected-mode no</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">持久化</span></span><br><span class="line">appendonly yes</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">密码</span> </span><br><span class="line">requirepass password</span><br></pre></td></tr></table></figure>
+
+<h4 id="Mongo"><a href="#Mongo" class="headerlink" title="Mongo"></a>Mongo</h4><ul>
+<li>安装</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name mongo -p 27017:27017  \</span><br><span class="line">  -v /opt/docker/mongo/data:/data/db \</span><br><span class="line">  -v /opt/docker/mongo/conf:/data/conf \</span><br><span class="line">  -v /opt/docker/mongo/log:/data/log \</span><br><span class="line">  andresvidal/rpi3-mongodb3 mongod --auth</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 进入docker</span><br><span class="line">docker exec -it mongo mongo admin</span><br><span class="line"></span><br><span class="line"># 创建用户</span><br><span class="line">db.createUser(&#123; user:&#x27;admin&#x27;,pwd:&#x27;password&#x27;,roles:[ &#123; role:&#x27;userAdminAnyDatabase&#x27;, db: &#x27;admin&#x27;&#125;,&quot;readWriteAnyDatabase&quot;]&#125;);</span><br><span class="line"></span><br><span class="line"># 测试用户登录</span><br><span class="line">db.auth(&#x27;admin&#x27;, &#x27;password&#x27;);</span><br><span class="line"></span><br><span class="line"># 测试</span><br><span class="line">use testdb</span><br><span class="line">db.testdb.insert(&#123;&quot;name&quot;:&quot;1111&quot;&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="nextcloud"><a href="#nextcloud" class="headerlink" title="nextcloud"></a>nextcloud</h4><ul>
+<li>安装</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name nextcloud -p 8080:80 \</span><br><span class="line">    -v /opt/docker/nextcloud/html:/var/www/html \</span><br><span class="line">    -v /opt/docker/nextcloud/apps:/var/www/html/custom_apps \</span><br><span class="line">    -v /opt/docker/nextcloud/config:/var/www/html/config \</span><br><span class="line">    -v /opt/docker/nextcloud/data:/var/www/html/data \</span><br><span class="line">    arm32v7/nextcloud:20.0.9-apache</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>版本<code>20.0.9</code>高版本可能不支持<code>mysql5.7</code></p>
+</blockquote>
+<ul>
+<li><p>配置 <code>/opt/docker/nextcloud/config/config.php</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$CONFIG = array (</span><br><span class="line">  &#x27;htaccess.RewriteBase&#x27; =&gt; &#x27;/&#x27;,</span><br><span class="line">  &#x27;memcache.local&#x27; =&gt; &#x27;\\OC\\Memcache\\APCu&#x27;,</span><br><span class="line">  &#x27;filelocking.enabled&#x27; =&gt; true, </span><br><span class="line">  &#x27;memcache.locking&#x27; =&gt; &#x27;\OC\Memcache\Redis&#x27;, ### 配置Redis缓存</span><br><span class="line">  &#x27;memcache.distributed&#x27; =&gt; &#x27;\OC\Memcache\Redis&#x27;,</span><br><span class="line">  &#x27;redis&#x27; =&gt; [</span><br><span class="line">      &#x27;host&#x27;     =&gt; &#x27;192.168.1.109&#x27;,</span><br><span class="line">      &#x27;port&#x27;     =&gt; 6379,</span><br><span class="line">      &#x27;dbindex&#x27;  =&gt; 1,</span><br><span class="line">      &#x27;password&#x27; =&gt; &#x27;*******&#x27;,</span><br><span class="line">      &#x27;timeout&#x27;  =&gt; 2,</span><br><span class="line">  ],</span><br><span class="line">  &#x27;apps_paths&#x27; =&gt; </span><br><span class="line">  array (</span><br><span class="line">    0 =&gt; </span><br><span class="line">    array (</span><br><span class="line">      &#x27;path&#x27; =&gt; &#x27;/var/www/html/apps&#x27;,</span><br><span class="line">      &#x27;url&#x27; =&gt; &#x27;/apps&#x27;,</span><br><span class="line">      &#x27;writable&#x27; =&gt; false,</span><br><span class="line">    ),</span><br><span class="line">    1 =&gt; </span><br><span class="line">    array (</span><br><span class="line">      &#x27;path&#x27; =&gt; &#x27;/var/www/html/custom_apps&#x27;,</span><br><span class="line">      &#x27;url&#x27; =&gt; &#x27;/custom_apps&#x27;,</span><br><span class="line">      &#x27;writable&#x27; =&gt; true,</span><br><span class="line">    ),</span><br><span class="line">  ),</span><br><span class="line">  &#x27;instanceid&#x27; =&gt; &#x27;ocvniiym4g94&#x27;,</span><br><span class="line">  &#x27;passwordsalt&#x27; =&gt; &#x27;*******&#x27;,</span><br><span class="line">  &#x27;secret&#x27; =&gt; &#x27;IV+*******&#x27;,</span><br><span class="line">  &#x27;trusted_domains&#x27; =&gt; </span><br><span class="line">  array (</span><br><span class="line">    0 =&gt; &#x27;192.168.1.109:8080&#x27;,</span><br><span class="line">    1 =&gt; &#x27;nextcloud.bfsdfs.com&#x27;</span><br><span class="line">  ),</span><br><span class="line">  &#x27;datadirectory&#x27; =&gt; &#x27;/var/www/html/data&#x27;,</span><br><span class="line">  &#x27;dbtype&#x27; =&gt; &#x27;mysql&#x27;,</span><br><span class="line">  &#x27;version&#x27; =&gt; &#x27;20.0.9.1&#x27;,</span><br><span class="line">  &#x27;overwrite.cli.url&#x27; =&gt; &#x27;http://192.168.1.109:8080&#x27;,</span><br><span class="line">  &#x27;dbname&#x27; =&gt; &#x27;nextcloud_db&#x27;,</span><br><span class="line">  &#x27;dbhost&#x27; =&gt; &#x27;192.168.1.109:3306&#x27;,</span><br><span class="line">  &#x27;dbport&#x27; =&gt; &#x27;&#x27;,</span><br><span class="line">  &#x27;dbtableprefix&#x27; =&gt; &#x27;oc_&#x27;,</span><br><span class="line">  &#x27;mysql.utf8mb4&#x27; =&gt; true,</span><br><span class="line">  &#x27;dbuser&#x27; =&gt; &#x27;nextcloud&#x27;,</span><br><span class="line">  &#x27;dbpassword&#x27; =&gt; &#x27;**********&#x27;,</span><br><span class="line">  &#x27;installed&#x27; =&gt; true,</span><br><span class="line">  &#x27;filesystem_check_changes&#x27; =&gt; true #自动扫描文件</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置MySql</p>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">### 创建数据库</span><br><span class="line"><span class="keyword">CREATE</span> DATABASE nextcloud_db;</span><br><span class="line">### 创建用户</span><br><span class="line"><span class="keyword">SET</span> PASSWORD <span class="keyword">FOR</span> <span class="string">&#x27;nextcloud&#x27;</span>@<span class="string">&#x27;%&#x27;</span> <span class="operator">=</span> PASSWORD(<span class="string">&#x27;******&#x27;</span>);</span><br><span class="line">### 授权权限</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> nextcloud_db.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;nextcloud&#x27;</span>@<span class="string">&#x27;%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="frpc"><a href="#frpc" class="headerlink" title="frpc"></a>frpc</h4><ul>
+<li>安装</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo cd /opt/docker/frp/</span><br><span class="line">sudo wget https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_linux_arm.tar.gz</span><br><span class="line">sudo tar -zxvf frp_0.39.1_linux_arm.tar.gz</span><br><span class="line">sudo rm frp_0.39.1_linux_arm.tar.gz</span><br><span class="line">sudo mv frp_0.39.1_linux_arm /opt/docker/frp</span><br><span class="line">sudo ./frpc -c ./frpc.ini</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = ****</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改成公网ip</span></span><br><span class="line">server_port = 8888</span><br><span class="line">privilege_token = ******</span><br><span class="line">pool_count = 2</span><br><span class="line">log_file = ./frpc.log</span><br><span class="line">log_level = info</span><br><span class="line">log_max_days = 10</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">访问用户，与服务端用户配置文件名一致</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">与服务端用户配置文件中的token保持一致</span></span><br><span class="line">token = *******</span><br><span class="line"></span><br><span class="line">[xxx]</span><br><span class="line">type = tcp</span><br><span class="line">local_port = 9000</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">remote_port = 9000</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置服务</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/docker/frp</span><br><span class="line">./frpc -c ./frpc.ini</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /lib/systemd/system/frpc.service</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Frp Client Service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=nobody</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=5s</span><br><span class="line">ExecStart=/opt/docker/frp/frpc -c /opt/docker/frp/frpc.ini</span><br><span class="line">ExecReload=/opt/docker/frp/frpc reload -c /opt/docker/frp/frpc.ini</span><br><span class="line">LimitNOFILE=1048576</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl enable frpc</span><br><span class="line">sudo systemctl start frpc</span><br><span class="line">sudo systemctl status frpc</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/03/14/%E3%80%90.Net%20Core%E3%80%91%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97Channel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/14/%E3%80%90.Net%20Core%E3%80%91%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97Channel/" class="post-title-link" itemprop="url">【.Net Core】消息队列Channel</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-14 22:06:21" itemprop="dateCreated datePublished" datetime="2021-03-14T22:06:21+08:00">2021-03-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/tiger-wang/p/14068973.html">https://www.cnblogs.com/tiger-wang/p/14068973.html</a></p>
+</blockquote>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>今天给大家分享一个微软官方的生产者/消费者方案的特性解决：Channel。</p>
+<p>Channel在<code>System.Threading.Channels</code>命名空间下，Core 2.1使用时，需要从Nuget上安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">% dotnet add package System.Threading.Channels</span><br></pre></td></tr></table></figure>
+
+<p>而在Core 3.0 preview 7开始，就直接包含在框架中了。</p>
+<p>这是一个相对较新的特性。从Core 2.1开始加入，现在版本是5.0.0（嗯，这个版本号有点骗人，Channel的第一个版本就是4.5.0）。</p>
+<p>Channel能做什么？</p>
+<p>逻辑上，Channel实际就是一个高效的、线程安全的队列，支持在生产者和消费者之间传递数据。</p>
+<p>利用Channel，通过发布和订阅，可以将生产者和消费者分开。生产者Producer负责接收请求，并写入Channel，而消费者Consumer为每个进入Channel的数据执行处理。这样做，一方面可以使生产者和消费者并行工作来提高性能，另一方面，可以通过创建更多的生产者或消费者来提高应用的吞吐量。</p>
+<ul>
+<li>为防止非授权转发，这儿给出本文的原文链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/tiger-wang/p/14068973.html">https://www.cnblogs.com/tiger-wang/p/14068973.html</a>*</li>
+</ul>
+<p>下面，我们以一个实际例子，来解释这个特性。</p>
+<h1 id="创建Channel"><a href="#创建Channel" class="headerlink" title="创建Channel"></a>创建Channel</h1><p>Channel提供了一个静态Channel类，提供了两个公开方法来创建两种类型的Channel。</p>
+<ul>
+<li><p>CreateUnbounded - 创建一个具有无限容量的Channel。</p>
+</li>
+<li><p>CreateBounded - 创建一个具有有限容量的Channel。</p>
+</li>
+</ul>
+<p>人通常来说，这两种方式使用上没有太大的区别。实际应用中，具体要看生产和消费的速度，以及期望产生的结果。有限容量的Channel，容量是有上限的，到达上限后，可以让生产者非阻塞等待消费者使用并释放Channel容量后再继续。这种方式，好处是可以控制生产的速度，控制系统资源的使用，缺点也是。因为控制速度意味着生产速度会被限制，甚至停止。而无限容量，生产者可以全速进行生产。但也有缺点，如果消费者的消费速度低于生产者，Channel的资源使用会无限增加，会有服务器资源耗尽的可能。</p>
+<p>今天的例子，我们使用无限Channel。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> channel = Channel.CreateUnbounded&lt;<span class="built_in">string</span>&gt;();</span><br></pre></td></tr></table></figure>
+
+<p>非常简单的一行代码，就创建了一个无限容量的Channel。</p>
+<p>我们定义这个Channel用来保存字符串对象。</p>
+<p>创建方法是一个通用的工厂方法，所以我们可以为需要使用的任何类型的对象和数据创建Channel。</p>
+<p>Channel有两个属性：阅读器返回ChannelReader，写入器返回ChannelWriter。</p>
+<h1 id="写入Channel"><a href="#写入Channel" class="headerlink" title="写入Channel"></a>写入Channel</h1><p>使用写入器ChannelWriter，可以对Channel进行写入操作。ChannelWriter提供了以下几个方法：</p>
+<ul>
+<li>WriteAsync - 异步写入</li>
+<li>WaitToWriteAsync - 非阻塞等待，直到有空间可写入时或Channel关闭时，返回true/false</li>
+<li>TryWrite - 尝试写入</li>
+<li>Complete - 标记Channel为关闭，并不再写入数据到该Channel</li>
+<li>TryComplete - 尝试标记Channel为关闭。</li>
+</ul>
+<p>这几个方法很容易理解，就不解释了。</p>
+<p>在本文的例子里，我用了：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> channel.Writer.WriteAsync(<span class="string">&quot;New message&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="读取Channel"><a href="#读取Channel" class="headerlink" title="读取Channel"></a>读取Channel</h1><p>使用阅读器ChannelReader从Channel进行数据的读取。也提供了几个方法：</p>
+<ul>
+<li>ReadAsync - 异步读取</li>
+<li>ReadAllAsync - 异步读取Channel中的所有数据</li>
+<li>TryRead - 尝试读取</li>
+<li>WaitToReadAsync - 非阻塞等待，直到有数据可读取或Channel关闭时，返回true/false</li>
+</ul>
+<p>不同的消费者模式，会用到不同的读取方法。这个根据经验来写就好。</p>
+<p>本文的例子中，我是采用WaitToReadAsync和ReadAsync配合来使用的：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="keyword">await</span> ChannelReader.WaitToReadAsync())</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (ChannelReader.TryRead(<span class="keyword">out</span> <span class="keyword">var</span> timeString))</span><br><span class="line">    &#123;</span><br><span class="line">          <span class="comment">/***/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>WaitToReadAsync是一个非阻塞等待，在有消息可读或Channel关闭时，才会唤醒并继续。</p>
+<p>考虑到有多个消费者的情况，有可能别的线程已经进行了读取，这儿使用TryRead进行读取操作。</p>
+<p>要注意：数据的同步工作是由Channel进行管理的。Channel会确保多个消费者不会读到相同的数据。Channel同时也管理数据的次序。</p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p>今天的示例代码我放到了Github上。链接是文章最后。</p>
+<p>这个例子中，我做了三个场景。</p>
+<p>首先是Channel。我使用了无限Channel。然后是创建生产者和消费者。数据传输过程就简单化了，生产者只简单将一个字符串写入到Channel。消费者也是，简单等待并从Channel读取数据字符串，写入控制台。</p>
+<p>三个场景分别是：</p>
+<h2 id="单一生产者-单一消费者"><a href="#单一生产者-单一消费者" class="headerlink" title="单一生产者/单一消费者"></a>单一生产者/单一消费者</h2><p>这个例子中，创建了一个生产者和一个消费者。两者的任务都是并发启动的。</p>
+<p>里面的延时，是用来模拟工作负载的。</p>
+<h2 id="多个生产者-单一消费者"><a href="#多个生产者-单一消费者" class="headerlink" title="多个生产者/单一消费者"></a>多个生产者/单一消费者</h2><p>这个例子中有两个生产者。通常在应用中有多个生产者时，我们需要确保生产与单个消费者所能处理的消息数量大致相当，这样能更好地利用服务器资源。</p>
+<h2 id="单一生产者-多个消费者"><a href="#单一生产者-多个消费者" class="headerlink" title="单一生产者/多个消费者"></a>单一生产者/多个消费者</h2><p>这个其实是应用中最常见的情况，就是产生消息很快，但处理工作相关较慢，而且工作也更密集。这种情况，实际应用中我们可以通过扩大消费者数量来满足生产的需求。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>最近的项目在做一个大数据的采集，用到了一些Channel的技术。然后发现网上这部分内容很少，就做了个例子，写了这个文章。</p>
+<p>Channel内容本身并不多，但用着很方便，而且实际应用中，比想像的更强大。它可以简化很多生产者/消费者模式的使用，而且，任务间交换数据，使用Channel会更方便，更直接。</p>
+<p>示例代码在：<a target="_blank" rel="noopener" href="https://github.com/humornif/Demo-Code/tree/master/0033/demo">https://github.com/humornif/Demo-Code/tree/master/0033/demo</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/03/14/%E3%80%90.Net%E3%80%91Hangfire%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E5%92%8C%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/14/%E3%80%90.Net%E3%80%91Hangfire%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E5%92%8C%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">【.Net】Hangfire快速入门和使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-14 10:17:47" itemprop="dateCreated datePublished" datetime="2021-03-14T10:17:47+08:00">2021-03-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Can-daydayup/p/11610747.html">https://www.cnblogs.com/Can-daydayup/p/11610747.html</a></p>
+</blockquote>
+<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>　　定时任务调度问题，是一个老生常谈的问题。网上有许多定时任务调度的解决方案，对于我而言很早以前主要是使用Window计划和Window服务来做任务定时执行，然后就开始使用定时任务调度框架Quartz.Net。但是却一直没有上手过Hangfire这个自带后台任务调度面板，可以在后台手动执行任务的神奇的任务调度框架。前段时间终于开始对他下手了，通过在网上查阅了一些资料和查看了Hangfire在Github中的demo，终于在我自己的项目中用上了Hangfire。在该篇文章中主要简单介绍一下什么是Hangfire，Hangfire的基本特征与优点和分别使用MySQL，MS SQL Server作为存储使用。</p>
+<h2 id="Hangfire是什么："><a href="#Hangfire是什么：" class="headerlink" title="Hangfire是什么："></a>Hangfire是什么：</h2><p>　　Hangfire是一个开源的.NET任务调度框架，提供了内置集成化的控制台，可以直观明了的查看作业调度情况，并且Hangfire不需要依赖于单独的应用程序执行（如：windows服务，window计划）。并且支持持久性存储。</p>
+<h2 id="Hangfire使用条件："><a href="#Hangfire使用条件：" class="headerlink" title="Hangfire使用条件："></a>Hangfire使用条件：</h2><blockquote>
+<p>Hangfire与特定的.NET应用程序类型无关。您可以在ASP.NET Web应用程序，非ASP.NET Web应用程序，控制台应用程序或Windows服务中使用它。以下是要求：</p>
+<p>1.NET Framework 4.5</p>
+<p>2.永久存储（Hangfire将后台作业和其他与处理有关的信息保留在永久性存储器中，所以需要存储库来存储如：MS SQL Server，Redis，MySQL，PostgreSql等）</p>
+<p>3.Newtonsoft.Json库≥5.0.1</p>
+</blockquote>
+<h2 id="Hangfire的基本特征与优点："><a href="#Hangfire的基本特征与优点：" class="headerlink" title="Hangfire的基本特征与优点："></a>Hangfire的基本特征与优点：</h2><p>通过官网中的一张图片便可知道它是一个多么优秀的任务调度框架,如下图所示：</p>
+<p><img src="/images/1336199-20190930003952822-502302129.png" alt=""></p>
+<h2 id="Hangfire安装和使用："><a href="#Hangfire安装和使用：" class="headerlink" title="Hangfire安装和使用："></a>Hangfire安装和使用：</h2><h3 id="在NuGet上有关于Hangfire的-一系列软件包"><a href="#在NuGet上有关于Hangfire的-一系列软件包" class="headerlink" title="在NuGet上有关于Hangfire的 一系列软件包:"></a>在NuGet上有关于Hangfire的 一系列软件包:</h3><p><strong>详情地址：</strong> <a target="_blank" rel="noopener" href="https://www.nuget.org/packages?q=Hangfire">https://www.nuget.org/packages?q=Hangfire</a></p>
+<h3 id="通过在程序包管理控制台中输入安装命令安装Hangfire所需NuGet包："><a href="#通过在程序包管理控制台中输入安装命令安装Hangfire所需NuGet包：" class="headerlink" title="通过在程序包管理控制台中输入安装命令安装Hangfire所需NuGet包："></a>通过在程序包管理控制台中输入安装命令安装Hangfire所需NuGet包：</h3><h4 id="使用MS-SQL-Server作为存储时我们需要安装的NuGet："><a href="#使用MS-SQL-Server作为存储时我们需要安装的NuGet：" class="headerlink" title="使用MS SQL Server作为存储时我们需要安装的NuGet："></a><strong>使用MS SQL Server作为存储时我们需要安装的NuGet：</strong></h4><p> 在ASP.NET 应用程序下使用Hangfire安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Install-Package Hangfire</span><br></pre></td></tr></table></figure>
+
+<p>在控制台应用程序或者window server中处理作业：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Install-Package Hangfire.Core</span><br><span class="line">Install-Package Hangfire.SqlServer</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意，在控制台应用程序或者window server中不推荐直接安装：Install-Package Hangfire ，因为它只是一个快速启动软件包，并包含您可能不需要的依赖项（例如，Microsoft.Owin.Host.SystemWeb等无关依赖项）。</strong></p>
+<h4 id="使用MySQL作为存储时我们需要安装的NuGet："><a href="#使用MySQL作为存储时我们需要安装的NuGet：" class="headerlink" title="使用MySQL作为存储时我们需要安装的NuGet："></a><strong>使用MySQL作为存储时我们需要安装的NuGet：</strong></h4><p> 在ASP.NET 应用程序下使用Hangfire安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Install-Package Hangfire.Core</span><br></pre></td></tr></table></figure>
+
+<p>我们还需要安装一个MySql存储（Hangfire.MySqlStorage）的拓展，注意因为Hangfire本身是不支持MySQL存储的，这是名为：Arnoldas Gudas作者拓展的：</p>
+<p>Nuget地址：<a target="_blank" rel="noopener" href="https://www.nuget.org/packages/Hangfire.MySqlStorage/">https://www.nuget.org/packages/Hangfire.MySqlStorage/</a></p>
+<p>安装命令：</p>
+<p><strong>注意：因为我的项目是.NET Framework,Version=v4.5.1版本的，所以只能安装1.0.7版本的，大家看需求而定</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Install-Package Hangfire.MySqlStorage -Version 1.0.7</span><br></pre></td></tr></table></figure>
+
+<p>当我们要使用(宿主)IIS托管ASP.NET应用程序时，我们还需要安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Install-Package Microsoft.Owin.Host.SystemWeb -Version 4.0.1</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加和配置OWIN-Startup-cs，及其连接对应的存储数据库："><a href="#添加和配置OWIN-Startup-cs，及其连接对应的存储数据库：" class="headerlink" title="添加和配置OWIN Startup.cs，及其连接对应的存储数据库："></a>添加和配置OWIN Startup.cs，及其连接对应的存储数据库：</h3><h4 id="添加OWIN-Startup-cs"><a href="#添加OWIN-Startup-cs" class="headerlink" title="添加OWIN Startup.cs"></a>添加OWIN Startup.cs</h4><p>这里是当你的项目中不存在Startup.cs时才需要执行添加的操作！</p>
+<p><img src="/images/1336199-20190930012558086-1777119302.png" alt=""></p>
+<h4 id="什么是OWIN-Startup-cs："><a href="#什么是OWIN-Startup-cs：" class="headerlink" title="什么是OWIN Startup.cs："></a>什么是OWIN Startup.cs：</h4><p>简单概述：是.NET 平台开放的web接口，Startup则是.Net与web通讯管道，起到转发，沟通的作用。</p>
+<p>详情介绍：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wj033/p/6065145.html">https://www.cnblogs.com/wj033/p/6065145.html</a></p>
+<h4 id="在Startup-cs中连接需要使用的存储库："><a href="#在Startup-cs中连接需要使用的存储库：" class="headerlink" title="在Startup.cs中连接需要使用的存储库："></a>在Startup.cs中连接需要使用的存储库：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public void Configuration(IAppBuilder app)</span><br><span class="line">&#123;</span><br><span class="line">    //运用SqlServer存储，对应web.config中的connectionStrings中的name</span><br><span class="line">    GlobalConfiguration.Configuration.UseSqlServerStorage(&quot;sqlserver_connection&quot;);&lt;br&gt;           </span><br><span class="line"> </span><br><span class="line">    //注意，当你使用的是MySql作为存储时，需要如下配置</span><br><span class="line">    //运用MySql存储，对应web.config中的connectionStrings中的name</span><br><span class="line">    GlobalConfiguration.Configuration.UseStorage(new MySqlStorage(&quot;mysql_connection&quot;));</span><br><span class="line"> </span><br><span class="line">    app.UseHangfireDashboard();//配置后台仪表盘</span><br><span class="line">    app.UseHangfireServer();//开始使用Hangfire服务</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Web-config数据库连接配置"><a href="#Web-config数据库连接配置" class="headerlink" title="Web.config数据库连接配置:"></a>Web.config数据库连接配置:</h4><p><strong>1.MS SQL Server中：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;connectionStrings&gt;</span><br><span class="line">  &lt;add name=&quot;sqlserver_connection&quot; connectionString=&quot;Data Source=.;Initial Catalog=MyFirstDb;Integrated Security=True&quot; providerName=&quot;System.Data.SqlClient&quot; /&gt;</span><br><span class="line">&lt;/connectionStrings&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.MySQL中：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;connectionStrings&gt;</span><br><span class="line"> &lt;add name=&quot;mysql_connection&quot; providerName=&quot;System.Data.MySqlClient&quot; connectionString=&quot;Server=123.xxx.xxx.xx;Port=3306;Database=MyFirstDb;Uid=root;Pwd=youpassword;charset=utf8;SslMode=none;Allow User Variables=True&quot; /&gt;</span><br><span class="line">&lt;/connectionStrings&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="运行程序，访问调度控制面板："><a href="#运行程序，访问调度控制面板：" class="headerlink" title="运行程序，访问调度控制面板："></a>运行程序，访问调度控制面板：</h3><p>　　当我们已经完成了上面的相关配置后，且程序能够正常无bug的运行时，我们的Hangfire Dashboard(仪表盘)在我们的本地就可以正常访问了（Hangfire仪表盘默认只支持本地访问），假如需要远程可访问的话我们还需要做对应的配置授权操作！</p>
+<h4 id="运行成功，查看数据库中是否生成了与Hangfire相关的表："><a href="#运行成功，查看数据库中是否生成了与Hangfire相关的表：" class="headerlink" title="运行成功，查看数据库中是否生成了与Hangfire相关的表："></a>运行成功，查看数据库中是否生成了与Hangfire相关的表：</h4><p>　　首次运行成功后，打开数据库可以看到Hangfire已经自动为我们创建了定时任务的一些定时任务列表，定时队列，服务，状态等相关的数据表（展现了Hangfire作用的持久化特性），如下图所示：</p>
+<p><strong>a.MS SQL Server中生成的表：</strong></p>
+<p><img src="/images/1336199-20190930015159406-225896067.png" alt=""></p>
+<p><strong>b.MySQL中生成的表：</strong></p>
+<p><img src="/images/1336199-20190930015239389-1347380917.png" alt=""></p>
+<h4 id="访问调度控制面板："><a href="#访问调度控制面板：" class="headerlink" title="访问调度控制面板："></a>访问调度控制面板：</h4><p>本地访问方式：<a href="https://localhost:端口号/hangfire/">https://localhost:端口号/hangfire/</a></p>
+<p>调度控制面板效果图：</p>
+<p><a href="/images/1336199-20190930015547922-1145741350.png"><img src="/images/1336199-20190930015547922-1145741350.png" alt=""></a></p>
+<h3 id="后台常用任务调度创建和使用："><a href="#后台常用任务调度创建和使用：" class="headerlink" title="后台常用任务调度创建和使用："></a>后台常用任务调度创建和使用：</h3><p>注意：WriteLog是自己封装的一个通用记录日志的方法！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//支持基于队列的任务处理：任务执行不是同步的，而是放到一个持久化队列中，以便马上把请求控制权返回给调用者。</span><br><span class="line">var jobId = BackgroundJob.Enqueue(()=&gt;WriteLog(&quot;队列任务执行了！&quot;));</span><br><span class="line"></span><br><span class="line">//延迟任务执行：不是马上调用方法，而是设定一个未来时间点再来执行，延迟作业仅执行一次</span><br><span class="line">var jobId = BackgroundJob.Schedule（()=&gt;WriteLog(&quot;一天后的延迟任务执行了！&quot;),TimeSpan .FromDays(1));//一天后执行该任务</span><br><span class="line"></span><br><span class="line">//循环任务执行：一行代码添加重复执行的任务，其内置了常见的时间循环模式，也可基于CRON表达式来设定复杂的模式。【用的比较的多】</span><br><span class="line">RecurringJob.AddOrUpdate(()=&gt;WriteLog(&quot;每分钟执行任务！&quot;), Cron.Minutely); //注意最小单位是分钟</span><br><span class="line"></span><br><span class="line">//延续性任务执行：类似于.NET中的Task,可以在第一个任务执行完之后紧接着再次执行另外的任务</span><br><span class="line">BackgroundJob.ContinueWith(jobId,()=&gt;WriteLog(&quot;连续任务！&quot;));</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>　　通过本次项目实践的确让我感受到了Hangfire的魅力所在，真的可以说是上手简单，开箱即用的一个任务调度框架。并且该框架做的最好的是，官方文档详细，并且还提供了完整的demo示例。最后要为Hangfire的作者点赞！</p>
+<h2 id="Hangfire相关使用学习资料："><a href="#Hangfire相关使用学习资料：" class="headerlink" title="Hangfire相关使用学习资料："></a>Hangfire相关使用学习资料：</h2><p>官网地址：<a target="_blank" rel="noopener" href="https://www.hangfire.io/">https://www.hangfire.io/</a></p>
+<p>GitHub源码：<a target="_blank" rel="noopener" href="https://github.com/HangfireIO/Hangfire">https://github.com/HangfireIO/Hangfire</a></p>
+<p>中文文档：<a target="_blank" rel="noopener" href="https://www.bookstack.cn/read/Hangfire-zh-official/README.md">https://www.bookstack.cn/read/Hangfire-zh-official/README.md</a></p>
+<p>GitHub使用示例源码：<a target="_blank" rel="noopener" href="https://github.com/HangfireIO/Hangfire.Samples">https://github.com/HangfireIO/Hangfire.Samples</a>（包括控制台应用程序，window服务，ASP.NET MVC，WebForm）</p>
+<p>Hangfire使用文章汇总：<a target="_blank" rel="noopener" href="https://www.bbsmax.com/R/xl56E0nrJr/">https://www.bbsmax.com/R/xl56E0nrJr/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

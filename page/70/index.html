@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/70/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/70/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/12/02/%E3%80%90%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E3%80%91%E6%A8%A1%E6%8B%9Fpost%E7%99%BB%E9%99%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/02/%E3%80%90%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81%E3%80%91%E6%A8%A1%E6%8B%9Fpost%E7%99%BB%E9%99%86/" class="post-title-link" itemprop="url">【常用代码】模拟post登陆</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-12-02 17:08:56" itemprop="dateCreated datePublished" datetime="2017-12-02T17:08:56+08:00">2017-12-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B8%B8%E7%94%A8%E4%BB%A3%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">常用代码</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br></pre></td><td class="code"><pre><span class="line">public static CookieContainer theCC = new CookieContainer();</span><br><span class="line"></span><br><span class="line">/// &lt;summary&gt;     </span><br><span class="line">/// 登录方法(无验证码)     </span><br><span class="line">/// &lt;/summary&gt;     </span><br><span class="line">/// &lt;PARAM name=&quot;url&quot;&gt;POST请求的地址&lt;/PARAM&gt;     </span><br><span class="line">/// &lt;PARAM name=&quot;paramList&quot;&gt;参数列表 例如 name=zhangsan&amp;pass=lisi&lt;/PARAM&gt;     </span><br><span class="line">/// &lt;PARAM name=&quot;referer&quot;&gt;来源地址&lt;/PARAM&gt;     </span><br><span class="line">/// &lt;RETURNS&gt;&lt;/RETURNS&gt;     </span><br><span class="line">public static string Login(String url, String paramList, string referer)</span><br><span class="line">&#123;</span><br><span class="line">    HttpWebResponse res = null;</span><br><span class="line">    HttpWebRequest req = null;</span><br><span class="line">    string strResult = &quot;&quot;;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        req = (HttpWebRequest)WebRequest.Create(url);</span><br><span class="line">        //配置请求header     </span><br><span class="line">        req.Headers.Add(HttpRequestHeader.AcceptCharset, &quot;GBK,utf-8;q=0.7,*;q=0.3&quot;);</span><br><span class="line">        req.Headers.Add(HttpRequestHeader.AcceptEncoding, &quot;gzip,deflate,sdch&quot;);</span><br><span class="line">        req.Headers.Add(HttpRequestHeader.AcceptLanguage, &quot;zh-CN,zh;q=0.8&quot;);</span><br><span class="line">        req.Accept = &quot;application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5&quot;;</span><br><span class="line">        req.KeepAlive = true;</span><br><span class="line">        req.Referer = referer;</span><br><span class="line">        req.Headers.Add(HttpRequestHeader.CacheControl, &quot;max-age=0&quot;);</span><br><span class="line">        req.UserAgent = &quot;Mozilla/5.0 (Windows; U; Windows NT 5.2; en-US) AppleWebKit/534.7 (KHTML, like Gecko) Chrome/7.0.517.5 Safari/534.7&quot;;</span><br><span class="line">        req.Method = &quot;POST&quot;;</span><br><span class="line">        req.ContentType = &quot;application/x-www-form-urlencoded&quot;;</span><br><span class="line">        req.AllowAutoRedirect = true;</span><br><span class="line">        //设置cookieContainer用来接收cookie     </span><br><span class="line">        req.CookieContainer = theCC;</span><br><span class="line">        StringBuilder UrlEncoded = new StringBuilder();</span><br><span class="line">        //对参数进行encode     </span><br><span class="line">        Char[] reserved = &#123; &#x27;?&#x27;, &#x27;=&#x27;, &#x27;&amp;&#x27; &#125;;</span><br><span class="line">        byte[] SomeBytes = null;</span><br><span class="line">        if (paramList != null)</span><br><span class="line">        &#123;</span><br><span class="line">            int i = 0, j;</span><br><span class="line">            while (i &lt; paramList.Length)</span><br><span class="line">            &#123;</span><br><span class="line">                j = paramList.IndexOfAny(reserved, i);</span><br><span class="line">                if (j == -1)</span><br><span class="line">                &#123;</span><br><span class="line">                    UrlEncoded.Append(HttpUtility.UrlEncode(paramList.Substring(i, paramList.Length - i)));</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                UrlEncoded.Append(HttpUtility.UrlEncode(paramList.Substring(i, j - i)));</span><br><span class="line">                UrlEncoded.Append(paramList.Substring(j, 1));</span><br><span class="line">                i = j + 1;</span><br><span class="line">            &#125;</span><br><span class="line">            SomeBytes = Encoding.UTF8.GetBytes(UrlEncoded.ToString());</span><br><span class="line">            req.ContentLength = SomeBytes.Length;</span><br><span class="line">            Stream newStream = req.GetRequestStream();</span><br><span class="line">            newStream.Write(SomeBytes, 0, SomeBytes.Length);</span><br><span class="line">            newStream.Close();</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            req.ContentLength = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        //返回请求     </span><br><span class="line">        res = (HttpWebResponse)req.GetResponse();</span><br><span class="line">        Encoding encode = System.Text.Encoding.GetEncoding(&quot;utf-8&quot;);</span><br><span class="line">        Stream responseStream = null;</span><br><span class="line">        if (res.ContentEncoding.ToLower() == &quot;gzip&quot;)</span><br><span class="line">        &#123;</span><br><span class="line">            responseStream = new System.IO.Compression.GZipStream(res.GetResponseStream(), System.IO.Compression.CompressionMode.Decompress);</span><br><span class="line">        &#125;</span><br><span class="line">        else if (res.ContentEncoding.ToLower() == &quot;deflate&quot;)</span><br><span class="line">        &#123;</span><br><span class="line">            responseStream = new System.IO.Compression.DeflateStream(res.GetResponseStream(), System.IO.Compression.CompressionMode.Decompress);</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            responseStream = res.GetResponseStream();</span><br><span class="line">        &#125;</span><br><span class="line">        StreamReader sr = new StreamReader(responseStream, encode);</span><br><span class="line">        strResult = sr.ReadToEnd();</span><br><span class="line">    &#125;</span><br><span class="line">    catch (Exception e)</span><br><span class="line">    &#123;</span><br><span class="line">        //writeLog     </span><br><span class="line">    &#125;</span><br><span class="line">    finally</span><br><span class="line">    &#123;</span><br><span class="line">        res.Close();</span><br><span class="line">    &#125;</span><br><span class="line">    return strResult;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/// &lt;summary&gt;  获取页面HTML     </span><br><span class="line">///      </span><br><span class="line">/// &lt;PARAM name=&quot;url&quot;&gt;&lt;/PARAM&gt;     </span><br><span class="line">/// &lt;PARAM name=&quot;paramList&quot;&gt;&lt;/PARAM&gt;     </span><br><span class="line">/// &lt;RETURNS&gt;&lt;/RETURNS&gt;     </span><br><span class="line">public static string getPage(String url, string referer)</span><br><span class="line">&#123;</span><br><span class="line">    HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);</span><br><span class="line">    string strResult = string.Empty;</span><br><span class="line">    req.Headers[&quot;If-None-Match&quot;] = &quot;36d0ed736e88c71:d9f&quot;;</span><br><span class="line">    req.Referer = referer;</span><br><span class="line">    req.CookieContainer = theCC;</span><br><span class="line">    HttpWebResponse res = (HttpWebResponse)req.GetResponse();</span><br><span class="line">    StreamReader sr = null;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        sr = new StreamReader(res.GetResponseStream(), Encoding.UTF8);</span><br><span class="line">        strResult = sr.ReadToEnd();</span><br><span class="line">    &#125;</span><br><span class="line">    catch (System.Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        //writeLog     </span><br><span class="line">    &#125;</span><br><span class="line">    finally</span><br><span class="line">    &#123;</span><br><span class="line">        sr.Close();</span><br><span class="line">    &#125;</span><br><span class="line">    return strResult;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/// &lt;summary&gt;     </span><br><span class="line">/// 模仿异步请求POST的方法     </span><br><span class="line">/// &lt;/summary&gt;     </span><br><span class="line">/// &lt;PARAM name=&quot;url&quot;&gt;&lt;/PARAM&gt;     </span><br><span class="line">/// &lt;PARAM name=&quot;referer&quot;&gt;&lt;/PARAM&gt;     </span><br><span class="line">/// &lt;PARAM name=&quot;methed&quot;&gt;&lt;/PARAM&gt;     </span><br><span class="line">/// &lt;PARAM name=&quot;paramList&quot;&gt;&lt;/PARAM&gt;     </span><br><span class="line">/// &lt;RETURNS&gt;&lt;/RETURNS&gt;     </span><br><span class="line">public static string VisitPage(string url, string referer, string paramList)</span><br><span class="line">&#123;</span><br><span class="line">    HttpWebResponse response = null;</span><br><span class="line">    string strResult = string.Empty;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;</span><br><span class="line">        request.Method = &quot;POST&quot;;</span><br><span class="line">        request.KeepAlive = true;</span><br><span class="line">        request.Referer = referer;</span><br><span class="line">        request.Headers.Add(HttpRequestHeader.AcceptCharset, &quot;GBK,utf-8;q=0.7,*;q=0.3&quot;);</span><br><span class="line">        request.Headers.Add(HttpRequestHeader.AcceptEncoding, &quot;gzip,deflate,sdch&quot;);</span><br><span class="line">        request.Headers.Add(HttpRequestHeader.AcceptLanguage, &quot;zh-CN,zh;q=0.8&quot;);</span><br><span class="line">        request.Accept = &quot;application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5&quot;;</span><br><span class="line">        request.UserAgent = &quot;Mozilla/5.0 (Windows; U; Windows NT 5.2; en-US) AppleWebKit/534.7 (KHTML, like Gecko) Chrome/7.0.517.5 Safari/534.7&quot;;</span><br><span class="line">        request.ContentType = &quot;application/x-www-form-urlencoded&quot;;</span><br><span class="line">        request.CookieContainer = theCC;</span><br><span class="line">        request.Headers.Add(&quot;X-Requested-With&quot;, &quot;XMLHttpRequest&quot;);</span><br><span class="line">        StringBuilder UrlEncoded = new StringBuilder();</span><br><span class="line">        //对参数进行encode     </span><br><span class="line">        Char[] reserved = &#123; &#x27;?&#x27;, &#x27;=&#x27;, &#x27;&amp;&#x27; &#125;;</span><br><span class="line">        byte[] SomeBytes = null;</span><br><span class="line">        if (paramList != null)</span><br><span class="line">        &#123;</span><br><span class="line">            int i = 0, j;</span><br><span class="line">            while (i &lt; paramList.Length)</span><br><span class="line">            &#123;</span><br><span class="line">                j = paramList.IndexOfAny(reserved, i);</span><br><span class="line">                if (j == -1)</span><br><span class="line">                &#123;</span><br><span class="line">                    UrlEncoded.Append(HttpUtility.UrlEncode(paramList.Substring(i, paramList.Length - i)));</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                UrlEncoded.Append(HttpUtility.UrlEncode(paramList.Substring(i, j - i)));</span><br><span class="line">                UrlEncoded.Append(paramList.Substring(j, 1));</span><br><span class="line">                i = j + 1;</span><br><span class="line">            &#125;</span><br><span class="line">            SomeBytes = Encoding.UTF8.GetBytes(UrlEncoded.ToString());</span><br><span class="line">            request.ContentLength = SomeBytes.Length;</span><br><span class="line">            Stream newStream = request.GetRequestStream();</span><br><span class="line">            newStream.Write(SomeBytes, 0, SomeBytes.Length);</span><br><span class="line">            newStream.Close();</span><br><span class="line">        &#125;</span><br><span class="line">        response = (HttpWebResponse)request.GetResponse();</span><br><span class="line">        Encoding encode = System.Text.Encoding.GetEncoding(&quot;utf-8&quot;);</span><br><span class="line">        Stream responseStream = null;</span><br><span class="line">        if (response.ContentEncoding.ToLower() == &quot;gzip&quot;)</span><br><span class="line">        &#123;</span><br><span class="line">            responseStream = new System.IO.Compression.GZipStream(response.GetResponseStream(), System.IO.Compression.CompressionMode.Decompress);</span><br><span class="line">        &#125;</span><br><span class="line">        else if (response.ContentEncoding.ToLower() == &quot;deflate&quot;)</span><br><span class="line">        &#123;</span><br><span class="line">            responseStream = new System.IO.Compression.DeflateStream(response.GetResponseStream(), System.IO.Compression.CompressionMode.Decompress);</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            responseStream = response.GetResponseStream();</span><br><span class="line">        &#125;</span><br><span class="line">        StreamReader sr = new StreamReader(responseStream, encode);</span><br><span class="line">        strResult = sr.ReadToEnd();</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        //dosomething     </span><br><span class="line">    &#125;</span><br><span class="line">    finally</span><br><span class="line">    &#123;</span><br><span class="line">        response.Close();</span><br><span class="line">    &#125;</span><br><span class="line">    return strResult;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// Http下载文件</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">public static string HttpDownloadFile(string url, string path)</span><br><span class="line">&#123;</span><br><span class="line">    // 设置参数</span><br><span class="line">    HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;</span><br><span class="line">    //发送请求并获取相应回应数据</span><br><span class="line">    HttpWebResponse response = request.GetResponse() as HttpWebResponse;</span><br><span class="line">    //直到request.GetResponse()程序才开始向目标网页发送Post请求</span><br><span class="line">    Stream responseStream = response.GetResponseStream();</span><br><span class="line">    //创建本地文件写入流</span><br><span class="line">    Stream stream = new FileStream(path, FileMode.Create);</span><br><span class="line">    byte[] bArr = new byte[1024];</span><br><span class="line">    int size = responseStream.Read(bArr, 0, (int)bArr.Length);</span><br><span class="line">    while (size &gt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        stream.Write(bArr, 0, size);</span><br><span class="line">        size = responseStream.Read(bArr, 0, (int)bArr.Length);</span><br><span class="line">    &#125;</span><br><span class="line">    stream.Close();</span><br><span class="line">    responseStream.Close();</span><br><span class="line">    return path;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/11/22/%E3%80%90SqlServer%E3%80%91%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/22/%E3%80%90SqlServer%E3%80%91%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">【SqlServer】数据库备份和恢复操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-22 20:28:22" itemprop="dateCreated datePublished" datetime="2017-11-22T20:28:22+08:00">2017-11-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>借鉴自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/fishtreeyu/archive/2010/12/27/1918076.html">https://www.cnblogs.com/fishtreeyu/archive/2010/12/27/1918076.html</a></p>
+<p>博主说：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-- 备份数据库</span><br><span class="line">backup database db_CSManage to disk=&#x27;c:\backup.bak&#x27;</span><br><span class="line">-- 还原数据库，必须先备份该数据库的日志文件到原先的备份文件中</span><br><span class="line">backup log db_CSManage to disk=&#x27;c:\backup.bak&#x27;</span><br><span class="line">restore database db_CSManage from disk=&#x27;c:\backup.bak&#x27;</span><br></pre></td></tr></table></figure>
+<p>但在还原数据库时报错误</p>
+<p><img src="/images/20171122201809651.png" alt=""></p>
+<p>似乎他少写了一句话，改成这样就好了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-- 备份数据库</span><br><span class="line">backup database OA to disk=&#x27;d:\backup.bak&#x27;</span><br><span class="line"></span><br><span class="line">-- 备份该数据库的日志文件到原先的备份文件中</span><br><span class="line">backup LOG OA to disk=&#x27;d:\backup.bak&#x27; WITH NORECOVERY</span><br><span class="line">--还原数据库，</span><br><span class="line">restore database OA from disk=&#x27;d:\backup.bak&#x27; WITH STATS = 10,RECOVERY;</span><br></pre></td></tr></table></figure>
+<p>结果：<br><img src="/images/20171122202020362.png" alt=""></p>
+<p>好了，知道这个后直接在项目中执行该sql语句即可。</p>
+<p>但是有个坑点，在项目开发中，数据库备份的在安装数据库的那台电脑上，并不在vs项目文件夹中，需下载回本地</p>
+<p>MVC控制器备份数据库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 备份数据文件</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;param name=&quot;dbName&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;dbBackupName&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">public ActionResult Backuping(string dbName, string dbBackupName)</span><br><span class="line">&#123;</span><br><span class="line">    if (dbName == null || dbName.Length == 0)</span><br><span class="line">        return Json(new &#123; msg = false, error = &quot;输入的数据库不存在！&quot; &#125;, JsonRequestBehavior.AllowGet);</span><br><span class="line"></span><br><span class="line">    string path = ConfigurationManager.AppSettings[&quot;DbBackPath&quot;] + dbName + &quot;/&quot; + DateTime.Now.ToString(&quot;yyyyMMdd&quot;);</span><br><span class="line">    //path = Server.MapPath(path);路径只能是服务器上的</span><br><span class="line"></span><br><span class="line">    //如果路径不存在就创建文件夹</span><br><span class="line">    if (!Directory.Exists(path))</span><br><span class="line">    &#123;</span><br><span class="line">        Directory.CreateDirectory(path);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //判断文件是否已存在</span><br><span class="line">    string filePath = path + &quot;/&quot; + dbBackupName.Trim() + &quot;.bak&#x27;&quot;;</span><br><span class="line">    if (System.IO.File.Exists(filePath))</span><br><span class="line">    &#123;</span><br><span class="line">        System.IO.File.Delete(filePath);</span><br><span class="line">    &#125;</span><br><span class="line">    string str = ConfigurationManager.ConnectionStrings[dbName].ToString();</span><br><span class="line">    using (SqlConnection con = new SqlConnection(str))</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        string strBacl = &quot;backup database &quot; + dbName + &quot; to disk=&#x27;&quot; + filePath;</span><br><span class="line"></span><br><span class="line">        using (SqlCommand Cmd = new SqlCommand(strBacl, con))</span><br><span class="line">        &#123;</span><br><span class="line">            con.Open();</span><br><span class="line">            if (Cmd.ExecuteNonQuery() != 0)</span><br><span class="line">            &#123;</span><br><span class="line">                con.Close();</span><br><span class="line">                return Json(new &#123; succeed = true, filePath = filePath, error = &quot;备份数据库成功！&quot; &#125;, JsonRequestBehavior.AllowGet);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                con.Close();</span><br><span class="line">                return Json(new &#123; succeed = false, error = &quot;备份数据库失败！&quot; &#125;, JsonRequestBehavior.AllowGet);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>MVC控制器还原数据库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 数据库恢复操作</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;param name=&quot;dbName&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;fileUrlUpload&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">public ActionResult RecoverDatabase(string dbName, string fileUrlUpload)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    if (dbName == null || dbName.Length == 0)</span><br><span class="line">        return Json(new &#123; msg = false, error = &quot;输入的数据库不存在！&quot; &#125;, JsonRequestBehavior.AllowGet);</span><br><span class="line"></span><br><span class="line">    string DateStr  =ConfigurationManager.ConnectionStrings[&quot;master&quot;].ConnectionString;</span><br><span class="line"></span><br><span class="line">    string DbFilePath = @&quot;F:\DbBackup\tmm\20171122\tmm_ba.bak&quot;;//Session[&quot;DbFilePath&quot;].ToString();</span><br><span class="line"></span><br><span class="line">    SqlConnection con = new SqlConnection(DateStr);</span><br><span class="line">    if (con.State == ConnectionState.Open)</span><br><span class="line">    &#123;</span><br><span class="line">        con.Close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    SqlConnection conn = new SqlConnection(DateStr);</span><br><span class="line">    conn.Open();</span><br><span class="line"></span><br><span class="line">    string strSQL = &quot;select spid from master..sysprocesses where dbid=db_id( &#x27;&quot; + dbName + &quot;&#x27;) &quot;;</span><br><span class="line"></span><br><span class="line">    SqlDataAdapter Da = new SqlDataAdapter(strSQL, conn);</span><br><span class="line">    DataTable spidTable = new DataTable();</span><br><span class="line">    Da.Fill(spidTable);</span><br><span class="line"></span><br><span class="line">    SqlCommand Cmd = new SqlCommand();</span><br><span class="line">    Cmd.CommandType = CommandType.Text;</span><br><span class="line">    Cmd.Connection = conn;</span><br><span class="line"></span><br><span class="line">    for (int iRow = 0; iRow &lt;= spidTable.Rows.Count - 1; iRow++)</span><br><span class="line">    &#123;</span><br><span class="line">        Cmd.CommandText = &quot;kill &quot; + spidTable.Rows[iRow][0].ToString();   //强行关闭用户进程 </span><br><span class="line">        Cmd.ExecuteNonQuery();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //--------------------------------------------------------------------</span><br><span class="line">    SqlConnection sqlcon = new SqlConnection(DateStr);</span><br><span class="line">    sqlcon.Open();</span><br><span class="line">    string sql = &quot;backup DATABASE &quot; + dbName + &quot; to disk=&#x27;&quot; + DbFilePath + &quot;&#x27; restore database &quot;+dbName+&quot; from disk=&#x27;&quot; + DbFilePath + &quot;&#x27;&quot;;</span><br><span class="line">    SqlCommand sqlCmd = new SqlCommand(sql, sqlcon);</span><br><span class="line">    sqlCmd.ExecuteNonQuery();</span><br><span class="line">    sqlCmd.Dispose();</span><br><span class="line">    sqlcon.Close();</span><br><span class="line">    sqlcon.Dispose();</span><br><span class="line">    return Json(new &#123; succeed = false, error = &quot;备份数据库失败！&quot; &#125;, JsonRequestBehavior.AllowGet);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先需要切换到系统数据库下，然后先删除与需还原数据库相关的进程，然后在还原之前得先把数据库日志备份到开始的备份文件中，然后才还原备份文件，要不然会出错的，链接字符串在config文件中  </p>
+<p>明天再贴效果图，<br><img src="/images/20171123113949950.png" alt=""></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/11/14/%E3%80%90Jquery%E3%80%91ajax%E6%96%B9%E6%B3%95%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%88%B0return%E8%BF%94%E5%9B%9E%E5%80%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/14/%E3%80%90Jquery%E3%80%91ajax%E6%96%B9%E6%B3%95%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%88%B0return%E8%BF%94%E5%9B%9E%E5%80%BC/" class="post-title-link" itemprop="url">【Jquery】ajax方法获取不到return返回值</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-11-14 21:17:17" itemprop="dateCreated datePublished" datetime="2017-11-14T21:17:17+08:00">2017-11-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>又遇到这个问题了，还好及时发现了。之前也遇见过这个问题，困惑了很久。</p>
+<p>这次有经验了，一下就发现了存在的问题，自此记录一下，下次不在犯了。</p>
+<p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/terryMe/p/6130309.html">https://www.cnblogs.com/terryMe/p/6130309.html</a></p>
+<p>小哥哥描述得很清楚：</p>
+<p>如果jquery中，获取不到ajax返回值。</p>
+<p>两个错误写法会导致这种情况：1.ajax未用同步 2.在ajax方法中直接return返回值。</p>
+<p>下面列举了三种写法，如果想成功获取到返回值，参考第三种写法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* 方式：（1）同步调用 （2）在ajax函数中return值</span><br><span class="line">* 结果：返回 1。未成功获取返回值</span><br><span class="line">* 失败原因：ajax内部是一个或多个定义的函数，ajax中return返回值，</span><br><span class="line">* 返回到ajax定义函数，而不是返回到ajax外层的函数checkAccount1()</span><br><span class="line">*/</span><br><span class="line">function checkAccount1()&#123;</span><br><span class="line">    var result = 1;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        url : &#x27;test.do&#x27;,</span><br><span class="line">        type : &quot;post&quot;,</span><br><span class="line">        data : &#123;&#125;,</span><br><span class="line">        async : false,</span><br><span class="line">        success : function(data) &#123;</span><br><span class="line">            return 2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * （1）异步调用 （2）在ajax对全局变量进行设值 (3)ajax函数外将变量return</span><br><span class="line"> * 结果：返回 1。未成功获取返回值</span><br><span class="line"> * 失败原因：ajax请求和后面的return result语句异步执行，</span><br><span class="line"> * 导致return result比result = 2先执行并返回result的值</span><br><span class="line"> */</span><br><span class="line">function checkAccount2()&#123;</span><br><span class="line">    var result = 1;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        url : &#x27;test.do&#x27;,</span><br><span class="line">        type : &quot;post&quot;,</span><br><span class="line">        data : &#123;&#125;,</span><br><span class="line">        async : true,</span><br><span class="line">        success : function(data) &#123;</span><br><span class="line">            result = 2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * （1）同步调用 （2）且在ajax对全局变量进行设值 (3)ajax函数外将变量return</span><br><span class="line"> * 结果：返回 2。成功获取返回值</span><br><span class="line"> * 成功原因：先执行result = 2;再往下执行return result;</span><br><span class="line"> */</span><br><span class="line">function checkAccount3()&#123;</span><br><span class="line">    var result = 1;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        url : &#x27;test.do&#x27;,</span><br><span class="line">        type : &quot;post&quot;,</span><br><span class="line">        data : &#123;&#125;,</span><br><span class="line">        async : false,</span><br><span class="line">        success : function(data) &#123;</span><br><span class="line">            result = 2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/69/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><span class="page-number current">70</span><a class="page-number" href="/page/71/">71</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/71/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

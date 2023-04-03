@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="最开头，说明下文章转自： https:&#x2F;&#x2F;www.cnblogs.com&#x2F;landeanfen&#x2F;p&#x2F;5177176.html 点击打开链接 欢迎直接去看原创文章，原创比较精彩，这里只做个搬运工作！ 一、跨域问题的由来同源策略：出于安全考虑，浏览器会限制脚本中发起的跨站请求，浏览器要求JavaScript或Cookie只能访问同域下的内容。 正是由于这个原因，我们不同项目之间的调用就会被浏览器阻止。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Asp.Net】WebApi跨域问题解决方案：CORS">
+<meta property="og:url" content="http://blog.bfsdfs.com/2018/06/09/%E3%80%90Asp.Net%E3%80%91WebApi%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9ACORS/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="最开头，说明下文章转自： https:&#x2F;&#x2F;www.cnblogs.com&#x2F;landeanfen&#x2F;p&#x2F;5177176.html 点击打开链接 欢迎直接去看原创文章，原创比较精彩，这里只做个搬运工作！ 一、跨域问题的由来同源策略：出于安全考虑，浏览器会限制脚本中发起的跨站请求，浏览器要求JavaScript或Cookie只能访问同域下的内容。 正是由于这个原因，我们不同项目之间的调用就会被浏览器阻止。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/459756-20160229131240908-1602224831.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/459756-20160229133753361-1075296566.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/459756-20160229133812642-1821722368.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/459756-20160229142517330-256989624.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/459756-20160229143056017-383687832.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/459756-20160229143133751-885324074.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/459756-20160229143458970-712181933.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/459756-20160229143741923-1132194926.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/459756-20160229145004939-155589165.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/459756-20160229150223533-150389468.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/459756-20160229150324126-260813027.gif">
+<meta property="article:published_time" content="2018-06-09T12:37:27.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.054Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="Asp.Net">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/459756-20160229131240908-1602224831.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2018/06/09/%E3%80%90Asp.Net%E3%80%91WebApi%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9ACORS/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【Asp.Net】WebApi跨域问题解决方案：CORS | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/06/09/%E3%80%90Asp.Net%E3%80%91WebApi%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9ACORS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Asp.Net】WebApi跨域问题解决方案：CORS
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-06-09 20:37:27" itemprop="dateCreated datePublished" datetime="2018-06-09T20:37:27+08:00">2018-06-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最开头，说明下文章转自：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/landeanfen/p/5177176.html">https://www.cnblogs.com/landeanfen/p/5177176.html</a> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/landeanfen/p/5177176.html">点击打开链接</a></p>
+<p>欢迎直接去看原创文章，原创比较精彩，这里只做个搬运工作！</p>
+<h1 id="一、跨域问题的由来"><a href="#一、跨域问题的由来" class="headerlink" title="一、跨域问题的由来"></a>一、跨域问题的由来</h1><p>同源策略：出于安全考虑，浏览器会限制脚本中发起的跨站请求，浏览器要求JavaScript或Cookie只能访问同域下的内容。</p>
+<p>正是由于这个原因，我们不同项目之间的调用就会被浏览器阻止。比如我们最常见的场景：WebApi作为数据服务层，它是一个单独的项目，我们的MVC项目作为Web的显示层，这个时候我们的MVC里面就需要调用WebApi里面的接口取数据展现在页面上。因为我们的WebApi和MVC是两个不同的项目，所以运行起来之后就存在上面说的跨域的问题。</p>
+<h1 id="二、跨域问题解决原理"><a href="#二、跨域问题解决原理" class="headerlink" title="二、跨域问题解决原理"></a>二、跨域问题解决原理</h1><p>CORS全称Cross-Origin Resource Sharing，中文全称跨域资源共享。它解决跨域问题的原理是通过向http的请求报文和响应报文里面加入相应的标识告诉浏览器它能访问哪些域名的请求。比如我们向响应报文里面增加这个Access-Control-Allow-Origin:<a target="_blank" rel="noopener" href="http://url，就表示支持http://url里面的所有请求访问系统资源。其他更多的应用我们就不一一列举，可以去网上找找。">http://url，就表示支持http://url里面的所有请求访问系统资源。其他更多的应用我们就不一一列举，可以去网上找找。</a></p>
+<h1 id="三、跨域问题解决细节"><a href="#三、跨域问题解决细节" class="headerlink" title="三、跨域问题解决细节"></a>三、跨域问题解决细节</h1><p>下面我就结合一个简单的实例来说明下如何使用CORS解决WebApi的跨域问题。</p>
+<h2 id="1、场景描述"><a href="#1、场景描述" class="headerlink" title="1、场景描述"></a>1、场景描述</h2><p>我们新建两个项目，一个WebApi项目（下图中WebApiCORS），一个MVC项目（下图中Web）。WebApi项目负责提供接口服务，MVC项目负责页面呈现。如下：</p>
+<p><img src="/images/459756-20160229131240908-1602224831.png" alt=""></p>
+<p>其中，Web与WebApiCORS端口号分别为“27239”和“27221”。Web项目需要从WebApiCORSS项目里面取数据，很显然，两个项目端口不同，所以并不同源，如果使用常规的调用方法肯定存在一个跨域的问题。</p>
+<p>简单介绍下测试代码，Web里面有一个HomeController</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class HomeController : Controller</span><br><span class="line">&#123;</span><br><span class="line">    // GET: Home</span><br><span class="line">    public ActionResult Index()</span><br><span class="line">    &#123;</span><br><span class="line">        return View();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应的Index.cshtml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot; /&gt;</span><br><span class="line">    &lt;title&gt;Index&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;~/Content/jquery-1.9.1.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;link href=&quot;~/Content/bootstrap/css/bootstrap.css&quot; rel=&quot;stylesheet&quot; /&gt;</span><br><span class="line">    &lt;script src=&quot;~/Content/bootstrap/js/bootstrap.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script src=&quot;~/Scripts/Home/Index.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    测试结果：&lt;div id=&quot;div_test&quot;&gt; </span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Index.js文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var ApiUrl = &quot;http://localhost:27221/&quot;;</span><br><span class="line">$(function () &#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type: &quot;get&quot;,</span><br><span class="line">        url: ApiUrl + &quot;api/Charging/GetAllChargingData&quot;,</span><br><span class="line">        data: &#123;&#125;,</span><br><span class="line">        success: function (data, status) &#123;</span><br><span class="line">            if (status == &quot;success&quot;) &#123;</span><br><span class="line">                $(&quot;#div_test&quot;).html(data);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        error: function (e) &#123;</span><br><span class="line">            $(&quot;#div_test&quot;).html(&quot;Error&quot;);</span><br><span class="line">        &#125;,</span><br><span class="line">        complete: function () &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>WebApiCORS项目里面有一个测试的WebApi服务ChargingController</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class ChargingController : ApiController</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 得到所有数据</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    /// &lt;returns&gt;返回数据&lt;/returns&gt;</span><br><span class="line">    [HttpGet]</span><br><span class="line">    public string GetAllChargingData()</span><br><span class="line">    &#123;</span><br><span class="line">        return &quot;Success&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置WebApi的路由规则为通过action调用。WebApiConfig.cs文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public static class WebApiConfig</span><br><span class="line">&#123;</span><br><span class="line">    public static void Register(HttpConfiguration config)</span><br><span class="line">    &#123;</span><br><span class="line">        // Web API 路由</span><br><span class="line">        config.MapHttpAttributeRoutes();</span><br><span class="line"></span><br><span class="line">        config.Routes.MapHttpRoute(</span><br><span class="line">            name: &quot;DefaultApi&quot;,</span><br><span class="line">            routeTemplate: &quot;api/&#123;controller&#125;/&#123;action&#125;/&#123;id&#125;&quot;,</span><br><span class="line">            defaults: new &#123; id = RouteParameter.Optional &#125;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h2 id="2、场景测试"><a href="#2、场景测试" class="headerlink" title="2、场景测试"></a>2、场景测试</h2><h3 id="1）我们不做任何的处理，直接将两个项目运行起来。看效果如何"><a href="#1）我们不做任何的处理，直接将两个项目运行起来。看效果如何" class="headerlink" title="1）我们不做任何的处理，直接将两个项目运行起来。看效果如何"></a>1）我们不做任何的处理，直接将两个项目运行起来。看效果如何</h3><p>IE浏览器：</p>
+<p><img src="/images/459756-20160229133753361-1075296566.png" alt=""></p>
+<p>谷歌浏览器：</p>
+<p><img src="/images/459756-20160229133812642-1821722368.png" alt=""></p>
+<p>这个结果另博主也很吃惊，不做任何跨域处理，IE10、IE11竟然可以直接请求数据成功，而同样的代码IE8、IE9、谷歌浏览器却不能跨域访问。此原因有待查找，应该是微软动了什么手脚。</p>
+<h3 id="2）使用CORS跨域"><a href="#2）使用CORS跨域" class="headerlink" title="2）使用CORS跨域"></a>2）使用CORS跨域</h3><p>首先介绍下CORS如何使用，在WebApiCORS项目上面使用Nuget搜索“microsoft.aspnet.webapi.cors”，安装第一个</p>
+<p><img src="/images/459756-20160229142517330-256989624.png" alt=""></p>
+<p>然后在App_Start文件夹下面的WebApiConfig.cs文件夹配置跨域</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public static class WebApiConfig</span><br><span class="line">&#123;</span><br><span class="line">    public static void Register(HttpConfiguration config)</span><br><span class="line">    &#123;</span><br><span class="line">        //跨域配置</span><br><span class="line">        config.EnableCors(new EnableCorsAttribute(&quot;*&quot;, &quot;*&quot;, &quot;*&quot;));</span><br><span class="line"></span><br><span class="line">        // Web API 路由</span><br><span class="line">        config.MapHttpAttributeRoutes();</span><br><span class="line"></span><br><span class="line">        config.Routes.MapHttpRoute(</span><br><span class="line">            name: &quot;DefaultApi&quot;,</span><br><span class="line">            routeTemplate: &quot;api/&#123;controller&#125;/&#123;action&#125;/&#123;id&#125;&quot;,</span><br><span class="line">            defaults: new &#123; id = RouteParameter.Optional &#125;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们暂定三个“*”号，当然，在项目中使用的时候一般需要指定对哪个域名可以跨域、跨域的操作有哪些等等。这个在下面介绍。</p>
+<p>IE10、IE11</p>
+<p><img src="/images/459756-20160229143056017-383687832.png" alt=""></p>
+<p>谷歌浏览器</p>
+<p><img src="/images/459756-20160229143133751-885324074.png" alt=""></p>
+<p>IE8、IE9</p>
+<p><img src="/images/459756-20160229143458970-712181933.png" alt=""></p>
+<p>这个时候又有新问题了，怎么回事呢？我都已经设置跨域了呀，怎么IE8、9还是不行呢？这个时候就有必要说说CORS的浏览器支持问题了。网上到处都能搜到这张图：</p>
+<p><img src="/images/459756-20160229143741923-1132194926.png" alt=""></p>
+<p>上图描述了CORS的浏览器支持情况，可以看到IE8、9是部分支持的。网上说的解决方案都是Internet Explorer 8 、9使用 XDomainRequest 对象实现CORS。是不是有这么复杂？于是博主各种百度寻找解决方案。最后发现在调用处指定 jQuery.support.cors = true; 这一句就能解决IE8、9的问题了。具体是在Index.js里面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">jQuery.support.cors = true;</span><br><span class="line">var ApiUrl = &quot;http://localhost:27221/&quot;;</span><br><span class="line">$(function () &#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type: &quot;get&quot;,</span><br><span class="line">        url: ApiUrl + &quot;api/Charging/GetAllChargingData&quot;,</span><br><span class="line">        data: &#123;&#125;,</span><br><span class="line">        success: function (data, status) &#123;</span><br><span class="line">            if (status == &quot;success&quot;) &#123;</span><br><span class="line">                $(&quot;#div_test&quot;).html(data);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        error: function (e) &#123;</span><br><span class="line">            $(&quot;#div_test&quot;).html(&quot;Error&quot;);</span><br><span class="line">        &#125;,</span><br><span class="line">        complete: function () &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这句话的意思就是指定浏览器支持跨域。原来IE9以上版本的浏览器、谷歌、火狐等都默认支持跨域，而IE8、9却默认不支持跨域，需要我们指定一下。你可以在你的浏览器里面打印jQuery.support.cors看看。这样设置之后是否能解决问题呢？我们来看效果：</p>
+<p><img src="/images/459756-20160229145004939-155589165.png" alt=""></p>
+<p>问题完美解决。至于网上说的CORS对IE8、9的解决方案XDomainRequest是怎么回事，有待实例验证。</p>
+<h3 id="3）CORS的具体参数设置。"><a href="#3）CORS的具体参数设置。" class="headerlink" title="3）CORS的具体参数设置。"></a>3）CORS的具体参数设置。</h3><p>上文我们使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.EnableCors(new EnableCorsAttribute(&quot;*&quot;, &quot;*&quot;, &quot;*&quot;));</span><br></pre></td></tr></table></figure>
+<p>这一句解决了跨域问题，上面说了，这种*号是不安全的。因为它表示只要别人知道了你的请求url，任何请求都可以访问到你的资源。这是相当危险的。所以需要我们做一些配置，限制访问权限。比如我们比较常见的做法如下：</p>
+<p>配置方法一、在Web.Config里面（PS：这两张图源自：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/moretry/p/4154479.html">http://www.cnblogs.com/moretry/p/4154479.html</a>）</p>
+<p><img src="/images/459756-20160229150223533-150389468.gif" alt=""></p>
+<p>然后在WebApiConfig.cs文件的Register方法里面</p>
+<p><img src="/images/459756-20160229150324126-260813027.gif" alt=""></p>
+<p>配置方法二、如果你只想对某一些api做跨域，可以直接在API的类上面使用特性标注即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[EnableCors(origins: &quot;url&quot;, headers: &quot;*&quot;, methods: &quot;GET,POST,PUT,DELETE&quot;)]</span><br><span class="line">public class ChargingController : ApiController</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 得到所有数据</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    /// &lt;returns&gt;返回数据&lt;/returns&gt;</span><br><span class="line">    [HttpGet]</span><br><span class="line">    public string GetAllChargingData()</span><br><span class="line">    &#123;</span><br><span class="line">        return &quot;Success&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2018/06/09/%E3%80%90Asp.Net%E3%80%91WebApi%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9ACORS/" title="【Asp.Net】WebApi跨域问题解决方案：CORS">http://blog.bfsdfs.com/2018/06/09/【Asp.Net】WebApi跨域问题解决方案：CORS/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Asp-Net/" rel="tag"># Asp.Net</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/06/06/%E3%80%90WinForm%E3%80%91%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85%EF%BC%8C%E4%BD%BF%E7%94%A8VS2017/" rel="prev" title="【WinForm】程序打包，使用VS2017">
+      <i class="fa fa-chevron-left"></i> 【WinForm】程序打包，使用VS2017
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/06/10/%E3%80%90Asp.Net%E3%80%91WebApi%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E5%80%BC%E8%BF%94%E5%9B%9E%E5%80%BC%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3/" rel="next" title="【Asp.Net】WebApi接口返回值返回值类型详解">
+      【Asp.Net】WebApi接口返回值返回值类型详解 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E7%9A%84%E7%94%B1%E6%9D%A5"><span class="nav-number">1.</span> <span class="nav-text">一、跨域问题的由来</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">二、跨域问题解决原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E7%BB%86%E8%8A%82"><span class="nav-number">3.</span> <span class="nav-text">三、跨域问题解决细节</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0"><span class="nav-number">3.1.</span> <span class="nav-text">1、场景描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%9C%BA%E6%99%AF%E6%B5%8B%E8%AF%95"><span class="nav-number">3.2.</span> <span class="nav-text">2、场景测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%EF%BC%89%E6%88%91%E4%BB%AC%E4%B8%8D%E5%81%9A%E4%BB%BB%E4%BD%95%E7%9A%84%E5%A4%84%E7%90%86%EF%BC%8C%E7%9B%B4%E6%8E%A5%E5%B0%86%E4%B8%A4%E4%B8%AA%E9%A1%B9%E7%9B%AE%E8%BF%90%E8%A1%8C%E8%B5%B7%E6%9D%A5%E3%80%82%E7%9C%8B%E6%95%88%E6%9E%9C%E5%A6%82%E4%BD%95"><span class="nav-number">3.2.1.</span> <span class="nav-text">1）我们不做任何的处理，直接将两个项目运行起来。看效果如何</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%EF%BC%89%E4%BD%BF%E7%94%A8CORS%E8%B7%A8%E5%9F%9F"><span class="nav-number">3.2.2.</span> <span class="nav-text">2）使用CORS跨域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%EF%BC%89CORS%E7%9A%84%E5%85%B7%E4%BD%93%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE%E3%80%82"><span class="nav-number">3.2.3.</span> <span class="nav-text">3）CORS的具体参数设置。</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '67dfe55ed040f9dd39cb9317ccb6a513',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

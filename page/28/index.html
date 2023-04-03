@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/28/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/28/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/12/14/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8NLog%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%E5%88%B0%E6%96%87%E4%BB%B6%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/14/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8NLog%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%E5%88%B0%E6%96%87%E4%BB%B6%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">【.Net Core】使用NLog记录日志到文件和数据库</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-14 11:55:45" itemprop="dateCreated datePublished" datetime="2019-12-14T11:55:45+08:00">2019-12-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>NLog 记录日志是微软官方推荐使用。</p>
+<p>接下来，通过配置日志记录到文件和Sql Server数据库。</p>
+<p>第一步：首先添加包NLog.Config （可通过微软添加包命令Install-Package 包名进行添加，也可以通过管理NuGet程序包进行添加），添加成功后会生成NLog.config配置文件。并对该配置文件进行配置。详细配置可参考Git上 NLog说明。</p>
+<p>以下是我个人配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span><br><span class="line">&lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;</span><br><span class="line">      xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">      xsi:schemaLocation=&quot;http://www.nlog-project.org/schemas/NLog.xsd NLog.xsd&quot;</span><br><span class="line">      autoReload=&quot;true&quot;</span><br><span class="line">      throwExceptions=&quot;false&quot;</span><br><span class="line">      internalLogLevel=&quot;Warn&quot;   </span><br><span class="line">      internalLogFile=&quot;Logs/nlog-internal.log&quot;&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;!--internalLogLevel=&quot;Off&quot;--&gt;</span><br><span class="line">  &lt;!-- optional, add some variables</span><br><span class="line">  https://github.com/nlog/NLog/wiki/Configuration-file#variables</span><br><span class="line">  --&gt;</span><br><span class="line">  &lt;variable name=&quot;myvar&quot; value=&quot;myvalue&quot;/&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!--</span><br><span class="line">  See https://github.com/nlog/nlog/wiki/Configuration-file</span><br><span class="line">  for information on customizing logging rules and outputs.</span><br><span class="line">   --&gt;</span><br><span class="line">  &lt;targets&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--</span><br><span class="line">    add your targets here</span><br><span class="line">    See https://github.com/nlog/NLog/wiki/Targets for possible targets.</span><br><span class="line">    See https://github.com/nlog/NLog/wiki/Layout-Renderers for the possible layout renderers.</span><br><span class="line">    --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--</span><br><span class="line">    Write events to a file with the date in the filename.</span><br><span class="line">    &lt;target xsi:type=&quot;File&quot; name=&quot;f&quot; fileName=&quot;$&#123;basedir&#125;/logs/$&#123;shortdate&#125;.log&quot;</span><br><span class="line">            layout=&quot;$&#123;longdate&#125; $&#123;uppercase:$&#123;level&#125;&#125; $&#123;message&#125;&quot; /&gt;</span><br><span class="line">    --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- write logs to file --&gt;</span><br><span class="line">    &lt;target xsi:type=&quot;File&quot; name=&quot;allfile&quot; fileName=&quot;Logs/$&#123;date:format=yyyyMM&#125;/nlog-all-$&#123;shortdate&#125;.log&quot;</span><br><span class="line">             layout=&quot;$&#123;longdate&#125;|$&#123;event-properties:item=EventId.Id&#125;|$&#123;uppercase:$&#123;level&#125;&#125;|$&#123;logger&#125; $&#123;newline&#125;$&#123;message&#125; $&#123;exception&#125; $&#123;newline&#125;&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;target xsi:type=&quot;File&quot; name=&quot;ownFile-web&quot; fileName=&quot;Logs/$&#123;date:format=yyyyMM&#125;/nlog-own-$&#123;shortdate&#125;.log&quot;</span><br><span class="line">             layout=&quot;$&#123;longdate&#125;|$&#123;event-properties:item=EventId.Id&#125;|$&#123;uppercase:$&#123;level&#125;&#125;|$&#123;logger&#125; $&#123;newline&#125;$&#123;message&#125; $&#123;exception&#125; $&#123;newline&#125; --- |url: $&#123;aspnet-request-url&#125;|action: $&#123;aspnet-mvc-action&#125;&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;target xsi:type=&quot;Null&quot; name=&quot;blackhole&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;target xsi:type=&quot;Database&quot; name=&quot;database&quot;&gt;</span><br><span class="line">      &lt;connectionString&gt;$&#123;var:connectionString&#125;&lt;/connectionString&gt;</span><br><span class="line">      &lt;commandText&gt;</span><br><span class="line">        insert into syslogs (Application,Levels,Operatingtime,Operatingaddress,Userid,Logger,Callsite,Requesturl,Referrerurl,Action,Message,Exception)</span><br><span class="line">        values (@application,@levels,@operatingtime,@operatingaddress,@userid,@logger,@callSite,@requesturl,@referrerurl,@action,@message,@exception);</span><br><span class="line">      &lt;/commandText&gt;</span><br><span class="line">      &lt;parameter name=&quot;@application&quot; layout=&quot;WebApi&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@levels&quot; layout=&quot;$&#123;level&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@operatingTime&quot; layout=&quot;$&#123;date&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@operatingaddress&quot; layout=&quot;$&#123;aspnet-Request-IP&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@userid&quot; layout=&quot;1&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@logger&quot; layout=&quot;$&#123;logger&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@callSite&quot; layout=&quot;$&#123;callsite&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@requesturl&quot; layout=&quot;$&#123;aspnet-request-url&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@referrerurl&quot; layout=&quot;$&#123;aspnet-request&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@action&quot; layout=&quot;$&#123;aspnet-mvc-action&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@message&quot; layout=&quot;$&#123;message&#125;&quot; /&gt;</span><br><span class="line">      &lt;parameter name=&quot;@exception&quot; layout=&quot;$&#123;exception:tostring&#125;&quot; /&gt;</span><br><span class="line">    &lt;/target&gt;</span><br><span class="line">    </span><br><span class="line">  &lt;/targets&gt;</span><br><span class="line"></span><br><span class="line">  &lt;rules&gt;</span><br><span class="line">    &lt;!-- add your logging rules here --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--</span><br><span class="line">    Write all events with minimal level of Debug (So Debug, Info, Warn, Error and Fatal, but not Trace)  to &quot;f&quot;</span><br><span class="line">    &lt;logger name=&quot;*&quot; minlevel=&quot;Debug&quot; writeTo=&quot;f&quot; /&gt;</span><br><span class="line">    --&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--All logs, including from Microsoft--&gt;</span><br><span class="line">    &lt;!--minlevel 改为Trace 跟踪全部 Error 只捕获异常--&gt;</span><br><span class="line">    &lt;logger name=&quot;*&quot; minlevel=&quot;Error&quot; writeTo=&quot;allfile&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--Skip Microsoft logs and so log only own logs--&gt;</span><br><span class="line">    &lt;logger name=&quot;Microsoft.*&quot; minlevel=&quot;Trace&quot; writeTo=&quot;blackhole&quot; final=&quot;true&quot; /&gt;</span><br><span class="line">    &lt;logger name=&quot;*&quot; minlevel=&quot;Trace&quot; writeTo=&quot;ownFile-web&quot; /&gt;</span><br><span class="line">    &lt;logger name=&quot;*&quot; minlevel=&quot;Trace&quot; writeTo=&quot;database&quot; /&gt;    </span><br><span class="line">    </span><br><span class="line">  &lt;/rules&gt;</span><br><span class="line">&lt;/nlog&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;!--增加引用</span><br><span class="line">&lt;PackageReference Include=&quot;NLog.Extensions.Logging&quot; Version=&quot;1.2.1&quot; /&gt;</span><br><span class="line">&lt;PackageReference Include=&quot;NLog.Web.AspNetCore&quot; Version=&quot;4.6.0&quot; /&gt;--&gt;</span><br><span class="line"></span><br><span class="line">NLog.config</span><br></pre></td></tr></table></figure>
+<p>说明：targets 中有一节点为Database，是配置将日志写入数据库中，注意需要在数据库中添加该记录日志表。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;ConnectionStrings&quot;: &#123;</span><br><span class="line">    &quot;DefaultConnection&quot;: &quot;Data Source=192.168.30.133;Initial Catalog=Test;User ID=sa;Password=123456;Trusted_Connection=True;MultipleActiveResultSets=true;Integrated Security=false;&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;Logging&quot;: &#123;</span><br><span class="line">    &quot;LogLevel&quot;: &#123;</span><br><span class="line">      &quot;Default&quot;: &quot;Warning&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;AllowedHosts&quot;: &quot;*&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">appsettings.json</span><br></pre></td></tr></table></figure>
+<p>第二步：添加包NLog.Web.AspNetCore，在Program.cs中的WebHost加入”.UseNLog()”（该属于程序集NLog.Web，需要添加引用using NLog.Web;）,即为添加nlog.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">using Microsoft.AspNetCore;</span><br><span class="line">using Microsoft.AspNetCore.Hosting;</span><br><span class="line">using NLog.Web;</span><br><span class="line"></span><br><span class="line">namespace WebApi</span><br><span class="line">&#123;</span><br><span class="line">    public class Program</span><br><span class="line">    &#123;</span><br><span class="line">        public static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            CreateWebHostBuilder(args).Build().Run();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =&gt;</span><br><span class="line">            WebHost.CreateDefaultBuilder(args)</span><br><span class="line">                .UseStartup&lt;Startup&gt;()</span><br><span class="line">                .UseNLog(); //加入nlog日志</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Program.cs</span><br></pre></td></tr></table></figure>
+<p>第三步：在Startup.cs中的Configure方法中添加记日志代码，即需要加载的配置文件和配置日志写入数据库连接字符串代码。注意：为避免中文乱码问题需要添加System.Text.Encoding.CodePages包。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public void Configure(IApplicationBuilder app, IHostingEnvironment env)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    #region Nlog记日志</span><br><span class="line">    //将日志记录到数据库                 config/NLog.config</span><br><span class="line">    NLog.LogManager.LoadConfiguration(&quot;nlog.config&quot;).GetCurrentClassLogger();       NLog.LogManager.Configuration.Variables[&quot;connectionString&quot;] = Configuration.GetConnectionString(&quot;DefaultConnection&quot;);   Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);  //避免日志中的中文输出乱码</span><br><span class="line">    #endregion</span><br><span class="line"></span><br><span class="line">    if (env.IsDevelopment())</span><br><span class="line">        app.UseDeveloperExceptionPage();</span><br><span class="line">    else</span><br><span class="line">        app.UseHsts();</span><br><span class="line">    app.UseHttpsRedirection();</span><br><span class="line">    app.UseMvc();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Configure方法</span><br></pre></td></tr></table></figure>
+<p>第四步：使用微软推荐的方式在在构造方法中将将日志对象注入。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class UsersController : Controller</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 日志对象</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    private readonly ILogger logger;    </span><br><span class="line">      public UsersController(ILoggerFactory loggerFactory)</span><br><span class="line">    &#123;</span><br><span class="line">        this.logger = loggerFactory.CreateLogger&lt;UsersController&gt;();</span><br><span class="line"></span><br><span class="line">        #region 测试日志</span><br><span class="line">        logger.LogTrace(&quot;开发阶段调试，可能包含敏感程序数据&quot;, 1);</span><br><span class="line">        logger.LogDebug(&quot;开发阶段短期内比较有用，对调试有益。&quot;);</span><br><span class="line">        logger.LogInformation(&quot;你访问了首页。跟踪程序的一般流程。&quot;);</span><br><span class="line">        logger.LogWarning(&quot;警告信息！因程序出现故障或其他不会导致程序停止的流程异常或意外事件。&quot;);</span><br><span class="line">        logger.LogError(&quot;错误信息。因某些故障停止工作&quot;);</span><br><span class="line">        logger.LogCritical(&quot;程序或系统崩溃、遇到灾难性故障！！！&quot;);</span><br><span class="line">        #endregion</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">构造方法中注入</span><br></pre></td></tr></table></figure>
+<p>所有工作完成，运行程序。在配置NLog路径下生成日志文件，同时，在数据库中生成日志。</p>
+<p><img src="/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvODI0NDkxLzIwMTgxMC84MjQ0OTEtMjAxODEwMTQyMjAzMTg3NjAtMTA2ODU3MTEzNy5wbmc.png" alt="">)<img src="/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvODI0NDkxLzIwMTgxMC84MjQ0OTEtMjAxODEwMTQyMjAzMjM1NjQtMTE2MTQ2MDk3NS5wbmc.png" alt=""></p>
+<p>MySql的问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#1楼 2019-04-30 14:35 3369</span><br><span class="line">你好，我这边使用Pomelo.EntityFrameworkCore.MySql连接mysql，dbProvider=&quot;Pomelo.EntityFrameworkCore.MySql&quot;，可以向文件中写入日志，但是无法向数据库中写入日志</span><br><span class="line">支持(0) 反对(0)</span><br><span class="line">  修改 删除#2楼 2019-12-10 18:03 占位符,😐!</span><br><span class="line">@ 3369</span><br><span class="line">还得安装下：MySql.Data</span><br><span class="line">这个还是：dbProvider=&quot;MySql.Data.MySqlClient.MySqlConnection, MySql.Data&quot;，</span><br><span class="line">不知道有没有更好的方法</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/12/14/%E3%80%90angular%E3%80%91%E8%B0%83%E7%94%A8API%E4%BD%BF%E7%94%A8Cookie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/14/%E3%80%90angular%E3%80%91%E8%B0%83%E7%94%A8API%E4%BD%BF%E7%94%A8Cookie/" class="post-title-link" itemprop="url">【Angular】调用API使用Cookie</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-14 11:11:20" itemprop="dateCreated datePublished" datetime="2019-12-14T11:11:20+08:00">2019-12-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>  在用angular2调用后台接口的时候，遇到了两个问题1、请求头没有cookies;2、对两次请求，node后端都开了一个新的线程。对于这两个问题，其实我认为解决了请求头cookie的问题，后面的问题自然解决。对于cookie有什么作用，为什么要有这个cookie，看下图前后端请求模式。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSdGQ?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSdEk?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSdFg?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p>不难看出，这个cookie是获取session会话中信息的凭证，只有向后台传送匹配的cookie，才能得到相应的信息，否则将创建新的session。</p>
+<p>到这里，来看下XMLHttpRequest.withCredentials这个属性，度娘解释如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">XMLHttpRequest.withCredentials  属性是一个Boolean类型，它指示了是否该使用类似cookies,authorization headers(头部授权)或者TLS客户端证书这一类资格证书来创建一个跨站点访问控制（cross-site Access-Control）请求。在同一个站点下使用withCredentials属性是无效的。</span><br><span class="line"></span><br><span class="line">此外，这个指示也会被用做响应中cookies 被忽视的标示。默认值是false。</span><br><span class="line"></span><br><span class="line">如果在发送来自其他域的XMLHttpRequest请求之前，未设置withCredentials 为true，那么就不能为它自己的域设置cookie值。而通过设置withCredentials 为true获得的第三方cookies，将会依旧享受同源策略，因此不能被通过document.cookie或者从头部相应请求的脚本等访问。</span><br></pre></td></tr></table></figure>
+<p>angular2中http显然也是基于xml的请求，必定有这个属性。再看下http接口的请求接口说明。默认情况下，一般浏览器的CORS跨域请求都是不会发送cookie等认证信息到服务端的，除非指定了xhr.withCredentials = true，但是只有客户端单方面的设置了这个值还不行，服务端也需要同意才可以，所以服务端也需要设置好返回头Access-Control-Allow-Credentials: true；还有一点要注意的，返回头Access-Control-Allow-Origin的值不能为星号，必须是指定的域，否则cookie等认证信息也是发送不了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Interface Details</span><br><span class="line"></span><br><span class="line">url : string</span><br><span class="line">method : string|RequestMethod</span><br><span class="line">search : string|URLSearchParams|&#123;[key: string]: any | any[]&#125;</span><br><span class="line">params : string|URLSearchParams|&#123;[key: string]: any | any[]&#125;</span><br><span class="line">headers : Headers</span><br><span class="line">body : any</span><br><span class="line">withCredentials : boolean</span><br><span class="line">responseType : ResponseContentType</span><br></pre></td></tr></table></figure>
+<p>问题找到了，就是这货！再修改下请求代码</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSeGE?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p>再来看下请求头信息</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSeDg?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSeWI?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p>显然，请求头都已经被加上了cookie，而且这个cookie都是匹配的，看似没什么问题，但是再看看请求接口的response，没有任何信息，但后台明显有返回信息，而且这个response并非每次都不返回任何信息，存在偶然性。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSemc?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p>到这里，明显就出现了另一个问题，就是跨域，看看浏览器的console信息就知道了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XMLHttpRequest cannot load http://neil.com:8090/api/send. The value of the &#x27;Access-Control-Allow-Origin&#x27; header in the response must not be the wildcard &#x27;*&#x27; when the request&#x27;s credentials mode is &#x27;include&#x27;. Origin &#x27;http://localhost:4200&#x27; is therefore not allowed access. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.</span><br></pre></td></tr></table></figure>
+<p>到这里，问题清晰了，只要解决跨域问题，整个流程就跑通。网上也有很多办法处理跨域，但如果不想用jsonp呢，那只能从服务器上动刀子。查了些资料，最靠普的无非在服务端加上request头部设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//设置跨域访问</span><br><span class="line">app.all(&#x27;*&#x27;, function (req, res, next) &#123;</span><br><span class="line">    res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;http://neil.com:4200&quot;);   //设置跨域访问</span><br><span class="line">    res.header(&#x27;Access-Control-Allow-Credentials&#x27;, &#x27;true&#x27;);</span><br><span class="line">    res.header(&#x27;Access-Control-Allow-Methods&#x27;, &#x27;GET, POST, PUT, DELETE, OPTIONS&#x27;);</span><br><span class="line">    res.header(&#x27;Access-Control-Allow-Headers&#x27;, &#x27;Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With&#x27;);</span><br><span class="line">    res.header(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">    next();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里说明下，‘Access-Control-Allow-Origin’必须设置请求侧的域名，不然无法跨域，不能解决问题。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9zZWdtZW50ZmF1bHQuY29tL2ltZy9iVlBSQXg?x-oss-process=image/format,png" alt="clipboard.png"></p>
+<p>现在，问题已经全部处理。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/12/12/%E3%80%90EF%E3%80%91Transaction%E4%BA%8B%E5%8A%A1%E4%BC%9A%E5%AF%B9DbContext%E5%BA%95%E5%B1%82%E5%88%9B%E5%BB%BA%E5%92%8C%E5%85%B3%E9%97%AD%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%A1%8C%E4%B8%BA%E6%9C%89%E6%89%80%E5%BD%B1%E5%93%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/12/%E3%80%90EF%E3%80%91Transaction%E4%BA%8B%E5%8A%A1%E4%BC%9A%E5%AF%B9DbContext%E5%BA%95%E5%B1%82%E5%88%9B%E5%BB%BA%E5%92%8C%E5%85%B3%E9%97%AD%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%A1%8C%E4%B8%BA%E6%9C%89%E6%89%80%E5%BD%B1%E5%93%8D/" class="post-title-link" itemprop="url">【EF】Transaction事务会对DbContext底层创建和关闭数据库连接的行为有所影响</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-12 20:20:05" itemprop="dateCreated datePublished" datetime="2019-12-12T20:20:05+08:00">2019-12-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>29k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>26 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>数据库</strong></p>
+<hr>
+<p>我们先在SQL Server数据库中建立一个Book表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> CREATE TABLE [dbo].[Book](</span><br><span class="line">    [ID] [int] IDENTITY(1,1) NOT NULL,</span><br><span class="line">    [BookName] [nvarchar](50) NULL,</span><br><span class="line">    [BookDescription] [nvarchar](50) NULL,</span><br><span class="line">    [ISBN] [nvarchar](20) NULL,</span><br><span class="line">    [CreateTime] [datetime] NULL,</span><br><span class="line"> CONSTRAINT [PK_Book] PRIMARY KEY CLUSTERED </span><br><span class="line">(</span><br><span class="line">    [ID] ASC</span><br><span class="line">)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]</span><br><span class="line">) ON [PRIMARY]</span><br><span class="line">GO</span><br><span class="line"></span><br><span class="line">ALTER TABLE [dbo].[Book] ADD  CONSTRAINT [DF_Book_CreateTime]  DEFAULT (getdate()) FOR [CreateTime]</span><br><span class="line">GO</span><br></pre></td></tr></table></figure>
+<p>然后插入如下数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">INSERT [dbo].[Book] ([BookName], [BookDescription], [ISBN]) VALUES (N&#x27;Chinese&#x27;, N&#x27;Chinese&#x27;, N&#x27;0001&#x27;)</span><br><span class="line">GO</span><br><span class="line">INSERT [dbo].[Book] ([BookName], [BookDescription], [ISBN]) VALUES (N&#x27;English&#x27;, N&#x27;English&#x27;, N&#x27;0002&#x27;)</span><br><span class="line">GO</span><br><span class="line">INSERT [dbo].[Book] ([BookName], [BookDescription], [ISBN]) VALUES (N&#x27;Japanese&#x27;, N&#x27;Japanese&#x27;, N&#x27;0003&#x27;)</span><br><span class="line">GO</span><br><span class="line">INSERT [dbo].[Book] ([BookName], [BookDescription], [ISBN]) VALUES (N&#x27;Russian&#x27;, N&#x27;Russian&#x27;, N&#x27;0004&#x27;)</span><br><span class="line">GO</span><br><span class="line">INSERT [dbo].[Book] ([BookName], [BookDescription], [ISBN]) VALUES (N&#x27;Italian&#x27;, N&#x27;Italian&#x27;, N&#x27;0005&#x27;)</span><br><span class="line">GO</span><br></pre></td></tr></table></figure>
+<p>查询Book表的数据，如下图所示：</p>
+<p><img src="/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNjYwNTkvMjAxODEwLzY2MDU5LTIwMTgxMDE3MTEyNDQ0OTM0LTE2MDAzMzY5NDIucG5n.png" alt=""></p>
+<p>现在我们使用EF Core将Book表映射到.NET Core控制台项目中的Book实体上，Book实体如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line"></span><br><span class="line">namespace EFCoreDB.Entities</span><br><span class="line">&#123;</span><br><span class="line">    public partial class Book</span><br><span class="line">    &#123;</span><br><span class="line">        public int Id &#123; get; set; &#125;</span><br><span class="line">        public string BookName &#123; get; set; &#125;</span><br><span class="line">        public string BookDescription &#123; get; set; &#125;</span><br><span class="line">        public string Isbn &#123; get; set; &#125;</span><br><span class="line">        public DateTime? CreateTime &#123; get; set; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="不使用事务"><a href="#不使用事务" class="headerlink" title="不使用事务"></a><strong>不使用事务</strong></h2><p>然后我们在.NET Core控制台项目Program类的Main方法中，使用DbContext（也就是FinanceDigitalToolContext）读取BookName为”Chinese”的Book实体，然后使用DbContext.SaveChanges方法两次更改其BookDescription属性的值，再从数据库中将其查询出来显示，代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">using EFCoreDB.Entities;</span><br><span class="line">using System;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Linq.Expressions;</span><br><span class="line"></span><br><span class="line">namespace EFCoreDB</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            using (FinanceDigitalToolContext dbContext = new FinanceDigitalToolContext())</span><br><span class="line">            &#123;</span><br><span class="line">                Expression&lt;Func&lt;Book, bool&gt;&gt; bookExpression = b =&gt; b.BookName == &quot;Chinese&quot;;//构造查询条件，来查询BookName为Chinese的Book</span><br><span class="line"></span><br><span class="line">                var chineseBook = dbContext.Book.First(bookExpression);//获取BookName为Chinese的Book实体chineseBook</span><br><span class="line"></span><br><span class="line">                chineseBook.BookDescription = &quot;This is a Chinese book&quot;;//更改chineseBook的BookDescription属性</span><br><span class="line">                dbContext.SaveChanges();//用DbContext.SaveChanges方法保存更改到数据库</span><br><span class="line"></span><br><span class="line">                chineseBook.BookDescription = &quot;This is a very good Chinese book&quot;;//再次更改chineseBook的BookDescription属性</span><br><span class="line">                dbContext.SaveChanges();//用DbContext.SaveChanges方法保存更改到数据库</span><br><span class="line"></span><br><span class="line">                chineseBook = dbContext.Book.First(bookExpression);//重新获取BookName为Chinese的Book实体chineseBook</span><br><span class="line"></span><br><span class="line">                //显示当前chineseBook的当前BookDescription属性值</span><br><span class="line">                Console.WriteLine(chineseBook.BookName + &quot; book has description: \&quot;&quot; + chineseBook.BookDescription + &quot;\&quot;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(&quot;Press key to quit....&quot;);</span><br><span class="line"></span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行上面的代码，我们使用EF Core的日志功能，输出每次DbContext访问数据库时的后台日志信息：</p>
+<p>首先在执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var chineseBook = dbContext.Book.First(bookExpression);//获取BookName为Chinese的Book实体chineseBook</span><br></pre></td></tr></table></figure>
+<p>时，EF Core的日志如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opening connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opened connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executing DbCommand [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executed DbCommand (129ms) [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">A data reader was disposed.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closing connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closed connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Context &#x27;Book&#x27; started tracking &#x27;FinanceDigitalToolContext&#x27; entity. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br></pre></td></tr></table></figure>
+<p>从日志中我们可以看出来，dbContext.Book.First(bookExpression)在数据库中开启了一个数据库连接，并使用SQL语句做了查询，然后关闭了数据库连接。</p>
+<p>然后在执行下面的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chineseBook.BookDescription = &quot;This is a Chinese book&quot;;//更改chineseBook的BookDescription属性</span><br><span class="line">dbContext.SaveChanges();//用DbContext.SaveChanges方法保存更改到数据库</span><br></pre></td></tr></table></figure>
+<p>时，EF Core的日志如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">SaveChanges starting for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">DetectChanges starting for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Unchanged &#x27;Book.BookDescription&#x27; detected as changed and will be marked as modified. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see property values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">An &#x27;Book&#x27; entity tracked by &#x27;FinanceDigitalToolContext&#x27; changed from &#x27;Unchanged&#x27; to &#x27;Modified&#x27;. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">DetectChanges completed for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opening connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opened connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Beginning transaction with isolation level &#x27;ReadCommitted&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executing DbCommand [Parameters=[@p1=&#x27;?&#x27; (DbType = Int32), @p0=&#x27;?&#x27; (Size = 50)], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SET NOCOUNT ON;</span><br><span class="line">UPDATE [Book] SET [BookDescription] = @p0</span><br><span class="line">WHERE [ID] = @p1;</span><br><span class="line">SELECT @@ROWCOUNT;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executed DbCommand (19ms) [Parameters=[@p1=&#x27;?&#x27; (DbType = Int32), @p0=&#x27;?&#x27; (Size = 50)], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SET NOCOUNT ON;</span><br><span class="line">UPDATE [Book] SET [BookDescription] = @p0</span><br><span class="line">WHERE [ID] = @p1;</span><br><span class="line">SELECT @@ROWCOUNT;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">A data reader was disposed.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Committing transaction.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closing connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closed connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Disposing transaction.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">An &#x27;Book&#x27; entity tracked by &#x27;FinanceDigitalToolContext&#x27; changed from &#x27;Modified&#x27; to &#x27;Unchanged&#x27;. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">SaveChanges completed for &#x27;FinanceDigitalToolContext&#x27; with 1 entities written to the database.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br></pre></td></tr></table></figure>
+<p>同样从日志中我们可以看出来在执行dbContext.SaveChanges方法时，EF Core在数据库中开启了一个数据库连接，并使用SQL语句做了数据库更改，然后关闭了数据库连接。然后chineseBook这个Book实体的EntityState从Modified变为了Unchanged。</p>
+<p>然后执行代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chineseBook = dbContext.Book.First(bookExpression);//重新获取BookName为Chinese的Book实体chineseBook</span><br></pre></td></tr></table></figure>
+<p>时，EF Core的日志如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opening connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opened connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executing DbCommand [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executed DbCommand (21ms) [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">A data reader was disposed.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closing connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closed connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br></pre></td></tr></table></figure>
+<p>从日志中我们可以看出来，dbContext.Book.First(bookExpression)在数据库中还是开启了一个数据库连接，并使用SQL语句做了查询，然后关闭了数据库连接。</p>
+<p>总结下来，上面的代码和日志发生的事情如下：</p>
+<ul>
+<li>dbContext.Book.First(bookExpression)开启和关闭了一个数据库连接，查询BookName为Chinese的Book实体chineseBook </li>
+<li>第一个dbContext.SaveChanges()开启和关闭了一个数据库连接，更改chineseBook的BookDescription属性值”This is a Chinese book”到数据库 </li>
+<li>第二个dbContext.SaveChanges()开启和关闭了一个数据库连接，更改chineseBook的BookDescription属性值”This is a very good Chinese book”到数据库 </li>
+<li>dbContext.Book.First(bookExpression)开启和关闭了一个数据库连接，重新查询BookName为Chinese的Book实体chineseBook 所以综上所述DbContext一共开启了和关闭了四个数据库连接。</li>
+</ul>
+<h2 id="使用事务"><a href="#使用事务" class="headerlink" title="使用事务"></a><strong>使用事务</strong></h2><p>现在我们更改Program类Main方法中的代码，将两次DbContext.SaveChanges方法的调用都放在一个TransactionScope事务范围中，所以现在两次DbContext.SaveChanges方法提交的SQL都会在同一个数据库事务中，代码如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">using EFCoreDB.Entities;</span><br><span class="line">using System;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Linq.Expressions;</span><br><span class="line">using System.Transactions;</span><br><span class="line"></span><br><span class="line">namespace EFCoreDB</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            using (FinanceDigitalToolContext dbContext = new FinanceDigitalToolContext())</span><br><span class="line">            &#123;</span><br><span class="line">                Expression&lt;Func&lt;Book, bool&gt;&gt; bookExpression = b =&gt; b.BookName == &quot;Chinese&quot;;//构造查询条件，来查询BookName为Chinese的Book</span><br><span class="line"></span><br><span class="line">                var chineseBook = dbContext.Book.First(bookExpression);//获取BookName为Chinese的Book实体chineseBook</span><br><span class="line"></span><br><span class="line">                //使用TransactionScope事务范围来开启一个数据库事务</span><br><span class="line">                using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew))</span><br><span class="line">                &#123;</span><br><span class="line">                    chineseBook.BookDescription = &quot;This is a Chinese book&quot;;//更改chineseBook的BookDescription属性</span><br><span class="line">                    dbContext.SaveChanges();//用DbContext.SaveChanges方法保存更改到数据库，由于TransactionScope事务范围的存在，所以DbContext.SaveChanges方法提交的SQL语句都存在于TransactionScope的事务当中</span><br><span class="line"></span><br><span class="line">                    chineseBook.BookDescription = &quot;This is a very good Chinese book&quot;;//再次更改chineseBook的BookDescription属性</span><br><span class="line">                    dbContext.SaveChanges();//用DbContext.SaveChanges方法保存更改到数据库，由于TransactionScope事务范围的存在，所以DbContext.SaveChanges方法提交的SQL语句都存在于TransactionScope的事务当中</span><br><span class="line"></span><br><span class="line">                    transactionScope.Complete();//提交TransactionScope事务范围中的SQL语句到数据库，数据库事务结束</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                chineseBook = dbContext.Book.First(bookExpression);//重新获取BookName为Chinese的Book实体chineseBook</span><br><span class="line"></span><br><span class="line">                //显示当前chineseBook的当前BookDescription属性值</span><br><span class="line">                Console.WriteLine(chineseBook.BookName + &quot; book has description: \&quot;&quot; + chineseBook.BookDescription + &quot;\&quot;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(&quot;Press key to quit....&quot;);</span><br><span class="line"></span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行上面的代码，我们还是使用EF Core的日志功能，输出每次DbContext访问数据库时的后台日志信息：</p>
+<p>首先执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var chineseBook = dbContext.Book.First(bookExpression);//获取BookName为Chinese的Book实体chineseBook</span><br></pre></td></tr></table></figure>
+<p>时，EF Core的日志如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opening connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opened connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executing DbCommand [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executed DbCommand (139ms) [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">A data reader was disposed.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closing connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closed connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Context &#x27;Book&#x27; started tracking &#x27;FinanceDigitalToolContext&#x27; entity. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br></pre></td></tr></table></figure>
+<p>从日志中我们可以看出来，dbContext.Book.First(bookExpression)在数据库中开启了一个数据库连接，并使用SQL语句做了查询，然后关闭了数据库连接。</p>
+<p>然后执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew))</span><br><span class="line">&#123;</span><br></pre></td></tr></table></figure>
+<p>TransactionScope的事务范围开始，此时数据库事务已经开始，EF Core没有输出日志</p>
+<p>然后执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chineseBook.BookDescription = &quot;This is a Chinese book&quot;;//更改chineseBook的BookDescription属性</span><br><span class="line">dbContext.SaveChanges();//用DbContext.SaveChanges方法保存更改到数据库，由于TransactionScope事务范围的存在，所以DbContext.SaveChanges方法提交的SQL语句都存在于TransactionScope的事务当中</span><br></pre></td></tr></table></figure>
+<p>时，EF Core的日志如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">SaveChanges starting for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">DetectChanges starting for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Unchanged &#x27;Book.BookDescription&#x27; detected as changed and will be marked as modified. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see property values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">An &#x27;Book&#x27; entity tracked by &#x27;FinanceDigitalToolContext&#x27; changed from &#x27;Unchanged&#x27; to &#x27;Modified&#x27;. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">DetectChanges completed for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opening connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Opened connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Enlisted in an ambient transaction with isolation level &#x27;Serializable&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executing DbCommand [Parameters=[@p1=&#x27;?&#x27; (DbType = Int32), @p0=&#x27;?&#x27; (Size = 50)], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SET NOCOUNT ON;</span><br><span class="line">UPDATE [Book] SET [BookDescription] = @p0</span><br><span class="line">WHERE [ID] = @p1;</span><br><span class="line">SELECT @@ROWCOUNT;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executed DbCommand (79ms) [Parameters=[@p1=&#x27;?&#x27; (DbType = Int32), @p0=&#x27;?&#x27; (Size = 50)], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SET NOCOUNT ON;</span><br><span class="line">UPDATE [Book] SET [BookDescription] = @p0</span><br><span class="line">WHERE [ID] = @p1;</span><br><span class="line">SELECT @@ROWCOUNT;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">A data reader was disposed.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">An &#x27;Book&#x27; entity tracked by &#x27;FinanceDigitalToolContext&#x27; changed from &#x27;Modified&#x27; to &#x27;Unchanged&#x27;. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">SaveChanges completed for &#x27;FinanceDigitalToolContext&#x27; with 1 entities written to the database.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br></pre></td></tr></table></figure>
+<p>从日志中我们可以看出来在执行dbContext.SaveChanges方法时，EF Core在数据库中开启了一个数据库连接，并使用SQL语句做了数据库更改，<strong>但是没有关闭数据库连接。</strong>然后chineseBook这个Book实体的EntityState从Modified变为了Unchanged。</p>
+<p>然后执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chineseBook.BookDescription = &quot;This is a very good Chinese book&quot;;//再次更改chineseBook的BookDescription属性</span><br><span class="line">dbContext.SaveChanges();//用DbContext.SaveChanges方法保存更改到数据库，由于TransactionScope事务范围的存在，所以DbContext.SaveChanges方法提交的SQL语句都存在于TransactionScope的事务当中</span><br></pre></td></tr></table></figure>
+<p>时，EF Core的日志如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">SaveChanges starting for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">DetectChanges starting for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Unchanged &#x27;Book.BookDescription&#x27; detected as changed and will be marked as modified. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see property values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">An &#x27;Book&#x27; entity tracked by &#x27;FinanceDigitalToolContext&#x27; changed from &#x27;Unchanged&#x27; to &#x27;Modified&#x27;. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">DetectChanges completed for &#x27;FinanceDigitalToolContext&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executing DbCommand [Parameters=[@p1=&#x27;?&#x27; (DbType = Int32), @p0=&#x27;?&#x27; (Size = 50)], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SET NOCOUNT ON;</span><br><span class="line">UPDATE [Book] SET [BookDescription] = @p0</span><br><span class="line">WHERE [ID] = @p1;</span><br><span class="line">SELECT @@ROWCOUNT;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executed DbCommand (22ms) [Parameters=[@p1=&#x27;?&#x27; (DbType = Int32), @p0=&#x27;?&#x27; (Size = 50)], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SET NOCOUNT ON;</span><br><span class="line">UPDATE [Book] SET [BookDescription] = @p0</span><br><span class="line">WHERE [ID] = @p1;</span><br><span class="line">SELECT @@ROWCOUNT;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">A data reader was disposed.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">An &#x27;Book&#x27; entity tracked by &#x27;FinanceDigitalToolContext&#x27; changed from &#x27;Modified&#x27; to &#x27;Unchanged&#x27;. Consider using &#x27;DbContextOptionsBuilder.EnableSensitiveDataLogging&#x27; to see key values.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">SaveChanges completed for &#x27;FinanceDigitalToolContext&#x27; with 1 entities written to the database.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br></pre></td></tr></table></figure>
+<p>从日志中我们可以看出来在执行dbContext.SaveChanges方法时，<strong>EF Core在数据库中并没有开启新的数据库连接，而是沿用了上一个DbContext.SaveChanges方法开启的数据库连接来提交SQL语句到数据库。</strong>然后chineseBook这个Book实体的EntityState从Modified变为了Unchanged。</p>
+<p>然后执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">transactionScope.Complete();//提交TransactionScope事务范围中的SQL语句到数据库，数据库事务结束</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>提交TransactionScope的事务到数据库，此时数据库事务结束，TransactionScope的事务范围也结束，EF Core没有输出日志</p>
+<p>然后执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chineseBook = dbContext.Book.First(bookExpression);//重新获取BookName为Chinese的Book实体chineseBook</span><br></pre></td></tr></table></figure>
+<p>时，EF Core的日志如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executing DbCommand [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Executed DbCommand (24ms) [Parameters=[], CommandType=&#x27;Text&#x27;, CommandTimeout=&#x27;30&#x27;]</span><br><span class="line">SELECT TOP(1) [b].[ID], [b].[BookDescription], [b].[BookName], [b].[CreateTime], [b].[ISBN]</span><br><span class="line">FROM [Book] AS [b]</span><br><span class="line">WHERE [b].[BookName] = N&#x27;Chinese&#x27;</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">A data reader was disposed.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closing connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br><span class="line">=============================== EF Core log started ===============================</span><br><span class="line">Closed connection to database &#x27;FinanceDigitalTool&#x27; on server &#x27;CNGDCAAITSQL01&#x27;.</span><br><span class="line">=============================== EF Core log finished ===============================</span><br></pre></td></tr></table></figure>
+<p>从日志中我们可以看出来，<strong>dbContext.Book.First(bookExpression)在数据库中也没有开启新的数据库连接，而是继续沿用了第一个DbContext.SaveChanges方法开启的数据库连接，使用SQL语句做了查询，之后关闭了第一个DbContext.SaveChanges方法开启的数据库连接，所以可以看到第一个DbContext.SaveChanges方法开启的数据库连接，现在才被关闭，这和不使用事务时是完全不一样的。</strong></p>
+<p>总结下来，使用事务后的代码和日志发生的事情如下：</p>
+<ul>
+<li>dbContext.Book.First(bookExpression)<strong>开启和关闭了一个数据库连接，</strong>查询BookName为Chinese的Book实体chineseBook </li>
+<li>using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.RequiresNew)){开启了TransactionScope事务范围，数据库事务开始 </li>
+<li>第一个dbContext.SaveChanges()<strong>开启一个数据库连接，但是没有关闭数据库连接，</strong>更改chineseBook的BookDescription属性值”This is a Chinese book”到数据库 </li>
+<li>第二个dbContext.SaveChanges()没有开启新的数据库连接，而是沿用了上一个DbContext.SaveChanges方法开启的数据库连接，更改chineseBook的BookDescription属性值”This is a very good Chinese book”到数据库 </li>
+<li>transactionScope.Complete()提交TransactionScope事务范围的数据库事务到数据库，数据库事务结束 </li>
+<li>}TransactionScope事务范围结束 </li>
+<li>dbContext.Book.First(bookExpression)没有开启新的数据库连接，而是沿用了第一个DbContext.SaveChanges方法开启的数据库连接，重新查询BookName为Chinese的Book实体chineseBook，<strong>最后关闭了第一个DbContext.SaveChanges方法开启的数据库连接。</strong> 所以综上所述DbContext这次一共只开启和关闭了两个数据库连接，并且第二个数据库连接执行了三次数据库操作(两次DbContext.SaveChanges更改数据，一次Book.First查询数据)才被关闭。</li>
+</ul>
+<p>由此我们可以看到EF Core在处于事务中时，会优化底层开启和关闭数据库连接的机制，因为EF Core觉得两次DbContext.SaveChanges方法提交的SQL语句既然都在同一个事务中，所以就没有必要每次都开启和关闭一个数据库连接，而是沿用了第一次DbContext.SaveChanges方法开启的数据库连接，所以这和没有使用事务的时候是完全不一样的。</p>
+<p>在efcore平台时，你使用TransactionScope将会出现异常，微软会提示你去查看相关资料，这回资料挺准！<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/ef/core/saving/transactions">https://docs.microsoft.com/en-us/ef/core/saving/transactions</a></p>
+<p>本文章主要说了几点内容</p>
+<ol>
+<li>默认的事务－savechanges依旧是一个事务 </li>
+<li>单个上下文实现事务 </li>
+<li>不同上下文之间实现事务 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">using (var context = new BloggingContext())</span><br><span class="line">&#123;</span><br><span class="line">    using (var transaction = context.Database.BeginTransaction())</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            context.Blogs.Add(new Blog &#123; Url = &quot;http://blogs.msdn.com/dotnet&quot; &#125;);</span><br><span class="line">            context.SaveChanges();</span><br><span class="line">            context.Blogs.Add(new Blog &#123; Url = &quot;http://blogs.msdn.com/visualstudio&quot; &#125;);</span><br><span class="line">            context.SaveChanges();</span><br><span class="line">            var blogs = context.Blogs</span><br><span class="line">                .OrderBy(b =&gt; b.Url)</span><br><span class="line">                .ToList();</span><br><span class="line">            // Commit transaction if all commands succeed, transaction will auto-rollback</span><br><span class="line">            // when disposed if either commands fails</span><br><span class="line">            transaction.Commit();</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception)</span><br><span class="line">        &#123;</span><br><span class="line">            // TODO: Handle failure</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/27/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/29/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

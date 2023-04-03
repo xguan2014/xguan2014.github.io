@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/91/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/03/23/%E3%80%90Oracle%E3%80%91%E6%B8%B8%E6%A0%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/03/23/%E3%80%90Oracle%E3%80%91%E6%B8%B8%E6%A0%87/" class="post-title-link" itemprop="url">【Oracle】游标</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-23 12:25:53" itemprop="dateCreated datePublished" datetime="2017-03-23T12:25:53+08:00">2017-03-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">--1、什么是游标</span><br><span class="line">select * from scott.emp where deptno = 30</span><br><span class="line">--表中都与行的数据</span><br><span class="line"></span><br><span class="line">--2、游标的分类</span><br><span class="line">--静态和引用</span><br><span class="line">--静态游标：隐式和显式 </span><br><span class="line"></span><br><span class="line">--3、游标的属性</span><br><span class="line"></span><br><span class="line">--4、游标的语法</span><br><span class="line">--隐式语法</span><br><span class="line">--不用打开，不用关闭，不用声明，它会在执行DML语句的时候，自动添加，当需要使用直接取值</span><br><span class="line">--更新部门编号为30的所有员工工资加10%,返回受影响的行数</span><br><span class="line">begin</span><br><span class="line">       update scott.emp set sal = sal * 1.1 where deptno = 30;</span><br><span class="line">       --使用隐式游标输出受影响的行数</span><br><span class="line">       dbms_output.put_line(&#x27;修改成功条数:&#x27;|| SQL%Rowcount);</span><br><span class="line">end;</span><br><span class="line"></span><br><span class="line">--显式语法</span><br><span class="line">declare</span><br><span class="line">       --1定义游标</span><br><span class="line">       cursor mycur is select empno,ename,sal from scott.emp where deptno =30;</span><br><span class="line">       theempno number;</span><br><span class="line">       thename varchar(20);</span><br><span class="line">       thesal scott.emp.sal%TYPE; --使用和scott.emp.sal同样的数据类型</span><br><span class="line">begin</span><br><span class="line">       --2打开游标</span><br><span class="line">       open mycur;</span><br><span class="line">       loop </span><br><span class="line">            --3使用游标</span><br><span class="line">            fetch mycur into theempno,thename,thesal;</span><br><span class="line">            exit when mycur%notfound; --退出循环的条件</span><br><span class="line">            dbms_output.put_line(&#x27;编号：&#x27;||theempno||&#x27;姓名：&#x27;||thename||&#x27;工资:&#x27;||thesal);       </span><br><span class="line">       end loop;</span><br><span class="line">       --4关闭游标</span><br><span class="line">       close mycur;</span><br><span class="line">end;</span><br><span class="line">       </span><br><span class="line">--带参数的显式游标</span><br><span class="line">declare</span><br><span class="line">       --1定义游标(并且给游标带参数)</span><br><span class="line">       cursor mycur(mydept number) is select empno,ename,sal from scott.emp where deptno = mydept;</span><br><span class="line">       thedept number := 1;</span><br><span class="line">       theempno number :=1;</span><br><span class="line">       thename varchar(20);</span><br><span class="line">       thesal scott.emp.sal%TYPE; --使用和scott.emp.sal同样的数据类型</span><br><span class="line">begin  </span><br><span class="line">       thedept := &amp;请输入一个部门编号;     </span><br><span class="line">       --2打开游标</span><br><span class="line">       open mycur(thedept);</span><br><span class="line">       loop </span><br><span class="line">            --3使用游标</span><br><span class="line">            fetch mycur into theempno,thename,thesal;</span><br><span class="line">            exit when mycur%notfound; --退出循环的条件</span><br><span class="line">            dbms_output.put_line(&#x27;编号：&#x27;||theempno||&#x27;姓名：&#x27;||thename||&#x27;工资:&#x27;||thesal);       </span><br><span class="line">       end loop;</span><br><span class="line">       --4关闭游标</span><br><span class="line">       close mycur;</span><br><span class="line">end;  </span><br><span class="line">      </span><br><span class="line"></span><br><span class="line">--循环游标</span><br><span class="line">declare</span><br><span class="line">       cursor mycur is select empno,ename,sal from scott.emp where deptno =30;</span><br><span class="line">begin</span><br><span class="line">       for i in mycur</span><br><span class="line">           loop</span><br><span class="line">              dbms_output.put_line(&#x27;编号：&#x27;||i.empno||&#x27;姓名：&#x27;||i.ename||&#x27;工资:&#x27;||i.sal);  </span><br><span class="line">           end loop;</span><br><span class="line">end;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/03/23/%E3%80%90Oracle%E3%80%91%E5%90%8C%E4%B9%89%E8%AF%8D%E5%BA%8F%E5%88%97%E8%A7%86%E5%9B%BE%E7%B4%A2%E5%BC%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/03/23/%E3%80%90Oracle%E3%80%91%E5%90%8C%E4%B9%89%E8%AF%8D%E5%BA%8F%E5%88%97%E8%A7%86%E5%9B%BE%E7%B4%A2%E5%BC%95/" class="post-title-link" itemprop="url">【Oracle】同义词序列视图索引</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-23 12:19:30" itemprop="dateCreated datePublished" datetime="2017-03-23T12:19:30+08:00">2017-03-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">--创建表空间</span><br><span class="line">create tablespace stu</span><br><span class="line">datafile &#x27;d:\stu.dbf&#x27;</span><br><span class="line">size 5m</span><br><span class="line">autoextend on</span><br><span class="line"></span><br><span class="line">--创建用户名</span><br><span class="line">create user stu</span><br><span class="line">identified by stu </span><br><span class="line"></span><br><span class="line">grant connect to stu</span><br><span class="line"></span><br><span class="line">grant resource to stu</span><br><span class="line"> </span><br><span class="line">create table stuInfo          --学生信息</span><br><span class="line">(</span><br><span class="line">  stuID number primary key,</span><br><span class="line">  stuName varchar2(10),</span><br><span class="line">  stuSex char(2)</span><br><span class="line">);</span><br><span class="line">insert into stuInfo values(1,&#x27;Eric&#x27;,&#x27;男&#x27;);</span><br><span class="line">insert into stuInfo values(2,&#x27;Mike&#x27;,&#x27;男&#x27;);</span><br><span class="line">insert into stuInfo values(3,&#x27;Lily&#x27;,&#x27;女&#x27;);</span><br><span class="line">insert into stuInfo values(4,&#x27;Lucy&#x27;,&#x27;女&#x27;);</span><br><span class="line">create table subInfo         --课程信息</span><br><span class="line">(</span><br><span class="line">  subID number primary key,</span><br><span class="line">  subName varchar2(20)</span><br><span class="line">);</span><br><span class="line">insert into subInfo values(1,&#x27;C语言&#x27;);</span><br><span class="line">insert into subInfo values(2,&#x27;SQL基础&#x27;);</span><br><span class="line">insert into subInfo values(3,&#x27;JAVA&#x27;);</span><br><span class="line"></span><br><span class="line">create table markInfo        --成绩信息</span><br><span class="line">(</span><br><span class="line">  stuID int references stuInfo(stuID),</span><br><span class="line">  subID int references subInfo(subID),</span><br><span class="line">  score number(3),</span><br><span class="line">  primary key (stuID,subID)</span><br><span class="line">);</span><br><span class="line">insert into markInfo values(1,1,98);</span><br><span class="line">insert into markInfo values(1,2,90);</span><br><span class="line">insert into markInfo values(1,3,80);</span><br><span class="line">insert into markInfo values(2,1,50);</span><br><span class="line">insert into markInfo values(2,2,40);</span><br><span class="line">insert into markInfo values(2,3,60);</span><br><span class="line">insert into markInfo values(3,1,70);</span><br><span class="line">insert into markInfo values(3,2,95);</span><br><span class="line"></span><br><span class="line">select * from stuinfo</span><br><span class="line">select * from subInfo</span><br><span class="line">select * from markInfo</span><br></pre></td></tr></table></figure>
+
+<h2 id="同义词"><a href="#同义词" class="headerlink" title="同义词"></a>同义词</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">--1、什么同义词 </span><br><span class="line">--别名</span><br><span class="line"></span><br><span class="line">--2、作用</span><br><span class="line">--简化对象的名字</span><br><span class="line">select * from myemp</span><br><span class="line"></span><br><span class="line">--3、创建语法</span><br><span class="line">create public synonym myemp for scott.emp</span><br><span class="line"></span><br><span class="line">--4、删除语法</span><br><span class="line">drop public synonym myemp</span><br><span class="line"></span><br><span class="line">select * from stuinfo</span><br><span class="line">select stuid as 编号,stuname 姓名 from stuinfo</span><br></pre></td></tr></table></figure>
+
+<h2 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">--1、什么是序列？</span><br><span class="line">--标识列，自动增长</span><br><span class="line">--sql server:identity(1,1)</span><br><span class="line">--oracle:sequence</span><br><span class="line"></span><br><span class="line">--2、作用，等同于identity，为编号字段，提供自增长</span><br><span class="line"></span><br><span class="line">--3、语法</span><br><span class="line">select * from stuinfo</span><br><span class="line"></span><br><span class="line">create sequence myseq</span><br><span class="line">increment by 1 --步长</span><br><span class="line">start with 1001 --初始值</span><br><span class="line">maxvalue 100-- 无上限</span><br><span class="line">minvalue 1</span><br><span class="line">cycle</span><br><span class="line"></span><br><span class="line">create table stuInfo1          --学生信息</span><br><span class="line">(</span><br><span class="line">  stuID number primary key,</span><br><span class="line">  stuName varchar2(10),</span><br><span class="line">  stuSex char(2)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">insert into stuinfo1 values(myseq.nextval,&#x27;葬爱K&#x27;,&#x27;男&#x27;)</span><br><span class="line">insert into stuinfo1 values(myseq.nextval,&#x27;葬爱Q&#x27;,&#x27;女&#x27;)</span><br><span class="line">insert into stuinfo1 values(myseq.nextval,&#x27;葬爱A&#x27;,&#x27;男&#x27;)</span><br><span class="line">insert into stuinfo1 values(myseq.nextval,&#x27;葬爱B&#x27;,&#x27;女&#x27;)</span><br><span class="line"></span><br><span class="line">insert into stuinfo values(myseq.nextval,&#x27;葬爱Q&#x27;,&#x27;女&#x27;)</span><br><span class="line"></span><br><span class="line">select * from stuinfo1</span><br><span class="line"></span><br><span class="line">--4.删除序列</span><br><span class="line">drop sequence myseq</span><br><span class="line"></span><br><span class="line">--5、查询序列值</span><br><span class="line">select myseq.currval from dual</span><br></pre></td></tr></table></figure>
+
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">--1、什么是视图？</span><br><span class="line">--虚拟表</span><br><span class="line"></span><br><span class="line">--2、作用</span><br><span class="line">--1）简化，复杂的表查询</span><br><span class="line">--2）保密，视图名字不能推断表名</span><br><span class="line">--3) 缓冲，合作开发</span><br><span class="line"></span><br><span class="line">--创建视图之前要先授权</span><br><span class="line">grant dba to stu</span><br><span class="line">revoke dba from stu</span><br><span class="line"></span><br><span class="line">--创建视图</span><br><span class="line">create view empinfo</span><br><span class="line">as</span><br><span class="line">select * from stuinfo666</span><br><span class="line"></span><br><span class="line">--查询视图</span><br><span class="line">select * from empinfo</span><br><span class="line">--drop view empinfo</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">--1、什么是索引？</span><br><span class="line">--提高查询效率</span><br><span class="line"></span><br><span class="line">select * from stuinfo where stuname = &#x27;eric&#x27;</span><br><span class="line">stuid --聚集索引（主键）</span><br><span class="line">stuname --非聚集（where条件中的字段）</span><br><span class="line">stusex --非聚集</span><br><span class="line"></span><br><span class="line">--2、索引分类</span><br><span class="line">--普通索引</span><br><span class="line">create index Instuid on stuinfo(stusex)</span><br><span class="line"></span><br><span class="line">--组合索引</span><br><span class="line">create index innamesex on stuinfo(stuname,stusex)</span><br><span class="line"></span><br><span class="line">--唯一索引</span><br><span class="line">create unique index inid on stuinfo(stuname)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/03/23/%E3%80%90Oracle%E3%80%91%E8%A1%A8%E5%88%86%E5%8C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/03/23/%E3%80%90Oracle%E3%80%91%E8%A1%A8%E5%88%86%E5%8C%BA/" class="post-title-link" itemprop="url">【Oracle】表分区</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-23 12:11:59" itemprop="dateCreated datePublished" datetime="2017-03-23T12:11:59+08:00">2017-03-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">--创建表空间（数据库）</span><br><span class="line">create tablespace Test</span><br><span class="line">datafile &#x27;c:\Test.dbf&#x27;</span><br><span class="line">size 10m</span><br><span class="line">autoextend on</span><br><span class="line"></span><br><span class="line">--创建用户</span><br><span class="line">create user mike</span><br><span class="line">identified by mike123</span><br><span class="line">default tablespace Test</span><br><span class="line"></span><br><span class="line">--给用户授权</span><br><span class="line">grant connect to mike;</span><br><span class="line">grant resource to mike</span><br><span class="line"></span><br><span class="line">--切换用户6</span><br><span class="line">--创建学生信息表</span><br><span class="line">create table stuinfo</span><br><span class="line">(</span><br><span class="line"> id number(3) primary key,</span><br><span class="line"> name varchar2(20) not null,</span><br><span class="line"> sex varchar2(2) check(sex=&#x27;男&#x27;or sex=&#x27;女&#x27;) not null,</span><br><span class="line"> age number(2) check(age&gt;0),</span><br><span class="line"> address varchar2(20) default(&#x27;湖北武汉&#x27;),</span><br><span class="line"> birthday date</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">insert into stuinfo2 values(1,&#x27;eric&#x27;,&#x27;男&#x27;,18,default,to_date(&#x27;1995-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo2 values(2,&#x27;lily&#x27;,&#x27;男&#x27;,28,default,to_date(&#x27;1985-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo2 values(3,&#x27;chunchun&#x27;,&#x27;女&#x27;,58,default,to_date(&#x27;1965-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo2 values(4,&#x27;eric888&#x27;,&#x27;男&#x27;,null,default,to_date(&#x27;1995-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo2 values(5,&#x27;葬爱K&#x27;,&#x27;女&#x27;,16,default,to_date(&#x27;2000-9-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo2 values(6,&#x27;葬爱Q&#x27;,&#x27;男&#x27;,null,default,to_date(&#x27;1999-8-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo2 values(7,&#x27;葬爱S&#x27;,&#x27;男&#x27;,null,default,to_date(&#x27;1993-1-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">select * from stuinfo</span><br></pre></td></tr></table></figure>
+
+<h1 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h1><h2 id="–1、什么是分区表？"><a href="#–1、什么是分区表？" class="headerlink" title="–1、什么是分区表？"></a>–1、什么是分区表？</h2><p>–对于超大规模的数据库进行分区数据存储，达到优化数据库的目的  </p>
+<h2 id="–2、分区表的分类"><a href="#–2、分区表的分类" class="headerlink" title="–2、分区表的分类"></a>–2、分区表的分类</h2><h3 id="–1）范围分区"><a href="#–1）范围分区" class="headerlink" title="–1）范围分区"></a>–1）范围分区</h3><p>–适用：明确的可以划分范围的，如：月份、编号  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">create table stuinfo2</span><br><span class="line">(</span><br><span class="line">       id number(3) primary key,</span><br><span class="line">       name varchar2(20) not null,</span><br><span class="line">       sex varchar2(2) check(sex=&#x27;男&#x27;or sex=&#x27;女&#x27;) not null,</span><br><span class="line">       age number(2) check(age&gt;0),</span><br><span class="line">       address varchar2(20) default(&#x27;湖北武汉&#x27;),</span><br><span class="line">       birthday date</span><br><span class="line">)</span><br><span class="line">partition by range(id)</span><br><span class="line">(</span><br><span class="line">       partition p1 values less than(3),</span><br><span class="line">       partition p2 values less than(5)    </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>–查询分区数据  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from stuinfo1 partition(p3);</span><br></pre></td></tr></table></figure>
+
+<h3 id="–2）列表分区"><a href="#–2）列表分区" class="headerlink" title="–2）列表分区"></a>–2）列表分区</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">create table stuinfo3</span><br><span class="line">(</span><br><span class="line">      id number(3) primary key,</span><br><span class="line">       name varchar2(20) not null,</span><br><span class="line">       sex varchar2(2) check(sex=&#x27;男&#x27;or sex=&#x27;女&#x27;) not null,</span><br><span class="line">       age number(2) check(age&gt;0),</span><br><span class="line">       address varchar2(20) default(&#x27;武汉&#x27;),</span><br><span class="line">       birthday date  </span><br><span class="line">)</span><br><span class="line">partition by list(address)</span><br><span class="line">(</span><br><span class="line">      partition p1 values(&#x27;北京&#x27;,&#x27;上海&#x27;,&#x27;深圳&#x27;),</span><br><span class="line">      partition p2 values(&#x27;武汉&#x27;,&#x27;郑州&#x27;,&#x27;长沙&#x27;),</span><br><span class="line">      partition p3 values(default)</span><br><span class="line">);</span><br><span class="line">insert into stuinfo3 values(1,&#x27;eric&#x27;,&#x27;男&#x27;,18,default,to_date(&#x27;1995-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo3 values(2,&#x27;lily&#x27;,&#x27;男&#x27;,28,default,to_date(&#x27;1985-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo3 values(3,&#x27;chunchun&#x27;,&#x27;女&#x27;,58,&#x27;北京&#x27;,to_date(&#x27;1965-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo3 values(4,&#x27;eric888&#x27;,&#x27;男&#x27;,null,&#x27;深圳&#x27;,to_date(&#x27;1995-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo3 values(5,&#x27;葬爱K&#x27;,&#x27;女&#x27;,16,&#x27;西藏&#x27;,to_date(&#x27;2000-9-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo3 values(6,&#x27;葬爱Q&#x27;,&#x27;男&#x27;,null,&#x27;台湾&#x27;,to_date(&#x27;1999-8-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo3 values(7,&#x27;葬爱S&#x27;,&#x27;男&#x27;,null,&#x27;长沙&#x27;,to_date(&#x27;1993-1-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo3 values(8,&#x27;葬爱A&#x27;,&#x27;男&#x27;,null,&#x27;合肥&#x27;,to_date(&#x27;1993-1-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">select * from stuinfo3 partition(p3)</span><br></pre></td></tr></table></figure>
+
+<h3 id="–3）散列分区"><a href="#–3）散列分区" class="headerlink" title="–3）散列分区"></a>–3）散列分区</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">create table stuinfo5</span><br><span class="line">(</span><br><span class="line">      id number(3) primary key,</span><br><span class="line">       name varchar2(20) not null,</span><br><span class="line">       sex varchar2(2) check(sex=&#x27;男&#x27;or sex=&#x27;女&#x27;) not null,</span><br><span class="line">       age number(2) check(age&gt;0),</span><br><span class="line">       address varchar2(20) default(&#x27;武汉&#x27;),</span><br><span class="line">       birthday date  </span><br><span class="line">)</span><br><span class="line">partition by hash(id) --指定散列分却</span><br><span class="line">partitions 4  --分区数量</span><br><span class="line"></span><br><span class="line">insert into stuinfo5 values(1,&#x27;eric&#x27;,&#x27;男&#x27;,18,default,to_date(&#x27;1995-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo5 values(2,&#x27;lily&#x27;,&#x27;男&#x27;,28,default,to_date(&#x27;1985-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo5 values(3,&#x27;chunchun&#x27;,&#x27;女&#x27;,58,&#x27;北京&#x27;,to_date(&#x27;1965-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo5 values(4,&#x27;eric888&#x27;,&#x27;男&#x27;,null,&#x27;深圳&#x27;,to_date(&#x27;1995-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo5 values(5,&#x27;葬爱K&#x27;,&#x27;女&#x27;,16,&#x27;西藏&#x27;,to_date(&#x27;2000-9-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo5 values(6,&#x27;葬爱Q&#x27;,&#x27;男&#x27;,null,&#x27;台湾&#x27;,to_date(&#x27;1999-8-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo5 values(7,&#x27;葬爱S&#x27;,&#x27;男&#x27;,null,&#x27;长沙&#x27;,to_date(&#x27;1993-1-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo5 values(8,&#x27;葬爱A&#x27;,&#x27;男&#x27;,null,&#x27;合肥&#x27;,to_date(&#x27;1993-1-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line"></span><br><span class="line">select * from stuinfo5 partition(sys_p24)</span><br><span class="line">select * from stuinfo5 partition(sys_p25)</span><br><span class="line">select * from stuinfo5 partition(sys_p26)</span><br><span class="line">select * from stuinfo5 partition(sys_p27)</span><br><span class="line"></span><br><span class="line">--查询分区信息</span><br><span class="line">select * from user_tab_partitions</span><br></pre></td></tr></table></figure>
+
+<h3 id="–4）复合分区"><a href="#–4）复合分区" class="headerlink" title="–4）复合分区"></a>–4）复合分区</h3><p>–复合 = 范围+列表 / 范围+散列  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">create table stuinfo6</span><br><span class="line">(</span><br><span class="line">       id number(3) primary key,</span><br><span class="line">       name varchar2(20) not null,</span><br><span class="line">       sex varchar2(2) check(sex=&#x27;男&#x27;or sex=&#x27;女&#x27;) not null,</span><br><span class="line">       age number(2) check(age&gt;0),</span><br><span class="line">       address varchar2(20) default(&#x27;武汉&#x27;),</span><br><span class="line">       birthday date</span><br><span class="line">)</span><br><span class="line">partition by range(id)</span><br><span class="line">subpartition by list(address)</span><br><span class="line">(</span><br><span class="line">             partition p1 values less than(4)</span><br><span class="line">             (</span><br><span class="line">                  subpartition p11 values(&#x27;北京&#x27;),</span><br><span class="line">                  subpartition p12 values(&#x27;上海&#x27;)</span><br><span class="line">             ),</span><br><span class="line">             partition p2 values less than(maxvalue)</span><br><span class="line">             (</span><br><span class="line">                  subpartition p21 values(&#x27;武汉&#x27;),</span><br><span class="line">                  subpartition p22 values(&#x27;郑州&#x27;)     </span><br><span class="line">             )</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">insert into stuinfo6 values(1,&#x27;eric&#x27;,&#x27;男&#x27;,18,&#x27;上海&#x27;,to_date(&#x27;1995-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo6 values(2,&#x27;lily&#x27;,&#x27;男&#x27;,28,&#x27;上海&#x27;,to_date(&#x27;1985-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo6 values(3,&#x27;chunchun&#x27;,&#x27;女&#x27;,58,&#x27;北京&#x27;,to_date(&#x27;1965-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo6 values(4,&#x27;eric888&#x27;,&#x27;男&#x27;,null,&#x27;深圳&#x27;,to_date(&#x27;1995-10-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo2 values(5,&#x27;葬爱K&#x27;,&#x27;女&#x27;,16,&#x27;西藏&#x27;,to_date(&#x27;2000-9-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo2 values(6,&#x27;葬爱Q&#x27;,&#x27;男&#x27;,null,&#x27;台湾&#x27;,to_date(&#x27;1999-8-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo6 values(7,&#x27;葬爱S&#x27;,&#x27;男&#x27;,null,&#x27;长沙&#x27;,to_date(&#x27;1993-1-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line">insert into stuinfo6 values(8,&#x27;葬爱A&#x27;,&#x27;男&#x27;,null,&#x27;合肥&#x27;,to_date(&#x27;1993-1-11&#x27;,&#x27;yyyy-mm-dd&#x27;));</span><br><span class="line"></span><br><span class="line">select * from stuinfo6 partition (p11)</span><br></pre></td></tr></table></figure>
+
+<h3 id="—–分区表维护"><a href="#—–分区表维护" class="headerlink" title="—–分区表维护"></a>—–分区表维护</h3><p>–查询分区<br>select * from stuinfo2 partition (p2)  </p>
+<p>–增加分区<br>alter table stuinfo2<br>add partition p666<br>values less than(6)  </p>
+<p>select * from stuinfo2 partition (p666)   </p>
+<p>–删除分区<br>alter table stuinfo2 drop partition p666  </p>
+<h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><p>–1、什么是数据库中的锁<br>–为了防止两个用户同时操作一条数据，而引起的数据不一致  </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/90/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/90/">90</a><span class="page-number current">91</span><a class="page-number" href="/page/92/">92</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/92/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

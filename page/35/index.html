@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/35/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/35/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/07/19/%E3%80%90Angular%E3%80%91%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/19/%E3%80%90Angular%E3%80%91%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">【Angular】同步异步处理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-19 13:18:34" itemprop="dateCreated datePublished" datetime="2019-07-19T13:18:34+08:00">2019-07-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转自：<a target="_blank" rel="noopener" href="https://rxjs-cn.github.io/learn-rxjs-operators/operators/combination/forkjoin.html">https://rxjs-cn.github.io/learn-rxjs-operators/operators/combination/forkjoin.html</a></p>
+<p>遇到一个angular异步请求的问题，需要同时调用六七个接口，后面的操作是基于这六七个接口的返回结果的。</p>
+<p>用forkJoin，正好可以解决，网上的一些例子都不适用。</p>
+<p>函数签名:  <code>forkJoin(...args, selector : function): Observable</code> </p>
+<h2 id="当所有-observables-完成时，发出每个-observable-的最新值。"><a href="#当所有-observables-完成时，发出每个-observable-的最新值。" class="headerlink" title="当所有 observables 完成时，发出每个 observable 的最新值。"></a>当所有 observables 完成时，发出每个 observable 的最新值。</h2><hr>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yeGpzLWNuLmdpdGh1Yi5pby9sZWFybi1yeGpzLW9wZXJhdG9ycy9naXRib29rL2dpdGJvb2stcGx1Z2luLWFkdmFuY2VkLWVtb2ppL2Vtb2ppcy9idWxiLnBuZw" alt=":bulb:"> 如果你想要多个 observables 按发出顺序相对应的值的组合，试试 <a target="_blank" rel="noopener" href="https://rxjs-cn.github.io/learn-rxjs-operators/operators/combination/zip.html">zip</a>！</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yeGpzLWNuLmdpdGh1Yi5pby9sZWFybi1yeGpzLW9wZXJhdG9ycy9naXRib29rL2dpdGJvb2stcGx1Z2luLWFkdmFuY2VkLWVtb2ppL2Vtb2ppcy93YXJuaW5nLnBuZw" alt=":warning:"> 如果内部 observable 不完成的话， <code>forkJoin</code>  永远不会发出值！</p>
+<hr>
+<h3 id="为什么使用-forkJoin-？"><a href="#为什么使用-forkJoin-？" class="headerlink" title="为什么使用  forkJoin ？"></a>为什么使用  <code>forkJoin</code> ？</h3><p>当有一组 observables，但你只关心每个 observable 最后发出的值时，此操作符是最适合的。此操作符的一个常见用例是在页面加载(或其他事件)时你希望发起多个请求，并在所有请求都响应后再采取行动。它可能与 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all"> <code>Promise.all</code> </a> 的使用方式类似。</p>
+<p>注意，如果任意作用于  <code>forkJoin</code>  的内部 observable 报错的话，对于那些在内部 observable 上没有正确 <a target="_blank" rel="noopener" href="https://rxjs-cn.github.io/learn-rxjs-operators/operators/error_handling/catch.html"> <code>catch</code> </a> 错误，从而导致完成的 observable，你将丢失它们的值 (参见示例 4)。如果你只关心所有内部 observables 是否成功完成的话，可以<a target="_blank" rel="noopener" href="https://rxjs-cn.github.io/learn-rxjs-operators/operators/combination/forkjoin.html#%E5%9C%A8%E5%A4%96%E9%83%A8%E5%A4%84%E7%90%86%E9%94%99%E8%AF%AF">在外部捕获错误</a>。</p>
+<p>还需要注意的是如果 observable 发出的项多于一个的话，并且你只关心前一个发出的话，那么  <code>forkJoin</code> 并非正确的选择。在这种情况下，应该选择像 <a target="_blank" rel="noopener" href="https://rxjs-cn.github.io/learn-rxjs-operators/operators/combination/combinelatest.html">combineLatest</a> 或 <a target="_blank" rel="noopener" href="https://rxjs-cn.github.io/learn-rxjs-operators/operators/combination/zip.html">zip</a> 这样的操作符。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>示例 1: Observables 再不同的时间间隔后完成</p>
+<p>( <a target="_blank" rel="noopener" href="https://stackblitz.com/edit/typescript-bqxg9x?file=index.ts&amp;devtoolsheight=100">StackBlitz</a> | <a target="_blank" rel="noopener" href="http://jsbin.com/remiduhimu/1/edit?js,console">jsBin</a> | <a target="_blank" rel="noopener" href="https://jsfiddle.net/btroncone/5fj77920/81/">jsFiddle</a> )</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// RxJS v6+</span><br><span class="line">import &#123; delay, take &#125; from &#x27;rxjs/operators&#x27;;</span><br><span class="line">import &#123; forkJoin, of, interval &#125; from &#x27;rxjs&#x27;;</span><br><span class="line"></span><br><span class="line">const myPromise = val =&gt;</span><br><span class="line">  new Promise(resolve =&gt;</span><br><span class="line">    setTimeout(() =&gt; resolve(`Promise Resolved: $&#123;val&#125;`), 5000)</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">  当所有 observables 完成时，将每个 observable </span><br><span class="line">  的最新值作为数组发出</span><br><span class="line">*/</span><br><span class="line">const example = forkJoin(</span><br><span class="line">  // 立即发出 &#x27;Hello&#x27;</span><br><span class="line">  of(&#x27;Hello&#x27;),</span><br><span class="line">  // 1秒后发出 &#x27;World&#x27;</span><br><span class="line">  of(&#x27;World&#x27;).pipe(delay(1000)),</span><br><span class="line">  // 1秒后发出0</span><br><span class="line">  interval(1000).pipe(take(1)),</span><br><span class="line">  // 以1秒的时间间隔发出0和1</span><br><span class="line">  interval(1000).pipe(take(2)),</span><br><span class="line">  // 5秒后解析 &#x27;Promise Resolved&#x27; 的 promise</span><br><span class="line">  myPromise(&#x27;RESULT&#x27;)</span><br><span class="line">);</span><br><span class="line">//输出: [&quot;Hello&quot;, &quot;World&quot;, 0, 1, &quot;Promise Resolved: RESULT&quot;]</span><br><span class="line">const subscribe = example.subscribe(val =&gt; console.log(val));</span><br></pre></td></tr></table></figure>
+
+
+<p>示例 2: 发起任意多个请求</p>
+<p>( <a target="_blank" rel="noopener" href="https://stackblitz.com/edit/typescript-3mbbjw?file=index.ts&amp;devtoolsheight=100">StackBlitz</a> | <a target="_blank" rel="noopener" href="http://jsbin.com/febejakapi/1/edit?js,console">jsBin</a> | <a target="_blank" rel="noopener" href="https://jsfiddle.net/btroncone/0b8Lnh7s/1/">jsFiddle</a> ) <code></code> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// RxJS v6+</span><br><span class="line">import &#123; mergeMap &#125; from &#x27;rxjs/operators&#x27;;</span><br><span class="line">import &#123; forkJoin, of &#125; from &#x27;rxjs&#x27;;</span><br><span class="line"></span><br><span class="line">const myPromise = val =&gt;</span><br><span class="line">  new Promise(resolve =&gt;</span><br><span class="line">    setTimeout(() =&gt; resolve(`Promise Resolved: $&#123;val&#125;`), 5000)</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">const source = of([1, 2, 3, 4, 5]);</span><br><span class="line">// 发出数组的全部5个结果</span><br><span class="line">const example = source.pipe(mergeMap(q =&gt; forkJoin(...q.map(myPromise))));</span><br><span class="line">/*</span><br><span class="line">  输出:</span><br><span class="line">  [</span><br><span class="line">   &quot;Promise Resolved: 1&quot;,</span><br><span class="line">   &quot;Promise Resolved: 2&quot;,</span><br><span class="line">   &quot;Promise Resolved: 3&quot;,</span><br><span class="line">   &quot;Promise Resolved: 4&quot;,</span><br><span class="line">   &quot;Promise Resolved: 5&quot;</span><br><span class="line">  ]</span><br><span class="line">*/</span><br><span class="line">const subscribe = example.subscribe(val =&gt; console.log(val));</span><br></pre></td></tr></table></figure>
+
+<p>示例 3: 在外部处理错误</p>
+<p>( <a target="_blank" rel="noopener" href="https://stackblitz.com/edit/typescript-xgskpm?file=index.ts&amp;devtoolsheight=100">StackBlitz</a> | <a target="_blank" rel="noopener" href="http://jsbin.com/gugawucixi/1/edit?js,console">jsBin</a> | <a target="_blank" rel="noopener" href="https://jsfiddle.net/btroncone/6vz7tjx2/1/">jsFiddle</a> )</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// RxJS v6+</span><br><span class="line">import &#123; delay, catchError &#125; from &#x27;rxjs/operators&#x27;;</span><br><span class="line">import &#123; forkJoin, of, throwError &#125; from &#x27;rxjs&#x27;;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">  当所有 observables 完成时，将每个 observable </span><br><span class="line">  的最新值作为数组发出</span><br><span class="line">*/</span><br><span class="line">const example = forkJoin(</span><br><span class="line">  // 立即发出 &#x27;Hello&#x27;</span><br><span class="line">  of(&#x27;Hello&#x27;),</span><br><span class="line">  // 1秒后发出 &#x27;World&#x27;</span><br><span class="line">  of(&#x27;World&#x27;).pipe(delay(1000)),</span><br><span class="line">  // 抛出错误</span><br><span class="line">  _throw(&#x27;This will error&#x27;)</span><br><span class="line">).pipe(catchError(error =&gt; of(error)));</span><br><span class="line">// 输出: &#x27;This will Error&#x27;</span><br><span class="line">const subscribe = example.subscribe(val =&gt; console.log(val));</span><br></pre></td></tr></table></figure>
+
+<p>示例 4: 当某个内部 observable 报错时得到成功结果</p>
+<p>( <a target="_blank" rel="noopener" href="https://stackblitz.com/edit/typescript-hydgiu?file=index.ts&amp;devtoolsheight=100">StackBlitz</a> | <a target="_blank" rel="noopener" href="http://jsbin.com/memajepefe/1/edit?js,console">jsBin</a> | <a target="_blank" rel="noopener" href="https://jsfiddle.net/btroncone/emdu4doy/1/">jsFiddle</a> )</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// RxJS v6+</span><br><span class="line">import &#123; delay, catchError &#125; from &#x27;rxjs/operators&#x27;;</span><br><span class="line">import &#123; forkJoin, of, throwError &#125; from &#x27;rxjs&#x27;;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">  当所有 observables 完成时，将每个 observable </span><br><span class="line">  的最新值作为数组发出</span><br><span class="line">*/</span><br><span class="line">const example = forkJoin(</span><br><span class="line">  // 立即发出 &#x27;Hello&#x27;</span><br><span class="line">  of(&#x27;Hello&#x27;),</span><br><span class="line">  // 1秒后发出 &#x27;World&#x27;</span><br><span class="line">  of(&#x27;World&#x27;).pipe(delay(1000)),</span><br><span class="line">  // 抛出错误</span><br><span class="line">  _throw(&#x27;This will error&#x27;).pipe(catchError(error =&gt; of(error)))</span><br><span class="line">);</span><br><span class="line">// 输出: [&quot;Hello&quot;, &quot;World&quot;, &quot;This will error&quot;]</span><br><span class="line">const subscribe = example.subscribe(val =&gt; console.log(val));</span><br></pre></td></tr></table></figure>
+
+
+<p>示例 5: Angular 中的 forkJoin<br>(<a target="_blank" rel="noopener" href="https://plnkr.co/edit/ElTrOg8NfR3WbbAfjBXQ?p=preview">plunker</a> )</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">@Injectable()</span><br><span class="line">export class MyService &#123;</span><br><span class="line">  makeRequest(value: string, delayDuration: number) &#123;</span><br><span class="line">    // 模拟 http 请求</span><br><span class="line">    return of(`Complete: $&#123;value&#125;`).pipe(</span><br><span class="line">      delay(delayDuration)</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: &#x27;my-app&#x27;,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h2&gt;forkJoin Example&lt;/h2&gt;</span><br><span class="line">      &lt;ul&gt;</span><br><span class="line">        &lt;li&gt; &#123;&#123;propOne&#125;&#125; &lt;/li&gt;</span><br><span class="line">        &lt;li&gt; &#123;&#123;propTwo&#125;&#125; &lt;/li&gt;</span><br><span class="line">        &lt;li&gt; &#123;&#123;propThree&#125;&#125; &lt;/li&gt;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  `,</span><br><span class="line">&#125;)</span><br><span class="line">export class App &#123;</span><br><span class="line">  public propOne: string;</span><br><span class="line">  public propTwo: string;</span><br><span class="line">  public propThree: string;</span><br><span class="line">  constructor(private _myService: MyService) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  ngOnInit() &#123;</span><br><span class="line">    // 使用不同的延迟模拟3个请求</span><br><span class="line">    forkJoin(</span><br><span class="line">      this._myService.makeRequest(&#x27;Request One&#x27;, 2000),</span><br><span class="line">      this._myService.makeRequest(&#x27;Request Two&#x27;, 1000),</span><br><span class="line">      this._myService.makeRequest(&#x27;Request Three&#x27;, 3000)</span><br><span class="line">    )</span><br><span class="line">    .subscribe(([res1, res2, res3]) =&gt; &#123;</span><br><span class="line">      this.propOne = res1;</span><br><span class="line">      this.propTwo = res2;</span><br><span class="line">      this.propThree = res3;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/07/16/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/16/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">【算法】快速排序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-16 16:47:30" itemprop="dateCreated datePublished" datetime="2019-07-16T16:47:30+08:00">2019-07-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">算法竞赛</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转自：<a target="_blank" rel="noopener" href="https://wiki.jikexueyuan.com/project/easy-learn-algorithm/fast-sort.html">https://wiki.jikexueyuan.com/project/easy-learn-algorithm/fast-sort.html</a></p>
+<p>上一节的冒泡排序可以说是我们学习第一个真正的排序算法，并且解决了桶排序浪费空间的问题，但在算法的执行效率上却牺牲了很多，它的时间复杂度达到了 <strong>O(N2)</strong>。假如我们的计算机每秒钟可以运行 <strong>10</strong> 亿次，那么对 <strong>1</strong> 亿个数进行排序，桶排序则只需要 <strong>0.1</strong> 秒，而冒泡排序则需要 <strong>1</strong> 千万秒，达到 <strong>115</strong> 天之久，是不是很吓人。那有没有既不浪费空间又可以快一点的排序算法呢？那就是“快速排序”啦！光听这个名字是不是就觉得很高端呢。</p>
+<p>假设我们现在对“<strong>6 1 2 7 9 3 4 5 10 8</strong>”这个 10 个数进行排序。首先在这个序列中随便找一个数作为基准数（不要被这个名词吓到了，就是一个用来参照的数，待会你就知道它用来做啥的了）。为了方便，就让第一个数 <strong>6</strong> 作为基准数吧。接下来，需要将这个序列中所有比基准数大的数放在 <strong>6</strong> 的右边，比基准数小的数放在 <strong>6</strong> 的左边，类似下面这种排列。</p>
+<p>3 1 2 5 4 <strong>6</strong> 9 7 10 8</p>
+<p>在初始状态下，数字 <strong>6</strong> 在序列的第 <strong>1</strong> 位。我们的目标是将 <strong>6</strong> 挪到序列中间的某个位置，假设这个位置是 <strong>k</strong>。现在就需要寻找这个 <strong>k</strong>，并且以第 <strong>k</strong> 位为分界点，左边的数都小于等于 <strong>6</strong>，右边的数都大于等于 <strong>6</strong>。想一想，你有办法可以做到这点吗？</p>
+<p>给你一个提示吧。请回忆一下冒泡排序，是如何通过“交换”，一步步让每个数归位的。此时你也可以通过“交换”的方法来达到目的。具体是如何一步步交换呢？怎样交换才既方便又节省时间呢？先别急着往下看，拿出笔来，在纸上画画看。我高中时第一次学习冒泡排序算法的时候，就觉得冒泡排序很浪费时间，每次都只能对相邻的两个数进行比较，这显然太不合理了。于是我就想了一个办法，后来才知道原来这就是“快速排序”，请允许我小小的自恋一下(^o^)。</p>
+<p>方法其实很简单：分别从初始序列“<strong>6 1 2 7 9 3 4 5 10 8</strong>”两端开始“探测”。先从<strong>右</strong>往<strong>左</strong>找一个小于 <strong>6</strong> 的数，再从<strong>左</strong>往<strong>右</strong>找一个大于 <strong>6</strong> 的数，然后交换他们。这里可以用两个变量 <strong>i</strong> 和 <strong>j</strong>，分别指向序列最左边和最右边。我们为这两个变量起个好听的名字“哨兵 i”和“哨兵 j”。刚开始的时候让哨兵 i 指向序列的最左边（即 <strong>i=1</strong>），指向数字 <strong>6</strong>。让哨兵 <strong>j</strong> 指向序列的最右边（即 <strong>j=10</strong>），指向数字 <strong>8</strong>。</p>
+<p><img src="https://wiki.jikexueyuan.com/project/easy-learn-algorithm/images/3.1.png" alt="picture3.1"></p>
+<p>首先哨兵 <strong>j</strong> 开始出动。因为此处设置的基准数是最左边的数，所以需要让哨兵 <strong>j</strong> 先出动，这一点非常重要（请自己想一想为什么）。哨兵 <strong>j</strong> 一步一步地向左挪动（即 <strong>j–</strong>），直到找到一个小于 <strong>6</strong> 的数停下来。接下来哨兵 <strong>i</strong> 再一步一步向右挪动（即 <strong>i++</strong>），直到找到一个数大于 <strong>6</strong> 的数停下来。最后哨兵 <strong>j</strong> 停在了数字 <strong>5</strong> 面前，哨兵 <strong>i</strong> 停在了数字 <strong>7</strong> 面前。</p>
+<p><img src="https://wiki.jikexueyuan.com/project/easy-learn-algorithm/images/3.2.png" alt="picture3.2"></p>
+<p><img src="https://wiki.jikexueyuan.com/project/easy-learn-algorithm/images/3.3.png" alt="picture3.3"></p>
+<p>现在交换哨兵 <strong>i</strong> 和哨兵 <strong>j</strong> 所指向的元素的值。交换之后的序列如下。</p>
+<p>6 1 2 <strong>5</strong> 9 3 4 <strong>7</strong> 10 8</p>
+<p><img src="https://wiki.jikexueyuan.com/project/easy-learn-algorithm/images/3.4.png" alt="picture3.4"></p>
+<p><img src="https://wiki.jikexueyuan.com/project/easy-learn-algorithm/images/3.5.png" alt="picture3.5"></p>
+<p>到此，第一次交换结束。接下来开始哨兵 <strong>j</strong> 继续向左挪动（再友情提醒，每次必须是哨兵 <strong>j</strong> 先出发）。他发现了 <strong>4</strong>（比基准数 <strong>6</strong> 要小，满足要求）之后停了下来。哨兵 <strong>i</strong> 也继续向右挪动的，他发现了 <strong>9</strong>（比基准数 <strong>6</strong> 要大，满足要求）之后停了下来。此时再次进行交换，交换之后的序列如下。</p>
+<p>6 1 2 5 <strong>4</strong> 3 <strong>9</strong> 7 10 8</p>
+<p>第二次交换结束，“探测”继续。哨兵 <strong>j</strong> 继续向左挪动，他发现了 <strong>3</strong>（比基准数 <strong>6</strong> 要小，满足要求）之后又停了下来。哨兵 <strong>i</strong> 继续向右移动，糟啦！此时哨兵 <strong>i</strong> 和哨兵 <strong>j</strong> 相遇了，哨兵 <strong>i</strong> 和哨兵 <strong>j</strong> 都走到 <strong>3</strong> 面前。说明此时“探测”结束。我们将基准数 <strong>6</strong> 和 <strong>3</strong> 进行交换。交换之后的序列如下。</p>
+<p><strong>3</strong> 1 2 5 4 <strong>6</strong> 9 7 10 8</p>
+<p><img src="https://wiki.jikexueyuan.com/project/easy-learn-algorithm/images/3.6.png" alt="picture3.6"></p>
+<p><img src="https://wiki.jikexueyuan.com/project/easy-learn-algorithm/images/3.7.png" alt="picture3.7"></p>
+<p><img src="https://wiki.jikexueyuan.com/project/easy-learn-algorithm/images/3.8.png" alt="picture3.8"></p>
+<p>到此第一轮“探测”真正结束。此时以基准数 <strong>6</strong> 为分界点，<strong>6</strong> 左边的数都小于等于 <strong>6</strong>，<strong>6</strong> 右边的数都大于等于 <strong>6</strong>。回顾一下刚才的过程，其实哨兵 <strong>j</strong> 的使命就是要找小于基准数的数，而哨兵 <strong>i</strong> 的使命就是要找大于基准数的数，直到 <strong>i</strong> 和 <strong>j</strong> 碰头为止。</p>
+<p>OK，解释完毕。现在基准数 <strong>6</strong> 已经归位，它正好处在序列的第 <strong>6</strong> 位。此时我们已经将原来的序列，以 <strong>6</strong> 为分界点拆分成了两个序列，左边的序列是“<strong>3 1 2 5 4</strong>”，右边的序列是“ <strong>9 7 10 8</strong> ”。接下来还需要分别处理这两个序列。因为 <strong>6</strong> 左边和右边的序列目前都还是很混乱的。不过不要紧，我们已经掌握了方法，接下来只要模拟刚才的方法分别处理 <strong>6</strong> 左边和右边的序列即可。现在先来处理 <strong>6</strong> 左边的序列现吧。</p>
+<p>左边的序列是“<strong>3 1 2 5 4</strong>”。请将这个序列以 <strong>3</strong> 为基准数进行调整，使得 <strong>3</strong> 左边的数都小于等于 <strong>3</strong>，<strong>3</strong> 右边的数都大于等于 <strong>3</strong>。好了开始动笔吧。</p>
+<p>如果你模拟的没有错，调整完毕之后的序列的顺序应该是。</p>
+<p>2 1 <strong>3</strong> 5 4</p>
+<p>OK，现在 <strong>3</strong> 已经归位。接下来需要处理 <strong>3</strong> 左边的序列“ <strong>2 1</strong> ”和右边的序列“<strong>5 4</strong>”。对序列“ <strong>2 1</strong> ”以 <strong>2</strong> 为基准数进行调整，处理完毕之后的序列为“<strong>1 2</strong>”，到此 <strong>2</strong> 已经归位。序列“<strong>1</strong>”只有一个数，也不需要进行任何处理。至此我们对序列“ <strong>2 1</strong> ”已全部处理完毕，得到序列是“<strong>1 2</strong>”。序列“<strong>5 4</strong>”的处理也仿照此方法，最后得到的序列如下。</p>
+<p>1 2 3 4 5 6 9 7 10 8</p>
+<p>对于序列“<strong>9 7 10 8</strong>”也模拟刚才的过程，直到不可拆分出新的子序列为止。最终将会得到这样的序列，如下。</p>
+<p>1 2 3 4 5 6 7 8 9 10</p>
+<p>到此，排序完全结束。细心的同学可能已经发现，快速排序的每一轮处理其实就是将这一轮的基准数归位，直到所有的数都归位为止，排序就结束了。下面上个霸气的图来描述下整个算法的处理过程。</p>
+<p><img src="https://wiki.jikexueyuan.com/project/easy-learn-algorithm/images/3.9.png" alt="picture3.9"></p>
+<p>快速排序之所比较快，因为相比冒泡排序，每次交换是跳跃式的。每次排序的时候设置一个基准点，将小于等于基准点的数全部放到基准点的左边，将大于等于基准点的数全部放到基准点的右边。这样在每次交换的时候就不会像冒泡排序一样每次只能在相邻的数之间进行交换，交换的距离就大的多了。因此总的比较和交换次数就少了，速度自然就提高了。当然在最坏的情况下，仍可能是相邻的两个数进行了交换。因此快速排序的最差时间复杂度和冒泡排序是一样的都是 <strong>O(N2)</strong>，它的平均时间复杂度为 <strong>O(NlogN)</strong>。其实快速排序是基于一种叫做“二分”的思想。我们后面还会遇到“二分”思想，到时候再聊。</p>
+<p>自己撸的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public class QuickSort : ISort</span><br><span class="line">&#123;</span><br><span class="line">    public int[] Sort(int[] numbers)</span><br><span class="line">    &#123;</span><br><span class="line">        return Sort(numbers, 0, numbers.Length - 1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static int[] Sort(int[] numbers,int left,int right)</span><br><span class="line">    &#123;</span><br><span class="line">        if (left&lt;right)</span><br><span class="line">        &#123;</span><br><span class="line">            int middle = numbers[(left + right) / 2];</span><br><span class="line">            int i = left - 1;</span><br><span class="line">            int j = right + 1;</span><br><span class="line">            while (true)</span><br><span class="line">            &#123;</span><br><span class="line">                while (numbers[++i] &lt; middle) ;</span><br><span class="line"></span><br><span class="line">                while (numbers[--j] &gt; middle) ;</span><br><span class="line"></span><br><span class="line">                if (i &gt;= j)</span><br><span class="line">                    break;</span><br><span class="line"></span><br><span class="line">                Swap(numbers, i, j);</span><br><span class="line">            &#125;</span><br><span class="line">            Sort(numbers, left, i - 1);</span><br><span class="line">            Sort(numbers, j + 1, right);</span><br><span class="line">        &#125;</span><br><span class="line">        return numbers;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static void Swap(int[] numbers, int i, int j)</span><br><span class="line">    &#123;</span><br><span class="line">        int temp = numbers[i];</span><br><span class="line">        numbers[i]= numbers[j];</span><br><span class="line">        numbers[j] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/07/08/%E3%80%90%E8%AE%BE%E8%AE%A1%E3%80%91%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/07/08/%E3%80%90%E8%AE%BE%E8%AE%A1%E3%80%91%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">【设计】单例模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-08 14:58:41" itemprop="dateCreated datePublished" datetime="2019-07-08T14:58:41+08:00">2019-07-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>来源： 伯乐在线 - 熊绎<br><a target="_blank" rel="noopener" href="http://blog.jobbole.com/109449/">http://blog.jobbole.com/109449/</a></p>
+</blockquote>
+<p>设计模式是老生常谈的问题，有人工作多年却对设计模式一窍不通，但是更多的人是懂一点点，但是不求甚解。其实这样不好，暂且不说在工作中的应用，即便是在面试时，被面试官问到设计模式时一脸懵逼，是非常尴尬的事情。本文不废话，不谈大篇理论教学，只针对面试，给出设计模式的关键点，从应试的角度，让大家认识和理解设计模式。</p>
+<p>首先搞清楚一点，设计模式不是高深技术，不是奇淫技巧。设计模式只是一种设计思想，针对不同的业务场景，用不同的方式去设计代码结构，其最最本质的目的是为了解耦，延伸一点的话，还有为了可扩展性和健壮性，但是这都是建立在解耦的基础之上。</p>
+<p>我们都知道大名鼎鼎的GoF的21种设计模式，看过head first的这本书的人应该不少。针对这21种设计模式，面试官问出的问题可能千变万化，让人莫名的忧(dan)伤(teng)，但是不要怕，只要你搞清楚了每种设计模式的关键点和精髓，就可以举一反三，迎刃而解了。</p>
+<p>今天我们来看看最简单的单例模式。理论我就不介绍了，没听说过的可以去查一下。即便是最简单的单例，也有关键点。举个不太恰当地例子，看过修仙修道之类小说的同学都知道，一般阵法高手做阵都有一个或多个“阵眼”，同理，我们每种设计模式也有“阵眼”，那么单例的“阵眼”在哪里？各位莫慌，我们先来看看代码。根据单例模式的理论：保证系统中只有一个实例，于是我撸了以下代码</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Singleton</span> &#123;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span>()</span> &#123;&#125;                     <span class="comment">//关键点0：构造函数是私有的</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton single = <span class="literal">null</span>;    <span class="comment">//关键点1：声明单例对象是静态的</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">GetInstance</span>()      <span class="comment">//通过静态方法来构造对象</span></span></span><br><span class="line">    &#123;                        </span><br><span class="line">         <span class="keyword">if</span> (single == <span class="literal">null</span>)</span><br><span class="line">         &#123;                                     <span class="comment">//关键点2：判断单例对象是否已经被构造</span></span><br><span class="line">             single = <span class="keyword">new</span> Singleton();  </span><br><span class="line">         &#125;    </span><br><span class="line">        <span class="keyword">return</span> single;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>好了，如果我是面试官，你是候选人，我要你撸个单例给我，你撸以上代码问我资词不资词，我肯定是不资词的。为什么？真的不是因为我想搞个大新闻，而是这段单例的代码一般情况下还是可以勉强运行，但是，遇到多线程的并发条件下就大清药丸了。因为这段代码是线程不安全的，有可能给new出多个单例实例，都多个了，还是屁的“单例”啊。</p>
+<p>好，废话不多说，继续撸代码，你可能会说：”不是说线程不安全吗？小爷我加上线程安全判断呗，度娘在手天下我有，来了您呐<del>~</del>“</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Singleton</span> &#123;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span>()</span> &#123;&#125;                     <span class="comment">//关键点0：构造函数是私有的</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton single = <span class="literal">null</span>;    <span class="comment">//关键点1：声明单例对象是静态的</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">object</span> obj= <span class="keyword">new</span> <span class="built_in">object</span>();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">GetInstance</span>()      <span class="comment">//通过静态方法来构造对象</span></span></span><br><span class="line">    &#123;                        </span><br><span class="line">         <span class="keyword">if</span> (single == <span class="literal">null</span>)                   <span class="comment">//关键点2：判断单例对象是否已经被构造</span></span><br><span class="line">         &#123;                            </span><br><span class="line">            <span class="keyword">lock</span>(obj)                          <span class="comment">//关键点3：加线程锁</span></span><br><span class="line">            &#123;</span><br><span class="line">               single = <span class="keyword">new</span> Singleton();  </span><br><span class="line">             &#125;</span><br><span class="line">         &#125;    </span><br><span class="line">        <span class="keyword">return</span> single;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>好了，这回该消停了吧，锁也加了，线程也安全了。But，你还是太连清。。。这样依然有问题。问题在哪里？就在关键点2，检测单例是否被构造。虽然这里判断了一次，但是由于某些情况下，可能有延迟加载或者缓存的原因，只有关键点2这一次判断，仍然不能保证系统是否只创建了一个单例，也可能出现多个实例的情况，那么怎么办呢？</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Singleton</span> &#123;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span>()</span> &#123;&#125;                     <span class="comment">//关键点0：构造函数是私有的</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton single = <span class="literal">null</span>;    <span class="comment">//关键点1：声明单例对象是静态的</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">object</span> obj= <span class="keyword">new</span> <span class="built_in">object</span>();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">GetInstance</span>()      <span class="comment">//通过静态方法来构造对象</span></span></span><br><span class="line">    &#123;                        </span><br><span class="line">         <span class="keyword">if</span> (single == <span class="literal">null</span>)                   <span class="comment">//关键点2：判断单例对象是否已经被构造</span></span><br><span class="line">         &#123;                            </span><br><span class="line">            <span class="keyword">lock</span>(obj)                          <span class="comment">//关键点3：加线程锁</span></span><br><span class="line">            &#123;</span><br><span class="line">               <span class="keyword">if</span>(single == <span class="literal">null</span>)              <span class="comment">//关键点4：二次判断单例是否已经被构造</span></span><br><span class="line">               &#123;</span><br><span class="line">                  single = <span class="keyword">new</span> Singleton();  </span><br><span class="line">                &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;    </span><br><span class="line">        <span class="keyword">return</span> single;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以，在判断单例实例是否被构造时，需要检测两次，在线程锁之前判断一次，在线程锁之后判断一次，再去构造实例，这样就万无一失了。是不是很简(Tu)单(Xue)呢？<br>最后，我们来归纳一下。下次面试别人再问你单例模式，你可以这样说：</p>
+<p>单例是为了保证系统中只有一个实例，其关键点有5：</p>
+<p>一.私有构造函数<br>二.声明静态单例对象<br>三.构造单例对象之前要加锁（lock一个静态的object对象）<br>四.需要两次检测单例实例是否已经被构造，分别在锁之前和锁之后<br>如果要你撸代码，你就撸最后这一段，完美<del>~</del>面试官要是个女的准想和你生猴子。。。</p>
+<p>哦，别高兴太早了，面试官要是个男的，也可能会问你下列问题</p>
+<p><strong>0.为何要检测两次？</strong><br>如上面所述，有可能延迟加载或者缓存原因，造成构造多个实例，违反了单例的初衷。</p>
+<p><strong>1.构造函数能否公有化？</strong><br>不行，单例类的构造函数必须私有化，单例类不能被实例化，单例实例只能静态调用</p>
+<p><strong>2.lock住的对象为什么要是object对象，可以是int吗？</strong><br>不行，锁住的必须是个引用类型。如果锁值类型，每个不同的线程在声明的时候值类型变量的地址都不一样，那么上个线程锁住的东西下个线程进来会认为根本没锁，相当于每次都锁了不同的门，没有任何卵用。而引用类型的变量地址是相同的，每个线程进来判断锁多想是否被锁的时候都是判断同一个地址，相当于是锁在通一扇门，起到了锁的作用。</p>
+<p>好了，这下估计男的都想跟你生猴子了。。。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/34/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/34/">34</a><span class="page-number current">35</span><a class="page-number" href="/page/36/">36</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/36/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

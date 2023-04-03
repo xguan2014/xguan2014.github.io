@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="使用MQTT先要有一个MQTT服务器，具体如何搭建可以看上一篇文章 https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731&#x2F;article&#x2F;details&#x2F;87702787 这一篇主要讲下NodeMCU的使用，以及MQTT介绍和如何接发消息 NodeMCU1. ESP8266介绍介绍NodeMCU前需要先了解ESP8266，它是一个完整自称体系的WiFi网络解决方案，能独立运行也可为从">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Iot】物联网-栗子">
+<meta property="og:url" content="http://blog.bfsdfs.com/2019/02/20/%E3%80%90Iot%E3%80%91%E7%89%A9%E8%81%94%E7%BD%91-%E6%A0%97%E5%AD%901/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="使用MQTT先要有一个MQTT服务器，具体如何搭建可以看上一篇文章 https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731&#x2F;article&#x2F;details&#x2F;87702787 这一篇主要讲下NodeMCU的使用，以及MQTT介绍和如何接发消息 NodeMCU1. ESP8266介绍介绍NodeMCU前需要先了解ESP8266，它是一个完整自称体系的WiFi网络解决方案，能独立运行也可为从">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5734256-f76e3ee2bd0a2c78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/593/format/webp">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/20160612155802584.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5734256-e9d6b0b4bc008b9d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/694/format/webp">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5734256-aebe695f0a4fbea8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/803/format/webp">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5734256-e5d0a735273d4681.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/649/format/webp">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5734256-976b7c3babf87b5a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/667/format/webp">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5734256-6523a0a7a15c39dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/713/format/webp">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5734256-aa7c5afc06cb32e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/826/format/webp">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5734256-923125333073a289.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/811/format/webp">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5734256-3a3ea6f9bdea82e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/789/format/webp">
+<meta property="article:published_time" content="2019-02-20T03:03:03.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.072Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="DIY">
+<meta property="article:tag" content="传感器">
+<meta property="article:tag" content="Arduino">
+<meta property="article:tag" content="Iot">
+<meta property="article:tag" content="阿里云">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5734256-f76e3ee2bd0a2c78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/593/format/webp">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2019/02/20/%E3%80%90Iot%E3%80%91%E7%89%A9%E8%81%94%E7%BD%91-%E6%A0%97%E5%AD%901/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【Iot】物联网-栗子 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/02/20/%E3%80%90Iot%E3%80%91%E7%89%A9%E8%81%94%E7%BD%91-%E6%A0%97%E5%AD%901/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Iot】物联网-栗子
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-02-20 11:03:03" itemprop="dateCreated datePublished" datetime="2019-02-20T11:03:03+08:00">2019-02-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%89%A9%E8%81%94%E7%BD%91%E6%96%B9%E9%9D%A2/" itemprop="url" rel="index"><span itemprop="name">物联网方面</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>10k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>使用MQTT先要有一个MQTT服务器，具体如何搭建可以看上一篇文章</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32688731/article/details/87702787">https://blog.csdn.net/qq_32688731/article/details/87702787</a></p>
+<p>这一篇主要讲下NodeMCU的使用，以及MQTT介绍和如何接发消息</p>
+<h2 id="NodeMCU"><a href="#NodeMCU" class="headerlink" title="NodeMCU"></a>NodeMCU</h2><h3 id="1-ESP8266介绍"><a href="#1-ESP8266介绍" class="headerlink" title="1. ESP8266介绍"></a>1. ESP8266介绍</h3><p>介绍NodeMCU前需要先了解ESP8266，它是一个完整自称体系的WiFi网络解决方案，能独立运行也可为从部件连接单片机运行</p>
+<p>具有以下特点：</p>
+<ul>
+<li>超小尺寸 </li>
+<li>低功耗 </li>
+<li>内置TCP/IP协议 </li>
+<li>可编程 </li>
+<li>低成本 <h3 id="2-NodeMCU介绍"><a href="#2-NodeMCU介绍" class="headerlink" title="2. NodeMCU介绍"></a>2. NodeMCU介绍</h3></li>
+</ul>
+<p>NodeMCU是一款基于ESP8266模块的开源硬件，符合Arduino框架。同时可使用Node.js编程</p>
+<p><img src="//upload-images.jianshu.io/upload_images/5734256-f76e3ee2bd0a2c78.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/593/format/webp" alt=""></p>
+<p>NodeMCU引脚：</p>
+<p><img src="/images/20160612155802584.png" alt=""></p>
+<h3 id="3-WiFi测试"><a href="#3-WiFi测试" class="headerlink" title="3. WiFi测试"></a>3. WiFi测试</h3><p>先要安装Arduino IDE For ESP8266<br>Arduino IDE For ESP8266是根据Arduino修改的专门烧写ESP8266开发板的IDE。在装好Arduino IDE后：</p>
+<ol>
+<li>打开Arduino 文件-&gt;首选项，在 附加开发管理网站 中填入<a target="_blank" rel="noopener" href="https://link.jianshu.com?t=http://arduino.esp8266.com/stable/package_esp8266com_index.json">http://arduino.esp8266.com/stable/package_esp8266com_index.json</a>，然后点击确定保存 <img src="//upload-images.jianshu.io/upload_images/5734256-e9d6b0b4bc008b9d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/694/format/webp" alt=""></li>
+</ol>
+<ol>
+<li>重启IDE后，打开 工具-&gt;开发板-&gt;开发板管理器；搜索ESP8266，选择esp 8266 by ESP8266 Community安装 <img src="//upload-images.jianshu.io/upload_images/5734256-aebe695f0a4fbea8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/803/format/webp" alt=""></li>
+</ol>
+<ol>
+<li>下载完成后可以在开发板选项中看到ESP8266 Module,以及NodeMCU等可选开发板 </li>
+</ol>
+<ul>
+<li>将NodeMCU通过usb连接到电脑，在工具下选择相应配置 <img src="//upload-images.jianshu.io/upload_images/5734256-e5d0a735273d4681.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/649/format/webp" alt=""></li>
+</ul>
+<p>波特率越大烧录程序速度越快但有可能出错<br>端口选择NodeMCU对应端口，如果没看到端口，那是驱动没有装，装驱动可以看这里</p>
+<p><a target="_blank" rel="noopener" href="https://link.jianshu.com?t=http://www.arduino.cn/thread-1008-1-1.html">http://www.arduino.cn/thread-1008-1-1.html</a></p>
+<ol>
+<li>打开示例选择ESP8266WiFi中的WiFiScan <img src="//upload-images.jianshu.io/upload_images/5734256-976b7c3babf87b5a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/667/format/webp" alt=""></li>
+</ol>
+<p>烧到板子上打开窗口监视器可以看到扫描出来的附近热点</p>
+<p><img src="//upload-images.jianshu.io/upload_images/5734256-6523a0a7a15c39dc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/713/format/webp" alt=""></p>
+<h2 id="MQTT"><a href="#MQTT" class="headerlink" title="MQTT"></a>MQTT</h2><h3 id="1-MQTT介绍"><a href="#1-MQTT介绍" class="headerlink" title="1. MQTT介绍"></a>1. MQTT介绍</h3><p>消息队列遥测传输(MQTT)是IBM开发的即时通讯协议，为计算能力有限且工作在低带宽、不可靠网络的传感器或控制设备而设计。比如对于移动开发，它可以用于消息推送，即时通讯等等</p>
+<p><strong>特性：</strong></p>
+<ul>
+<li>发布/订阅的消息模式，提供一对多的消息发布 </li>
+<li>使用TCP/IP提供网络连接 </li>
+<li>有三种消息发布服务质量，至多一次，至少一次，只有一次 </li>
+<li>传输小、开销小 </li>
+<li>LastWill通知中断机制 <h3 id="2-MQTT原理介绍"><a href="#2-MQTT原理介绍" class="headerlink" title="2. MQTT原理介绍"></a>2. MQTT原理介绍</h3></li>
+</ul>
+<ul>
+<li>客户端：发布者(Publish)、订阅者(SubScribe)，客户端有ID,ID冲突会挤掉先连接客户端。 </li>
+<li>服务器端：代理(Broker) </li>
+<li>消息：主题(Topic)+负载(payload) <img src="//upload-images.jianshu.io/upload_images/5734256-aa7c5afc06cb32e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/826/format/webp" alt=""></li>
+</ul>
+<p>举个场景为例：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/5734256-923125333073a289.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/811/format/webp" alt=""></p>
+<p>QQ用户2(账号QQ1000)向QQ用户1(QQ9999)发送消息“Hello World”.<br>发送者：QQ用户2<br>订阅者：QQ用户1<br>消息：QQ9999+”Hello World”.</p>
+<p>消息发送至服务器，服务器查找QQ9999对应的用户后，发送信息给QQ用户2.</p>
+<h3 id="3-MQTT-ESP8266库"><a href="#3-MQTT-ESP8266库" class="headerlink" title="3. MQTT ESP8266库"></a>3. MQTT ESP8266库</h3><p>菜单“项目”-“加载库”-“管理库”，搜索安装“PubSubClient”</p>
+<p><img src="//upload-images.jianshu.io/upload_images/5734256-3a3ea6f9bdea82e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/789/format/webp" alt=""></p>
+<p>PubSubClient有一些示例可以打开mqtt_esp8266看下</p>
+<h3 id="4-MQTT接发消息体验"><a href="#4-MQTT接发消息体验" class="headerlink" title="4. MQTT接发消息体验"></a>4. MQTT接发消息体验</h3><p>这里做两个示例<br><strong>1. NodeMCU接受消息：服务器来控制LED灯状态</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#include &lt;ESP8266WiFi.h&gt;</span><br><span class="line">#include &lt;PubSubClient.h&gt;</span><br><span class="line"></span><br><span class="line">// Update these with values suitable for your network.</span><br><span class="line"></span><br><span class="line">const char* ssid = &quot;******&quot;;</span><br><span class="line">const char* password = &quot;******&quot;;</span><br><span class="line">const char* mqtt_server = &quot;******&quot;;</span><br><span class="line"></span><br><span class="line">WiFiClient espClient;</span><br><span class="line">PubSubClient client(espClient);</span><br><span class="line">long lastMsg = 0;</span><br><span class="line">char msg[50];</span><br><span class="line">int value = 0;</span><br><span class="line">int LED = 5;     // LED引脚</span><br><span class="line">void setup() &#123;</span><br><span class="line">pinMode(LED, OUTPUT);     // Initialize the  pin as an output</span><br><span class="line">Serial.begin(115200);</span><br><span class="line">setup_wifi();</span><br><span class="line">client.setServer(mqtt_server, 1883);</span><br><span class="line">client.setCallback(callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void setup_wifi() &#123;</span><br><span class="line"></span><br><span class="line">delay(10);</span><br><span class="line">// We start by connecting to a WiFi network</span><br><span class="line">Serial.println();</span><br><span class="line">Serial.print(&quot;Connecting to &quot;);</span><br><span class="line">Serial.println(ssid);</span><br><span class="line"></span><br><span class="line">WiFi.begin(ssid, password);</span><br><span class="line"></span><br><span class="line">while (WiFi.status() != WL_CONNECTED) &#123;</span><br><span class="line">delay(500);</span><br><span class="line">Serial.print(&quot;.&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Serial.println(&quot;&quot;);</span><br><span class="line">Serial.println(&quot;WiFi connected&quot;);</span><br><span class="line">Serial.println(&quot;IP address: &quot;);</span><br><span class="line">Serial.println(WiFi.localIP());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void callback(char* topic, byte* payload, unsigned int length) &#123;</span><br><span class="line">Serial.print(&quot;Message arrived [&quot;);</span><br><span class="line">Serial.print(topic);</span><br><span class="line">Serial.print(&quot;] &quot;);</span><br><span class="line">for (int i = 0; i &lt; length; i++) &#123;</span><br><span class="line">Serial.print((char)payload[i]);</span><br><span class="line">&#125;</span><br><span class="line">Serial.println();</span><br><span class="line"></span><br><span class="line">// Switch on the LED if an 1 was received as first character</span><br><span class="line">if ((char)payload[0] == &#x27;1&#x27;) &#123;</span><br><span class="line">digitalWrite(LED, LOW);   // Turn the LED on (Note that LOW is the voltage level</span><br><span class="line">// but actually the LED is on; this is because</span><br><span class="line">// it is acive low on the ESP-01)</span><br><span class="line">&#125; else &#123;</span><br><span class="line">digitalWrite(LED, HIGH);  // Turn the LED off by making the voltage HIGH</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void reconnect() &#123;</span><br><span class="line">// Loop until we&#x27;re reconnected</span><br><span class="line">while (!client.connected()) &#123;</span><br><span class="line">Serial.print(&quot;Attempting MQTT connection...&quot;);</span><br><span class="line">// Attempt to connect</span><br><span class="line">if (client.connect(&quot;ESP8266Client&quot;)) &#123;</span><br><span class="line">Serial.println(&quot;connected&quot;);</span><br><span class="line">// Once connected, publish an announcement...</span><br><span class="line">client.publish(&quot;outTopic&quot;, &quot;hello world&quot;);</span><br><span class="line">// ... and resubscribe</span><br><span class="line">client.subscribe(&quot;inTopic&quot;);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">Serial.print(&quot;failed, rc=&quot;);</span><br><span class="line">Serial.print(client.state());</span><br><span class="line">Serial.println(&quot; try again in 5 seconds&quot;);</span><br><span class="line">// Wait 5 seconds before retrying</span><br><span class="line">delay(5000);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">void loop() &#123;</span><br><span class="line"></span><br><span class="line">if (!client.connected()) &#123;</span><br><span class="line">reconnect();</span><br><span class="line">&#125;</span><br><span class="line">client.loop();</span><br><span class="line"></span><br><span class="line">long now = millis();</span><br><span class="line">if (now - lastMsg &gt; 2000) &#123;</span><br><span class="line">lastMsg = now;</span><br><span class="line">++value;</span><br><span class="line">snprintf (msg, 75, &quot;hello world #%ld&quot;, value);</span><br><span class="line">Serial.print(&quot;Publish message: &quot;);</span><br><span class="line">Serial.println(msg);</span><br><span class="line">client.publish(&quot;outTopic&quot;, msg);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>2. NodeMCU发送消息：向服务器上传温度湿度信息</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;ESP8266WiFi.h&gt;</span><br><span class="line">#include &lt;PubSubClient.h&gt;</span><br><span class="line">#include &lt;SimpleDHT.h&gt;</span><br><span class="line"></span><br><span class="line">WiFiClient espClient;</span><br><span class="line">PubSubClient client(espClient);</span><br><span class="line"></span><br><span class="line">int pinDHT11 = 5;</span><br><span class="line">SimpleDHT11 dht11(pinDHT11);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const char* ssid = &quot;1705&quot;;</span><br><span class="line">const char* password = &quot;Zoor170302&quot;;</span><br><span class="line">const char* mqtt_server = &quot;*****&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">long lastMsg = 0;</span><br><span class="line">char msg[50];</span><br><span class="line">int value = 0;</span><br><span class="line">int LedStatus = 4;</span><br><span class="line">int LedOutPut = 14;</span><br><span class="line"></span><br><span class="line">void setup() &#123;</span><br><span class="line">pinMode(LedStatus, OUTPUT);</span><br><span class="line">pinMode(LedOutPut, OUTPUT);</span><br><span class="line">Serial.begin(115200);</span><br><span class="line"></span><br><span class="line">setup_wifi();</span><br><span class="line"></span><br><span class="line">client.setServer(mqtt_server, 1883);</span><br><span class="line">client.setCallback(callback);</span><br><span class="line">&#125;</span><br><span class="line">// 连接wifi</span><br><span class="line">void setup_wifi() &#123;</span><br><span class="line">delay(10);</span><br><span class="line">WiFi.begin(ssid, password);</span><br><span class="line"></span><br><span class="line">while (WiFi.status() != WL_CONNECTED) &#123;</span><br><span class="line">digitalWrite(LedStatus, HIGH);</span><br><span class="line">delay(500);</span><br><span class="line">digitalWrite(LedStatus, LOW);</span><br><span class="line">Serial.print(&quot;.&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Serial.println(WiFi.localIP());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 订阅信息</span><br><span class="line">void callback(char* topic, byte* payload, unsigned int length) &#123;</span><br><span class="line">Serial.print(&quot;Message arrived [&quot;);</span><br><span class="line">Serial.print(topic);</span><br><span class="line">Serial.print(&quot;] &quot;);</span><br><span class="line">for (int i = 0; i &lt; length; i++) &#123;</span><br><span class="line">Serial.print((char)payload[i]);</span><br><span class="line">&#125;</span><br><span class="line">Serial.println();</span><br><span class="line"></span><br><span class="line">//  // Switch on the LED if an 1 was received as first character</span><br><span class="line">//  if ((char)payload[0] == &#x27;1&#x27;) &#123;</span><br><span class="line">//    digitalWrite(LED, LOW);   // Turn the LED on (Note that LOW is the voltage level</span><br><span class="line">//    // but actually the LED is on; this is because</span><br><span class="line">//    // it is acive low on the ESP-01)</span><br><span class="line">//  &#125; else &#123;</span><br><span class="line">//    digitalWrite(LED, HIGH);  // Turn the LED off by making the voltage HIGH</span><br><span class="line">//  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void reconnect() &#123;</span><br><span class="line">while (!client.connected()) &#123;</span><br><span class="line">if (client.connect(&quot;ESP8266Client&quot;)) &#123;</span><br><span class="line">client.subscribe(&quot;inTopic&quot;);</span><br><span class="line">digitalWrite(LedStatus, HIGH);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">Serial.println(&quot;mqtt failed&quot;);</span><br><span class="line">digitalWrite(LedStatus, HIGH);</span><br><span class="line">delay(5000);</span><br><span class="line">digitalWrite(LedStatus, LOW);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">void loop() &#123;</span><br><span class="line">if (!client.connected()) &#123;</span><br><span class="line">reconnect();</span><br><span class="line">&#125;</span><br><span class="line">client.loop();</span><br><span class="line"></span><br><span class="line">long now = millis();</span><br><span class="line">if (now - lastMsg &gt; 10000) &#123;</span><br><span class="line">lastMsg = now;</span><br><span class="line"></span><br><span class="line">byte temperature = 0;</span><br><span class="line">byte humidity = 0;</span><br><span class="line">int err = SimpleDHTErrSuccess;</span><br><span class="line"></span><br><span class="line">if ((err = dht11.read(&amp;temperature, &amp;humidity, NULL)) != SimpleDHTErrSuccess) &#123;</span><br><span class="line">delay(1000);</span><br><span class="line">return;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">float tep = formatFloat((float)temperature);</span><br><span class="line">float hum = formatFloat((float)humidity);</span><br><span class="line"></span><br><span class="line">snprintf(msg, 75, &quot;&#123;Tep: %ld,Hum: %ld&#125;&quot;, temperature, humidity);</span><br><span class="line"></span><br><span class="line">client.publish(&quot;outputDHT11&quot;, msg);</span><br><span class="line">Serial.println(msg);</span><br><span class="line">digitalWrite(LedOutPut, HIGH);</span><br><span class="line">delay(50);</span><br><span class="line">digitalWrite(LedOutPut, LOW);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">float formatFloat(float f)</span><br><span class="line">&#123;</span><br><span class="line">int temp = (f * 100);</span><br><span class="line">return float(temp / 100);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、向阿里云Iot平台上传数据"><a href="#3、向阿里云Iot平台上传数据" class="headerlink" title="3、向阿里云Iot平台上传数据"></a>3、向阿里云Iot平台上传数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;ESP8266WiFi.h&gt;</span><br><span class="line">#include &lt;PubSubClient.h&gt;</span><br><span class="line">#include &lt;SimpleDHT.h&gt;</span><br><span class="line"></span><br><span class="line">WiFiClient espClient;</span><br><span class="line">PubSubClient client(espClient);</span><br><span class="line"></span><br><span class="line">int pinDHT11 = 5;</span><br><span class="line">SimpleDHT11 dht11(pinDHT11);</span><br><span class="line"></span><br><span class="line">const char* ssid = &quot;1705&quot;;</span><br><span class="line">const char* password = &quot;Zoor170302&quot;;</span><br><span class="line"></span><br><span class="line">const char* mqtt_server = &quot;a1PifWnko4O.iot-as-mqtt.cn-shanghai.aliyuncs.com&quot;;</span><br><span class="line">const char* mqtt_username = &quot;vCgnBR7ax2AQIFFjo8mf&amp;a1PifWnko4O&quot;;</span><br><span class="line">const char* mqtt_password = &quot;******&quot;;</span><br><span class="line">const char* mqtt_clientId = &quot;FESA234FBDS24|securemode=3,signmethod=hmacsha1,timestamp=789|&quot;;</span><br><span class="line"></span><br><span class="line">const char* body = &quot;&#123;\&quot;id\&quot;:\&quot;123\&quot;,\&quot;version\&quot;:\&quot;1.0\&quot;,\&quot;method\&quot;:\&quot;thing.event.property.post\&quot;,\&quot;params\&quot;:%s&#125;&quot;</span><br><span class="line">const char* inTopic = &quot;/sys/a1PifWnko4O/vCgnBR7ax2AQIFFjo8mf/thing/service/property/set&quot;;</span><br><span class="line"></span><br><span class="line">#define ALINK_BODY_FORMAT         &quot;&#123;\&quot;id\&quot;:\&quot;123\&quot;,\&quot;version\&quot;:\&quot;1.0\&quot;,\&quot;method\&quot;:\&quot;thing.event.property.post\&quot;,\&quot;params\&quot;:%s&#125;&quot;</span><br><span class="line">#define ALINK_TOPIC_PROP_POST     &quot;/sys/a1PifWnko4O/vCgnBR7ax2AQIFFjo8mf/thing/event/property/post&quot;</span><br><span class="line"></span><br><span class="line">long lastMsg = 0;</span><br><span class="line">char msg[50];</span><br><span class="line">int value = 0;</span><br><span class="line">int LedStatus = 4;</span><br><span class="line">int LedOutPut = 14;</span><br><span class="line"></span><br><span class="line">void setup() &#123;</span><br><span class="line">pinMode(LedStatus, OUTPUT);</span><br><span class="line">pinMode(LedOutPut, OUTPUT);</span><br><span class="line">Serial.begin(115200);</span><br><span class="line"></span><br><span class="line">setup_wifi();</span><br><span class="line"></span><br><span class="line">client.setServer(mqtt_server, 1883);</span><br><span class="line">client.setCallback(callback);</span><br><span class="line">&#125;</span><br><span class="line">// 连接wifi</span><br><span class="line">void setup_wifi() &#123;</span><br><span class="line">delay(10);</span><br><span class="line">WiFi.begin(ssid, password);</span><br><span class="line"></span><br><span class="line">while (WiFi.status() != WL_CONNECTED) &#123;</span><br><span class="line">digitalWrite(LedStatus, HIGH);</span><br><span class="line">delay(500);</span><br><span class="line">digitalWrite(LedStatus, LOW);</span><br><span class="line">Serial.print(&quot;.&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Serial.println(WiFi.localIP());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 订阅信息</span><br><span class="line">void callback(char* topic, byte* payload, unsigned int length) &#123;</span><br><span class="line">Serial.print(&quot;Message arrived [&quot;);</span><br><span class="line">Serial.print(topic);</span><br><span class="line">Serial.print(&quot;] &quot;);</span><br><span class="line">for (int i = 0; i &lt; length; i++) &#123;</span><br><span class="line">Serial.print((char)payload[i]);</span><br><span class="line">&#125;</span><br><span class="line">Serial.println();</span><br><span class="line"></span><br><span class="line">//  // Switch on the LED if an 1 was received as first character</span><br><span class="line">//  if ((char)payload[0] == &#x27;1&#x27;) &#123;</span><br><span class="line">//    digitalWrite(LED, LOW);   // Turn the LED on (Note that LOW is the voltage level</span><br><span class="line">//    // but actually the LED is on; this is because</span><br><span class="line">//    // it is acive low on the ESP-01)</span><br><span class="line">//  &#125; else &#123;</span><br><span class="line">//    digitalWrite(LED, HIGH);  // Turn the LED off by making the voltage HIGH</span><br><span class="line">//  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void reconnect() &#123;</span><br><span class="line">while (!client.connected()) &#123;</span><br><span class="line">if (client.connect(mqtt_clientId,mqtt_username , mqtt_password)) &#123;</span><br><span class="line">// client.subscribe(&quot;inTopic&quot;);</span><br><span class="line">digitalWrite(LedStatus, HIGH);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">Serial.println(&quot;mqtt failed&quot;);</span><br><span class="line">digitalWrite(LedStatus, HIGH);</span><br><span class="line">delay(5000);</span><br><span class="line">digitalWrite(LedStatus, LOW);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">void loop() &#123;</span><br><span class="line">if (!client.connected()) &#123;</span><br><span class="line">reconnect();</span><br><span class="line">&#125;</span><br><span class="line">client.loop();</span><br><span class="line"></span><br><span class="line">long now = millis();</span><br><span class="line">if (now - lastMsg &gt; 10000) &#123;</span><br><span class="line">lastMsg = now;</span><br><span class="line"></span><br><span class="line">byte temperature = 0;</span><br><span class="line">byte humidity = 0;</span><br><span class="line">int err = SimpleDHTErrSuccess;</span><br><span class="line"></span><br><span class="line">if ((err = dht11.read(&amp;temperature, &amp;humidity, NULL)) != SimpleDHTErrSuccess) &#123;</span><br><span class="line">delay(1000);</span><br><span class="line">return;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">char param[32];</span><br><span class="line">char jsonBuf[128];</span><br><span class="line"></span><br><span class="line">sprintf(param, &quot;&#123;\&quot;CurrentTemperature\&quot;:%d&#125;,\&quot;RelativeHumidity:%d\&quot;&quot;,temperature,humidity);</span><br><span class="line">sprintf(jsonBuf, ALINK_BODY_FORMAT, param);</span><br><span class="line">Serial.println(jsonBuf);</span><br><span class="line">boolean d = client.publish(ALINK_TOPIC_PROP_POST, jsonBuf);</span><br><span class="line">Serial.print(&quot;publish:0 失败;1成功&quot;);</span><br><span class="line">Serial.println(d);</span><br><span class="line"></span><br><span class="line">digitalWrite(LedOutPut, HIGH);</span><br><span class="line">delay(50);</span><br><span class="line">digitalWrite(LedOutPut, LOW);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">float formatFloat(float f)</span><br><span class="line">&#123;</span><br><span class="line">int temp = (f * 100);</span><br><span class="line">return float(temp / 100);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>阿里云栗子：</p>
+<p><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/104070.html?spm=a2c4g.11186623.6.773.5d2578dc2DCPeE">https://help.aliyun.com/document_detail/104070.html?spm=a2c4g.11186623.6.773.5d2578dc2DCPeE</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2019/02/20/%E3%80%90Iot%E3%80%91%E7%89%A9%E8%81%94%E7%BD%91-%E6%A0%97%E5%AD%901/" title="【Iot】物联网-栗子">http://blog.bfsdfs.com/2019/02/20/【Iot】物联网-栗子1/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/DIY/" rel="tag"># DIY</a>
+              <a href="/tags/%E4%BC%A0%E6%84%9F%E5%99%A8/" rel="tag"># 传感器</a>
+              <a href="/tags/Arduino/" rel="tag"># Arduino</a>
+              <a href="/tags/Iot/" rel="tag"># Iot</a>
+              <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag"># 阿里云</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/02/19/%E3%80%90MQTT%E3%80%91JavaScript%20%E6%93%8D%E4%BD%9C/" rel="prev" title="【MQTT】JavaScript 操作">
+      <i class="fa fa-chevron-left"></i> 【MQTT】JavaScript 操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/02/22/%E3%80%90CentOS%E3%80%91%E5%AE%89%E8%A3%85.NET%20Core%20SDK%202.1/" rel="next" title="【CentOS】安装.NET Core SDK 2.1">
+      【CentOS】安装.NET Core SDK 2.1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NodeMCU"><span class="nav-number">1.</span> <span class="nav-text">NodeMCU</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-ESP8266%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">1. ESP8266介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-NodeMCU%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.2.</span> <span class="nav-text">2. NodeMCU介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-WiFi%E6%B5%8B%E8%AF%95"><span class="nav-number">1.3.</span> <span class="nav-text">3. WiFi测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MQTT"><span class="nav-number">2.</span> <span class="nav-text">MQTT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-MQTT%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.</span> <span class="nav-text">1. MQTT介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-MQTT%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.2.</span> <span class="nav-text">2. MQTT原理介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-MQTT-ESP8266%E5%BA%93"><span class="nav-number">2.3.</span> <span class="nav-text">3. MQTT ESP8266库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-MQTT%E6%8E%A5%E5%8F%91%E6%B6%88%E6%81%AF%E4%BD%93%E9%AA%8C"><span class="nav-number">2.4.</span> <span class="nav-text">4. MQTT接发消息体验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%90%91%E9%98%BF%E9%87%8C%E4%BA%91Iot%E5%B9%B3%E5%8F%B0%E4%B8%8A%E4%BC%A0%E6%95%B0%E6%8D%AE"><span class="nav-number">2.5.</span> <span class="nav-text">3、向阿里云Iot平台上传数据</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'b7f8f7bb6ae5ea49a6fab55509ce1d6b',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

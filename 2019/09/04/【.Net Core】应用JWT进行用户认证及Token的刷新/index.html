@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一、什么是JWT？JWT(json web token)基于开放标准（RFC 7519)，是一种无状态的分布式的身份验证方式，主要用于在网络应用环境间安全地传递声明。它是基于JSON的，所以它也像json一样可以在.Net、JAVA、JavaScript,、PHP等多种语言使用。为什么要使用JWT？传统的Web应用一般采用Cookies+Session来进行认证。但对于目前越来越多的App、小程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net Core】应用JWT进行用户认证及Token的刷新">
+<meta property="og:url" content="http://blog.bfsdfs.com/2019/09/04/%E3%80%90.Net%20Core%E3%80%91%E5%BA%94%E7%94%A8JWT%E8%BF%9B%E8%A1%8C%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E5%8F%8AToken%E7%9A%84%E5%88%B7%E6%96%B0/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一、什么是JWT？JWT(json web token)基于开放标准（RFC 7519)，是一种无状态的分布式的身份验证方式，主要用于在网络应用环境间安全地传递声明。它是基于JSON的，所以它也像json一样可以在.Net、JAVA、JavaScript,、PHP等多种语言使用。为什么要使用JWT？传统的Web应用一般采用Cookies+Session来进行认证。但对于目前越来越多的App、小程序">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTQ4MTM0LzIwMTkwOC81NDgxMzQtMjAxOTA4MjMxNzE0NDc2MzItMTA4NjAxMTE0MS5wbmc.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTQ4MTM0LzIwMTkwOC81NDgxMzQtMjAxOTA4MjMyMDU5MzczMTktMjQyODU0MTYucG5n.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTQ4MTM0LzIwMTkwOC81NDgxMzQtMjAxOTA4MjYxNDU3MjE2MTUtMjc3Mjk0NTQxLnBuZw.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTQ4MTM0LzIwMTkwOC81NDgxMzQtMjAxOTA4MjYxNjIyNTU0NDEtMTMzNjQwMjQ1OC5wbmc.png">
+<meta property="article:published_time" content="2019-09-04T07:30:45.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.043Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="JWT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTQ4MTM0LzIwMTkwOC81NDgxMzQtMjAxOTA4MjMxNzE0NDc2MzItMTA4NjAxMTE0MS5wbmc.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2019/09/04/%E3%80%90.Net%20Core%E3%80%91%E5%BA%94%E7%94%A8JWT%E8%BF%9B%E8%A1%8C%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E5%8F%8AToken%E7%9A%84%E5%88%B7%E6%96%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net Core】应用JWT进行用户认证及Token的刷新 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/09/04/%E3%80%90.Net%20Core%E3%80%91%E5%BA%94%E7%94%A8JWT%E8%BF%9B%E8%A1%8C%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E5%8F%8AToken%E7%9A%84%E5%88%B7%E6%96%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net Core】应用JWT进行用户认证及Token的刷新
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-04 15:30:45" itemprop="dateCreated datePublished" datetime="2019-09-04T15:30:45+08:00">2019-09-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>16k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>15 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="一、什么是JWT？"><a href="#一、什么是JWT？" class="headerlink" title="一、什么是JWT？"></a>一、什么是JWT？</h1><p>JWT(json web token)基于开放标准（RFC 7519)，是一种无状态的分布式的身份验证方式，主要用于在网络应用环境间安全地传递声明。它是基于JSON的，所以它也像json一样可以在.Net、JAVA、JavaScript,、PHP等多种语言使用。<br>为什么要使用JWT？<br>传统的Web应用一般采用Cookies+Session来进行认证。但对于目前越来越多的App、小程序等应用来说，它们对应的服务端一般都是RestFul 类型的无状态的API，再采用这样的的认证方式就不是很方便了。而JWT这种无状态的分布式的身份验证方式恰好符合这样的需求。</p>
+<h1 id="二、JWT的组成："><a href="#二、JWT的组成：" class="headerlink" title="二、JWT的组成："></a>二、JWT的组成：</h1><p>JWT是什么样子的呢？它就是下面这样的一段字符串：</p>
+<p>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjAwMiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiLmnY7lm5siLCJuYmYiOjE1NjU5MjMxMjIsImV4cCI6MTU2NTkyMzI0MiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo1NDIxNCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTQyMTUifQ.Mrta7nftmfXeo_igBVd4rl2keMmm0rg0WkqRXoVAeik</p>
+<p>它是由三段“乱码”字符串通过两个“.”连接在一起组成。官网<a target="_blank" rel="noopener" href="https://jwt.io/提供了它的验证方式">https://jwt.io/提供了它的验证方式</a>  </p>
+<p>它的三个字符串分别对应了上图右侧的Header、Payload和Signature三部分。</p>
+<h2 id="Header："><a href="#Header：" class="headerlink" title="Header："></a>Header：</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Header：</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;alg&quot;</span>: <span class="string">&quot;HS256&quot;</span>, </span><br><span class="line">    <span class="string">&quot;typ&quot;</span>: <span class="string">&quot;JWT&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>标识加密方式为HS256，Token类型为JWT, 这段JSON通过Base64Url编码形成上例的第一个字符串</p>
+<h2 id="Payload"><a href="#Payload" class="headerlink" title="Payload"></a>Payload</h2><p>Payload是JWT用于信息存储部分，其中包含了许多种的声明（claims）。<br>可以自定义多个声明添加到Payload中，系统也提供了一些默认的类型<br>iss (issuer)：签发人<br>exp (expiration time)：过期时间<br>sub (subject)：主题<br>aud (audience)：受众<br>nbf (Not Before)：生效时间<br>iat (Issued At)：签发时间<br>jti (JWT ID)：编号</p>
+<p>这部分通过Base64Url编码生成第二个字符串。</p>
+<h2 id="Signature"><a href="#Signature" class="headerlink" title="Signature"></a>Signature</h2><p>Signature是用于Token的验证。它的值类似这样的表达式：Signature = HMACSHA256( base64UrlEncode(header) + “.” + base64UrlEncode(payload), secret)，也就是说，它是通过将前两个字符串加密后生成的一个新字符串。</p>
+<p>所以只有拥有同样加密密钥的人，才能通过前两个字符串获得同样的字符串，通过这种方式保证了Token的真实性。</p>
+<h1 id="三、认证流程"><a href="#三、认证流程" class="headerlink" title="三、认证流程"></a>三、认证流程</h1><p>大概的流程是这样的：</p>
+<p><img src="/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTQ4MTM0LzIwMTkwOC81NDgxMzQtMjAxOTA4MjMxNzE0NDc2MzItMTA4NjAxMTE0MS5wbmc.png" alt=""></p>
+<ol>
+<li><p>认证服务器：用于用户的登录验证和Token的发放。 </p>
+</li>
+<li><p>应用服务器：业务数据接口。被保护的API。 </p>
+</li>
+<li><p>客户端：一般为APP、小程序等。 认证流程：</p>
+</li>
+<li><p>用户首先通过登录，到认证服务器获取一个Token。 </p>
+</li>
+<li><p>在访问应用服务器的API的时候，将获取到的Token放置在请求的Header中。 </p>
+</li>
+<li><p>应用服务器验证该Token，通过后返回对应的结果。 说明：这只是示例方案，实际项目中可能有所不同。</p>
+</li>
+<li><p>对于小型项目，可能认证服务和应用服务在一起。本例通过分开的方式来实现，使我们能更好的了解二者之间的认证流程。 </p>
+</li>
+<li><p>对于复杂一些的项目，可能存在多个应用服务，用户获取到的Token可以在多个分布式服务中被认证，这也是JWT的优势之一。 </p>
+</li>
+</ol>
+<p>关于JWT的文章很多，这里就不做过多介绍了。下面通过实际的例子来看一下 它是如何在ASP.NET Core 中应用的。</p>
+<h1 id="四、应用实例"><a href="#四、应用实例" class="headerlink" title="四、应用实例"></a>四、应用实例</h1><p>上一节的图：“JWT的认证流程”中涉及到客户端、认证服务器、应用服务器三部分，下面通过示例来对这三部分进行模拟：</p>
+<ol>
+<li>认证服务器：新建一个WebApi的解决方案，名为FlyLolo.JWT.Server。 </li>
+<li>应用服务器：新建一个WebApi的解决方案，名为FlyLolo.JWT.API。 </li>
+<li>客户端：这里用Fiddler发送请求做测试。 <h2 id="认证服务"><a href="#认证服务" class="headerlink" title="认证服务"></a>认证服务</h2></li>
+</ol>
+<p>首先新建一个ASP.NET Core 的解决方案WebApi的解决方案 </p>
+<p><img src="/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTQ4MTM0LzIwMTkwOC81NDgxMzQtMjAxOTA4MjMyMDU5MzczMTktMjQyODU0MTYucG5n.png" alt=""></p>
+<p>将其命名为FlyLolo.JWT.Server。</p>
+<p>首先新建一个TokenController用于登录和Token的发放：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Route(<span class="string">&quot;api/[controller]&quot;</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TokenController</span> : <span class="title">Controller</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> ITokenHelper tokenHelper = <span class="literal">null</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TokenController</span>(<span class="params">ITokenHelper _tokenHelper</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        tokenHelper = _tokenHelper;</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="meta">HttpGet</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IActionResult <span class="title">Get</span>(<span class="params"><span class="built_in">string</span> code, <span class="built_in">string</span> pwd</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        User user = TemporaryData.GetUser(code);</span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">null</span> != user &amp;&amp; user.Password.Equals(pwd))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> Ok(tokenHelper.CreateToken(user));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> BadRequest();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它有个名为Get的Action用于接收提交的用户名和密码，并进行验证，验证通过后，调用TokenHelper的CreateToken方法生成Token返回。</p>
+<p>这里涉及到了User和TokenHelper两个类。</p>
+<p><strong>User相关：</strong></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">User</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Code &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Password &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于只是Demo，User类只含有以上三个字段。在TemporaryData类中做了User的模拟数据</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 虚拟数据，模拟从数据库或缓存中读取用户</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">TemporaryData</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> List&lt;User&gt; Users = <span class="keyword">new</span> List&lt;User&gt;() &#123; <span class="keyword">new</span> User &#123; Code = <span class="string">&quot;001&quot;</span>, Name = <span class="string">&quot;张三&quot;</span>, Password = <span class="string">&quot;111111&quot;</span> &#125;, <span class="keyword">new</span> User &#123; Code = <span class="string">&quot;002&quot;</span>, Name = <span class="string">&quot;李四&quot;</span>, Password = <span class="string">&quot;222222&quot;</span> &#125; &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> User <span class="title">GetUser</span>(<span class="params"><span class="built_in">string</span> code</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> Users.FirstOrDefault(m =&gt; m.Code.Equals(code));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这只是模拟数据，实际项目中应该从数据库或者缓存等读取。</p>
+<p><strong>TokenHelper：</strong></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TokenHelper</span> : <span class="title">ITokenHelper</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> IOptions&lt;JWTConfig&gt; _options;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TokenHelper</span>(<span class="params">IOptions&lt;JWTConfig&gt; options</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _options = options;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Token <span class="title">CreateToken</span>(<span class="params">User user</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Claim[] claims = &#123; <span class="keyword">new</span> Claim(ClaimTypes.NameIdentifier,user.Code),<span class="keyword">new</span> Claim(ClaimTypes.Name,user.Name) &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> CreateToken(claims);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> Token <span class="title">CreateToken</span>(<span class="params">Claim[] claims</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> now = DateTime.Now;<span class="keyword">var</span> expires = now.Add(TimeSpan.FromMinutes(_options.Value.AccessTokenExpiresMinutes));</span><br><span class="line">        <span class="keyword">var</span> token = <span class="keyword">new</span> JwtSecurityToken(</span><br><span class="line">            issuer: _options.Value.Issuer,</span><br><span class="line">            audience: _options.Value.Audience,</span><br><span class="line">            claims: claims,</span><br><span class="line">            notBefore: now,</span><br><span class="line">            expires: expires,</span><br><span class="line">            signingCredentials: <span class="keyword">new</span> SigningCredentials(<span class="keyword">new</span> SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.IssuerSigningKey)), SecurityAlgorithms.HmacSha256));</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Token &#123; TokenContent = <span class="keyword">new</span> JwtSecurityTokenHandler().WriteToken(token), Expires = expires &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过CreateToken方法创建Token，这里有几个关键参数：</p>
+<ol>
+<li>issuer Token发布者 </li>
+<li>Audience Token接受者 </li>
+<li>expires 过期时间 </li>
+<li>IssuerSigningKey 签名秘钥 对应的Token代码如下：</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Token</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> TokenContent &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> DateTime Expires &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样通过TokenHelper的CreateToken方法生成了一个Token返回给了客户端。到现在来看，貌似所有的工作已经完成了。并非如此，我们还需要在Startup文件中做一些设置。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Startup</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 。。。。。。此处省略部分代码</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConfigureServices</span>(<span class="params">IServiceCollection services</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//读取配置信息</span></span><br><span class="line">        services.AddSingleton&lt;ITokenHelper, TokenHelper&gt;();</span><br><span class="line">        services.Configure&lt;JWTConfig&gt;(Configuration.GetSection(<span class="string">&quot;JWT&quot;</span>));</span><br><span class="line">        <span class="comment">//启用JWT</span></span><br><span class="line">        services.AddAuthentication(Options =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            Options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;</span><br><span class="line">            Options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;</span><br><span class="line">        &#125;).</span><br><span class="line">        AddJwtBearer();</span><br><span class="line">        services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Configure</span>(<span class="params">IApplicationBuilder app, IHostingEnvironment env</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">        &#123;</span><br><span class="line">            app.UseDeveloperExceptionPage();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//启用认证中间件</span></span><br><span class="line">        app.UseAuthentication();</span><br><span class="line">        app.UseMvc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里用到了配置信息，在appsettings.json中对认证信息做配置如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;JWT&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;Issuer&quot;</span>: <span class="string">&quot;FlyLolo&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Audience&quot;</span>: <span class="string">&quot;TestAudience&quot;</span>,</span><br><span class="line">    <span class="string">&quot;IssuerSigningKey&quot;</span>: <span class="string">&quot;FlyLolo1234567890&quot;</span>,</span><br><span class="line">    <span class="string">&quot;AccessTokenExpiresMinutes&quot;</span>: <span class="string">&quot;30&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行这个项目，并通过Fidder以Get方式访问api/token?code=002&amp;pwd=222222，返回结果如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;tokenContent&quot;</span><span class="punctuation">:</span><span class="string">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8</span></span><br><span class="line"><span class="string">yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjAwMiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL</span></span><br><span class="line"><span class="string">3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiLmnY7lm5siLCJuYmYiOjE1NjY3OTg0NzUsImV4cCI6MTU2NjgwMDI</span></span><br><span class="line"><span class="string">3NSwiaXNzIjoiRmx5TG9sbyIsImF1ZCI6IlRlc3RBdWRpZW5jZSJ9.BVf3gOuW1E9RToqKy8XXp8uIvZKL-lBA-q9fB9QTEZ4&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;expires&quot;</span><span class="punctuation">:</span><span class="string">&quot;2019-08-26T21:17:55.1183172+08:00&quot;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>客户端登录成功并成功返回了一个Token，认证服务创建完成</p>
+<h2 id="应用服务"><a href="#应用服务" class="headerlink" title="应用服务"></a>应用服务</h2><p>新建一个WebApi的解决方案，名为FlyLolo.JWT.API。</p>
+<p>添加BookController用作业务API。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Route(<span class="string">&quot;api/[controller]&quot;</span>)</span>]</span><br><span class="line">[<span class="meta">Authorize</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BookController</span> : <span class="title">Controller</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// GET: api/&lt;controller&gt;</span></span><br><span class="line">    [<span class="meta">HttpGet</span>]</span><br><span class="line">    [<span class="meta">AllowAnonymous</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IEnumerable&lt;<span class="built_in">string</span>&gt; <span class="title">Get</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">string</span>[] &#123; <span class="string">&quot;ASP&quot;</span>, <span class="string">&quot;C#&quot;</span> &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// POST api/&lt;controller&gt;</span></span><br><span class="line">    [<span class="meta">HttpPost</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> JsonResult <span class="title">Post</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> JsonResult(<span class="string">&quot;Create  Book ...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对此Controller添加了[Authorize]标识，表示此Controller的Action被访问时需要进行认证，而它的名为Get的Action被标识了[AllowAnonymous]，表示此Action的访问可以跳过认证。</p>
+<p>在Startup文件中配置认证：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Startup</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="comment">// 省略部分代码</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConfigureServices</span>(<span class="params">IServiceCollection services</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="meta">#<span class="keyword">region</span> 读取配置</span></span><br><span class="line">        JWTConfig config = <span class="keyword">new</span> JWTConfig();</span><br><span class="line">        Configuration.GetSection(<span class="string">&quot;JWT&quot;</span>).Bind(config);</span><br><span class="line">        <span class="meta">#<span class="keyword">endregion</span></span></span><br><span class="line"></span><br><span class="line">        <span class="meta">#<span class="keyword">region</span> 启用JWT认证</span></span><br><span class="line">        services.AddAuthentication(options =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;</span><br><span class="line">            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;</span><br><span class="line">        &#125;).</span><br><span class="line">        AddJwtBearer(options =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            options.TokenValidationParameters = <span class="keyword">new</span> TokenValidationParameters</span><br><span class="line">            &#123;</span><br><span class="line">                ValidIssuer = config.Issuer,</span><br><span class="line">                ValidAudience = config.Audience,</span><br><span class="line">                IssuerSigningKey = <span class="keyword">new</span> SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.IssuerSigningKey)),</span><br><span class="line">                ClockSkew = TimeSpan.FromMinutes(<span class="number">1</span>)</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="meta">#<span class="keyword">endregion</span></span></span><br><span class="line"></span><br><span class="line">        services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Configure</span>(<span class="params">IApplicationBuilder app, IHostingEnvironment env</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">        &#123;</span><br><span class="line">            app.UseDeveloperExceptionPage();</span><br><span class="line">        &#125;</span><br><span class="line">        app.UseAuthentication();</span><br><span class="line">        app.UseMvc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里同样用到了配置：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">JWTConfig</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Issuer &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Audience &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> IssuerSigningKey &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> AccessTokenExpiresMinutes &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>appsettings.json：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;JWT&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;Issuer&quot;</span>: <span class="string">&quot;FlyLolo&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Audience&quot;</span>: <span class="string">&quot;TestAudience&quot;</span>,</span><br><span class="line">    <span class="string">&quot;IssuerSigningKey&quot;</span>: <span class="string">&quot;FlyLolo1234567890&quot;</span>,</span><br><span class="line">    <span class="string">&quot;AccessTokenExpiresMinutes&quot;</span>: <span class="string">&quot;30&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于JWT认证，这里通过options.TokenValidationParameters对认证信息做了设置，ValidIssuer、ValidAudience、IssuerSigningKey这三个参数用于验证Token生成的时候填写的Issuer、Audience、IssuerSigningKey，所以值要和生成Token时的设置一致。</p>
+<p>ClockSkew默认值为5分钟，它是一个缓冲期，例如Token设置有效期为30分钟，到了30分钟的时候是不会过期的，会有这么个缓冲时间，也就是35分钟才会过期。为了方便测试（不想等太长时间），这里我设置了1分钟。</p>
+<p>TokenValidationParameters还有一些其他参数，在它的构造方法中已经做了默认设置，代码如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">TokenValidationParameters</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    RequireExpirationTime = <span class="literal">true</span>;  </span><br><span class="line">    RequireSignedTokens = <span class="literal">true</span>;    </span><br><span class="line">    SaveSigninToken = <span class="literal">false</span>;</span><br><span class="line">    ValidateActor = <span class="literal">false</span>;</span><br><span class="line">    ValidateAudience = <span class="literal">true</span>;  <span class="comment">//是否验证接受者</span></span><br><span class="line">    ValidateIssuer = <span class="literal">true</span>;   <span class="comment">//是否验证发布者</span></span><br><span class="line">    ValidateIssuerSigningKey = <span class="literal">false</span>;  <span class="comment">//是否验证秘钥</span></span><br><span class="line">    ValidateLifetime = <span class="literal">true</span>; <span class="comment">//是否验证过期时间</span></span><br><span class="line">    ValidateTokenReplay = <span class="literal">false</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>访问api/book，正常返回了结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&quot;ASP&quot;,&quot;C#&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>通过POST方式访问，返回401错误。</p>
+<p>这就需要使用获取到的Toke了，如下图方式再次访问</p>
+<p><img src="/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTQ4MTM0LzIwMTkwOC81NDgxMzQtMjAxOTA4MjYxNDU3MjE2MTUtMjc3Mjk0NTQxLnBuZw.png" alt=""></p>
+<p>添加了“Authorization: bearer Token内容”这样的Header，可以正常访问了。</p>
+<p>至此，简单的JWT认证示例就完成了，代码地址<a target="_blank" rel="noopener" href="https://github.com/FlyLolo/JWT.Demo/releases/tag/1.0">https://github.com/FlyLolo/JWT.Demo/releases/tag/1.0</a>。</p>
+<p>这里可能会有个疑问，例如：</p>
+<p>1.Token被盗了怎么办？</p>
+<p>答: 在启用Https的情况下，Token被放在Header中还是比较安全的。另外Token的有效期不要设置过长。例如可以设置为1小时（微信公众号的网页开发的Token有效期为2小时）。</p>
+<ol start="2">
+<li>Token到期了如何处理？</li>
+</ol>
+<p>答：理论上Token过期应该是跳到登录界面，但这样太不友好了。可以在后台根据Token的过期时间定期去请求新的Token。下一节来演示一下Token的刷新方案。</p>
+<h1 id="五、Token的刷新"><a href="#五、Token的刷新" class="headerlink" title="五、Token的刷新"></a>五、Token的刷新</h1><p>为了使客户端能够获取到新的Token，对上文的例子进行改造，大概思路如下：</p>
+<ol>
+<li>用户登录成功的时候，一次性给他两个Token，分别为AccessToken和RefreshToken，AccessToken用于正常请求，也就是上例中原有的Token，RefreshToken作为刷新AccessToken的凭证。 </li>
+<li>AccessToken的有效期较短，例如一小时，短一点安全一些。RefreshToken有效期可以设置长一些，例如一天、一周等。 </li>
+<li>当AccessToken即将过期的时候，例如提前5分钟，客户端利用RefreshToken请求指定的API获取新的AccessToken并更新本地存储中的AccessToken。 所以只需要修改FlyLolo.JWT.Server即可。</li>
+</ol>
+<p>首先修改Token的返回方案，新增一个Model</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ComplexToken</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Token AccessToken &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> Token RefreshToken &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>包含AccessToken和RefreshToken，用于用户登录成功后的Token结果返回。</p>
+<p>修改 appsettings.json，添加两个配置项：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;RefreshTokenAudience&quot;</span>: <span class="string">&quot;RefreshTokenAudience&quot;</span>, </span><br><span class="line"><span class="string">&quot;RefreshTokenExpiresMinutes&quot;</span>: <span class="string">&quot;10080&quot;</span> <span class="comment">//60*24*7</span></span><br></pre></td></tr></table></figure>
+<p>RefreshTokenExpiresMinutes用于设置RefreshToken的过期时间，这里设置了7天。RefreshTokenAudience用于设置RefreshToken的接受者，与原Audience值不一致，作用是使RefreshToken不能用于访问应用服务的业务API，而AccessToken不能用于刷新Token。</p>
+<p>修改TokenHelper：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> TokenType</span><br><span class="line">&#123;</span><br><span class="line">    AccessToken = <span class="number">1</span>,</span><br><span class="line">    RefreshToken = <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TokenHelper</span> : <span class="title">ITokenHelper</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> IOptions&lt;JWTConfig&gt; _options;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TokenHelper</span>(<span class="params">IOptions&lt;JWTConfig&gt; options</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _options = options;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Token <span class="title">CreateAccessToken</span>(<span class="params">User user</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Claim[] claims = <span class="keyword">new</span> Claim[] &#123; <span class="keyword">new</span> Claim(ClaimTypes.NameIdentifier, user.Code), <span class="keyword">new</span> Claim(ClaimTypes.Name, user.Name) &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> CreateToken(claims, TokenType.AccessToken);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ComplexToken <span class="title">CreateToken</span>(<span class="params">User user</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Claim[] claims = <span class="keyword">new</span> Claim[] &#123; <span class="keyword">new</span> Claim(ClaimTypes.NameIdentifier, user.Code), <span class="keyword">new</span> Claim(ClaimTypes.Name, user.Name)</span><br><span class="line">            <span class="comment">//下面两个Claim用于测试在Token中存储用户的角色信息，对应测试在FlyLolo.JWT.API的两个测试Controller的Put方法，若用不到可删除</span></span><br><span class="line">            , <span class="keyword">new</span> Claim(ClaimTypes.Role, <span class="string">&quot;TestPutBookRole&quot;</span>), <span class="keyword">new</span> Claim(ClaimTypes.Role, <span class="string">&quot;TestPutStudentRole&quot;</span>)</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> CreateToken(claims);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ComplexToken <span class="title">CreateToken</span>(<span class="params">Claim[] claims</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ComplexToken &#123; AccessToken = CreateToken(claims, TokenType.AccessToken), RefreshToken = CreateToken(claims, TokenType.RefreshToken) &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 用于创建AccessToken和RefreshToken。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 这里AccessToken和RefreshToken只是过期时间不同，【实际项目】中二者的claims内容可能会不同。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 因为RefreshToken只是用于刷新AccessToken，其内容可以简单一些。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 而AccessToken可能会附加一些其他的Claim。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;claims&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;tokenType&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Token <span class="title">CreateToken</span>(<span class="params">Claim[] claims, TokenType tokenType</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> now = DateTime.Now;</span><br><span class="line">        <span class="keyword">var</span> expires = now.Add(TimeSpan.FromMinutes(tokenType.Equals(TokenType.AccessToken) ? _options.Value.AccessTokenExpiresMinutes : _options.Value.RefreshTokenExpiresMinutes));<span class="comment">//设置不同的过期时间</span></span><br><span class="line">        <span class="keyword">var</span> token = <span class="keyword">new</span> JwtSecurityToken(</span><br><span class="line">            issuer: _options.Value.Issuer,</span><br><span class="line">            audience: tokenType.Equals(TokenType.AccessToken) ? _options.Value.Audience : _options.Value.RefreshTokenAudience,<span class="comment">//设置不同的接受者</span></span><br><span class="line">            claims: claims,</span><br><span class="line">            notBefore: now,</span><br><span class="line">            expires: expires,</span><br><span class="line">            signingCredentials: <span class="keyword">new</span> SigningCredentials(<span class="keyword">new</span> SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.IssuerSigningKey)), SecurityAlgorithms.HmacSha256));</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Token &#123; TokenContent = <span class="keyword">new</span> JwtSecurityTokenHandler().WriteToken(token), Expires = expires &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Token <span class="title">RefreshToken</span>(<span class="params">ClaimsPrincipal claimsPrincipal</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> code = claimsPrincipal.Claims.FirstOrDefault(m =&gt; m.Type.Equals(ClaimTypes.NameIdentifier));</span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">null</span> != code )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> CreateAccessToken(TemporaryData.GetUser(code.Value.ToString()));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在登录后，生成两个Token返回给客户端。在TokenHelper添加了一个RefreshToken方法，用于生成新的AccessToken。对应在TokenController中添加一个名为Post的Action，用于调用这个RefreshToken方法刷新Token</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">HttpPost</span>]</span><br><span class="line">[<span class="meta">Authorize</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> IActionResult <span class="title">Post</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> Ok(tokenHelper.RefreshToken(Request.HttpContext.User));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法添加了[Authorize]标识，说明调用它需要RefreshToken认证通过。既然启用了认证，那么在Startup文件中需要像上例的业务API一样做JWT的认证配置。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConfigureServices</span>(<span class="params">IServiceCollection services</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">        <span class="meta">#<span class="keyword">region</span> 读取配置信息</span></span><br><span class="line">        services.AddSingleton&lt;ITokenHelper, TokenHelper&gt;();</span><br><span class="line">        services.Configure&lt;JWTConfig&gt;(Configuration.GetSection(<span class="string">&quot;JWT&quot;</span>));</span><br><span class="line">        JWTConfig config = <span class="keyword">new</span> JWTConfig();</span><br><span class="line">        Configuration.GetSection(<span class="string">&quot;JWT&quot;</span>).Bind(config);</span><br><span class="line">        <span class="meta">#<span class="keyword">endregion</span></span></span><br><span class="line"></span><br><span class="line">        <span class="meta">#<span class="keyword">region</span> 启用JWT</span></span><br><span class="line">        services.AddAuthentication(Options =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            Options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;</span><br><span class="line">            Options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;</span><br><span class="line">        &#125;).</span><br><span class="line">            AddJwtBearer(options =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                options.TokenValidationParameters = <span class="keyword">new</span> TokenValidationParameters</span><br><span class="line">                &#123;</span><br><span class="line">                    ValidIssuer = config.Issuer,</span><br><span class="line">                    ValidAudience = config.RefreshTokenAudience,</span><br><span class="line">                    IssuerSigningKey = <span class="keyword">new</span> SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.IssuerSigningKey))</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;);</span><br><span class="line">        <span class="meta">#<span class="keyword">endregion</span></span></span><br><span class="line"></span><br><span class="line">        services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意这里的ValidAudience被赋值为config.RefreshTokenAudience，和FlyLolo.JWT.API中的不一致，用于防止AccessToken和RefreshToken的混用。</p>
+<p>再次访问/api/token?code=002&amp;pwd=222222，会返回两个Token：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;accessToken&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="attr">&quot;tokenContent&quot;</span><span class="punctuation">:</span><span class="string">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8y</span></span><br><span class="line"><span class="string">MDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjAwMiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUva</span></span><br><span class="line"><span class="string">WRlbnRpdHkvY2xhaW1zL25hbWUiOiLmnY7lm5siLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW</span></span><br><span class="line"><span class="string">1zL3JvbGUiOlsiVGVzdFB1dEJvb2tSb2xlIiwiVGVzdFB1dFN0dWRlbnRSb2xlIl0sIm5iZiI6MTU2NjgwNjQ3OSwiZXhwIjoxNTY2ODA4Mjc5LCJ</span></span><br><span class="line"><span class="string">pc3MiOiJGbHlMb2xvIiwiYXVkIjoiVGVzdEF1ZGllbmNlIn0.wlMorS1V0xP0Fb2MDX7jI7zsgZbb2Do3u78BAkIIwGg&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;expires&quot;</span><span class="punctuation">:</span><span class="string">&quot;2019-08-26T22:31:19.5312172+08:00&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"></span><br><span class="line"><span class="attr">&quot;refreshToken&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span><span class="attr">&quot;tokenContent&quot;</span><span class="punctuation">:</span><span class="string">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8y</span></span><br><span class="line"><span class="string">MDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjAwMiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUva</span></span><br><span class="line"><span class="string">WRlbnRpdHkvY2xhaW1zL25hbWUiOiLmnY7lm5siLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW</span></span><br><span class="line"><span class="string">1zL3JvbGUiOlsiVGVzdFB1dEJvb2tSb2xlIiwiVGVzdFB1dFN0dWRlbnRSb2xlIl0sIm5iZiI6MTU2NjgwNjQ3OSwiZXhwIjoxNTY3NDExMjc5LCJ</span></span><br><span class="line"><span class="string">pc3MiOiJGbHlMb2xvIiwiYXVkIjoiUmVmcmVzaFRva2VuQXVkaWVuY2UifQ.3EDi6cQBqa39-ywq2EjFGiM8W2KY5l9QAOWaIDi8FnI&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;expires&quot;</span><span class="punctuation">:</span><span class="string">&quot;2019-09-02T22:01:19.6143038+08:00&quot;</span><span class="punctuation">&#125;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>可以使用RefreshToken去请求新的AccessToken</p>
+<p><img src="/images/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTQ4MTM0LzIwMTkwOC81NDgxMzQtMjAxOTA4MjYxNjIyNTU0NDEtMTMzNjQwMjQ1OC5wbmc.png" alt=""></p>
+<p>测试用AccessToken可以正常访问FlyLolo.JWT.API，用RefreshToken则不可以。</p>
+<p>至此，Token的刷新功能改造完成。代码地址：<a target="_blank" rel="noopener" href="https://github.com/FlyLolo/JWT.Demo/releases/tag/1.1">https://github.com/FlyLolo/JWT.Demo/releases/tag/1.1</a></p>
+<p>疑问：RefreshToken有效期那么长，被盗了怎么办，和直接将AccessToken的有效期延长有什么区别？</p>
+<p>个人认为：1. RefreshToken不像AccessToken那样在大多数请求中都被使用。2. 应用类的API较多，对应的服务（器）也可能较多，所以泄露的概率更大一些。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2019/09/04/%E3%80%90.Net%20Core%E3%80%91%E5%BA%94%E7%94%A8JWT%E8%BF%9B%E8%A1%8C%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E5%8F%8AToken%E7%9A%84%E5%88%B7%E6%96%B0/" title="【.Net Core】应用JWT进行用户认证及Token的刷新">http://blog.bfsdfs.com/2019/09/04/【.Net Core】应用JWT进行用户认证及Token的刷新/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net-Core/" rel="tag"># .Net Core</a>
+              <a href="/tags/JWT/" rel="tag"># JWT</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/09/03/%E3%80%90Angular%E3%80%91.NetCore%E5%AF%BC%E5%87%BAExcel%E5%92%8C%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/" rel="prev" title="【Angular】.NetCore导出Excel和文件下载">
+      <i class="fa fa-chevron-left"></i> 【Angular】.NetCore导出Excel和文件下载
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/09/04/%E3%80%90.Net%20Core%E3%80%91JWT%E4%B8%8E%E7%94%A8%E6%88%B7%E6%8E%88%E6%9D%83%EF%BC%88%E7%BB%86%E5%8C%96%E5%88%B0Action%EF%BC%89/" rel="next" title="【.Net Core】JWT与用户授权（细化到Action）">
+      【.Net Core】JWT与用户授权（细化到Action） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFJWT%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">一、什么是JWT？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81JWT%E7%9A%84%E7%BB%84%E6%88%90%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">二、JWT的组成：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Header%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">Header：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Payload"><span class="nav-number">2.2.</span> <span class="nav-text">Payload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Signature"><span class="nav-number">2.3.</span> <span class="nav-text">Signature</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">三、认证流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">四、应用实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.1.</span> <span class="nav-text">认证服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.2.</span> <span class="nav-text">应用服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81Token%E7%9A%84%E5%88%B7%E6%96%B0"><span class="nav-number">5.</span> <span class="nav-text">五、Token的刷新</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'b786cc49f2c30a00d542e95b58193037',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

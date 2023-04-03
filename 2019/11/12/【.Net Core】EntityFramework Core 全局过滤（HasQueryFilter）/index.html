@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言EntityFramework Core每一次版本的迭代和更新都会带给我们惊喜，每次都会尽量满足大部分使用者的需求。在EF Core 2.0版本中出现了全局过滤新特性即HasQueryFilter，它出现的意义在哪里？能够解决什么问题呢？这是我们需要思考的问题。通过HasQueryFilter方法来创建过滤器能够允许我们对访问特定数据库表的所有查询额外添加一模一样的过滤器。它主要用于软删除（s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net Core】EntityFramework Core 全局过滤（HasQueryFilter）">
+<meta property="og:url" content="http://blog.bfsdfs.com/2019/11/12/%E3%80%90.Net%20Core%E3%80%91EntityFramework%20Core%20%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%EF%BC%88HasQueryFilter%EF%BC%89/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="前言EntityFramework Core每一次版本的迭代和更新都会带给我们惊喜，每次都会尽量满足大部分使用者的需求。在EF Core 2.0版本中出现了全局过滤新特性即HasQueryFilter，它出现的意义在哪里？能够解决什么问题呢？这是我们需要思考的问题。通过HasQueryFilter方法来创建过滤器能够允许我们对访问特定数据库表的所有查询额外添加一模一样的过滤器。它主要用于软删除（s">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMTMwMjE0NTgtMjA5NjA1MTk2NS5wbmc.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMTMwNTMwMzctNzk4MjcwMDQ3LnBuZw.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMzMzMzA2ODItMTExMjcwMDczOC5wbmc.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMzAyMDM0NDEtMjAzMjczMDUyMS5wbmc.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMzUyNDI5MTItMTYwOTE3MDA4NS5wbmc.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMzUzNDA5NjktNDE3Njg5NDgucG5n.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMjQwNTA1NzYtMTM1MDc4NDI2Ni5wbmc.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMjQ2MDQ0NzgtMTg5OTU2ODM4OC5wbmc.png">
+<meta property="article:published_time" content="2019-11-12T04:43:47.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.040Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="EF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMTMwMjE0NTgtMjA5NjA1MTk2NS5wbmc.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2019/11/12/%E3%80%90.Net%20Core%E3%80%91EntityFramework%20Core%20%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%EF%BC%88HasQueryFilter%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net Core】EntityFramework Core 全局过滤（HasQueryFilter） | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/11/12/%E3%80%90.Net%20Core%E3%80%91EntityFramework%20Core%20%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%EF%BC%88HasQueryFilter%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net Core】EntityFramework Core 全局过滤（HasQueryFilter）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-12 12:43:47" itemprop="dateCreated datePublished" datetime="2019-11-12T12:43:47+08:00">2019-11-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>EntityFramework Core每一次版本的迭代和更新都会带给我们惊喜，每次都会尽量满足大部分使用者的需求。在EF Core 2.0版本中出现了全局过滤新特性即HasQueryFilter，它出现的意义在哪里？能够解决什么问题呢？这是我们需要思考的问题。通过HasQueryFilter方法来创建过滤器能够允许我们对访问特定数据库表的所有查询额外添加一模一样的过滤器。它主要用于软删除（soft-delete）场景，即用户并不想返回那些被标记为已删除但是尚未从数据库中做物理删除的数据行。</p>
+<h2 id="HasQueryFilter全局过滤器"><a href="#HasQueryFilter全局过滤器" class="headerlink" title="HasQueryFilter全局过滤器"></a>HasQueryFilter全局过滤器</h2><p>在文章开头我们讲述了HasQueryFilter特性所解决的问题，下面我们利用实际例子来讲述一下。在许多场景中我们并不会从物理上删除数据，而只是仅仅改变数据的状态。这个时候就凸显了HasQueryFilter特性的作用。比如我们创建一个博客实体。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Blog</span><br><span class="line">&#123;</span><br><span class="line">    public int Id &#123; get; set; &#125;</span><br><span class="line">    public string Name &#123; get; set; &#125;</span><br><span class="line">    public string Url &#123; get; set; &#125;</span><br><span class="line">    public bool IsDeleted &#123; get; set; &#125;</span><br><span class="line">    public DateTime CreatedTime &#123; get; set; &#125;</span><br><span class="line">    public DateTime ModifiedTime &#123; get; set; &#125;</span><br><span class="line">    public ICollection&lt;Post&gt; Posts &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>是不是因为我们本节讲述全局过滤所以才会加IsDeleted字段呢？显然不是，这个是有其应用场景，当我们管理自己的博客时，可能瞌睡没睡好（当然也有其他原因，不必纠结于此）导致一个不小心删除了某一篇文章即使在博客后台有友好提示【是否删除该博客】，但是你依然手滑删除了，这个时候我们找到博客园运营反应，然后分分钟就还原了我们所删除的博客，就像将文件扔到了回收站再还原一样。接下来我们在OnModelCreating方法或者单独建立的映射类中配置过滤未被删除的博客，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">modelBuilder.Entity&lt;Blog&gt;(e =&gt; </span><br><span class="line">&#123;</span><br><span class="line">    e.HasQueryFilter(f =&gt; !f.IsDeleted);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">public class BlogConfiguration : IEntityTypeConfiguration&lt;Blog&gt;</span><br><span class="line">&#123;</span><br><span class="line">    public void Configure(EntityTypeBuilder&lt;Blog&gt; builder)</span><br><span class="line">    &#123;</span><br><span class="line">        builder.HasQueryFilter(f =&gt; !f.IsDeleted);</span><br><span class="line">        ......</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMTMwMjE0NTgtMjA5NjA1MTk2NS5wbmc.png" alt=""></p>
+<p><img src="/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMTMwNTMwMzctNzk4MjcwMDQ3LnBuZw.png" alt=""></p>
+<p>要是我们对于特殊场景需要禁用查询过滤或者说忽略查询过滤又该如何呢？通过对应的APi（IgnoreQueryFilters）即可，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">using (var context = new EFCoreDbContext())</span><br><span class="line">&#123;</span><br><span class="line">    var blogs = context.Blogs</span><br><span class="line">        .Include(d =&gt; d.Posts)</span><br><span class="line">        .IgnoreQueryFilters()</span><br><span class="line">        .AsNoTracking()</span><br><span class="line">        .ToList();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMzMzMzA2ODItMTExMjcwMDczOC5wbmc.png" alt=""></p>
+<p>使用HasQueryFilter进行查询过滤是不是就是如此简单呢？是不是问题到此就这样结束了呢？看过Jeff博客的童鞋知道，Jeff经常问这样的问题且自问自答，肯定不止于此，我们继续往下探索。上述我们只是应用一个博客实体，我们还存在发表实体且二者存在关联关系，我们同上在Post中定义IsDeleted字段，此时我们在对Blog进行过滤的同时也对Post进行过滤，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">builder.HasQueryFilter(f =&gt; !f.IsDeleted &amp;&amp; f.Posts.All(w =&gt; !w.IsDeleted));</span><br></pre></td></tr></table></figure>
+<p><img src="/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMzAyMDM0NDEtMjAzMjczMDUyMS5wbmc.png" alt=""></p>
+<p>由上得知使用HasQueryFilter进行过滤筛选的局限性之一。</p>
+<blockquote>
+<p>局限性一：HasQueryFilter方法过滤筛选无法应用于导航属性。</p>
+<p>接下来我们再来看一个例子，首先我们定义如下继承关系：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public abstract class Payment</span><br><span class="line">&#123;</span><br><span class="line">    public int PaymentId &#123; get; set; &#125;</span><br><span class="line">    public decimal Amount &#123; get; set; &#125;</span><br><span class="line">    public string Name &#123; get; set; &#125;</span><br><span class="line">    public bool IsDeleted &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class CashPayment : Payment</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class CreditcardPayment : Payment</span><br><span class="line">&#123;</span><br><span class="line">    public string CreditcardNumber &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述我们定义支付基类Payment，然后派生出现金支付CashPayment和信用卡支付CreditcardPayment子类，接下来我们配置如下查询过滤：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">builder.HasQueryFilter(f =&gt; !(f is CreditcardPayment &amp;&amp; f.IsDeleted &amp;&amp; ((CreditcardPayment)f).IsDeleted));</span><br></pre></td></tr></table></figure>
+<p>接下来我们进行如下查询：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using (var context = new EFCoreDbContext()) &#123; var payments = context.Payments.ToList(); &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMzUyNDI5MTItMTYwOTE3MDA4NS5wbmc.png" alt=""></p>
+<p>没毛病，接下来我们查询子类CreditcardPayment，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using (var context = new EFCoreDbContext()) &#123; var payments = context.Payments.OfType&lt;CashPayment&gt;().ToList(); &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMzUzNDA5NjktNDE3Njg5NDgucG5n.png" alt=""></p>
+<p>由上得知使用HasQueryFilter进行过滤筛选的局限性之二。</p>
+<blockquote>
+<p>局限性二：HasQueryFilter方法过滤筛选只能定义在基类中，无法对子类进行过滤。</p>
+</blockquote>
+<h2 id="HasQueryFilter通用解决方案"><a href="#HasQueryFilter通用解决方案" class="headerlink" title="HasQueryFilter通用解决方案"></a>HasQueryFilter通用解决方案</h2><p>不知我们是否思考过一个问题，若有很多实体都有其软删除场景，那么我们就都需要加上IsDeleted字段，同时还需要配置全局过滤器，如此重复性动作我们是否觉得厌烦，搬砖的我们的单从程序角度来看，搬砖的本源就是为了解放劳动生产率，提高工作效率，说的更通俗一点则是解决重复性劳动。此时为了解决上述所延伸出的问题，我们完全可抽象出一个软删除接口，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public interface ISoftDleteBaseEntity &#123; bool IsDeleted &#123; get; set; &#125; &#125;</span><br></pre></td></tr></table></figure>
+<p>接下来让所有需要进行软删除的实体继承该接口，比如博客实体，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class Blog : ISoftDleteBaseEntity</span><br><span class="line">&#123;</span><br><span class="line">    public int Id &#123; get; set; &#125;</span><br><span class="line">    public string Name &#123; get; set; &#125;</span><br><span class="line">    public string Url &#123; get; set; &#125;</span><br><span class="line">    public bool IsDeleted &#123; get; set; &#125;</span><br><span class="line">    ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了解决重复性配置劳动，我们让所有继承自上述接口一次性在OnModelCreating方法中配置全局过滤，如此一来则免去了在每个对应实体映射类中进行配置，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Expression&lt;Func&lt;ISoftDleteBaseEntity, bool&gt;&gt; expression = e =&gt; !e.IsDeleted;</span><br><span class="line">foreach (var entityType in modelBuilder.Model.GetEntityTypes()</span><br><span class="line">    .Where(e =&gt; typeof(ISoftDleteBaseEntity).IsAssignableFrom(e.ClrType)))</span><br><span class="line">&#123;</span><br><span class="line">    modelBuilder.Entity(entityType.ClrType).HasQueryFilter(expression);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMjQwNTA1NzYtMTM1MDc4NDI2Ni5wbmc.png" alt=""></p>
+<p>愿望是美好的，结果尼玛抛出异常不支持该操作。看到上述lambda表达式都没有翻译过来，此时我们转到定义看看。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public virtual EntityTypeBuilder HasQueryFilter([CanBeNullAttribute] LambdaExpression filter);</span><br></pre></td></tr></table></figure>
+<p>居然参数类型不是以表达式树的形式给出，如果是如下形式则肯定可以。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public virtual EntityTypeBuilder HasQueryFilter([CanBeNullAttribute] Expression&lt;Func&lt;TEntity, TProperty&gt;&gt; filter);</span><br></pre></td></tr></table></figure>
+<p>所以问题出在无法翻译lambda表达式，那么我们就来自动构建lambda表达式参数和主体，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">foreach (var entityType in modelBuilder.Model.GetEntityTypes()</span><br><span class="line">.Where(e =&gt; typeof(ISoftDleteBaseEntity).IsAssignableFrom(e.ClrType)))</span><br><span class="line">&#123;</span><br><span class="line">    modelBuilder.Entity(entityType.ClrType).Property&lt;Boolean&gt;(&quot;IsDeleted&quot;);</span><br><span class="line">    var parameter = Expression.Parameter(entityType.ClrType, &quot;e&quot;);</span><br><span class="line">    var body = Expression.Equal(</span><br><span class="line">        Expression.Call(typeof(EF), nameof(EF.Property), new[] &#123; typeof(bool) &#125;, parameter, Expression.Constant(&quot;IsDeleted&quot;)),</span><br><span class="line">    Expression.Constant(false));</span><br><span class="line">    modelBuilder.Entity(entityType.ClrType).HasQueryFilter(Expression.Lambda(body, parameter));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvNTg5NjQyLzIwMTgwMy81ODk2NDItMjAxODAzMDUyMjQ2MDQ0NzgtMTg5OTU2ODM4OC5wbmc.png" alt=""></p>
+<p>至此美好愿望得意实现，算是给出了一种通用解决方案。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本节我们讲述了EntityFramework Core 2.0中的新特性HasQueryFilter，使用此特性仍然存在局限性无法对导航属性属性进行过滤，对实体为继承次模型，那么过滤筛选只能定义在基类中，但是最后我们给出了通用解决方案解决重复定义查询过滤问题，希望给阅读的您一点帮助。精简的内容，简单的讲解，希望对阅读的您有所帮助，我们明天再会。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2019/11/12/%E3%80%90.Net%20Core%E3%80%91EntityFramework%20Core%20%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%EF%BC%88HasQueryFilter%EF%BC%89/" title="【.Net Core】EntityFramework Core 全局过滤（HasQueryFilter）">http://blog.bfsdfs.com/2019/11/12/【.Net Core】EntityFramework Core 全局过滤（HasQueryFilter）/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net-Core/" rel="tag"># .Net Core</a>
+              <a href="/tags/EF/" rel="tag"># EF</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/11/%E3%80%90mysql%E3%80%91%E5%AE%9A%E6%97%B6%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE/" rel="prev" title="【MySql】定时删除数据">
+      <i class="fa fa-chevron-left"></i> 【MySql】定时删除数据
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/28/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%AD%90%E4%B8%B2%E5%92%8C/" rel="next" title="【算法】子串和">
+      【算法】子串和 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HasQueryFilter%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">HasQueryFilter全局过滤器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HasQueryFilter%E9%80%9A%E7%94%A8%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">HasQueryFilter通用解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '20ffec8206d3d22dc646264565ecaa40',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

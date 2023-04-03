@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/59/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/59/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/06/09/%E3%80%90Asp.Net%E3%80%91WebApi%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9ACORS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/06/09/%E3%80%90Asp.Net%E3%80%91WebApi%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9ACORS/" class="post-title-link" itemprop="url">【Asp.Net】WebApi跨域问题解决方案：CORS</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-06-09 20:37:27" itemprop="dateCreated datePublished" datetime="2018-06-09T20:37:27+08:00">2018-06-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最开头，说明下文章转自：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/landeanfen/p/5177176.html">https://www.cnblogs.com/landeanfen/p/5177176.html</a> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/landeanfen/p/5177176.html">点击打开链接</a></p>
+<p>欢迎直接去看原创文章，原创比较精彩，这里只做个搬运工作！</p>
+<h1 id="一、跨域问题的由来"><a href="#一、跨域问题的由来" class="headerlink" title="一、跨域问题的由来"></a>一、跨域问题的由来</h1><p>同源策略：出于安全考虑，浏览器会限制脚本中发起的跨站请求，浏览器要求JavaScript或Cookie只能访问同域下的内容。</p>
+<p>正是由于这个原因，我们不同项目之间的调用就会被浏览器阻止。比如我们最常见的场景：WebApi作为数据服务层，它是一个单独的项目，我们的MVC项目作为Web的显示层，这个时候我们的MVC里面就需要调用WebApi里面的接口取数据展现在页面上。因为我们的WebApi和MVC是两个不同的项目，所以运行起来之后就存在上面说的跨域的问题。</p>
+<h1 id="二、跨域问题解决原理"><a href="#二、跨域问题解决原理" class="headerlink" title="二、跨域问题解决原理"></a>二、跨域问题解决原理</h1><p>CORS全称Cross-Origin Resource Sharing，中文全称跨域资源共享。它解决跨域问题的原理是通过向http的请求报文和响应报文里面加入相应的标识告诉浏览器它能访问哪些域名的请求。比如我们向响应报文里面增加这个Access-Control-Allow-Origin:<a target="_blank" rel="noopener" href="http://url，就表示支持http://url里面的所有请求访问系统资源。其他更多的应用我们就不一一列举，可以去网上找找。">http://url，就表示支持http://url里面的所有请求访问系统资源。其他更多的应用我们就不一一列举，可以去网上找找。</a></p>
+<h1 id="三、跨域问题解决细节"><a href="#三、跨域问题解决细节" class="headerlink" title="三、跨域问题解决细节"></a>三、跨域问题解决细节</h1><p>下面我就结合一个简单的实例来说明下如何使用CORS解决WebApi的跨域问题。</p>
+<h2 id="1、场景描述"><a href="#1、场景描述" class="headerlink" title="1、场景描述"></a>1、场景描述</h2><p>我们新建两个项目，一个WebApi项目（下图中WebApiCORS），一个MVC项目（下图中Web）。WebApi项目负责提供接口服务，MVC项目负责页面呈现。如下：</p>
+<p><img src="/images/459756-20160229131240908-1602224831.png" alt=""></p>
+<p>其中，Web与WebApiCORS端口号分别为“27239”和“27221”。Web项目需要从WebApiCORSS项目里面取数据，很显然，两个项目端口不同，所以并不同源，如果使用常规的调用方法肯定存在一个跨域的问题。</p>
+<p>简单介绍下测试代码，Web里面有一个HomeController</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class HomeController : Controller</span><br><span class="line">&#123;</span><br><span class="line">    // GET: Home</span><br><span class="line">    public ActionResult Index()</span><br><span class="line">    &#123;</span><br><span class="line">        return View();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应的Index.cshtml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot; /&gt;</span><br><span class="line">    &lt;title&gt;Index&lt;/title&gt;</span><br><span class="line">    &lt;script src=&quot;~/Content/jquery-1.9.1.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;link href=&quot;~/Content/bootstrap/css/bootstrap.css&quot; rel=&quot;stylesheet&quot; /&gt;</span><br><span class="line">    &lt;script src=&quot;~/Content/bootstrap/js/bootstrap.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script src=&quot;~/Scripts/Home/Index.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    测试结果：&lt;div id=&quot;div_test&quot;&gt; </span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Index.js文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var ApiUrl = &quot;http://localhost:27221/&quot;;</span><br><span class="line">$(function () &#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type: &quot;get&quot;,</span><br><span class="line">        url: ApiUrl + &quot;api/Charging/GetAllChargingData&quot;,</span><br><span class="line">        data: &#123;&#125;,</span><br><span class="line">        success: function (data, status) &#123;</span><br><span class="line">            if (status == &quot;success&quot;) &#123;</span><br><span class="line">                $(&quot;#div_test&quot;).html(data);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        error: function (e) &#123;</span><br><span class="line">            $(&quot;#div_test&quot;).html(&quot;Error&quot;);</span><br><span class="line">        &#125;,</span><br><span class="line">        complete: function () &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>WebApiCORS项目里面有一个测试的WebApi服务ChargingController</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class ChargingController : ApiController</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 得到所有数据</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    /// &lt;returns&gt;返回数据&lt;/returns&gt;</span><br><span class="line">    [HttpGet]</span><br><span class="line">    public string GetAllChargingData()</span><br><span class="line">    &#123;</span><br><span class="line">        return &quot;Success&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置WebApi的路由规则为通过action调用。WebApiConfig.cs文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public static class WebApiConfig</span><br><span class="line">&#123;</span><br><span class="line">    public static void Register(HttpConfiguration config)</span><br><span class="line">    &#123;</span><br><span class="line">        // Web API 路由</span><br><span class="line">        config.MapHttpAttributeRoutes();</span><br><span class="line"></span><br><span class="line">        config.Routes.MapHttpRoute(</span><br><span class="line">            name: &quot;DefaultApi&quot;,</span><br><span class="line">            routeTemplate: &quot;api/&#123;controller&#125;/&#123;action&#125;/&#123;id&#125;&quot;,</span><br><span class="line">            defaults: new &#123; id = RouteParameter.Optional &#125;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h2 id="2、场景测试"><a href="#2、场景测试" class="headerlink" title="2、场景测试"></a>2、场景测试</h2><h3 id="1）我们不做任何的处理，直接将两个项目运行起来。看效果如何"><a href="#1）我们不做任何的处理，直接将两个项目运行起来。看效果如何" class="headerlink" title="1）我们不做任何的处理，直接将两个项目运行起来。看效果如何"></a>1）我们不做任何的处理，直接将两个项目运行起来。看效果如何</h3><p>IE浏览器：</p>
+<p><img src="/images/459756-20160229133753361-1075296566.png" alt=""></p>
+<p>谷歌浏览器：</p>
+<p><img src="/images/459756-20160229133812642-1821722368.png" alt=""></p>
+<p>这个结果另博主也很吃惊，不做任何跨域处理，IE10、IE11竟然可以直接请求数据成功，而同样的代码IE8、IE9、谷歌浏览器却不能跨域访问。此原因有待查找，应该是微软动了什么手脚。</p>
+<h3 id="2）使用CORS跨域"><a href="#2）使用CORS跨域" class="headerlink" title="2）使用CORS跨域"></a>2）使用CORS跨域</h3><p>首先介绍下CORS如何使用，在WebApiCORS项目上面使用Nuget搜索“microsoft.aspnet.webapi.cors”，安装第一个</p>
+<p><img src="/images/459756-20160229142517330-256989624.png" alt=""></p>
+<p>然后在App_Start文件夹下面的WebApiConfig.cs文件夹配置跨域</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public static class WebApiConfig</span><br><span class="line">&#123;</span><br><span class="line">    public static void Register(HttpConfiguration config)</span><br><span class="line">    &#123;</span><br><span class="line">        //跨域配置</span><br><span class="line">        config.EnableCors(new EnableCorsAttribute(&quot;*&quot;, &quot;*&quot;, &quot;*&quot;));</span><br><span class="line"></span><br><span class="line">        // Web API 路由</span><br><span class="line">        config.MapHttpAttributeRoutes();</span><br><span class="line"></span><br><span class="line">        config.Routes.MapHttpRoute(</span><br><span class="line">            name: &quot;DefaultApi&quot;,</span><br><span class="line">            routeTemplate: &quot;api/&#123;controller&#125;/&#123;action&#125;/&#123;id&#125;&quot;,</span><br><span class="line">            defaults: new &#123; id = RouteParameter.Optional &#125;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们暂定三个“*”号，当然，在项目中使用的时候一般需要指定对哪个域名可以跨域、跨域的操作有哪些等等。这个在下面介绍。</p>
+<p>IE10、IE11</p>
+<p><img src="/images/459756-20160229143056017-383687832.png" alt=""></p>
+<p>谷歌浏览器</p>
+<p><img src="/images/459756-20160229143133751-885324074.png" alt=""></p>
+<p>IE8、IE9</p>
+<p><img src="/images/459756-20160229143458970-712181933.png" alt=""></p>
+<p>这个时候又有新问题了，怎么回事呢？我都已经设置跨域了呀，怎么IE8、9还是不行呢？这个时候就有必要说说CORS的浏览器支持问题了。网上到处都能搜到这张图：</p>
+<p><img src="/images/459756-20160229143741923-1132194926.png" alt=""></p>
+<p>上图描述了CORS的浏览器支持情况，可以看到IE8、9是部分支持的。网上说的解决方案都是Internet Explorer 8 、9使用 XDomainRequest 对象实现CORS。是不是有这么复杂？于是博主各种百度寻找解决方案。最后发现在调用处指定 jQuery.support.cors = true; 这一句就能解决IE8、9的问题了。具体是在Index.js里面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">jQuery.support.cors = true;</span><br><span class="line">var ApiUrl = &quot;http://localhost:27221/&quot;;</span><br><span class="line">$(function () &#123;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type: &quot;get&quot;,</span><br><span class="line">        url: ApiUrl + &quot;api/Charging/GetAllChargingData&quot;,</span><br><span class="line">        data: &#123;&#125;,</span><br><span class="line">        success: function (data, status) &#123;</span><br><span class="line">            if (status == &quot;success&quot;) &#123;</span><br><span class="line">                $(&quot;#div_test&quot;).html(data);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        error: function (e) &#123;</span><br><span class="line">            $(&quot;#div_test&quot;).html(&quot;Error&quot;);</span><br><span class="line">        &#125;,</span><br><span class="line">        complete: function () &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这句话的意思就是指定浏览器支持跨域。原来IE9以上版本的浏览器、谷歌、火狐等都默认支持跨域，而IE8、9却默认不支持跨域，需要我们指定一下。你可以在你的浏览器里面打印jQuery.support.cors看看。这样设置之后是否能解决问题呢？我们来看效果：</p>
+<p><img src="/images/459756-20160229145004939-155589165.png" alt=""></p>
+<p>问题完美解决。至于网上说的CORS对IE8、9的解决方案XDomainRequest是怎么回事，有待实例验证。</p>
+<h3 id="3）CORS的具体参数设置。"><a href="#3）CORS的具体参数设置。" class="headerlink" title="3）CORS的具体参数设置。"></a>3）CORS的具体参数设置。</h3><p>上文我们使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.EnableCors(new EnableCorsAttribute(&quot;*&quot;, &quot;*&quot;, &quot;*&quot;));</span><br></pre></td></tr></table></figure>
+<p>这一句解决了跨域问题，上面说了，这种*号是不安全的。因为它表示只要别人知道了你的请求url，任何请求都可以访问到你的资源。这是相当危险的。所以需要我们做一些配置，限制访问权限。比如我们比较常见的做法如下：</p>
+<p>配置方法一、在Web.Config里面（PS：这两张图源自：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/moretry/p/4154479.html">http://www.cnblogs.com/moretry/p/4154479.html</a>）</p>
+<p><img src="/images/459756-20160229150223533-150389468.gif" alt=""></p>
+<p>然后在WebApiConfig.cs文件的Register方法里面</p>
+<p><img src="/images/459756-20160229150324126-260813027.gif" alt=""></p>
+<p>配置方法二、如果你只想对某一些api做跨域，可以直接在API的类上面使用特性标注即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[EnableCors(origins: &quot;url&quot;, headers: &quot;*&quot;, methods: &quot;GET,POST,PUT,DELETE&quot;)]</span><br><span class="line">public class ChargingController : ApiController</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 得到所有数据</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    /// &lt;returns&gt;返回数据&lt;/returns&gt;</span><br><span class="line">    [HttpGet]</span><br><span class="line">    public string GetAllChargingData()</span><br><span class="line">    &#123;</span><br><span class="line">        return &quot;Success&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/06/06/%E3%80%90WinForm%E3%80%91%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85%EF%BC%8C%E4%BD%BF%E7%94%A8VS2017/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/06/06/%E3%80%90WinForm%E3%80%91%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85%EF%BC%8C%E4%BD%BF%E7%94%A8VS2017/" class="post-title-link" itemprop="url">【WinForm】程序打包，使用VS2017</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-06-06 18:13:02" itemprop="dateCreated datePublished" datetime="2018-06-06T18:13:02+08:00">2018-06-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>作者：KwokKwok<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/be0ea8c04643">https://www.jianshu.com/p/be0ea8c04643</a><br>來源：简书  </p>
+<p>安装依赖组件</p>
+<p>首先打开扩展和更新：<br><img src="//upload-images.jianshu.io/upload_images/2668873-e73aa63d3c1e8db3.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>扩展和更新  </p>
+<p>联机查找下面的组件，然后安装，重启VS。<br><img src="//upload-images.jianshu.io/upload_images/2668873-a1b4e19e531b91a0.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>安装依赖组件  </p>
+<h2 id="创建项目文件"><a href="#创建项目文件" class="headerlink" title="创建项目文件"></a>创建项目文件</h2><p>作为应用的主程序。比如这里我就创建一个简单的项目，只有一个窗口：<br><img src="//upload-images.jianshu.io/upload_images/2668873-a6832ab3d696fb0a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>创建一个简单的项目  </p>
+<h2 id="创建一个打包项目"><a href="#创建一个打包项目" class="headerlink" title="创建一个打包项目"></a>创建一个打包项目</h2><p>先右键解决方案，选择 添加-新建项目<br><img src="//upload-images.jianshu.io/upload_images/2668873-dfd22cf32df7ba1b.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>创建打包项目  </p>
+<p>我这里就起名为 <code>PackageDemo Installer</code> 。</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-9b4a3a9dbb5b8f22.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>创建打包项目  </p>
+<blockquote>
+<p>另外，有些人可能会想这么多安装类型，怎么选。因为我们这里说Windows程序打包，想要输出 <code>.exe</code> 和 <code>.msi</code> ，大概看一下介绍就能知道，第一个和第四个是合适的。这两个又该怎么选呢？那其实第四个就是对一些属性多了些引导，最终的项目结构和第一个是没有区别的。这里我们就选第一个。</p>
+</blockquote>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="项目信息"><a href="#项目信息" class="headerlink" title="项目信息"></a>项目信息</h3><p>配置项目信息，这里打开属性窗口。注意：<strong>不是</strong>在项目上右键-属性，而是选中项目后点击<strong>属性</strong>窗口查看：<br><img src="//upload-images.jianshu.io/upload_images/2668873-ebbbdfbd21645e0e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/340" alt="">  </p>
+<p>查看项目属性  </p>
+<p>然后看各种对信息进行配置：<br><img src="//upload-images.jianshu.io/upload_images/2668873-685715884e120954.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/320" alt="">  </p>
+<p>项目属性  </p>
+<p>这里对一些属性做下解释：</p>
+<ol>
+<li>重要属性<ol>
+<li><code>Author</code> 和 <code>Manufacturer</code> ，分别是作者和制造商的意思，一般都写公司名。</li>
+<li><code>ProductName</code> ，软件名。默认是项目名，影响到安装界面和安装目录。务必改掉。</li>
+<li><code>Version</code> ，版本号，影响安装流程，后面会说。</li>
+<li><code>TargetPlatform</code> ，意思很明显。表现层面上就是，决定你的安装目录是在 <code>Program Files</code> 还是 <code>Program Files (x86)</code> ，根据项目决定。</li>
+<li><code>RemovePreviousVersion</code> ，是否移除之前的版本。务必改为True，不然你更新几次软件就会发现，电脑里多个版本都在安装着。</li>
+</ol>
+</li>
+<li>不重要的属性：<ol>
+<li><code>InstallAllUsers</code> ，用户权限默认值。这个在安装界面还可以重新设置。</li>
+<li><code>ManufacturerUrl</code> ，公司官网。</li>
+<li><code>SupportUrl</code> 、 <code>SupportPhone</code> ，技术支持的网址和电话。</li>
+<li><code>Description</code> ，软件描述。</li>
+<li><code>Title</code> ，无用。一开始我以为它是安装界面的标题，但其实并不是，这个值默认和项目名一致，但你修改之后，在哪里也都看不到。所以无用。当然，现在我们还不能执行打包。还需要添加一些别的内容。</li>
+</ol>
+</li>
+</ol>
+<h3 id="先看一下项目的文件系统"><a href="#先看一下项目的文件系统" class="headerlink" title="先看一下项目的文件系统"></a>先看一下项目的文件系统</h3><p>文件系统在项目刚创建的时候会默认打开，其他时候你也可以通过在项目上右键-View-文件系统打开。<br><img src="//upload-images.jianshu.io/upload_images/2668873-a69f3f7938b9ed97.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>文件系统  </p>
+<p>刚开始就会看到三个入口：</p>
+<ol>
+<li><code>Application Folder</code> ，这个是你的应用安装之后，文件所处的目录。</li>
+<li><code>User&#39;s Desktop</code> ，用户桌面，我们等下会需要在这里面放置一个快捷方式。</li>
+<li><code>User&#39;s Programs Menu</code> ，用户的程序菜单。就是按Windows徽标键或者是屏幕左下角的Windows徽标，会出现的一些文件夹和快捷方式。</li>
+</ol>
+<h4 id="添加文件或文件夹"><a href="#添加文件或文件夹" class="headerlink" title="添加文件或文件夹"></a>添加文件或文件夹</h4><p>有时候我们会需要手动添加一些默认文件到安装目录里，比如一些默认配置、一些DLL等。接下来演示怎么创建文件夹和添加文件。</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-c34eefc760cfe143.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>添加文件或文件夹  </p>
+<p>比如我重复使用上边的操作，创建了多级的文件夹，接下来我们可以通过添加文件，往里面添加一些icon图标，等下可以用作快捷方式的icon。</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-d287f4f257e7a385.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>添加几个icon文件  </p>
+<h4 id="添加可运行文件及其快捷方式"><a href="#添加可运行文件及其快捷方式" class="headerlink" title="添加可运行文件及其快捷方式"></a>添加可运行文件及其快捷方式</h4><p>先创建项目输出文件(<em>一般都是.exe文件</em>)，即快捷方式要指向的文件：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-6f418d7bd54fef88.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>创建项目输出  </p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-1d386dfd14106862.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/387" alt="">  </p>
+<p>项目输出配置  </p>
+<p>上面的流程也可以重复进行。针对多个项目创建多个项目输出，那样的话，就可以用启动不同的项目了。比如我们知道Git有GUI版本，也有命令行版本。就可以通过这种方式，创建多个输出文件。</p>
+<p>添加完输出文件之后，我们就可以为这个输出创建快捷方式了：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-39c332c73efcdbea.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>创建输出快捷方式  </p>
+<p>比如这里创建出来的就是上面的那个 <code>Shortcut ....balabala</code> 的东西。这个快捷方式的名字需要修改，不然会直接在界面上显示这个名字。这里重命名一下即可。</p>
+<blockquote>
+<p>输出文件(_这里的 <code>主输出balabala</code> _)是不能改名字的，它是对应的安装目录里的输出文件。比如我这个项目在安装后，安装目录里就会有一个 <code>PackageDemo.exe</code> 的文件。</p>
+</blockquote>
+<p>也可以多次为这个输出创建快捷方式。这样的话，之后可以直接将快捷方式复制到别的入口文件夹里( <code>User&#39;s Desktop</code> / <code>User&#39;s Programs Menu</code> )。</p>
+<blockquote>
+<p>这里我创建了多个快捷方式，并为它们改了不一样的名字。接下来，也为它们设置不一样的icon。</p>
+</blockquote>
+<h5 id="设置icon"><a href="#设置icon" class="headerlink" title="设置icon"></a>设置icon</h5><p>先修改快捷方式的icon属性，这里默认为None，我们需要把它改为之前添加的icon图标。</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-45ff365fd20bac34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>修改图标  </p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-2d0b64257742543f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/494" alt="">  </p>
+<p>选择界面  </p>
+<p>在选择界面打开 <code>Browse...</code> ，找到之前添加的图标点击确认</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-955f79db003c78a3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/494" alt="">  </p>
+<p>选择完成  </p>
+<p>点击 <code>OK</code> 即可为快捷方式应用图标。其他的快捷方式也是一样的操作。</p>
+<h2 id="生成安装包并安装"><a href="#生成安装包并安装" class="headerlink" title="生成安装包并安装"></a>生成安装包并安装</h2><p>在安装项目上右键，选择生成或重新生成。会执行打包操作。并会根据你的设置在项目的 <code>Debug</code> 或 <code>Release</code> 文件夹下生成一个 <code>.msi</code> 文件和一个 <code>.exe</code> 文件。用户可以使用这个安装包进行安装。</p>
+<p>安装界面如下：<br><img src="//upload-images.jianshu.io/upload_images/2668873-41e8bf9737ee1283.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/503" alt="">  </p>
+<p>安装界面1<br><img src="//upload-images.jianshu.io/upload_images/2668873-8a20151a1f5f13f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/503" alt="">  </p>
+<p>安装界面2  </p>
+<ol>
+<li>那个 <code>任何人\只有我</code> 的选项就是我们之前提到过的 <code>InstallAllUsers</code> 指定值。</li>
+</ol>
+<ol start="2">
+<li><code>PackageDemo Installer</code> 的问题，可以看出来，这个名字很不合适，那我们能不能改掉这个名字呢？这里就是之前提到过的，项目属性窗口中的 <code>ProductName</code> 属性，将该属性设置为软件名称即可。</li>
+</ol>
+<p>再看下安装之后的效果：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-52490c065553b86b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>安装效果  </p>
+<p>可以看到桌面和程序目录里各有一个快捷方式，它们的名字和图标也正是我们在文件系统设置的那样。</p>
+<p>再来看看安装目录里的东西：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-40ed4438eba46706.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>安装后文件夹  </p>
+<h2 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h2><h3 id="版本号问题"><a href="#版本号问题" class="headerlink" title="版本号问题"></a>版本号问题</h3><p>假设，你当前电脑上已经使用一个安装包安装了1.0.0版本的软件：</p>
+<p>此时你再次点击同样的安装包：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-fdf5d5de1ea01227.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/503" alt="">  </p>
+<p>同样的安装包  </p>
+<p>如果，你对项目做了一些修改后重新打包，却没修改版本号：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-428137a92be98582.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/366" alt="">  </p>
+<p>相同版本号，不同的内容  </p>
+<p>如果，你对项目做了一些修改后，也增加了版本号:</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-9498629155aca596.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/320" alt="">  </p>
+<p>修改版本号  </p>
+<p>这样是可以正常安装的。并且如果你设置了移除旧版本，也会同时卸载掉旧版本软件。</p>
+<h3 id="生成失败"><a href="#生成失败" class="headerlink" title="生成失败"></a>生成失败</h3><p>有时你执行了生成或重新生成却发现左下角提示生成失败</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-4fd606581da2dc58.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>生成失败  </p>
+<p>然后打开错误列表，如果有错误的话，去修改错误(<em>警告等是不会导致失败的，只查看错误就可以</em>)。可是，有时候，会出现这种情况：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-3e7f91ee56bc9358.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>生成失败却没有提示任何错误  </p>
+<p>明明没有一个错误，却导致生成失败了？</p>
+<p>这种问题，基本上都是文件系统引用到的文件位置发生了改变。就是说，你在上边执行的添加文件，其实只是把你电脑上的文件地址保存了起来，之后如果你的文件被删了或是换了位置，那之前添加的文件引用自然就会失效。这时候去仔细查看一下文件系统。</p>
+<p>比如我把几个图标文件移动到别的文件夹之后：</p>
+<p><img src="//upload-images.jianshu.io/upload_images/2668873-e56a360dcdc42a74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="">  </p>
+<p>文件引用错误  </p>
+<p>这时候，把错误的引用删掉，重新将文件添加进来即可。注意：icon文件修改后，引用icon的快捷方式也需要修改icon路径。</p>
+<h2 id="一个建议"><a href="#一个建议" class="headerlink" title="一个建议"></a>一个建议</h2><p>在安装项目内创建一个文件夹，专门用于放置安装项目所依赖的文档、图标等，避免引用的文件移动后还需要重新设置。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/06/05/%E3%80%90.Net%E3%80%91%E9%98%B4%E5%8E%86%E8%BD%AC%E5%86%9C%E5%8E%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/06/05/%E3%80%90.Net%E3%80%91%E9%98%B4%E5%8E%86%E8%BD%AC%E5%86%9C%E5%8E%86/" class="post-title-link" itemprop="url">【.Net】阴历转农历</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-06-05 20:30:55" itemprop="dateCreated datePublished" datetime="2018-06-05T20:30:55+08:00">2018-06-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Globalization;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace ConsoleApplication1</span><br><span class="line">&#123;</span><br><span class="line">    public class BLDateHelper</span><br><span class="line">    &#123;</span><br><span class="line">        #region 年份，返回ArrayList类型</span><br><span class="line">        public ArrayList Year()</span><br><span class="line">        &#123;</span><br><span class="line">            ArrayList arraylist = new ArrayList(210);</span><br><span class="line">            for (int i = 1901; i &lt; 2101; i++)</span><br><span class="line">            &#123;</span><br><span class="line"></span><br><span class="line">                arraylist.Add(i);</span><br><span class="line">            &#125;</span><br><span class="line">            return arraylist;</span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line">        #region 公历月份，返回ArrayList类型</span><br><span class="line">        public ArrayList Month()</span><br><span class="line">        &#123;</span><br><span class="line">            ArrayList arraylist = new ArrayList();</span><br><span class="line">            for (int i = 1; i &lt;= 12; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                arraylist.Add(i);</span><br><span class="line">            &#125;</span><br><span class="line">            return arraylist;</span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line">        #region 根据年月返回公历当月的天数</span><br><span class="line">        public int GetMonthCount(int year, int month)</span><br><span class="line">        &#123;</span><br><span class="line">            int count = DateTime.DaysInMonth(year, month);</span><br><span class="line">            return count;</span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line">        #region 根据年月返回当年当月第一天星期几</span><br><span class="line">        //2000-1-2为周日</span><br><span class="line">        //返回以0为周日</span><br><span class="line">        public int FirstDayOfWeekOfMonth(int year, int month)</span><br><span class="line">        &#123;</span><br><span class="line">            DateTime jztime = new DateTime(2000, 1, 2);</span><br><span class="line">            DateTime newtime = new DateTime(year, month, 1);</span><br><span class="line">            TimeSpan ts;</span><br><span class="line">            int dayofweek = 0;</span><br><span class="line">            if (jztime &lt; newtime)</span><br><span class="line">            &#123;</span><br><span class="line">                ts = newtime - jztime;</span><br><span class="line">                dayofweek = ts.Days % 7;</span><br><span class="line">                return dayofweek;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                ts = jztime - newtime;</span><br><span class="line">                dayofweek = (ts.Days) % 7;</span><br><span class="line">                return (7 - dayofweek) % 7;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line">        #region 根据年月日算星期几,返回string类型,方法二：(简捷)以一个基准日期，两日期相减算法</span><br><span class="line">        //方法三</span><br><span class="line">        //以一个基准日期，两日期相减算法</span><br><span class="line">        //根据年月日算星期几,返回string类型</span><br><span class="line">        //2000-1-1为星期六</span><br><span class="line">        public string GetWeekOfDay(int year, int month, int day)</span><br><span class="line">        &#123;</span><br><span class="line">            //int runnian=0;</span><br><span class="line">            DateTime jztime = new DateTime(2000, 1, 1);</span><br><span class="line">            DateTime newtime = new DateTime(year, month, day);</span><br><span class="line">            TimeSpan chatime;</span><br><span class="line">            int week;</span><br><span class="line">            string weekstr = &quot;&quot;;</span><br><span class="line">            if (jztime &lt;= newtime)</span><br><span class="line">            &#123;</span><br><span class="line">                chatime = newtime - jztime;</span><br><span class="line">                week = (chatime.Days + 1) % 7;</span><br><span class="line">                switch (week)</span><br><span class="line">                &#123;</span><br><span class="line">                    case 1:</span><br><span class="line">                        weekstr = &quot;星期六&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 2:</span><br><span class="line">                        weekstr = &quot;星期日&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 3:</span><br><span class="line">                        weekstr = &quot;星期一&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 4:</span><br><span class="line">                        weekstr = &quot;星期二&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 5:</span><br><span class="line">                        weekstr = &quot;星期三&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 6:</span><br><span class="line">                        weekstr = &quot;星期四&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 0:</span><br><span class="line">                        weekstr = &quot;星期五&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                chatime = jztime - newtime;</span><br><span class="line">                week = (chatime.Days + 1) % 7;</span><br><span class="line">                switch (week)</span><br><span class="line">                &#123;</span><br><span class="line">                    case 1:</span><br><span class="line">                        weekstr = &quot;星期六&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 2:</span><br><span class="line">                        weekstr = &quot;星期五&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 3:</span><br><span class="line">                        weekstr = &quot;星期四&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 4:</span><br><span class="line">                        weekstr = &quot;星期三&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 5:</span><br><span class="line">                        weekstr = &quot;星期二&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 6:</span><br><span class="line">                        weekstr = &quot;星期一&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                    case 0:</span><br><span class="line">                        weekstr = &quot;星期日&quot;;</span><br><span class="line">                        break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return weekstr;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line">        #region 根据公历日期返回农历日</span><br><span class="line">        public string GetNLMonth(int year, int month, int day)</span><br><span class="line">        &#123;</span><br><span class="line">            string[] monthname = &#123; &quot;正月&quot;, &quot;二月&quot;, &quot;三月&quot;, &quot;四月&quot;, &quot;五月&quot;, &quot;六月&quot;, &quot;七月&quot;, &quot;八月&quot;, &quot;九月&quot;, &quot;十月&quot;, &quot;十一月&quot;, &quot;腊月&quot; &#125;;</span><br><span class="line">            ChineseLunisolarCalendar calendar = new ChineseLunisolarCalendar();</span><br><span class="line">            DateTime datetime = new DateTime(year, month, day);</span><br><span class="line"></span><br><span class="line">            int nlyear = calendar.GetYear(datetime);</span><br><span class="line">            int nlmonth = calendar.GetMonth(datetime);</span><br><span class="line"></span><br><span class="line">            //判断是否有闰月 ,leap=0即没有闰月</span><br><span class="line">            int leapmonth = calendar.GetLeapMonth(nlyear);</span><br><span class="line">            if (leapmonth &gt; 0)</span><br><span class="line">            &#123;</span><br><span class="line">                if (leapmonth &lt;= nlmonth)</span><br><span class="line">                &#123;</span><br><span class="line">                    nlmonth--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return monthname[nlmonth - 1].ToString();</span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line">        #region 根据公历日期返回农历日</span><br><span class="line">        public string GetNLDay(int year, int month, int day)</span><br><span class="line">        &#123;</span><br><span class="line">            string[] nstr1 = &#123; &quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;, &quot;五&quot;, &quot;六&quot;, &quot;七&quot;, &quot;八&quot;, &quot;九&quot;, &quot;十&quot; &#125;;</span><br><span class="line">            string[] nstr2 = &#123; &quot;初&quot;, &quot;十&quot;, &quot;廿&quot;, &quot;卅&quot; &#125;;</span><br><span class="line">            string[] monthname = &#123; &quot;正月&quot;, &quot;二月&quot;, &quot;三月&quot;, &quot;四月&quot;, &quot;五月&quot;, &quot;六月&quot;, &quot;七月&quot;, &quot;八月&quot;, &quot;九月&quot;, &quot;十月&quot;, &quot;十一月&quot;, &quot;腊月&quot; &#125;;</span><br><span class="line">            ChineseLunisolarCalendar calendar = new ChineseLunisolarCalendar();</span><br><span class="line">            DateTime datetime = new DateTime(year, month, day);</span><br><span class="line"></span><br><span class="line">            int nlyear = calendar.GetYear(datetime);</span><br><span class="line">            int nlmonth = calendar.GetMonth(datetime);</span><br><span class="line">            int nlday = calendar.GetDayOfMonth(datetime);</span><br><span class="line"></span><br><span class="line">            //判断是否有闰月 ,leap=0即没有闰月</span><br><span class="line">            int leapmonth = calendar.GetLeapMonth(nlyear);</span><br><span class="line">            if (leapmonth &gt; 0)</span><br><span class="line">            &#123;</span><br><span class="line">                if (leapmonth &lt;= nlmonth)</span><br><span class="line">                &#123;</span><br><span class="line">                    nlmonth--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (nlday == 1)</span><br><span class="line">            &#123;</span><br><span class="line">                return monthname[nlmonth - 1].ToString();</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                if (nlday &gt; 1 &amp;&amp; nlday &lt;= 10)</span><br><span class="line">                &#123;</span><br><span class="line">                    return nstr2[0].ToString() + nstr1[nlday - 1].ToString();</span><br><span class="line">                &#125;</span><br><span class="line">                else if (nlday &gt; 10 &amp;&amp; nlday &lt; 20)</span><br><span class="line">                &#123;</span><br><span class="line">                    return nstr2[1].ToString() + nstr1[nlday % 10 - 1].ToString();</span><br><span class="line">                &#125;</span><br><span class="line">                else if (nlday == 20)</span><br><span class="line">                &#123;</span><br><span class="line">                    return &quot;二十&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">                else if (nlday &gt; 20 &amp;&amp; nlday &lt; 30)</span><br><span class="line">                &#123;</span><br><span class="line">                    return nstr2[2].ToString() + nstr1[nlday % 10 - 1].ToString();</span><br><span class="line">                &#125;</span><br><span class="line">                else if (nlday == 30)</span><br><span class="line">                &#123;</span><br><span class="line">                    return &quot;三十&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    return &quot;卅一&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line">        #region 阳历转化为农历，返回string类型</span><br><span class="line">        //ChineseLunisolarCalendar类能实现的日期为1901-2-19——2101-1-28</span><br><span class="line">        //阳历转化为农历，返回string类型</span><br><span class="line">        //以公元前2997年为中国历史上第一个甲子年</span><br><span class="line">        public string GetNLYear(int year, int month, int day)</span><br><span class="line">        &#123;</span><br><span class="line">            string datestr = &quot;&quot;;</span><br><span class="line">            string[] gan = &#123; &quot;甲&quot;, &quot;乙&quot;, &quot;丙&quot;, &quot;丁&quot;, &quot;戊&quot;, &quot;己&quot;, &quot;庚&quot;, &quot;辛&quot;, &quot;壬&quot;, &quot;癸&quot; &#125;;</span><br><span class="line">            string[] zhi = &#123; &quot;子&quot;, &quot;丑&quot;, &quot;寅&quot;, &quot;卯&quot;, &quot;辰&quot;, &quot;巳&quot;, &quot;午&quot;, &quot;未&quot;, &quot;申&quot;, &quot;酉&quot;, &quot;戌&quot;, &quot;亥&quot; &#125;;</span><br><span class="line">            string[] shengxiao = &#123; &quot;鼠&quot;, &quot;牛&quot;, &quot;虎&quot;, &quot;免&quot;, &quot;龙&quot;, &quot;蛇&quot;, &quot;马&quot;, &quot;羊&quot;, &quot;猴&quot;, &quot;鸡&quot;, &quot;狗&quot;, &quot;猪&quot; &#125;;</span><br><span class="line">            ChineseLunisolarCalendar calendar = new ChineseLunisolarCalendar();</span><br><span class="line">            DateTime date = new DateTime(year, month, day);</span><br><span class="line"></span><br><span class="line">            int nlyear = calendar.GetYear(date);</span><br><span class="line">            int nlmonth = calendar.GetMonth(date);</span><br><span class="line">            int nlday = calendar.GetDayOfMonth(date);</span><br><span class="line"></span><br><span class="line">            //判断是否有闰月 ,leap=0即没有闰月</span><br><span class="line">            int leapmonth = calendar.GetLeapMonth(nlyear);</span><br><span class="line">            if (leapmonth &gt; 0)</span><br><span class="line">            &#123;</span><br><span class="line">                if (leapmonth &lt;= nlmonth)</span><br><span class="line">                &#123;</span><br><span class="line">                    nlmonth--;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //确定年份,基准1804为甲子年,鼠年</span><br><span class="line">            //天干年</span><br><span class="line">            string zy = &quot;&quot;;</span><br><span class="line">            //地支年</span><br><span class="line">            string dy = &quot;&quot;;</span><br><span class="line">            //生肖年</span><br><span class="line">            string sxnian = &quot;&quot;;</span><br><span class="line">            if (nlyear &gt; 3)</span><br><span class="line">            &#123;</span><br><span class="line">                int zhiyear = (nlyear - 4) % 10;</span><br><span class="line">                int diyear = (nlyear - 4) % 12;</span><br><span class="line">                zy = gan[zhiyear];</span><br><span class="line">                dy = zhi[diyear];</span><br><span class="line">                sxnian = shengxiao[diyear];</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //转化的最终农历年</span><br><span class="line">            datestr = zy + dy + &quot;(&quot; + nlyear + &quot;)&quot; + &quot;年&quot; + &quot;  生肖:&quot; + sxnian;</span><br><span class="line"></span><br><span class="line">            return datestr;</span><br><span class="line">        &#125;</span><br><span class="line">        #endregion</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        public string GetNL(int year, int month, int day)</span><br><span class="line">        &#123;</span><br><span class="line">            string nlDay = GetNLDay(year, month, day);</span><br><span class="line">            string nlMonth = GetNLMonth(year, month, day);</span><br><span class="line">            string nlYear = GetNLYear(year, month, day);</span><br><span class="line">            return nlYear + &quot; &quot; + nlMonth + &quot; &quot; + nlDay;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/58/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/58/">58</a><span class="page-number current">59</span><a class="page-number" href="/page/60/">60</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/60/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

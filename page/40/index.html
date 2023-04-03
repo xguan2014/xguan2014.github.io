@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/40/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/40/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/03/27/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91%E7%9F%AD%E4%BF%A1%E5%8F%91%E9%80%81SMS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/27/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91%E7%9F%AD%E4%BF%A1%E5%8F%91%E9%80%81SMS/" class="post-title-link" itemprop="url">【.Net Core】使用阿里云短信发送SMS</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-27 14:47:19" itemprop="dateCreated datePublished" datetime="2019-03-27T14:47:19+08:00">2019-03-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/kulend/p/8807716.html">https://www.cnblogs.com/kulend/p/8807716.html</a></p>
+<p>阿里云官方的sdk（aliyun-net-sdk-core，aliyun-net-sdk-dysmsapi）在dnc中发送短信会出错，nuget上的包貌似也一样不管用。直接改下sdk当然也可以，但就发个短信，官方的sdk实在是有点繁杂，其实可以简单化，一个类就搞定。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Newtonsoft.Json;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Globalization;</span><br><span class="line"><span class="keyword">using</span> System.Net;</span><br><span class="line"><span class="keyword">using</span> System.Net.Http;</span><br><span class="line"><span class="keyword">using</span> System.Security.Cryptography;</span><br><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"><span class="keyword">using</span> System.Web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">ali_iot_sdk.Sms</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AliyunSmsSender</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">string</span> RegionId = <span class="string">&quot;cn-hangzhou&quot;</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">string</span> Version = <span class="string">&quot;2017-05-25&quot;</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">string</span> Action = <span class="string">&quot;SendSms&quot;</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">string</span> Format = <span class="string">&quot;JSON&quot;</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">string</span> Domain = <span class="string">&quot;dysmsapi.aliyuncs.com&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">int</span> MaxRetryNumber = <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">bool</span> AutoRetry = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">const</span> <span class="built_in">string</span> SEPARATOR = <span class="string">&quot;&amp;&quot;</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">int</span> TimeoutInMilliSeconds = <span class="number">100000</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">string</span> AccessKeyId;</span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">string</span> AccessKeySecret;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">AliyunSmsSender</span>(<span class="params"><span class="built_in">string</span> accessKeyId, <span class="built_in">string</span> accessKeySecret</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>.AccessKeyId = accessKeyId;</span><br><span class="line">            <span class="keyword">this</span>.AccessKeySecret = accessKeySecret;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 发送短信</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">async</span> Task&lt;(<span class="built_in">bool</span> success, <span class="built_in">string</span> response)&gt; Send(SmsObject sms)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> paramers = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt;();</span><br><span class="line">            paramers.Add(<span class="string">&quot;PhoneNumbers&quot;</span>, sms.Mobile);</span><br><span class="line">            paramers.Add(<span class="string">&quot;SignName&quot;</span>, sms.Signature);</span><br><span class="line">            paramers.Add(<span class="string">&quot;TemplateCode&quot;</span>, sms.TempletKey);</span><br><span class="line">            paramers.Add(<span class="string">&quot;TemplateParam&quot;</span>, JsonConvert.SerializeObject(sms.Data));</span><br><span class="line">            paramers.Add(<span class="string">&quot;OutId&quot;</span>, sms.OutId);</span><br><span class="line">            paramers.Add(<span class="string">&quot;AccessKeyId&quot;</span>, AccessKeyId);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">string</span> url = GetSignUrl(paramers, AccessKeySecret);</span><br><span class="line"></span><br><span class="line">                <span class="built_in">int</span> retryTimes = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">var</span> reply = <span class="keyword">await</span> HttpGetAsync(url);</span><br><span class="line">                <span class="keyword">while</span> (<span class="number">500</span> &lt;= reply.StatusCode &amp;&amp; AutoRetry &amp;&amp; retryTimes &lt; MaxRetryNumber)</span><br><span class="line">                &#123;</span><br><span class="line">                    url = GetSignUrl(paramers, AccessKeySecret);</span><br><span class="line">                    reply = <span class="keyword">await</span> HttpGetAsync(url);</span><br><span class="line">                    retryTimes++;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!<span class="built_in">string</span>.IsNullOrEmpty(reply.response))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">var</span> res = JsonConvert.DeserializeObject&lt;Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt;&gt;(reply.response);</span><br><span class="line">                    <span class="keyword">if</span> (res != <span class="literal">null</span> &amp;&amp; res.ContainsKey(<span class="string">&quot;Code&quot;</span>) &amp;&amp; <span class="string">&quot;OK&quot;</span>.Equals(res[<span class="string">&quot;Code&quot;</span>]))</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">return</span> (<span class="literal">true</span>, response: reply.response);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> (<span class="literal">false</span>, response: reply.response);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> (<span class="literal">false</span>, response: ex.Message);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="built_in">string</span> <span class="title">GetSignUrl</span>(<span class="params">Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; parameters, <span class="built_in">string</span> accessSecret</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> imutableMap = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt;(parameters);</span><br><span class="line">            imutableMap.Add(<span class="string">&quot;Timestamp&quot;</span>, FormatIso8601Date(DateTime.Now));</span><br><span class="line">            imutableMap.Add(<span class="string">&quot;SignatureMethod&quot;</span>, <span class="string">&quot;HMAC-SHA1&quot;</span>);</span><br><span class="line">            imutableMap.Add(<span class="string">&quot;SignatureVersion&quot;</span>, <span class="string">&quot;1.0&quot;</span>);</span><br><span class="line">            imutableMap.Add(<span class="string">&quot;SignatureNonce&quot;</span>, Guid.NewGuid().ToString());</span><br><span class="line">            imutableMap.Add(<span class="string">&quot;Action&quot;</span>, Action);</span><br><span class="line">            imutableMap.Add(<span class="string">&quot;Version&quot;</span>, Version);</span><br><span class="line">            imutableMap.Add(<span class="string">&quot;Format&quot;</span>, Format);</span><br><span class="line">            imutableMap.Add(<span class="string">&quot;RegionId&quot;</span>, RegionId);</span><br><span class="line"></span><br><span class="line">            IDictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; sortedDictionary = <span class="keyword">new</span> SortedDictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt;(imutableMap, StringComparer.Ordinal);</span><br><span class="line">            StringBuilder canonicalizedQueryString = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> p <span class="keyword">in</span> sortedDictionary)</span><br><span class="line">            &#123;</span><br><span class="line">                canonicalizedQueryString.Append(<span class="string">&quot;&amp;&quot;</span>)</span><br><span class="line">                .Append(PercentEncode(p.Key)).Append(<span class="string">&quot;=&quot;</span>)</span><br><span class="line">                .Append(PercentEncode(p.Value));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            StringBuilder stringToSign = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">            stringToSign.Append(<span class="string">&quot;GET&quot;</span>);</span><br><span class="line">            stringToSign.Append(SEPARATOR);</span><br><span class="line">            stringToSign.Append(PercentEncode(<span class="string">&quot;/&quot;</span>));</span><br><span class="line">            stringToSign.Append(SEPARATOR);</span><br><span class="line">            stringToSign.Append(PercentEncode(canonicalizedQueryString.ToString().Substring(<span class="number">1</span>)));</span><br><span class="line"></span><br><span class="line">            <span class="built_in">string</span> signature = SignString(stringToSign.ToString(), accessSecret + <span class="string">&quot;&amp;&quot;</span>);</span><br><span class="line"></span><br><span class="line">            imutableMap.Add(<span class="string">&quot;Signature&quot;</span>, signature);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> ComposeUrl(Domain, imutableMap);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">FormatIso8601Date</span>(<span class="params">DateTime date</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> date.ToUniversalTime().ToString(<span class="string">&quot;yyyy-MM-dd&#x27;T&#x27;HH:mm:ss&#x27;Z&#x27;&quot;</span>, CultureInfo.CreateSpecificCulture(<span class="string">&quot;en-US&quot;</span>));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 签名</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">SignString</span>(<span class="params"><span class="built_in">string</span> source, <span class="built_in">string</span> accessSecret</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">using</span> (<span class="keyword">var</span> algorithm = <span class="keyword">new</span> HMACSHA1(Encoding.UTF8.GetBytes(accessSecret.ToCharArray())))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> Convert.ToBase64String(algorithm.ComputeHash(Encoding.UTF8.GetBytes(source.ToCharArray())));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">ComposeUrl</span>(<span class="params"><span class="built_in">string</span> endpoint, Dictionary&lt;String, String&gt; parameters</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            StringBuilder urlBuilder = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;&quot;</span>);</span><br><span class="line">            urlBuilder.Append(<span class="string">&quot;http://&quot;</span>).Append(endpoint);</span><br><span class="line">            <span class="keyword">if</span> (<span class="number">-1</span> == urlBuilder.ToString().IndexOf(<span class="string">&quot;?&quot;</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                urlBuilder.Append(<span class="string">&quot;/?&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">string</span> query = ConcatQueryString(parameters);</span><br><span class="line">            <span class="keyword">return</span> urlBuilder.Append(query).ToString();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">ConcatQueryString</span>(<span class="params">Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; parameters</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="literal">null</span> == parameters)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> entry <span class="keyword">in</span> parameters)</span><br><span class="line">            &#123;</span><br><span class="line">                String key = entry.Key;</span><br><span class="line">                String val = entry.Value;</span><br><span class="line"></span><br><span class="line">                sb.Append(HttpUtility.UrlEncode(key, Encoding.UTF8));</span><br><span class="line">                <span class="keyword">if</span> (val != <span class="literal">null</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    sb.Append(<span class="string">&quot;=&quot;</span>).Append(HttpUtility.UrlEncode(val, Encoding.UTF8));</span><br><span class="line">                &#125;</span><br><span class="line">                sb.Append(<span class="string">&quot;&amp;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="built_in">int</span> strIndex = sb.Length;</span><br><span class="line">            <span class="keyword">if</span> (parameters.Count &gt; <span class="number">0</span>)</span><br><span class="line">                sb.Remove(strIndex - <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> sb.ToString();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">PercentEncode</span>(<span class="params"><span class="built_in">string</span> <span class="keyword">value</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">            <span class="built_in">string</span> text = <span class="string">&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~&quot;</span>;</span><br><span class="line">            <span class="built_in">byte</span>[] bytes = Encoding.GetEncoding(<span class="string">&quot;UTF-8&quot;</span>).GetBytes(<span class="keyword">value</span>);</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="built_in">char</span> c <span class="keyword">in</span> bytes)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (text.IndexOf(c) &gt;= <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    stringBuilder.Append(c);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    stringBuilder.Append(<span class="string">&quot;%&quot;</span>).Append(</span><br><span class="line">                        <span class="built_in">string</span>.Format(CultureInfo.InvariantCulture, <span class="string">&quot;&#123;0:X2&#125;&quot;</span>, (<span class="built_in">int</span>)c));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> stringBuilder.ToString();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">async</span> Task&lt;(<span class="built_in">int</span> StatusCode, <span class="built_in">string</span> response)&gt; HttpGetAsync(<span class="built_in">string</span> url)</span><br><span class="line">        &#123;</span><br><span class="line">            HttpClientHandler handler = <span class="keyword">new</span> HttpClientHandler();</span><br><span class="line">            handler.Proxy = <span class="literal">null</span>;</span><br><span class="line">            handler.AutomaticDecompression = DecompressionMethods.GZip;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">using</span> (<span class="keyword">var</span> http = <span class="keyword">new</span> HttpClient(handler))</span><br><span class="line">            &#123;</span><br><span class="line">                http.Timeout = <span class="keyword">new</span> TimeSpan(TimeSpan.TicksPerMillisecond * TimeoutInMilliSeconds);</span><br><span class="line">                HttpResponseMessage response = <span class="keyword">await</span> http.GetAsync(url);</span><br><span class="line">                <span class="keyword">return</span> ((<span class="built_in">int</span>)response.StatusCode, <span class="keyword">await</span> response.Content.ReadAsStringAsync());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>SmsObject.cs</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">ali_iot_sdk.Sms</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SmsObject</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 手机号</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Mobile &#123; <span class="keyword">set</span>; <span class="keyword">get</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 签名</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Signature &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 模板Key</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> TempletKey &#123; <span class="keyword">set</span>; <span class="keyword">get</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 短信数据</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">public</span> IDictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; Data &#123; <span class="keyword">set</span>; <span class="keyword">get</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 业务ID</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> OutId &#123; <span class="keyword">set</span>; <span class="keyword">get</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用方法：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SendAsync</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">string</span> accessKeyId = <span class="string">&quot;LTAI2LglnrYQISrK&quot;</span>;</span><br><span class="line">    <span class="built_in">string</span> accessKeySecret = <span class="string">&quot;affQ6iY4CNEUaMXNtgd4Fnuhk5IiZW&quot;</span>;</span><br><span class="line">    IDictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt; data = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">string</span>&gt;();</span><br><span class="line">    data.Add(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;xguan&quot;</span>);</span><br><span class="line">    <span class="keyword">var</span> sms = <span class="keyword">new</span> SmsObject</span><br><span class="line">    &#123;</span><br><span class="line">        Mobile = <span class="string">&quot;15377011087&quot;</span>,</span><br><span class="line">        Signature = <span class="string">&quot;深度优先&quot;</span>,</span><br><span class="line">        TempletKey = <span class="string">&quot;模板ID&quot;</span>,</span><br><span class="line">        Data = data,</span><br><span class="line">        OutId = <span class="string">&quot;OutId&quot;</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> res =  <span class="keyword">new</span> AliyunSmsSender(accessKeyId, accessKeySecret).Send(sms).Result;</span><br><span class="line">    <span class="built_in">string</span> str1 = (<span class="string">$&quot;发送结果：<span class="subst">&#123;res.success&#125;</span>&quot;</span>);</span><br><span class="line">    <span class="built_in">string</span> str2 = (<span class="string">$&quot;Response：<span class="subst">&#123;res.response&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/03/21/%E3%80%90Angular%E3%80%91%E9%83%A8%E7%BD%B2github.io%E4%B8%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/21/%E3%80%90Angular%E3%80%91%E9%83%A8%E7%BD%B2github.io%E4%B8%8A/" class="post-title-link" itemprop="url">【Angular】部署github.io上</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-21 15:33:13" itemprop="dateCreated datePublished" datetime="2019-03-21T15:33:13+08:00">2019-03-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">环境搭建</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>902</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>看angular官网的教程，发下这个就试了下，有坑啊！！ emmm，官网介绍如下：</p>
+<p><a target="_blank" rel="noopener" href="https://angular.cn/guide/deployment">https://angular.cn/guide/deployment</a></p>
+<h2 id="发布到-GitHub-pages（页面服务）link"><a href="#发布到-GitHub-pages（页面服务）link" class="headerlink" title="发布到 GitHub pages（页面服务）link"></a>发布到 GitHub pages（页面服务）<a target="_blank" rel="noopener" href="https://angular.cn/guide/deployment#deploy-to-github-pages"><em>link</em></a></h2><p>另一种发布 Angular 应用的简单途径是使用 <a target="_blank" rel="noopener" href="https://help.github.com/articles/what-is-github-pages/">GitHub Pages</a>。</p>
+<ol>
+<li>你需要<a target="_blank" rel="noopener" href="https://github.com/join">创建一个 GitHub 账号</a>（如果没有的话），然后为你的项目<a target="_blank" rel="noopener" href="https://help.github.com/articles/create-a-repo/">创建一个仓库</a>。记下 GitHub 中的用户名和项目名。</li>
+</ol>
+<ol start="3">
+<li>使用 Angular CLI 命令 <a target="_blank" rel="noopener" href="https://angular.cn/cli/build"> <code>ng build</code> </a> 来构建这个 GitHub 项目，选项如下：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">content_copy</span><br><span class="line">ng build --prod --output-path docs --base-href //</span><br></pre></td></tr></table></figure>
+<p>当构建完成时，把  <code>docs/index.html</code>  复制为  <code>docs/404.html</code> 。</p>
+<ol start="5">
+<li><p>提交你的更改，并推送。</p>
+</li>
+<li><p>在 GitHub 的项目页中，把该项目配置为<a target="_blank" rel="noopener" href="https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch">从 docs 目录下发布</a>。</p>
+</li>
+</ol>
+<p>你可以到  <code>https://&lt;user_name&gt;.github.io/&lt;project_name&gt;/</code>  中查看部署好的页面。</p>
+<p>可能是我的项目路由配置不同，打开页面一直404啥的。</p>
+<p>我的方案</p>
+<p>一、新建repository</p>
+<p><img src="/images/20190321152338363.png" alt=""></p>
+<p>二、打包angular项目、</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng build --prod --aot</span><br></pre></td></tr></table></figure>
+<p>三、将项目push到仓库中</p>
+<p>打开：<a target="_blank" rel="noopener" href="https://xguan2014.github.io/user/login">https://xguan2014.github.io/user/login</a> 即可</p>
+<p>四、有坑的地方</p>
+<p>调用api接口有问题：</p>
+<p><img src="/images/201903211527116.png" alt=""></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Referrer Policy: no-referrer-when-downgrade</span><br></pre></td></tr></table></figure>
+<p>网上解释：</p>
+<p>从一个网站链接到另外一个网站会产生新的http请求，referrer是http请求中表示来源的字段。<br>no-referrer-when-downgrade表示从https协议降为http协议时不发送referrer给跳转网站的<a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=%E6%9C%8D%E5%8A%A1%E5%99%A8&amp;tn=24004469_oem_dg&amp;rsv_dl=gh_pl_sl_csd">服务器</a></p>
+<p>no-referrer</p>
+<p>任何情况下都不发送referer</p>
+<p>no-referrer-when-downgrade</p>
+<p>在同等安全等级下（例如https页面请求https地址），发送referer，但当请求方低于发送方（例如https页面请求http地址），不发送referer</p>
+<p>后面将api改成https的也不成！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/03/21/%E3%80%90Docker%E3%80%91Angular%E9%83%A8%E7%BD%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/21/%E3%80%90Docker%E3%80%91Angular%E9%83%A8%E7%BD%B2/" class="post-title-link" itemprop="url">【Docker】Angular部署</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-21 14:59:54" itemprop="dateCreated datePublished" datetime="2019-03-21T14:59:54+08:00">2019-03-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">环境搭建</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>437</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>将angular项目部署到docker中去：</p>
+<p>一、pull nginx镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx</span><br></pre></td></tr></table></figure>
+<p>二、运行nginx镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name nginx -d -p 8090:80 -v /root/iot/website:/usr/share/nginx/html nginx</span><br></pre></td></tr></table></figure>
+<p>-v /xxxx/xx:/xxx/xx 挂载本地文件</p>
+<p>三、解决angular网站刷新404</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/nginx/conf.d/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi default.conf</span><br></pre></td></tr></table></figure>
+<p>添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">try_files $uri $uri/ /index.html =404;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/20190321145612898.png" alt=""></p>
+<p>四、docker本机文件和容器中传输</p>
+<p>容器中到当前目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp 266bb04b1087:/etc/nginx/conf.d/default.conf .</span><br></pre></td></tr></table></figure>
+<p>当前目录文件到容器中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp tets.txt 266bb04b1087:home</span><br></pre></td></tr></table></figure>
+<p>五、安装vim</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install vim</span><br></pre></td></tr></table></figure>
+<p>步骤四、五不需要的，只是记录一下！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/39/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/39/">39</a><span class="page-number current">40</span><a class="page-number" href="/page/41/">41</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/41/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

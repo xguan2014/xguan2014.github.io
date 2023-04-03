@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="今天有同学问我个面试题：Asp.net_mvc中.cshtml与之前asp.net中的.aspx的区别？ 谁说都会用，但有时候扣知识点还是比较蒙的，然后网上搜了一篇还不错，将得挺细致的。 转载自：http:&#x2F;&#x2F;www.cnblogs.com&#x2F;qq731109249&#x2F;p&#x2F;3495610.html 一，MVC和三层架构的区别 ①什么是三层架构？ 在学校的时候，和同学或者老师一起讨论MVC的时候，别人可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Asp.Net】WebForm和Mvc的区别">
+<meta property="og:url" content="http://blog.bfsdfs.com/2017/10/06/%E3%80%90Asp.Net%E3%80%91WebForm%E5%92%8CMvc%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="今天有同学问我个面试题：Asp.net_mvc中.cshtml与之前asp.net中的.aspx的区别？ 谁说都会用，但有时候扣知识点还是比较蒙的，然后网上搜了一篇还不错，将得挺细致的。 转载自：http:&#x2F;&#x2F;www.cnblogs.com&#x2F;qq731109249&#x2F;p&#x2F;3495610.html 一，MVC和三层架构的区别 ①什么是三层架构？ 在学校的时候，和同学或者老师一起讨论MVC的时候，别人可">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/28154532-06f0467013af44f7bd6afa207eaf9967.jpg">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/28164236-c40457a9a6f74c5c8cbbe0b5cf7d8345.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/28171603-3e50320974b54e989b9fb7eb44875f41.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/28230241-4d392722e2aa42c9b7de2c6dd9dde349.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/28233447-de089ae275ee417e9a6ba6578a08a8d3.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/28234400-1f0ba90fdb514ed88fd2dd1da09eb242.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/29004448-3560b6dd86184a7689b6864989d8faed.png">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/29005103-e859cfa5a8d2472e9cd74b77a5b4fd84.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/29010113-dde65162b975441cb60edc946e06a1ec.png">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/29011655-2fc1d2e298d641588ff9a949c044065b.png">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://common.cnblogs.com/images/copycode.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/29013232-fd960f9fb9a74d639c9e5cbd76b5a330.png">
+<meta property="article:published_time" content="2017-10-06T02:46:06.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.054Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="Asp.Net">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/28154532-06f0467013af44f7bd6afa207eaf9967.jpg">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2017/10/06/%E3%80%90Asp.Net%E3%80%91WebForm%E5%92%8CMvc%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【Asp.Net】WebForm和Mvc的区别 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/10/06/%E3%80%90Asp.Net%E3%80%91WebForm%E5%92%8CMvc%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Asp.Net】WebForm和Mvc的区别
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-10-06 10:46:06" itemprop="dateCreated datePublished" datetime="2017-10-06T10:46:06+08:00">2017-10-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>今天有同学问我个面试题：Asp.net_mvc中.cshtml与之前asp.net中的.aspx的区别？</p>
+<p>谁说都会用，但有时候扣知识点还是比较蒙的，然后网上搜了一篇还不错，将得挺细致的。</p>
+<p>转载自：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/qq731109249/p/3495610.html">http://www.cnblogs.com/qq731109249/p/3495610.html</a></p>
+<p>一，MVC和三层架构的区别</p>
+<p>①什么是三层架构？</p>
+<p>在学校的时候，和同学或者老师一起讨论MVC的时候，别人可能会说，“不就是三层架构嘛！实体层（Model）,用来创建对象的实体；业务逻辑层（BLL），用来处理复杂的数据间的关系或者是业务间的关系；数据库访问层（DAL），用来用来访问数据库的；当然还会有，View(视图层)，用来展示数据；”其实自己虽然知道不是这样，但是自己也仅仅是了解一点点，也解释不清楚，所以也就算了。（具体的三层架构之间的操作的关系可以看我以前的博客<a target="_blank" rel="noopener" href="http://www.cnblogs.com/qq731109249/archive/2013/01/16/2863201.html">【ASP.NET开发】.NET三层架构简单解析</a>）。</p>
+<p>它们之间互相操作的关系，基本的示意图如下：</p>
+<p><img src="/images/28154532-06f0467013af44f7bd6afa207eaf9967.jpg" alt=""></p>
+<p>还记的暑假在郑州找实习工作的时候，被别人问过一个n层架构的概念，当时就懵了，尼玛的压根就没听说过啊！不过后来查询资料知道，所谓的n曾架构就是根据系统的需要把业务逻辑层（BLL）或者数据库访问层（DAL）再抽象成几个层次（具体的就是再抽象成类），便于逻辑的处理和代码模块的维护。其基本原理还是基于三层架构。</p>
+<p>②什么是MVC呢？</p>
+<p>MVC其实是软件架构的一种模式，也就是我们经常说的设计模式。其中主要包括三个模块，就是如MVC名字所显示的那样：模型（Model），视图（View），控制器（Controller）；</p>
+<p>其中这里的模型（Model）和视图（View ）是完全区别于三层架构中的模型（Model）和视图（View）的。</p>
+<p>1）MVC中的模型（Model）指的是数据模型，用于封装与应用程序的业务逻辑相关的数据，除此之外还可以封装数据的处理方法（相当于业务逻辑）。这是完全区别于三层架构的模型层（Model）的。</p>
+<p>MVC中模型（Model）的特点：</p>
+<p>①有对数据直接访问的权利，如：对数据库的访问；</p>
+<p>②模型（Model）“不依赖”视图（View）和控制器（Controller），即模型（Model）不关心它会被如何显示或者如何被操作；</p>
+<p>③模型（Model）中数据的变化一般会通过一种刷新机制被“公布”；</p>
+<p>④为了实现③中的“机制”用于监视此模型的视图必须事先在此模型上注册。从而，视图可以了解在数据模型上发生的改变。</p>
+<p>2）视图（View），这里的视图基本跟三层中的视图一样，都是为了显示数据，没有程序上的逻辑。为了实现视图上数据的刷新，视图（View）需要访问它监视的模型（Model），所以应该事先在被它监视的数据那里进行注册。</p>
+<p>3）控制器（Controller），这个概念是在三层中不存在的概念。它主要起到不同层面的组织作用，用于控制应用程序的流程。主要处理事件并作出相应。“事件”主要包括：用户的行为和数据的改变。</p>
+<p>以上就是关于三层架构和MVC在概念上的区别。</p>
+<p>二，WebForm网站和MVC网站运行机制的区别</p>
+<p>①WebForm网站的运行机制</p>
+<p>比如说我们现在要访问一个WebForm站点：<a target="_blank" rel="noopener" href="http://www.google.com.hk/Default.aspx">www.google.com.hk/Default.aspx</a>(仅仅是示例)。我们的浏览器和服务器都是做了哪些动作呢？</p>
+<p>1）首先浏览器会向目的服务器发送请求报文。</p>
+<p>配置过IIS的都知道，网站挂载在服务器上，我们是通过访问虚拟目录的方式访问网站的。这时候目的主机的IIS接收的是访问该虚拟目录下Default.aspx文件的请求；（当然这也是一个非常复杂的过程，包括请求DNS服务器，找到目的主机IP，根据IP地址访问目的主机。复杂的网络过程就不叙述，有兴趣的自己找资料学习）；</p>
+<p>2）服务器端的IIS软件接收到请求后，把请求交给.NET FramWork进行处理；</p>
+<p>3）.NET FramWork会创建Default_aspx类的对象，也就是我们所说的页面对象。（在WebFrom网站创建完，并且编译后Default.aspx会被编译成Default_aspx类）</p>
+<p>到现在的整个过程都还是Http请求，IIS的内部机制会去实现一个IHttphandler的接口，其中该接口实现一个ProcessRequestfang方法</p>
+<p>MSDN是这样解释的</p>
+<p><img src="/images/28164236-c40457a9a6f74c5c8cbbe0b5cf7d8345.png" alt=""></p>
+<p>该ProcessRequest（）方法会去调用对应页面的Page_Load（） 方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 protected void Page_Load(object sender, EventArgs e) 2  &#123; 3 //处理的业务逻辑或者是访问数据库的代码 4 //要输出的Html或者其它内容 5 &#125;</span><br></pre></td></tr></table></figure>
+
+<p>4）返回给浏览器（包括Html，CSS，Js等等）</p>
+<p>流程示意图如下：</p>
+<p><img src="/images/28171603-3e50320974b54e989b9fb7eb44875f41.png" alt=""></p>
+<p>②MVC网站的运行机制</p>
+<p>还比如说我们现在要访问一个MVC站点：<a target="_blank" rel="noopener" href="http://www.google.com.hk/Firstpage/Default">www.google.com.hk/FirstPage/Default</a>(仅仅是示例)。我们的浏览器和服务器又做了哪些动作呢？</p>
+<p>1)浏览器向服务器发送Request请求报文（FirstPage/Default）</p>
+<p>2)服务器端的IIS相应Request请求</p>
+<p>3）.NET FramWork根据路由配置，解析URL，并创建FirstPage类的对象，并调用相应的Default方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 public ActionResult Default() 2  &#123; 3 4 return View();//返回给视图 5 &#125;</span><br></pre></td></tr></table></figure>
+
+<p>4)然后会访问视图文件夹下的Default.cshtml，返回给浏览器（其中包括html,css,js等等）</p>
+<p>流程的示意图如下：</p>
+<p><img src="/images/28230241-4d392722e2aa42c9b7de2c6dd9dde349.png" alt=""></p>
+<p>这只是一个比较简单的运行过程。其实在这过程中发生了很多事情，比如说：执行Global.asax中的Application_Start()方法来完成一些初始化的工作等等，会在以后的文章中继续解析。</p>
+<p>以上就是WebForm网站和MVC网站运行机制的区别。</p>
+<p>那么到底使用MVC的优点比WebForm到底有哪些优点呢？</p>
+<p>①最重要的就是.NET程序员在开发的时候再也不会使用那些被很多人诟病的微软封装的控件了。</p>
+<p>②MVC设计模式降低了模型（Model,业务和数据）和视图的耦合关系。包括我们在开发WebForm网站使用三层架构的思想也是为了降低数据和视图的耦合等；</p>
+<p>③可以复用视图，也就是说同样的数据可以使用不同的视图以不同的图标展示出来。</p>
+<p>——————————————————-理论到此结束—————————————————————</p>
+<p>常用的WebForm开发方式就不举例了，我下边主要演示一个基本的MVC程序的创建和运行过程。</p>
+<p>要创建MVC程序VS肯定是必不可少的，我的开发环境是VS2013，大家请酌情考虑自己的VS版本。</p>
+<p>①首先的打开“文件”→“新建项目”，在左侧的项目栏选择“Visual C#”→“Web”,在右边就可以看到有“ASP.NET Web窗体应用程序”和“ASP.NET MVC 4 Web应用程序”如下图：</p>
+<p><img src="/images/28233447-de089ae275ee417e9a6ba6578a08a8d3.png" alt=""></p>
+<p>②因为要创建MVC程序就选择点击第二个选项然后会看到项目模板，默认的是选择“Internet应用程序”，如果选择默认的话，就会默认的创建一个具有基本功能的站点。我们这里选择“基本”，VS只会创建包含基本框架简的模板</p>
+<p><img src="/images/28234400-1f0ba90fdb514ed88fd2dd1da09eb242.png" alt=""></p>
+<p>③创建完以后我们会在解决方案下看到代码的树状结构，其中包含Models,Views和Controllers三个文件夹</p>
+<p><img src="/images/29004448-3560b6dd86184a7689b6864989d8faed.png" alt=""></p>
+<p>④我们首先创建实体对象Model，在Models文件夹下创建一个Child类，并声明属性和初始化</p>
+<p><a href=""><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 public class Child  2  &#123;  3 //编号  4 private int id;  5  6  7 public int Id  8  &#123;  9 get &#123; return id; &#125; 10 set &#123; id = value; &#125; 11  &#125; 12 13 //姓名 14 private string strName; 15 16 public string StrName 17  &#123; 18 get &#123; return strName; &#125; 19 set &#123; strName = value; &#125; 20  &#125; 21 22 &#125;</span><br></pre></td></tr></table></figure>
+<p><a href=""><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>  </p>
+<p>⑤在Controllers文件夹上右键，“添加”，会看到有“控制器”的选项，如下图：</p>
+<p><img src="/images/29005103-e859cfa5a8d2472e9cd74b77a5b4fd84.png" alt=""></p>
+<p>点击”控制器”后会出现一个“添加控制器”窗体，在控制器名称中”Default1Controller“中”Default1“是默认选中的，我们修改其名称为”HomeController“，</p>
+<p><img src="/images/29010113-dde65162b975441cb60edc946e06a1ec.png" alt=""></p>
+<p>注意：这里的”Default1Controller“中的”*Controller“是必须保留的，主要是因为MVC框架有一个”约定大于配置“的规则</p>
+<p>单击”添加“添加控制器，默认生成的控制器代码，如下：</p>
+<p><a href=""><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 //默认生成的控制器代码  2 public class HomeController : Controller  3  &#123;  4 //  5 // GET: /Home/  6  7 //包含一个Action方法  8 public ActionResult Index()  9  &#123; 10 //返回给视图 11 return View(); 12  &#125; 13 14 &#125;</span><br></pre></td></tr></table></figure>
+<p><a href=""><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>  </p>
+<p>⑥然后我们创建一个集合来初始化在Models中创建的Child类的属性值</p>
+<p><a href=""><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 #region 初始化数据集合 +List InitData()  2 /// &lt;summary&gt;  3 /// 初始化数据集合  4 /// &lt;/summary&gt;  5 /// &lt;returns&gt;&lt;/returns&gt;  6 public List&lt;Models.Child&gt; InitData()  7  &#123;  8  9 List&lt;Models.Child&gt; list = new List&lt;Models.Child&gt;() 10  &#123; 11 new Child()&#123;Id=1,StrName=&quot;你好啊！&quot;&#125;, 12 new Child()&#123;Id=2,StrName=&quot;不好啊！&quot;&#125; 13  &#125;; 14 15 return list; 16  &#125; 17 18 #endregion</span><br></pre></td></tr></table></figure>
+<p><a href=""><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>  </p>
+<p>然后开始编写Action方法，即”ActionResult Index()“方法，</p>
+<p><a href=""><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 /// &lt;summary&gt;  2 /// Action方法（相当于MVC设计模式的Model）  3 /// &lt;/summary&gt;  4 /// &lt;returns&gt;&lt;/returns&gt;  5  6 public ActionResult Index()  7  &#123;  8 //可以处理当前业务（你比如读取数据库，判断等）  9 StringBuilder strBuilder = new StringBuilder(); 10 //创建数据集合，获取数据 11 List&lt;Models.Child&gt; list = InitData(); 12 //遍历集合获取生成的Html代码 13 list.ForEach(d =&gt; 14  &#123; 15 strBuilder.AppendLine(&quot;&lt;div&gt;&quot; + d.Id.ToString() + &quot;&lt;/div&gt;&quot;); 16  &#125;); 17 18 //使用ViewBag传输数据给同名的Indexcshtml视图 19 //ViewBag是一个dynamic类型的集合，可以动态添加任意类型的任意名称和属性 20 ViewBag.HtmlStrBuilder = strBuilder.ToString(); 21 //加载同名视图Index.cshtml 22 return View(); 23 &#125;</span><br></pre></td></tr></table></figure>
+<p><a href=""><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>  </p>
+<p>在其中我们使用ViewBag把数据传输给同名的Views文件夹下的同名视图。</p>
+<p>⑦创建视图接收数据，上面代码的Index方法上右键，会出现”添加视图“，如下图</p>
+<p><img src="/images/29011655-2fc1d2e298d641588ff9a949c044065b.png" alt=""></p>
+<p>之后会在Views文件夹下，生成一个Home文件夹，Home文件夹下面会有一个Index.cshtml文件(这个就是视图文件)</p>
+<p>⑧视图接收数据</p>
+<p><a href=""><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 &lt;html&gt;  2 &lt;head&gt;  3 &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot; /&gt;  4 &lt;title&gt;Index&lt;/title&gt;  5 &lt;/head&gt;  6 &lt;body&gt;  7 &lt;div&gt;  8 &lt;!---------相当于把Action方法中保存的内容输出---------&gt;  9  @Html.Raw( @ViewBag.HtmlStrBuilder) 10 &lt;/div&gt; 11 &lt;/body&gt; 12 &lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p><a href=""><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a>  </p>
+<p>到这里基本上就完成了一个MVC程序的创建，我们运行程序，结果如下：</p>
+<p><img src="/images/29013232-fd960f9fb9a74d639c9e5cbd76b5a330.png" alt=""><br>注意：因为MVC的运行机制跟WebForm不一样，所以浏览的方式也不一样。我们可以直接在Views文件夹上右键，选择在浏览器中查看就可以预览到结果。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2017/10/06/%E3%80%90Asp.Net%E3%80%91WebForm%E5%92%8CMvc%E7%9A%84%E5%8C%BA%E5%88%AB/" title="【Asp.Net】WebForm和Mvc的区别">http://blog.bfsdfs.com/2017/10/06/【Asp.Net】WebForm和Mvc的区别/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Asp-Net/" rel="tag"># Asp.Net</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/09/09/%E3%80%90DIY%E3%80%91%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/" rel="prev" title="【DIY】扫雷游戏">
+      <i class="fa fa-chevron-left"></i> 【DIY】扫雷游戏
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/10/23/%E3%80%90WinForm%E3%80%91%E5%BC%80%E5%8F%91Windows%E6%9C%8D%E5%8A%A1/" rel="next" title="开发Windows服务">
+      开发Windows服务 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '9141019feb7f1e2c8104ada48a61d925',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

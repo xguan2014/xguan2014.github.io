@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="引入库：123456using NPOI.HSSF.UserModel;using NPOI.HPSF;using NPOI.POIFS.FileSystem;using NPOI.SS.UserModel;using NPOI.SS.Util;using System.IO 冻结列123HSSFRow row1 &#x3D; (HSSFRow)sheet.CreateRow(0);row1.CreateC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【NPOI】Execl常用操作">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/03/26/%E3%80%90NPOI%E3%80%91Execl%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="引入库：123456using NPOI.HSSF.UserModel;using NPOI.HPSF;using NPOI.POIFS.FileSystem;using NPOI.SS.UserModel;using NPOI.SS.Util;using System.IO 冻结列123HSSFRow row1 &#x3D; (HSSFRow)sheet.CreateRow(0);row1.CreateC">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-26T14:48:02.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.077Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="Execl操作">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/03/26/%E3%80%90NPOI%E3%80%91Execl%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【NPOI】Execl常用操作 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/03/26/%E3%80%90NPOI%E3%80%91Execl%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【NPOI】Execl常用操作
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-26 22:48:02" itemprop="dateCreated datePublished" datetime="2020-03-26T22:48:02+08:00">2020-03-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>10k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="引入库："><a href="#引入库：" class="headerlink" title="引入库："></a>引入库：</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> NPOI.HSSF.UserModel;</span><br><span class="line"><span class="keyword">using</span> NPOI.HPSF;</span><br><span class="line"><span class="keyword">using</span> NPOI.POIFS.FileSystem;</span><br><span class="line"><span class="keyword">using</span> NPOI.SS.UserModel;</span><br><span class="line"><span class="keyword">using</span> NPOI.SS.Util;</span><br><span class="line"><span class="keyword">using</span> System.IO</span><br></pre></td></tr></table></figure>
+<h3 id="冻结列"><a href="#冻结列" class="headerlink" title="冻结列"></a>冻结列</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HSSFRow row1 = (HSSFRow)sheet.CreateRow(<span class="number">0</span>);</span><br><span class="line">row1.CreateCell(<span class="number">0</span>).SetCellValue(<span class="string">&quot;冻结列&quot;</span>);</span><br><span class="line">sheet.CreateFreezePane(<span class="number">5</span>, <span class="number">0</span>, <span class="number">5</span>, <span class="number">0</span>);<span class="comment">//（冻结几列，冻结几行，从哪列开始显示（&gt;=冻结列数），从哪行开始显示（&gt;=冻结行数））</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">byte</span>[] bytes = System.IO.File.ReadAllBytes(<span class="string">@&quot;D:\12345.jpg&quot;</span>);</span><br><span class="line"><span class="built_in">int</span> pictureIdx = hssfworkbook.AddPicture(bytes, NPOI.SS.UserModel.PictureType.JPEG);</span><br><span class="line">HSSFPatriarch patriarch = (HSSFPatriarch)sheet.CreateDrawingPatriarch();</span><br><span class="line"><span class="comment">//add a picture</span></span><br><span class="line">HSSFClientAnchor anchor = <span class="keyword">new</span> HSSFClientAnchor(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1023</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">5</span>); <span class="comment">//后四个参数分别是c1,r1,c2,r2(c2为下标)（r2为实际行数）</span></span><br><span class="line">HSSFPicture pict = (HSSFPicture)patriarch.CreatePicture(anchor, pictureIdx);</span><br><span class="line"><span class="comment">//显示图片原始大小</span></span><br><span class="line"><span class="comment">//pict.Resize();</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="设置超链接"><a href="#设置超链接" class="headerlink" title="设置超链接"></a>设置超链接</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置显示文本</span></span><br><span class="line">cell.SetCellValue(<span class="string">&quot;链接&quot;</span>);</span><br><span class="line"><span class="comment">//建一个HSSFHyperlink实体，指明链接类型为URL</span></span><br><span class="line"><span class="comment">//HSSFHyperlink link = new HSSFHyperlink(HyperlinkType.URL);</span></span><br><span class="line"><span class="comment">//link.Address = &quot;http://www.baidu.com &quot;;//给HSSFHyperlink的地址赋值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//链接当前文档中</span></span><br><span class="line">HSSFHyperlink link = <span class="keyword">new</span> HSSFHyperlink(HyperlinkType.DOCUMENT);</span><br><span class="line">link.Address = (lsExpExcelSheetName1+<span class="string">&quot;!A1&quot;</span>);<span class="comment">//当前文档的路径</span></span><br><span class="line">cell.Hyperlink = link;<span class="comment">//将链接方式赋值给单元格的Hyperlink即可将链接附加到单元格上</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="设置下拉框"><a href="#设置下拉框" class="headerlink" title="设置下拉框"></a>设置下拉框</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>[] a = &#123;<span class="string">&quot;itemA&quot;</span>, <span class="string">&quot;itemB&quot;</span>, <span class="string">&quot;itemC&quot;</span>&#125;;<span class="comment">//下拉框中的值</span></span><br><span class="line">cell = (HSSFCell)row.CreateCell(<span class="number">6</span>);</span><br><span class="line">CellRangeAddressList regions = <span class="keyword">new</span> CellRangeAddressList(<span class="number">4</span>, <span class="number">4</span>+i, <span class="number">6</span>, <span class="number">6</span>);<span class="comment">//（r1,r2,c1,c2）(全部参数都是下标)</span></span><br><span class="line">DVConstraint constraint = DVConstraint.CreateExplicitListConstraint(a);</span><br><span class="line">HSSFDataValidation dataValidate = <span class="keyword">new</span> HSSFDataValidation(regions, constraint);</span><br><span class="line">sheet.AddValidationData(dataValidate);</span><br></pre></td></tr></table></figure>
+
+<h3 id="批注"><a href="#批注" class="headerlink" title="批注"></a>批注</h3><h4 id="单个批注"><a href="#单个批注" class="headerlink" title="单个批注"></a>单个批注</h4><p>单个批注，只能创建一个，多个会显示错误，被覆盖</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HSSFPatriarch patr1 = sheet.CreateDrawingPatriarch() <span class="keyword">as</span>         HSSFPatriarch;</span><br><span class="line">HSSFComment comment1 = patr1.CreateCellComment(<span class="keyword">new</span> HSSFClientAnchor(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">7</span>)) <span class="keyword">as</span> HSSFComment;</span><br><span class="line">comment1.String = <span class="keyword">new</span> HSSFRichTextString(<span class="string">&quot;作者:\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0&quot;</span>);</span><br><span class="line">HSSFCell hssfcell1 = sheet.CreateRow(<span class="number">10</span>).CreateCell(<span class="number">10</span>) <span class="keyword">as</span> HSSFCell;</span><br><span class="line">hssfcell1.CellComment=comment1;</span><br></pre></td></tr></table></figure>
+
+<h4 id="循环创建批注"><a href="#循环创建批注" class="headerlink" title="循环创建批注"></a>循环创建批注</h4><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">HSSFPatriarch patr =(HSSFPatriarch)sheet.CreateDrawingPatriarch();</span><br><span class="line">CreationHelper facktory = hssfworkbook.GetCreationHelper();</span><br><span class="line">Comment comment = <span class="literal">null</span>;</span><br><span class="line">ClientAnchor anchor = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">10</span>; i &lt; <span class="number">20</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">    Cell cell1 = row.CreateCell(i);</span><br><span class="line">    cell1.SetCellValue(i);</span><br><span class="line">    anchor = facktory.CreateClientAnchor();</span><br><span class="line">    anchor.Col1 = cell1.ColumnIndex;</span><br><span class="line">    anchor.Col2 = cell1.ColumnIndex + <span class="number">1</span>;</span><br><span class="line">    anchor.Row1 = row.RowNum;</span><br><span class="line">    anchor.Row2 = row.RowNum + <span class="number">3</span>;</span><br><span class="line">    comment = patr.CreateCellComment(anchor);</span><br><span class="line">    comment.String = <span class="keyword">new</span> HSSFRichTextString(i.ToString());</span><br><span class="line">    comment.Author = (<span class="string">&quot;nice&quot;</span>);</span><br><span class="line">    cell1.CellComment = (comment);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置单元格样式"><a href="#设置单元格样式" class="headerlink" title="设置单元格样式"></a>设置单元格样式</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">HSSFCellStyle cellStyle = (HSSFCellStyle)hssfworkbook.CreateCellStyle();</span><br><span class="line"><span class="keyword">if</span> (borderType.Length &gt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//设置单元格边框样式</span></span><br><span class="line">    cellStyle.BorderBottom = NPOI.SS.UserModel.CellBorderType.THIN;</span><br><span class="line">    cellStyle.BorderLeft = NPOI.SS.UserModel.CellBorderType.THIN;</span><br><span class="line">    cellStyle.BorderRight = NPOI.SS.UserModel.CellBorderType.THIN;</span><br><span class="line">    cellStyle.BorderTop = NPOI.SS.UserModel.CellBorderType.THIN;</span><br><span class="line">    <span class="comment">//设置单元格背景颜色</span></span><br><span class="line">    <span class="comment">//cellStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.GOLD.index;</span></span><br><span class="line">    cellStyle.FillForegroundColor = NPOI.HSSF.Util.HSSFColor.GREY_40_PERCENT.index;</span><br><span class="line">    cellStyle.FillPattern = FillPatternType.SOLID_FOREGROUND;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置数字类型格式</span></span><br><span class="line">cellStyle.DataFormat = HSSFDataFormat.GetBuiltinFormat(<span class="string">&quot;0.00&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置单元格字体</span></span><br><span class="line">HSSFFont font = (HSSFFont)hssfworkbook.CreateFont();</span><br><span class="line">font.Color = <span class="number">200</span>;<span class="comment">//设置字体颜色</span></span><br><span class="line">font.FontHeight = fontSize;<span class="comment">//设置字体大小</span></span><br><span class="line">font.FontName = <span class="string">&quot;宋体&quot;</span>;<span class="comment">//宋体</span></span><br><span class="line">font.IsItalic = <span class="literal">false</span>;<span class="comment">//是否是斜体</span></span><br><span class="line">font.IsStrikeout = <span class="literal">false</span>;<span class="comment">//是否有中间线</span></span><br><span class="line"><span class="comment">//font.Underline = (byte)FontUnderlineType.DOUBLE;//设置下划线</span></span><br><span class="line">font.FontHeightInPoints = fontSize;</span><br><span class="line"><span class="comment">//设置水平对齐</span></span><br><span class="line"><span class="keyword">if</span> (fontBold == <span class="string">&quot;1&quot;</span>)</span><br><span class="line">    font.Boldweight = (<span class="built_in">short</span>)NPOI.SS.UserModel.FontBoldWeight.BOLD;</span><br><span class="line"><span class="keyword">if</span> (fontAlign == <span class="string">&quot;CENTER&quot;</span>)</span><br><span class="line">    cellStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.CENTER;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (fontAlign == <span class="string">&quot;RIGHT&quot;</span>)</span><br><span class="line">    cellStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.RIGHT;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    cellStyle.Alignment = NPOI.SS.UserModel.HorizontalAlignment.LEFT;</span><br><span class="line"><span class="comment">//设置垂直对齐</span></span><br><span class="line">cellStyle.VerticalAlignment = NPOI.SS.UserModel.VerticalAlignment.CENTER;</span><br><span class="line"></span><br><span class="line">cellStyle.WrapText = <span class="literal">true</span>;</span><br><span class="line">cellStyle.SetFont(font);</span><br><span class="line"><span class="keyword">return</span> cellStyle;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ExeclHelper"><a href="#ExeclHelper" class="headerlink" title="ExeclHelper"></a>ExeclHelper</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> NPOI.HSSF.UserModel;</span><br><span class="line"><span class="keyword">using</span> NPOI.HSSF.Util;</span><br><span class="line"><span class="keyword">using</span> NPOI.SS.UserModel;</span><br><span class="line"><span class="keyword">using</span> NPOI.SS.Util;</span><br><span class="line"><span class="keyword">using</span> NPOI.XSSF.UserModel;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Data;</span><br><span class="line"><span class="keyword">using</span> System.IO;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">static</span> NPOI.HSSF.Util.HSSFColor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Helpers</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ExcelHelper</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">DataToExcel</span>(<span class="params">DataTable dt, List&lt;ExportDataColumn&gt; columnTitle, <span class="built_in">string</span> title, <span class="built_in">string</span> path</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            XSSFWorkbook book = <span class="keyword">new</span> XSSFWorkbook();</span><br><span class="line">            XSSFSheet sheet = book.CreateSheet(<span class="string">&quot;Export&quot;</span>) <span class="keyword">as</span> XSSFSheet;</span><br><span class="line"></span><br><span class="line">            CellRangeAddress region = <span class="keyword">new</span> CellRangeAddress(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, columnTitle.Count - <span class="number">1</span>);</span><br><span class="line">            sheet.AddMergedRegion(region);</span><br><span class="line"></span><br><span class="line">            IFont font12 = book.CreateFont();</span><br><span class="line">            font12.FontHeightInPoints = <span class="number">12</span>;</span><br><span class="line">            font12.FontName = <span class="string">&quot;微软雅黑&quot;</span>;</span><br><span class="line">            font12.Boldweight = <span class="built_in">short</span>.MaxValue;</span><br><span class="line">            font12.Color = Black.Index;</span><br><span class="line"></span><br><span class="line">            ICellStyle cellStyle = book.CreateCellStyle();</span><br><span class="line">            cellStyle.Alignment = HorizontalAlignment.Center;</span><br><span class="line">            cellStyle.BorderBottom = BorderStyle.Thin;</span><br><span class="line">            cellStyle.BorderLeft = BorderStyle.Thin;</span><br><span class="line">            cellStyle.BorderRight = BorderStyle.Thin;</span><br><span class="line">            cellStyle.BorderTop = BorderStyle.Thin;</span><br><span class="line">            cellStyle.SetFont(font12);</span><br><span class="line">            cellStyle.FillBackgroundColor = BlueGrey.Index;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> i = region.FirstRow; i &lt;= region.LastRow; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                IRow row = sheet.CreateRow(i);</span><br><span class="line">                <span class="keyword">for</span> (<span class="built_in">int</span> j = region.FirstColumn; j &lt;= region.LastColumn; j++)</span><br><span class="line">                &#123;</span><br><span class="line">                    ICell singleCell = row.CreateCell((<span class="built_in">short</span>)j);</span><br><span class="line">                    singleCell.CellStyle = cellStyle;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            IRow hrow = sheet.GetRow(<span class="number">0</span>);</span><br><span class="line">            hrow.Height = <span class="number">20</span> * <span class="number">20</span>;</span><br><span class="line">            ICell icellltop0 = hrow.GetCell(<span class="number">0</span>);</span><br><span class="line">            icellltop0.CellStyle = cellStyle;</span><br><span class="line">            icellltop0.SetCellValue(title + <span class="string">&quot;_&quot;</span> + DateTime.Now.ToString(<span class="string">&quot;yyyy-MM-dd&quot;</span>));</span><br><span class="line"></span><br><span class="line">            ICellStyle TitleStyle = book.CreateCellStyle();</span><br><span class="line">            TitleStyle.FillForegroundColor = PaleBlue.Index;</span><br><span class="line">            TitleStyle.FillPattern = FillPattern.SolidForeground;</span><br><span class="line">            TitleStyle.Alignment = HorizontalAlignment.Center;</span><br><span class="line">            TitleStyle.BorderBottom = BorderStyle.Thin;</span><br><span class="line">            TitleStyle.BorderLeft = BorderStyle.Thin;</span><br><span class="line">            TitleStyle.BorderRight = BorderStyle.Thin;</span><br><span class="line">            TitleStyle.BorderTop = BorderStyle.Thin;</span><br><span class="line"></span><br><span class="line">            IRow TitleRow = sheet.CreateRow(<span class="number">1</span>);</span><br><span class="line">            TitleRow.Height = <span class="number">20</span> * <span class="number">15</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; columnTitle.Count; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                ICell cell = TitleRow.CreateCell(i);</span><br><span class="line">                cell.CellStyle = TitleStyle;</span><br><span class="line">                cell.SetCellValue(columnTitle[i].Label);</span><br><span class="line">                sheet.SetColumnWidth(i, columnTitle[i].ColumnWidth);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; dt.Rows.Count; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                IRow row = sheet.CreateRow(i + <span class="number">2</span>);</span><br><span class="line">                <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">0</span>; j &lt; columnTitle.Count; j++)</span><br><span class="line">                &#123;</span><br><span class="line">                    row.CreateCell(j).SetCellValue(dt.Rows[i][columnTitle[j].Prop].ToString());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            ICellStyle borStyle = book.CreateCellStyle();</span><br><span class="line">            borStyle.Alignment = HorizontalAlignment.Center;</span><br><span class="line">            borStyle.BorderBottom = BorderStyle.Thin;</span><br><span class="line">            borStyle.BorderLeft = BorderStyle.Thin;</span><br><span class="line">            borStyle.BorderRight = BorderStyle.Thin;</span><br><span class="line">            borStyle.BorderTop = BorderStyle.Thin;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt;= dt.Rows.Count + <span class="number">1</span>; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                IRow row = sheet.GetRow(i);</span><br><span class="line">                row.Height = <span class="number">20</span> * <span class="number">16</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="number">0</span>; j &lt; columnTitle.Count; j++)</span><br><span class="line">                &#123;</span><br><span class="line">                    ICell singleCell = row.GetCell((<span class="built_in">short</span>)j);</span><br><span class="line">                    singleCell.CellStyle = borStyle;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!Directory.Exists(path))</span><br><span class="line">            &#123;</span><br><span class="line">                Directory.CreateDirectory(path);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">string</span> fileName = title + DateTime.Now.ToString(<span class="string">&quot;yyyyMMddHHmmssff&quot;</span>) + <span class="string">&quot;.xlsx&quot;</span>;</span><br><span class="line">            <span class="keyword">using</span> (FileStream fsWrite = File.OpenWrite(<span class="string">$&quot;<span class="subst">&#123;path&#125;</span>//<span class="subst">&#123;fileName&#125;</span>&quot;</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                book.Write(fsWrite);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> fileName;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> MemoryStream <span class="title">ImportDcExceptionType</span>(<span class="params"><span class="built_in">string</span> filePath</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            IWorkbook workbook = <span class="literal">null</span>;</span><br><span class="line">            FileStream fs;</span><br><span class="line">            <span class="keyword">using</span> (fs = <span class="keyword">new</span> FileStream(filePath, FileMode.Open))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (filePath.EndsWith(<span class="string">&quot;.xlsx&quot;</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    workbook = <span class="keyword">new</span> XSSFWorkbook(fs);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (filePath.EndsWith(<span class="string">&quot;.xls&quot;</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    workbook = <span class="keyword">new</span> HSSFWorkbook(fs);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (workbook != <span class="literal">null</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    ISheet sheet = workbook.GetSheetAt(<span class="number">0</span>);</span><br><span class="line">                    <span class="keyword">if</span> (sheet != <span class="literal">null</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="built_in">int</span> rowCount = sheet.LastRowNum;</span><br><span class="line">                        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt;= rowCount; i++)</span><br><span class="line">                        &#123;</span><br><span class="line">                            IRow row = sheet.GetRow(i);</span><br><span class="line">                            <span class="keyword">var</span> <span class="keyword">value</span> = row.GetCell(<span class="number">0</span>)?.ToString();</span><br><span class="line"></span><br><span class="line">                            ICellStyle cellStyle = workbook.CreateCellStyle();</span><br><span class="line">                            cellStyle.FillForegroundColor = HSSFColor.Red.Index;</span><br><span class="line">                            cellStyle.FillPattern = FillPattern.SolidForeground;</span><br><span class="line">                            row.GetCell(<span class="number">0</span>).CellStyle = cellStyle;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                MemoryStream memoryStream = <span class="keyword">new</span> MemoryStream();</span><br><span class="line">                workbook.Write(memoryStream);</span><br><span class="line">                workbook.Close();</span><br><span class="line">                <span class="keyword">return</span> memoryStream;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> ICellStyle CellStyle &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> ExeclTypeEnum ExeclType &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> IWorkbook Workbook &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> ISheet Sheet &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> ICreationHelper Facktory &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> IDrawing Drawing &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ExcelHelper</span>(<span class="params"><span class="built_in">string</span> filePath, <span class="built_in">int</span> sheetIndex</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">using</span> (FileStream fs = <span class="keyword">new</span> FileStream(filePath, FileMode.Open))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (filePath.EndsWith(<span class="string">&quot;.xlsx&quot;</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    ExeclType = ExeclTypeEnum.XLSX;</span><br><span class="line">                    Workbook = <span class="keyword">new</span> XSSFWorkbook(fs);</span><br><span class="line">                    CellStyle = Workbook.CreateCellStyle();</span><br><span class="line">                    CellStyle.FillForegroundColor = IndexedColors.Red.Index;</span><br><span class="line">                    CellStyle.FillPattern = FillPattern.SolidForeground;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    ExeclType = ExeclTypeEnum.XLS;</span><br><span class="line">                    Workbook = <span class="keyword">new</span> HSSFWorkbook(fs);</span><br><span class="line">                    CellStyle = Workbook.CreateCellStyle();</span><br><span class="line">                    CellStyle.FillForegroundColor = HSSFColor.Red.Index;</span><br><span class="line">                    CellStyle.FillPattern = FillPattern.SolidForeground;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            Sheet = Workbook.GetSheetAt(sheetIndex);</span><br><span class="line">            Facktory = Workbook.GetCreationHelper();</span><br><span class="line">            Drawing = Sheet.CreateDrawingPatriarch();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MarkError</span>(<span class="params">IRow row, <span class="built_in">int</span> indexCell, <span class="built_in">string</span> msg</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            ICell cell = row.GetCell(indexCell);</span><br><span class="line">            <span class="keyword">if</span> (cell <span class="keyword">is</span> <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                cell = row.CreateCell(indexCell);</span><br><span class="line">            &#125;</span><br><span class="line">            IClientAnchor anchor = Facktory.CreateClientAnchor();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> comment = Drawing.CreateCellComment(anchor);</span><br><span class="line">            comment.Author = <span class="string">&quot;Mr.Guan&quot;</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (ExeclTypeEnum.XLSX == ExeclType)</span><br><span class="line">            &#123;</span><br><span class="line">                anchor.Col1 = cell.ColumnIndex;</span><br><span class="line">                anchor.Col2 = cell.ColumnIndex + <span class="number">1</span>;</span><br><span class="line">                anchor.Row1 = row.RowNum;</span><br><span class="line">                anchor.Row2 = row.RowNum + <span class="number">3</span>;</span><br><span class="line">                comment.String = <span class="keyword">new</span> XSSFRichTextString(msg);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (ExeclTypeEnum.XLS == ExeclType)</span><br><span class="line">            &#123;</span><br><span class="line">                anchor.Col1 = cell.ColumnIndex;</span><br><span class="line">                anchor.Col2 = cell.ColumnIndex + <span class="number">3</span>;</span><br><span class="line">                anchor.Row1 = row.RowNum;</span><br><span class="line">                anchor.Row2 = row.RowNum + <span class="number">5</span>;</span><br><span class="line">                comment.String = <span class="keyword">new</span> HSSFRichTextString(msg);</span><br><span class="line">            &#125;</span><br><span class="line">            cell.CellComment = comment;</span><br><span class="line">            cell.CellStyle = CellStyle;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">enum</span> ExeclTypeEnum</span><br><span class="line">    &#123;</span><br><span class="line">        XLSX = <span class="number">0</span>,</span><br><span class="line">        XLS = <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ExportDataColumn</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Prop &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Label &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> ColumnWidth &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/03/26/%E3%80%90NPOI%E3%80%91Execl%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" title="【NPOI】Execl常用操作">http://blog.bfsdfs.com/2020/03/26/【NPOI】Execl常用操作/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Execl%E6%93%8D%E4%BD%9C/" rel="tag"># Execl操作</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/18/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80/" rel="prev" title="正则表达式基础">
+      <i class="fa fa-chevron-left"></i> 正则表达式基础
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/28/%E3%80%90CSharp%E3%80%91%E9%9B%86%E5%90%88%E6%95%B0%E7%BB%84/" rel="next" title="【CSharp】集合数组">
+      【CSharp】集合数组 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E5%BA%93%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">引入库：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%BB%E7%BB%93%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">冻结列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87"><span class="nav-number">3.</span> <span class="nav-text">插入图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E8%B6%85%E9%93%BE%E6%8E%A5"><span class="nav-number">4.</span> <span class="nav-text">设置超链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E4%B8%8B%E6%8B%89%E6%A1%86"><span class="nav-number">5.</span> <span class="nav-text">设置下拉框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E6%B3%A8"><span class="nav-number">6.</span> <span class="nav-text">批注</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E4%B8%AA%E6%89%B9%E6%B3%A8"><span class="nav-number">6.1.</span> <span class="nav-text">单个批注</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E5%88%9B%E5%BB%BA%E6%89%B9%E6%B3%A8"><span class="nav-number">6.2.</span> <span class="nav-text">循环创建批注</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%8D%95%E5%85%83%E6%A0%BC%E6%A0%B7%E5%BC%8F"><span class="nav-number">7.</span> <span class="nav-text">设置单元格样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ExeclHelper"><span class="nav-number">8.</span> <span class="nav-text">ExeclHelper</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '9a4b3d5452dfdd5af9a3dd3df40f5125',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

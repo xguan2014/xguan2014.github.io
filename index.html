@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/12/18/%E3%80%90%E8%AE%BE%E8%AE%A1%E3%80%91%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E5%AE%9A%E4%B9%89VO%EF%BC%8CBO%EF%BC%8CPO%EF%BC%8CDO%EF%BC%8CDTO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/18/%E3%80%90%E8%AE%BE%E8%AE%A1%E3%80%91%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E5%AE%9A%E4%B9%89VO%EF%BC%8CBO%EF%BC%8CPO%EF%BC%8CDO%EF%BC%8CDTO/" class="post-title-link" itemprop="url">【设计】项目开发中定义VO，BO，PO，DO，DTO</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-18 13:09:58" itemprop="dateCreated datePublished" datetime="2021-12-18T13:09:58+08:00">2021-12-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/javazhiyin/p/15682813.html">https://www.cnblogs.com/javazhiyin/p/15682813.html</a></p>
+</blockquote>
+<p>存在即是合理的，业务复杂，人员协同性要求高的场景下，这些规范性的东西不按着来虽然不会出错，程序照样跑，但是遵守规范会让程序更具扩展性和可读性，都是前辈血淋淋的宝贵经验，为什么不用？</p>
+<p>随着现在后端编程标准化程度越来越高，各种编程模型层出不穷。作为Java开发人员，大部分人不免要接触VO，BO，PO，DO，DTO之类的，但很多同学对这些概念一直以来都是云里雾里，团队开发过程中也总是处于混乱的状态，抓起来就用，本来是规范性的东西，却反而导致更加混乱了。</p>
+<p>今天我们把这些概念掰开揉碎来讲解一下，力求有一个清晰的理解，在开发中能有所助益。文中又理解不到位的，也欢迎大家斧正。</p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ul>
+<li><p>VO（<code>View Object</code>）：<strong>视图对象</strong>，用于展示层，它的作用是把某个指定页面（或组件）的所有数据封装起来。</p>
+</li>
+<li><p>DTO（<code>Data Transfer Object</code>）：<strong>数据传输对象</strong>，这个概念来源于J2EE的设计模式，原来的目的是为了EJB的分布式应用提供粗粒度的数据实体，以减少分布式调用的次数，从而提高分布式调用的性能和降低网络负载，但在这里，更符合泛指用于展示层与服务层之间的数据传输对象。</p>
+</li>
+<li><p>BO（<code>Business Object</code>）：<strong>业务对象</strong>，把业务逻辑封装为一个对象，这个对象可以包括一个或多个其它的对象。</p>
+</li>
+<li><p>PO（<code>Persistent Object</code>）：<strong>持久化对象</strong>，它跟持久层（通常是关系型数据库）的数据结构形成一一对应的映射关系，如果持久层是关系型数据库，那么，数据表中的每个字段（或若干个）就对应PO的一个（或若干个）属性。</p>
+</li>
+<li><p>DO（<code>Domain Object</code>）：<strong>领域对象</strong>，就是从现实世界中抽象出来的有形或无形的业务实体。</p>
+</li>
+</ul>
+<p>如果光看这些概念，可能大部分人都理解，但还是很绕，具体用的时候还是不能很好区分，我们来横向做个比较，理解会加深一些。</p>
+<h3 id="易混点一：VO和DTO"><a href="#易混点一：VO和DTO" class="headerlink" title="易混点一：VO和DTO"></a>易混点一：VO和DTO</h3><p>首先VO是最常用的，但对于这个概念，网上也是众说纷纭，value object 或 view object，一般说视图对象或者值对象，我更倾向理解为视图对象。说白了它就是展示用的，不管展示方式是网页，还是客户端，还是APP，只要是这个东西是让人看到的，我们就把它封装为VO。</p>
+<p>VO比较容易混淆的是DTO，DTO是展示层与服务层之间传递数据的对象，可以这样说，对于绝大部分的应用场景来说，DTO和VO的属性值基本是一致的，而且他们通常都是POJO，那么既然有了VO，为什么还需要DTO呢？</p>
+<p><strong>我们举例来说明一下：</strong></p>
+<p>某公司有一个后台服务，服务层有一个getUser的方法返回一个系统用户，包含sex(性别)、年龄。对于服务层来说，DTO只从语义上定义，可能是这样的：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"> <span class="attr">&quot;gender&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span></span><br><span class="line"> <span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">35</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>但这个服务同时供多个客户端使用（不同门户），而不同的客户端对于表现层的要求有所不同，比如管理端要求显示准确的年龄，而应用端为了保护客户隐私，只需要显示一个年龄段即可。</p>
+<p>管理端VO：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"> <span class="attr">&quot;gender&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span></span><br><span class="line"> <span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">35</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>应用端VO：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"> <span class="attr">&quot;gender&quot;</span><span class="punctuation">:</span><span class="string">&quot;男&quot;</span><span class="punctuation">,</span></span><br><span class="line"> <span class="attr">&quot;age&quot;</span><span class="punctuation">:</span><span class="number">30</span>~<span class="number">40</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>从这个例子可以看出，DTO很有存在的必要，根据职责单一原则，服务层只负责业务，与具体的表现形式无关，DTO不应该出现与表现形式的耦合，DTO定义的是原始数据，VO再对DTO数据进行解释。这下VO和DTO用法就清晰很多了。</p>
+<h3 id="易混点二：BO和PO"><a href="#易混点二：BO和PO" class="headerlink" title="易混点二：BO和PO"></a>易混点二：BO和PO</h3><p>PO是持久对象，这个很好理解，就是实体和数据库字段的对应，一个PO的数据结构对应着库中表的结构，表中的一条记录就是一个PO属性，大多数情况下，PO仅仅作为PO只是用来增删改使用。</p>
+<p>PO比较容易混淆的是BO，BO是业务对象，对应的是某个具体的业务块，可以包含多个属性、对象。简单点来说，我们可以把BO看作是PO的组合。</p>
+<p><strong>我们举例来说明一下：</strong></p>
+<p>PO-1是交易记录对象，PO-2是登录记录对象，PO-3是商品浏览记录对象，PO-4是添加购物车记录对象，PO-5是搜索记录对象，BO是个人网站行为对象，BO对象：{PO-1;PO-2;PO-3;PO-4;PO-5}。这样做的优点不言而喻，维护代码的时候查看BO，就能知道这块逻辑涉及多少表（PO）。</p>
+<h3 id="易混点三：BO和DTO"><a href="#易混点三：BO和DTO" class="headerlink" title="易混点三：BO和DTO"></a>易混点三：BO和DTO</h3><p>搞清楚了BO和PO各自的用途后，我们会发现BO和DTO有重叠功能，一样可以对PO进行排列组合，那BO的存在的意义是什么呢？</p>
+<p>从用途上进行根本的区别，BO是业务对象，DTO是数据传输对象，虽然BO也可以排列组合数据，但它的功能是对内的，比如上个例子中的BO对象包括{PO-1;PO-2;PO-3;PO-4;PO-5}还有其他字段属性，但在提供对外接口时，BO对象中的某些属性对象可能用不到或者不方便对外暴露，那么此时DTO只需要在BO的基础上，抽取自己需要的数据，然后对外提供。</p>
+<p>在这个关系上，通常不会有数据内容的变化，内容变化要么在BO内部业务计算的时候完成，要么在解释VO的时候完成。</p>
+<h3 id="DO"><a href="#DO" class="headerlink" title="DO"></a>DO</h3><p>DO是领域对象，就是从现实世界中抽象出来的有形或无形的业务实体。事实上，DO和PO在绝大部分情况下是一一对应的。阿里巴巴的开发手册中的定义DO等同于PO，即与数据库表结构一一对应，通过DAO层向上传输数据源对象。</p>
+<hr>
+<p>上一张图，更加直观的展示这些名词使用的节点：</p>
+<p><img src="/images/java9-1639321228.png" alt=""></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>VO，BO，PO，DTO这样分层还是很有意义的。尤其在团队成员较多的情况下，结构更加一目了然，同时也能很大程度避免多端系统数据所需不一致时，有人修改属性影响其他页面。但也完全没有必要教条主义，把这些全部用上，需要根据所开发的业务复杂度来取舍，如果本身业务逻辑不负责，照搬全上反而让开发变的更复杂。</p>
+<p>例如业务不复杂，根本没有多端展示的差异化，VO可以直接拿掉，直接使用DTO传输到前端数据即可。</p>
+<p>同时在使用过程中，最重要的是要在团队中达成共识，概念一致，如果使用了这些，但各按各的理解来，甚至抓起来就直接用，反而会让代码变得更乱，还不如直接POJO、DTO打天下。</p>
+<p>另附这些概念命名规范：</p>
+<ul>
+<li>数据对象：xxxPO，xxx即为数据表名。(也可DO)</li>
+<li>数据传输对象：xxxDTO，xxx为业务领域相关的名称。</li>
+<li>展示对象：xxxVO，xxx一般为网页名称。</li>
+<li>业务对象：xxxBO，xxx是业务名称。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/12/11/%E3%80%90%E5%B7%A5%E5%85%B7%E3%80%91WindowsTerminal%E8%AE%BE%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/11/%E3%80%90%E5%B7%A5%E5%85%B7%E3%80%91WindowsTerminal%E8%AE%BE%E7%BD%AE/" class="post-title-link" itemprop="url">【工具】WindowsTerminal设置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-11 18:48:35" itemprop="dateCreated datePublished" datetime="2021-12-11T18:48:35+08:00">2021-12-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">常用工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>转自：<a target="_blank" rel="noopener" href="https://blog.oldzeng.com/archives/windowsterminalconfig">https://blog.oldzeng.com/archives/windowsterminalconfig</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/microsoft/terminal">WindowsTerminal</a> 更新到0.7了， 支持分屏和移动标签， 真香。 但是现在其配置文件和基本设置还不是特别好上手， <strong>有点类似早期的VS Code</strong> ，所以这里记录一下常规的设置， 以便使用。</p>
+</blockquote>
+<blockquote>
+<p>更新日期: 2020-12-26, 目前版本: 1.3</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>推荐直接从<a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/p/windows-terminal-preview/9n0dx20hk701?activetab=pivot:overviewtab">Windows应用商店下载</a></p>
+<ul>
+<li>快捷键：<ul>
+<li><code>Alt</code> <code>Shift</code> <code>+</code> : 竖向分屏</li>
+<li><code>Alt</code> <code>Shift</code> <code>-</code> : 横向分屏</li>
+<li><code>Alt</code> <code>Shift</code> <code>方向键</code> : 调整分屏大小</li>
+<li><code>Alt</code> <code>方向键</code> : 切换当前分屏</li>
+</ul>
+</li>
+</ul>
+<h2 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h2><p>如果在之前已经安装过了的话， 升级之后， 配置文件还是老版本的配置文件的样子，这样导致一个问题就是会有一个额外的标题栏， 于是打开就会出现有两个标题栏的丑东西。 解决的办法也比较简单， 把配置文件换成新的配置文件的样子就可以了：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// To view the default settings, hold &quot;alt&quot; while clicking on the &quot;Settings&quot; button.</span></span><br><span class="line"><span class="comment">// For documentation on these settings, see: https://aka.ms/terminal-documentation</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://aka.ms/terminal-profiles-schema&quot;</span><span class="punctuation">,</span></span><br><span class="line"> </span><br><span class="line">    <span class="attr">&quot;defaultProfile&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;61c54bbd-c2c6-5271-96e7-009a87ff44bf&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line"> </span><br><span class="line">    <span class="attr">&quot;profiles&quot;</span><span class="punctuation">:</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="comment">// Make changes here to the powershell.exe profile</span></span><br><span class="line">            <span class="attr">&quot;guid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;61c54bbd-c2c6-5271-96e7-009a87ff44bf&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PowerShell&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;commandline&quot;</span><span class="punctuation">:</span> <span class="string">&quot;powershell.exe&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;hidden&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;useAcrylic&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;cursorShape&quot;</span><span class="punctuation">:</span> <span class="string">&quot;filledBox&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;scrollbarState&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hidden&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="comment">// Make changes here to the cmd.exe profile</span></span><br><span class="line">            <span class="attr">&quot;guid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;0caa0dad-35be-5f56-a8ff-afceeeaa6101&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cmd&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;commandline&quot;</span><span class="punctuation">:</span> <span class="string">&quot;CMD&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;hidden&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;guid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;b453ae62-4e3d-5e58-b989-0a998ec441b8&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;hidden&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Azure Cloud Shell&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Windows.Terminal.Azure&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">// Add custom color schemes to this array</span></span><br><span class="line">    <span class="attr">&quot;schemes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">// Add any keybinding overrides to this array.</span></span><br><span class="line">    <span class="comment">// To unbind a default keybinding, set the command to &quot;unbound&quot;</span></span><br><span class="line">    <span class="attr">&quot;keybindings&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>到这一步， 东西“又不是不能用”了， 下面做一些锦上添花的东西</p>
+<h2 id="优化配置"><a href="#优化配置" class="headerlink" title="优化配置"></a>优化配置</h2><h3 id="1-添加到右键菜单"><a href="#1-添加到右键菜单" class="headerlink" title="1. 添加到右键菜单"></a>1. 添加到右键菜单</h3><p>这么个刚需的东西现在竟然需要手动配置， 有点不太友好。 实现的原理也很简单， 就是在注册表中写入一条右键菜单配置， 为了美观一点，我么给它加上一个图标：</p>
+<ol>
+<li><p>下载<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/microsoft/terminal/master/res/terminal.ico">图标文件</a>, 将图标文件保存到某个目录中，可以在<code>Local</code>目录下新建个子目录， 如： <code>C:\Users\[用户名]\AppData\Local\terminal</code> 喜欢原理cmd图标的也可以用这个： <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/microsoft/terminal/master/res/console.ico">https://raw.githubusercontent.com/microsoft/terminal/master/res/console.ico</a></p>
+</li>
+<li><p>配置注册表 将下面代码保存成<code>aa.reg</code>文件, 命名随意， 路径替换， 双击运行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT\Directory\Background\shell\wt]</span><br><span class="line">@=&quot;Terminal here&quot;</span><br><span class="line">&quot;Icon&quot;=&quot;C:\\Users\\[用户名]\\AppData\\Local\\terminal\\terminal.ico&quot;</span><br><span class="line"></span><br><span class="line">[HKEY_CLASSES_ROOT\Directory\Background\shell\wt\command]</span><br><span class="line">@=&quot;C:\\Users\\[用户名]\\AppData\\Local\\Microsoft\\WindowsApps\\wt.exe&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改配置 上面一步， 成功实现添加右键菜单， 但是打开之后都是默认路径。 所以需要手动改一下路径。 配置文件的每一个<code>profile</code>配置下都加上这么一行：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;startingDirectory&quot;: &quot;./&quot;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="2-自定义主题"><a href="#2-自定义主题" class="headerlink" title="2. 自定义主题"></a>2. 自定义主题</h3><p>原生主题FFF字色有点晃眼， 此时自己可以定义一套Schema来自定义主题， 我现在用的这份主题配置不是原创， 网上抄的， 但是找不到源码了。 具体的做法就是在<code>Schema</code>数组中添加一个对象， 配置好对应的颜色， 然还在想要使用主题的 <code>Profile</code> 对象中指定 <code>colorScheme</code> 就可以了。 最后的配置放在最后</p>
+<h3 id="3-设置背景透明和配置图片"><a href="#3-设置背景透明和配置图片" class="headerlink" title="3. 设置背景透明和配置图片"></a>3. 设置背景透明和配置图片</h3><p>这两个属性设置也是在<code>Profile</code> 中设置， 现在的设置也很简单</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;useAcrylic&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>        <span class="comment">// 打开透明效果</span></span><br><span class="line"><span class="attr">&quot;acrylicOpacity&quot;</span><span class="punctuation">:</span> <span class="number">0.8</span><span class="punctuation">,</span>     <span class="comment">// 背景透明度</span></span><br><span class="line"></span><br><span class="line"><span class="attr">&quot;backgroundImage&quot;</span><span class="punctuation">:</span> <span class="string">&quot;E:\\Images\\wallpaper\\1.jpg&quot;</span><span class="punctuation">,</span> <span class="comment">// 背景图片效果</span></span><br><span class="line"><span class="attr">&quot;backgroundImageOpacity&quot;</span><span class="punctuation">:</span> <span class="number">0.3</span><span class="punctuation">,</span>                        <span class="comment">// 背景图片透明度</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-设置SSH连接快捷方式"><a href="#4-设置SSH连接快捷方式" class="headerlink" title="4. 设置SSH连接快捷方式"></a>4. 设置SSH连接快捷方式</h3><p>设置SSH远程连接也是一样, 通过添加一个Profile就可以完成. 具体做法是， 添加一个新的Profile， 设置基本属性后， 添加一条 <code>commonLine</code> 的属性， 如：</p>
+<p>code</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;commonLine&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ssh someone@123.231.132.123`</span></span><br></pre></td></tr></table></figure>
+
+<p>为了省去输入密码的步骤， 可以将ssh公钥上传至对应的服务器中， 比如对应上面这条配置， 具体做法如下：</p>
+<ol>
+<li>找到<code>123.231.132.123</code>机器上面<code>/home/someone/.ssh/authorized_keys</code> 文件， 如果没有， 则依次创建</li>
+<li>复制本机公钥的内容（<code>C:\Users\[用户名].ssh\id_rsa.pub</code>) 到上面创建的文件中。</li>
+</ol>
+<h3 id="集成-GitBash"><a href="#集成-GitBash" class="headerlink" title="集成 GitBash"></a>集成 GitBash</h3><p>如果电脑安装了 Git, 可以将 GitBash 集成到 Terminal 中, 体验效果炫酷且无缝切换的客户端. 具体的方法就是配置一个新的Profile , 需要注意的是, 执行文件的路径, 不是 Git 安装目录下的 <code>git-bash.exe</code> , 而是 <code>bin/bash.exe</code> , 然后再找个合适的图标就好了, <a target="_blank" rel="noopener" href="https://gitforwindows.org/img/gwindows_logo.png">参考图标</a>:</p>
+<p>code</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;guid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;714caed7-ef94-468e-b73c-797c4b064fa6&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Git&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;icon&quot;</span><span class="punctuation">:</span> <span class="string">&quot;C:\\Program Files\\Git\\git.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;commandline&quot;</span><span class="punctuation">:</span> <span class="string">&quot;C:\\Program Files\\Git\\bin\\bash.exe&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="集成-WSL"><a href="#集成-WSL" class="headerlink" title="集成 WSL"></a>集成 WSL</h3><p>如果 Windows 安装了 WSL, 会自动配置一个对应操作系统的 Profile, 如果没有的话, 也可以自己配置, 大概内容如下:</p>
+<p>code</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;guid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;98580abb-df41-5a69-97cc-d558b1e5c68a&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;centos8&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Windows.Terminal.Wsl&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>搞定。</p>
+<hr>
+<p>最终效果： <img src="/images/terminal_202012-3d45b974124248d38d72ee987d88f988.png" alt=""></p>
+<p>附上配置文件：</p>
+<p>code</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// To view the default settings, hold &quot;alt&quot; while clicking on the &quot;Settings&quot; button.</span></span><br><span class="line"><span class="comment">// For documentation on these settings, see: https://aka.ms/terminal-documentation</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;$schema&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://aka.ms/terminal-profiles-schema&quot;</span><span class="punctuation">,</span></span><br><span class="line"> </span><br><span class="line">    <span class="attr">&quot;defaultProfile&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;61c54bbd-c2c6-5271-96e7-009a87ff44bf&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line"> </span><br><span class="line">    <span class="attr">&quot;profiles&quot;</span><span class="punctuation">:</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="comment">// Make changes here to the powershell.exe profile</span></span><br><span class="line">            <span class="attr">&quot;guid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;61c54bbd-c2c6-5271-96e7-009a87ff44bf&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PowerShell&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;commandline&quot;</span><span class="punctuation">:</span> <span class="string">&quot;powershell.exe&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;hidden&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;startingDirectory&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;fontFace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Cascadia Code&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;acrylicOpacity&quot;</span><span class="punctuation">:</span> <span class="number">0.8</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;useAcrylic&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;colorScheme&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Firewatch&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;cursorColor&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#FFFFFF&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;cursorShape&quot;</span><span class="punctuation">:</span> <span class="string">&quot;filledBox&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;fontSize&quot;</span><span class="punctuation">:</span> <span class="number">12</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;padding&quot;</span><span class="punctuation">:</span> <span class="string">&quot;8, 8, 8, 8&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;backgroundImage&quot;</span><span class="punctuation">:</span> <span class="string">&quot;E:\\Images\\wallpaper\\1.jpg&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;backgroundImageOpacity&quot;</span><span class="punctuation">:</span> <span class="number">0.3</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;scrollbarState&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hidden&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="comment">// Make changes here to the cmd.exe profile</span></span><br><span class="line">            <span class="attr">&quot;guid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;0caa0dad-35be-5f56-a8ff-afceeeaa6101&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cmd&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;commandline&quot;</span><span class="punctuation">:</span> <span class="string">&quot;CMD&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;hidden&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;startingDirectory&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;fontFace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Cascadia Code&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;guid&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;b453ae62-4e3d-5e58-b989-0a998ec441b8&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;hidden&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Azure Cloud Shell&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Windows.Terminal.Azure&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;startingDirectory&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;fontFace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Cascadia Code&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">// Add custom color schemes to this array</span></span><br><span class="line">    <span class="attr">&quot;schemes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Firewatch&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;black&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#585f6d&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;red&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#d95360&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;green&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#5ab977&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;yellow&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#dfb563&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;blue&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#4d89c4&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;purple&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#d55119&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;cyan&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#44a8b6&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;white&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#e6e5ff&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;brightBlack&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#585f6d&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;brightRed&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#d95360&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;brightGreen&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#5ab977&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;brightYellow&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#dfb563&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;brightBlue&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#4c89c5&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;brightPurple&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#d55119&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;brightCyan&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#44a8b6&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;brightWhite&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#e6e5ff&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;background&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#1e2027&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;foreground&quot;</span><span class="punctuation">:</span> <span class="string">&quot;#f3f3f3&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">// Add any keybinding overrides to this array.</span></span><br><span class="line">    <span class="comment">// To unbind a default keybinding, set the command to &quot;unbound&quot;</span></span><br><span class="line">    <span class="attr">&quot;keybindings&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span> </span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/10/30/%E3%80%90Redis%E3%80%91%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/30/%E3%80%90Redis%E3%80%91%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">【Redis】分布式锁实现</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-30 17:00:50" itemprop="dateCreated datePublished" datetime="2021-10-30T17:00:50+08:00">2021-10-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>转自：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903830442737671">https://juejin.cn/post/6844903830442737671</a></p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇文章主要介绍基于Redis的分布式锁实现到底是怎么一回事，其中参考了许多大佬写的文章，算是对分布式锁做一个总结</p>
+<h2 id="分布式锁概览"><a href="#分布式锁概览" class="headerlink" title="分布式锁概览"></a>分布式锁概览</h2><p>在多线程的环境下，为了保证一个代码块在同一时间只能由一个线程访问，Java中我们一般可以使用synchronized语法和ReetrantLock去保证，这实际上是本地锁的方式。但是现在公司都是流行分布式架构，在分布式环境下，如何保证不同节点的线程同步执行呢？</p>
+<p>实际上，对于分布式场景，我们可以使用分布式锁，它是控制分布式系统之间<strong>互斥访问共享资源</strong>的一种方式。</p>
+<p>比如说在一个分布式系统中，多台机器上部署了多个服务，当客户端一个用户发起一个数据插入请求时，如果没有分布式锁机制保证，那么那多台机器上的多个服务可能进行并发插入操作，导致数据重复插入，对于某些不允许有多余数据的业务来说，这就会造成问题。而分布式锁机制就是为了解决类似这类问题，保证多个服务之间互斥的访问共享资源，如果一个服务抢占了分布式锁，其他服务没获取到锁，就不进行后续操作。大致意思如下图所示（不一定准确）：</p>
+<p><img src="/images/16a53749547937bb_tplv-t2oaga2asx-zoom-in-crop-mark_1304_0_0_0.awebp" alt="分布式锁"></p>
+<h3 id="分布式锁的特点"><a href="#分布式锁的特点" class="headerlink" title="分布式锁的特点"></a>分布式锁的特点</h3><p>分布式锁一般有如下的特点：</p>
+<ul>
+<li>互斥性： 同一时刻只能有一个线程持有锁</li>
+<li>可重入性： 同一节点上的同一个线程如果获取了锁之后能够再次获取锁</li>
+<li>锁超时：和J.U.C中的锁一样支持锁超时，防止死锁</li>
+<li>高性能和高可用： 加锁和解锁需要高效，同时也需要保证高可用，防止分布式锁失效</li>
+<li>具备阻塞和非阻塞性：能够及时从阻塞状态中被唤醒</li>
+</ul>
+<h3 id="分布式锁的实现方式"><a href="#分布式锁的实现方式" class="headerlink" title="分布式锁的实现方式"></a>分布式锁的实现方式</h3><p>我们一般实现分布式锁有以下几种方式：</p>
+<ul>
+<li>基于数据库</li>
+<li>基于Redis</li>
+<li>基于zookeeper</li>
+</ul>
+<p>本篇文章主要介绍基于Redis如何实现分布式锁</p>
+<h2 id="Redis的分布式锁实现"><a href="#Redis的分布式锁实现" class="headerlink" title="Redis的分布式锁实现"></a>Redis的分布式锁实现</h2><h3 id="1-利用setnx-expire命令-错误的做法"><a href="#1-利用setnx-expire命令-错误的做法" class="headerlink" title="1. 利用setnx+expire命令 (错误的做法)"></a>1. 利用setnx+expire命令 (错误的做法)</h3><p>Redis的SETNX命令，setnx key value，将key设置为value，当键不存在时，才能成功，若键存在，什么也不做，成功返回1，失败返回0 。 SETNX实际上就是SET IF NOT Exists的缩写</p>
+<p>因为分布式锁还需要超时机制，所以我们利用expire命令来设置，所以利用setnx+expire命令的核心代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public boolean tryLock(String key,String requset,int timeout) &#123;</span><br><span class="line">    Long result = jedis.setnx(key, requset);</span><br><span class="line">    // result = 1时，设置成功，否则设置失败</span><br><span class="line">    if (result == 1L) &#123;</span><br><span class="line">        return jedis.expire(key, timeout) == 1L;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>实际上上面的步骤是有问题的，setnx和expire是分开的两步操作，不具有原子性，如果执行完第一条指令应用异常或者重启了，锁将无法过期。</p>
+<p>一种改善方案就是使用Lua脚本来保证原子性（包含setnx和expire两条指令）</p>
+<h3 id="2-使用Lua脚本（包含setnx和expire两条指令）"><a href="#2-使用Lua脚本（包含setnx和expire两条指令）" class="headerlink" title="2. 使用Lua脚本（包含setnx和expire两条指令）"></a>2. 使用Lua脚本（包含setnx和expire两条指令）</h3><p>代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public boolean tryLock_with_lua(String key, String UniqueId, int seconds) &#123;</span><br><span class="line">    String lua_scripts = &quot;if redis.call(&#x27;setnx&#x27;,KEYS[1],ARGV[1]) == 1 then&quot; +</span><br><span class="line">            &quot;redis.call(&#x27;expire&#x27;,KEYS[1],ARGV[2]) return 1 else return 0 end&quot;;</span><br><span class="line">    List&lt;String&gt; keys = new ArrayList&lt;&gt;();</span><br><span class="line">    List&lt;String&gt; values = new ArrayList&lt;&gt;();</span><br><span class="line">    keys.add(key);</span><br><span class="line">    values.add(UniqueId);</span><br><span class="line">    values.add(String.valueOf(seconds));</span><br><span class="line">    Object result = jedis.eval(lua_scripts, keys, values);</span><br><span class="line">    //判断是否成功</span><br><span class="line">    return result.equals(1L);</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-使用-set-key-value-EX-seconds-PX-milliseconds-NX-XX-命令-正确做法"><a href="#3-使用-set-key-value-EX-seconds-PX-milliseconds-NX-XX-命令-正确做法" class="headerlink" title="3. 使用 set key value [EX seconds][PX milliseconds][NX|XX] 命令 (正确做法)"></a>3. 使用 set key value [EX seconds][PX milliseconds][NX|XX] 命令 (正确做法)</h3><p>Redis在 2.6.12 版本开始，为 SET 命令增加一系列选项：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET key value[EX seconds][PX milliseconds][NX|XX]</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>EX seconds: 设定过期时间，单位为秒</li>
+<li>PX milliseconds: 设定过期时间，单位为毫秒</li>
+<li>NX: 仅当key不存在时设置值</li>
+<li>XX: 仅当key存在时设置值</li>
+</ul>
+<p>set命令的nx选项，就等同于setnx命令，代码过程如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public boolean tryLock_with_set(String key, String UniqueId, int seconds) &#123;</span><br><span class="line">    return &quot;OK&quot;.equals(jedis.set(key, UniqueId, &quot;NX&quot;, &quot;EX&quot;, seconds));</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>value必须要具有唯一性，我们可以用UUID来做，设置随机字符串保证唯一性，至于为什么要保证唯一性？假如value不是随机字符串，而是一个固定值，那么就可能存在下面的问题：</p>
+<ul>
+<li>1.客户端1获取锁成功</li>
+<li>2.客户端1在某个操作上阻塞了太长时间</li>
+<li>3.设置的key过期了，锁自动释放了</li>
+<li>4.客户端2获取到了对应同一个资源的锁</li>
+<li>5.客户端1从阻塞中恢复过来，因为value值一样，所以执行释放锁操作时就会释放掉客户端2持有的锁，这样就会造成问题</li>
+</ul>
+<p>所以通常来说，在释放锁时，我们需要对value进行验证</p>
+<h4 id="释放锁的实现"><a href="#释放锁的实现" class="headerlink" title="释放锁的实现"></a>释放锁的实现</h4><p>释放锁时需要验证value值，也就是说我们在获取锁的时候需要设置一个value，不能直接用del key这种粗暴的方式，因为直接del key任何客户端都可以进行解锁了，所以<strong>解锁时，我们需要判断锁是否是自己的，基于value值来判断</strong>，代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public boolean releaseLock_with_lua(String key,String value) &#123;</span><br><span class="line">    String luaScript = &quot;if redis.call(&#x27;get&#x27;,KEYS[1]) == ARGV[1] then &quot; +</span><br><span class="line">            &quot;return redis.call(&#x27;del&#x27;,KEYS[1]) else return 0 end&quot;;</span><br><span class="line">    return jedis.eval(luaScript, Collections.singletonList(key), Collections.singletonList(value)).equals(1L);</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>这里使用Lua脚本的方式，尽量保证原子性。</p>
+<p>使用 <code>set key value [EX seconds][PX milliseconds][NX|XX]</code> 命令 看上去很OK，实际上在Redis集群的时候也会出现问题，比如说A客户端在Redis的master节点上拿到了锁，但是这个加锁的key还没有同步到slave节点，master故障，发生故障转移，一个slave节点升级为master节点，B客户端也可以获取同个key的锁，但客户端A也已经拿到锁了，这就导致多个客户端都拿到锁。</p>
+<p>所以针对Redis集群这种情况，还有其他方案</p>
+<h3 id="4-Redlock算法-与-Redisson-实现"><a href="#4-Redlock算法-与-Redisson-实现" class="headerlink" title="4. Redlock算法 与 Redisson 实现"></a>4. Redlock算法 与 Redisson 实现</h3><p>Redis作者 antirez基于分布式环境下提出了一种更高级的分布式锁的实现Redlock，原理如下：</p>
+<blockquote>
+<p>下面参考文章<a href="https://link.juejin.cn?target=https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzU5ODUwNzY1Nw%3D%3D%26mid%3D2247484155%26idx%3D1%26sn%3D0c73f45f2f641ba0bf4399f57170ac9b%26scene%3D21%23wechat_redirect" title="https://mp.weixin.qq.com/s?__biz=MzU5ODUwNzY1Nw==&amp;mid=2247484155&amp;idx=1&amp;sn=0c73f45f2f641ba0bf4399f57170ac9b&amp;scene=21#wechat_redirect">Redlock：Redis分布式锁最牛逼的实现</a> 和 <a href="https://link.juejin.cn?target=https%3A%2F%2Fredis.io%2Ftopics%2Fdistlock" title="https://redis.io/topics/distlock">redis.io/topics/dist…</a></p>
+</blockquote>
+<p>假设有5个独立的Redis节点（<strong>注意这里的节点可以是5个Redis单master实例，也可以是5个Redis Cluster集群，但并不是有5个主节点的cluster集群</strong>）：</p>
+<ul>
+<li>获取当前Unix时间，以毫秒为单位</li>
+<li>依次尝试从5个实例，使用相同的key和具有唯一性的value(例如UUID)获取锁，当向Redis请求获取锁时，客户端应该设置一个网络连接和响应超时时间，这个超时时间应用小于锁的失效时间，例如你的锁自动失效时间为10s，则超时时间应该在5~50毫秒之间，这样可以避免服务器端Redis已经挂掉的情况下，客户端还在死死地等待响应结果。如果服务端没有在规定时间内响应，客户端应该尽快尝试去另外一个Redis实例请求获取锁</li>
+<li>客户端使用当前时间减去开始获取锁时间（步骤1记录的时间）就得到获取锁使用的时间，当且仅当从大多数(N/2+1，这里是3个节点)的Redis节点都取到锁，并且使用的时间小于锁失败时间时，锁才算获取成功。</li>
+<li>如果取到了锁，key的真正有效时间等于有效时间减去获取锁所使用的时间（步骤3计算的结果）</li>
+<li>如果某些原因，获取锁失败（没有在至少N/2+1个Redis实例取到锁或者取锁时间已经超过了有效时间），客户端应该在所有的Redis实例上进行解锁（即便某些Redis实例根本就没有加锁成功，防止某些节点获取到锁但是客户端没有得到响应而导致接下来的一段时间不能被重新获取锁）</li>
+</ul>
+<h4 id="Redisson实现简单分布式锁"><a href="#Redisson实现简单分布式锁" class="headerlink" title="Redisson实现简单分布式锁"></a>Redisson实现简单分布式锁</h4><p>对于Java用户而言，我们经常使用Jedis，Jedis是Redis的Java客户端，除了Jedis之外，Redisson也是Java的客户端，Jedis是阻塞式I/O，而Redisson底层使用Netty可以实现非阻塞I/O，该客户端封装了锁的，继承了J.U.C的Lock接口，所以我们可以像使用ReentrantLock一样使用Redisson，具体使用过程如下。</p>
+<ol>
+<li>首先加入POM依赖</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.redisson&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;redisson&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.10.6&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用Redisson，代码如下(与使用ReentrantLock类似）</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 1. 配置文件</span><br><span class="line">Config config = new Config();</span><br><span class="line">config.useSingleServer()</span><br><span class="line">        .setAddress(&quot;redis://127.0.0.1:6379&quot;)</span><br><span class="line">        .setPassword(RedisConfig.PASSWORD)</span><br><span class="line">        .setDatabase(0);</span><br><span class="line">//2. 构造RedissonClient</span><br><span class="line">RedissonClient redissonClient = Redisson.create(config);</span><br><span class="line"></span><br><span class="line">//3. 设置锁定资源名称</span><br><span class="line">RLock lock = redissonClient.getLock(&quot;redlock&quot;);</span><br><span class="line">lock.lock();</span><br><span class="line">try &#123;</span><br><span class="line">    System.out.println(&quot;获取锁成功，实现业务逻辑&quot;);</span><br><span class="line">    Thread.sleep(10000);</span><br><span class="line">&#125; catch (InterruptedException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">    lock.unlock();</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>关于Redlock算法的实现，在Redisson中我们可以使用RedissonRedLock来完成，具体使用细节可以参考大佬的文章： <a href="https://link.juejin.cn?target=https%3A%2F%2Fmp.weixin.qq.com%2Fs%2F8uhYult2h_YUHT7q7YCKYQ" title="https://mp.weixin.qq.com/s/8uhYult2h_YUHT7q7YCKYQ">mp.weixin.qq.com/s/8uhYult2h…</a></p>
+<h2 id="Redis实现的分布式锁轮子"><a href="#Redis实现的分布式锁轮子" class="headerlink" title="Redis实现的分布式锁轮子"></a>Redis实现的分布式锁轮子</h2><p>下面利用SpringBoot + Jedis + AOP的组合来实现一个简易的分布式锁。</p>
+<h3 id="1-自定义注解"><a href="#1-自定义注解" class="headerlink" title="1. 自定义注解"></a>1. 自定义注解</h3><p>自定义一个注解，被注解的方法会执行获取分布式锁的逻辑</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">@Target(ElementType.METHOD)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Inherited</span><br><span class="line">public @interface RedisLock &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 业务键</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    String key();</span><br><span class="line">    /**</span><br><span class="line">     * 锁的过期秒数,默认是5秒</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    int expire() default 5;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 尝试加锁，最多等待时间</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    long waitTime() default Long.MIN_VALUE;</span><br><span class="line">    /**</span><br><span class="line">     * 锁的超时时间单位</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    TimeUnit timeUnit() default TimeUnit.SECONDS;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-AOP拦截器实现"><a href="#2-AOP拦截器实现" class="headerlink" title="2. AOP拦截器实现"></a>2. AOP拦截器实现</h3><p>在AOP中我们去执行获取分布式锁和释放分布式锁的逻辑，代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">@Aspect</span><br><span class="line">@Component</span><br><span class="line">public class LockMethodAspect &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private RedisLockHelper redisLockHelper;</span><br><span class="line">    @Autowired</span><br><span class="line">    private JedisUtil jedisUtil;</span><br><span class="line">    private Logger logger = LoggerFactory.getLogger(LockMethodAspect.class);</span><br><span class="line"></span><br><span class="line">    @Around(&quot;@annotation(com.redis.lock.annotation.RedisLock)&quot;)</span><br><span class="line">    public Object around(ProceedingJoinPoint joinPoint) &#123;</span><br><span class="line">        Jedis jedis = jedisUtil.getJedis();</span><br><span class="line">        MethodSignature signature = (MethodSignature) joinPoint.getSignature();</span><br><span class="line">        Method method = signature.getMethod();</span><br><span class="line"></span><br><span class="line">        RedisLock redisLock = method.getAnnotation(RedisLock.class);</span><br><span class="line">        String value = UUID.randomUUID().toString();</span><br><span class="line">        String key = redisLock.key();</span><br><span class="line">        try &#123;</span><br><span class="line">            final boolean islock = redisLockHelper.lock(jedis,key, value, redisLock.expire(), redisLock.timeUnit());</span><br><span class="line">            logger.info(&quot;isLock : &#123;&#125;&quot;,islock);</span><br><span class="line">            if (!islock) &#123;</span><br><span class="line">                logger.error(&quot;获取锁失败&quot;);</span><br><span class="line">                throw new RuntimeException(&quot;获取锁失败&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            try &#123;</span><br><span class="line">                return joinPoint.proceed();</span><br><span class="line">            &#125; catch (Throwable throwable) &#123;</span><br><span class="line">                throw new RuntimeException(&quot;系统异常&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;  finally &#123;</span><br><span class="line">            logger.info(&quot;释放锁&quot;);</span><br><span class="line">            redisLockHelper.unlock(jedis,key, value);</span><br><span class="line">            jedis.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-Redis实现分布式锁核心类"><a href="#3-Redis实现分布式锁核心类" class="headerlink" title="3. Redis实现分布式锁核心类"></a>3. Redis实现分布式锁核心类</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class RedisLockHelper &#123;</span><br><span class="line">    private long sleepTime = 100;</span><br><span class="line">    /**</span><br><span class="line">     * 直接使用setnx + expire方式获取分布式锁</span><br><span class="line">     * 非原子性</span><br><span class="line">     *</span><br><span class="line">     * @param key</span><br><span class="line">     * @param value</span><br><span class="line">     * @param timeout</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public boolean lock_setnx(Jedis jedis,String key, String value, int timeout) &#123;</span><br><span class="line">        Long result = jedis.setnx(key, value);</span><br><span class="line">        // result = 1时，设置成功，否则设置失败</span><br><span class="line">        if (result == 1L) &#123;</span><br><span class="line">            return jedis.expire(key, timeout) == 1L;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 使用Lua脚本，脚本中使用setnex+expire命令进行加锁操作</span><br><span class="line">     *</span><br><span class="line">     * @param jedis</span><br><span class="line">     * @param key</span><br><span class="line">     * @param UniqueId</span><br><span class="line">     * @param seconds</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public boolean Lock_with_lua(Jedis jedis,String key, String UniqueId, int seconds) &#123;</span><br><span class="line">        String lua_scripts = &quot;if redis.call(&#x27;setnx&#x27;,KEYS[1],ARGV[1]) == 1 then&quot; +</span><br><span class="line">                &quot;redis.call(&#x27;expire&#x27;,KEYS[1],ARGV[2]) return 1 else return 0 end&quot;;</span><br><span class="line">        List&lt;String&gt; keys = new ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;String&gt; values = new ArrayList&lt;&gt;();</span><br><span class="line">        keys.add(key);</span><br><span class="line">        values.add(UniqueId);</span><br><span class="line">        values.add(String.valueOf(seconds));</span><br><span class="line">        Object result = jedis.eval(lua_scripts, keys, values);</span><br><span class="line">        //判断是否成功</span><br><span class="line">        return result.equals(1L);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 在Redis的2.6.12及以后中,使用 set key value [NX] [EX] 命令</span><br><span class="line">     *</span><br><span class="line">     * @param key</span><br><span class="line">     * @param value</span><br><span class="line">     * @param timeout</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public boolean lock(Jedis jedis,String key, String value, int timeout, TimeUnit timeUnit) &#123;</span><br><span class="line">        long seconds = timeUnit.toSeconds(timeout);</span><br><span class="line">        return &quot;OK&quot;.equals(jedis.set(key, value, &quot;NX&quot;, &quot;EX&quot;, seconds));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 自定义获取锁的超时时间</span><br><span class="line">     *</span><br><span class="line">     * @param jedis</span><br><span class="line">     * @param key</span><br><span class="line">     * @param value</span><br><span class="line">     * @param timeout</span><br><span class="line">     * @param waitTime</span><br><span class="line">     * @param timeUnit</span><br><span class="line">     * @return</span><br><span class="line">     * @throws InterruptedException</span><br><span class="line">     */</span><br><span class="line">    public boolean lock_with_waitTime(Jedis jedis,String key, String value, int timeout, long waitTime,TimeUnit timeUnit) throws InterruptedException &#123;</span><br><span class="line">        long seconds = timeUnit.toSeconds(timeout);</span><br><span class="line">        while (waitTime &gt;= 0) &#123;</span><br><span class="line">            String result = jedis.set(key, value, &quot;nx&quot;, &quot;ex&quot;, seconds);</span><br><span class="line">            if (&quot;OK&quot;.equals(result)) &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            waitTime -= sleepTime;</span><br><span class="line">            Thread.sleep(sleepTime);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 错误的解锁方法—直接删除key</span><br><span class="line">     *</span><br><span class="line">     * @param key</span><br><span class="line">     */</span><br><span class="line">    public void unlock_with_del(Jedis jedis,String key) &#123;</span><br><span class="line">        jedis.del(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 使用Lua脚本进行解锁操纵，解锁的时候验证value值</span><br><span class="line">     *</span><br><span class="line">     * @param jedis</span><br><span class="line">     * @param key</span><br><span class="line">     * @param value</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public boolean unlock(Jedis jedis,String key,String value) &#123;</span><br><span class="line">        String luaScript = &quot;if redis.call(&#x27;get&#x27;,KEYS[1]) == ARGV[1] then &quot; +</span><br><span class="line">                &quot;return redis.call(&#x27;del&#x27;,KEYS[1]) else return 0 end&quot;;</span><br><span class="line">        return jedis.eval(luaScript, Collections.singletonList(key), Collections.singletonList(value)).equals(1L);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Controller层控制"><a href="#4-Controller层控制" class="headerlink" title="4. Controller层控制"></a>4. Controller层控制</h3><p>定义一个TestController来测试我们实现的分布式锁</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class TestController &#123;</span><br><span class="line">    @RedisLock(key = &quot;redis_lock&quot;)</span><br><span class="line">    @GetMapping(&quot;/index&quot;)</span><br><span class="line">    public String index() &#123;</span><br><span class="line">        return &quot;index&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>分布式锁重点在于互斥性，在任意一个时刻，只有一个客户端获取了锁。在实际的生产环境中，分布式锁的实现可能会更复杂，而我这里的讲述主要针对的是单机环境下的基于Redis的分布式锁实现，至于Redis集群环境并没有过多涉及，有兴趣的朋友可以查阅相关资料。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

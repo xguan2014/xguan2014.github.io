@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/54/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/54/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/08/16/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E4%BC%AA%E7%B1%BB%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E5%92%8C%E8%BF%90%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/16/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E4%BC%AA%E7%B1%BB%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E5%92%8C%E8%BF%90%E7%94%A8/" class="post-title-link" itemprop="url">【前端】伪类使用技巧和运用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-16 18:14:39" itemprop="dateCreated datePublished" datetime="2018-08-16T18:14:39+08:00">2018-08-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">作者：codercao</span><br><span class="line">链接：https://juejin.im/post/5b6d0c5cf265da0f504a837f</span><br><span class="line">来源：掘金</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+<p>伪类经常与伪元素混淆，伪元素的效果类似于通过添加一个实际的元素才能达到，而伪类的效果类似于通过添加一个实际的类来达到。实际上css3为了区分两者，已经明确规定了伪类用一个冒号来表示，而伪元素则用两个冒号来表示。伪类与伪元素的本质区别就是是否抽象创造了新元素。具体的伪类和伪元素相关知识本文就不深入，下面介绍一下从青铜到王者10个css3伪类使用技巧和运用。<a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2FHongqingCao%2FMy-Code%2Ftree%2Fmaster%2FPseudo-classes">直击案例代码</a></p>
+<h2 id="青铜-1、伪类实现盒子阴影"><a href="#青铜-1、伪类实现盒子阴影" class="headerlink" title="青铜-1、伪类实现盒子阴影"></a>青铜-1、伪类实现盒子阴影</h2><p>众所周知，Animate/transition box-shadow 可以使用<strong>box-shadow属性</strong>来实现盒子阴影效果，但repaint消耗较多，于是这里提出<strong>通过修改伪元素的透明度来实现盒子阴影</strong></p>
+<p><strong>实现原理：</strong></p>
+<p><strong>通过改变透明度，这样从一个非默认值更新它的值，就不需要承担任何重绘</strong>（参见：<a target="_blank" rel="noopener" href="https://csstriggers.com/opacity）">https://csstriggers.com/opacity）</a></p>
+<p>(ps:貌似莫名的解锁了一个关于前端css优化，坏笑坏笑)</p>
+<p>这里设置一个空的伪元素设置阴影透明度为0隐藏，再通过鼠标悬停恢复它的透明度，下面是传统和伪类实现的代码对比</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;before&quot;&gt;</span><br><span class="line">    &lt;h1&gt;Before&lt;/h1&gt;</span><br><span class="line">    &lt;p&gt;Animate/transition box-shadow 可以使用box-shadow属性来实现盒子阴影效果，但重绘消耗较多&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"> &lt;hr /&gt;</span><br><span class="line">&lt;div class=&quot;after&quot;&gt;</span><br><span class="line">    &lt;h1&gt;After&lt;/h1&gt;</span><br><span class="line">    &lt;p&gt;通过修改伪元素的透明度来实现同样的效果,没有重绘消耗&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"> .before &#123;</span><br><span class="line">    padding: 1em;</span><br><span class="line">    background-color: #fff;</span><br><span class="line">    -webkit-transition: 0.2s;</span><br><span class="line">    transition: 0.2s;</span><br><span class="line">&#125;</span><br><span class="line">.before:hover &#123;</span><br><span class="line">    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);</span><br><span class="line">&#125;</span><br><span class="line">.after &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">    padding: 1em;</span><br><span class="line">    background-color: #fff;</span><br><span class="line">&#125;</span><br><span class="line">.after:before &#123;</span><br><span class="line">    content: &quot;&quot;;</span><br><span class="line">    position: absolute;  </span><br><span class="line">    top: 0;</span><br><span class="line">    right: 0;</span><br><span class="line">    bottom: 0;  </span><br><span class="line">    left: 0;</span><br><span class="line">    z-index: -1;</span><br><span class="line">    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);</span><br><span class="line">    opacity: 0;</span><br><span class="line">    will-change: opacity;</span><br><span class="line">    -webkit-transition: 0.2s;</span><br><span class="line">    transition: 0.2s;</span><br><span class="line">&#125;</span><br><span class="line">.after:hover:before &#123;</span><br><span class="line">    opacity: 1;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<p>效果：（完整代码见后文链接）</p>
+<p><img src="/images/1652287a6e3355c6.png" alt=""></p>
+<h2 id="青铜-2、伪元素-before实现的面包屑导航栏"><a href="#青铜-2、伪元素-before实现的面包屑导航栏" class="headerlink" title="青铜-2、伪元素:before实现的面包屑导航栏"></a>青铜-2、伪元素:before实现的面包屑导航栏</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul class=&quot;breadcrumb&quot;&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Pictures&lt;/a&gt;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Summer 15&lt;/a&gt;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">    &lt;li&gt;Italy&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ul.breadcrumb &#123;</span><br><span class="line">    padding: 8px 16px;</span><br><span class="line">    list-style: none;</span><br><span class="line">    background-color: #eee;</span><br><span class="line">&#125;</span><br><span class="line">ul.breadcrumb li &#123;</span><br><span class="line">    display: inline;</span><br><span class="line">&#125;</span><br><span class="line">ul.breadcrumb li+li:before &#123;</span><br><span class="line">    padding: 8px;</span><br><span class="line">    color: black;</span><br><span class="line">    content: &quot;/\00a0&quot;;</span><br><span class="line">&#125;</span><br><span class="line">ul.breadcrumb li a &#123;</span><br><span class="line">    color: green;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<p><strong>效果：</strong></p>
+<p><img src="/images/16522982cb49db39.png" alt=""></p>
+<p>青铜-3、伪元素实现悬停时按钮填充和边界浮动动画</p>
+<p>效果：（完整代码见后文链接）</p>
+<p><img src="/images/165229c6b0c659ae.png" alt=""></p>
+<h2 id="青铜-4、伪类after实现的三角箭头"><a href="#青铜-4、伪类after实现的三角箭头" class="headerlink" title="青铜-4、伪类after实现的三角箭头"></a>青铜-4、伪类after实现的三角箭头</h2><p>实现原理：三边设置边框，箭头指向的那个方向的border不用设置，位于箭头两边的边框颜色为透明（transparent），对边为主体边框颜色（较大的）/主体背景颜色（较小的），因为我们要有边框颜色的三角箭头，当第一个箭头（较大的）被第二个箭头（较小的）通过准确覆盖之后剩下没被覆盖的边缘就是合成三角箭头的边框了，其颜色就是较大的那个三角箭头的颜色，可调。而较小的那个三角箭头的颜色要设置成主体颜色，进行负值定位偏移时要把主体边框盖住，从而与主体合在一起了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&#x27;container&#x27;&gt;</span><br><span class="line">    &lt;img alt=&#x27;&#x27; src=&#x27;http://placehold.it/400x200&#x27;&gt;</span><br><span class="line">    &lt;div class=&#x27;arrow-left&#x27;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=&#x27;container new&#x27;&gt;</span><br><span class="line">    &lt;div class=&#x27;arrow-right&#x27;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;img alt=&#x27;&#x27; src=&#x27;http://placehold.it/400x200&#x27;&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.arrow-left:before &#123;</span><br><span class="line">    z-index: 9999;</span><br><span class="line">    content: &quot;&quot;;</span><br><span class="line">    display: block;</span><br><span class="line">    width: 0;</span><br><span class="line">    height: 0;</span><br><span class="line">    border-top: 20px solid transparent;</span><br><span class="line">    border-bottom: 20px solid transparent;</span><br><span class="line">    border-right: 20px solid #E9E9E9;</span><br><span class="line">    position: absolute;</span><br><span class="line">    left: -20px;</span><br><span class="line">    top: 80px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<p>效果：（完整代码见后文链接）</p>
+<p><img src="/images/16522a9190c470fb.png" alt=""></p>
+<h2 id="青铜-5、伪类after实现的图片箭头"><a href="#青铜-5、伪类after实现的图片箭头" class="headerlink" title="青铜-5、伪类after实现的图片箭头"></a>青铜-5、伪类after实现的图片箭头</h2><p>效果：（完整代码见后文链接）</p>
+<p><img src="/images/16522abc6acc1150.png" alt=""></p>
+<h2 id="青铜-6、伪元素实现带角度的底部边界（倾斜的边界）"><a href="#青铜-6、伪元素实现带角度的底部边界（倾斜的边界）" class="headerlink" title="青铜-6、伪元素实现带角度的底部边界（倾斜的边界）"></a>青铜-6、伪元素实现带角度的底部边界（倾斜的边界）</h2><p>原理：修改webkit-transform: skewY属性来修改倾斜度（旋转也是一样的道理）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">.edge--bottom &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">    z-index: 1;</span><br><span class="line">&#125;</span><br><span class="line">.edge--bottom:after &#123;</span><br><span class="line">    background: inherit;</span><br><span class="line">    content: &#x27;&#x27;;</span><br><span class="line">    display: block;</span><br><span class="line">    height: 50%;</span><br><span class="line">    left: 0;</span><br><span class="line">    position: absolute;</span><br><span class="line">    right: 0;</span><br><span class="line">    z-index: -1;</span><br><span class="line">&#125;</span><br><span class="line">.edge--bottom:after &#123;</span><br><span class="line">    bottom: 0;</span><br><span class="line">    -webkit-transform: skewY(-1.5deg);</span><br><span class="line">    -ms-transform: skewY(-1.5deg);</span><br><span class="line">    transform: skewY(-1.5deg);</span><br><span class="line">    -webkit-transform-origin: 100%;</span><br><span class="line">    -ms-transform-origin: 100%;</span><br><span class="line">    transform-origin: 100%;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>效果：（完整代码见本文结尾链接）</p>
+<p><img src="/images/16522b308b186603.png" alt=""></p>
+<h2 id="王者-1、伪元素和平移（translate）变换实现的提示框"><a href="#王者-1、伪元素和平移（translate）变换实现的提示框" class="headerlink" title="王者-1、伪元素和平移（translate）变换实现的提示框"></a>王者-1、伪元素和平移（translate）变换实现的提示框</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;row&quot;&gt;</span><br><span class="line">    &lt;a rel=&quot;nofollow&quot; rel=&quot;noreferrer&quot; href=&quot;#&quot; class=&quot;btn tooltip top&quot;&gt;</span><br><span class="line">        &lt;span&gt;TOOLTIP TOP&lt;/span&gt;</span><br><span class="line">        &lt;span class=&quot;tooltip-content&quot;&gt;Lorem ipsum dolor sit amet&lt;/span&gt;</span><br><span class="line">    &lt;/a&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">.tooltip .tooltip-content::after &#123;</span><br><span class="line">    background: #05a8ff;</span><br><span class="line">    content: &quot;&quot;;</span><br><span class="line">    height: 10px;</span><br><span class="line">    position: absolute;</span><br><span class="line">    -webkit-transform: rotate(45deg);</span><br><span class="line">    transform: rotate(45deg);</span><br><span class="line">    width: 10px;</span><br><span class="line">&#125;</span><br><span class="line">.tooltip.top .tooltip-content &#123;</span><br><span class="line">    bottom: calc(100% + 1.5em);</span><br><span class="line">    left: 50%;</span><br><span class="line">    -webkit-transform: translateX(-50%);</span><br><span class="line">    transform: translateX(-50%);</span><br><span class="line">&#125;</span><br><span class="line">.tooltip.top .tooltip-content::after &#123;</span><br><span class="line">    bottom: -5px;</span><br><span class="line">    left: 50%;</span><br><span class="line">    margin-left: -5px;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<p>效果：（完整代码见本文结尾链接）</p>
+<p><img src="/images/16522b84a78316eb.png" alt=""></p>
+<h2 id="王者-2、使用CSS3伪元素实现的自动打字动画"><a href="#王者-2、使用CSS3伪元素实现的自动打字动画" class="headerlink" title="王者-2、使用CSS3伪元素实现的自动打字动画"></a>王者-2、使用CSS3伪元素实现的自动打字动画</h2><p>原理:Typing Animation with Pseudo-Elements 看起来是打字，其实是使用伪元素覆盖在字符串上，然后逐渐减少伪元素覆盖宽度来实现的视觉效果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;h1&gt;Typing Animation&lt;/h1&gt;</span><br><span class="line">    &lt;p class=&quot;tagline&quot;&gt;</span><br><span class="line">        &lt;span class=&quot;tagline-skill&quot;&gt;&lt;span class=&quot;tagline-skill_inner&quot;&gt;webdesign&lt;/span&gt;&lt;/span&gt;</span><br><span class="line">    &lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.tagline-skill_inner:after &#123;</span><br><span class="line">    content: &quot;&quot;;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: -1px;</span><br><span class="line">    right: 0;</span><br><span class="line">    bottom: -2px;</span><br><span class="line">    left: 0;</span><br><span class="line">    border-left: 1px solid #fff;</span><br><span class="line">    background-color: #2a2a28;</span><br><span class="line">    -webkit-animation: animatetoright 1s steps(10) infinite alternate;</span><br><span class="line">    animation: animatetoright 1s steps(10) infinite alternate;</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<p>效果：（完整代码见本文结尾链接）</p>
+<p><img src="/images/16522bd0a89ab98c.png" alt=""></p>
+<h2 id="王者-3、CSS3-伪元素构建的文章水印背景"><a href="#王者-3、CSS3-伪元素构建的文章水印背景" class="headerlink" title="王者-3、CSS3 伪元素构建的文章水印背景"></a>王者-3、CSS3 伪元素构建的文章水印背景</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">h1 &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">    margin: 0;</span><br><span class="line">    font-weight: bold;</span><br><span class="line">    letter-spacing: -0.05rem;</span><br><span class="line">    line-height: 1;</span><br><span class="line">    text-transform: uppercase;</span><br><span class="line">    z-index: 10;</span><br><span class="line">&#125;</span><br><span class="line">h1:before &#123;</span><br><span class="line">    content: &quot;2018/08&quot;;</span><br><span class="line">    font-family: monospace;</span><br><span class="line">    font-size: 10rem;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 2rem;</span><br><span class="line">    left: -2rem;</span><br><span class="line">    z-index: 0;</span><br><span class="line">    line-height: 1;</span><br><span class="line">    color: rgba(50, 25, 0, 0.1);</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<p>效果：（完整代码见本文结尾链接）</p>
+<p><img src="/images/16522bf14f3aea6b.png" alt=""></p>
+<h2 id="王者-4、CSS3-用伪元素做页码摘要"><a href="#王者-4、CSS3-用伪元素做页码摘要" class="headerlink" title="王者-4、CSS3 用伪元素做页码摘要"></a>王者-4、CSS3 用伪元素做页码摘要</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">a &#123;</span><br><span class="line">    display: -webkit-box;</span><br><span class="line">    display: -webkit-flex;</span><br><span class="line">    display: -ms-flexbox;</span><br><span class="line">    display: flex;</span><br><span class="line">    -webkit-flex-flow: row nowrap;</span><br><span class="line">    -ms-flex-flow: row nowrap;</span><br><span class="line">    flex-flow: row nowrap;</span><br><span class="line">    -webkit-box-align: baseline;</span><br><span class="line">    -webkit-align-items: baseline;</span><br><span class="line">    -ms-flex-align: baseline;</span><br><span class="line">    align-items: baseline;</span><br><span class="line">    text-decoration: none;</span><br><span class="line">    -webkit-transition: color .2s ease-in-out;</span><br><span class="line">    transition: color .2s ease-in-out;</span><br><span class="line">&#125;</span><br><span class="line">a::before &#123;</span><br><span class="line">    height: .1em;</span><br><span class="line">    -webkit-box-flex: 1;</span><br><span class="line">    -webkit-flex: 1 1 auto;</span><br><span class="line">    -ms-flex: 1 1 auto;</span><br><span class="line">    flex: 1 1 auto;</span><br><span class="line">    -webkit-box-ordinal-group: 2;</span><br><span class="line">    -webkit-order: 1;</span><br><span class="line">    -ms-flex-order: 1;</span><br><span class="line">    order: 1;</span><br><span class="line">    background: left bottom/contain repeat-x url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3IDIiPjxjaXJjbGUgZmlsbD0iI2ZmZiIgY3g9IjMuNSIgY3k9IjEiIHI9IjEiLz48L3N2Zz4=);</span><br><span class="line">    content: &#x27;&#x27;;</span><br><span class="line">&#125;</span><br><span class="line">a::after &#123;</span><br><span class="line">    -webkit-box-ordinal-group: 3;</span><br><span class="line">    -webkit-order: 2;</span><br><span class="line">    -ms-flex-order: 2;</span><br><span class="line">    order: 2;</span><br><span class="line">    content: &quot;p.&quot; attr(data-page);</span><br><span class="line">&#125;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+<p>效果：（完整代码见本文结尾链接）</p>
+<p><img src="/images/16522c321064493b.png" alt=""></p>
+<h2 id="王者-5、伪类兼容性了解一下"><a href="#王者-5、伪类兼容性了解一下" class="headerlink" title="王者-5、伪类兼容性了解一下"></a>王者-5、伪类兼容性了解一下</h2><p>1、IE8不支持CSS3中很多特性，比如伪元素nth-child，可以使用+号（代表相邻元素）来实现相同功能</p>
+<p>2、Google的IE9.js是解决IE5.5到IE8 CSS3特性兼容性问题的JS库</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>CSS的世界很美好，每个知识点都可以值得深入研究和实践，对于伪类、伪元素也有很多土味特效可以写出来，比如说图片遮罩、图片背景模糊，更多高级的鼠标经过事件特效等等，上边的10个案例是我个人工作上总结和参考踏得网上资源整理，希望对大家有所帮助</p>
+<p>最后附上<a href="https://link.juejin.im?target=https%3A%2F%2Fgithub.com%2FHongqingCao%2FMy-Code%2Ftree%2Fmaster%2FPseudo-classes">github示例源码</a>，可下载体验。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/08/12/%E3%80%90WeChat%E3%80%91%E5%AE%9A%E5%88%B6%E6%97%A5%E5%8E%86%E7%BB%84%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/12/%E3%80%90WeChat%E3%80%91%E5%AE%9A%E5%88%B6%E6%97%A5%E5%8E%86%E7%BB%84%E4%BB%B6/" class="post-title-link" itemprop="url">【WeChat】定制日历组件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-12 19:13:52" itemprop="dateCreated datePublished" datetime="2018-08-12T19:13:52+08:00">2018-08-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>小程序开发还是蛮简单的，之前倒腾过两个小程序，也都上线了。</p>
+<p>今天开始第三个，自己写了一个日历模块，主要涉及日历的展现布局，标记日期，点击事件，左右滑动切换月份等。</p>
+<p>效果图：</p>
+<p><img src="/images/20180812190753898.png" alt=""></p>
+<p>calendar.wxml 代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;view class=&#x27;main&#x27;&gt;</span><br><span class="line">  &lt;view class=&#x27;calendar-con&#x27;&gt;</span><br><span class="line">    &lt;view class=&quot;calendar-top&quot;&gt;</span><br><span class="line">      &lt;view class=&quot;current-date&quot;&gt;&#123;&#123;nowDate&#125;&#125;&lt;/view&gt;</span><br><span class="line">      &lt;picker mode=&quot;date&quot; value=&quot;&#123;&#123;date&#125;&#125;&quot; start=&quot;1995-01-01&quot; end=&quot;2025-12-31&quot; bindchange=&quot;bindDateChange&quot;&gt;</span><br><span class="line">        &lt;view class=&quot;calendar-history&quot;&gt;选择日期&lt;/view&gt;</span><br><span class="line">      &lt;/picker&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">    &lt;view class=&quot;calendar-main&quot;&gt;</span><br><span class="line">      &lt;swiper autoplay=&quot;&#123;&#123;autoplay&#125;&#125;&quot; circular=&quot;true&quot; bindanimationfinish=&quot;bindanimationfinish&quot;  data-key=&quot;&#123;&#123;swipr-item&#125;&#125;&quot;&gt;</span><br><span class="line">        &lt;block wx:for=&quot;[0]&quot; wx:key=&quot;key&quot;&gt;</span><br><span class="line">          &lt;swiper-item&gt;</span><br><span class="line">            &lt;view class=&quot;calendar-list&quot;&gt;</span><br><span class="line">              &lt;view wx:for=&quot;&#123;&#123;arr&#125;&#125;&quot; wx:for-item=&quot;item&quot; wx:key=&quot;key&quot; class=&quot;calendar-item &#123;&#123;item.itmeClass&#125;&#125; &#123;&#123;maskId==item.day?&#x27;mask&#x27;:&#x27;&#x27;&#125;&#125;&quot; bindtap=&quot;ClickDay&quot; data-day=&quot;&#123;&#123;item.day&#125;&#125;&quot; data-date=&quot;&#123;&#123;item.date&#125;&#125;&quot;&gt;</span><br><span class="line">                &#123;&#123;item.day&#125;&#125;</span><br><span class="line">              &lt;/view&gt;</span><br><span class="line">            &lt;/view&gt;</span><br><span class="line">          &lt;/swiper-item&gt;</span><br><span class="line">        &lt;/block&gt;</span><br><span class="line">      &lt;/swiper&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">  &lt;view class=&#x27;calendar-bottom&#x27;&gt;</span><br><span class="line">    &lt;view class=&#x27;calendar-bottom-title&#x27;&gt;</span><br><span class="line">      &lt;view class=&#x27;&#x27;&gt;雷阵雨 23 至 30°C&lt;/view&gt;</span><br><span class="line">      &lt;view class=&#x27;&#x27;&gt;天气&lt;/view&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">    &lt;view class=&#x27;calendar-bottom-body&#x27;&gt;</span><br><span class="line">      &lt;view class=&#x27;&#x27;&gt;这是一些内容，巴拉巴拉...&lt;/view&gt;</span><br><span class="line">      &lt;view class=&#x27;&#x27;&gt;点击了：&#123;&#123;clickDay&#125;&#125;&lt;/view&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">&lt;/view&gt;</span><br></pre></td></tr></table></figure>
+<p>calendar.wxss 代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line">page &#123;</span><br><span class="line">  width: 100%;</span><br><span class="line">  /* height: 100%; */</span><br><span class="line">  background-color: #767ec9;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.main &#123;</span><br><span class="line">  margin-top: 30rpx;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.calendar-con &#123;</span><br><span class="line">  margin: 0 auto;</span><br><span class="line">  width: 682rpx;</span><br><span class="line">  height: 684rpx;</span><br><span class="line">  background: url(&#x27;http://120.77.181.53/img/calendar_con.jpg&#x27;);</span><br><span class="line">  background-size: cover;</span><br><span class="line">  padding: 10rpx;</span><br><span class="line">  border-radius: 20rpx;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.calendar-top &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">  justify-content: space-between;</span><br><span class="line">  margin: 5rpx 18rpx;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.current-date &#123;</span><br><span class="line">  padding-top: 5rpx;</span><br><span class="line">  padding-left: 65rpx;</span><br><span class="line">  color: #b25d06;</span><br><span class="line">  font-size: 18px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.calendar-history &#123;</span><br><span class="line">  width: 135rpx;</span><br><span class="line">  height: 45rpx;</span><br><span class="line">  border-radius: 8rpx;</span><br><span class="line">  background-color: #b25d06;</span><br><span class="line">  color: #fff;</span><br><span class="line">  text-align: center;</span><br><span class="line">  font-size: 11px;</span><br><span class="line">  line-height: 45rpx;</span><br><span class="line">  margin-right: 18rpx;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.calendar-main &#123;</span><br><span class="line">  width: 100%;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.calendar-list &#123;</span><br><span class="line">  margin-top: 76rpx;</span><br><span class="line">  margin-left: 32rpx;</span><br><span class="line">  display: flex;</span><br><span class="line">  flex-wrap: wrap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.calendar-item &#123;</span><br><span class="line">  width: 85rpx;</span><br><span class="line">  height: 85rpx;</span><br><span class="line">  margin: 1rpx;</span><br><span class="line">  background-color: #fffff2;</span><br><span class="line">  border-radius: 12rpx;</span><br><span class="line">  display: flex;</span><br><span class="line">  justify-content: center;</span><br><span class="line">  align-items: center;</span><br><span class="line">  color: #ad560e;</span><br><span class="line">  font-size: 20px;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.styles-icon2 &#123;</span><br><span class="line">  background-image: url(http://120.77.181.53/img/icon-2.png);</span><br><span class="line">  background-repeat: no-repeat;</span><br><span class="line">  background-size: 100% 100%;</span><br><span class="line">  -moz-background-size: 100% 100%;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.styles-icon3 &#123;</span><br><span class="line">  background-image: url(http://120.77.181.53/img/icon-7.png);</span><br><span class="line">  background-repeat: no-repeat;</span><br><span class="line">  background-size: 100% 100%;</span><br><span class="line">  -moz-background-size: 100% 100%;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.styles-icon4 &#123;</span><br><span class="line">  background-image: url(http://120.77.181.53/img/icon-6.png);</span><br><span class="line">  background-repeat: no-repeat;</span><br><span class="line">  background-size: 100% 100%;</span><br><span class="line">  -moz-background-size: 100% 100%;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.calendar-bottom &#123;</span><br><span class="line">  margin: 0 auto;</span><br><span class="line">  margin-top: 35rpx;</span><br><span class="line">  width: 682rpx;</span><br><span class="line">  height: 380rpx;</span><br><span class="line">  background: url(&#x27;http://120.77.181.53/img/calendar_bottom.jpg&#x27;);</span><br><span class="line">  background-size: cover;</span><br><span class="line">  padding: 10rpx;</span><br><span class="line">  border-radius: 20rpx;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.calendar-bottom-title &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">  justify-content: space-between;</span><br><span class="line">  width: 460rpx;</span><br><span class="line">  height: 55rpx;</span><br><span class="line">  line-height: 55rpx;</span><br><span class="line">  margin: 0 auto;</span><br><span class="line">  margin-top: 10rpx;</span><br><span class="line">  color: #ad560e;</span><br><span class="line">  font-size: 18px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.calendar-bottom-body &#123;</span><br><span class="line">  width: 460rpx;</span><br><span class="line">  margin: 30rpx;</span><br><span class="line">  color: #777;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.mask &#123;</span><br><span class="line">  background: rgba(66, 66, 66, 0.2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">swiper&#123;</span><br><span class="line">  height: 600rpx;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>calendar.js 代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line">// pages/calendar/calendar.js</span><br><span class="line">Page(&#123;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 页面的初始数据</span><br><span class="line">   */</span><br><span class="line">  data: &#123;</span><br><span class="line">    arr: [],</span><br><span class="line">    nowDate: null,</span><br><span class="line">    nowDay: 1,</span><br><span class="line">    clickDay: null,</span><br><span class="line">    maskId: null,</span><br><span class="line">    autoplay: false,</span><br><span class="line">    current: 0,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 生命周期函数--监听页面加载</span><br><span class="line">   */</span><br><span class="line">  onLoad: function(options) &#123;</span><br><span class="line">    var date = new Date();</span><br><span class="line">    this.setData(&#123;</span><br><span class="line">      arr: this.GetCalendarData(date),</span><br><span class="line">      nowDate: this.GetNowTime(date),</span><br><span class="line">      nowDay: date.getDate()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  //初始化日历数据</span><br><span class="line">  GetCalendarData(now) &#123;</span><br><span class="line">    var data = [];</span><br><span class="line">    var timestamp = Date.parse(now.getFullYear() + &quot;/&quot; + (now.getMonth() + 1) + &quot;/&quot; + &#x27;1&#x27;);</span><br><span class="line">    var date = new Date(timestamp);</span><br><span class="line">    var item = &#123;</span><br><span class="line">      date: &#x27;&#x27;,</span><br><span class="line">      day: &#x27;&#x27;,</span><br><span class="line">      itmeClass: &#x27;&#x27;</span><br><span class="line">    &#125;;</span><br><span class="line">    for (var i = 1; i &lt;= 42; i++) &#123;</span><br><span class="line">      if (i &lt;= this.GetWeekDay(now)) &#123;</span><br><span class="line">        data.push(item);</span><br><span class="line">      &#125; else if (now.getMonth() == date.getMonth()) &#123;</span><br><span class="line">        data.push(&#123;</span><br><span class="line">          date: this.GetNowTime(date),</span><br><span class="line">          day: date.getDate(),</span><br><span class="line">          itmeClass: &#x27;&#x27;</span><br><span class="line">        &#125;);</span><br><span class="line">        date.setDate(date.getDate() + 1);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        data.push(item);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //添加标记</span><br><span class="line">    var index = now.getDate() + this.GetWeekDay(now) - 1;</span><br><span class="line">    data[index] = &#123;</span><br><span class="line">      day: data[index].day,</span><br><span class="line">      date: data[index].date,</span><br><span class="line">      itmeClass: &#x27;styles-icon2&#x27;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    data[26] = &#123;</span><br><span class="line">      day: data[26].day,</span><br><span class="line">      date: data[index].date,</span><br><span class="line">      itmeClass: &#x27;styles-icon3&#x27;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    data[11] = &#123;</span><br><span class="line">      day: data[11].day,</span><br><span class="line">      date: data[index].date,</span><br><span class="line">      itmeClass: &#x27;styles-icon4&#x27;</span><br><span class="line">    &#125;;</span><br><span class="line">    return data;</span><br><span class="line">  &#125;,</span><br><span class="line">  //或某个月得一号周几</span><br><span class="line">  GetWeekDay: function(now) &#123;</span><br><span class="line">    var date = Date.parse(now.getFullYear() + &quot;/&quot; + (now.getMonth() + 1) + &quot;/&quot; + &#x27;1&#x27;);</span><br><span class="line">    var weekday = new Date(date);</span><br><span class="line">    return weekday.getDay();</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  //获取当前日期</span><br><span class="line">  GetNowTime: function(now) &#123;</span><br><span class="line">    var year = now.getFullYear();</span><br><span class="line">    var month = now.getMonth() + 1;</span><br><span class="line">    var day = now.getDate();</span><br><span class="line">    month &lt; 10 ? month = &#x27;0&#x27; + month : month;</span><br><span class="line">    day &lt; 10 ? day = &#x27;0&#x27; + day : day;</span><br><span class="line">    var formatDate = year + &#x27;/&#x27; + month + &#x27;/&#x27; + day;</span><br><span class="line">    return formatDate;</span><br><span class="line">  &#125;,</span><br><span class="line">  //点击日期事件</span><br><span class="line">  ClickDay: function(event) &#123;</span><br><span class="line">    var day = event.target.dataset.day;</span><br><span class="line">    var date = event.target.dataset.date;</span><br><span class="line">    if (day != &#x27;&#x27;) &#123;</span><br><span class="line">      this.setData(&#123;</span><br><span class="line">        clickDay: date,</span><br><span class="line">        maskId: day,</span><br><span class="line">        nowDate: date</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  //选择日期</span><br><span class="line">  bindDateChange: function(e) &#123;</span><br><span class="line">    var date = new Date(e.detail.value);</span><br><span class="line">    this.setData(&#123;</span><br><span class="line">      arr: this.GetCalendarData(date),</span><br><span class="line">      clickDay: null,</span><br><span class="line">      maskId: null,</span><br><span class="line">      nowDate: this.GetNowTime(date),</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  bindanimationfinish: function(e) &#123;</span><br><span class="line">    var that = this;</span><br><span class="line">    var date = new Date(that.data.nowDate);</span><br><span class="line">    var index = that.data.current - e.detail.current;</span><br><span class="line">    index = index == 2 ? -1 : index;</span><br><span class="line">    index = index == -2 ? 1 : index;</span><br><span class="line">    if (index != 0) &#123;</span><br><span class="line">      date.setMonth(date.getMonth() - index);</span><br><span class="line">      that.setData(&#123;</span><br><span class="line">        current: e.detail.current,</span><br><span class="line">        arr: that.GetCalendarData(date),</span><br><span class="line">        clickDay: null,</span><br><span class="line">        maskId: null,</span><br><span class="line">        nowDate: that.GetNowTime(date),</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>不会写前端代码的，不是一个好的后端开发人员！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/08/08/%E3%80%90%E9%98%BF%E9%87%8C%E4%BA%91%E3%80%91%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E9%82%AE%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/08/%E3%80%90%E9%98%BF%E9%87%8C%E4%BA%91%E3%80%91%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E9%82%AE%E4%BB%B6/" class="post-title-link" itemprop="url">【阿里云】在阿里云服务器发邮件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-08 09:36:30" itemprop="dateCreated datePublished" datetime="2018-08-08T09:36:30+08:00">2018-08-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在本地调试可以正常发送邮件，在服务器上发送失败</p>
+<p>原因25端口被阿里云禁用，不能被开启，只能尝试用465 端口采用加密方式发送邮件。</p>
+<p>然而 使用 smtp.163.com 的用 465端口发送还是失败，用自己网站的邮箱发送也是失败的报554错误啥的</p>
+<p>最后用QQ的邮箱成功了!</p>
+<p>Demo：<br><img src="/images/20180808093448702.png" alt=""></p>
+<p>代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">public class MailHelper</span><br><span class="line">&#123;</span><br><span class="line">    public static readonly string MailName = &quot;邮件中心&quot;;</span><br><span class="line">    public static readonly string body = &quot;XXXXX&quot;;</span><br><span class="line"></span><br><span class="line">    public static string send(string toMail, string MailServer, string MailUserName, string MailPassword, int Port, bool EnableSsl)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            SmtpClient smtpClient = new SmtpClient();</span><br><span class="line">            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;</span><br><span class="line">            smtpClient.EnableSsl = EnableSsl;</span><br><span class="line">            smtpClient.Host = MailServer;</span><br><span class="line">            smtpClient.Port = Port;</span><br><span class="line">            smtpClient.UseDefaultCredentials = false;</span><br><span class="line">            smtpClient.Credentials = (ICredentialsByHost)new NetworkCredential(MailUserName, MailPassword);</span><br><span class="line">            MailMessage message = new MailMessage()</span><br><span class="line">            &#123;</span><br><span class="line">                Priority = MailPriority.Normal,</span><br><span class="line">                From = new MailAddress(MailUserName, &quot;XXXX&quot;, Encoding.UTF8),</span><br><span class="line">                Subject = &quot;主题&quot;,</span><br><span class="line">                SubjectEncoding = Encoding.UTF8,</span><br><span class="line">                To = &#123;</span><br><span class="line">                    toMail</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">            message.SubjectEncoding = Encoding.GetEncoding(936);</span><br><span class="line">            message.IsBodyHtml = true;</span><br><span class="line">            message.BodyEncoding = Encoding.GetEncoding(936);</span><br><span class="line">            message.Body = &quot;&lt;font color=&#x27;red&#x27;&gt;&quot; + MailHelper.body + &quot;&lt;/font&gt;&lt;br&gt;&quot;;</span><br><span class="line">            smtpClient.Send(message);</span><br><span class="line">            return &quot;邮件发送成功&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            return ex.Message;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public static string send1(string toMail, string MailServer, string MailUserName, string MailPassword, int Port, bool EnableSsl)</span><br><span class="line">    &#123;</span><br><span class="line">        System.Web.Mail.MailMessage mmsg = new System.Web.Mail.MailMessage();</span><br><span class="line">        //邮件主题</span><br><span class="line">        mmsg.Subject = &quot;hello, world&quot;;</span><br><span class="line">        mmsg.BodyFormat = System.Web.Mail.MailFormat.Html;</span><br><span class="line">        //邮件正文</span><br><span class="line">        mmsg.Body = &quot;hello, world。哈哈哈哈哈哈，听说会被屏蔽掉的&quot;;</span><br><span class="line">        //正文编码</span><br><span class="line">        mmsg.BodyEncoding = Encoding.UTF8;</span><br><span class="line">        //优先级</span><br><span class="line">        mmsg.Priority = System.Web.Mail.MailPriority.Normal;</span><br><span class="line">        //发件者邮箱地址</span><br><span class="line">        mmsg.From = MailUserName;</span><br><span class="line">        //收件人收箱地址</span><br><span class="line">        mmsg.To = toMail;</span><br><span class="line"></span><br><span class="line">        mmsg.Fields.Add(&quot;http://schemas.microsoft.com/cdo/configuration/smtpauthenticate&quot;, &quot;1&quot;);</span><br><span class="line">        //用户名</span><br><span class="line">        mmsg.Fields.Add(&quot;http://schemas.microsoft.com/cdo/configuration/sendusername&quot;, MailUserName);</span><br><span class="line">        //密码</span><br><span class="line">        mmsg.Fields.Add(&quot;http://schemas.microsoft.com/cdo/configuration/sendpassword&quot;, MailPassword);</span><br><span class="line">        //端口 </span><br><span class="line">        mmsg.Fields.Add(&quot;http://schemas.microsoft.com/cdo/configuration/smtpserverport&quot;, Port);</span><br><span class="line">        //是否ssl</span><br><span class="line">        mmsg.Fields.Add(&quot;http://schemas.microsoft.com/cdo/configuration/smtpusessl&quot;, EnableSsl);</span><br><span class="line">        //Smtp服务器</span><br><span class="line">        System.Web.Mail.SmtpMail.SmtpServer = MailServer;</span><br><span class="line"></span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            System.Web.Mail.SmtpMail.Send(mmsg);</span><br><span class="line">            return &quot;发送成功&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            return &quot;发送失败，失败原因：&quot; + ex.Message;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/53/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/53/">53</a><span class="page-number current">54</span><a class="page-number" href="/page/55/">55</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/55/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

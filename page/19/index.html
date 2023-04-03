@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/19/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/19/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/05/09/%E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91%E5%BB%B6%E6%97%B6%E6%91%84%E5%BD%B1%E9%A1%B9%E7%9B%AE%E5%88%86%E4%BA%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/09/%E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91%E5%BB%B6%E6%97%B6%E6%91%84%E5%BD%B1%E9%A1%B9%E7%9B%AE%E5%88%86%E4%BA%AB/" class="post-title-link" itemprop="url">【树莓派】延时摄影项目分享</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-09 21:51:18" itemprop="dateCreated datePublished" datetime="2020-05-09T21:51:18+08:00">2020-05-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.hardyun.com/355.html">http://www.hardyun.com/355.html</a></p>
+</blockquote>
+<h2 id="视频链接"><a href="#视频链接" class="headerlink" title="视频链接"></a>视频链接</h2><p>Youtube: <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=1qs97MuROMs">https://www.youtube.com/watch?v=1qs97MuROMs</a><br>B站: <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ZE411F7pB">https://www.bilibili.com/video/BV1ZE411F7pB</a></p>
+<h2 id="相关配置和脚本"><a href="#相关配置和脚本" class="headerlink" title="相关配置和脚本"></a>相关配置和脚本</h2><p><strong>1. crontab 定时任务列表</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~ $ crontab -l</span><br><span class="line">*/2 * * * * /usr/local/bin /camera.sh</span><br><span class="line">00 04 * * * /usr/local/bin/deleteold.sh</span><br><span class="line">00 03 * * * /usr/local/bin/sun.sh</span><br><span class="line">05 06 * * * /usr/local/bin/daynight.sh day</span><br><span class="line">19 18 * * * /usr/local/bin/daynight.sh night</span><br><span class="line">@reboot /usr/local/bin/initgpio.sh</span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 拍照脚本 camera.sh</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~ $ cat /usr/local/bin/camera.sh</span><br><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">photo_root_dir=&quot;/home/pi/Pictures&quot;</span><br><span class="line">ircutnode=&quot;/sys/class/gpio/gpio17/value&quot;</span><br><span class="line">suffix=&quot;&quot;</span><br><span class="line">filename=&quot;&quot;</span><br><span class="line"></span><br><span class="line">cmdname=&quot;veye_raspistill&quot;</span><br><span class="line"></span><br><span class="line">date_day=$(date +%Y-%m-%d)</span><br><span class="line">date_time=$(date  +%Y-%m-%d-%H-%M )</span><br><span class="line">#echo $date_time</span><br><span class="line"></span><br><span class="line">errorlog=&quot;/home/pi/error.txt&quot;</span><br><span class="line">ret=$(ps -A -ww | grep $cmdname | awk &#x27;&#123;print $4&#125;&#x27;)</span><br><span class="line">if [ &quot;$ret&quot; = &quot;$cmdname&quot; ];then</span><br><span class="line">  echo &quot;$date_time: Photo command process $ret blocked, reboot!&quot; &gt;&gt; $errorlog</span><br><span class="line">  /usr/bin/sudo /sbin/shutdown -r now</span><br><span class="line">  exit 1</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ -f $ircutnode ];then</span><br><span class="line">  ircutvalue=$( cat $ircutnode)</span><br><span class="line">  if [ &quot;$ircutvalue&quot; = &quot;0&quot; ];then</span><br><span class="line">    suffix=&quot;day&quot;</span><br><span class="line">  else</span><br><span class="line">    suffix=&quot;night&quot;</span><br><span class="line">  fi</span><br><span class="line">fi</span><br><span class="line">#echo $suffix</span><br><span class="line"></span><br><span class="line">filename=$&#123;date_time&#125;_$&#123;suffix&#125;</span><br><span class="line"></span><br><span class="line">current_dir=$photo_root_dir/$date_day</span><br><span class="line">#echo $current_dir</span><br><span class="line"></span><br><span class="line">if [ ! -d $current_dir ]; then</span><br><span class="line">    mkdir -p $current_dir</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">/usr/local/bin/$cmdname -o $current_dir/ $filename.jpg</span><br><span class="line"></span><br><span class="line">temperature_18b20=$(cat /sys/bus/w1/devices/ 28-00000b48b969/w1_slave | grep &#x27;t=&#x27; | sed &#x27;s/^.*t=//g&#x27; | awk &#x27;&#123;print $1/1000&#125;&#x27;)</span><br><span class="line">#echo $temperature_18b20</span><br><span class="line"></span><br><span class="line">temperature_cpu=$(cat /sys/class/thermal/thermal_zone0 /temp | awk &#x27;&#123;print $1/1000&#125;&#x27;)</span><br><span class="line">#echo $temperature_cpu</span><br><span class="line"></span><br><span class="line">#echo $date_time $temperature_18b20 $temperature_cpu &gt; $current_dir/$filename.txt</span><br><span class="line">printf &quot;%s %-7s %-6sn&quot; $date_time $temperature_18b20 $temperature_cpu &gt; $current_dir/$filename.txt</span><br><span class="line"></span><br><span class="line">/bin/sync</span><br><span class="line"></span><br><span class="line">**3. 删除前第6天照片的脚本 deleteold.sh**</span><br><span class="line"></span><br><span class="line">pi@raspberrypi:~ $ cat /usr/local/bin/deleteold.sh</span><br><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">photo_root_dir=&quot;/home/pi/Pictures&quot;</span><br><span class="line"></span><br><span class="line">#date_day=$(date +%Y-%m-%d)</span><br><span class="line">date_day=$(date -I -d &quot;$(date +%Y-%m-%d) -6 days&quot;)</span><br><span class="line"></span><br><span class="line">to_clear_dir=$photo_root_dir/$date_day</span><br><span class="line"></span><br><span class="line">if [ -d $to_clear_dir ]; then</span><br><span class="line">  rm -rf &quot;$to_clear_dir&quot;</span><br><span class="line">  echo &quot;$to_clear_dir has been deleted!&quot;</span><br><span class="line">  /bin/ sync</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p><strong>4. 绐定经纬度和日期，批量生成每天日出和日落时间的脚本 create-date-list.sh</strong><br>派上需要安装的软件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install lynx jq</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~ $ cat create-date-list.sh</span><br><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">lat=42.33</span><br><span class="line">lng=118.88</span><br><span class="line"></span><br><span class="line">date_start=&quot;2020-02-17&quot;</span><br><span class="line">days=30</span><br><span class="line"></span><br><span class="line">for i in $(eval echo &quot;&#123;0..$&#123;days&#125;&quot;&#125;); do</span><br><span class="line">  dateid=$(date -I -d &quot;$date_start + $i days&quot;)</span><br><span class="line">  #echo ===$dateid</span><br><span class="line">  sunrise_utc=$(lynx --dump   &quot;https://api.sunrise-sunset.org/json?lat=$lat&amp;lng=$lng&amp;date=$dateid&quot; | jq &#x27;.results.sunrise&#x27; )</span><br><span class="line">  sunrise_utc=&quot;$&#123;sunrise_utc//&quot;&#125;&quot;</span><br><span class="line">  sunrise_utc=$(date -d &quot;$dateid $sunrise_utc UTC&quot; &quot;+%Y-%m-%d %H:%M&quot;)</span><br><span class="line">  #echo $sunrise_utc</span><br><span class="line"></span><br><span class="line">  #date_day=$(echo $sunrise_utc | awk &#x27;&#123;print $1&#125;&#x27;)</span><br><span class="line">  date_day=$(date -I -d &quot;$date_start +$(expr $i + 1) days&quot;)</span><br><span class="line">  date_sunrise=$(echo $sunrise_utc | awk &#x27;&#123;print $2&#125;&#x27;)</span><br><span class="line"></span><br><span class="line">  sleep 1</span><br><span class="line"></span><br><span class="line">  #echo ===$date_day</span><br><span class="line">  #echo $date_sunrise</span><br><span class="line">  sunset_utc=$(lynx --dump  &quot;https://api.sunrise-sunset.org/json?lat=$lat&amp;lng=$lng&amp;date=$date_day&quot; | jq &#x27;.results.sunset&#x27; )</span><br><span class="line">  sunset_utc=&quot;$&#123;sunset_utc//&quot;&#125;&quot;</span><br><span class="line">  sunset_utc=$(date -d &quot;$date_day $sunset_utc UTC&quot; &quot;+%Y-%m-%d %H:%M&quot;)</span><br><span class="line">  #echo $sunset_utc</span><br><span class="line"></span><br><span class="line">  date_sunset=$(echo $sunset_utc | awk &#x27;&#123;print $2&#125;&#x27; )</span><br><span class="line"></span><br><span class="line">  echo $date_day $date_sunrise $date_sunset</span><br><span class="line"></span><br><span class="line">  sleep 1</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>将生成的日出日落时间数据保存到sun.txt文件中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./create-date-list.sh 2&gt;&amp;1 | tee sun.txt</span><br></pre></td></tr></table></figure>
+
+<p><strong>5. 生成每天日出日落时切换摄像头日夜模式的脚本 sun.sh</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">sunfile=&quot;/home/pi/sun.txt&quot;</span><br><span class="line">suncron=&quot;/home/pi/crontabfile&quot;</span><br><span class="line"></span><br><span class="line">date_day=$(date +%Y-%m-%d)</span><br><span class="line"></span><br><span class="line">sun=$(cat $sunfile | grep $date_day)</span><br><span class="line">sunrise=$(echo $sun | awk &#x27;&#123;print $2&#125;&#x27;)</span><br><span class="line">sunset=$(echo $sun | awk &#x27;&#123;print $3&#125;&#x27;)</span><br><span class="line"></span><br><span class="line">#echo $sunrise $sunset</span><br><span class="line"></span><br><span class="line">sunrise_h=$(echo $sunrise | awk -F &#x27;:&#x27; &#x27;&#123;print $1&#125;&#x27;)</span><br><span class="line">sunrise_m=$(echo $sunrise | awk -F &#x27;:&#x27; &#x27;&#123;print $2&#125;&#x27;)</span><br><span class="line"></span><br><span class="line">if [ $(($sunrise_m % 2)) -eq 0 ];then</span><br><span class="line">  sunrise_m=$(printf &quot;%02d&quot; $((sunrise_m+1)))</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">sunset_h=$(echo $sunset | awk -F &#x27;:&#x27; &#x27;&#123;print $1&#125;&#x27;)</span><br><span class="line">sunset_m=$(echo $sunset | awk -F &#x27;:&#x27; &#x27;&#123;print $2&#125;&#x27;)</span><br><span class="line"></span><br><span class="line">if [ $(($sunset_m % 2)) -eq 0 ];then</span><br><span class="line">  sunset_m=$(printf &quot;%02d&quot; $((sunset_m+1)))</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;*/2 * * * * /usr/local/bin/camera.sh&quot; &gt; $suncron</span><br><span class="line">echo &quot;00 04 * * * /usr/local/bin/deleteold.sh&quot; &gt;&gt; $suncron</span><br><span class="line">echo &quot;00 03 * * * /usr/local/bin/sun.sh&quot; &gt;&gt; $suncron</span><br><span class="line"></span><br><span class="line">echo $sunrise_m $sunrise_h &quot;* * * /usr/local/bin/daynight.sh day&quot;   &gt;&gt; $suncron</span><br><span class="line">echo $sunset_m  $sunset_h  &quot;* * * /usr/local/bin/daynight.sh night&quot; &gt;&gt; $suncron</span><br><span class="line"></span><br><span class="line">echo &quot;@reboot /usr/local/bin/initgpio.sh&quot; &gt;&gt; $suncron</span><br><span class="line"></span><br><span class="line">/bin/sync</span><br><span class="line">/usr/bin/crontab $suncron</span><br></pre></td></tr></table></figure>
+
+<p><strong>6. 通过GPIO切换摄像头日夜模式的脚本 daynight.sh</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">gpiodir=&quot;/sys/class/gpio&quot;</span><br><span class="line">gpio_irled=5    # 0 - on,  1 - off</span><br><span class="line">gpio_led=6  # 0 - on,  1 - off</span><br><span class="line">gpio_mode=17    # 0 - day, 1 - night</span><br><span class="line"></span><br><span class="line">gpio_init ()</span><br><span class="line">&#123;</span><br><span class="line">  echo $1 $2</span><br><span class="line">  echo $1 &gt; $gpiodir /export</span><br><span class="line">  sleep 1</span><br><span class="line">  echo out &gt; $gpiodir/gpio $1/direction</span><br><span class="line">  echo $2 &gt; $gpiodir/gpio$1 /value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">gpio_ctrl ()</span><br><span class="line">&#123;</span><br><span class="line">  echo gpio$1 $2</span><br><span class="line">  if [ ! -f $gpiodir/gpio$1/value ];then</span><br><span class="line">    gpio_init $1 $2</span><br><span class="line">  else</span><br><span class="line">    echo $2 &gt; $gpiodir/gpio $1/value</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#init_gpio 17 0</span><br><span class="line"></span><br><span class="line">ir_control ()</span><br><span class="line">&#123;</span><br><span class="line">  if [ &quot;$1&quot; = &quot;night&quot; ]; then</span><br><span class="line">    echo &quot;=== night mode ===&quot;</span><br><span class="line">    gpio_ctrl $gpio_irled 0</span><br><span class="line">    gpio_ctrl $gpio_mode 1</span><br><span class="line">  else</span><br><span class="line">    echo &quot;=== day mode ===&quot;</span><br><span class="line">    gpio_ctrl $gpio_irled 1</span><br><span class="line">    gpio_ctrl $gpio_mode 0</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># turn off led light</span><br><span class="line">gpio_ctrl $gpio_led 1</span><br><span class="line"></span><br><span class="line">ir_control $1</span><br></pre></td></tr></table></figure>
+
+<p><strong>7. 派重启后恢复摄像头日夜模式的脚本 initgpio.sh</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">sunfile=&quot;/home/pi/sun.txt&quot;</span><br><span class="line"></span><br><span class="line">date_day=$(date +%Y-%m-%d)</span><br><span class="line"></span><br><span class="line">sun=$(cat $sunfile | grep $date_day)</span><br><span class="line">sunrise=$(echo $sun | awk &#x27;&#123;print $2&#125;&#x27;)</span><br><span class="line">sunset=$(echo $sun | awk &#x27;&#123;print $3&#125;&#x27;)</span><br><span class="line"></span><br><span class="line">#echo $sunrise $sunset</span><br><span class="line"></span><br><span class="line">sunrise_h=$(echo $sunrise | awk -F &#x27;:&#x27; &#x27;&#123;print $1&#125;&#x27;)</span><br><span class="line">sunrise_m=$(echo $sunrise | awk -F &#x27;:&#x27; &#x27;&#123;print $2&#125;&#x27;)</span><br><span class="line"></span><br><span class="line">if [ $(($sunrise_m % 2)) -eq 0 ];then</span><br><span class="line">  sunrise_m=$(printf &quot;%02d&quot; $((sunrise_m+1)))</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">sunset_h=$(echo $sunset | awk -F &#x27;:&#x27; &#x27;&#123;print $1&#125;&#x27;)</span><br><span class="line">sunset_m=$(echo $sunset | awk -F &#x27;:&#x27; &#x27;&#123;print $2&#125;&#x27;)</span><br><span class="line"></span><br><span class="line">if [ $(($sunset_m % 2)) -eq 0 ];then</span><br><span class="line">  sunset_m=$(printf &quot;%02d&quot; $((sunset_m+1)))</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">sunrise=&quot;$sunrise_h:$sunrise_m&quot;</span><br><span class="line">sunset=&quot;$sunset_h:$sunset_m&quot;</span><br><span class="line"></span><br><span class="line">currenttime=$(date +%H:%M)</span><br><span class="line"></span><br><span class="line">if [[ &quot;$currenttime&quot; &gt; &quot;$sunrise&quot; ]] &amp;&amp; [[ &quot;$currenttime&quot; &lt; &quot;$sunset&quot; ]];then</span><br><span class="line">  /usr/local/bin /daynight.sh day</span><br><span class="line">else</span><br><span class="line">  /usr/local/bin/daynight.sh night</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<h2 id="在异地另一个树莓派上远程获取照片"><a href="#在异地另一个树莓派上远程获取照片" class="headerlink" title="在异地另一个树莓派上远程获取照片"></a>在异地另一个树莓派上远程获取照片</h2><p><strong>1. 定时任务</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~ $ crontab -l</span><br><span class="line">0 1 * * * /usr/local/bin/getphoto.sh</span><br></pre></td></tr></table></figure>
+<p><strong>2. 每天自动获取远程派摄像头内照片的脚本 getphoto.sh</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">target_dir=&quot;/opt/picamera&quot;</span><br><span class="line">mailto=&quot;xxx@163.com&quot;</span><br><span class="line"></span><br><span class="line">date_day=$(date -I -d &quot;$(date +%Y-%m-%d) -1 days&quot;)</span><br><span class="line"></span><br><span class="line">if [ ! -d $target_dir ];then</span><br><span class="line">  mkdir -p $target_dir</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">cmd=&quot;rsync -av -e &#x27;ssh -p[PORT]&#x27; pi@[IP]:/home/pi/Pictures/$date_day $target_dir&quot;</span><br><span class="line"></span><br><span class="line">n=0</span><br><span class="line">timeout=50</span><br><span class="line">until [ $n -ge $timeout ]</span><br><span class="line">do</span><br><span class="line">  eval $cmd &amp;&amp; break</span><br><span class="line">  n=$[$n+ 1]</span><br><span class="line">  sleep 5</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">file_num=$(ls $target_dir/$date_day | wc -l)</span><br><span class="line">#echo $file_num</span><br><span class="line"></span><br><span class="line">if [ &quot;$file_num&quot; = &quot;1440&quot; ];then</span><br><span class="line">  title= &quot;Get photos successfully [$file_num]&quot;</span><br><span class="line">else</span><br><span class="line">  title=&quot;Failed to get photos [$file_num]&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">photo_num=$(ls $target_dir/$date_day/*.jpg | wc -l)</span><br><span class="line">txt_num=$(ls $target_dir/$date_day/*.txt | wc -l)</span><br><span class="line"></span><br><span class="line">msg=&quot;photo:$photo_num, txt:$txt_num, retry:$n&quot;</span><br><span class="line"></span><br><span class="line">#echo $title : $msg</span><br><span class="line">echo &quot;$msg&quot; | mutt -s &quot;$title&quot; -- $mailto</span><br></pre></td></tr></table></figure>
+
+<p>邮件功能需要安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install msmtp mutt</span><br></pre></td></tr></table></figure>
+<p>相关配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~ $ cat ~/.msmtprc</span><br><span class="line">account default</span><br><span class="line">host smtp.163.com</span><br><span class="line">from xxx@163.com</span><br><span class="line">auth login</span><br><span class="line">user xxx@163.com</span><br><span class="line">password [PASSWORD]</span><br><span class="line">logfile ~/.msmtp.log</span><br><span class="line"></span><br><span class="line">pi@raspberrypi:~ $ cat ~/.muttrc</span><br><span class="line">set sendmail=&quot;/usr/bin/msmtp&quot;</span><br><span class="line">set use_from=yes</span><br><span class="line">set realname=&quot;rpi-camera&quot;</span><br><span class="line">set from=&quot;xxx@163.com&quot;</span><br><span class="line">set envelope_from=yes</span><br><span class="line">set editor=&quot;vim -nw&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>3. 在树莓派上用ffmpeg将照片合成视频的命令</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -framerate 25 -pattern_type glob -i &#x27;*.jpg&#x27; -c:v libx264 -profile:v high -crf 20 -pix_fmt yuv420p output.mp4</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/05/09/%E3%80%90Docker%E3%80%91Portainer%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/09/%E3%80%90Docker%E3%80%91Portainer%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" class="post-title-link" itemprop="url">【Docker】Portainer可视化管理工具</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-09 21:41:14" itemprop="dateCreated datePublished" datetime="2020-05-09T21:41:14+08:00">2020-05-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">环境搭建</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/A632189007/article/details/78779920">https://blog.csdn.net/A632189007/article/details/78779920</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiao987334176/p/12691686.html">https://www.cnblogs.com/xiao987334176/p/12691686.html</a></p>
+</blockquote>
+<h2 id="Portainer介绍"><a href="#Portainer介绍" class="headerlink" title="Portainer介绍"></a>Portainer介绍</h2><p><code>Portainer</code>是<code>Docker</code>的图形化管理工具，提供状态显示面板、应用模板快速部署、容器镜像网络数据卷的基本操作（包括上传下载镜像，创建容器等操作）、事件日志显示、容器控制台操作、<code>Swarm</code>集群和服务等集中管理和操作、登录用户管理和控制等功能。功能十分全面，基本能满足中小型单位对容器管理的全部需求。</p>
+<h2 id="下载Portainer镜像"><a href="#下载Portainer镜像" class="headerlink" title="下载Portainer镜像"></a>下载Portainer镜像</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 查询当前有哪些Portainer镜像</span><br><span class="line">docker search portainer</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/20171212100832415.png" alt=""></p>
+<p>上图就是查询出来的有下载量的portainer镜像，我们下载第一个镜像：<code>docker.io/portainer/portainer</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 下载镜像</span><br><span class="line">docker pull docker.io/portainer/portainer</span><br></pre></td></tr></table></figure>
+
+<h2 id="单机版运行"><a href="#单机版运行" class="headerlink" title="单机版运行"></a>单机版运行</h2><p>如果仅有一个<code>docker</code>宿主机，则可使用单机版运行，<code>Portainer</code>单机版运行十分简单，只需要一条语句即可启动容器，来管理该机器上的docker镜像、容器等数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 9000:9000 \</span><br><span class="line">    --restart=always \</span><br><span class="line">    -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">    --name prtainer-test \</span><br><span class="line">    docker.io/portainer/portainer</span><br></pre></td></tr></table></figure>
+
+<p>该语句用宿主机<code>9000</code>端口关联容器中的<code>9000</code>端口，并给容器起名为<code>portainer-test</code>。执行完该命令之后，使用该机器<code>IP:PORT</code>即可访问<code>Portainer</code>。</p>
+<p>访问方式：<code>http://IP:9000</code></p>
+<p>首次登陆需要注册用户，给<code>admin</code>用户设置密码：</p>
+<p><img src="/images/20171212101723608.png" alt=""></p>
+<p>单机版这里选择<code>local</code>即可，选择完毕，点击<code>Connect</code>即可连接到本地<code>docker</code>：</p>
+<p><img src="/images/20171212101931044.png" alt=""></p>
+<p><strong>注意：该页面上有提示需要挂载本地 <code>/var/run/docker.socker</code>与容器内的<code>/var/run/docker.socker</code>连接。因此，在启动时必须指定该挂载文件。</strong></p>
+<p>首页：</p>
+<p><img src="/images/20171212102512701.png" alt=""></p>
+<p>容器列表：</p>
+<p><img src="/images/20171212102545932.png" alt=""></p>
+<p>点击容器列表中的容器名<code>Name</code>，即可查看容器详情：</p>
+<p><img src="/images/20171212102643614.png" alt=""></p>
+<p>并且在容器详情页可以使用该容器创建镜像：</p>
+<p><img src="/images/20171212102733688.png" alt=""></p>
+<p>镜像列表（在镜像列表可以直接<code>pull</code>一个镜像，可以从远程<code>pull</code>，也可以从私有库中<code>pull</code>。从私有库中<code>pull</code>，需要将私有库的地址提前进行配置，这个在后面会说）：</p>
+<p><img src="/images/20171212102822881.png" alt=""></p>
+<p>点击<code>镜像ID</code>，即可查看镜像详情信息，在详情信息页面，除了镜像的一些信息外，还可以对该镜像进行打标签<code>tag</code>操作，然后将镜像<code>push</code>到远程仓库或者私有仓库中。</p>
+<p><img src="/images/20171212103051454.png" alt=""></p>
+<p>仓库管理页面（该界面可以查看配置的镜像仓库列表，同时可以添加仓库，添加成功之后，即可在<code>image</code>镜像页面进行<code>pull</code>、<code>push</code>操作。）：</p>
+<p><img src="/images/20171212103240308.png" alt=""></p>
+<p>添加镜像仓库：</p>
+<p><img src="/images/20171212103415903.png" alt=""></p>
+<p><code>Portainer</code>中还有一些别的操作，比如权限管理、网络管理等等，可以安装上进行了解学习。</p>
+<h2 id="集群运行"><a href="#集群运行" class="headerlink" title="集群运行"></a>集群运行</h2><p>更多的情况下，我们会有一个<code>docker</code>集群，可能有几台机器，也可能有几十台机器，因此，进行集群管理就十分重要了，<code>Portainer</code>也支持集群管理，<code>Portainer</code>可以和<code>Swarm</code>一起来进行集群管理操作。这里我首先搭建了一个<code>Swarm</code>。</p>
+<p><code>Swarm</code>集群的搭建方法可参考这篇文章：<a target="_blank" rel="noopener" href="http://blog.csdn.net/a632189007/article/details/78756339">通过Swarm搭建Docker集群</a>。</p>
+<p>portainer集群方式启动（这里我喜欢通过简单启动的方式，然后在界面上进行节点的添加）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 9000:9000 --restart=always --name prtainer-test docker.io/portainer/portainer</span><br></pre></td></tr></table></figure>
+
+<p>启动<code>Portainer</code>之后，首页还是给<code>admin</code>用户设置密码（这里和单机启动一样）。接下来是设置节点了，如下图：</p>
+<p><img src="/images/20171212104241934.png" alt=""></p>
+<p>这里我们选择<code>Remote</code>这个模块，下面会要求添加一个名字以及<code>节点URL</code>，名字可以自取，只要能够理解即可，<code>Endpoint URL</code>是<code>Swarm</code>集群中设置的<code>节点URL</code>，比如我机器IP是<code>10.0.11.152</code>，监听的端口是默认的<code>2375</code>，则这里的URL就写：<code>10.0.11.152:2375</code>。</p>
+<p><strong>如果是集群方式启动，建议portainer安装启动在Swarm管理节点，并且首次设置Endpoint URL时设置管理节点的URL。</strong></p>
+<p>填写完毕点击<code>Connect</code>即可进入管理页面。在管理页面左上角会显示管理的集群节点列表：</p>
+<p><img src="/images/20171212104652955.png" alt=""></p>
+<p>想要查看那个节点的信息，则点击节点即可。镜像、容器操作与单机模式下基本一样。<strong>这里只需要说下节点添加。</strong></p>
+<p>点击导航栏Endpoints进入节点列表页面：</p>
+<p><img src="/images/20171212104844989.png" alt=""></p>
+<p>从上图中一目了然就应该知道如何添加节点了，需要填写一个名字<code>Name</code>、<code>Endpoint URL</code>以及<code>节点IP</code>，就可以添加一个集群节点了，十分简单。</p>
+<h2 id="汉化"><a href="#汉化" class="headerlink" title="汉化"></a>汉化</h2><p>创建目录，并解压文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/portainer/data /data/portainer/public</span><br><span class="line">cd cd /data/portainer wget https://dl.quchao.net/Soft/Portainer-CN.zip</span><br><span class="line">unzip Portainer-CN.zip -d public</span><br><span class="line"></span><br><span class="line"># 复制到docker里</span><br><span class="line">docker cp . 48bb9525bad3:/public</span><br></pre></td></tr></table></figure>
+
+<p>OK，<code>Portainer</code>的基本操作就这么多，具体的操作步骤还需要大家自己去学习理解。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/04/18/%E3%80%90.Net%20Core%E3%80%91WebApi%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/18/%E3%80%90.Net%20Core%E3%80%91WebApi%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" class="post-title-link" itemprop="url">【.Net Core】WebApi版本控制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-18 22:48:20" itemprop="dateCreated datePublished" datetime="2020-04-18T22:48:20+08:00">2020-04-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/linhuiy/p/12668535.html">https://www.cnblogs.com/linhuiy/p/12668535.html</a></p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h2><p>在后端Api的开发过程中,无法避免的会遇到接口迭代的过程,如何保证新老接口的共存和接口的向前的兼容呢,这时候就需要对Api进行版本的控制,那如何优雅的控制Api的版本呢？</p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a><strong>开始</strong></h2><p><code>Microsoft.AspNetCore.Mvc.Versioning</code> 是一个微软官方推出的一个用于管理Api版本的包,配置简单,功能强大。 <a target="_blank" rel="noopener" href="https://github.com/microsoft/aspnet-api-versioning">github地址</a>.</p>
+<p>新建一个WebApi项目并通过命令引用包。</p>
+<p><code>Install-Package Microsoft.AspNetCore.Mvc.Versioning</code></p>
+<p>最新版本已经支持Core3.1</p>
+<p><img src="/images/20200409110106.png" alt=""></p>
+<p>项目结构如下</p>
+<p><img src="/images/20200409112646.png" alt=""></p>
+<p>在 <code>Startup</code> 的 <code>ConfigureServices</code> 中增加一下配置。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">services.AddApiVersioning(options =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    options.ReportApiVersions = <span class="literal">true</span>;</span><br><span class="line">    options.AssumeDefaultVersionWhenUnspecified = <span class="literal">true</span>;</span><br><span class="line">    options.DefaultApiVersion = <span class="keyword">new</span> ApiVersion(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ReportApiVersions:是否在请求头中返回受支持的版本信息。</li>
+<li>AssumeDefaultVersionWhenUnspecified:请求没有指明版本的情况下是否使用默认的版本。</li>
+<li>DefaultApiVersion:默认的版本号。</li>
+</ul>
+<h2 id="通过QueryString进行版本控制"><a href="#通过QueryString进行版本控制" class="headerlink" title="通过QueryString进行版本控制"></a><strong>通过QueryString进行版本控制</strong></h2><p>分别在两个不同的<code>Controller</code>中添加一个获取版本信息的接口</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">version.Controllers.v1</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ApiVersion(<span class="string">&quot;1.0&quot;</span>)</span>]</span><br><span class="line">    [<span class="meta">ApiController</span>]</span><br><span class="line">    [<span class="meta">Route(<span class="string">&quot;api/[controller]&quot;</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ValuesController</span> : <span class="title">Controller</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">HttpGet(<span class="string">&quot;version&quot;</span>)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">Version</span>()</span> =&gt; (HttpContext.GetRequestedApiVersion().ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">version.Controllers.v2</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ApiVersion(<span class="string">&quot;2.0&quot;</span>)</span>]</span><br><span class="line">    [<span class="meta">ApiController</span>]</span><br><span class="line">    [<span class="meta">Route(<span class="string">&quot;api/[controller]&quot;</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ValuesController</span> : <span class="title">Controller</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">HttpGet(<span class="string">&quot;version&quot;</span>)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">Version</span>()</span> =&gt; (HttpContext.GetRequestedApiVersion().ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>HttpContext.GetRequestedApiVersion().ToString()</code> 是用于获取请求接口的版本信息。</p>
+<p>我们通过postman来请求这两个接口当我们没有给到具体请求哪个版本的时候会根据在<code>ConfigureServices</code>中配置的默认版本去执行。</p>
+<p><img src="/images/20200409152911.png" alt=""></p>
+<p>指定版本请求结果</p>
+<p><img src="/images/20200409153048.png" alt=""></p>
+<p><img src="/images/20200409153124.png" alt=""></p>
+<p>在响应头中会显示当前支持的所有的Api版本</p>
+<p><img src="/images/20200409153317.png" alt=""></p>
+<h2 id="通过URL-Path进行版本控制"><a href="#通过URL-Path进行版本控制" class="headerlink" title="通过URL Path进行版本控制"></a><strong>通过URL Path进行版本控制</strong></h2><p>一般在Api开发中不会去QueryString的方式去进行版本控制，而是使用URL路径段的方式来控制版本。</p>
+<p>修改两个<code>Controller</code>中的代码如下。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">version.Controllers.v1</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ApiVersion(<span class="string">&quot;1.0&quot;</span>)</span>]</span><br><span class="line">    [<span class="meta">ApiController</span>]</span><br><span class="line">    [<span class="meta">Route(<span class="string">&quot;api/v&#123;version:ApiVersion&#125;/[controller]&quot;</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ValuesController</span> : <span class="title">Controller</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">HttpGet(<span class="string">&quot;version&quot;</span>)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">Version</span>()</span> =&gt; (HttpContext.GetRequestedApiVersion().ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">version.Controllers.v2</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ApiVersion(<span class="string">&quot;2.0&quot;</span>)</span>]</span><br><span class="line">    [<span class="meta">ApiController</span>]</span><br><span class="line">    [<span class="meta">Route(<span class="string">&quot;api/v&#123;version:ApiVersion&#125;/[controller]&quot;</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ValuesController</span> : <span class="title">Controller</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">HttpGet(<span class="string">&quot;version&quot;</span>)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">Version</span>()</span> =&gt; (HttpContext.GetRequestedApiVersion().ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过postman进行测试</p>
+<p><img src="/images/20200409154746.png" alt=""><br><img src="/images/20200409155617.png" alt=""><br><img src="/images/20200409155705.png" alt=""></p>
+<p>可以看到当我们使用指定的版本是可以正常访问的时候，但是如果我们去掉了Api版本号就会抛出404,并不能像QueryString一样调用默认的Api版本，因为URL Path的方式不允许隐式匹配设置的默认Api版本。所以必须申明所有的Api版本。且在请求Api同时必须带上Api版本号。</p>
+<h2 id="通过Media-Type进行版本控制"><a href="#通过Media-Type进行版本控制" class="headerlink" title="通过Media Type进行版本控制"></a><strong>通过Media Type进行版本控制</strong></h2><p>我们还可以使用<code>content-type</code>来实现版本的控制</p>
+<p>修改<code>ConfigureServices</code>中的配置</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">services.AddApiVersioning(options =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    options.ApiVersionReader = <span class="keyword">new</span> MediaTypeApiVersionReader();</span><br><span class="line">    options.AssumeDefaultVersionWhenUnspecified = <span class="literal">true</span>;</span><br><span class="line">    options.ApiVersionSelector = <span class="keyword">new</span> CurrentImplementationApiVersionSelector(options);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>CurrentImplementationApiVersionSelector</code> 如果没有在content-type中传递Api版本好,将默认匹配最新的Api版本</p>
+<p>分别修改两个<code>Controller</code></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">version.Controllers.v1</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ApiVersion(<span class="string">&quot;1.0&quot;</span>)</span>]</span><br><span class="line">    [<span class="meta">ApiController</span>]</span><br><span class="line">    [<span class="meta">Route(<span class="string">&quot;api/[controller]&quot;</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ValuesController</span> : <span class="title">Controller</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">HttpGet(<span class="string">&quot;version&quot;</span>)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">Version</span>()</span> =&gt; (HttpContext.GetRequestedApiVersion().ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">version.Controllers.v2</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ApiVersion(<span class="string">&quot;2.0&quot;</span>)</span>]</span><br><span class="line">    [<span class="meta">ApiController</span>]</span><br><span class="line">    [<span class="meta">Route(<span class="string">&quot;api/[controller]&quot;</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ValuesController</span> : <span class="title">Controller</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">HttpGet(<span class="string">&quot;version&quot;</span>)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">Version</span>()</span> =&gt; (HttpContext.GetRequestedApiVersion().ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用Postman测试</p>
+<p><img src="/images/QQ20200409-163007.gif" alt=""></p>
+<h2 id="通过自定义Headers进行版本控制"><a href="#通过自定义Headers进行版本控制" class="headerlink" title="通过自定义Headers进行版本控制"></a><strong>通过自定义Headers进行版本控制</strong></h2><p>修改<code>ConfigureServices</code>中的配置</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">services.AddControllers();</span><br><span class="line">services.AddApiVersioning(options =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    options.ReportApiVersions = <span class="literal">true</span>;</span><br><span class="line">    options.ApiVersionReader = <span class="keyword">new</span> HeaderApiVersionReader(<span class="string">&quot;api_version&quot;</span>);</span><br><span class="line">    options.AssumeDefaultVersionWhenUnspecified = <span class="literal">true</span>;</span><br><span class="line">    options.DefaultApiVersion = <span class="keyword">new</span> ApiVersion(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>api_version</code> 是你Headers中Key的名字。</p>
+<p>使用Postman测试<br><img src="/images/QQ20200409-163921.gif" alt=""></p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a><strong>特性</strong></h2><p>当哪个Api版本不在更新,就需要弃用掉这个版本。当<code>Deprecated</code>值为<code>true</code>时说明该Api版本已经已经弃用,但是弃用不代表不能请求。只是会在响应头中告知次版本已经已经弃用。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">version.Controllers.v1</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ApiVersion(<span class="string">&quot;1.0&quot;</span>,Deprecated= true)</span>]</span><br><span class="line">    [<span class="meta">ApiController</span>]</span><br><span class="line">    [<span class="meta">Route(<span class="string">&quot;api/[controller]&quot;</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ValuesController</span> : <span class="title">Controller</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">HttpGet(<span class="string">&quot;version&quot;</span>)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">Version</span>()</span> =&gt; (HttpContext.GetRequestedApiVersion().ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/20200409164902.png" alt="20200409164902"></p>
+<p>项目总有一些功能是不需要版本的控制，所以我们希望它不受版本控制。可以添加<code>[ApiVersionNeutral]</code>特性使Api支持版本控制。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">version.Controllers.v1</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ApiVersionNeutral</span>]</span><br><span class="line">    [<span class="meta">ApiController</span>]</span><br><span class="line">    [<span class="meta">Route(<span class="string">&quot;api/[controller]&quot;</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ValuesController</span> : <span class="title">Controller</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">HttpGet(<span class="string">&quot;version&quot;</span>)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">Version</span>()</span> =&gt; (HttpContext.GetRequestedApiVersion().ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>MapToApiVersion</code> 可以将单个Api归类于任何版本。在一个<code>Controller</code>中可以存在多个版本的Api。我们可以配合<code>Deprecated</code>来灵活的控制我们的Api。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">version.Controllers.v1</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ApiVersion(<span class="string">&quot;3.0&quot;</span>)</span>]</span><br><span class="line">    [<span class="meta">ApiVersion(<span class="string">&quot;1.0&quot;</span>,Deprecated= true)</span>]</span><br><span class="line">    [<span class="meta">ApiController</span>]</span><br><span class="line">    [<span class="meta">Route(<span class="string">&quot;api/v&#123;version:ApiVersion&#125;/[controller]&quot;</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ValuesController</span> : <span class="title">Controller</span></span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">HttpGet(<span class="string">&quot;version&quot;</span>), MapToApiVersion(<span class="string">&quot;1.0&quot;</span>)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">Version</span>()</span> =&gt; (HttpContext.GetRequestedApiVersion().ToString());</span><br><span class="line"></span><br><span class="line">        [<span class="meta">HttpGet(<span class="string">&quot;version3&quot;</span>), MapToApiVersion(<span class="string">&quot;3.0&quot;</span>)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">string</span> <span class="title">Version3</span>()</span> =&gt; (HttpContext.GetRequestedApiVersion().ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过postman测试一下。</p>
+<p><img src="/images/QQ20200409-173445.gif" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>可以看到<code>Microsoft.AspNetCore.Mvc.Versioning</code>功能还能强大的，基本满足了大部分的需求，还有一些功能可能没有在本文中涉及到，可以去<a target="_blank" rel="noopener" href="https://github.com/microsoft/aspnet-api-versioning">这里</a>.翻阅。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

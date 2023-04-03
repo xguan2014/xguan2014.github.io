@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转自：https:&#x2F;&#x2F;rxjs-cn.github.io&#x2F;learn-rxjs-operators&#x2F;operators&#x2F;combination&#x2F;forkjoin.html 遇到一个angular异步请求的问题，需要同时调用六七个接口，后面的操作是基于这六七个接口的返回结果的。 用forkJoin，正好可以解决，网上的一些例子都不适用。 函数签名:  forkJoin(...args, select">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Angular】同步异步处理">
+<meta property="og:url" content="http://blog.bfsdfs.com/2019/07/19/%E3%80%90Angular%E3%80%91%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="转自：https:&#x2F;&#x2F;rxjs-cn.github.io&#x2F;learn-rxjs-operators&#x2F;operators&#x2F;combination&#x2F;forkjoin.html 遇到一个angular异步请求的问题，需要同时调用六七个接口，后面的操作是基于这六七个接口的返回结果的。 用forkJoin，正好可以解决，网上的一些例子都不适用。 函数签名:  forkJoin(...args, select">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yeGpzLWNuLmdpdGh1Yi5pby9sZWFybi1yeGpzLW9wZXJhdG9ycy9naXRib29rL2dpdGJvb2stcGx1Z2luLWFkdmFuY2VkLWVtb2ppL2Vtb2ppcy9idWxiLnBuZw">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yeGpzLWNuLmdpdGh1Yi5pby9sZWFybi1yeGpzLW9wZXJhdG9ycy9naXRib29rL2dpdGJvb2stcGx1Z2luLWFkdmFuY2VkLWVtb2ppL2Vtb2ppcy93YXJuaW5nLnBuZw">
+<meta property="article:published_time" content="2019-07-19T05:18:34.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.051Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="Angular">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yeGpzLWNuLmdpdGh1Yi5pby9sZWFybi1yeGpzLW9wZXJhdG9ycy9naXRib29rL2dpdGJvb2stcGx1Z2luLWFkdmFuY2VkLWVtb2ppL2Vtb2ppcy9idWxiLnBuZw">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2019/07/19/%E3%80%90Angular%E3%80%91%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【Angular】同步异步处理 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/07/19/%E3%80%90Angular%E3%80%91%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Angular】同步异步处理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-19 13:18:34" itemprop="dateCreated datePublished" datetime="2019-07-19T13:18:34+08:00">2019-07-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">前端知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>转自：<a target="_blank" rel="noopener" href="https://rxjs-cn.github.io/learn-rxjs-operators/operators/combination/forkjoin.html">https://rxjs-cn.github.io/learn-rxjs-operators/operators/combination/forkjoin.html</a></p>
+<p>遇到一个angular异步请求的问题，需要同时调用六七个接口，后面的操作是基于这六七个接口的返回结果的。</p>
+<p>用forkJoin，正好可以解决，网上的一些例子都不适用。</p>
+<p>函数签名:  <code>forkJoin(...args, selector : function): Observable</code> </p>
+<h2 id="当所有-observables-完成时，发出每个-observable-的最新值。"><a href="#当所有-observables-完成时，发出每个-observable-的最新值。" class="headerlink" title="当所有 observables 完成时，发出每个 observable 的最新值。"></a>当所有 observables 完成时，发出每个 observable 的最新值。</h2><hr>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yeGpzLWNuLmdpdGh1Yi5pby9sZWFybi1yeGpzLW9wZXJhdG9ycy9naXRib29rL2dpdGJvb2stcGx1Z2luLWFkdmFuY2VkLWVtb2ppL2Vtb2ppcy9idWxiLnBuZw" alt=":bulb:"> 如果你想要多个 observables 按发出顺序相对应的值的组合，试试 <a target="_blank" rel="noopener" href="https://rxjs-cn.github.io/learn-rxjs-operators/operators/combination/zip.html">zip</a>！</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yeGpzLWNuLmdpdGh1Yi5pby9sZWFybi1yeGpzLW9wZXJhdG9ycy9naXRib29rL2dpdGJvb2stcGx1Z2luLWFkdmFuY2VkLWVtb2ppL2Vtb2ppcy93YXJuaW5nLnBuZw" alt=":warning:"> 如果内部 observable 不完成的话， <code>forkJoin</code>  永远不会发出值！</p>
+<hr>
+<h3 id="为什么使用-forkJoin-？"><a href="#为什么使用-forkJoin-？" class="headerlink" title="为什么使用  forkJoin ？"></a>为什么使用  <code>forkJoin</code> ？</h3><p>当有一组 observables，但你只关心每个 observable 最后发出的值时，此操作符是最适合的。此操作符的一个常见用例是在页面加载(或其他事件)时你希望发起多个请求，并在所有请求都响应后再采取行动。它可能与 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all"> <code>Promise.all</code> </a> 的使用方式类似。</p>
+<p>注意，如果任意作用于  <code>forkJoin</code>  的内部 observable 报错的话，对于那些在内部 observable 上没有正确 <a target="_blank" rel="noopener" href="https://rxjs-cn.github.io/learn-rxjs-operators/operators/error_handling/catch.html"> <code>catch</code> </a> 错误，从而导致完成的 observable，你将丢失它们的值 (参见示例 4)。如果你只关心所有内部 observables 是否成功完成的话，可以<a target="_blank" rel="noopener" href="https://rxjs-cn.github.io/learn-rxjs-operators/operators/combination/forkjoin.html#%E5%9C%A8%E5%A4%96%E9%83%A8%E5%A4%84%E7%90%86%E9%94%99%E8%AF%AF">在外部捕获错误</a>。</p>
+<p>还需要注意的是如果 observable 发出的项多于一个的话，并且你只关心前一个发出的话，那么  <code>forkJoin</code> 并非正确的选择。在这种情况下，应该选择像 <a target="_blank" rel="noopener" href="https://rxjs-cn.github.io/learn-rxjs-operators/operators/combination/combinelatest.html">combineLatest</a> 或 <a target="_blank" rel="noopener" href="https://rxjs-cn.github.io/learn-rxjs-operators/operators/combination/zip.html">zip</a> 这样的操作符。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>示例 1: Observables 再不同的时间间隔后完成</p>
+<p>( <a target="_blank" rel="noopener" href="https://stackblitz.com/edit/typescript-bqxg9x?file=index.ts&amp;devtoolsheight=100">StackBlitz</a> | <a target="_blank" rel="noopener" href="http://jsbin.com/remiduhimu/1/edit?js,console">jsBin</a> | <a target="_blank" rel="noopener" href="https://jsfiddle.net/btroncone/5fj77920/81/">jsFiddle</a> )</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// RxJS v6+</span><br><span class="line">import &#123; delay, take &#125; from &#x27;rxjs/operators&#x27;;</span><br><span class="line">import &#123; forkJoin, of, interval &#125; from &#x27;rxjs&#x27;;</span><br><span class="line"></span><br><span class="line">const myPromise = val =&gt;</span><br><span class="line">  new Promise(resolve =&gt;</span><br><span class="line">    setTimeout(() =&gt; resolve(`Promise Resolved: $&#123;val&#125;`), 5000)</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">  当所有 observables 完成时，将每个 observable </span><br><span class="line">  的最新值作为数组发出</span><br><span class="line">*/</span><br><span class="line">const example = forkJoin(</span><br><span class="line">  // 立即发出 &#x27;Hello&#x27;</span><br><span class="line">  of(&#x27;Hello&#x27;),</span><br><span class="line">  // 1秒后发出 &#x27;World&#x27;</span><br><span class="line">  of(&#x27;World&#x27;).pipe(delay(1000)),</span><br><span class="line">  // 1秒后发出0</span><br><span class="line">  interval(1000).pipe(take(1)),</span><br><span class="line">  // 以1秒的时间间隔发出0和1</span><br><span class="line">  interval(1000).pipe(take(2)),</span><br><span class="line">  // 5秒后解析 &#x27;Promise Resolved&#x27; 的 promise</span><br><span class="line">  myPromise(&#x27;RESULT&#x27;)</span><br><span class="line">);</span><br><span class="line">//输出: [&quot;Hello&quot;, &quot;World&quot;, 0, 1, &quot;Promise Resolved: RESULT&quot;]</span><br><span class="line">const subscribe = example.subscribe(val =&gt; console.log(val));</span><br></pre></td></tr></table></figure>
+
+
+<p>示例 2: 发起任意多个请求</p>
+<p>( <a target="_blank" rel="noopener" href="https://stackblitz.com/edit/typescript-3mbbjw?file=index.ts&amp;devtoolsheight=100">StackBlitz</a> | <a target="_blank" rel="noopener" href="http://jsbin.com/febejakapi/1/edit?js,console">jsBin</a> | <a target="_blank" rel="noopener" href="https://jsfiddle.net/btroncone/0b8Lnh7s/1/">jsFiddle</a> ) <code></code> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// RxJS v6+</span><br><span class="line">import &#123; mergeMap &#125; from &#x27;rxjs/operators&#x27;;</span><br><span class="line">import &#123; forkJoin, of &#125; from &#x27;rxjs&#x27;;</span><br><span class="line"></span><br><span class="line">const myPromise = val =&gt;</span><br><span class="line">  new Promise(resolve =&gt;</span><br><span class="line">    setTimeout(() =&gt; resolve(`Promise Resolved: $&#123;val&#125;`), 5000)</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">const source = of([1, 2, 3, 4, 5]);</span><br><span class="line">// 发出数组的全部5个结果</span><br><span class="line">const example = source.pipe(mergeMap(q =&gt; forkJoin(...q.map(myPromise))));</span><br><span class="line">/*</span><br><span class="line">  输出:</span><br><span class="line">  [</span><br><span class="line">   &quot;Promise Resolved: 1&quot;,</span><br><span class="line">   &quot;Promise Resolved: 2&quot;,</span><br><span class="line">   &quot;Promise Resolved: 3&quot;,</span><br><span class="line">   &quot;Promise Resolved: 4&quot;,</span><br><span class="line">   &quot;Promise Resolved: 5&quot;</span><br><span class="line">  ]</span><br><span class="line">*/</span><br><span class="line">const subscribe = example.subscribe(val =&gt; console.log(val));</span><br></pre></td></tr></table></figure>
+
+<p>示例 3: 在外部处理错误</p>
+<p>( <a target="_blank" rel="noopener" href="https://stackblitz.com/edit/typescript-xgskpm?file=index.ts&amp;devtoolsheight=100">StackBlitz</a> | <a target="_blank" rel="noopener" href="http://jsbin.com/gugawucixi/1/edit?js,console">jsBin</a> | <a target="_blank" rel="noopener" href="https://jsfiddle.net/btroncone/6vz7tjx2/1/">jsFiddle</a> )</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// RxJS v6+</span><br><span class="line">import &#123; delay, catchError &#125; from &#x27;rxjs/operators&#x27;;</span><br><span class="line">import &#123; forkJoin, of, throwError &#125; from &#x27;rxjs&#x27;;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">  当所有 observables 完成时，将每个 observable </span><br><span class="line">  的最新值作为数组发出</span><br><span class="line">*/</span><br><span class="line">const example = forkJoin(</span><br><span class="line">  // 立即发出 &#x27;Hello&#x27;</span><br><span class="line">  of(&#x27;Hello&#x27;),</span><br><span class="line">  // 1秒后发出 &#x27;World&#x27;</span><br><span class="line">  of(&#x27;World&#x27;).pipe(delay(1000)),</span><br><span class="line">  // 抛出错误</span><br><span class="line">  _throw(&#x27;This will error&#x27;)</span><br><span class="line">).pipe(catchError(error =&gt; of(error)));</span><br><span class="line">// 输出: &#x27;This will Error&#x27;</span><br><span class="line">const subscribe = example.subscribe(val =&gt; console.log(val));</span><br></pre></td></tr></table></figure>
+
+<p>示例 4: 当某个内部 observable 报错时得到成功结果</p>
+<p>( <a target="_blank" rel="noopener" href="https://stackblitz.com/edit/typescript-hydgiu?file=index.ts&amp;devtoolsheight=100">StackBlitz</a> | <a target="_blank" rel="noopener" href="http://jsbin.com/memajepefe/1/edit?js,console">jsBin</a> | <a target="_blank" rel="noopener" href="https://jsfiddle.net/btroncone/emdu4doy/1/">jsFiddle</a> )</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// RxJS v6+</span><br><span class="line">import &#123; delay, catchError &#125; from &#x27;rxjs/operators&#x27;;</span><br><span class="line">import &#123; forkJoin, of, throwError &#125; from &#x27;rxjs&#x27;;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">  当所有 observables 完成时，将每个 observable </span><br><span class="line">  的最新值作为数组发出</span><br><span class="line">*/</span><br><span class="line">const example = forkJoin(</span><br><span class="line">  // 立即发出 &#x27;Hello&#x27;</span><br><span class="line">  of(&#x27;Hello&#x27;),</span><br><span class="line">  // 1秒后发出 &#x27;World&#x27;</span><br><span class="line">  of(&#x27;World&#x27;).pipe(delay(1000)),</span><br><span class="line">  // 抛出错误</span><br><span class="line">  _throw(&#x27;This will error&#x27;).pipe(catchError(error =&gt; of(error)))</span><br><span class="line">);</span><br><span class="line">// 输出: [&quot;Hello&quot;, &quot;World&quot;, &quot;This will error&quot;]</span><br><span class="line">const subscribe = example.subscribe(val =&gt; console.log(val));</span><br></pre></td></tr></table></figure>
+
+
+<p>示例 5: Angular 中的 forkJoin<br>(<a target="_blank" rel="noopener" href="https://plnkr.co/edit/ElTrOg8NfR3WbbAfjBXQ?p=preview">plunker</a> )</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">@Injectable()</span><br><span class="line">export class MyService &#123;</span><br><span class="line">  makeRequest(value: string, delayDuration: number) &#123;</span><br><span class="line">    // 模拟 http 请求</span><br><span class="line">    return of(`Complete: $&#123;value&#125;`).pipe(</span><br><span class="line">      delay(delayDuration)</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Component(&#123;</span><br><span class="line">  selector: &#x27;my-app&#x27;,</span><br><span class="line">  template: `</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h2&gt;forkJoin Example&lt;/h2&gt;</span><br><span class="line">      &lt;ul&gt;</span><br><span class="line">        &lt;li&gt; &#123;&#123;propOne&#125;&#125; &lt;/li&gt;</span><br><span class="line">        &lt;li&gt; &#123;&#123;propTwo&#125;&#125; &lt;/li&gt;</span><br><span class="line">        &lt;li&gt; &#123;&#123;propThree&#125;&#125; &lt;/li&gt;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  `,</span><br><span class="line">&#125;)</span><br><span class="line">export class App &#123;</span><br><span class="line">  public propOne: string;</span><br><span class="line">  public propTwo: string;</span><br><span class="line">  public propThree: string;</span><br><span class="line">  constructor(private _myService: MyService) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  ngOnInit() &#123;</span><br><span class="line">    // 使用不同的延迟模拟3个请求</span><br><span class="line">    forkJoin(</span><br><span class="line">      this._myService.makeRequest(&#x27;Request One&#x27;, 2000),</span><br><span class="line">      this._myService.makeRequest(&#x27;Request Two&#x27;, 1000),</span><br><span class="line">      this._myService.makeRequest(&#x27;Request Three&#x27;, 3000)</span><br><span class="line">    )</span><br><span class="line">    .subscribe(([res1, res2, res3]) =&gt; &#123;</span><br><span class="line">      this.propOne = res1;</span><br><span class="line">      this.propTwo = res2;</span><br><span class="line">      this.propThree = res3;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2019/07/19/%E3%80%90Angular%E3%80%91%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86/" title="【Angular】同步异步处理">http://blog.bfsdfs.com/2019/07/19/【Angular】同步异步处理/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Angular/" rel="tag"># Angular</a>
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/07/16/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="prev" title="【算法】快速排序">
+      <i class="fa fa-chevron-left"></i> 【算法】快速排序
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/07/26/%E3%80%90IIS%E3%80%91VS2017%E9%83%A8%E7%BD%B2Web%E7%BD%91%E7%AB%99%E5%88%B0%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="next" title="【IIS】VS2017部署Web网站到远程服务器">
+      【IIS】VS2017部署Web网站到远程服务器 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%93%E6%89%80%E6%9C%89-observables-%E5%AE%8C%E6%88%90%E6%97%B6%EF%BC%8C%E5%8F%91%E5%87%BA%E6%AF%8F%E4%B8%AA-observable-%E7%9A%84%E6%9C%80%E6%96%B0%E5%80%BC%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">当所有 observables 完成时，发出每个 observable 的最新值。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8-forkJoin-%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">为什么使用  forkJoin ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">示例</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'f961c2386f7b698a47582516cced49ab',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

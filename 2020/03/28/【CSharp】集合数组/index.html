@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转载：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;c7jie&#x2F;p&#x2F;12584030.html  1. 主要集合C#&#x2F;.NET Framework 提供了很多很有意思的集合类，数组、列表、链表、Set、字典等一系列的类。其中数组是语言的一部分，个人认为严格意义上不属于集合类这一部分。C#开发中常用的集合有数组、 List类、Set接口、Dictionary类、Queue类、LinkedList">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【CSharp】集合数组">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/03/28/%E3%80%90CSharp%E3%80%91%E9%9B%86%E5%90%88%E6%95%B0%E7%BB%84/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="转载：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;c7jie&#x2F;p&#x2F;12584030.html  1. 主要集合C#&#x2F;.NET Framework 提供了很多很有意思的集合类，数组、列表、链表、Set、字典等一系列的类。其中数组是语言的一部分，个人认为严格意义上不属于集合类这一部分。C#开发中常用的集合有数组、 List类、Set接口、Dictionary类、Queue类、LinkedList">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2020.cnblogs.com/other/1266612/202003/1266612-20200327200908764-1547209208.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/other/1266612/202003/1266612-20200327200908977-345455748.png">
+<meta property="article:published_time" content="2020-03-28T15:13:10.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.060Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/other/1266612/202003/1266612-20200327200908764-1547209208.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/03/28/%E3%80%90CSharp%E3%80%91%E9%9B%86%E5%90%88%E6%95%B0%E7%BB%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【CSharp】集合数组 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/03/28/%E3%80%90CSharp%E3%80%91%E9%9B%86%E5%90%88%E6%95%B0%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【CSharp】集合数组
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-28 23:13:10" itemprop="dateCreated datePublished" datetime="2020-03-28T23:13:10+08:00">2020-03-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>23k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>21 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>转载：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/c7jie/p/12584030.html">https://www.cnblogs.com/c7jie/p/12584030.html</a></p>
+</blockquote>
+<h1 id="1-主要集合"><a href="#1-主要集合" class="headerlink" title="1. 主要集合"></a>1. 主要集合</h1><p>C#/.NET Framework 提供了很多很有意思的集合类，数组、列表、链表、Set、字典等一系列的类。其中数组是语言的一部分，个人认为严格意义上不属于集合类这一部分。C#开发中常用的集合有数组、 List类、Set接口、Dictionary类、Queue类、LinkedList类等，其他的出镜率不高。<br>与其他（java）语言不同的一点是，C#的 <code>List</code>是类，而不是接口，接口是<code>IList</code>，但这个接口意义不大，在使用<code>IList</code>的时候更多的倾向于使用<code>IEnumerable</code>，这主要是因为<code>IEnumerable</code> 有 <code>Linq</code>的支持再者两者的方法基本一致，能用<code>IList</code>的地方基本都可以用<code>IEnumerable</code>。</p>
+<h2 id="1-1-Array-数组"><a href="#1-1-Array-数组" class="headerlink" title="1.1 Array 数组"></a>1.1 Array 数组</h2><p>数组，集合的基础部分，主要特点是一经初始化就无法再次对数组本身进行增删元素。C#虽然添加了一些修改数组的扩展方法，但基本都会返回新的数组对象。</p>
+<h3 id="1-1-1-初始化"><a href="#1-1-1-初始化" class="headerlink" title="1.1.1 初始化"></a>1.1.1 初始化</h3><p>数组的初始化需要指定大小，可以显示指定或者隐式的指定。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 显示指定类型与大小，具体的元素后续赋值</span></span><br><span class="line"><span class="built_in">string</span>[] strArr = <span class="keyword">new</span> <span class="built_in">string</span>[<span class="number">10</span>];</span><br><span class="line"><span class="comment">//指定类型同时给元素赋值，具体大小由编译器自动推断</span></span><br><span class="line"><span class="built_in">string</span>[] strArr1 = <span class="keyword">new</span> <span class="built_in">string</span>[]&#123;<span class="string">&quot;1&quot;</span>,<span class="string">&quot;2&quot;</span>,<span class="string">&quot;3&quot;</span>,<span class="string">&quot;4&quot;</span>,<span class="string">&quot;5&quot;</span>,<span class="string">&quot;6&quot;</span>,<span class="string">&quot;7&quot;</span>,<span class="string">&quot;8&quot;</span>,<span class="string">&quot;9&quot;</span>,<span class="string">&quot;10&quot;</span>&#125;;</span><br><span class="line"><span class="comment">// 类型和大小都由编译器进行推断</span></span><br><span class="line"><span class="built_in">string</span>[] strArr2 = <span class="keyword">new</span> []&#123;<span class="string">&quot;1&quot;</span>,<span class="string">&quot;2&quot;</span>,<span class="string">&quot;3&quot;</span>,<span class="string">&quot;4&quot;</span>,<span class="string">&quot;5&quot;</span>,<span class="string">&quot;6&quot;</span>,<span class="string">&quot;7&quot;</span>,<span class="string">&quot;8&quot;</span>,<span class="string">&quot;9&quot;</span>,<span class="string">&quot;10&quot;</span>&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-1-2-常用方法"><a href="#1-1-2-常用方法" class="headerlink" title="1.1.2 常用方法"></a>1.1.2 常用方法</h3><ol>
+<li>访问和赋值<br>数组可以通过下标访问数组中的元素，下标从 <strong>0</strong>开始，表示<strong>0</strong>位。代码如下：</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> item0 = strArr[<span class="number">0</span>]; <span class="comment">//取出 &quot;1&quot;</span></span><br><span class="line"><span class="built_in">string</span> item2 = strArr[<span class="number">2</span>]; <span class="comment">// 取出 &quot;3&quot;</span></span><br><span class="line">strArr[<span class="number">0</span>] = <span class="string">&quot;3&quot;</span>; <span class="comment">// strArr = &#123;&quot;3&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;,&quot;6&quot;,&quot;7&quot;,&quot;8&quot;,&quot;9&quot;,&quot;10&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>获取长度</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> length = strArr.Length;<span class="comment">// 获取一个整型的长度</span></span><br><span class="line"><span class="comment">//获取一个长整型的长度，对于一个非常大的数组且长度可能会超过int的最大值</span></span><br><span class="line"><span class="built_in">long</span> longLength = strArr.LongLength;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>循环迭代</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 普通for 循环</span></span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="number">0</span>;i &lt; strArr.Length;i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">string</span> it = strArr[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// foreach 循环</span></span><br><span class="line"><span class="keyword">foreach</span>(<span class="built_in">string</span> it <span class="keyword">in</span> strArr)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 依次循环，不需要下标，操作更快一点</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-1-3-不常用但有用的方法"><a href="#1-1-3-不常用但有用的方法" class="headerlink" title="1.1.3 不常用但有用的方法"></a>1.1.3 不常用但有用的方法</h4><ol>
+<li><code>CopyTo</code> 复制到</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">CopyTo</span>(<span class="params">Array array, <span class="built_in">int</span> index</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">CopyTo</span>(<span class="params">Array array, <span class="built_in">long</span> index</span>)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>参数说明： array 需要复制到的数组，index 目标数组的起始下标</p>
+<p>方法说明：将 源数组的元素依次复制到 array从index下标开始的位置</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>[] strArr1 = <span class="keyword">new</span> <span class="built_in">string</span>[]&#123;<span class="string">&quot;1&quot;</span>,<span class="string">&quot;2&quot;</span>,<span class="string">&quot;3&quot;</span>,<span class="string">&quot;4&quot;</span>,<span class="string">&quot;5&quot;</span>,<span class="string">&quot;6&quot;</span>,<span class="string">&quot;7&quot;</span>,<span class="string">&quot;8&quot;</span>,<span class="string">&quot;9&quot;</span>,<span class="string">&quot;10&quot;</span>&#125;;</span><br><span class="line"><span class="built_in">string</span>[] strArr3 = <span class="keyword">new</span> <span class="built_in">string</span>[<span class="number">10</span>];</span><br><span class="line">strArr1.CopyTo(strArr3, <span class="number">0</span>); <span class="comment">//strArr3 = &#123;&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,&#x27;5&quot;,&quot;6&quot;,&quot;7&quot;,&quot;8&quot;,&quot;9&quot;,&quot;10&quot;&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是<code>strArr3</code>的长度不能 小于 index + strArr1.Length</p>
+<ol start="2">
+<li><code>Sort</code> 排序</li>
+</ol>
+<p>这个方法不是数组对象的方法，而是 <code>Array</code> 提供的一个静态方法。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span>[] arr1 = <span class="keyword">new</span>[] &#123;<span class="number">1</span>, <span class="number">9</span>, <span class="number">28</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">0</span>, <span class="number">12</span>, <span class="number">44</span>, <span class="number">98</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">13</span>, <span class="number">18</span>, <span class="number">81</span>, <span class="number">92</span>&#125;;</span><br><span class="line">Array.Sort(arr1);<span class="comment">//0,1,2,3,4,5,6,9,12,13,18,28,44,81,92,98</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是，该方法是直接对数组进行操作，所以不会返回新的数组。</p>
+<ol start="3">
+<li><code>ToList</code> 转成 <code>List</code></li>
+</ol>
+<p>顾名思义，将Array对象转成List对象。这里需要额外注意的是，<strong>转换成的List是不可改变长度的</strong>。<br>4. <code>Clone()</code> 获得一个浅拷贝的数组对象</p>
+<p>获取该对象的一个浅拷贝数组对象。</p>
+<p>至于其他的<code>Array</code>类和Array对象 还有很多有意思的方法，但是平时开发的时候使用的频率比较低。这里就不一一介绍了，以后需要会介绍一下的。</p>
+<h2 id="1-2-List-列表"><a href="#1-2-List-列表" class="headerlink" title="1.2 List 列表"></a>1.2 List 列表</h2><p><code>List</code>列表为一个泛型类，泛型表示<T>，其中T表示列表中存放的元素类型，T代表C#中可实例化的类型。关于泛型的具体描述以后介绍，现在回过头来继续介绍列表。列表内部持有一个数组对象，列表有两个私有变量：一个是列表容量，即内部数组的大小；另一个是存放的元素数量，通过<code>Count</code>获取。<br><code>List</code>列表通过元素数量实现了<code>Add</code>和<code>Remove</code> 的操作，列表对象操作引发元素数量变动时都会导致对容量的重新计算，如果现有容量不满足后续操作需要的话，将会对现有数组进行扩充。</p>
+<h3 id="1-2-1-初始化"><a href="#1-2-1-初始化" class="headerlink" title="1.2.1 初始化"></a>1.2.1 初始化</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;<span class="built_in">string</span>&gt; list = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt;();<span class="comment">// 初始化一个空的列表</span></span><br><span class="line">List&lt;<span class="built_in">string</span>&gt; list1 = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt;&#123;<span class="string">&quot;12&quot;</span>, <span class="string">&quot;2&quot;</span>&#125;;<span class="comment">//初始化一个包含两个元素的列表</span></span><br><span class="line">list1 = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt;(<span class="number">100</span>);<span class="comment">//初始化一个空的列表，并指定list的初始容量为100</span></span><br><span class="line">list = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt;(list1);<span class="comment">// 使用一个List/Array 初始化一个列表</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-2-常用方法"><a href="#1-2-2-常用方法" class="headerlink" title="1.2.2 常用方法"></a>1.2.2 常用方法</h3><ol>
+<li><code>Count</code> 或<code>LongCount</code>获取元素的数量</li>
+</ol>
+<p>Count 表示获取一个int类型的的数量值，LongCount表示获取一个long类型的数量值。通常情况下两者返回的结果是一致的，但是如果列表中元素的数量超过了int允许的最大返回直接使用 <code>Count</code>获取将会出现数据溢出的问题，这时候就需要<code>LongCount</code>了。</p>
+<ol start="2">
+<li>访问元素/修改元素</li>
+</ol>
+<p>C#的列表操作单个元素很简单 ，与数组的操作方式完全一样。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> str = list1[<span class="number">0</span>];<span class="comment">//获取 list1 的第一个元素，即下标为0的元素</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>list1[2] = “233”; // 将 list1 的第三个元素设置为“233” ，即下标为2 的元素，这里假设list1有至少三个元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">需要注意的地方是，如果给定的下标超过了List对象的索引值范围会报 `ArgumentOutOfRangeException`。判断方法就是 **下标**&gt;= `Count`，如果满足就会越界。</span><br><span class="line">3. `Add`或`AddRange` 添加到列表最后</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>将元素添加到List的末尾，<code>Add</code>添加一个，<code>AddRange</code>添加一组，支持数组、列表。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;<span class="built_in">string</span>&gt; list = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt;();<span class="comment">// 初始化一个空的列表</span></span><br><span class="line">list.Add(<span class="string">&quot;12&quot;</span>);<span class="comment">//list = &#123;&quot;12&quot;&#125;</span></span><br><span class="line">List&lt;<span class="built_in">string</span>&gt; list1 = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt;&#123;<span class="string">&quot;14&quot;</span>, <span class="string">&quot;2&quot;</span>&#125;;</span><br><span class="line">list.AddRange(list1);<span class="comment">// list = &#123;&quot;12&quot;,&quot;14&quot;,&quot;2&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">4.  `Insert(int index, T item)`或`InsertRange(int index,IEnumerable&lt;T&gt; items)` 插入</span><br><span class="line"></span><br><span class="line">*   `Insert(int index,T item)` 在 index 下标处插入一个元素，该下标以及该下标以后的元素依次后移</span><br><span class="line">*   `InsertRange(int index,IEnumerable&lt;T&gt; items)` 在index下标处插入一组元素，该下标以及之后的元素依次后移</span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line"></span><br><span class="line">```c#</span><br><span class="line">List&lt;int&gt; arr1 = new List&lt;int&gt;&#123;1, 9, 28, 5, 3, 6, 0, 12, 44, 98, 4, 2, 13, 18, 81, 92&#125;;</span><br><span class="line">arr1.Insert(3,37);// arr1 = 1,9,28,37,5,3,6,0,12,44,98,4,2,13,18,81,92 下标为3的元素变成了37，之后的元素依次后移了</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;<span class="built_in">int</span>&gt; arr1 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;&#123;<span class="number">1</span>, <span class="number">9</span>, <span class="number">28</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">0</span>, <span class="number">12</span>, <span class="number">44</span>, <span class="number">98</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">13</span>, <span class="number">18</span>, <span class="number">81</span>, <span class="number">92</span>&#125;;</span><br><span class="line">List&lt;<span class="built_in">int</span>&gt; arr2 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;&#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">arr1.InsertRange(<span class="number">2</span>,arr2);<span class="comment">//arr1=  1,9,2,3,4,5,28,5,3,6,0,12,44,98,4,2,13,18,81,92 可以明显发现下标为2的元素发生了变化</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><code>Contains(T item)</code> 是否包含<br>返回一个Boolean类型的结果，如果包含则返回 <code>true</code>，如果不包含则返回<code>false</code></li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;<span class="built_in">int</span>&gt; arr2 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;&#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">arr2.Contains(<span class="number">8</span>);<span class="comment">//false</span></span><br><span class="line">arr2.Contains(<span class="number">3</span>);<span class="comment">//true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><code>Remove(T item)</code> 删除指定元素</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;<span class="built_in">int</span>&gt; arr2 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;&#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">arr2.Remove(<span class="number">3</span>);<span class="comment">// arr2 = 2,4,5</span></span><br><span class="line">arr2.Remove(<span class="number">6</span>);<span class="comment">//arr2 = 2,4,5</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是，如果删除一个不存在的元素时，不会报错，列表也不会发生任何改变。</p>
+<ol start="7">
+<li><code>RemoveAt(int index)</code> 删除位于下标的元素</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;<span class="built_in">int</span>&gt; arr2 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;&#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">arr2.RemoveAt(<span class="number">1</span>);<span class="comment">//arr2 = 2,4,5</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果移除的下标超过了列表的最后一个元素的下标将会抛出异常</p>
+<ol start="8">
+<li><code>RemoveRane(IEnumerable&lt;T&gt; items)</code> 删除一组元素</li>
+</ol>
+<p>与<code>Remove(T item)</code>一致，如果要删除的元素不在列表中，则列表元素不会发生变化。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;<span class="built_in">int</span>&gt; arr1 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;&#123;<span class="number">1</span>, <span class="number">9</span>, <span class="number">28</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">0</span>, <span class="number">12</span>, <span class="number">44</span>, <span class="number">98</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">13</span>, <span class="number">18</span>, <span class="number">81</span>, <span class="number">92</span>&#125;;</span><br><span class="line">List&lt;<span class="built_in">int</span>&gt; arr2 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;&#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">arr1.RemoveRange(arr2);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li><code>GetRange(int index,int count)</code></li>
+</ol>
+<p>从列表中获取一个子列表，从<code>index</code>开始，获取<code>count</code>个元素，如果源列表中从<code>index</code>开始剩余的元素不足<code>count</code>个将会报错。</p>
+<h3 id="1-2-3-不常用但有用的方法"><a href="#1-2-3-不常用但有用的方法" class="headerlink" title="1.2.3 不常用但有用的方法"></a>1.2.3 不常用但有用的方法</h3><ol>
+<li><code>Clear()</code>删除所有元素</li>
+</ol>
+<p>将列表清空，调用方法之后，列表中将不包含任何元素</p>
+<ol start="2">
+<li><code>Reverse()</code> 调转顺序</li>
+</ol>
+<p>将列表按照从尾到头的顺序进行排列</p>
+<ol start="3">
+<li><code>IndexOf(T item)</code> 查找下标</li>
+</ol>
+<p>查找元素在列表中的下标，如果没找到元素，则返回-1</p>
+<ol start="4">
+<li><code>Sort()</code>排序</li>
+</ol>
+<p>对列表进行排序，调用方法后，会按照默认排序方法返回一个排序结果</p>
+<h2 id="1-3-Set-集合"><a href="#1-3-Set-集合" class="headerlink" title="1.3 Set 集合"></a>1.3 Set 集合</h2><p>C#没有为<code>Set</code>单独设置类，一方面是因为Set出镜率不高，另一方面也因为<code>Set</code>本身的机制所致。Set集合不能包含重复元素，如果尝试存入重复元素集合元素将不会发生任何变化。<br>Set集合中元素的顺序与存放顺序不一定相同。因为Set集合中存放对于使用者而言是乱序存放的。<br>我们常用的Set集合有 <code>HashSet&lt;T&gt;</code>和<code>SortSet&lt;T&gt;</code>，其他的Set相关类则属于更加少见。至少在我5年多的开发经历中没有用过。</p>
+<h3 id="1-3-1-HashSet-lt-T-gt-和SortSet-lt-T-gt"><a href="#1-3-1-HashSet-lt-T-gt-和SortSet-lt-T-gt" class="headerlink" title="1.3.1 HashSet&lt;T&gt; 和SortSet&lt;T&gt;"></a>1.3.1 <code>HashSet&lt;T&gt;</code> 和<code>SortSet&lt;T&gt;</code></h3><ul>
+<li><code>HashSet</code> 俗称 哈希集合或者哈希Set，内部使用Hash值作为元素的唯一性验证，即调用对象的<code>HashCode()</code>方法作为Hash值的来源。</li>
+<li><code>SortSet</code> 顾名思义，排序集合，它每次在插入的时候都会对元素进行一次排序</li>
+</ul>
+<h3 id="1-3-2-共同点"><a href="#1-3-2-共同点" class="headerlink" title="1.3.2 共同点"></a>1.3.2 共同点</h3><ol>
+<li>初始化</li>
+</ol>
+<p>两者相同的地方就是 都有以下几种初始化方法</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;T&gt; <span class="keyword">set</span> = <span class="keyword">new</span> HashSet&lt;T&gt;();<span class="comment">// = new SortSet&lt;T&gt;(); 初始化一个空的集合</span></span><br><span class="line"><span class="comment">//使用一个集合对象初始化</span></span><br><span class="line">Set&lt;T&gt; set1 = <span class="keyword">new</span> HashSet&lt;T&gt;(IEnumerable&lt;T&gt; items);<span class="comment">// = new SortSet&lt;T&gt;(IEnumerable&lt;T&gt; items);</span></span><br><span class="line">Set&lt;T&gt; set2 = <span class="keyword">new</span> HashSet&lt;T&gt;()&#123;T t1, T t2, T t3&#125;;<span class="comment">// 与上一种一样</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>添加元素</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set1.Add(item);<span class="comment">// 集合只支持添加单个元素，但是可以通过集合运算的方式增加多个元素</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>移除元素</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set1.Remove(item);<span class="comment">//删除集合中与item判断相等的元素</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>访问元素</li>
+</ol>
+<p>需要注意的地方是，C#对Set没有支持下标访问方式获取Set里的元素，这是因为索引位置对于集合来说意义不大，没有操作意义。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span> (<span class="keyword">var</span> item <span class="keyword">in</span> set1)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 操作</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Set 只能通过遍历访问元素，不能通过Get或者下标操作访问元素。关于<code>foreach</code>循环会在下一篇《<code>C#基础知识</code>系列》里进行介绍。</p>
+<ol start="5">
+<li>集合运算</li>
+</ol>
+<p><img src="https://img2020.cnblogs.com/other/1266612/202003/1266612-20200327200908764-1547209208.png" alt="file"></p>
+<ol>
+<li><code>UnionWith</code> 并</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SortedSet&lt;<span class="built_in">int</span>&gt; <span class="keyword">set</span> = <span class="keyword">new</span> SortedSet&lt;<span class="built_in">int</span>&gt;&#123;<span class="number">1</span>,<span class="number">0</span>,<span class="number">29</span>,<span class="number">38</span>,<span class="number">33</span>,<span class="number">48</span>,<span class="number">17</span>&#125;;</span><br><span class="line"><span class="keyword">set</span>.UnionWith(<span class="keyword">new</span> []&#123;<span class="number">5</span>,<span class="number">57</span>,<span class="number">8</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">33</span>&#125;); <span class="comment">// set = 0,1,3,4,5,8,17,29,33,38,48,57</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>通过传入一个集合对象，将该集合设置为两个集合的并集，也就是说取上图 A,B,C 三个区域的和</p>
+<ol start="2">
+<li><code>ExceptWith</code> 差</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SortedSet&lt;<span class="built_in">int</span>&gt; <span class="keyword">set</span> = <span class="keyword">new</span> SortedSet&lt;<span class="built_in">int</span>&gt;&#123;<span class="number">1</span>,<span class="number">0</span>,<span class="number">29</span>,<span class="number">38</span>,<span class="number">33</span>,<span class="number">48</span>,<span class="number">17</span>&#125;;</span><br><span class="line"><span class="keyword">set</span>.ExceptWith(<span class="keyword">new</span> []&#123;<span class="number">5</span>,<span class="number">57</span>,<span class="number">8</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">33</span>&#125;); <span class="comment">// set =17,29,38,48</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>传入一个集合，从set中去掉同属于两个集合的元素，保留只存在于set的元素，也就是取上图中的A部分元素</p>
+<ol start="3">
+<li><code>IntersectWith</code> 交</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SortedSet&lt;<span class="built_in">int</span>&gt; <span class="keyword">set</span> = <span class="keyword">new</span> SortedSet&lt;<span class="built_in">int</span>&gt;&#123;<span class="number">1</span>,<span class="number">0</span>,<span class="number">29</span>,<span class="number">38</span>,<span class="number">33</span>,<span class="number">48</span>,<span class="number">17</span>&#125;;</span><br><span class="line"><span class="keyword">set</span>.ExceptWith(<span class="keyword">new</span> []&#123;<span class="number">5</span>,<span class="number">57</span>,<span class="number">8</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">33</span>&#125;); <span class="comment">// set =0,1,33</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>传入一个集合，保留set与传入集合里相同的元素，也就是说取的是上图中的B部分</p>
+<ol start="4">
+<li><code>SymmetricExceptWith</code> 余集</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SortedSet&lt;<span class="built_in">int</span>&gt; <span class="keyword">set</span> = <span class="keyword">new</span> SortedSet&lt;<span class="built_in">int</span>&gt;&#123;<span class="number">1</span>,<span class="number">0</span>,<span class="number">29</span>,<span class="number">38</span>,<span class="number">33</span>,<span class="number">48</span>,<span class="number">17</span>&#125;;</span><br><span class="line"><span class="keyword">set</span>.SymmetricExceptWith(<span class="keyword">new</span> []&#123;<span class="number">5</span>,<span class="number">57</span>,<span class="number">8</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">33</span>&#125;);<span class="comment">//set= 3,4,5,8,17,29,38,48,57</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>传入一个集合，保留set与传入集合两个集合中不同的元素，也就是取上图的A+C这两部分。</p>
+<ol start="6">
+<li><code>Contains</code> 包含</li>
+</ol>
+<p>判断集合中是否包含目标元素，返回true/false</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SortedSet&lt;<span class="built_in">int</span>&gt; <span class="keyword">set</span> = <span class="keyword">new</span> SortedSet&lt;<span class="built_in">int</span>&gt;&#123;<span class="number">1</span>,<span class="number">0</span>,<span class="number">29</span>,<span class="number">38</span>,<span class="number">33</span>,<span class="number">48</span>,<span class="number">17</span>&#125;;</span><br><span class="line"><span class="keyword">set</span>.Contains(<span class="number">1</span>);<span class="comment">// true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-3-不同点"><a href="#1-3-3-不同点" class="headerlink" title="1.3.3 不同点"></a>1.3.3 不同点</h3><ol>
+<li>初始化</li>
+</ol>
+<ul>
+<li><code>HashSet&lt;T&gt;</code> 支持传入一个自定义的相等比较器，该比较器需要返回一个 bool值；可以指定起始容量</li>
+<li><code>SortSet&lt;T&gt;</code> 支持传入一个自定义的大小比较器，该比较器返回一个int值；不能指定起始容量</li>
+</ul>
+<ol start="2">
+<li>其他<br><code>Comparer</code> 属性：SortSet 可以获取大小比较器；HashSet 获取一个相等比较器</li>
+</ol>
+<h2 id="1-4-Dictionary-字典"><a href="#1-4-Dictionary-字典" class="headerlink" title="1.4 Dictionary 字典"></a>1.4 Dictionary 字典</h2><p><code>Dictionary</code> 字典，正如它的名称一样，<code>Dictionary</code> 需要指定两个类型，一个作为索引键，一个作为数据值。就像字典一样，每一个词条内容都只有一个字词索引，但可以出现同义词一样。当然，作为我博大精深的中文会出现同字不同音的词组，但是一旦把音、字组合起来作为索引，那还是只会出现一个词条。<br>所以 <code>Dictionary</code>的使用方式也跟字典一样，通过索引访问和操作数据。</p>
+<h3 id="1-4-1-初始化"><a href="#1-4-1-初始化" class="headerlink" title="1.4.1 初始化"></a>1.4.1 初始化</h3><p><code>Dictionary</code>的初始化有如下几个方法：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">int</span>&gt; dict = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">int</span>&gt;();<span class="comment">// 键是字符串，值是int类型</span></span><br><span class="line">Dictionary&lt;<span class="built_in">string</span>,<span class="built_in">int</span>&gt; dict1 = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">int</span>&gt;(<span class="number">10</span>);<span class="comment">// 指定初始容量是10</span></span><br><span class="line">Dictionary&lt;<span class="built_in">string</span>,<span class="built_in">int</span>&gt; dict2 = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">int</span>&gt;()</span><br><span class="line">&#123;</span><br><span class="line">	&#123;<span class="string">&quot;1&quot;</span>,<span class="number">1</span>&#125;,</span><br><span class="line">	&#123;<span class="string">&quot;2&quot;</span>,<span class="number">2</span>&#125;</span><br><span class="line">&#125;;<span class="comment">// 在大括号标记中 通过 &#123;key,value&#125;的写法创建一个 字典对象，并包含这些键值对</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 传入一个字典对象，以传入的对象为基础创建一个字典</span></span><br><span class="line">Dictionary&lt;<span class="built_in">string</span>,<span class="built_in">int</span>&gt; dict3 = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">int</span>&gt;(dict2);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4-2-常用方法"><a href="#1-4-2-常用方法" class="headerlink" title="1.4.2 常用方法"></a>1.4.2 常用方法</h3><ol>
+<li>添加元素</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">int</span>&gt; dict = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">int</span>&gt;();</span><br><span class="line"><span class="comment">// 方法一</span></span><br><span class="line">dict.Add(<span class="string">&quot;1&quot;</span>,<span class="number">2</span>);<span class="comment">//添加一个 键为“1”，值为2的键值对。</span></span><br><span class="line"><span class="comment">//方法二</span></span><br><span class="line"><span class="comment">//字典可以类似列表的形式通过下标添加或更新键对应的值，</span></span><br><span class="line"><span class="comment">//不过与列表不同的是，字典的下标是字符串</span></span><br><span class="line">dict[<span class="string">&quot;2&quot;</span>] = <span class="number">4</span>;<span class="comment">// 如果 dict中2有值，则更新为4，如果没有，则设置2对应的值为4</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>获取元素</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">int</span>&gt; dict = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">int</span>&gt;();</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">省略数据填充阶段</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">int</span> <span class="keyword">value</span> = dict[<span class="string">&quot;2&quot;</span>]; <span class="comment">// value = 4</span></span><br><span class="line"><span class="comment">// 如果Dictionary中不存在索引为“2”的数据</span></span><br><span class="line"><span class="comment">// 将会抛出 System.Collections.Generic.KeyNotFoundException 异常</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>C# 的<code>Dictionary</code>还有一个<code>TryGetValue</code>方法可以用来尝试获取，他的使用方法是这样的：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> obj = <span class="number">0</span>;</span><br><span class="line">boolean isContains = dict.TryGetValue(<span class="string">&quot;3&quot;</span>, <span class="keyword">out</span> obj);</span><br><span class="line"><span class="comment">// 方法会返回 dict是否包含键“3”的结果，如果有 obj 则存放了dict中对应的值，如果没有，则返回false且不改变 obj 的值</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><code>Count</code></li>
+</ol>
+<p>获取<code>Dictionary</code>里键值对的数量。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> count = dict.Count;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Dictionary没有<code>LongCount</code>属性，因为对于<code>Dictionary</code>存放数据需要比对<code>Key</code>的相等性，如果存放巨量数据将会对数据的访问和操作效率有影响。</p>
+<ol start="4">
+<li><code>Keys</code></li>
+</ol>
+<p>获取<code>Dictionary</code>里所有的键，返回一个KeyCollection对象，不需要关心这是一个什么类型，可以简单的把它当做一个存放了键的<code>HashSet</code>。</p>
+<ol start="5">
+<li><code>ContainsKey()</code></li>
+</ol>
+<p>是否包含键：通常与获取元素一起使用，可以先判断<code>Dictionary</code>里是否有这个键，然后再进行后续操作。</p>
+<ol start="6">
+<li><code>Remove()</code></li>
+</ol>
+<p>删除<code>Dictionary</code>中键对应的元素，删除后再次访问会报错。如果删除一个不存在的元素将返回flase。<br>操作示例：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Dictionary&lt;<span class="built_in">string</span>,<span class="built_in">int</span>&gt; dict = <span class="keyword">new</span> Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">int</span>&gt;();</span><br><span class="line"><span class="comment">//省略赋值操作</span></span><br><span class="line"><span class="built_in">bool</span> result = dict.Remove(<span class="string">&quot;2&quot;</span>);<span class="comment">// 如果dict里包含键为“2”的元素，则result为true，否则为false</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>另一种方法：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> <span class="keyword">value</span> = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">bool</span> result = dict.Remove(<span class="string">&quot;2&quot;</span>, <span class="keyword">out</span> <span class="keyword">value</span>);</span><br><span class="line"><span class="comment">// 如果dict 里包含键为“2”的元素，则result 为 false且value为对应的值</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4-3-不常用但有用的方法"><a href="#1-4-3-不常用但有用的方法" class="headerlink" title="1.4.3 不常用但有用的方法"></a>1.4.3 不常用但有用的方法</h3><ol>
+<li><code>ContainsValue()</code></li>
+</ol>
+<p>是否包含值，与<code>ContainsKey</code>的用法一样，只不过遍历的是值；用处不大。</p>
+<ol start="2">
+<li><code>Values</code></li>
+</ol>
+<p>获取值的集合类似与<code>KeyValues</code>。</p>
+<h1 id="2-传统集合（非泛型）"><a href="#2-传统集合（非泛型）" class="headerlink" title="2. 传统集合（非泛型）"></a>2. 传统集合（非泛型）</h1><p>C#的传统集合基本都存放在<code>System.Collections</code>命名空间里，详细的可以查看<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.collections">微软官方文档</a>。这个命名空间里的集合类使用都不多，不过C#的集合体系的接口规范都是在这个里面定义的。</p>
+<h2 id="2-1-常见类介绍"><a href="#2-1-常见类介绍" class="headerlink" title="2.1 常见类介绍"></a>2.1 常见类介绍</h2><ol>
+<li><p><code>ArrayList</code> List的非泛型版，与List操作方法一致，不过返回值是Object类型</p>
+</li>
+<li><p><code>SortedList</code> 一个排序的键值对集合，我没用过，不过官方给了如下示例：</p>
+</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SamplesSortedList</span>  &#123;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span>  &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Creates and initializes a new SortedList.</span></span><br><span class="line">            SortedList mySL = <span class="keyword">new</span> SortedList();</span><br><span class="line">                mySL.Add(<span class="string">&quot;Third&quot;</span>, <span class="string">&quot;!&quot;</span>);</span><br><span class="line">                mySL.Add(<span class="string">&quot;Second&quot;</span>, <span class="string">&quot;World&quot;</span>);</span><br><span class="line">                mySL.Add(<span class="string">&quot;First&quot;</span>, <span class="string">&quot;Hello&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Displays the properties and values of the SortedList.</span></span><br><span class="line">            Console.WriteLine( <span class="string">&quot;mySL&quot;</span> );</span><br><span class="line">            Console.WriteLine( <span class="string">&quot;  Count:    &#123;0&#125;&quot;</span>, mySL.Count );</span><br><span class="line">            Console.WriteLine( <span class="string">&quot;  Capacity: &#123;0&#125;&quot;</span>, mySL.Capacity );</span><br><span class="line">            Console.WriteLine( <span class="string">&quot;  Keys and Values:&quot;</span> );</span><br><span class="line">            PrintKeysAndValues( mySL );</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">PrintKeysAndValues</span>(<span class="params"> SortedList myList </span>)</span>  &#123;</span><br><span class="line">            Console.WriteLine( <span class="string">&quot;t-KEY-t-VALUE-&quot;</span> );</span><br><span class="line">            <span class="keyword">for</span> ( <span class="built_in">int</span> i = <span class="number">0</span>; i &lt; myList.Count; i++ )  &#123;</span><br><span class="line">                    Console.WriteLine( <span class="string">&quot;t&#123;0&#125;:t&#123;1&#125;&quot;</span>, myList.GetKey(i), myList.GetByIndex(i) );</span><br><span class="line">            &#125;</span><br><span class="line">            Console.WriteLine();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><code>HashTable</code>表示根据键的哈希代码进行组织的键/值对的集合。<code>HashTable</code>的结构类似于Dictionary但又与其不同，它的键值存储用的是Hash值。以下是官方给出的示例代码：</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Example</span></span><br><span class="line">&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">                <span class="comment">// Create a new hash table.</span></span><br><span class="line">                <span class="comment">//</span></span><br><span class="line">                Hashtable openWith = <span class="keyword">new</span> Hashtable();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Add some elements to the hash table. There are no</span></span><br><span class="line">                <span class="comment">// duplicate keys, but some of the values are duplicates.</span></span><br><span class="line">                openWith.Add(<span class="string">&quot;txt&quot;</span>, <span class="string">&quot;notepad.exe&quot;</span>);</span><br><span class="line">                openWith.Add(<span class="string">&quot;bmp&quot;</span>, <span class="string">&quot;paint.exe&quot;</span>);</span><br><span class="line">                openWith.Add(<span class="string">&quot;dib&quot;</span>, <span class="string">&quot;paint.exe&quot;</span>);</span><br><span class="line">                openWith.Add(<span class="string">&quot;rtf&quot;</span>, <span class="string">&quot;wordpad.exe&quot;</span>);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// The Add method throws an exception if the new key is</span></span><br><span class="line">                <span class="comment">// already in the hash table.</span></span><br><span class="line">                <span class="keyword">try</span></span><br><span class="line">                &#123;</span><br><span class="line">                        openWith.Add(<span class="string">&quot;txt&quot;</span>, <span class="string">&quot;winword.exe&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">catch</span></span><br><span class="line">                &#123;</span><br><span class="line">                        Console.WriteLine(<span class="string">&quot;An element with Key = &quot;</span>txt<span class="string">&quot; already exists.&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// The Item property is the default property, so you</span></span><br><span class="line">                <span class="comment">// can omit its name when accessing elements.</span></span><br><span class="line">                Console.WriteLine(<span class="string">&quot;For key = &quot;</span>rtf<span class="string">&quot;, value = &#123;0&#125;.&quot;</span>, openWith[<span class="string">&quot;rtf&quot;</span>]);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// The default Item property can be used to change the value</span></span><br><span class="line">                <span class="comment">// associated with a key.</span></span><br><span class="line">                openWith[<span class="string">&quot;rtf&quot;</span>] = <span class="string">&quot;winword.exe&quot;</span>;</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;For key = &quot;</span>rtf<span class="string">&quot;, value = &#123;0&#125;.&quot;</span>, openWith[<span class="string">&quot;rtf&quot;</span>]);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// If a key does not exist, setting the default Item property</span></span><br><span class="line">                <span class="comment">// for that key adds a new key/value pair.</span></span><br><span class="line">                openWith[<span class="string">&quot;doc&quot;</span>] = <span class="string">&quot;winword.exe&quot;</span>;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// ContainsKey can be used to test keys before inserting</span></span><br><span class="line">                <span class="comment">// them.</span></span><br><span class="line">                <span class="keyword">if</span> (!openWith.ContainsKey(<span class="string">&quot;ht&quot;</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                        openWith.Add(<span class="string">&quot;ht&quot;</span>, <span class="string">&quot;hypertrm.exe&quot;</span>);</span><br><span class="line">                        Console.WriteLine(<span class="string">&quot;Value added for key = &quot;</span>ht<span class="string">&quot;: &#123;0&#125;&quot;</span>, openWith[<span class="string">&quot;ht&quot;</span>]);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// When you use foreach to enumerate hash table elements,</span></span><br><span class="line">                <span class="comment">// the elements are retrieved as KeyValuePair objects.</span></span><br><span class="line">                Console.WriteLine();</span><br><span class="line">                <span class="keyword">foreach</span>( DictionaryEntry de <span class="keyword">in</span> openWith )</span><br><span class="line">                &#123;</span><br><span class="line">                        Console.WriteLine(<span class="string">&quot;Key = &#123;0&#125;, Value = &#123;1&#125;&quot;</span>, de.Key, de.Value);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// To get the values alone, use the Values property.</span></span><br><span class="line">                ICollection valueColl = openWith.Values;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// The elements of the ValueCollection are strongly typed</span></span><br><span class="line">                <span class="comment">// with the type that was specified for hash table values.</span></span><br><span class="line">                Console.WriteLine();</span><br><span class="line">                <span class="keyword">foreach</span>( <span class="built_in">string</span> s <span class="keyword">in</span> valueColl )</span><br><span class="line">                &#123;</span><br><span class="line">                        Console.WriteLine(<span class="string">&quot;Value = &#123;0&#125;&quot;</span>, s);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// To get the keys alone, use the Keys property.</span></span><br><span class="line">                ICollection keyColl = openWith.Keys;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// The elements of the KeyCollection are strongly typed</span></span><br><span class="line">                <span class="comment">// with the type that was specified for hash table keys.</span></span><br><span class="line">                Console.WriteLine();</span><br><span class="line">                <span class="keyword">foreach</span>( <span class="built_in">string</span> s <span class="keyword">in</span> keyColl )</span><br><span class="line">                &#123;</span><br><span class="line">                        Console.WriteLine(<span class="string">&quot;Key = &#123;0&#125;&quot;</span>, s);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Use the Remove method to remove a key/value pair.</span></span><br><span class="line">                Console.WriteLine(<span class="string">&quot;nRemove(&quot;</span>doc<span class="string">&quot;)&quot;</span>);</span><br><span class="line">                openWith.Remove(<span class="string">&quot;doc&quot;</span>);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!openWith.ContainsKey(<span class="string">&quot;doc&quot;</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                        Console.WriteLine(<span class="string">&quot;Key &quot;</span>doc<span class="string">&quot; is not found.&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* This code example produces the following output:</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">An element with Key = &quot;txt&quot; already exists.</span></span><br><span class="line"><span class="comment">For key = &quot;rtf&quot;, value = wordpad.exe.</span></span><br><span class="line"><span class="comment">For key = &quot;rtf&quot;, value = winword.exe.</span></span><br><span class="line"><span class="comment">Value added for key = &quot;ht&quot;: hypertrm.exe</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">Key = dib, Value = paint.exe</span></span><br><span class="line"><span class="comment">Key = txt, Value = notepad.exe</span></span><br><span class="line"><span class="comment">Key = ht, Value = hypertrm.exe</span></span><br><span class="line"><span class="comment">Key = bmp, Value = paint.exe</span></span><br><span class="line"><span class="comment">Key = rtf, Value = winword.exe</span></span><br><span class="line"><span class="comment">Key = doc, Value = winword.exe</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">Value = paint.exe</span></span><br><span class="line"><span class="comment">Value = notepad.exe</span></span><br><span class="line"><span class="comment">Value = hypertrm.exe</span></span><br><span class="line"><span class="comment">Value = paint.exe</span></span><br><span class="line"><span class="comment">Value = winword.exe</span></span><br><span class="line"><span class="comment">Value = winword.exe</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">Key = dib</span></span><br><span class="line"><span class="comment">Key = txt</span></span><br><span class="line"><span class="comment">Key = ht</span></span><br><span class="line"><span class="comment">Key = bmp</span></span><br><span class="line"><span class="comment">Key = rtf</span></span><br><span class="line"><span class="comment">Key = doc</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">Remove(&quot;doc&quot;)</span></span><br><span class="line"><span class="comment">Key &quot;doc&quot; is not found.</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>虽然C#框架保留了非泛型集合元素，但不建议使用非泛型集合进行开发。</p>
+<h1 id="3-一些不常用的集合类"><a href="#3-一些不常用的集合类" class="headerlink" title="3 一些不常用的集合类"></a>3 一些不常用的集合类</h1><p>除了之前所说的几个集合类，C#还设置了一些在开发中不常用但在特定场合很有用的集合类。</p>
+<h2 id="3-1-Queue-lt-T-gt-和-Queue"><a href="#3-1-Queue-lt-T-gt-和-Queue" class="headerlink" title="3.1 Queue&lt;T&gt; 和 Queue"></a>3.1 <code>Queue&lt;T&gt;</code> 和 <code>Queue</code></h2><p>这两个类是一对的，一个是泛型类，一个是非泛型类。该类中文名称是队列，如其名，队列讲究一个先进先出，所以队列每次取元素都是从头取，存放是放到队列尾。<br>操作代码如下：</p>
+<ol>
+<li>加入队列</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Queue queue = <span class="keyword">new</span> Queue();</span><br><span class="line">queue.Enqueue(<span class="number">1</span>);</span><br><span class="line">queue.Enqueue(<span class="string">&quot;2&quot;</span>);</span><br><span class="line"></span><br><span class="line">Queue&lt;<span class="built_in">string</span>&gt; queue1 = <span class="keyword">new</span> Queue&lt;<span class="built_in">string</span>&gt;();</span><br><span class="line">queue1.Enqueue(<span class="string">&quot;stri&quot;</span>);<span class="comment">//</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>读取队首的元素<br>读取有两种：</li>
+</ol>
+<ul>
+<li>读取但不移除元素：</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">object</span> obj= queue.Peek();</span><br><span class="line"><span class="built_in">string</span> str = queue.Peek();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>读取并移除元素：</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">object</span> obj = queue.Dequeue();</span><br><span class="line"><span class="built_in">string</span> str = queue.Dequeue();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>Count 获取元素数量</li>
+</ol>
+<h2 id="3-2-LinkedList-lt-T-gt"><a href="#3-2-LinkedList-lt-T-gt" class="headerlink" title="3.2 LinkedList&lt;T&gt;"></a>3.2 <code>LinkedList&lt;T&gt;</code></h2><p><code>LinkedList</code>，链表。与List不同的地方是，<code>LinkedList</code>的元素是<code>LinkedListNode</code>对象，该对象有四个属性，分别是<code>List</code><br>-指向列表对象， <code>Previous</code>指向前一个对象如果有的话，<code>Next</code>指向后一个对象如果有的话。所以根据元素的属性可以发现链表的工作方式，链表就像一条锁链一样，一个元素分三块，一个指向前一个元素，一个用来存放值，一个指向下一个元素，简单如下图所示：<br><img src="https://img2020.cnblogs.com/other/1266612/202003/1266612-20200327200908977-345455748.png" alt="file"><br>所以可以明显的发现 <code>LinkedList</code>在随机插取上比一般的要快，因为它不用维护一个数组，但是在查找和坐标操作上明显要慢很多。<br><code>LinkedList</code>简单介绍这么多，可以看看它的一些常见操作：</p>
+<ol>
+<li><code>First</code> 第一个元素</li>
+</ol>
+<p>获取第一个元素</p>
+<ol start="2">
+<li><code>Last</code> 最后一个元素</li>
+</ol>
+<p>获取最后一个元素</p>
+<ol start="3">
+<li><code>AddAfter</code>/<code>AddBefore</code><br>在某个节点后/在某个节点前插入数据<br>支持以下参数列表：</li>
+</ol>
+<ul>
+<li>(LinkedListNode node, T value)</li>
+<li>(LinkedListNode node, LinkedListNode newNode)</li>
+</ul>
+<p>第一个参数表示要插入的节点位置，第二个表示要插入的节点/元素。第一个参数会校验是否属于该链表，如果不属于则会抛出一个异常。第二个可以是值，也可以是初始化好的节点对象。如果是节点对象，则判断是否归属其他链表，如果是其他链表抛出异常。</p>
+<ol start="4">
+<li><code>AddFirst</code>/<code>AddLast</code></li>
+</ol>
+<p>添加元素到头或者尾，可以使用<code>LinkedListNode</code>或者添加值。</p>
+<ol start="5">
+<li><code>Remove</code></li>
+</ol>
+<p>删除，可以传递某个节点，或者要删除的节点里存放的值。</p>
+<ol start="6">
+<li><code>RemoveFirst</code>/<code>RemoveLast</code><br>删除第一个节点，删除最后一个节点，不含参数</li>
+</ol>
+<p>下面是微软官方的一些示例</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Text;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Example</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// Create the link list.</span></span><br><span class="line">        <span class="built_in">string</span>[] words =</span><br><span class="line">            &#123; <span class="string">&quot;the&quot;</span>, <span class="string">&quot;fox&quot;</span>, <span class="string">&quot;jumps&quot;</span>, <span class="string">&quot;over&quot;</span>, <span class="string">&quot;the&quot;</span>, <span class="string">&quot;dog&quot;</span> &#125;;</span><br><span class="line">        LinkedList&lt;<span class="built_in">string</span>&gt; sentence = <span class="keyword">new</span> LinkedList&lt;<span class="built_in">string</span>&gt;(words);</span><br><span class="line">        Display(sentence, <span class="string">&quot;The linked list values:&quot;</span>);</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;sentence.Contains(&quot;</span>jumps<span class="string">&quot;) = &#123;0&#125;&quot;</span>,</span><br><span class="line">            sentence.Contains(<span class="string">&quot;jumps&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Add the word &#x27;today&#x27; to the beginning of the linked list.</span></span><br><span class="line">        sentence.AddFirst(<span class="string">&quot;today&quot;</span>);</span><br><span class="line">        Display(sentence, <span class="string">&quot;Test 1: Add &#x27;today&#x27; to beginning of the list:&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Move the first node to be the last node.</span></span><br><span class="line">        LinkedListNode&lt;<span class="built_in">string</span>&gt; mark1 = sentence.First;</span><br><span class="line">        sentence.RemoveFirst();</span><br><span class="line">        sentence.AddLast(mark1);</span><br><span class="line">        Display(sentence, <span class="string">&quot;Test 2: Move first node to be last node:&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Change the last node to &#x27;yesterday&#x27;.</span></span><br><span class="line">        sentence.RemoveLast();</span><br><span class="line">        sentence.AddLast(<span class="string">&quot;yesterday&quot;</span>);</span><br><span class="line">        Display(sentence, <span class="string">&quot;Test 3: Change the last node to &#x27;yesterday&#x27;:&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Move the last node to be the first node.</span></span><br><span class="line">        mark1 = sentence.Last;</span><br><span class="line">        sentence.RemoveLast();</span><br><span class="line">        sentence.AddFirst(mark1);</span><br><span class="line">        Display(sentence, <span class="string">&quot;Test 4: Move last node to be first node:&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Indicate the last occurence of &#x27;the&#x27;.</span></span><br><span class="line">        sentence.RemoveFirst();</span><br><span class="line">        LinkedListNode&lt;<span class="built_in">string</span>&gt; current = sentence.FindLast(<span class="string">&quot;the&quot;</span>);</span><br><span class="line">        IndicateNode(current, <span class="string">&quot;Test 5: Indicate last occurence of &#x27;the&#x27;:&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Add &#x27;lazy&#x27; and &#x27;old&#x27; after &#x27;the&#x27; (the LinkedListNode named current).</span></span><br><span class="line">        sentence.AddAfter(current, <span class="string">&quot;old&quot;</span>);</span><br><span class="line">        sentence.AddAfter(current, <span class="string">&quot;lazy&quot;</span>);</span><br><span class="line">        IndicateNode(current, <span class="string">&quot;Test 6: Add &#x27;lazy&#x27; and &#x27;old&#x27; after &#x27;the&#x27;:&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Indicate &#x27;fox&#x27; node.</span></span><br><span class="line">        current = sentence.Find(<span class="string">&quot;fox&quot;</span>);</span><br><span class="line">        IndicateNode(current, <span class="string">&quot;Test 7: Indicate the &#x27;fox&#x27; node:&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Add &#x27;quick&#x27; and &#x27;brown&#x27; before &#x27;fox&#x27;:</span></span><br><span class="line">        sentence.AddBefore(current, <span class="string">&quot;quick&quot;</span>);</span><br><span class="line">        sentence.AddBefore(current, <span class="string">&quot;brown&quot;</span>);</span><br><span class="line">        IndicateNode(current, <span class="string">&quot;Test 8: Add &#x27;quick&#x27; and &#x27;brown&#x27; before &#x27;fox&#x27;:&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Keep a reference to the current node, &#x27;fox&#x27;,</span></span><br><span class="line">        <span class="comment">// and to the previous node in the list. Indicate the &#x27;dog&#x27; node.</span></span><br><span class="line">        mark1 = current;</span><br><span class="line">        LinkedListNode&lt;<span class="built_in">string</span>&gt; mark2 = current.Previous;</span><br><span class="line">        current = sentence.Find(<span class="string">&quot;dog&quot;</span>);</span><br><span class="line">        IndicateNode(current, <span class="string">&quot;Test 9: Indicate the &#x27;dog&#x27; node:&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// The AddBefore method throws an InvalidOperationException</span></span><br><span class="line">        <span class="comment">// if you try to add a node that already belongs to a list.</span></span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Test 10: Throw exception by adding node (fox) already in the list:&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            sentence.AddBefore(current, mark1);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (InvalidOperationException ex)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Exception message: &#123;0&#125;&quot;</span>, ex.Message);</span><br><span class="line">        &#125;</span><br><span class="line">        Console.WriteLine();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Remove the node referred to by mark1, and then add it</span></span><br><span class="line">        <span class="comment">// before the node referred to by current.</span></span><br><span class="line">        <span class="comment">// Indicate the node referred to by current.</span></span><br><span class="line">        sentence.Remove(mark1);</span><br><span class="line">        sentence.AddBefore(current, mark1);</span><br><span class="line">        IndicateNode(current, <span class="string">&quot;Test 11: Move a referenced node (fox) before the current node (dog):&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Remove the node referred to by current.</span></span><br><span class="line">        sentence.Remove(current);</span><br><span class="line">        IndicateNode(current, <span class="string">&quot;Test 12: Remove current node (dog) and attempt to indicate it:&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Add the node after the node referred to by mark2.</span></span><br><span class="line">        sentence.AddAfter(mark2, current);</span><br><span class="line">        IndicateNode(current, <span class="string">&quot;Test 13: Add node removed in test 11 after a referenced node (brown):&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// The Remove method finds and removes the</span></span><br><span class="line">        <span class="comment">// first node that that has the specified value.</span></span><br><span class="line">        sentence.Remove(<span class="string">&quot;old&quot;</span>);</span><br><span class="line">        Display(sentence, <span class="string">&quot;Test 14: Remove node that has the value &#x27;old&#x27;:&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// When the linked list is cast to ICollection(Of String),</span></span><br><span class="line">        <span class="comment">// the Add method adds a node to the end of the list.</span></span><br><span class="line">        sentence.RemoveLast();</span><br><span class="line">        ICollection&lt;<span class="built_in">string</span>&gt; icoll = sentence;</span><br><span class="line">        icoll.Add(<span class="string">&quot;rhinoceros&quot;</span>);</span><br><span class="line">        Display(sentence, <span class="string">&quot;Test 15: Remove last node, cast to ICollection, and add &#x27;rhinoceros&#x27;:&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Test 16: Copy the list to an array:&quot;</span>);</span><br><span class="line">        <span class="comment">// Create an array with the same number of</span></span><br><span class="line">        <span class="comment">// elements as the inked list.</span></span><br><span class="line">        <span class="built_in">string</span>[] sArray = <span class="keyword">new</span> <span class="built_in">string</span>[sentence.Count];</span><br><span class="line">        sentence.CopyTo(sArray, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="built_in">string</span> s <span class="keyword">in</span> sArray)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(s);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Release all the nodes.</span></span><br><span class="line">        sentence.Clear();</span><br><span class="line"></span><br><span class="line">        Console.WriteLine();</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Test 17: Clear linked list. Contains &#x27;jumps&#x27; = &#123;0&#125;&quot;</span>,</span><br><span class="line">            sentence.Contains(<span class="string">&quot;jumps&quot;</span>));</span><br><span class="line"></span><br><span class="line">        Console.ReadLine();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Display</span>(<span class="params">LinkedList&lt;<span class="built_in">string</span>&gt; words, <span class="built_in">string</span> test</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(test);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="built_in">string</span> word <span class="keyword">in</span> words)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(word + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Console.WriteLine();</span><br><span class="line">        Console.WriteLine();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">IndicateNode</span>(<span class="params">LinkedListNode&lt;<span class="built_in">string</span>&gt; node, <span class="built_in">string</span> test</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(test);</span><br><span class="line">        <span class="keyword">if</span> (node.List == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Node &#x27;&#123;0&#125;&#x27; is not in the list.n&quot;</span>,</span><br><span class="line">                node.Value);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        StringBuilder result = <span class="keyword">new</span> StringBuilder(<span class="string">&quot;(&quot;</span> + node.Value + <span class="string">&quot;)&quot;</span>);</span><br><span class="line">        LinkedListNode&lt;<span class="built_in">string</span>&gt; nodeP = node.Previous;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (nodeP != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            result.Insert(<span class="number">0</span>, nodeP.Value + <span class="string">&quot; &quot;</span>);</span><br><span class="line">            nodeP = nodeP.Previous;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        node = node.Next;</span><br><span class="line">        <span class="keyword">while</span> (node != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            result.Append(<span class="string">&quot; &quot;</span> + node.Value);</span><br><span class="line">            node = node.Next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(result);</span><br><span class="line">        Console.WriteLine();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//This code example produces the following output:</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//The linked list values:</span></span><br><span class="line"><span class="comment">//the fox jumps over the dog</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 1: Add &#x27;today&#x27; to beginning of the list:</span></span><br><span class="line"><span class="comment">//today the fox jumps over the dog</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 2: Move first node to be last node:</span></span><br><span class="line"><span class="comment">//the fox jumps over the dog today</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 3: Change the last node to &#x27;yesterday&#x27;:</span></span><br><span class="line"><span class="comment">//the fox jumps over the dog yesterday</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 4: Move last node to be first node:</span></span><br><span class="line"><span class="comment">//yesterday the fox jumps over the dog</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 5: Indicate last occurence of &#x27;the&#x27;:</span></span><br><span class="line"><span class="comment">//the fox jumps over (the) dog</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 6: Add &#x27;lazy&#x27; and &#x27;old&#x27; after &#x27;the&#x27;:</span></span><br><span class="line"><span class="comment">//the fox jumps over (the) lazy old dog</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 7: Indicate the &#x27;fox&#x27; node:</span></span><br><span class="line"><span class="comment">//the (fox) jumps over the lazy old dog</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 8: Add &#x27;quick&#x27; and &#x27;brown&#x27; before &#x27;fox&#x27;:</span></span><br><span class="line"><span class="comment">//the quick brown (fox) jumps over the lazy old dog</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 9: Indicate the &#x27;dog&#x27; node:</span></span><br><span class="line"><span class="comment">//the quick brown fox jumps over the lazy old (dog)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 10: Throw exception by adding node (fox) already in the list:</span></span><br><span class="line"><span class="comment">//Exception message: The LinkedList node belongs a LinkedList.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 11: Move a referenced node (fox) before the current node (dog):</span></span><br><span class="line"><span class="comment">//the quick brown jumps over the lazy old fox (dog)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 12: Remove current node (dog) and attempt to indicate it:</span></span><br><span class="line"><span class="comment">//Node &#x27;dog&#x27; is not in the list.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 13: Add node removed in test 11 after a referenced node (brown):</span></span><br><span class="line"><span class="comment">//the quick brown (dog) jumps over the lazy old fox</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 14: Remove node that has the value &#x27;old&#x27;:</span></span><br><span class="line"><span class="comment">//the quick brown dog jumps over the lazy fox</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 15: Remove last node, cast to ICollection, and add &#x27;rhinoceros&#x27;:</span></span><br><span class="line"><span class="comment">//the quick brown dog jumps over the lazy rhinoceros</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 16: Copy the list to an array:</span></span><br><span class="line"><span class="comment">//the</span></span><br><span class="line"><span class="comment">//quick</span></span><br><span class="line"><span class="comment">//brown</span></span><br><span class="line"><span class="comment">//dog</span></span><br><span class="line"><span class="comment">//jumps</span></span><br><span class="line"><span class="comment">//over</span></span><br><span class="line"><span class="comment">//the</span></span><br><span class="line"><span class="comment">//lazy</span></span><br><span class="line"><span class="comment">//rhinoceros</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Test 17: Clear linked list. Contains &#x27;jumps&#x27; = False</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-Stack-lt-T-gt-和-Stack"><a href="#3-3-Stack-lt-T-gt-和-Stack" class="headerlink" title="3.3 Stack&lt;T&gt; 和 Stack"></a>3.3 <code>Stack&lt;T&gt;</code> 和 <code>Stack</code></h2><p><code>Stack</code>广泛的翻译是栈，是一种后进先出的集合。在一些特殊场景里，使用十分广泛。<br><code>Stack</code>有两个很重要的方法<code>Pop</code> 和<code>Push</code>，出/进。Pop 获取最后一个元素，并退出栈，Push 向栈推入一个元素。<br>具体可以参照 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.collections.generic.stack-1?view=netcore-3.1">官方文档</a></p>
+<h1 id="4-集合相关命名空间"><a href="#4-集合相关命名空间" class="headerlink" title="4 集合相关命名空间"></a>4 集合相关命名空间</h1><p>C# 的集合还有其他的一些命名空间里藏着宝贝，不过在实际开发中使用频率并不大，可以按需查看。</p>
+<h2 id="4-1-System-Collections-Concurrent-线程安全"><a href="#4-1-System-Collections-Concurrent-线程安全" class="headerlink" title="4.1 System.Collections.Concurrent 线程安全"></a>4.1 <code>System.Collections.Concurrent</code> 线程安全</h2><p>这个命名空间，提供了一系列线程安全的集合类，当出现多线程操作集合的时候，应当使用这个命名空间的集合。名称和常用的类是一一对应的，不过只提供了<code>ConcurrentDictionary&lt;TKey,TValue&gt;</code>、<code>ConcurrentQueue&lt;T&gt;</code>、<code>ConcurrentStack&lt;T&gt;</code>等几个集合类。具体可以查看<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/api/system.collections.concurrent?view=netcore-3.1">官方文档</a></p>
+<h2 id="4-2-System-Collections-Immutable-不可变集合"><a href="#4-2-System-Collections-Immutable-不可变集合" class="headerlink" title="4.2 System.Collections.Immutable 不可变集合"></a>4.2 <code>System.Collections.Immutable</code> 不可变集合</h2><p>命名空间包含用于定义不可变集合的接口和类，如果需要使用这个命名空间，则需要使用NuGet下载。</p>
+<ul>
+<li>共享集合，使其使用者可以确保集合永远不会发生更改。</li>
+<li>提供多线程应用程序中的隐式线程安全（无需锁来访问集合）。</li>
+<li>遵循函数编程做法。</li>
+<li>在枚举过程中修改集合，同时确保该原始集合不会更改</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/03/28/%E3%80%90CSharp%E3%80%91%E9%9B%86%E5%90%88%E6%95%B0%E7%BB%84/" title="【CSharp】集合数组">http://blog.bfsdfs.com/2020/03/28/【CSharp】集合数组/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net/" rel="tag"># .Net</a>
+              <a href="/tags/C/" rel="tag"># C#</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/26/%E3%80%90NPOI%E3%80%91Execl%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" rel="prev" title="【NPOI】Execl常用操作">
+      <i class="fa fa-chevron-left"></i> 【NPOI】Execl常用操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/15/%E3%80%90CSharp%E3%80%91DataAnnotations%E6%A3%80%E8%AF%81%E5%AE%9E%E4%BD%93/" rel="next" title="【CSharp】DataAnnotations检证实体">
+      【CSharp】DataAnnotations检证实体 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%B8%BB%E8%A6%81%E9%9B%86%E5%90%88"><span class="nav-number">1.</span> <span class="nav-text">1. 主要集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-Array-%E6%95%B0%E7%BB%84"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Array 数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1.1 初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.1.2 常用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-3-%E4%B8%8D%E5%B8%B8%E7%94%A8%E4%BD%86%E6%9C%89%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1.1.3 不常用但有用的方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-List-%E5%88%97%E8%A1%A8"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 List 列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.2.1 初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2.2 常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-%E4%B8%8D%E5%B8%B8%E7%94%A8%E4%BD%86%E6%9C%89%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.2.3 不常用但有用的方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-Set-%E9%9B%86%E5%90%88"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 Set 集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-HashSet-lt-T-gt-%E5%92%8CSortSet-lt-T-gt"><span class="nav-number">1.3.1.</span> <span class="nav-text">1.3.1 HashSet&lt;T&gt; 和SortSet&lt;T&gt;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-%E5%85%B1%E5%90%8C%E7%82%B9"><span class="nav-number">1.3.2.</span> <span class="nav-text">1.3.2 共同点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-3-%E4%B8%8D%E5%90%8C%E7%82%B9"><span class="nav-number">1.3.3.</span> <span class="nav-text">1.3.3 不同点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-Dictionary-%E5%AD%97%E5%85%B8"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 Dictionary 字典</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.4.1 初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-2-%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.2.</span> <span class="nav-text">1.4.2 常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-3-%E4%B8%8D%E5%B8%B8%E7%94%A8%E4%BD%86%E6%9C%89%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.3.</span> <span class="nav-text">1.4.3 不常用但有用的方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E4%BC%A0%E7%BB%9F%E9%9B%86%E5%90%88%EF%BC%88%E9%9D%9E%E6%B3%9B%E5%9E%8B%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">2. 传统集合（非泛型）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%B8%B8%E8%A7%81%E7%B1%BB%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 常见类介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E4%B8%80%E4%BA%9B%E4%B8%8D%E5%B8%B8%E7%94%A8%E7%9A%84%E9%9B%86%E5%90%88%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">3 一些不常用的集合类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Queue-lt-T-gt-%E5%92%8C-Queue"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Queue&lt;T&gt; 和 Queue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-LinkedList-lt-T-gt"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 LinkedList&lt;T&gt;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-Stack-lt-T-gt-%E5%92%8C-Stack"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Stack&lt;T&gt; 和 Stack</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E9%9B%86%E5%90%88%E7%9B%B8%E5%85%B3%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="nav-number">4.</span> <span class="nav-text">4 集合相关命名空间</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-System-Collections-Concurrent-%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 System.Collections.Concurrent 线程安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-System-Collections-Immutable-%E4%B8%8D%E5%8F%AF%E5%8F%98%E9%9B%86%E5%90%88"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 System.Collections.Immutable 不可变集合</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '118749390d710adc58cb04d1be7fa4b3',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

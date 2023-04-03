@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/2/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/10/06/%E3%80%90WinDbg%E3%80%91%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/10/06/%E3%80%90WinDbg%E3%80%91%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/" class="post-title-link" itemprop="url">【WinDbg】调试技巧</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-06 20:11:42" itemprop="dateCreated datePublished" datetime="2021-10-06T20:11:42+08:00">2021-10-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">常用工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wyt007/p/10014481.html">https://www.cnblogs.com/wyt007/p/10014481.html</a></p>
+</blockquote>
+<h2 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h2><p>安装问题：执行 .loadby sos clr 命令无效</p>
+<p>解决办法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.load C:\Windows\Microsoft.NET\Framework64\v4.0.30319\SOS.dll</span><br><span class="line">.load C:\Windows\Microsoft.NET\Framework64\v4.0.30319\clr.dll</span><br><span class="line">.loadby sos clr</span><br></pre></td></tr></table></figure>
+
+<h2 id="代码调试"><a href="#代码调试" class="headerlink" title="代码调试"></a>代码调试</h2><h3 id="查看线程"><a href="#查看线程" class="headerlink" title="查看线程"></a>查看线程</h3><p><strong>命令</strong>： !threads</p>
+<p>执行结果：</p>
+<p><img src="/images/991704-20181125012022706-1881666805.png" alt=""></p>
+<h3 id="进入线程"><a href="#进入线程" class="headerlink" title="进入线程"></a>进入线程</h3><p><strong>命令</strong>： ~~[线程Id]s</p>
+<p>执行结果：<br><img src="/images/991704-20181125012226752-1830711124.png" alt=""></p>
+<h3 id="查看线程详情"><a href="#查看线程详情" class="headerlink" title="查看线程详情"></a>查看线程详情</h3><p><strong>命令</strong>： !clrstack</p>
+<p>执行结果：</p>
+<p><img src="/images/991704-20181125012403646-721486767.png" alt=""></p>
+<h3 id="查看线程状态"><a href="#查看线程状态" class="headerlink" title="查看线程状态"></a>查看线程状态</h3><p><strong>命令</strong>：  !ThreadState 线程StateId</p>
+<p>执行结果：</p>
+<p> <img src="/images/991704-20181125110811341-1190654412.png" alt=""></p>
+<h3 id="退出附加进程"><a href="#退出附加进程" class="headerlink" title="退出附加进程"></a>退出附加进程</h3><p><strong>命令</strong>： qd</p>
+<h3 id="查看线程环境块（空间）"><a href="#查看线程环境块（空间）" class="headerlink" title="查看线程环境块（空间）"></a>查看线程环境块（空间）</h3><p><strong>命令</strong>：  !Teb</p>
+<p>执行结果：</p>
+<p><img src="/images/991704-20181125120339971-629814222.png" alt=""></p>
+<h3 id="查看线程堆栈"><a href="#查看线程堆栈" class="headerlink" title="查看线程堆栈"></a>查看线程堆栈</h3><p><strong>命令</strong>：  !dumpstack</p>
+<p>执行结果：</p>
+<p><img src="/images/991704-20181125120631867-529406469.png" alt=""></p>
+<h3 id="查看局部变量"><a href="#查看局部变量" class="headerlink" title="查看局部变量"></a>查看局部变量</h3><p><strong>命令</strong>：  !clrstack</p>
+<p>!clrstack -l</p>
+<p>执行结果：</p>
+<p><img src="/images/991704-20181125121619739-1700876453.png" alt=""></p>
+<h3 id="查看帮助"><a href="#查看帮助" class="headerlink" title="查看帮助"></a>查看帮助</h3><p><strong>命令</strong>：   !help</p>
+<p>执行结果：</p>
+<p> <img src="/images/991704-20181125131634602-1741194732.png" alt=""></p>
+<h3 id="查看终结器队列"><a href="#查看终结器队列" class="headerlink" title="查看终结器队列"></a>查看终结器队列</h3><p><strong>命令</strong>：  !FinalizeQueue</p>
+<p>执行结果：</p>
+<p> <img src="/images/991704-20181125131746492-190328723.png" alt=""></p>
+<h3 id="查看线程池详情"><a href="#查看线程池详情" class="headerlink" title="查看线程池详情"></a>查看线程池详情</h3><p><strong>命令</strong>： !threadpool</p>
+<p>执行结果：</p>
+<p> <img src="/images/991704-20181125162357020-578499148.png" alt=""></p>
+<h3 id="查看查看当前托管线程已执行时间"><a href="#查看查看当前托管线程已执行时间" class="headerlink" title="查看查看当前托管线程已执行时间"></a>查看查看当前托管线程已执行时间</h3><p><strong>命令</strong>：  !runaway</p>
+<p>执行结果：</p>
+<p><img src="/images/991704-20181201173105610-1644781323.png" alt=""></p>
+<h3 id="清屏"><a href="#清屏" class="headerlink" title="清屏"></a>清屏</h3><p><strong>命令</strong>：  !cls</p>
+<h3 id="查看查看当前托管线程已执行时间-1"><a href="#查看查看当前托管线程已执行时间-1" class="headerlink" title="查看查看当前托管线程已执行时间"></a>查看查看当前托管线程已执行时间</h3><p><strong>命令</strong>：  ~*e!clrstack</p>
+<p>执行结果：看所有线程的堆栈</p>
+<h2 id="CPU过高的问题"><a href="#CPU过高的问题" class="headerlink" title="CPU过高的问题"></a>CPU过高的问题</h2><h3 id="模拟CPU过高"><a href="#模拟CPU过高" class="headerlink" title="模拟CPU过高"></a>模拟CPU过高</h3><p>示例代码：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Run();</span><br><span class="line"></span><br><span class="line">        Console.Read();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Run</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> task = Task.Factory.StartNew(() =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//这是一个非常复杂的逻辑，导致死循环</span></span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>生成64位Realease版本代码：</p>
+<p><img src="/images/991704-20181201162434591-743668635.png" alt=""></p>
+<p>在Bin/Realse下找到文件并运行，然后查看CPU：</p>
+<p><img src="/images/991704-20181201162642368-1330556736.png" alt=""></p>
+<h3 id="解决CUP占用过高"><a href="#解决CUP占用过高" class="headerlink" title="解决CUP占用过高"></a>解决CUP占用过高</h3><p>创建转储文件：</p>
+<p><img src="/images/991704-20181201162813694-1352992185.png" alt=""></p>
+<p><strong>↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓</strong></p>
+<p><img src="/images/991704-20181201162912959-598889431.png" alt=""></p>
+<p>找到该转储文件：C:\Users\ADMINI~1\AppData\Local\Temp\ConsoleApp4.DMP</p>
+<p>用X64版本的WinDbg打开DMP文件：</p>
+<p><img src="/images/991704-20181201172218698-530602749.png" alt=""></p>
+<p>↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓</p>
+<p>然后打开命令输入：</p>
+<p><img src="/images/991704-20181201172425697-932588586.png" alt=""></p>
+<p>然后输入 .loadby sos clr 与 !threads</p>
+<p><img src="/images/991704-20181201172632442-1694656624.png" alt=""></p>
+<p>现在线程少没有关系，多的话我们没有办法去判断哪个线程消耗严重，所以执行 !runaway 查看当前托管线程已执行时间</p>
+<p><img src="/images/991704-20181201172854382-142331768.png" alt=""></p>
+<p>切换到指定线程 ~~[4f78]s ，执行  !clrstack  查看当前线程的调用堆栈</p>
+<p><img src="/images/991704-20181201173545331-783517050.png" alt=""></p>
+<p>从调用堆栈上来看，当前线程 在 Program+c.b__1_0() 方法之后23行就没有调用堆栈了，说明方法在这个地方停滞不前了。</p>
+<p>最后反编译源码到指定的方法中去查看</p>
+<p><img src="/images/991704-20181201173938240-10363955.png" alt=""></p>
+<p>方法二：</p>
+<p>通过 !dumpdomain 拿到程序地址</p>
+<p><img src="/images/991704-20181201174212245-1461978093.png" alt=""></p>
+<p>然后反编译成dll输出文件 !savemodule 00007ff7e4f94120 c:\2\1.dll （文件夹必须存在）</p>
+<p><img src="/images/991704-20181201174505271-1863869156.png" alt=""></p>
+<p>然后找到该dll进行反编译</p>
+<p><img src="/images/991704-20181201174638223-662548164.png" alt=""></p>
+<h2 id="死锁问题"><a href="#死锁问题" class="headerlink" title="死锁问题"></a>死锁问题</h2><h3 id="模拟死锁"><a href="#模拟死锁" class="headerlink" title="模拟死锁"></a>模拟死锁</h3><p>实例代码：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">new</span> Program().Run();</span><br><span class="line"></span><br><span class="line">        Console.Read();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Run</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">lock</span> (<span class="keyword">this</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> task = Task.Factory.StartNew(() =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;-------start-------&quot;</span>);</span><br><span class="line">                Thread.Sleep(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">                Run2();</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;---------end--------&quot;</span>);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            task.Wait();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Run2</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">lock</span> (<span class="keyword">this</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;------我是Run2------&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<p><img src="/images/991704-20181201175606334-571955144.png" alt=""></p>
+<h3 id="解决死锁"><a href="#解决死锁" class="headerlink" title="解决死锁"></a>解决死锁</h3><p>然后用WinDbg附加到进程，执行 .loadby sos clr 与 !threads 查看当前的托管线程</p>
+<p><img src="/images/991704-20181201180426859-1297970068.png" alt=""></p>
+<p>然后执行 ~*e!clrstack 查看所有线程的堆栈</p>
+<p>可以看出主线程在等待</p>
+<p><img src="/images/991704-20181201180307121-357765006.png" alt=""></p>
+<p>执行 !syncblk 查看当前哪个线程持有锁，可以看出主线程持有锁</p>
+<p><img src="/images/991704-20181201180734218-1830893017.png" alt=""></p>
+<p>可以看得出“主线程”持有当前的同步锁</p>
+<p><img src="/images/991704-20181201181143070-1523901138.png" alt=""></p>
+<h2 id="内存爆满"><a href="#内存爆满" class="headerlink" title="内存爆满"></a>内存爆满</h2><h3 id="模拟内存爆满"><a href="#模拟内存爆满" class="headerlink" title="模拟内存爆满"></a>模拟内存爆满</h3><p>实例代码：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000000</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            sb.Append(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">        Console.Read();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解决内存爆满"><a href="#解决内存爆满" class="headerlink" title="解决内存爆满"></a>解决内存爆满</h3><p>然后用WinDbg附加到进程，执行  .loadby sos clr 与  !threads ，然后执行  !dumpheap -stat 查看clr的托管堆中的各个类型的占用情况</p>
+<p><img src="/images/991704-20181201181914748-976023983.png" alt=""></p>
+<p>然后看到了有13768个char[]数组</p>
+<p>然后执行 !DumpHeap /d -mt 00007ff841318610    //查看当前的方法表</p>
+<p><img src="/images/991704-20181201182152324-902542008.png" alt=""></p>
+<p>然后执行 !DumpObj /d 0000022baed1dec8 //查看当前char[]的内容</p>
+<p><img src="/images/991704-20181201182553116-320378473.png" alt=""></p>
+<p>然后执行 !gcroot 00000135a60f4940 查看当前地址的Root。。。</p>
+<p> <img src="/images/991704-20181201182807324-865632686.png" alt=""></p>
+<p>所以结合“StringBuilder”，结合 ”hello world“ 我们就找出了问题。。。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/09/12/%E3%80%90.Net%E3%80%91SharpSvn%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/12/%E3%80%90.Net%E3%80%91SharpSvn%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">【.Net】SharpSvn使用简介</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-12 20:45:45" itemprop="dateCreated datePublished" datetime="2021-09-12T20:45:45+08:00">2021-09-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://jianyun.org/archives/1090.html">https://jianyun.org/archives/1090.html</a></p>
+</blockquote>
+<p>SharpSvn是一个第三方的Subversion客户端.Net API库。对程序来说，使用命令行调用SVN.exe交互性不太好，不方便后续数据加工操作，还是API形式来的更方便。</p>
+<p>SharpSvn项目主页：<a target="_blank" rel="noopener" href="https://sharpsvn.open.collab.net/">https://sharpsvn.open.collab.net/</a></p>
+<p>使用SharpSvn唯一的需求是需要安装<br>Microsoft Visual C++ Runtime (The <a target="_blank" rel="noopener" href="http://www.microsoft.com/download/en/details.aspx?id=5582">Visual C++ 2008 runtime</a> for the .Net 2.0 compatible versions. The <a target="_blank" rel="noopener" href="http://www.microsoft.com/en-us/download/details.aspx?id=8328">Visual C++ 2010 runtime</a> for the newer .Net 4.0+ specific binaries)。</p>
+<p>下载对于版本的库之后，项目添加SharpSvn.dll之后就可以使用相应的API了。</p>
+<p>示例一：获取最新版本号</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">long</span> <span class="title">GetLatestRevision</span>(<span class="params"><span class="built_in">string</span> url</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span>(SvnClient client = GetSvnClient())</span><br><span class="line">    &#123;</span><br><span class="line">        SvnInfoEventArgs svnInfo;</span><br><span class="line">        <span class="keyword">if</span>(client.GetInfo(<span class="keyword">new</span> SvnUriTarget(url), <span class="keyword">out</span> svnInfo))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> svnInfo.LastChangeRevision;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> SvnClient <span class="title">GetSvnClient</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    SvnClient client = <span class="keyword">new</span> SvnClient();</span><br><span class="line">    client.Authentication.Clear();</span><br><span class="line">    client.Authentication.UserNamePasswordHandlers += Authentication_UserNamePasswordHandlers;</span><br><span class="line">    client.Authentication.SslServerTrustHandlers +=  Authentication_SslServerTrustHandlers;</span><br><span class="line">    <span class="keyword">return</span> client;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Authentication_UserNamePasswordHandlers</span>(<span class="params"><span class="built_in">object</span> sender, sharpSvn.Security.SvnUserNamePasswordEventArgs e</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//登录SVN的用户名和密码</span></span><br><span class="line">    e.UserName = <span class="string">&quot;svnuser&quot;</span>;</span><br><span class="line">    e.Password = <span class="string">&quot;password&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//SSL证书有问题的，如果要忽略的话可以在这里忽略</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Authentication_SslServerTrustHandlers</span>(<span class="params"><span class="built_in">object</span> sender, sharpSvn.Security.SvnSslServerTrustEventArgs e</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    e.AcceptedFailures = e.Failures;</span><br><span class="line">    e.Save = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>示例二：获取提交记录，可以指定版本范围</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span>(SvnClient client = GetSvnClient())</span><br><span class="line">&#123;</span><br><span class="line">    Collection&lt;SvnLogEventArgs&gt; logs;</span><br><span class="line">    <span class="keyword">if</span>(client.GetLog(<span class="keyword">new</span> Uri(url), <span class="keyword">new</span> SvnLogArgs(<span class="keyword">new</span> SvnRevisionRange(startRevision, endRevision)), <span class="keyword">out</span> logs))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//后续操作，可以获取作者，版本号，提交时间，提交的message和提交文件列表等信息</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>示例三：导出指定版本的文件到本地</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">bool</span> <span class="title">ExportFile</span>(<span class="params"><span class="built_in">string</span> url, <span class="built_in">string</span> filePath, <span class="built_in">long</span> revision, <span class="built_in">string</span> exportPath</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(!Directory.Exists(exportPath))</span><br><span class="line">    &#123;</span><br><span class="line">        Directory.CreateDirectory(exportPath);</span><br><span class="line">    &#125;</span><br><span class="line">    exportPath = Path.Combine(exportPath, Path.GetFileName(filePath));</span><br><span class="line">    <span class="keyword">using</span>(SvnClient client = GetSvnClient())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> client.Export(<span class="keyword">new</span> SvnUriTarget(Path.Combine(url, filePath), revision), exportPath);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/09/12/%E3%80%90.Net%E3%80%91%E5%9C%A8.Net%20Framework%E4%B8%AD%E4%BD%BF%E7%94%A8gRPC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/12/%E3%80%90.Net%E3%80%91%E5%9C%A8.Net%20Framework%E4%B8%AD%E4%BD%BF%E7%94%A8gRPC/" class="post-title-link" itemprop="url">【.Net】在.Net Framework中使用gRPC</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-12 20:30:55" itemprop="dateCreated datePublished" datetime="2021-09-12T20:30:55+08:00">2021-09-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://iter01.com/537518.html">https://iter01.com/537518.html</a></p>
+</blockquote>
+<p>随着.Net Core 3.0及版本版本的出现，微软似乎正在完成一个Windows特征的WCF。作为WCF的备选者，VS Code或VS2019已经有了基于.Net Core 3.0平台的“gPRC专案模板”。极大地简化了gRPC的开发过程。</p>
+<p>gRPC也可深入.Net Framework。由于VS2019没有提供基于.Net Framework平台的“gPRC专案模板”，开发者需要用手工方式处理。本文采用VS2019，以.Net Framework 4.7.2为例，描述gPRC的实现步骤。</p>
+<h3 id="步骤一、建立解决方案及专案"><a href="#步骤一、建立解决方案及专案" class="headerlink" title="步骤一、建立解决方案及专案"></a>步骤一、建立解决方案及专案</h3><p><img src="/images/60cc98071db0274c5cb7d2a933d41ac4c1a530cddc51b5cd6083afcf5edbc423.png" alt=""></p>
+<ol>
+<li>Greeter，.Net Framework4.7.2类库专案，定义服务器与客户端之间的服务协议</li>
+<li>GreeterServer，.Net Framework4.7.2 证书程序，gRPC服务端，提供gPRC服务</li>
+<li>GreeterClinet，.Net Framework4.7.2 调试程序，gRPC客户端，呼叫GreetServer提供的服务</li>
+</ol>
+<h3 id="步骤二、NuGet获取程序包"><a href="#步骤二、NuGet获取程序包" class="headerlink" title="步骤二、NuGet获取程序包"></a>步骤二、NuGet获取程序包</h3><ol>
+<li>在“解决方案gRPCDemo”中滑鼠，“管理解决方案的NuGet程序包”</li>
+</ol>
+<p><img src="/images/0d52545e53259b3e8bb092e088258345885bf006a08ea7f10d7750a1e10fc1c4.png" alt=""></p>
+<ol start="2">
+<li>安装“Google.ProtoBuf”</li>
+</ol>
+<p><img src="/images/afe9889d693ae79dfa2cbebc45a594c478932acd55e8eca077d8c6be8e8b7380.png" alt=""></p>
+<p><img src="/images/04e100813649e33ec37cc7f6b0e10c36c56573a5570ab29f0cc2456df94c9e43.png" alt=""></p>
+<ol start="3">
+<li>安装“Grpc.Core”</li>
+</ol>
+<p><img src="/images/198490f29084060e975c7cf5c71696c8daf9f0a5c70ccf15a25c823b543aaf76.png" alt=""></p>
+<p><img src="/images/133d130f7d980091cfc677147a3c7941d5bc423d68eaf968a5b0b8fe71ef1eb7.png" alt=""></p>
+<ol start="4">
+<li>安装“Grpc.Tools”</li>
+</ol>
+<p><img src="/images/cd548a2a982f69c0a3746f4c1ec358d4962853287e370671b41266255471bd25.png" alt=""></p>
+<p><img src="/images/b3cda501a04c7599ae53cbafc5b672f87e1f28a24b285b7a1d6519be3c316bcd.png" alt=""></p>
+<h3 id="步骤三、此写服务协议并生成服务类（步骤需手工处理）"><a href="#步骤三、此写服务协议并生成服务类（步骤需手工处理）" class="headerlink" title="步骤三、此写服务协议并生成服务类（步骤需手工处理）"></a>步骤三、此写服务协议并生成服务类（步骤需手工处理）</h3><ol>
+<li>在类库专案“Greeter”中新增“helloworld.proto”档案，输入以下服务定义。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line"></span><br><span class="line">package Greeter;</span><br><span class="line"></span><br><span class="line">service Greet &#123;</span><br><span class="line">	rpc SayHello (HelloRequest) returns (HelloReply);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message HelloRequest &#123;</span><br><span class="line">	string name = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message HelloReply &#123;</span><br><span class="line">	string message = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>生成服务类</li>
+</ol>
+<p>在“解决方案”上点选滑鼠方案，“在档案资源管理中开启资料夹”</p>
+<p><img src="/images/cb9dae5f3abc3de0cac8c6ea83a14bd7b0fb95b871e8744d40eb69a0763d705e.png" alt=""></p>
+<p><img src="/images/00b2243f9bff2ad5339b23ee38706425fedc80732605263467962468e0c4e2a4.png" alt=""></p>
+<p>输入以下命令，将“hello.proto”转换为服务类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">packagesGrpc.Tools.2.32.0toolswindows_x86protoc.exe -I Greeter --csharp_out Greeter Greeterhello.proto --grpc_out Greeter --plugin=protoc-gen-grpc=packagesGrpc.Tools.2.32.0toolswindows_x86grpc_csharp_plugin.exe</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/161da4e4d688a54001b50e8ffd4d601d02a7ef1c92c34a8fede0268a07a8f628.png" alt=""></p>
+<ol start="3">
+<li>将生成的服务类Hello.cs和HelloGrpc.cs新增到“Greeter”专案中</li>
+</ol>
+<p><img src="/images/3033dd8edf065bdb6f52a238d79645e5c19bd794557dc444f05b311d3ed85f80.png" alt=""></p>
+<ol start="4">
+<li>编译类库“Greeter”</li>
+</ol>
+<h3 id="步骤四、写服务端"><a href="#步骤四、写服务端" class="headerlink" title="步骤四、写服务端"></a>步骤四、写服务端</h3><ol>
+<li><p>新增类库专案引援</p>
+</li>
+<li><p>服务端程序码</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">using Greeter;</span><br><span class="line">using Grpc.Core;</span><br><span class="line">using System;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line">namespace GreeterServer</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            const int port = 5555;</span><br><span class="line">            Server server = new Server</span><br><span class="line">            &#123;</span><br><span class="line">                Services = &#123; Greet.BindService(new GreetImpl()) &#125;,</span><br><span class="line">                Ports = &#123; new ServerPort(&quot;localhost&quot;, port, ServerCredentials.Insecure) &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">            server.Start();</span><br><span class="line"></span><br><span class="line">            Console.WriteLine($&quot;Greeter Server Listening on port &#123;port&#125;&quot;);</span><br><span class="line">            Console.WriteLine(&quot;Press Enter to exit&quot;);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line"></span><br><span class="line">            server.ShutdownAsync().Wait();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class GreetImpl: Greet.GreetBase</span><br><span class="line">    &#123;</span><br><span class="line">        public override Task&lt;HelloReply&gt; SayHello(HelloRequest request, ServerCallContext context)</span><br><span class="line">        &#123;</span><br><span class="line">            return Task.FromResult(new HelloReply &#123; Message = $&quot;Hello &#123;request.Name&#125;&quot; &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤五、写客户端程序码"><a href="#步骤五、写客户端程序码" class="headerlink" title="步骤五、写客户端程序码"></a>步骤五、写客户端程序码</h3><ol>
+<li><p>新增类库专案引援</p>
+</li>
+<li><p>客户端程序码</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">using Greeter;</span><br><span class="line">using Grpc.Core;</span><br><span class="line">using System;</span><br><span class="line"></span><br><span class="line">namespace GreeterClient</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            Channel channel = new Channel(&quot;127.0.0.1:5555&quot;, ChannelCredentials.Insecure);</span><br><span class="line">            var client = new Greet.GreetClient(channel);</span><br><span class="line">            var replay = client.SayHello(new HelloRequest &#123; Name = &quot;Auto&quot; &#125;);</span><br><span class="line">            Console.WriteLine($&quot;&#123;replay.Message&#125;&quot;);</span><br><span class="line"></span><br><span class="line">            channel.ShutdownAsync().Wait();</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<p><img src="/images/a133f4381f4ce5a06386cc385a4f1e10f96a7046d090ff66c5a4d67ce3b46d95.png" alt=""></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

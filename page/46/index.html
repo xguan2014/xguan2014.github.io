@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/46/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/46/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2019/01/04/%E3%80%90SqlServer%E3%80%91VS%E8%87%AA%E5%B8%A6%E7%9A%84LocalDB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%94%A8%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/04/%E3%80%90SqlServer%E3%80%91VS%E8%87%AA%E5%B8%A6%E7%9A%84LocalDB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%94%A8%E6%B3%95/" class="post-title-link" itemprop="url">【SqlServer】VS自带的LocalDB数据库的用法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-04 17:36:50" itemprop="dateCreated datePublished" datetime="2019-01-04T17:36:50+08:00">2019-01-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>对于程序员来说，编程过程中或多或少会和数据库打交道。如果采用Visual Studio进行程序开发，则微软的Sql Server数据库是最好的选择。但是问题来了，Sql Server数据库动辄几个G，安装后占用的空间也相当大，是不是每个开发人员在开发时都需要安装Sql Server呢？其实，对于小型项目、测试型项目、学习型项目的开发，完全没必要使用Sql Server那么高大上的数据库。微软自己也深知这点，因此，推出了Sql Server数据库的超级简化版本：Sql Server LocalDB。这个小型的数据库完全可以满足普通项目的开发和调试，关键是它只有几十M，可以大大减轻PC的运行压力。本文将简要介绍在Visual Studio 2015中LocalDB数据库的使用方法。</p>
+<p>一、LocalDB的安装</p>
+<p>在安装VS2015时会自动安装LocalDB，所以只要正确安装VS2015那么localDB是肯定有的。</p>
+<p>二、LocalDB的连接和管理</p>
+<p>进入VS2015，在“视图”中选择“Sql Server对象资源管理器”，可以看到如下的界面。</p>
+<p><img src="/images/774827-20160816134123968-564065192.png" alt=""></p>
+<p>右键单击Sql Server，可以选择“添加Sql Server”。</p>
+<p><img src="/images/774827-20160816134234625-1493222781.png" alt=""></p>
+<p>在弹出的窗体中浏览本地，可以看见有两个数据库实例：MSSQLLocalDB和ProjectsV13。这两个实例都是VS2015的自带LocalDB，之所以有两个，是因为楼主的VS2015进行过更新，MSSQLLocalDB是属于V12版本的LocalDB，ProjectsV13是属于V13版本的LocalDB，二者目前都可以被VS2015的工程使用。接下来以MSSQLLocalDB为例进行连接。成功连接后左侧的资源管理器就可以对数据库的资源进行管理。</p>
+<p><img src="/images/774827-20160816134732859-795722027.png" alt=""></p>
+<p>然后我们可以尝试创建一个新的数据库Test。</p>
+<p><img src="/images/774827-20160816135106765-742571297.png" alt=""></p>
+<p>成功创建Test数据库后，可以正常地数据库进行操作。然而，如果要连接外部的数据库文件，就无法直接在Sql Server资源管理器中进行操作，此时需要在服务器资源管理器中进行操作。过程如下：</p>
+<p>在服务器资源管理器中选择添加连接，如果直接连接外部数据库文件，则该文件会默认附加到LocalDB中：</p>
+<p><img src="/images/774827-20160816140512312-1198412992.png" alt=""></p>
+<p>在弹出的窗体中选择“浏览”来添加外部数据库文件：</p>
+<p><img src="/images/774827-20160816141512078-333704588.png" alt=""></p>
+<p>选中文件后点击“确定”，服务器资源管理器中就多了一个外部数据库文件的连接：</p>
+<p><img src="/images/774827-20160816141858531-535543540.png" alt=""></p>
+<p>再次查看Sql Server对象资源管理器中的MSSQLLocalDB，可以看见多了刚才添加的外部数据库被附加到了这个本地数据库中：</p>
+<p><img src="/images/774827-20160816142129421-1658941089.png" alt=""></p>
+<p>至此，外部数据库也附加完毕，如果要在项目中连接该数据库，连接字符串如下：</p>
+<p>“Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=外部数据库文件的绝对路径（注意转义字符）”。</p>
+<p>命令行操作：</p>
+<p>At the command line, you can interact using the program name SqlLocalDb. Start with getting information about the installation:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt; SqlLocalDb info </span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MSSQLLocalDB </span><br></pre></td></tr></table></figure>
+<p>This used to return the version number (in the original article, and with the 2012 release, this returned v11.0.</p>
+<p>Next, you can create an instance with the following command:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt; SqlLocalDb create &quot;MyInstance&quot; </span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LocalDB instance &quot;MyInstance&quot; created with version 14.0.3030.27. </span><br></pre></td></tr></table></figure>
+<p>Check the info:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt; SqlLocalDb info &quot;MyInstance&quot; </span><br></pre></td></tr></table></figure>
+<p>Result:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Name: MyInstance Version: 14.0.3030.27 Shared name: Owner: PEDRO\aaronbertrand Auto-create: No State: Running Last start time: 7/20/18 10:44:51 AM Instance pipe name: np:\\.\pipe\LOCALDB#9EBB1CD2\tsql\query </span><br></pre></td></tr></table></figure>
+<p>The Instance pipe name may come in handy later, though I’ve found that a lot of the connectivity issues in earlier versions of this feature have gone away. Also, in older versions you had to explicitly start the instance, but it now starts automatically.</p>
+<p>If you want to stop and drop the instance, use:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt; SqlLocalDb stop &quot;MyInstance&quot; C:\&gt; SqlLocalDb delete &quot;MyInstance&quot; </span><br></pre></td></tr></table></figure>
+<p>But don’t do that just yet. Evidence that this all works so far:</p>
+<p><img src="https://www.mssqltips.com/tipimages2/5612_getting-started-with-sql-server-2017-express-localdb.016.png" alt="Command line interaction with LocalDB"></p>
+<h2 id="Connect-using-SQLCMD"><a href="#Connect-using-SQLCMD" class="headerlink" title="Connect using SQLCMD"></a>Connect using SQLCMD</h2><p>Locate <a target="_blank" rel="noopener" href="https://www.mssqltips.com/sqlservertip/4923/introduction-to-sql-servers-sqlcmd-utility/">SQLCMD</a>, making sure to use the newest version on your machine (your environment path may list an older version first). Look for the highest version in the Binn folders under C:\Program Files\Microsoft SQL Server\Client SDK\ODBC[version]\Tools. You can connect to this instance using the following from the command line:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlcmd -S &quot;(localdb)\MyInstance&quot; </span><br></pre></td></tr></table></figure>
+<p>Then we’re greeted with a line number prompt and can enter commands at will. So something like:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT @@VERSION; GO CREATE DATABASE blat; GO USE blat; GO CREATE TABLE dbo.splunge(Mort int); GO INSERT dbo.Splune(Mort) VALUES(1); SELECT * FROM dbo.splunge; GO </span><br></pre></td></tr></table></figure>
+<p>Yields:<br><img src="https://www.mssqltips.com/tipimages2/5612_getting-started-with-sql-server-2017-express-localdb.017.png" alt="SQLCMD interaction with LocalDB"></p>
+<p>相关内容转自：<br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/Traveller-Lee/archive/2016/08/16/5776312.html">http://www.cnblogs.com/Traveller-Lee/archive/2016/08/16/5776312.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.mssqltips.com/sqlservertip/5612/getting-started-with-sql-server-2017-express-localdb/">https://www.mssqltips.com/sqlservertip/5612/getting-started-with-sql-server-2017-express-localdb/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/12/25/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8Quartz.Net/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/25/%E3%80%90.Net%20Core%E3%80%91%E4%BD%BF%E7%94%A8Quartz.Net/" class="post-title-link" itemprop="url">【.Net Core】使用Quartz.Net</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-25 14:02:46" itemprop="dateCreated datePublished" datetime="2018-12-25T14:02:46+08:00">2018-12-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h3><p>Quartz.Net是根据Java的Quartz用C#改写而来，最新的版本是3.0.6，源码在<a target="_blank" rel="noopener" href="https://github.com/quartznet/quartznet">https://github.com/quartznet/quartznet</a>。主要作用是做一些周期性的工作，或者定时工作。比如每天凌晨2点对前一天的数据统计。</p>
+<h3 id="二、简单的案例"><a href="#二、简单的案例" class="headerlink" title="二、简单的案例"></a>二、简单的案例</h3><p>以WebApi项目举例，用VS脚手架功能新建WebApi项目。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConfigureServices</span>(<span class="params">IServiceCollection services</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">     services.AddMvc();</span><br><span class="line">     services.AddSingleton&lt;ISchedulerFactory, StdSchedulerFactory&gt;();<span class="comment">//注册ISchedulerFactory的实例。</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Route(<span class="string">&quot;api/[controller]&quot;</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ValuesController</span> : <span class="title">Controller</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> ISchedulerFactory _schedulerFactory;</span><br><span class="line">    <span class="keyword">private</span> IScheduler _scheduler;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ValuesController</span>(<span class="params">ISchedulerFactory schedulerFactory</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>._schedulerFactory = schedulerFactory;</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="meta">HttpGet</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="built_in">string</span>[]&gt; Get()</span><br><span class="line">    &#123;</span><br><span class="line">　　　　　　　<span class="comment">//1、通过调度工厂获得调度器</span></span><br><span class="line">        _scheduler = <span class="keyword">await</span> _schedulerFactory.GetScheduler();</span><br><span class="line">　　　　　　　<span class="comment">//2、开启调度器</span></span><br><span class="line">        <span class="keyword">await</span> _scheduler.Start();</span><br><span class="line">　　　　　　　<span class="comment">//3、创建一个触发器</span></span><br><span class="line">        <span class="keyword">var</span> trigger = TriggerBuilder.Create()</span><br><span class="line">                        .WithSimpleSchedule(x =&gt; x.WithIntervalInSeconds(<span class="number">2</span>).RepeatForever())<span class="comment">//每两秒执行一次</span></span><br><span class="line">                        .Build();</span><br><span class="line">　　　　　　  <span class="comment">//4、创建任务</span></span><br><span class="line">        <span class="keyword">var</span> jobDetail = JobBuilder.Create&lt;MyJob&gt;()</span><br><span class="line">                        .WithIdentity(<span class="string">&quot;job&quot;</span>, <span class="string">&quot;group&quot;</span>)</span><br><span class="line">                        .Build();</span><br><span class="line">　　　　　　　<span class="comment">//5、将触发器和任务器绑定到调度器中</span></span><br><span class="line">        <span class="keyword">await</span> _scheduler.ScheduleJob(jobDetail, trigger);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> Task.FromResult(<span class="keyword">new</span> <span class="built_in">string</span>[] &#123; <span class="string">&quot;value1&quot;</span>, <span class="string">&quot;value2&quot;</span> &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyJob</span> : <span class="title">IJob</span><span class="comment">//创建IJob的实现类，并实现Excute方法。</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Task <span class="title">Execute</span>(<span class="params">IJobExecutionContext context</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">　　　　　　<span class="keyword">return</span> Task.Run(() =&gt;</span><br><span class="line">        　　&#123;</span><br><span class="line">            　　<span class="keyword">using</span> (StreamWriter sw = <span class="keyword">new</span> StreamWriter(<span class="string">@&quot;C:\Users\Administrator\Desktop\error.log&quot;</span>, <span class="literal">true</span>, Encoding.UTF8))</span><br><span class="line">            　　&#123;</span><br><span class="line">                　　sw.WriteLine(DateTime.Now.ToString(<span class="string">&quot;yyyy-MM-dd HH-mm-ss&quot;</span>));</span><br><span class="line">            　　&#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输出的结果： 2018-08-03 00-03-19 2018-08-03 00-03-20 2018-08-03 00-03-22 2018-08-03 00-03-24 2018-08-03 00-03-26</span><br></pre></td></tr></table></figure>
+
+<p>上面这种执行的Job没有参数，当需要参数可以通过下面两种方法传递参数：</p>
+<p>1、在Trigger中添加参数值</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> trigger3 = TriggerBuilder.Create()</span><br><span class="line">            .WithSimpleSchedule(x =&gt;x.WithIntervalInSeconds(<span class="number">2</span>).RepeatForever())<span class="comment">//间隔2秒 一直执行</span></span><br><span class="line">            .UsingJobData(<span class="string">&quot;key1&quot;</span>, <span class="number">321</span>)  <span class="comment">//通过在Trigger中添加参数值</span></span><br><span class="line">            .UsingJobData(<span class="string">&quot;key2&quot;</span>, <span class="string">&quot;123&quot;</span>)</span><br><span class="line">            .WithIdentity(<span class="string">&quot;trigger2&quot;</span>, <span class="string">&quot;group1&quot;</span>)</span><br><span class="line">            .Build();</span><br></pre></td></tr></table></figure>
+<p>2、在Job中添加参数值</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IJobDetail job = JobBuilder.Create&lt;MyJob&gt;()</span><br><span class="line">                .UsingJobData(<span class="string">&quot;key1&quot;</span>, <span class="number">123</span>)<span class="comment">//通过Job添加参数值</span></span><br><span class="line">                .UsingJobData(<span class="string">&quot;key2&quot;</span>, <span class="string">&quot;123&quot;</span>)</span><br><span class="line">                .WithIdentity(<span class="string">&quot;job1&quot;</span>, <span class="string">&quot;group1&quot;</span>)</span><br><span class="line">                .Build();</span><br></pre></td></tr></table></figure>
+<p>通过下面方法在Job中获取参数值</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyJob</span> : <span class="title">IJob</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Task <span class="title">Execute</span>(<span class="params">IJobExecutionContext context</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> jobData = context.JobDetail.JobDataMap;<span class="comment">//获取Job中的参数</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> triggerData = context.Trigger.JobDataMap;<span class="comment">//获取Trigger中的参数</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> data = context.MergedJobDataMap;<span class="comment">//获取Job和Trigger中合并的参数</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> value1= jobData.GetInt(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line">        <span class="keyword">var</span> value2= jobData.GetString(<span class="string">&quot;key2&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> dateString = DateTime.Now.ToString(<span class="string">&quot;yyyy-MM-dd HH-mm-ss&quot;</span>);<span class="keyword">return</span> Task.Run(() =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">using</span> (StreamWriter sw = <span class="keyword">new</span> StreamWriter(<span class="string">@&quot;C:\Users\Administrator\Desktop\error.log&quot;</span>, <span class="literal">true</span>, Encoding.UTF8))</span><br><span class="line">            &#123;</span><br><span class="line">                sw.WriteLine(dateString);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当Job中的参数和Trigger中的参数名称一样时，用 context.MergedJobDataMap获取参数时，Trigger中的值会覆盖Job中的值。</p>
+<p>3、上面那种情况只能适应那种，参数值不变的情况。假如有这种情况，这次的参数值是上一次执行后计算的值，就不能使用上面方法了。如 每两秒实现累加一操作，现在初始值是0，如果按照上面那种获取值的操作，一直都是0+1，返回值一直都是1。为了满足这个情况，只需要加一个特性[PersistJobDataAfterExecution]。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//更新JobDetail的JobDataMap的存储副本，以便下一次执行这个任务接收更新的值而不是原始存储的值</span></span><br><span class="line">[<span class="meta">PersistJobDataAfterExecution</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyJob</span> : <span class="title">IJob</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Task <span class="title">Execute</span>(<span class="params">IJobExecutionContext context</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> jobData = context.JobDetail.JobDataMap;</span><br><span class="line">        <span class="keyword">var</span> triggerData = context.Trigger.JobDataMap;</span><br><span class="line">        <span class="keyword">var</span> data = context.MergedJobDataMap;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> value1 = jobData.GetInt(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line">        <span class="keyword">var</span> value2 = jobData.GetString(<span class="string">&quot;key2&quot;</span>);</span><br><span class="line">        <span class="keyword">var</span> value3 = data.GetString(<span class="string">&quot;key2&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> dateString = DateTime.Now.ToString(<span class="string">&quot;yyyy-MM-dd HH-mm-ss&quot;</span>);</span><br><span class="line">        Random random = <span class="keyword">new</span> Random();</span><br><span class="line"></span><br><span class="line">        jobData[<span class="string">&quot;key1&quot;</span>] = random.Next(<span class="number">1</span>, <span class="number">20</span>);<span class="comment">//这里面给key赋值，下次再进来执行的时候，获取的值为更新的值，而不是原始值</span></span><br><span class="line">        jobData[<span class="string">&quot;key2&quot;</span>] = dateString;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Task.Run(() =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">using</span> (StreamWriter sw = <span class="keyword">new</span> StreamWriter(<span class="string">@&quot;C:\Users\Administrator\Desktop\error.log&quot;</span>, <span class="literal">true</span>, Encoding.UTF8))</span><br><span class="line">            &#123;</span><br><span class="line">                sw.WriteLine(<span class="string">$&quot;<span class="subst">&#123;dateString&#125;</span> value1:<span class="subst">&#123;value1&#125;</span> value2:<span class="subst">&#123;value2&#125;</span>&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//context.Scheduler.DeleteJob(context.JobDetail.Key);</span></span><br><span class="line">            <span class="comment">//context.Scheduler.Shutdown();</span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、Quartz-Net组成"><a href="#三、Quartz-Net组成" class="headerlink" title="三、Quartz.Net组成"></a>三、Quartz.Net组成</h3><p>Quartz主要有三部分组成任务(Job)、触发器(Trigger)和调度器(Schedule)。</p>
+<p>3.1 任务</p>
+<p>Job就是执行的作业，Job需要继承IJob接口，实现Execute方法。Job中执行的参数从Execute方法的参数中获取。</p>
+<p>3.2 触发器</p>
+<p>触发器常用的有两种：SimpleTrigger触发器和CronTrigger触发器。</p>
+<p>SimpleTrigger:能是实现简单业务，如每隔几分钟，几小时触发执行，并限制执行次数。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> trigger = TriggerBuilder.Create()</span><br><span class="line">            .WithSimpleSchedule(x =&gt; x.WithIntervalInSeconds(<span class="number">2</span>).WithRepeatCount(<span class="number">5</span>))<span class="comment">//间隔2秒 执行6次</span></span><br><span class="line">            .UsingJobData(<span class="string">&quot;key1&quot;</span>, <span class="number">321</span>)</span><br><span class="line">            .WithIdentity(<span class="string">&quot;trigger&quot;</span>, <span class="string">&quot;group&quot;</span>)</span><br><span class="line">            .Build();</span><br></pre></td></tr></table></figure>
+<p>CronTrigger:Cron表达式包含7个字段，秒 分 时 月内日期 月 周内日期 年(可选)。</p>
+<p><img src="/images/20181225140246617.png" alt=""></p>
+<p><img src="/images/20181225140246640.png" alt=""></p>
+<p>举例：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> trigger = TriggerBuilder.Create()</span><br><span class="line">            .WithCronSchedule(<span class="string">&quot;0 0 0 1 1 ?&quot;</span>)<span class="comment">// 每年元旦1月1日 0 点触发</span></span><br><span class="line">            .UsingJobData(<span class="string">&quot;key1&quot;</span>, <span class="number">321</span>)</span><br><span class="line">            .UsingJobData(<span class="string">&quot;key2&quot;</span>, <span class="string">&quot;trigger-key2&quot;</span>)</span><br><span class="line">            .WithIdentity(<span class="string">&quot;trigger4&quot;</span>, <span class="string">&quot;group14&quot;</span>)</span><br><span class="line">            .Build();</span><br></pre></td></tr></table></figure>
+<p>“0 15 10 * * ? *” 每天上午10:15触发 </p>
+<p>“0 0-5 14 * * ?” 每天下午2点到下午2:05期间的每1分钟触发 </p>
+<p>3.3 调度器</p>
+<p>调度器就是将任务和触发器绑定，让触发器触发的时候去执行任务。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/MicroHeart/p/9402731.html">https://www.cnblogs.com/MicroHeart/p/9402731.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Leo_wl/p/8524600.html">https://www.cnblogs.com/Leo_wl/p/8524600.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/12/16/%E3%80%90EF%E3%80%91%E6%9F%A5%E8%AF%A2%E6%A0%B9%E6%8D%AE%E5%AD%97%E6%AE%B5%E5%8A%A8%E6%80%81%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/16/%E3%80%90EF%E3%80%91%E6%9F%A5%E8%AF%A2%E6%A0%B9%E6%8D%AE%E5%AD%97%E6%AE%B5%E5%8A%A8%E6%80%81%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">【EF】查询根据字段动态排序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-16 17:51:09" itemprop="dateCreated datePublished" datetime="2018-12-16T17:51:09+08:00">2018-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line">using XXX.Infrastructure.Services;</span><br><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Linq.Dynamic.Core;</span><br><span class="line"></span><br><span class="line">namespace XXX.Infrastructure.Extensions</span><br><span class="line">&#123;</span><br><span class="line">    public static class QueryableExtensions</span><br><span class="line">    &#123;</span><br><span class="line">        public static IQueryable&lt;T&gt; ApplySort&lt;T&gt;(this IQueryable&lt;T&gt; source, string orderBy, IPropertyMapping propertyMapping)</span><br><span class="line">        &#123;</span><br><span class="line">            if (source == null)</span><br><span class="line">            &#123;</span><br><span class="line">                throw new ArgumentNullException(nameof(source));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (propertyMapping == null)</span><br><span class="line">            &#123;</span><br><span class="line">                throw new ArgumentNullException(nameof(propertyMapping));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            var mappingDictionary = propertyMapping.MappingDictionary;</span><br><span class="line">            if (mappingDictionary == null)</span><br><span class="line">            &#123;</span><br><span class="line">                throw new ArgumentNullException(nameof(mappingDictionary));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (string.IsNullOrWhiteSpace(orderBy))</span><br><span class="line">            &#123;</span><br><span class="line">                return source;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            var orderByAfterSplit = orderBy.Split(&#x27;,&#x27;);</span><br><span class="line">            foreach (var orderByClause in orderByAfterSplit.Reverse())</span><br><span class="line">            &#123;</span><br><span class="line">                var trimmedOrderByClause = orderByClause.Trim();</span><br><span class="line">                var orderDescending = trimmedOrderByClause.EndsWith(&quot; desc&quot;);</span><br><span class="line">                var indexOfFirstSpace = trimmedOrderByClause.IndexOf(&quot; &quot;, StringComparison.Ordinal);</span><br><span class="line">                var propertyName = indexOfFirstSpace == -1 ?</span><br><span class="line">                    trimmedOrderByClause : trimmedOrderByClause.Remove(indexOfFirstSpace);</span><br><span class="line">                if (string.IsNullOrEmpty(propertyName))</span><br><span class="line">                &#123;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                if (!mappingDictionary.TryGetValue(propertyName, out List&lt;MappedProperty&gt; mappedProperties))</span><br><span class="line">                &#123;</span><br><span class="line">                    throw new ArgumentException($&quot;Key mapping for &#123;propertyName&#125; is missing&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">                if (mappedProperties == null)</span><br><span class="line">                &#123;</span><br><span class="line">                    throw new ArgumentNullException(propertyName);</span><br><span class="line">                &#125;</span><br><span class="line">                mappedProperties.Reverse();</span><br><span class="line">                foreach (var destinationProperty in mappedProperties)</span><br><span class="line">                &#123;</span><br><span class="line">                    if (destinationProperty.Revert)</span><br><span class="line">                    &#123;</span><br><span class="line">                        orderDescending = !orderDescending;</span><br><span class="line">                    &#125;</span><br><span class="line">                    source = source.OrderBy(destinationProperty.Name + (orderDescending ? &quot; descending&quot; : &quot; ascending&quot;));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            return source;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public static IQueryable&lt;object&gt; ToDynamicQueryable&lt;TSource&gt;</span><br><span class="line">            (this IQueryable&lt;TSource&gt; source, string fields, Dictionary&lt;string, List&lt;MappedProperty&gt;&gt; mappingDictionary)</span><br><span class="line">        &#123;</span><br><span class="line">            if (source == null)</span><br><span class="line">            &#123;</span><br><span class="line">                throw new ArgumentNullException(nameof(source));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (mappingDictionary == null)</span><br><span class="line">            &#123;</span><br><span class="line">                throw new ArgumentNullException(nameof(mappingDictionary));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (string.IsNullOrWhiteSpace(fields))</span><br><span class="line">            &#123;</span><br><span class="line">                return (IQueryable&lt;object&gt;)source;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            fields = fields.ToLower();</span><br><span class="line">            var fieldsAfterSplit = fields.Split(&#x27;,&#x27;).ToList();</span><br><span class="line">            if (!fieldsAfterSplit.Contains(&quot;id&quot;, StringComparer.InvariantCultureIgnoreCase))</span><br><span class="line">            &#123;</span><br><span class="line">                fieldsAfterSplit.Add(&quot;id&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            var selectClause = &quot;new (&quot;;</span><br><span class="line"></span><br><span class="line">            foreach (var field in fieldsAfterSplit)</span><br><span class="line">            &#123;</span><br><span class="line">                var propertyName = field.Trim();</span><br><span class="line">                if (string.IsNullOrEmpty(propertyName))</span><br><span class="line">                &#123;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                var key = mappingDictionary.Keys.SingleOrDefault(k =&gt; String.CompareOrdinal(k.ToLower(), propertyName.ToLower()) == 0);</span><br><span class="line">                if (string.IsNullOrEmpty(key))</span><br><span class="line">                &#123;</span><br><span class="line">                    throw new ArgumentException($&quot;Key mapping for &#123;propertyName&#125; is missing&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">                var mappedProperties = mappingDictionary[key];</span><br><span class="line">                if (mappedProperties == null)</span><br><span class="line">                &#123;</span><br><span class="line">                    throw new ArgumentNullException(key);</span><br><span class="line">                &#125;</span><br><span class="line">                foreach (var destinationProperty in mappedProperties)</span><br><span class="line">                &#123;</span><br><span class="line">                    selectClause += $&quot; &#123;destinationProperty.Name&#125;,&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            selectClause = selectClause.Substring(0, selectClause.Length - 1) + &quot;)&quot;;</span><br><span class="line">            return (IQueryable&lt;object&gt;)source.Select(selectClause);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Text;</span><br><span class="line"></span><br><span class="line">namespace XXX.Infrastructure.Services</span><br><span class="line">&#123;</span><br><span class="line">    public interface IPropertyMapping</span><br><span class="line">    &#123;</span><br><span class="line">        Dictionary&lt;string, List&lt;MappedProperty&gt;&gt; MappingDictionary &#123; get; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> using XXX.Core.Interfaces;</span><br><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Text;</span><br><span class="line"></span><br><span class="line">namespace XXX.Infrastructure.Services</span><br><span class="line">&#123;</span><br><span class="line">    public abstract class PropertyMapping&lt;TSource, TDestination&gt; : IPropertyMapping</span><br><span class="line">        where TDestination : IEntity</span><br><span class="line">    &#123;</span><br><span class="line">        public Dictionary&lt;string, List&lt;MappedProperty&gt;&gt; MappingDictionary &#123; get; &#125;</span><br><span class="line"></span><br><span class="line">        protected PropertyMapping(Dictionary&lt;string, List&lt;MappedProperty&gt;&gt; mappingDictionary)</span><br><span class="line">        &#123;</span><br><span class="line">            MappingDictionary = mappingDictionary;</span><br><span class="line">            MappingDictionary[nameof(IEntity.Id)] = new List&lt;MappedProperty&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                new MappedProperty &#123; Name = nameof(IEntity.Id), Revert = false&#125;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query = query.ApplySort(postParameters.OrderBy, _propertyMappingContainer.Resolve&lt;PostResource, Post&gt;());</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> public interface IPropertyMappingContainer</span><br><span class="line">&#123;</span><br><span class="line">    void Register&lt;T&gt;() where T : IPropertyMapping, new();</span><br><span class="line">    IPropertyMapping Resolve&lt;TSource, TDestination&gt;() where TDestination : IEntity;</span><br><span class="line">    bool ValidateMappingExistsFor&lt;TSource, TDestination&gt;(string fields) where TDestination : IEntity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> Startup.cs</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var propertyMappingContainer = new PropertyMappingContainer();</span><br><span class="line">propertyMappingContainer.Register&lt;PostPropertyMapping&gt;();</span><br><span class="line">propertyMappingContainer.Register&lt;ArticlePropertyMapping&gt;();</span><br><span class="line">services.AddSingleton&lt;IPropertyMappingContainer&gt;(propertyMappingContainer);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/45/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/45/">45</a><span class="page-number current">46</span><a class="page-number" href="/page/47/">47</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/47/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

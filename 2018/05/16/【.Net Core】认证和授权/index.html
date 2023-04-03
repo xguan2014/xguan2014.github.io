@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转自：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;axzxs2001&#x2F;p&#x2F;7482771.html  在asp.net core中，微软提供了基于认证（Authentication）和授权（Authorization）的方式，来实现权限管理的，本篇博文，介绍基于固定角色的权限管理和自定义角色权限管理，本文内容，更适合传统行业的BS应用，而非互联网应用。 在asp.net core中，我们认证（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【.Net Core】认证和授权">
+<meta property="og:url" content="http://blog.bfsdfs.com/2018/05/16/%E3%80%90.Net%20Core%E3%80%91%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="转自：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;axzxs2001&#x2F;p&#x2F;7482771.html  在asp.net core中，微软提供了基于认证（Authentication）和授权（Authorization）的方式，来实现权限管理的，本篇博文，介绍基于固定角色的权限管理和自定义角色权限管理，本文内容，更适合传统行业的BS应用，而非互联网应用。 在asp.net core中，我们认证（">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/14888-20170906075006460-1000219660.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/14888-20170906075044413-741812838.png">
+<meta property="article:published_time" content="2018-05-16T02:41:42.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.044Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="WebApi">
+<meta property="article:tag" content="JWT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/14888-20170906075006460-1000219660.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2018/05/16/%E3%80%90.Net%20Core%E3%80%91%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【.Net Core】认证和授权 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/05/16/%E3%80%90.Net%20Core%E3%80%91%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【.Net Core】认证和授权
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-05-16 10:41:42" itemprop="dateCreated datePublished" datetime="2018-05-16T10:41:42+08:00">2018-05-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/axzxs2001/p/7482771.html">https://www.cnblogs.com/axzxs2001/p/7482771.html</a> </p>
+<p>在asp.net core中，微软提供了基于认证（Authentication）和授权（Authorization）的方式，来实现权限管理的，本篇博文，介绍基于固定角色的权限管理和自定义角色权限管理，本文内容，更适合传统行业的BS应用，而非互联网应用。</p>
+<p>在asp.net core中，我们认证（Authentication）通常是在Login的Post Action中进行用户名或密码来验证用户是否正确，如果通过验证，即该用户就会获得一个或几个特定的角色，通过ClaimTypes.Role来存储角色，从而当一个请求到达时，用这个角色和Controller或Action上加的特性 [Authorize(Roles = “admin,system”)]来授权是否有权访问该Action。本文中的自定义角色，会把验证放在中间件中进行处理。</p>
+<p>一、固定角色：</p>
+<p>即把角色与具体的Controller或Action直接关联起来，整个系统中的角色是固定的，每种角色可以访问那些Controller或Action也是固定的，这做法比较适合小型项目，角色分工非常明确的项目。</p>
+<p>项目代码：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/axzxs2001/Asp.NetCoreExperiment/tree/master/Asp.NetCoreExperiment/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/RolePrivilegeManagement">https://github.com/axzxs2001/Asp.NetCoreExperiment/tree/master/Asp.NetCoreExperiment/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/RolePrivilegeManagement</a></p>
+<p>始于startup.cs</p>
+<p>需要在ConfigureServices中注入Cookie的相关信息，options是CookieAuthenticationOptions，关于这个类型提供如下属性，可参考：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?tabs=aspnetcore2x">https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?tabs=aspnetcore2x</a></p>
+<p>它提供了登录的一些信息，或登录生成Cookie的一些信息，用以后</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConfigureServices</span>(<span class="params">IServiceCollection services</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    services.AddMvc();</span><br><span class="line">    <span class="comment">//添加认证Cookie信息</span></span><br><span class="line">    services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)</span><br><span class="line">     .AddCookie(options =&gt;</span><br><span class="line">     &#123;</span><br><span class="line">        options.LoginPath = <span class="keyword">new</span> PathString(<span class="string">&quot;/login&quot;</span>);</span><br><span class="line">        options.AccessDeniedPath = <span class="keyword">new</span> PathString(<span class="string">&quot;/denied&quot;</span>);</span><br><span class="line">     &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Configure</span>(<span class="params">IApplicationBuilder app, IHostingEnvironment env</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">    &#123;</span><br><span class="line">        app.UseDeveloperExceptionPage();</span><br><span class="line">        app.UseBrowserLink();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        app.UseExceptionHandler(<span class="string">&quot;/Home/Error&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    app.UseStaticFiles();</span><br><span class="line">    <span class="comment">//验证中间件</span></span><br><span class="line">    app.UseAuthentication();</span><br><span class="line">    app.UseMvc(routes =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        routes.MapRoute(</span><br><span class="line">        name: <span class="string">&quot;default&quot;</span>,</span><br><span class="line">        template: <span class="string">&quot;&#123;controller=Home&#125;/&#123;action=Index&#125;/&#123;id?&#125;&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HomeController.cs</p>
+<p>对于Login Get的Action，把returnUrl用户想要访问的地址（有可能用户记录下想要访问的url了，但系统会转到登录页，登录成功后直接跳转到想要访问的returnUrl页）</p>
+<p>对于Login Post的Action，验证用户密和密码，成功能，定义一个ClaimsIdentity，把用户名和角色，和用户姓名的声明都添回进来（这个角色，就是用来验证可访问action的角色 ）作来该用户标识，接下来调用HttpContext.SignInAsync进行登录，注意此方法的第一个参数，必需与StartUp.cs中services.AddAuthentication的参数相同，AddAuthentication是设置登录，SigninAsync是按设置参数进行登录</p>
+<p>对于Logout Get的Action，是退出登录</p>
+<p>HomeController上的[Authorize(Roles=”admin,system”)]角色和权限的关系时，所有Action只有admin和system两个角色能访问到，About上的[Authorize(Roles=”admin”)]声明这个action只能admin角色访问，Contact上的[Authorize(Roles=”system”)]声明这个action只能system角色访问，如果action上声明的是[AllowAnomymous]，说明不受授权管理，可以直接访问。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Diagnostics;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.Mvc;</span><br><span class="line"><span class="keyword">using</span> RolePrivilegeManagement.Models;</span><br><span class="line"><span class="keyword">using</span> System.Security.Claims;</span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.Authentication;</span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.Authentication.Cookies;</span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.Authorization;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">RolePrivilegeManagement.Controllers</span></span><br><span class="line">&#123;</span><br><span class="line">[<span class="meta">Authorize(Roles = <span class="string">&quot;admin,system&quot;</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">HomeController</span> : <span class="title">Controller</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IActionResult <span class="title">Index</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> View();</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="meta">Authorize(Roles = <span class="string">&quot;admin&quot;</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IActionResult <span class="title">About</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        ViewData[<span class="string">&quot;Message&quot;</span>] = <span class="string">&quot;Your application description page.&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> View();</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="meta">Authorize(Roles = <span class="string">&quot;system&quot;</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IActionResult <span class="title">Contact</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        ViewData[<span class="string">&quot;Message&quot;</span>] = <span class="string">&quot;Your contact page.&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> View();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IActionResult <span class="title">Error</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> View(<span class="keyword">new</span> ErrorViewModel &#123; RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="meta">AllowAnonymous</span>]</span><br><span class="line">    [<span class="meta">HttpGet(<span class="string">&quot;login&quot;</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IActionResult <span class="title">Login</span>(<span class="params"><span class="built_in">string</span> returnUrl = <span class="literal">null</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        TempData[<span class="string">&quot;returnUrl&quot;</span>] = returnUrl;</span><br><span class="line">        <span class="keyword">return</span> View();</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="meta">AllowAnonymous</span>]</span><br><span class="line">    [<span class="meta">HttpPost(<span class="string">&quot;login&quot;</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;IActionResult&gt; <span class="title">Login</span>(<span class="params"><span class="built_in">string</span> userName, <span class="built_in">string</span> password, <span class="built_in">string</span> returnUrl = <span class="literal">null</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> list = <span class="keyword">new</span> List&lt;<span class="built_in">dynamic</span>&gt; &#123;</span><br><span class="line">        <span class="keyword">new</span> &#123; UserName = <span class="string">&quot;gsw&quot;</span>, Password = <span class="string">&quot;111111&quot;</span>, Role = <span class="string">&quot;admin&quot;</span> &#125;,</span><br><span class="line">        <span class="keyword">new</span> &#123; UserName = <span class="string">&quot;aaa&quot;</span>, Password = <span class="string">&quot;222222&quot;</span>, Role = <span class="string">&quot;system&quot;</span> &#125;</span><br><span class="line">   &#125;;</span><br><span class="line">   <span class="keyword">var</span> user = list.SingleOrDefault(s =&gt; s.UserName == userName &amp;&amp; s.Password == password);</span><br><span class="line">   <span class="keyword">if</span> (user!=<span class="literal">null</span>)</span><br><span class="line">   &#123;</span><br><span class="line">        <span class="comment">//用户标识</span></span><br><span class="line">        <span class="keyword">var</span> identity = <span class="keyword">new</span> ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);</span><br><span class="line">        identity.AddClaim(<span class="keyword">new</span> Claim(ClaimTypes.Sid, userName));</span><br><span class="line">        identity.AddClaim(<span class="keyword">new</span> Claim(ClaimTypes.Name, user.Name));</span><br><span class="line">        identity.AddClaim(<span class="keyword">new</span> Claim(ClaimTypes.Role, user.Role));</span><br><span class="line">        <span class="keyword">await</span> HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, <span class="keyword">new</span> ClaimsPrincipal(identity));</span><br><span class="line">        <span class="keyword">if</span> (returnUrl == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">                returnUrl = TempData[<span class="string">&quot;returnUrl&quot;</span>]?.ToString();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (returnUrl != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> Redirect(returnUrl);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> RedirectToAction(<span class="keyword">nameof</span>(HomeController.Index), <span class="string">&quot;Home&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">                <span class="keyword">const</span> <span class="built_in">string</span> badUserNameOrPasswordMessage = <span class="string">&quot;用户名或密码错误！&quot;</span>;</span><br><span class="line">                <span class="keyword">return</span> BadRequest(badUserNameOrPasswordMessage);</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        [<span class="meta">HttpGet(<span class="string">&quot;logout&quot;</span>)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;IActionResult&gt; <span class="title">Logout</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">await</span> HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);</span><br><span class="line">            <span class="keyword">return</span> RedirectToAction(<span class="string">&quot;Index&quot;</span>, <span class="string">&quot;Home&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        [<span class="meta">AllowAnonymous</span>]</span><br><span class="line">        [<span class="meta">HttpGet(<span class="string">&quot;denied&quot;</span>)</span>]</span><br><span class="line">        <span class="function"><span class="keyword">public</span> IActionResult <span class="title">Denied</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> View();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>前端_Layout.cshtml布局页，在登录成功后的任何页面都可以用@User.Identity.Name就可以获取用户姓名，同时用@User.Claims.SingleOrDefault(s=&gt;s.Type== System.Security.Claims.ClaimTypes.Sid).Value可以获取用户名或角色。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;nav <span class="keyword">class</span>=<span class="string">&quot;navbar navbar-inverse navbar-fixed-top&quot;</span>&gt;</span><br><span class="line">     &lt;div <span class="keyword">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span><br><span class="line">         &lt;div <span class="keyword">class</span>=<span class="string">&quot;navbar-header&quot;</span>&gt;</span><br><span class="line">             &lt;button type=<span class="string">&quot;button&quot;</span> <span class="keyword">class</span>=<span class="string">&quot;navbar-toggle&quot;</span> data-toggle=<span class="string">&quot;collapse&quot;</span> data-target=<span class="string">&quot;.navbar-collapse&quot;</span>&gt;</span><br><span class="line">                 &lt;span <span class="keyword">class</span>=<span class="string">&quot;sr-only&quot;</span>&gt;Toggle navigation&lt;/span&gt;</span><br><span class="line">                 &lt;span <span class="keyword">class</span>=<span class="string">&quot;icon-bar&quot;</span>&gt;&lt;/span&gt;</span><br><span class="line">                 &lt;span <span class="keyword">class</span>=<span class="string">&quot;icon-bar&quot;</span>&gt;&lt;/span&gt;</span><br><span class="line">                 &lt;span <span class="keyword">class</span>=<span class="string">&quot;icon-bar&quot;</span>&gt;&lt;/span&gt;</span><br><span class="line">             &lt;/button&gt;</span><br><span class="line">              &lt;a asp-area=<span class="string">&quot;&quot;</span> asp-controller=<span class="string">&quot;Home&quot;</span> asp-action=<span class="string">&quot;Index&quot;</span> <span class="keyword">class</span>=<span class="string">&quot;navbar-brand&quot;</span>&gt;RolePrivilegeManagement&lt;/a&gt;</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">          &lt;div <span class="keyword">class</span>=<span class="string">&quot;navbar-collapse collapse&quot;</span>&gt;</span><br><span class="line">              &lt;ul <span class="keyword">class</span>=<span class="string">&quot;nav navbar-nav&quot;</span>&gt;</span><br><span class="line">                  &lt;li&gt;&lt;a asp-area=<span class="string">&quot;&quot;</span> asp-controller=<span class="string">&quot;Home&quot;</span> asp-action=<span class="string">&quot;Index&quot;</span>&gt;Home&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">                  &lt;li&gt;&lt;a asp-area=<span class="string">&quot;&quot;</span> asp-controller=<span class="string">&quot;Home&quot;</span> asp-action=<span class="string">&quot;About&quot;</span>&gt;About&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">                  &lt;li&gt;&lt;a asp-area=<span class="string">&quot;&quot;</span> asp-controller=<span class="string">&quot;Home&quot;</span> asp-action=<span class="string">&quot;Contact&quot;</span>&gt;Contact&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">              &lt;/ul&gt;</span><br><span class="line">              &lt;ul <span class="keyword">class</span>=<span class="string">&quot;&quot;</span> style=<span class="string">&quot;float:right; margin:0;&quot;</span>&gt;</span><br><span class="line">                  &lt;li style=<span class="string">&quot;overflow:hidden;&quot;</span>&gt;</span><br><span class="line">                      &lt;div style=<span class="string">&quot;float:left;line-height:50px;margin-right:10px;&quot;</span>&gt;</span><br><span class="line">                          &lt;span style=<span class="string">&quot;color:#ffffff&quot;</span>&gt;当前用户：@User.Identity.Name&lt;/span&gt;</span><br><span class="line">                      &lt;/div&gt;</span><br><span class="line">                      &lt;div style=<span class="string">&quot;float:left;line-height:50px;&quot;</span>&gt;</span><br><span class="line">                          &lt;a asp-area=<span class="string">&quot;&quot;</span> asp-controller=<span class="string">&quot;Home&quot;</span> asp-action=<span class="string">&quot;Logout&quot;</span>&gt;注销&lt;/a&gt;</span><br><span class="line">                      &lt;/div&gt;</span><br><span class="line">                  &lt;/li&gt;</span><br><span class="line">              &lt;/ul&gt;</span><br><span class="line">          &lt;/div&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">&lt;/nav&gt;</span><br></pre></td></tr></table></figure>
+
+<p>现在可以用chrome运行了，进行登录页后F12，查看Network—Cookies，可以看到有一个Cookie，这个是记录returnUrl的Cookie，是否记得HomeController.cs中的Login Get的Action中代码：TempData[“returnUrl”] = returnUrl;这个TempData最后转成了一个Cookie返回到客户端了，如下图：</p>
+<p><img src="/images/14888-20170906075006460-1000219660.png" alt=""></p>
+<p>输入用户名，密码登录，再次查看Cookies，发现多了一个.AspNetCore.Cookies，即把用户验证信息加密码保存在了这个Cookie中，当跳转到别的页面时，这两个Cookie会继续在客户端和服务传送，用以验证用户角色。</p>
+<p><img src="/images/14888-20170906075044413-741812838.png" alt=""></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2018/05/16/%E3%80%90.Net%20Core%E3%80%91%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/" title="【.Net Core】认证和授权">http://blog.bfsdfs.com/2018/05/16/【.Net Core】认证和授权/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Net-Core/" rel="tag"># .Net Core</a>
+              <a href="/tags/WebApi/" rel="tag"># WebApi</a>
+              <a href="/tags/JWT/" rel="tag"># JWT</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/05/15/%E3%80%90.Net%20Core%E3%80%91MVC%E4%BD%BF%E7%94%A8EF/" rel="prev" title="【.Net Core】MVC使用EF">
+      <i class="fa fa-chevron-left"></i> 【.Net Core】MVC使用EF
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/05/16/%E3%80%90%E9%98%BF%E9%87%8C%E4%BA%91%E3%80%91API%20%E7%AD%BE%E5%90%8D%E6%9C%BA%E5%88%B6%EF%BC%88C#%EF%BC%89/" rel="next" title="【阿里云】API签名机制（C#）">
+      【阿里云】API签名机制（C#） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '1c1cbf77bfbd85ab052c6d1e815f64ca',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

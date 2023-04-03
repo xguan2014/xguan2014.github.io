@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/26/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/26/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/01/18/%E3%80%90Docker%E3%80%91%E9%83%A8%E7%BD%B2%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/18/%E3%80%90Docker%E3%80%91%E9%83%A8%E7%BD%B2%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/" class="post-title-link" itemprop="url">【Docker】部署常用软件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-18 12:19:22" itemprop="dateCreated datePublished" datetime="2020-01-18T12:19:22+08:00">2020-01-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">环境搭建</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h2><h3 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="卸载旧版本"></a>卸载旧版本</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker-client \</span><br><span class="line">                  docker-client-latest \</span><br><span class="line">                  docker-common \</span><br><span class="line">                  docker-latest \</span><br><span class="line">                  docker-latest-logrotate \</span><br><span class="line">                  docker-logrotate \</span><br><span class="line">                  docker-engine</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加-yum-软件源"><a href="#添加-yum-软件源" class="headerlink" title="添加 yum 软件源"></a>添加 yum 软件源</h3><p>鉴于国内网络问题，建议使用国内源，官方源请在注释中查看，执行下面的命令添加<kbd>yum</kbd>软件源：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://mirrors.ustc.edu.cn/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 官方源</span><br><span class="line"># $ sudo yum-config-manager \</span><br><span class="line">#     --add-repo \</span><br><span class="line">#     https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装-Docker-CE"><a href="#安装-Docker-CE" class="headerlink" title="安装 Docker CE"></a>安装 Docker CE</h3><p>更新<kbd>yum</kbd>软件源缓存，并安装<kbd>docker-ce</kbd>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum makecache fast</span><br><span class="line">sudo yum install docker-ce</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动-Docker-CE"><a href="#启动-Docker-CE" class="headerlink" title="启动 Docker CE"></a>启动 Docker CE</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl enable docker</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试-Docker-是否安装正确"><a href="#测试-Docker-是否安装正确" class="headerlink" title="测试 Docker 是否安装正确"></a>测试 Docker 是否安装正确</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+<p>若能正常输出以下信息，则说明安装成功。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Unable to find image &#x27;hello-world:latest&#x27; locally</span><br><span class="line">latest: Pulling from library/hello-world</span><br><span class="line">d1725b59e92d: Pull complete</span><br><span class="line">Digest: sha256:0add3ace90ecb4adbf7777e9aacf18357296e799f81cabc9fde470971e499788</span><br><span class="line">Status: Downloaded newer image for hello-world:latest</span><br><span class="line"></span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line"></span><br><span class="line">To generate this message, Docker took the following steps:</span><br><span class="line"> 1. The Docker client contacted the Docker daemon.</span><br><span class="line"> 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.</span><br><span class="line">    (amd64)</span><br><span class="line"> 3. The Docker daemon created a new container from that image which runs the</span><br><span class="line">    executable that produces the output you are currently reading.</span><br><span class="line"> 4. The Docker daemon streamed that output to the Docker client, which sent it</span><br><span class="line">    to your terminal.</span><br><span class="line"></span><br><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span><br><span class="line"> $ docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line">Share images, automate workflows, and more with a free Docker ID:</span><br><span class="line"> https://hub.docker.com/</span><br><span class="line"></span><br><span class="line">For more examples and ideas, visit:</span><br><span class="line"> https://docs.docker.com/get-started/</span><br></pre></td></tr></table></figure>
+
+<h3 id="镜像加速"><a href="#镜像加速" class="headerlink" title="镜像加速"></a>镜像加速</h3><p>国内从<kbd>Docker Hub</kbd>拉取镜像有时会遇到困难，此时可以配置镜像加速器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/docker/daemon.json</span><br></pre></td></tr></table></figure>
+<p>添加镜像地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [</span><br><span class="line">    &quot;https://dockerhub.azk8s.cn&quot;,</span><br><span class="line">    &quot;https://hub-mirror.c.163.com&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后重新启动服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [</span><br><span class="line">    &quot;https://od404bh3.mirror.aliyuncs.com&quot;,</span><br><span class="line">    &quot;https://dockerhub.azk8s.cn&quot;,</span><br><span class="line">    &quot;https://hub-mirror.c.163.com&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<p>执行 <kbd>docker info</kbd>，如果从结果中看到了如下内容，说明配置成功：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Registry Mirrors:</span><br><span class="line"> https://dockerhub.azk8s.cn/</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试镜像地址"><a href="#测试镜像地址" class="headerlink" title="测试镜像地址"></a>测试镜像地址</h3><p>国内无法直接获取 gcr.io/* 镜像：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull gcr.azk8s.cn/google_containers/hyperkube-amd64:v1.9.2</span><br></pre></td></tr></table></figure>
+<p>若能拉取到则配置成功！</p>
+<h2 id="Nginx-代理服务器配置"><a href="#Nginx-代理服务器配置" class="headerlink" title="Nginx 代理服务器配置"></a>Nginx 代理服务器配置</h2><h3 id="创建挂载文件夹"><a href="#创建挂载文件夹" class="headerlink" title="创建挂载文件夹"></a>创建挂载文件夹</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/</span><br><span class="line">mkdir -p docker/nginx</span><br><span class="line">cd docker/nginx/</span><br><span class="line">mkdir &#123;logs,conf,cert,website&#125;</span><br></pre></td></tr></table></figure>
+<p><kbd>logs</kbd>存放<kbd>nginx</kbd>相关日志，<kbd>conf</kbd>存放<kbd>default.conf</kbd>文件，<br><kbd>cert</kbd>存放<kbd>https</kbd>证书，<kbd>website</kbd>存放静态网页文件  </p>
+<h3 id="创建default-conf文件"><a href="#创建default-conf文件" class="headerlink" title="创建default.conf文件"></a>创建default.conf文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi conf/default.conf</span><br></pre></td></tr></table></figure>
+<p>编辑内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    #charset koi8-r;</span><br><span class="line">    #access_log  /var/log/nginx/host.access.log  main;</span><br><span class="line"></span><br><span class="line">    add_header Access-Control-Allow-Origin *;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">        try_files $uri $uri/ /index.html =404; #解决angular刷新404问题</span><br><span class="line"></span><br><span class="line">        if ($request_method = &#x27;OPTIONS&#x27;) &#123;</span><br><span class="line">                add_header Access-Control-Allow-Origin *;</span><br><span class="line">                add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;</span><br><span class="line">                return 204;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ^~ /api/signalR</span><br><span class="line">    &#123;</span><br><span class="line">        proxy_http_version 1.1;  </span><br><span class="line">        proxy_set_header Upgrade $http_upgrade;  </span><br><span class="line">        proxy_set_header Cpnnection &quot;upgrade&quot;; </span><br><span class="line">        proxy_pass http://192.168.0.101:443;</span><br><span class="line">	    proxy_cache_bypass $http_upgrade; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ^~ /api/                                                                                                                                     &#123;</span><br><span class="line">        if ($request_method = &#x27;OPTIONS&#x27;) &#123;</span><br><span class="line">                add_header Access-Control-Allow-Origin *;</span><br><span class="line">                add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;</span><br><span class="line">                return 204;</span><br><span class="line">        &#125;</span><br><span class="line">        proxy_pass http://192.168.0.101:443;</span><br><span class="line">    &#125;</span><br><span class="line">    #error_page  404              /404.html;</span><br><span class="line"></span><br><span class="line">    # redirect server error pages to the static page /50x.html</span><br><span class="line">    # error_page   500 502 503 504  /50x.html;</span><br><span class="line">    # location = /50x.html &#123;</span><br><span class="line">    #   root   /usr/share/nginx/html;</span><br><span class="line">    # &#125;</span><br><span class="line"></span><br><span class="line">    # proxy the PHP scripts to Apache listening on 127.0.0.1:80</span><br><span class="line">    #</span><br><span class="line">    # location ~ \.php$ &#123;</span><br><span class="line">    #    proxy_pass   http://127.0.0.1;</span><br><span class="line">    # &#125;</span><br><span class="line"></span><br><span class="line">    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</span><br><span class="line">    #</span><br><span class="line">    # location ~ \.php$ &#123;</span><br><span class="line">    #    root           html;</span><br><span class="line">    #    fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">    #    fastcgi_index  index.php;</span><br><span class="line">    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span><br><span class="line">    #    include        fastcgi_params;</span><br><span class="line">    # &#125;</span><br><span class="line"></span><br><span class="line">    # deny access to .htaccess files, if Apache&#x27;s document root</span><br><span class="line">    # concurs with nginx&#x27;s one</span><br><span class="line">    #</span><br><span class="line">    #location ~ /\.ht &#123;</span><br><span class="line">    #    deny  all;</span><br><span class="line">    #&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建nginx-conf文件"><a href="#创建nginx-conf文件" class="headerlink" title="创建nginx.conf文件"></a>创建nginx.conf文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi nginx.conf</span><br></pre></td></tr></table></figure>
+<p>编辑内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span><br><span class="line">                      &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span><br><span class="line">                      &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line">        #access_log  /var/log/nginx/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        add_header Access-Control-Allow-Origin *;</span><br><span class="line">        location / &#123;</span><br><span class="line">            root   /usr/share/nginx/html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">            try_files $uri $uri/ /index.html =404;</span><br><span class="line"></span><br><span class="line">            if ($request_method = &#x27;OPTIONS&#x27;) &#123;</span><br><span class="line">                    add_header Access-Control-Allow-Origin *;</span><br><span class="line">                    add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;</span><br><span class="line">                    return 204;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    # 配置http重定向到https</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 80; </span><br><span class="line">        server_name blog.bfsdfs.com; </span><br><span class="line">        rewrite ^(.*)$  https://$host$1 permanent;  </span><br><span class="line">    &#125;</span><br><span class="line">    # 配置https证书，和端口转发</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 443 ssl;</span><br><span class="line">        server_name www.test.com;</span><br><span class="line">        ssl_certificate   cert/www.test.pem;</span><br><span class="line">        ssl_certificate_key  cert/www.test.key;</span><br><span class="line">        ssl_session_timeout 5m;</span><br><span class="line">        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">        ssl_prefer_server_ciphers on;</span><br><span class="line">        location / &#123; </span><br><span class="line">            proxy_pass http://192.168.0.4:81/;</span><br><span class="line">            proxy_set_header Host $host; </span><br><span class="line">            proxy_set_header X-Real-Ip $remote_addr; </span><br><span class="line">            proxy_set_header X-Forwarded-For $remote_addr; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    include /etc/nginx/conf.d/*.conf;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="cert目录存放https证书"><a href="#cert目录存放https证书" class="headerlink" title="cert目录存放https证书"></a>cert目录存放https证书</h3><p><img src="/images/nginx-01.png" alt=""></p>
+<h3 id="运行Nginx"><a href="#运行Nginx" class="headerlink" title="运行Nginx"></a>运行Nginx</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run --name nginx -d -p 80:80 -p 443:443 --restart always \</span><br><span class="line">  -v /opt/docker/nginx/website:/usr/share/nginx/html \</span><br><span class="line">  -v /opt/docker/nginx/logs:/var/log/nginx \</span><br><span class="line">  -v /opt/docker/nginx/conf:/etc/nginx/conf.d \</span><br><span class="line">  -v /opt/docker/nginx/nginx.conf:/etc/nginx/nginx.conf \</span><br><span class="line">  -v /opt/docker/nginx/cert:/etc/nginx/cert \</span><br><span class="line">nginx</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看运行情况"><a href="#查看运行情况" class="headerlink" title="查看运行情况"></a>查看运行情况</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="MySql-安装与配置"><a href="#MySql-安装与配置" class="headerlink" title="MySql 安装与配置"></a>MySql 安装与配置</h2><h3 id="创建MySql挂载目录"><a href="#创建MySql挂载目录" class="headerlink" title="创建MySql挂载目录"></a>创建MySql挂载目录</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/</span><br><span class="line">mkdir -p docker/mysql</span><br><span class="line">cd docker/mysql/</span><br><span class="line">mkdir &#123;conf,data,logs&#125;</span><br></pre></td></tr></table></figure>
+<p>说明：<kbd>conf</kbd>存放配置文件，<kbd>data</kbd>存放数据文件，<kbd>logs</kbd>存放日志文件</p>
+<h3 id="安装MySql"><a href="#安装MySql" class="headerlink" title="安装MySql"></a>安装MySql</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 8606:3306 --name mysql --restart always \</span><br><span class="line">  -v /opt/docker/mysql/conf:/etc/mysql/conf.d \</span><br><span class="line">  -v /opt/docker/mysql/logs:/var/log/mysql \</span><br><span class="line">  -v /opt/docker/mysql/data:/var/lib/mysql \</span><br><span class="line">  -e MYSQL_ROOT_PASSWORD=123456 -d mysql:8.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看MySql运行情况"><a href="#查看MySql运行情况" class="headerlink" title="查看MySql运行情况"></a>查看MySql运行情况</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+
+<h3 id="允许远程连接"><a href="#允许远程连接" class="headerlink" title="允许远程连接"></a>允许远程连接</h3><p>进入到mysql容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>登录mysql数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p 123456</span><br></pre></td></tr></table></figure>
+
+<p>支持远程连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER user &#x27;root&#x27;@&#x27;%&#x27; IDENTIFIED WITH mysql_native_password BY &#x27;123456&#x27;;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+
+<h3 id="开放3306端口"><a href="#开放3306端口" class="headerlink" title="开放3306端口"></a>开放3306端口</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=3306/tcp –permanent </span><br><span class="line">firewall-cmd --reload</span><br><span class="line">firewall-cmd --zone=public --query-port=3306/tcp</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据库连接字符串"><a href="#数据库连接字符串" class="headerlink" title="数据库连接字符串"></a>数据库连接字符串</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server=ipaddr,port=3306,username=root,password=123456</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-Net-Core-SDK"><a href="#安装-Net-Core-SDK" class="headerlink" title="安装 .Net Core SDK"></a>安装 .Net Core SDK</h2><h3 id="通过yum安装"><a href="#通过yum安装" class="headerlink" title="通过yum安装"></a>通过<kbd>yum</kbd>安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo rpm -Uvh https://packages.microsoft.com/config/rhel/7/packages-microsoft-prod.rpm</span><br><span class="line">sudo yum update</span><br><span class="line">sudo yum install dotnet-sdk-2.1</span><br></pre></td></tr></table></figure>
+
+<h3 id="通过下载文件安装"><a href="#通过下载文件安装" class="headerlink" title="通过下载文件安装"></a>通过下载文件安装</h3><p>以.net core 3.1为例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/docker</span><br><span class="line">mkdir &#123;download,dotnet&#125;</span><br><span class="line">cd download</span><br><span class="line">wget https://download.visualstudio.microsoft.com/download/pr/c4b503d6-2f41-4908-b634-270a0a1dcfca/c5a20e42868a48a2cd1ae27cf038044c/dotnet-sdk-3.1.101-linux-x64.tar.gz</span><br><span class="line"></span><br><span class="line">tar zxf dotnet-sdk-3.1.101-linux-x64.tar.gz -C /opt/docker/dotnet</span><br></pre></td></tr></table></figure>
+
+<p>配置环境变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br><span class="line"></span><br><span class="line"># 在文件末尾添加</span><br><span class="line">export DOTNET_ROOT=/opt/docker/dotnet</span><br><span class="line">export PATH=$PATH:/opt/docker/dotnet</span><br><span class="line"></span><br><span class="line"># 重新加载环境变量</span><br><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line"># 查看net core信息</span><br><span class="line">dotnet</span><br></pre></td></tr></table></figure>
+
+<h2 id="部署-Net-Core-WebApi"><a href="#部署-Net-Core-WebApi" class="headerlink" title="部署 .Net Core WebApi"></a>部署 .Net Core WebApi</h2><h3 id="创建挂载目录"><a href="#创建挂载目录" class="headerlink" title="创建挂载目录"></a>创建挂载目录</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/docker</span><br><span class="line">mkdir webapi</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建Dockerfile文件"><a href="#创建Dockerfile文件" class="headerlink" title="创建Dockerfile文件"></a>创建Dockerfile文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /opt/docker/webapi/Dockerfile</span><br></pre></td></tr></table></figure>
+<p>编辑内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim AS base</span><br><span class="line">WORKDIR /app</span><br><span class="line">EXPOSE 80</span><br><span class="line"></span><br><span class="line">ENV LANG C.UTF-8</span><br><span class="line"></span><br><span class="line"># 设置代理</span><br><span class="line"># ENV http_proxy http://your-proxy-server:port</span><br><span class="line"># ENV https_proxy https://your-proxy-server:port</span><br><span class="line"># ENV no_proxy 127.0.0.1,/var/run/docker.sock</span><br><span class="line"></span><br><span class="line"># 开发环境</span><br><span class="line">ENV ASPNETCORE_ENVIRONMENT &quot;Development&quot;</span><br><span class="line">ENV ASPNETCORE_WEBWEBSITE &quot;测试环境API&quot;</span><br><span class="line"></span><br><span class="line"># 正式环境</span><br><span class="line"># ENV ASPNETCORE_ENVIRONMENT &quot;Production&quot;</span><br><span class="line"># ENV ASPNETCORE_WEBWEBSITE &quot;正式环境API&quot;</span><br><span class="line"></span><br><span class="line"># 替换源</span><br><span class="line">RUN  sed -i &#x27;s#http://deb.debian.org#https://mirrors.163.com#g&#x27; /etc/apt/sources.list</span><br><span class="line">RUN  apt-get clean</span><br><span class="line"></span><br><span class="line"># 安装 libgdiplus</span><br><span class="line">RUN apt-get update</span><br><span class="line">RUN apt-get install -y libgdiplus</span><br><span class="line">RUN cd /usr/lib</span><br><span class="line">RUN ln -s libgdiplus.so gdiplus.dll</span><br><span class="line"></span><br><span class="line"># 时区设置</span><br><span class="line">RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br><span class="line">RUN echo &#x27;Asia/Shanghai&#x27; &gt;/etc/timezone</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [&quot;dotnet&quot;, &quot;api.dll&quot;]</span><br></pre></td></tr></table></figure>
+
+<h3 id="build生成docker镜像"><a href="#build生成docker镜像" class="headerlink" title="build生成docker镜像"></a>build生成docker镜像</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t api-images .</span><br></pre></td></tr></table></figure>
+
+<h3 id="运行docker镜像"><a href="#运行docker镜像" class="headerlink" title="运行docker镜像"></a>运行docker镜像</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name api --restart always -v /opt/docker/api:/app -p 82:80 api-images</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="安装-SqlServer"><a href="#安装-SqlServer" class="headerlink" title="安装 SqlServer"></a>安装 SqlServer</h2><h3 id="下载SQL-Server镜像"><a href="#下载SQL-Server镜像" class="headerlink" title="下载SQL Server镜像"></a>下载SQL Server镜像</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull microsoft/mssql-server-linux:2017-latest</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动SQL-Server容器："><a href="#启动SQL-Server容器：" class="headerlink" title="启动SQL Server容器："></a>启动SQL Server容器：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -e &#x27;ACCEPT_EULA=Y&#x27; -e &#x27;MSSQL_SA_PASSWORD=123456&#x27; \</span><br><span class="line">   -p 1433:1433 --name sql-server --restart always \</span><br><span class="line">   -d microsoft/mssql-server-linux:2017-latest</span><br><span class="line"> </span><br><span class="line"># 具体参数意义，请参看微软文档。（MSSQL_SA_PASSWORD为初始密码，可以自己修改）</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改-sa-密码"><a href="#修改-sa-密码" class="headerlink" title="修改 sa 密码"></a>修改 sa 密码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it sql-server /opt/mssql-tools/bin/sqlcmd \</span><br><span class="line">-S localhost -U SA -P &#x27;Asdfgh123&#x27; \</span><br><span class="line">-Q &#x27;ALTER LOGIN SA WITH PASSWORD=&quot;qazWSX123&quot;&#x27;</span><br></pre></td></tr></table></figure>
+<h3 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it sql-server &quot;bash&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="简单操作"><a href="#简单操作" class="headerlink" title="简单操作"></a>简单操作</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE TestDB</span><br><span class="line">SELECT Name from sys.Databases</span><br><span class="line">GO</span><br></pre></td></tr></table></figure>
+
+<h3 id="外部访问SQL-Server"><a href="#外部访问SQL-Server" class="headerlink" title="外部访问SQL Server"></a>外部访问SQL Server</h3><p>安装 <kbd>sqlcmd</kbd>，前提已经安装了 <kbd>nodejs</kbd>（node 安装请自行搜索）<br>执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g sqlcmdjs</span><br></pre></td></tr></table></figure>
+<p>执行查询命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlcmd -s 127.0.0.1 -o 1433 -u SA -p &quot;123456&quot; &quot;select name, database_id from sys.databases&quot;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="安装-Redis"><a href="#安装-Redis" class="headerlink" title="安装 Redis"></a>安装 Redis</h2><h3 id="创建挂载目录-1"><a href="#创建挂载目录-1" class="headerlink" title="创建挂载目录"></a>创建挂载目录</h3><p>创建宿主机 <kbd>redis</kbd> 容器的数据和配置文件目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/docker/redis/&#123;conf,data&#125; -p</span><br><span class="line">cd /opt/docker/redis</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取Redis的默认配置模版"><a href="#获取Redis的默认配置模版" class="headerlink" title="获取Redis的默认配置模版"></a>获取Redis的默认配置模版</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 获取 redis 的默认配置模版</span><br><span class="line"># 这里主要是想设置下 redis 的 log / password / appendonly</span><br><span class="line"># redis 的 docker 运行参数提供了 --appendonly yes 但没 password</span><br><span class="line">wget https://raw.githubusercontent.com/antirez/redis/4.0/redis.conf -O conf/redis.conf</span><br><span class="line"> </span><br><span class="line"># 直接替换编辑</span><br><span class="line">sed -i &#x27;s/logfile &quot;&quot;/logfile &quot;access.log&quot;/&#x27; conf/redis.conf</span><br><span class="line">sed -i &#x27;s/# requirepass foobared/requirepass 123456/&#x27; conf/redis.conf</span><br><span class="line">sed -i &#x27;s/appendonly no/appendonly yes/&#x27; conf/redis.conf</span><br><span class="line"> </span><br><span class="line"># 这里可能还需配置一些 bind protected-mode</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建Redis容器"><a href="#创建Redis容器" class="headerlink" title="创建Redis容器"></a>创建Redis容器</h3><p>创建并运行一个名为 <kbd>redis</kbd> 的容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run \</span><br><span class="line">    -p 6379:6379 \</span><br><span class="line">    -v $PWD/data:/data \</span><br><span class="line">    -v $PWD/conf/redis.conf:/etc/redis/redis.conf \</span><br><span class="line">    --privileged=true \</span><br><span class="line">    --name redis --restart always \</span><br><span class="line">    -d redis redis-server /etc/redis/redis.conf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="进入到容器里面"><a href="#进入到容器里面" class="headerlink" title="进入到容器里面"></a>进入到容器里面</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it redis bash redis-cli</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置外网可以访问"><a href="#配置外网可以访问" class="headerlink" title="配置外网可以访问"></a>配置外网可以访问</h3><p>更改<kbd>redis.conf</kbd>文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 将这个注释掉</span><br><span class="line"># bind 127.0.0.1 </span><br><span class="line"></span><br><span class="line"># no 改为 yes</span><br><span class="line">protected-mode yes</span><br></pre></td></tr></table></figure>
+
+<h2 id="集成-Gitlab-Runner"><a href="#集成-Gitlab-Runner" class="headerlink" title="集成 Gitlab Runner"></a>集成 Gitlab Runner</h2><h3 id="创建挂载目录-2"><a href="#创建挂载目录-2" class="headerlink" title="创建挂载目录"></a>创建挂载目录</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /opt/docker/gitlab/config</span><br><span class="line">mkdir -p /opt/docker/output</span><br></pre></td></tr></table></figure>
+<p>说明：output为gitlab-runner打包后输出文件的目录，可以让其他容器挂载这个目录</p>
+<h3 id="授权添加用户"><a href="#授权添加用户" class="headerlink" title="授权添加用户"></a>授权添加用户</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 /var/run/docker.sock</span><br><span class="line"></span><br><span class="line">useradd gitlab-runner</span><br><span class="line">usermod -aG docker gitlab-runner</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建gitlab-runner容器"><a href="#创建gitlab-runner容器" class="headerlink" title="创建gitlab-runner容器"></a>创建gitlab-runner容器</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name gitlab-runner --restart always \</span><br><span class="line">  -v /opt/docker/gitlab/config:/etc/gitlab-runner \</span><br><span class="line">  -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">  -v /usr/bin/docker:/usr/bin/docker \</span><br><span class="line">  -v /opt/docker/blog:/tmp/output/blog \</span><br><span class="line">  -v /opt/docker/webapi:/tmp/output/webapi \</span><br><span class="line">  -v /opt/docker/iot-client:/tmp/output/iot-client \</span><br><span class="line">  gitlab/gitlab-runner:latest</span><br></pre></td></tr></table></figure>
+<h3 id="注册gitlab-runner"><a href="#注册gitlab-runner" class="headerlink" title="注册gitlab-runner"></a>注册gitlab-runner</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it gitlab-runner gitlab-ci-multi-runner register</span><br></pre></td></tr></table></figure>
+<p>依次输入 gitlab地址，token，tag，描述，shell</p>
+<h3 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it gitlab-runner /bin/bash</span><br><span class="line"></span><br><span class="line">apt-get update</span><br><span class="line">apt-get install rpm</span><br><span class="line">apt-get install yum</span><br><span class="line">apt-get install -y libltdl7</span><br><span class="line"></span><br><span class="line"># 安装.net core sdk 可参考上面的</span><br></pre></td></tr></table></figure>
+
+<h3 id="编辑-gitlab-ci-yml"><a href="#编辑-gitlab-ci-yml" class="headerlink" title="编辑 .gitlab-ci.yml"></a>编辑 .gitlab-ci.yml</h3><p>先以一个最简单的为例，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">stages:</span><br><span class="line">  - deploy</span><br><span class="line">deploy_job:</span><br><span class="line">  stage: deploy</span><br><span class="line">  script:</span><br><span class="line">    - cd /tmp/blog</span><br><span class="line">    - git pull</span><br><span class="line">    - cd demo</span><br><span class="line">    - source /etc/profile</span><br><span class="line">    - version=`date &quot;+%Y.%m.%d.1&quot;`</span><br><span class="line">    - dotnet build -c Release -p:Version=$&#123;version&#125; -o /tmp/output</span><br><span class="line">    - docker stop blog-api</span><br><span class="line">    - rm -rf /tmp/blog-website/*</span><br><span class="line">    - cp -r /tmp/output /tmp/blog-website</span><br><span class="line">    - docker start blog-api</span><br></pre></td></tr></table></figure>
+<p>程序里获取版本信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var version = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).FileVersion;</span><br><span class="line">if (env.IsDevelopment())</span><br><span class="line">&#123;</span><br><span class="line">    app.UseDeveloperExceptionPage();</span><br><span class="line">    app.UseSwagger();</span><br><span class="line">    app.UseSwaggerUI(option =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        option.SwaggerEndpoint(&quot;/swagger/v2/swagger.json&quot;, $&quot;业务-接口文档 v&#123;version&#125;&quot;);</span><br><span class="line">        option.SwaggerEndpoint(&quot;/swagger/v1/swagger.json&quot;, $&quot;基础-接口文档 v&#123;version&#125;&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装Nodejs"><a href="#安装Nodejs" class="headerlink" title="安装Nodejs"></a>安装Nodejs</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wget http://nodejs.org/dist/v0.10.30/node-v0.10.30-linux-x64.tar.gz</span><br><span class="line"></span><br><span class="line">tar --strip-components 1 -xzvf node-v* -C /usr/local</span><br><span class="line"></span><br><span class="line">node --version</span><br><span class="line"></span><br><span class="line">npm install -g n</span><br><span class="line"></span><br><span class="line">n latest</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="docker-常用命令"><a href="#docker-常用命令" class="headerlink" title="docker 常用命令"></a>docker 常用命令</h2><h3 id="查看容器信息"><a href="#查看容器信息" class="headerlink" title="查看容器信息"></a>查看容器信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看日志信息"><a href="#查看日志信息" class="headerlink" title="查看日志信息"></a>查看日志信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs -t --tail=10 &lt;容器id&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="容器自动启动设置"><a href="#容器自动启动设置" class="headerlink" title="容器自动启动设置"></a>容器自动启动设置</h3><p>在运行时容器时设置,在run命令后加 –restart=always ,如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --restart=always -d --name api -v /opt/docker/api:/app -p 82:80 api-images</span><br></pre></td></tr></table></figure>
+<p>或，给已运行的容器添加自启动，命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker update --restart=always &lt;容器Id&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Vim-安装"><a href="#Vim-安装" class="headerlink" title="Vim 安装"></a>Vim 安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install vim</span><br></pre></td></tr></table></figure>
+
+<h3 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=80/tcp –permanent </span><br><span class="line">firewall-cmd –reload #重新载入</span><br><span class="line">firewall-cmd --zone=public --query-port=80/tcp #查看</span><br></pre></td></tr></table></figure>
+
+<h3 id="容器间通信"><a href="#容器间通信" class="headerlink" title="容器间通信"></a>容器间通信</h3><p>bridge方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker network create --driver bridge mysql-network</span><br><span class="line">docker network ls</span><br><span class="line">docker inspect mysql-network</span><br><span class="line">docker run -d --network mysql-network --name 容器名 镜像名</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://gitlab.com/Mr.Guan/blog/-/commits/master"><img src="https://gitlab.com/Mr.Guan/blog/badges/master/coverage.svg" alt="coverage report"></a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/01/14/%E3%80%90DIY%E3%80%91%E5%B0%86md%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E4%B8%8B%E8%BD%BD%E5%88%B0%E6%9C%AC%E5%9C%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/14/%E3%80%90DIY%E3%80%91%E5%B0%86md%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E5%9B%BE%E7%89%87%E4%B8%8B%E8%BD%BD%E5%88%B0%E6%9C%AC%E5%9C%B0/" class="post-title-link" itemprop="url">【DIY】将md文件中的图片下载到本地</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-14 22:27:50" itemprop="dateCreated datePublished" datetime="2020-01-14T22:27:50+08:00">2020-01-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DIY%E7%A8%8B%E5%BA%8F/" itemprop="url" rel="index"><span itemprop="name">DIY程序</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>读取文件夹下面的*.md文件,正则匹配</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](http****)</span><br></pre></td></tr></table></figure>
+<p>解析到图片的网络地址，然后模拟请求将图片下载到本地替换md中的url重新写到md文件中,代码如下：</p>
+<h3 id="解析Md文件"><a href="#解析Md文件" class="headerlink" title="解析Md文件"></a>解析Md文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">private static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">    var path = @&quot;C:\xguan\demo\hexo\source\_posts\&quot;;</span><br><span class="line"></span><br><span class="line">    var dir = new DirectoryInfo(path);</span><br><span class="line">    var files = dir.GetFiles($&quot;*.md&quot;);</span><br><span class="line">    foreach (var file in files)</span><br><span class="line">    &#123;</span><br><span class="line">        StreamReader sr = new StreamReader(file.FullName, Encoding.UTF8);</span><br><span class="line">        var source = sr.ReadToEnd();</span><br><span class="line"></span><br><span class="line">        Regex regex = new Regex(@&quot;!\[\]\((.*?)\)&quot;, RegexOptions.IgnoreCase);</span><br><span class="line">        MatchCollection matches = regex.Matches(source);</span><br><span class="line">        foreach (var matche in matches)</span><br><span class="line">        &#123;</span><br><span class="line">            var url = matche.ToString().Replace(&quot;![](&quot;, &quot;&quot;).TrimEnd(&#x27;)&#x27;);</span><br><span class="line"></span><br><span class="line">            var fileName = Path.GetFileName(url);</span><br><span class="line">            if (url.IndexOf(&quot;?&quot;) != -1)</span><br><span class="line">            &#123;</span><br><span class="line">                fileName = Path.GetFileName(url.Substring(0, url.IndexOf(&quot;?&quot;)));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if (Path.GetExtension(fileName).Length == 0)</span><br><span class="line">            &#123;</span><br><span class="line">                fileName = $&quot;&#123;fileName&#125;.png&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            var newImgSrc = $&quot;./images/&#123;fileName&#125;&quot;;</span><br><span class="line"></span><br><span class="line">            if (DownloadFile(url, newImgSrc))</span><br><span class="line">            &#123;</span><br><span class="line">                source = source.Replace(url, newImgSrc);</span><br><span class="line">                Console.WriteLine($&quot;处理前：&#123;url&#125;&quot;);</span><br><span class="line">                Console.WriteLine($&quot;处理后：&#123;newImgSrc&#125;&quot;);</span><br><span class="line">                Console.WriteLine();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //copy 重新写文件</span><br><span class="line">        using (FileStream fs = new FileStream($&quot;./copy/&#123;file.Name&#125;&quot;, FileMode.OpenOrCreate))</span><br><span class="line">        &#123;</span><br><span class="line">            byte[] data = System.Text.Encoding.UTF8.GetBytes(source);</span><br><span class="line">            fs.Write(data, 0, data.Length);</span><br><span class="line">        &#125;</span><br><span class="line">        System.Threading.Thread.Sleep(1000);</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine(&quot;处理完成&quot;);</span><br><span class="line">    Console.ReadLine();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="下载图片"><a href="#下载图片" class="headerlink" title="下载图片"></a>下载图片</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">private static bool DownloadFile(string url, string filename)</span><br><span class="line">&#123;</span><br><span class="line">    if (!url.StartsWith(&quot;http&quot;))</span><br><span class="line">    &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        HttpWebRequest Myrq = (HttpWebRequest)HttpWebRequest.Create(url);</span><br><span class="line">        using (HttpWebResponse myrp = (HttpWebResponse)Myrq.GetResponse())</span><br><span class="line">        &#123;</span><br><span class="line">            using (Stream st = myrp.GetResponseStream())</span><br><span class="line">            &#123;</span><br><span class="line">                Stream so = new FileStream($&quot;&#123;filename&#125;&quot;, FileMode.OpenOrCreate);</span><br><span class="line">                byte[] by = new byte[1024];</span><br><span class="line">                int osize = st.Read(by, 0, (int)by.Length);</span><br><span class="line">                while (osize &gt; 0)</span><br><span class="line">                &#123;</span><br><span class="line">                    so.Write(by, 0, osize);</span><br><span class="line">                    osize = st.Read(by, 0, (int)by.Length);</span><br><span class="line">                &#125;</span><br><span class="line">                so.Close();</span><br><span class="line">                Myrq.Abort();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    catch (System.Exception e)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(e.Message);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/01/10/%E3%80%90.Net%20Core%E3%80%91%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BBHttp%E7%8A%B6%E6%80%81%E7%A0%81%E5%AE%9A%E4%B9%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/10/%E3%80%90.Net%20Core%E3%80%91%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BBHttp%E7%8A%B6%E6%80%81%E7%A0%81%E5%AE%9A%E4%B9%89/" class="post-title-link" itemprop="url">【.Net Core】前后端分离Http状态码定义</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-10 22:28:53" itemprop="dateCreated datePublished" datetime="2020-01-10T22:28:53+08:00">2020-01-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>772</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Http-请求响应状态码"><a href="#Http-请求响应状态码" class="headerlink" title="Http 请求响应状态码"></a>Http 请求响应状态码</h2><blockquote>
+<p>前后端分离开发项目中需要定义接口返回状态码，可能每个公司都有自己的一套规范，传统做法是任何请求都返回状态码200，然后在body里包一层 <kbd>{code:0,message:'xxxx',result:object}</kbd>，由于现在前端三大框架越来越成熟，更提倡我们采用http响应的状态码来区分请求的接口，每次只需根据状态码来判断，通常情况下不需要特地解析body里面的数据</p>
+</blockquote>
+<h2 id="四个动词"><a href="#四个动词" class="headerlink" title="四个动词"></a>四个动词</h2><ul>
+<li>GET：读取(Read)—&gt;查询操作</li>
+<li>POST：新建(Create)—&gt;添加操作</li>
+<li>PUT：更新(Update)—&gt;修改操作</li>
+<li>DELETE：删除(Delete)—&gt;删除操作  </li>
+</ul>
+<blockquote>
+<p>结合拦截器，可根据http状态码 做全局的操作提示</p>
+</blockquote>
+<h2 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h2><p>首先状态码可以大致分为五类：</p>
+<ul>
+<li>1XX:保持连接</li>
+<li>2XX:操作成功</li>
+<li>3XX:重定向</li>
+<li>4XX:客户端错误</li>
+<li>5XX:服务端错误   </li>
+</ul>
+<h3 id="2XX"><a href="#2XX" class="headerlink" title="2XX"></a>2XX</h3><ul>
+<li>GET: 200 OK</li>
+<li>POST: 201 Created</li>
+<li>PUT: 202 Updated</li>
+<li>DELETE: 204 No Content</li>
+</ul>
+<h3 id="4XX"><a href="#4XX" class="headerlink" title="4XX"></a>4XX</h3><ul>
+<li><p>401 Unauthorized：用户未提供身份验证凭据，或者没有通过身份验证。<br>如：验证码错误/账号密码错误/没有携带Token</p>
+</li>
+<li><p>403 Forbidden：用户通过了身份验证，但是不具有访问资源所需的权限。<br>如：没有权限访问此接口</p>
+</li>
+<li><p>404 Not Found：所请求的资源不存在，或不可用。<br>如：删除/更新时资源不存在</p>
+</li>
+<li><p>409 Conflict：通用冲突，添加/更新时数据已存在。<br>如：添加/更新时 如机器码已存在，用户邮箱已存在</p>
+</li>
+<li><p>422 Unprocessable Entity ：验证不通过。<br>如：添加/更新时字段校验不过</p>
+</li>
+</ul>
+<h3 id="5XX"><a href="#5XX" class="headerlink" title="5XX"></a>5XX</h3><ul>
+<li>500 Internal Server Error：客户端请求有效，服务器处理时发生了意外。</li>
+<li>503 Service Unavailable：服务器无法处理请求，一般用于网站维护状态。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

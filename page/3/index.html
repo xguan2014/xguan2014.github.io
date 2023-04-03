@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/3/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/08/18/%E3%80%90CSharp%E3%80%91ZIP%E5%8E%8B%E7%BC%A9%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/18/%E3%80%90CSharp%E3%80%91ZIP%E5%8E%8B%E7%BC%A9%E6%B5%81/" class="post-title-link" itemprop="url">【CSharp】ZIP压缩流</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-18 18:44:58" itemprop="dateCreated datePublished" datetime="2021-08-18T18:44:58+08:00">2021-08-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/slyfox/p/11231375.html">https://www.cnblogs.com/slyfox/p/11231375.html</a></p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/api/system.io.compression.ziparchive?view=netframework-4.8">https://docs.microsoft.com/en-us/dotnet/api/system.io.compression.ziparchive?view=netframework-4.8</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/ZIP%E6%A0%BC%E5%BC%8F">https://zh.wikipedia.org/wiki/ZIP格式</a></li>
+</ul>
+<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><p>ZIP流是在NetFramework4.5 引入的目的是为了能够更好的操作ZIP文件，进行压缩解压等操作。与ZIP流相关的几个类是:</p>
+<ol>
+<li>ZipArchive 代表一个ZIP的压缩包文件</li>
+<li>ZipArchiveEntry 代表ZIP压缩包中的一个文件</li>
+<li>ZipFile 提供了一系列的静态方法来帮助用户更方便地操作ZIP文件，类似于File类的作用。</li>
+</ol>
+<p><strong>PS： 在使用之前请先添加程序集引用<code>System.IO.Compression</code>与<code>System.IO.Compression.FileStream</code></strong></p>
+<h3 id="ZipArchive常见操作"><a href="#ZipArchive常见操作" class="headerlink" title="ZipArchive常见操作"></a>ZipArchive常见操作</h3><h4 id="创建一个ZIP文件"><a href="#创建一个ZIP文件" class="headerlink" title="创建一个ZIP文件"></a>创建一个ZIP文件</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> (FileStream fs = <span class="keyword">new</span> FileStream(<span class="string">&quot;myZip.zip&quot;</span>, FileMode.Create))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//打开压缩包</span></span><br><span class="line">    <span class="keyword">using</span> (ZipArchive zipArchive = <span class="keyword">new</span> ZipArchive(fs, ZipArchiveMode.Create))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//创建一个条目</span></span><br><span class="line">        ZipArchiveEntry entry = zipArchive.CreateEntry(<span class="string">&quot;HelloWorld.txt&quot;</span>);</span><br><span class="line">        <span class="comment">//在条目中写入内容</span></span><br><span class="line">        <span class="keyword">using</span> (StreamWriter writer = <span class="keyword">new</span> StreamWriter(entry.Open(), Encoding.Default))</span><br><span class="line">        &#123;</span><br><span class="line">            writer.Write(<span class="string">&quot;I am 鲁迅认识的那只猹! Hello World&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="向现有的ZIP压缩包中添加文件"><a href="#向现有的ZIP压缩包中添加文件" class="headerlink" title="向现有的ZIP压缩包中添加文件"></a>向现有的ZIP压缩包中添加文件</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> (FileStream fs = <span class="keyword">new</span> FileStream(<span class="string">&quot;myZip.zip&quot;</span>, FileMode.Open))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//打开压缩包,Mode 为Update模式</span></span><br><span class="line">    <span class="keyword">using</span> (ZipArchive zipArchive = <span class="keyword">new</span> ZipArchive(fs, ZipArchiveMode.Update))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//创建一个条目</span></span><br><span class="line">        ZipArchiveEntry entry = zipArchive.CreateEntry(<span class="string">&quot;AppendFile.txt&quot;</span>);</span><br><span class="line">        <span class="comment">//在条目中写入内容</span></span><br><span class="line">        <span class="keyword">using</span> (StreamWriter writer = <span class="keyword">new</span> StreamWriter(entry.Open(), Encoding.Default))</span><br><span class="line">        &#123;</span><br><span class="line">            writer.Write(<span class="string">&quot;这是追加的内容!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="解压ZIP压缩包"><a href="#解压ZIP压缩包" class="headerlink" title="解压ZIP压缩包"></a>解压ZIP压缩包</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> (FileStream fs = <span class="keyword">new</span> FileStream(<span class="string">&quot;myZip.zip&quot;</span>, FileMode.Open))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//打开压缩包,Mode 为Update模式</span></span><br><span class="line">    <span class="keyword">using</span> (ZipArchive zipArchive = <span class="keyword">new</span> ZipArchive(fs, ZipArchiveMode.Update))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//创建一个用来存放解压后的文件的目录</span></span><br><span class="line">        Directory.CreateDirectory(<span class="string">&quot;myZip&quot;</span>);</span><br><span class="line">        <span class="comment">//将所有的条目解压出来</span></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">var</span> item <span class="keyword">in</span> zipArchive.Entries)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//解压文件</span></span><br><span class="line">            item.ExtractToFile(<span class="string">@&quot;myZip\&quot;</span> + item.Name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ZipFile"><a href="#ZipFile" class="headerlink" title="ZipFile"></a>ZipFile</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FileZip.CreateFromDirectory</td>
+<td>从一个目录创建ZIP压缩文件</td>
+</tr>
+<tr>
+<td>FileZip.ExtractToDirectory</td>
+<td>将ZIP压缩文件解压到目录中</td>
+</tr>
+<tr>
+<td>FileZip.Open</td>
+<td>打开一个ZIP压缩文件</td>
+</tr>
+<tr>
+<td>FileZip.OpenRead</td>
+<td>打开一个读取模式的ZIP压缩文件</td>
+</tr>
+</tbody></table>
+<h3 id="ZipFileExtensions"><a href="#ZipFileExtensions" class="headerlink" title="ZipFileExtensions"></a>ZipFileExtensions</h3><p>ZipFileExtensions 为ZipArchive 和 ZipArchiveEntry 提供了一些更简便的方法，具体可以查看<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/api/system.io.compression.zipfileextensions?view=netframework-4.8">官方文档</a></p>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">WebClient webClient = <span class="keyword">new</span> WebClient();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> list = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt;()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;https://img.bfsdfs.com/UploadFiles/Images/2021/202106/7d18bd27-d1ba-44e6-9f1c-cc30e9d0b8fb.jpg&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://img.bfsdfs.com/UploadFiles/Images/2021/202106/a79c754e-2b80-4db2-9154-5d3894ac6d90.jpg&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://open.weixin.qq.com/zh_CN/htmledition/res/assets/manage/Website_Information_Form.doc&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> (MemoryStream ms = <span class="keyword">new</span> MemoryStream())</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> (ZipArchive archive = <span class="keyword">new</span> ZipArchive(ms, ZipArchiveMode.Create, <span class="literal">true</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">var</span> url <span class="keyword">in</span> list)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> fileName = url.Substring(url.LastIndexOf(<span class="string">&quot;/&quot;</span>) + <span class="number">1</span>);</span><br><span class="line">            ZipArchiveEntry readmeEntry = archive.CreateEntry(fileName);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">using</span> (Stream stream = readmeEntry.Open())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">var</span> bytes = webClient.DownloadData(url);</span><br><span class="line">                stream.Write(bytes, <span class="number">0</span>, bytes.Length);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">using</span> (FileStream fs = <span class="keyword">new</span> FileStream(<span class="string">&quot;result.zip&quot;</span>, FileMode.OpenOrCreate))</span><br><span class="line">    &#123;</span><br><span class="line">        BinaryWriter w = <span class="keyword">new</span> BinaryWriter(fs);</span><br><span class="line">        w.Write(ms.ToArray());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/08/18/%E3%80%90MySql%E3%80%91Explain%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/18/%E3%80%90MySql%E3%80%91Explain%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">【MySql】Explain详解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-18 10:46:46" itemprop="dateCreated datePublished" datetime="2021-08-18T10:46:46+08:00">2021-08-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuanzhi201111/p/4175635.html">https://www.cnblogs.com/xuanzhi201111/p/4175635.html</a></p>
+<p>在日常工作中，我们会有时会开慢查询去记录一些执行时间比较久的SQL语句，找出这些SQL语句并不意味着完事了，些时我们常常用到explain这个命令来查看一个这些SQL语句的执行计划，查看该SQL语句有没有使用上了索引，有没有做全表扫描，这都可以通过explain命令来查看。所以我们深入了解MySQL的基于开销的优化器，还可以获得很多可能被优化器考虑到的访问策略的细节，以及当运行SQL语句时哪种策略预计会被优化器采用。（QEP：sql生成一个执行计划query Execution plan）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain select * from servers;</span><br><span class="line">+----+-------------+---------+------+---------------+------+---------+------+------+-------+</span><br><span class="line">| id | select_type | table   | type | possible_keys | key  | key_len | ref  | rows | Extra |</span><br><span class="line">+----+-------------+---------+------+---------------+------+---------+------+------+-------+</span><br><span class="line">|  1 | SIMPLE      | servers | ALL  | NULL          | NULL | NULL    | NULL |    1 | NULL  |</span><br><span class="line">+----+-------------+---------+------+---------------+------+---------+------+------+-------+</span><br><span class="line">1 row in set (0.03 sec)</span><br></pre></td></tr></table></figure>
+
+<p>expain出来的信息有10列，分别是id、select_type、table、type、possible_keys、key、key_len、ref、rows、Extra,下面对这些字段出现的可能进行解释：</p>
+<h3 id="一、id"><a href="#一、id" class="headerlink" title="一、id"></a>一、id</h3><p><strong>我的理解是SQL执行的顺序的标识,SQL从大到小的执行</strong></p>
+<ol>
+<li><p>id相同时，执行顺序由上至下</p>
+</li>
+<li><p>如果是子查询，id的序号会递增，id值越大优先级越高，越先被执行</p>
+</li>
+<li><p>id如果相同，可以认为是一组，从上往下顺序执行；在所有组中，id值越大，优先级越高，越先执行</p>
+</li>
+</ol>
+<h3 id="二、select-type"><a href="#二、select-type" class="headerlink" title="二、select_type"></a>二、select_type</h3><p><strong>示查询中每个select子句的类型</strong></p>
+<p>(1) SIMPLE(简单SELECT,不使用UNION或子查询等)</p>
+<p>(2) PRIMARY(查询中若包含任何复杂的子部分,最外层的select被标记为PRIMARY)</p>
+<p>(3) UNION(UNION中的第二个或后面的SELECT语句)</p>
+<p>(4) DEPENDENT UNION(UNION中的第二个或后面的SELECT语句，取决于外面的查询)</p>
+<p>(5) UNION RESULT(UNION的结果)</p>
+<p>(6) SUBQUERY(子查询中的第一个SELECT)</p>
+<p>(7) DEPENDENT SUBQUERY(子查询中的第一个SELECT，取决于外面的查询)</p>
+<p>(8) DERIVED(派生表的SELECT, FROM子句的子查询)</p>
+<p>(9) UNCACHEABLE SUBQUERY(一个子查询的结果不能被缓存，必须重新评估外链接的第一行)</p>
+<h3 id="三、table"><a href="#三、table" class="headerlink" title="三、table"></a>三、table</h3><p>显示这一行的数据是关于哪张表的，有时不是真实的表名字,看到的是derivedx(x是个数字,我的理解是第几步执行的结果)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain select * from (select * from ( select * from t1 where id=2602) a) b;</span><br><span class="line">+----+-------------+------------+--------+-------------------+---------+---------+------+------+-------+</span><br><span class="line">| id | select_type | table      | type   | possible_keys     | key     | key_len | ref  | rows | Extra |</span><br><span class="line">+----+-------------+------------+--------+-------------------+---------+---------+------+------+-------+</span><br><span class="line">|  1 | PRIMARY     | &lt;derived2&gt; | system | NULL              | NULL    | NULL    | NULL |    1 |       |</span><br><span class="line">|  2 | DERIVED     | &lt;derived3&gt; | system | NULL              | NULL    | NULL    | NULL |    1 |       |</span><br><span class="line">|  3 | DERIVED     | t1         | const  | PRIMARY,idx_t1_id | PRIMARY | 4       |      |    1 |       |</span><br><span class="line">+----+-------------+------------+--------+-------------------+---------+---------+------+------+-------+</span><br></pre></td></tr></table></figure>
+
+<h3 id="四、type"><a href="#四、type" class="headerlink" title="四、type"></a>四、type</h3><p>表示MySQL在表中找到所需行的方式，又称“访问类型”。</p>
+<p>常用的类型有：** ALL, index,  range, ref, eq_ref, const, system, NULL（从左到右，性能从差到好）**</p>
+<p>ALL：Full Table Scan， MySQL将遍历全表以找到匹配的行</p>
+<p>index: Full Index Scan，index与ALL区别为index类型只遍历索引树</p>
+<p>range:只检索给定范围的行，使用一个索引来选择行</p>
+<p>ref: 表示上述表的连接匹配条件，即哪些列或常量被用于查找索引列上的值</p>
+<p>eq_ref: 类似ref，区别就在使用的索引是唯一索引，对于每个索引键值，表中只有一条记录匹配，简单来说，就是多表连接中使用primary key或者 unique key作为关联条件</p>
+<p>const、system: 当MySQL对查询某部分进行优化，并转换为一个常量时，使用这些类型访问。如将主键置于where列表中，MySQL就能将该查询转换为一个常量,system是const类型的特例，当查询的表只有一行的情况下，使用system</p>
+<p>NULL: MySQL在优化过程中分解语句，执行时甚至不用访问表或索引，例如从一个索引列里选取最小值可以通过单独索引查找完成。</p>
+<h3 id="五、possible-keys"><a href="#五、possible-keys" class="headerlink" title="五、possible_keys"></a>五、possible_keys</h3><p><strong>指出MySQL能使用哪个索引在表中找到记录，查询涉及到的字段上若存在索引，则该索引将被列出，但不一定被查询使用</strong></p>
+<p>该列完全独立于EXPLAIN输出所示的表的次序。这意味着在possible_keys中的某些键实际上不能按生成的表次序使用。<br>如果该列是NULL，则没有相关的索引。在这种情况下，可以通过检查WHERE子句看是否它引用某些列或适合索引的列来提高你的查询性能。如果是这样，创造一个适当的索引并且再次用EXPLAIN检查查询</p>
+<h3 id="六、Key"><a href="#六、Key" class="headerlink" title="六、Key"></a>六、Key</h3><p><strong>key列显示MySQL实际决定使用的键（索引）</strong></p>
+<p>如果没有选择索引，键是NULL。要想强制MySQL使用或忽视possible_keys列中的索引，在查询中使用FORCE INDEX、USE INDEX或者IGNORE INDEX。</p>
+<h3 id="七、key-len"><a href="#七、key-len" class="headerlink" title="七、key_len"></a>七、key_len</h3><p><strong>表示索引中使用的字节数，可通过该列计算查询中使用的索引的长度（key_len显示的值为索引字段的最大可能长度，并非实际使用长度，即key_len是根据表定义计算而得，不是通过表内检索出的）</strong></p>
+<p>不损失精确性的情况下，长度越短越好</p>
+<h3 id="八、ref"><a href="#八、ref" class="headerlink" title="八、ref"></a>八、ref</h3><p><strong>表示上述表的连接匹配条件，即哪些列或常量被用于查找索引列上的值</strong></p>
+<h3 id="九、rows"><a href="#九、rows" class="headerlink" title="九、rows"></a>九、rows</h3><p> <strong>表示MySQL根据表统计信息及索引选用情况，估算的找到所需的记录所需要读取的行数</strong></p>
+<h3 id="十、Extra"><a href="#十、Extra" class="headerlink" title="十、Extra"></a>十、Extra</h3><p><strong>该列包含MySQL解决查询的详细信息,有以下几种情况：</strong></p>
+<p>Using where:列数据是从仅仅使用了索引中的信息而没有读取实际的行动的表返回的，这发生在对表的全部的请求列都是同一个索引的部分的时候，表示mysql服务器将在存储引擎检索行后再进行过滤</p>
+<p>Using temporary：表示MySQL需要使用临时表来存储结果集，常见于排序和分组查询</p>
+<p>Using filesort：MySQL中无法利用索引完成的排序操作称为“文件排序”</p>
+<p>Using join buffer：改值强调了在获取连接条件时没有使用索引，并且需要连接缓冲区来存储中间结果。如果出现了这个值，那应该注意，根据查询的具体情况可能需要添加索引来改进能。</p>
+<p>Impossible where：这个值强调了where语句会导致没有符合条件的行。</p>
+<p>Select tables optimized away：这个值意味着仅通过使用索引，优化器可能仅从聚合函数结果中返回一行</p>
+<h3 id="十一、总结"><a href="#十一、总结" class="headerlink" title="十一、总结"></a>十一、总结</h3><p>• EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义函数对查询的影响情况<br>• EXPLAIN不考虑各种Cache<br>• EXPLAIN不能显示MySQL在执行查询时所作的优化工作<br>• 部分统计信息是估算的，并非精确值<br>• EXPALIN只能解释SELECT操作，其他操作要重写为SELECT后查看执行计划。**</p>
+<p>参考资料：<br><a target="_blank" rel="noopener" href="http://dev.mysql.com/doc/refman/5.5/en/explain-output.html">http://dev.mysql.com/doc/refman/5.5/en/explain-output.html</a><br><a target="_blank" rel="noopener" href="http://www.cnitblog.com/aliyiyi08/archive/2008/09/09/48878.html">http://www.cnitblog.com/aliyiyi08/archive/2008/09/09/48878.html</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/gomysql/p/3720123.html">http://www.cnblogs.com/gomysql/p/3720123.html</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/08/10/%E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/08/10/%E3%80%90%E6%A0%91%E8%8E%93%E6%B4%BE%E3%80%91ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" class="post-title-link" itemprop="url">【树莓派】ssh免密登录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-10 21:02:18" itemprop="dateCreated datePublished" datetime="2021-08-10T21:02:18+08:00">2021-08-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>980</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jesn/articles/14317949.html">https://www.cnblogs.com/jesn/articles/14317949.html</a></p>
+</blockquote>
+<p>我们每次ssh登录树莓派，都需要密码，时间长了就感觉很烦，很烦！作为一个工具人，每次竟然都要让我手动输入密码，真是不是不像话了，废话不多说了，下面就直接开始 ssh免密登录的设置吧！</p>
+<h2 id="打开raspberry-公钥授权登录配置"><a href="#打开raspberry-公钥授权登录配置" class="headerlink" title="打开raspberry 公钥授权登录配置"></a>打开raspberry 公钥授权登录配置</h2><p>使用 root 权限登录 raspberry，进入目录  <code>/etc/ssh/</code> 修改 <code>sshd_config</code> 文件，打开 PubkeyAuthentication 公钥身份验证配置，保存配置，<strong>并且重复服务或者重启树莓派</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PubkeyAuthentication <span class="built_in">yes</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/342929-20210123160727362-230795292.png" alt=""></p>
+<h2 id="客户端生成rsa"><a href="#客户端生成rsa" class="headerlink" title="客户端生成rsa"></a>客户端生成rsa</h2><ul>
+<li><code>jesn@pi</code> 名字@设备名称,这样可以区分不同主机名</li>
+<li><code>-f</code> 指定生成路径，如果不指定的话，默认生成的为<code>id_rsa</code>、<code>id_rsa.pub</code> 如果本地有多个ssh登录的话，不指定的话，则会覆盖之前的</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C jesn<span class="meta">@pi</span> -f <span class="attr">C</span>:<span class="regexp">/Users/</span><span class="title class_">Administrator</span>/.<span class="property">ssh</span>/pi-rsa</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/342929-20210123160803702-978782533.png" alt=""></p>
+<h2 id="公钥拷贝到raspberry"><a href="#公钥拷贝到raspberry" class="headerlink" title="公钥拷贝到raspberry"></a>公钥拷贝到raspberry</h2><h3 id="上传公钥到树莓派"><a href="#上传公钥到树莓派" class="headerlink" title="上传公钥到树莓派"></a>上传公钥到树莓派</h3><p>平时我们都是用<code>pi</code>身份登录，这里我们把生成好的公钥上传到树莓派<code>pi</code> 这个用户下</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> C:/Users/Administrator/.ssh/raspberry/<span class="built_in">pi</span>-rsa.pub | ssh <span class="built_in">pi</span>@<span class="number">192.168</span><span class="number">.2</span><span class="number">.201</span> <span class="string">&#x27;cat &gt;&gt; .ssh/authorized_keys&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="登录树莓派，查看公钥是否上传成功"><a href="#登录树莓派，查看公钥是否上传成功" class="headerlink" title="登录树莓派，查看公钥是否上传成功"></a>登录树莓派，查看公钥是否上传成功</h3><ul>
+<li>1、使用<code>pi</code> 账号密码登录，进入根目录使用 <code>ls -a</code>命令查看是否有 <code>.ssh</code> ，备注 <code>.ssh</code> 文件夹是隐藏文件夹，因此通过 <code>-a</code> 命令可以查看的到</li>
+<li>2、进入<code>.ssh</code> 目录下，查看 <code>authorized_keys</code>文件里面的内容是否是我们刚才生成的公钥</li>
+</ul>
+<p><img src="/images/342929-20210123160824996-2113963109.png" alt=""></p>
+<ul>
+<li>3、设置 <code>authorized_keys</code> 文件的权限为600 ，<code>**.ssh**</code> 文件夹的权限为700</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 600 authorized_keys</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> 700 -R .ssh</span><br></pre></td></tr></table></figure>
+
+<h2 id="ssh-远程免密登录"><a href="#ssh-远程免密登录" class="headerlink" title="ssh 远程免密登录"></a>ssh 远程免密登录</h2><p>使用ssh命令在客户制定私钥，尝试看是否可以登录<br><strong>-i</strong> 指定我们第一步生成的私钥<br><strong><a href="mailto:pi@192.168.1.201">pi@192.168.1.201</a></strong> 用户名@树莓派主机IP</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i <span class="attr">C</span>:<span class="regexp">/Users/</span><span class="title class_">Administrator</span>/.<span class="property">ssh</span>/raspberry/pi-rsa pi@<span class="number">192.168</span><span class="number">.1</span><span class="number">.201</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/342929-20210123160833411-164323650.png" alt=""></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

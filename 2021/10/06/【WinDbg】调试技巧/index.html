@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转自：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;wyt007&#x2F;p&#x2F;10014481.html  软件安装安装问题：执行 .loadby sos clr 命令无效 解决办法： 123.load C:\Windows\Microsoft.NET\Framework64\v4.0.30319\SOS.dll.load C:\Windows\Microsoft.NET\Framework64\v4">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【WinDbg】调试技巧">
+<meta property="og:url" content="http://blog.bfsdfs.com/2021/10/06/%E3%80%90WinDbg%E3%80%91%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="转自：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;wyt007&#x2F;p&#x2F;10014481.html  软件安装安装问题：执行 .loadby sos clr 命令无效 解决办法： 123.load C:\Windows\Microsoft.NET\Framework64\v4.0.30319\SOS.dll.load C:\Windows\Microsoft.NET\Framework64\v4">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181125012022706-1881666805.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181125012226752-1830711124.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181125012403646-721486767.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181125110811341-1190654412.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181125120339971-629814222.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181125120631867-529406469.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181125121619739-1700876453.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181125131634602-1741194732.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181125131746492-190328723.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181125162357020-578499148.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201173105610-1644781323.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201162434591-743668635.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201162642368-1330556736.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201162813694-1352992185.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201162912959-598889431.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201172218698-530602749.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201172425697-932588586.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201172632442-1694656624.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201172854382-142331768.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201173545331-783517050.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201173938240-10363955.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201174212245-1461978093.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201174505271-1863869156.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201174638223-662548164.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201175606334-571955144.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201180426859-1297970068.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201180307121-357765006.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201180734218-1830893017.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201181143070-1523901138.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201181914748-976023983.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201182152324-902542008.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201182553116-320378473.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/991704-20181201182807324-865632686.png">
+<meta property="article:published_time" content="2021-10-06T12:11:42.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.082Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/991704-20181125012022706-1881666805.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2021/10/06/%E3%80%90WinDbg%E3%80%91%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【WinDbg】调试技巧 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2021/10/06/%E3%80%90WinDbg%E3%80%91%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【WinDbg】调试技巧
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-10-06 20:11:42" itemprop="dateCreated datePublished" datetime="2021-10-06T20:11:42+08:00">2021-10-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">常用工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wyt007/p/10014481.html">https://www.cnblogs.com/wyt007/p/10014481.html</a></p>
+</blockquote>
+<h2 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h2><p>安装问题：执行 .loadby sos clr 命令无效</p>
+<p>解决办法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.load C:\Windows\Microsoft.NET\Framework64\v4.0.30319\SOS.dll</span><br><span class="line">.load C:\Windows\Microsoft.NET\Framework64\v4.0.30319\clr.dll</span><br><span class="line">.loadby sos clr</span><br></pre></td></tr></table></figure>
+
+<h2 id="代码调试"><a href="#代码调试" class="headerlink" title="代码调试"></a>代码调试</h2><h3 id="查看线程"><a href="#查看线程" class="headerlink" title="查看线程"></a>查看线程</h3><p><strong>命令</strong>： !threads</p>
+<p>执行结果：</p>
+<p><img src="/images/991704-20181125012022706-1881666805.png" alt=""></p>
+<h3 id="进入线程"><a href="#进入线程" class="headerlink" title="进入线程"></a>进入线程</h3><p><strong>命令</strong>： ~~[线程Id]s</p>
+<p>执行结果：<br><img src="/images/991704-20181125012226752-1830711124.png" alt=""></p>
+<h3 id="查看线程详情"><a href="#查看线程详情" class="headerlink" title="查看线程详情"></a>查看线程详情</h3><p><strong>命令</strong>： !clrstack</p>
+<p>执行结果：</p>
+<p><img src="/images/991704-20181125012403646-721486767.png" alt=""></p>
+<h3 id="查看线程状态"><a href="#查看线程状态" class="headerlink" title="查看线程状态"></a>查看线程状态</h3><p><strong>命令</strong>：  !ThreadState 线程StateId</p>
+<p>执行结果：</p>
+<p> <img src="/images/991704-20181125110811341-1190654412.png" alt=""></p>
+<h3 id="退出附加进程"><a href="#退出附加进程" class="headerlink" title="退出附加进程"></a>退出附加进程</h3><p><strong>命令</strong>： qd</p>
+<h3 id="查看线程环境块（空间）"><a href="#查看线程环境块（空间）" class="headerlink" title="查看线程环境块（空间）"></a>查看线程环境块（空间）</h3><p><strong>命令</strong>：  !Teb</p>
+<p>执行结果：</p>
+<p><img src="/images/991704-20181125120339971-629814222.png" alt=""></p>
+<h3 id="查看线程堆栈"><a href="#查看线程堆栈" class="headerlink" title="查看线程堆栈"></a>查看线程堆栈</h3><p><strong>命令</strong>：  !dumpstack</p>
+<p>执行结果：</p>
+<p><img src="/images/991704-20181125120631867-529406469.png" alt=""></p>
+<h3 id="查看局部变量"><a href="#查看局部变量" class="headerlink" title="查看局部变量"></a>查看局部变量</h3><p><strong>命令</strong>：  !clrstack</p>
+<p>!clrstack -l</p>
+<p>执行结果：</p>
+<p><img src="/images/991704-20181125121619739-1700876453.png" alt=""></p>
+<h3 id="查看帮助"><a href="#查看帮助" class="headerlink" title="查看帮助"></a>查看帮助</h3><p><strong>命令</strong>：   !help</p>
+<p>执行结果：</p>
+<p> <img src="/images/991704-20181125131634602-1741194732.png" alt=""></p>
+<h3 id="查看终结器队列"><a href="#查看终结器队列" class="headerlink" title="查看终结器队列"></a>查看终结器队列</h3><p><strong>命令</strong>：  !FinalizeQueue</p>
+<p>执行结果：</p>
+<p> <img src="/images/991704-20181125131746492-190328723.png" alt=""></p>
+<h3 id="查看线程池详情"><a href="#查看线程池详情" class="headerlink" title="查看线程池详情"></a>查看线程池详情</h3><p><strong>命令</strong>： !threadpool</p>
+<p>执行结果：</p>
+<p> <img src="/images/991704-20181125162357020-578499148.png" alt=""></p>
+<h3 id="查看查看当前托管线程已执行时间"><a href="#查看查看当前托管线程已执行时间" class="headerlink" title="查看查看当前托管线程已执行时间"></a>查看查看当前托管线程已执行时间</h3><p><strong>命令</strong>：  !runaway</p>
+<p>执行结果：</p>
+<p><img src="/images/991704-20181201173105610-1644781323.png" alt=""></p>
+<h3 id="清屏"><a href="#清屏" class="headerlink" title="清屏"></a>清屏</h3><p><strong>命令</strong>：  !cls</p>
+<h3 id="查看查看当前托管线程已执行时间-1"><a href="#查看查看当前托管线程已执行时间-1" class="headerlink" title="查看查看当前托管线程已执行时间"></a>查看查看当前托管线程已执行时间</h3><p><strong>命令</strong>：  ~*e!clrstack</p>
+<p>执行结果：看所有线程的堆栈</p>
+<h2 id="CPU过高的问题"><a href="#CPU过高的问题" class="headerlink" title="CPU过高的问题"></a>CPU过高的问题</h2><h3 id="模拟CPU过高"><a href="#模拟CPU过高" class="headerlink" title="模拟CPU过高"></a>模拟CPU过高</h3><p>示例代码：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Run();</span><br><span class="line"></span><br><span class="line">        Console.Read();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Run</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> task = Task.Factory.StartNew(() =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//这是一个非常复杂的逻辑，导致死循环</span></span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>生成64位Realease版本代码：</p>
+<p><img src="/images/991704-20181201162434591-743668635.png" alt=""></p>
+<p>在Bin/Realse下找到文件并运行，然后查看CPU：</p>
+<p><img src="/images/991704-20181201162642368-1330556736.png" alt=""></p>
+<h3 id="解决CUP占用过高"><a href="#解决CUP占用过高" class="headerlink" title="解决CUP占用过高"></a>解决CUP占用过高</h3><p>创建转储文件：</p>
+<p><img src="/images/991704-20181201162813694-1352992185.png" alt=""></p>
+<p><strong>↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓</strong></p>
+<p><img src="/images/991704-20181201162912959-598889431.png" alt=""></p>
+<p>找到该转储文件：C:\Users\ADMINI~1\AppData\Local\Temp\ConsoleApp4.DMP</p>
+<p>用X64版本的WinDbg打开DMP文件：</p>
+<p><img src="/images/991704-20181201172218698-530602749.png" alt=""></p>
+<p>↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓</p>
+<p>然后打开命令输入：</p>
+<p><img src="/images/991704-20181201172425697-932588586.png" alt=""></p>
+<p>然后输入 .loadby sos clr 与 !threads</p>
+<p><img src="/images/991704-20181201172632442-1694656624.png" alt=""></p>
+<p>现在线程少没有关系，多的话我们没有办法去判断哪个线程消耗严重，所以执行 !runaway 查看当前托管线程已执行时间</p>
+<p><img src="/images/991704-20181201172854382-142331768.png" alt=""></p>
+<p>切换到指定线程 ~~[4f78]s ，执行  !clrstack  查看当前线程的调用堆栈</p>
+<p><img src="/images/991704-20181201173545331-783517050.png" alt=""></p>
+<p>从调用堆栈上来看，当前线程 在 Program+c.b__1_0() 方法之后23行就没有调用堆栈了，说明方法在这个地方停滞不前了。</p>
+<p>最后反编译源码到指定的方法中去查看</p>
+<p><img src="/images/991704-20181201173938240-10363955.png" alt=""></p>
+<p>方法二：</p>
+<p>通过 !dumpdomain 拿到程序地址</p>
+<p><img src="/images/991704-20181201174212245-1461978093.png" alt=""></p>
+<p>然后反编译成dll输出文件 !savemodule 00007ff7e4f94120 c:\2\1.dll （文件夹必须存在）</p>
+<p><img src="/images/991704-20181201174505271-1863869156.png" alt=""></p>
+<p>然后找到该dll进行反编译</p>
+<p><img src="/images/991704-20181201174638223-662548164.png" alt=""></p>
+<h2 id="死锁问题"><a href="#死锁问题" class="headerlink" title="死锁问题"></a>死锁问题</h2><h3 id="模拟死锁"><a href="#模拟死锁" class="headerlink" title="模拟死锁"></a>模拟死锁</h3><p>实例代码：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">new</span> Program().Run();</span><br><span class="line"></span><br><span class="line">        Console.Read();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Run</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">lock</span> (<span class="keyword">this</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> task = Task.Factory.StartNew(() =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;-------start-------&quot;</span>);</span><br><span class="line">                Thread.Sleep(<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">                Run2();</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;---------end--------&quot;</span>);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            task.Wait();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Run2</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">lock</span> (<span class="keyword">this</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;------我是Run2------&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<p><img src="/images/991704-20181201175606334-571955144.png" alt=""></p>
+<h3 id="解决死锁"><a href="#解决死锁" class="headerlink" title="解决死锁"></a>解决死锁</h3><p>然后用WinDbg附加到进程，执行 .loadby sos clr 与 !threads 查看当前的托管线程</p>
+<p><img src="/images/991704-20181201180426859-1297970068.png" alt=""></p>
+<p>然后执行 ~*e!clrstack 查看所有线程的堆栈</p>
+<p>可以看出主线程在等待</p>
+<p><img src="/images/991704-20181201180307121-357765006.png" alt=""></p>
+<p>执行 !syncblk 查看当前哪个线程持有锁，可以看出主线程持有锁</p>
+<p><img src="/images/991704-20181201180734218-1830893017.png" alt=""></p>
+<p>可以看得出“主线程”持有当前的同步锁</p>
+<p><img src="/images/991704-20181201181143070-1523901138.png" alt=""></p>
+<h2 id="内存爆满"><a href="#内存爆满" class="headerlink" title="内存爆满"></a>内存爆满</h2><h3 id="模拟内存爆满"><a href="#模拟内存爆满" class="headerlink" title="模拟内存爆满"></a>模拟内存爆满</h3><p>实例代码：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000000</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            sb.Append(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">        Console.Read();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解决内存爆满"><a href="#解决内存爆满" class="headerlink" title="解决内存爆满"></a>解决内存爆满</h3><p>然后用WinDbg附加到进程，执行  .loadby sos clr 与  !threads ，然后执行  !dumpheap -stat 查看clr的托管堆中的各个类型的占用情况</p>
+<p><img src="/images/991704-20181201181914748-976023983.png" alt=""></p>
+<p>然后看到了有13768个char[]数组</p>
+<p>然后执行 !DumpHeap /d -mt 00007ff841318610    //查看当前的方法表</p>
+<p><img src="/images/991704-20181201182152324-902542008.png" alt=""></p>
+<p>然后执行 !DumpObj /d 0000022baed1dec8 //查看当前char[]的内容</p>
+<p><img src="/images/991704-20181201182553116-320378473.png" alt=""></p>
+<p>然后执行 !gcroot 00000135a60f4940 查看当前地址的Root。。。</p>
+<p> <img src="/images/991704-20181201182807324-865632686.png" alt=""></p>
+<p>所以结合“StringBuilder”，结合 ”hello world“ 我们就找出了问题。。。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2021/10/06/%E3%80%90WinDbg%E3%80%91%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/" title="【WinDbg】调试技巧">http://blog.bfsdfs.com/2021/10/06/【WinDbg】调试技巧/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/09/12/%E3%80%90.Net%E3%80%91SharpSvn%E4%BD%BF%E7%94%A8%E7%AE%80%E4%BB%8B/" rel="prev" title="【.Net】SharpSvn使用简介">
+      <i class="fa fa-chevron-left"></i> 【.Net】SharpSvn使用简介
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/30/%E3%80%90Redis%E3%80%91%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/" rel="next" title="【Redis】分布式锁实现">
+      【Redis】分布式锁实现 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">软件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%B0%83%E8%AF%95"><span class="nav-number">2.</span> <span class="nav-text">代码调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">查看线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">进入线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%BA%BF%E7%A8%8B%E8%AF%A6%E6%83%85"><span class="nav-number">2.3.</span> <span class="nav-text">查看线程详情</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="nav-number">2.4.</span> <span class="nav-text">查看线程状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E9%99%84%E5%8A%A0%E8%BF%9B%E7%A8%8B"><span class="nav-number">2.5.</span> <span class="nav-text">退出附加进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%BA%BF%E7%A8%8B%E7%8E%AF%E5%A2%83%E5%9D%97%EF%BC%88%E7%A9%BA%E9%97%B4%EF%BC%89"><span class="nav-number">2.6.</span> <span class="nav-text">查看线程环境块（空间）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%BA%BF%E7%A8%8B%E5%A0%86%E6%A0%88"><span class="nav-number">2.7.</span> <span class="nav-text">查看线程堆栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">2.8.</span> <span class="nav-text">查看局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%B8%AE%E5%8A%A9"><span class="nav-number">2.9.</span> <span class="nav-text">查看帮助</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%BB%88%E7%BB%93%E5%99%A8%E9%98%9F%E5%88%97"><span class="nav-number">2.10.</span> <span class="nav-text">查看终结器队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0%E8%AF%A6%E6%83%85"><span class="nav-number">2.11.</span> <span class="nav-text">查看线程池详情</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%89%98%E7%AE%A1%E7%BA%BF%E7%A8%8B%E5%B7%B2%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4"><span class="nav-number">2.12.</span> <span class="nav-text">查看查看当前托管线程已执行时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E5%B1%8F"><span class="nav-number">2.13.</span> <span class="nav-text">清屏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%89%98%E7%AE%A1%E7%BA%BF%E7%A8%8B%E5%B7%B2%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4-1"><span class="nav-number">2.14.</span> <span class="nav-text">查看查看当前托管线程已执行时间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU%E8%BF%87%E9%AB%98%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">CPU过高的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9FCPU%E8%BF%87%E9%AB%98"><span class="nav-number">3.1.</span> <span class="nav-text">模拟CPU过高</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3CUP%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98"><span class="nav-number">3.2.</span> <span class="nav-text">解决CUP占用过高</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">死锁问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E6%AD%BB%E9%94%81"><span class="nav-number">4.1.</span> <span class="nav-text">模拟死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%AD%BB%E9%94%81"><span class="nav-number">4.2.</span> <span class="nav-text">解决死锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%88%86%E6%BB%A1"><span class="nav-number">5.</span> <span class="nav-text">内存爆满</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E5%86%85%E5%AD%98%E7%88%86%E6%BB%A1"><span class="nav-number">5.1.</span> <span class="nav-text">模拟内存爆满</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%86%85%E5%AD%98%E7%88%86%E6%BB%A1"><span class="nav-number">5.2.</span> <span class="nav-text">解决内存爆满</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'f456f631cc60ae2c3b5f92d8474387a0',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

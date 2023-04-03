@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="大家好，今天分享一些实用的 VS 技巧，而这些技巧我发现很多人都不知道。因为我经常在工作中遇到：我在同事电脑上解决问题，或在会议上演示代码示例时，使用了一些 VS “骚”操作，他们会好奇地问：你是怎么做到的？有时候你知道一些别人不知道的小技巧便可以让你显得更专业。 PS：本文所有示例演示均基于 Visual Studio 2019 v16.7.4 版本。 扩展&#x2F;缩小选区通过双击选中整个单词，这个操">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【VS】几个超级实用但很少人知道的技巧">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/10/02/%E3%80%90VS%E3%80%91%E5%87%A0%E4%B8%AA%E8%B6%85%E7%BA%A7%E5%AE%9E%E7%94%A8%E4%BD%86%E5%BE%88%E5%B0%91%E4%BA%BA%E7%9F%A5%E9%81%93%E7%9A%84%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="大家好，今天分享一些实用的 VS 技巧，而这些技巧我发现很多人都不知道。因为我经常在工作中遇到：我在同事电脑上解决问题，或在会议上演示代码示例时，使用了一些 VS “骚”操作，他们会好奇地问：你是怎么做到的？有时候你知道一些别人不知道的小技巧便可以让你显得更专业。 PS：本文所有示例演示均基于 Visual Studio 2019 v16.7.4 版本。 扩展&#x2F;缩小选区通过双击选中整个单词，这个操">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-814e7c9dcd5238d1c85ad6aa55f85668_b.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-867b4832325c2be15f02fc7a2a926fae_b.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-ffe161b22ceab1b3e73bc36d7ec50ea2_b.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-4035b6131a1a83be20c9cbe8be1671bd_b.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-811661d856694a4fbd8b7b7fa1ece022_b.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-8e2b8ed3bac36dc15e478151323d6e2c_b.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-805ebc6c9f65c554edc48ca05f059194_b.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-0f074a9ddbafd34ddd4f3ee0b9b709c2_b.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-6fab67588014ad73493231a57299e8b6_b.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-50328bb28a2212166ff3ff5f75d19a4d_b.gif">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-d0df521d90547de80855dea57a8f4870_720w.jpg">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-88d2d64b2eb7aaf514e3635fef2a28b3_720w.jpg">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-0fdf49a6380dedbc8f0503da653e46c7_720w.jpg">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-d92ee4233427f9d3931f6ec0570adaf6_720w.jpg">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/v2-85082722f96925a34448772007fdc4d8_b.gif">
+<meta property="article:published_time" content="2020-10-02T09:51:22.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.081Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/v2-814e7c9dcd5238d1c85ad6aa55f85668_b.gif">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/10/02/%E3%80%90VS%E3%80%91%E5%87%A0%E4%B8%AA%E8%B6%85%E7%BA%A7%E5%AE%9E%E7%94%A8%E4%BD%86%E5%BE%88%E5%B0%91%E4%BA%BA%E7%9F%A5%E9%81%93%E7%9A%84%E6%8A%80%E5%B7%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【VS】几个超级实用但很少人知道的技巧 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/10/02/%E3%80%90VS%E3%80%91%E5%87%A0%E4%B8%AA%E8%B6%85%E7%BA%A7%E5%AE%9E%E7%94%A8%E4%BD%86%E5%BE%88%E5%B0%91%E4%BA%BA%E7%9F%A5%E9%81%93%E7%9A%84%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【VS】几个超级实用但很少人知道的技巧
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-02 17:51:22" itemprop="dateCreated datePublished" datetime="2020-10-02T17:51:22+08:00">2020-10-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">常用工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>大家好，今天分享一些实用的 VS 技巧，而这些技巧我发现很多人都不知道。因为我经常在工作中遇到：我在同事电脑上解决问题，或在会议上演示代码示例时，使用了一些 VS “骚”操作，他们会好奇地问：你是怎么做到的？有时候你知道一些别人不知道的小技巧便可以让你显得更专业。</p>
+<p>PS：本文所有示例演示均基于 Visual Studio 2019 v16.7.4 版本。</p>
+<h2 id="扩展-缩小选区"><a href="#扩展-缩小选区" class="headerlink" title="扩展/缩小选区"></a><strong>扩展/缩小选区</strong></h2><p>通过双击选中整个单词，这个操作大家应该都知道。但如何快速选择几个单词、或多个单词的字符串、或代码块呢？教大家一个快捷键，如何快速扩展选择代码区域。例如，当光标在一个字符串中时，使用下面的快捷键就可以选择整个字符串。</p>
+<p>按 <code>Alt</code> + <code>Shift</code> + <code>=</code> 扩展选区，按 <code>Alt</code> + <code>Shift</code> + <code>-</code> 缩小选区：</p>
+<p><img src="/images/v2-814e7c9dcd5238d1c85ad6aa55f85668_b.gif" alt=""></p>
+<p>你也可以使用 <code>Alt</code> + <code>Shift</code> + <code>]</code> 直接选中一个代码块。</p>
+<h2 id="切换窗口停靠"><a href="#切换窗口停靠" class="headerlink" title="切换窗口停靠"></a><strong>切换窗口停靠</strong></h2><p>我们知道VS的窗口布局可以非常灵活的拖动，想摆哪摆哪。我们一般把常用的视图窗口固定停靠在编辑器的左边、右边或下边。但有时候为了查看方便，你可能需要临时把窗口拖到另一个位置（比如中心位置）。完了以后你还需要再次把它停靠到原来的位置，这样拖动起来就会比较麻烦。有一种非常快速的方法可以将窗口停靠到它之前停靠的位置。</p>
+<p>按 <code>Ctrl</code> + 双击窗口标题：</p>
+<p><img src="/images/v2-867b4832325c2be15f02fc7a2a926fae_b.gif" alt=""></p>
+<h2 id="快速定位打开的文件"><a href="#快速定位打开的文件" class="headerlink" title="快速定位打开的文件"></a><strong>快速定位打开的文件</strong></h2><p>在 VS 中，你可以使用 <code>Ctrl</code> + <code>T</code> 打开 “Go To All” 搜索工具栏，通过搜索关键字轻松打开要找的文件。但是对于某些操作，比如重命名文件，你需要在解决方案资源管理器中找到该文件。</p>
+<p>使用 <code>Ctrl</code> + <code>[</code>, <code>S</code> 或使用下面的图标按钮可以快速定位到当前打开的文件：</p>
+<p><img src="/images/v2-ffe161b22ceab1b3e73bc36d7ec50ea2_b.gif" alt=""></p>
+<h2 id="多行编辑"><a href="#多行编辑" class="headerlink" title="多行编辑"></a><strong>多行编辑</strong></h2><p>Visual Studio 允许同时编辑多行，这对于将相同的更改应用于多行非常有用，例如同时修改多个属性的修饰符。下面有 4 个多行编辑代码的技巧。</p>
+<p>按住 <code>Alt</code> 键，使用鼠标拖选：</p>
+<p><img src="/images/v2-4035b6131a1a83be20c9cbe8be1671bd_b.gif" alt=""></p>
+<p>按住 <code>Alt</code> + <code>Shift</code> 键，再按上/下/左/右方向键选择：</p>
+<p><img src="/images/v2-811661d856694a4fbd8b7b7fa1ece022_b.gif" alt=""></p>
+<p>使用多个光标同时编辑。按住 <code>Ctrl</code> + <code>Alt</code> 键，点击或选择要插入或编辑的位置：</p>
+<p><img src="/images/v2-8e2b8ed3bac36dc15e478151323d6e2c_b.gif" alt=""></p>
+<p>匹配相同单词并编辑。先选择要编辑的单词或字符，再按一下 <code>Alt</code> + <code>Shift</code> + <code>;</code>，会自动匹配并选中所有相同的单词，然后开始编辑：</p>
+<p><img src="/images/v2-805ebc6c9f65c554edc48ca05f059194_b.gif" alt=""></p>
+<p>你也可以使用 <code>Alt</code> + <code>Shift</code> + <code>.</code> 只匹配选择下一个相同的单词。</p>
+<h2 id="使用剪贴板历史粘贴"><a href="#使用剪贴板历史粘贴" class="headerlink" title="使用剪贴板历史粘贴"></a><strong>使用剪贴板历史粘贴</strong></h2><p>复制粘贴是写代码很常见的操作。我们在 Ctrl + V 时默认是粘贴你最后一次复制的内容，但有时你想使用上一次复制的内容，你可能会重新再复制一下。剪贴板一次只能包含一个内容。Visual Studio 附带了一个剪贴板历史记录，默认它包含你复制到剪贴板的最后 20 项记录。</p>
+<p>通过使用 <code>Ctrl</code> + <code>Shift</code> + <code>V</code>，可以打开剪贴板的历史记录：</p>
+<p><img src="/images/v2-0f074a9ddbafd34ddd4f3ee0b9b709c2_b.gif" alt=""></p>
+<p>你可以将多个内容复制到剪贴板，并在稍后依次粘贴到相应的位置。</p>
+<h2 id="整行上下移动"><a href="#整行上下移动" class="headerlink" title="整行上下移动"></a><strong>整行上下移动</strong></h2><p>有时候我们需要调整一下代码行的位置，比如将代码行上移或下移几行。可以按住 <code>Alt</code>，然后使用上下方向键移动整行代码：</p>
+<p><img src="/images/v2-6fab67588014ad73493231a57299e8b6_b.gif" alt=""></p>
+<h2 id="直接拖动引用项目"><a href="#直接拖动引用项目" class="headerlink" title="直接拖动引用项目"></a><strong>直接拖动引用项目</strong></h2><p>在 VS 中的一个项目中引用另一个项目最方便的方法是直接把要引用的项目拖到该项目。</p>
+<p><img src="/images/v2-50328bb28a2212166ff3ff5f75d19a4d_b.gif" alt=""></p>
+<h2 id="设置-git-pull-快捷键"><a href="#设置-git-pull-快捷键" class="headerlink" title="设置 git pull 快捷键"></a><strong>设置 git pull 快捷键</strong></h2><p>最常用的 Git 操作就是 Pull 了，平时大家都是在 Team Explorer 窗口依次点击 Sync -&gt; Pull 来操作。但用快捷键更方便，可以在 Tools -&gt; Options -&gt; Keyboard 中为 Git Pull 设置一个快捷键，比如设置为 <code>CTRL + SHIFT + P</code>。</p>
+<p><img src="/images/v2-d0df521d90547de80855dea57a8f4870_720w.jpg" alt=""></p>
+<h2 id="打开命令行窗口"><a href="#打开命令行窗口" class="headerlink" title="打开命令行窗口"></a><strong>打开命令行窗口</strong></h2><p>我经常需要在项目的根目录打开命令行窗口执行一些命令，比如 <code>dotnet ef</code> 相关的命令。在 VS 2019 之前，每次要打开命令行窗口并定位到项目的根目录是相当的麻烦。好在 VS 2019 终于内置了命令行窗口，通过快捷键 <code>Ctrl + `</code> 打开，或者点击 View -&gt; Teminal 打开。打开后默认定位到项目的根目录，还可以创建多个 Tab。</p>
+<p><img src="/images/v2-88d2d64b2eb7aaf514e3635fef2a28b3_720w.jpg" alt=""></p>
+<h2 id="设置私有字段使用下划线前缀"><a href="#设置私有字段使用下划线前缀" class="headerlink" title="设置私有字段使用下划线前缀"></a><strong>设置私有字段使用下划线前缀</strong></h2><p>默认情况下，VS 智能补全对类的私有字段使用的是 camelCase 命名风格，但有很多人更习惯使用 _camelCase 风格对私有字段命名，类的私有字段前面加 <code>_</code> 前缀有助于和本地变量进行区分。我们可以通过设置来改变默认的 camelCase 命名行为，具体设置步骤如下。</p>
+<p>依次点击：Tools -&gt; Options -&gt; Text Editor -&gt; C# -&gt; Code Style -&gt; Naming -&gt; Manage naming styles。</p>
+<p><img src="/images/v2-0fdf49a6380dedbc8f0503da653e46c7_720w.jpg" alt=""></p>
+<p>上面的添加 Naming Style 步骤（第 4 步）很重要，为了让你们看清楚些，请参照如下单独放大的截图：</p>
+<p><img src="/images/v2-d92ee4233427f9d3931f6ec0570adaf6_720w.jpg" alt=""></p>
+<p>好了，来试试效果：</p>
+<p><img src="/images/v2-85082722f96925a34448772007fdc4d8_b.gif" alt=""></p>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a><strong>其它</strong></h2><p>本文只罗列了几个很多人都不知道的 VS 实用技巧，当然还有很多大多数人都知道的技巧，比如 Ctrl + D 复制当前行、Ctrl + X 剪切/删除当前行、Shift + Enter 新启一行等等，在这里就不一一罗列了。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/10/02/%E3%80%90VS%E3%80%91%E5%87%A0%E4%B8%AA%E8%B6%85%E7%BA%A7%E5%AE%9E%E7%94%A8%E4%BD%86%E5%BE%88%E5%B0%91%E4%BA%BA%E7%9F%A5%E9%81%93%E7%9A%84%E6%8A%80%E5%B7%A7/" title="【VS】几个超级实用但很少人知道的技巧">http://blog.bfsdfs.com/2020/10/02/【VS】几个超级实用但很少人知道的技巧/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/27/%E3%80%90CSharp%E3%80%91%E6%9E%9A%E4%B8%BE%E9%AB%98%E7%BA%A7%E6%88%98%E6%9C%AF/" rel="prev" title="【CSharp】枚举高级战术">
+      <i class="fa fa-chevron-left"></i> 【CSharp】枚举高级战术
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/16/%E3%80%90Docker%E3%80%91%E5%A6%82%E4%BD%95%E5%A4%8D%E7%8E%B0%E6%9F%A5%E7%9C%8BRun%E5%8F%82%E6%95%B0%E5%91%BD%E4%BB%A4/" rel="next" title="【Docker】如何复现查看Run参数命令">
+      【Docker】如何复现查看Run参数命令 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%B1%95-%E7%BC%A9%E5%B0%8F%E9%80%89%E5%8C%BA"><span class="nav-number">1.</span> <span class="nav-text">扩展&#x2F;缩小选区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%87%E6%8D%A2%E7%AA%97%E5%8F%A3%E5%81%9C%E9%9D%A0"><span class="nav-number">2.</span> <span class="nav-text">切换窗口停靠</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%AE%9A%E4%BD%8D%E6%89%93%E5%BC%80%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">快速定位打开的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E8%A1%8C%E7%BC%96%E8%BE%91"><span class="nav-number">4.</span> <span class="nav-text">多行编辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%89%AA%E8%B4%B4%E6%9D%BF%E5%8E%86%E5%8F%B2%E7%B2%98%E8%B4%B4"><span class="nav-number">5.</span> <span class="nav-text">使用剪贴板历史粘贴</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E8%A1%8C%E4%B8%8A%E4%B8%8B%E7%A7%BB%E5%8A%A8"><span class="nav-number">6.</span> <span class="nav-text">整行上下移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E6%8B%96%E5%8A%A8%E5%BC%95%E7%94%A8%E9%A1%B9%E7%9B%AE"><span class="nav-number">7.</span> <span class="nav-text">直接拖动引用项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-git-pull-%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">8.</span> <span class="nav-text">设置 git pull 快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3"><span class="nav-number">9.</span> <span class="nav-text">打开命令行窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%A7%81%E6%9C%89%E5%AD%97%E6%AE%B5%E4%BD%BF%E7%94%A8%E4%B8%8B%E5%88%92%E7%BA%BF%E5%89%8D%E7%BC%80"><span class="nav-number">10.</span> <span class="nav-text">设置私有字段使用下划线前缀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E5%AE%83"><span class="nav-number">11.</span> <span class="nav-text">其它</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : 'a3ec3640d3560974d4435e83516e518a',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

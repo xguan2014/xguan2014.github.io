@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/20/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/20/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/04/16/%E3%80%90.Net%20Core%E3%80%91ASP.NET%20Core%203.x-gRPC%E5%B0%8F%E4%BE%8B%E5%AD%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/16/%E3%80%90.Net%20Core%E3%80%91ASP.NET%20Core%203.x-gRPC%E5%B0%8F%E4%BE%8B%E5%AD%90/" class="post-title-link" itemprop="url">【.Net Core】ASP.NET Core 3.x-gRPC小例子</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-16 21:08:36" itemprop="dateCreated datePublished" datetime="2020-04-16T21:08:36+08:00">2020-04-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>创建两个Web项目，Grpc.Demo.Client和Grpc.Demo.Server,项目结构如图：</p>
+<p><img src="/images/grpc-8.png" alt=""></p>
+<p>Protos/greet.proto代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line"></span><br><span class="line">option csharp_namespace = &quot;Grpc.Demo.Server&quot;;</span><br><span class="line"></span><br><span class="line">package greet;</span><br><span class="line"></span><br><span class="line">// The greeting service definition.</span><br><span class="line">service GreetService &#123;</span><br><span class="line">  rpc SayHello (HelloRequest) returns (HelloResponse);</span><br><span class="line">  rpc GetByNo (GetByNoRequest) returns (EmployeeResponse);</span><br><span class="line">  rpc GetAll (GetAllRequest) returns (stream EmployeeResponse);</span><br><span class="line">  rpc AddPhoto (stream AddPhotoRequest) returns (AddPhotoResponse);</span><br><span class="line">  rpc Save (EmployeeRequest) returns (EmployeeResponse);</span><br><span class="line">  rpc SaveAll (stream EmployeeRequest) returns (stream EmployeeResponse);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message HelloRequest &#123;</span><br><span class="line">  string name = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message HelloResponse &#123;  </span><br><span class="line">  string message = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message Employee &#123;</span><br><span class="line">    int32 id = 1;</span><br><span class="line">    int32 no = 2;</span><br><span class="line">    string firstName = 3;</span><br><span class="line">    string lastName = 4;</span><br><span class="line">    float salary = 5;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message GetByNoRequest&#123;</span><br><span class="line">    int32 no = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message EmployeeResponse&#123;</span><br><span class="line">    Employee employee = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message GetAllRequest &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message AddPhotoRequest &#123;</span><br><span class="line">    bytes data = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message AddPhotoResponse &#123;</span><br><span class="line">    bool isOk = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message EmployeeRequest &#123;</span><br><span class="line">    Employee employee = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>MyGreetService.cs 代码：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Grpc.Core;</span><br><span class="line"><span class="keyword">using</span> Microsoft.Extensions.Logging;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.IO;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Grpc.Demo.Server.Service</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyGreetService</span> : <span class="title">GreetService.GreetServiceBase</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> ILogger&lt;MyGreetService&gt; _logger;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">MyGreetService</span>(<span class="params">ILogger&lt;MyGreetService&gt; logger</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _logger = logger;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Task&lt;HelloResponse&gt; <span class="title">SayHello</span>(<span class="params">HelloRequest request, ServerCallContext context</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> Task.FromResult(<span class="keyword">new</span> HelloResponse</span><br><span class="line">            &#123;</span><br><span class="line">                Message = <span class="string">&quot;Hello &quot;</span> + request.Name + Guid.NewGuid().ToString()</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Task&lt;EmployeeResponse&gt; <span class="title">GetByNo</span>(<span class="params">GetByNoRequest request, ServerCallContext context</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> Task.FromResult(<span class="keyword">new</span> EmployeeResponse</span><br><span class="line">            &#123;</span><br><span class="line">                Employee = <span class="keyword">new</span> Employee()</span><br><span class="line">                &#123;</span><br><span class="line">                    Id = <span class="number">123</span>,</span><br><span class="line">                    No = <span class="number">123456</span>,</span><br><span class="line">                    FirstName = Guid.NewGuid().ToString(),</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">async</span> Task <span class="title">GetAll</span>(<span class="params">GetAllRequest request, IServerStreamWriter&lt;EmployeeResponse&gt; responseStream, ServerCallContext context</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">await</span> responseStream.WriteAsync(<span class="keyword">new</span> EmployeeResponse()</span><br><span class="line">                &#123;</span><br><span class="line">                    Employee = <span class="keyword">new</span> Employee()</span><br><span class="line">                    &#123;</span><br><span class="line">                        No = i,</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">async</span> Task&lt;AddPhotoResponse&gt; <span class="title">AddPhoto</span>(<span class="params">IAsyncStreamReader&lt;AddPhotoRequest&gt; requestStream, ServerCallContext context</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> data = <span class="keyword">new</span> List&lt;<span class="built_in">byte</span>&gt;();</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">await</span> requestStream.MoveNext())</span><br><span class="line">            &#123;</span><br><span class="line">                data.AddRange(requestStream.Current.Data);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">using</span> MemoryStream memoryStream = <span class="keyword">new</span> MemoryStream(data.ToArray());</span><br><span class="line"></span><br><span class="line">            <span class="keyword">using</span> FileStream fileStream = <span class="keyword">new</span> FileStream(<span class="string">&quot;test.png&quot;</span>, FileMode.OpenOrCreate);</span><br><span class="line">            memoryStream.WriteTo(fileStream);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> AddPhotoResponse()</span><br><span class="line">            &#123;</span><br><span class="line">                IsOk = <span class="literal">true</span></span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">async</span> Task&lt;EmployeeResponse&gt; <span class="title">Save</span>(<span class="params">EmployeeRequest request, ServerCallContext context</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> employee = request.Employee;</span><br><span class="line">            employee.FirstName = employee.FirstName + <span class="string">&quot;1&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> EmployeeResponse()</span><br><span class="line">            &#123;</span><br><span class="line">                Employee = employee</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">async</span> Task <span class="title">SaveAll</span>(<span class="params">IAsyncStreamReader&lt;EmployeeRequest&gt; requestStream,</span></span></span><br><span class="line"><span class="params"><span class="function">            IServerStreamWriter&lt;EmployeeResponse&gt; responseStream, ServerCallContext context</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> employees = <span class="keyword">new</span> List&lt;Employee&gt;() &#123;</span><br><span class="line">            <span class="keyword">new</span> Employee()&#123;Id =<span class="number">1</span>&#125;</span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">await</span> requestStream.MoveNext())</span><br><span class="line">            &#123;</span><br><span class="line">                employees.Add(requestStream.Current.Employee);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> employee <span class="keyword">in</span> employees)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">await</span> responseStream.WriteAsync(<span class="keyword">new</span> EmployeeResponse()</span><br><span class="line">                &#123;</span><br><span class="line">                    Employee = employee</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>服务端Startup.cs 代码：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"><span class="keyword">using</span> Grpc.Demo.Server.Service;</span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.Builder;</span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.Hosting;</span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.HttpsPolicy;</span><br><span class="line"><span class="keyword">using</span> Microsoft.Extensions.Configuration;</span><br><span class="line"><span class="keyword">using</span> Microsoft.Extensions.DependencyInjection;</span><br><span class="line"><span class="keyword">using</span> Microsoft.Extensions.Hosting;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Grpc.Demo.Server</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Startup</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Startup</span>(<span class="params">IConfiguration configuration</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Configuration = configuration;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> IConfiguration Configuration &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConfigureServices</span>(<span class="params">IServiceCollection services</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//添加grpc</span></span><br><span class="line">            services.AddGrpc();</span><br><span class="line"></span><br><span class="line">            services.AddControllersWithViews();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Configure</span>(<span class="params">IApplicationBuilder app, IWebHostEnvironment env</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">            &#123;</span><br><span class="line">                app.UseDeveloperExceptionPage();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                app.UseExceptionHandler(<span class="string">&quot;/Home/Error&quot;</span>);</span><br><span class="line">                app.UseHsts();</span><br><span class="line">            &#125;</span><br><span class="line">            app.UseHttpsRedirection();</span><br><span class="line">            app.UseStaticFiles();</span><br><span class="line"></span><br><span class="line">            app.UseRouting();</span><br><span class="line"></span><br><span class="line">            app.UseAuthorization();</span><br><span class="line"></span><br><span class="line">            app.UseEndpoints(endpoints =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//注册服务</span></span><br><span class="line">                endpoints.MapGrpcService&lt;MyGreetService&gt;();</span><br><span class="line"></span><br><span class="line">                endpoints.MapControllerRoute(</span><br><span class="line">                    name: <span class="string">&quot;default&quot;</span>,</span><br><span class="line">                    pattern: <span class="string">&quot;&#123;controller=Home&#125;/&#123;action=Index&#125;/&#123;id?&#125;&quot;</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端HomeController.cs,代码：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Diagnostics;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.Mvc;</span><br><span class="line"><span class="keyword">using</span> Microsoft.Extensions.Logging;</span><br><span class="line"><span class="keyword">using</span> Grpc.Demo.Client.Models;</span><br><span class="line"><span class="keyword">using</span> Grpc.Net.Client;</span><br><span class="line"><span class="keyword">using</span> Grpc.Core;</span><br><span class="line"><span class="keyword">using</span> System.IO;</span><br><span class="line"><span class="keyword">using</span> Google.Protobuf;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Grpc.Demo.Client.Controllers</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">HomeController</span> : <span class="title">Controller</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> ILogger&lt;HomeController&gt; _logger;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">HomeController</span>(<span class="params">ILogger&lt;HomeController&gt; logger</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _logger = logger;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;IActionResult&gt; <span class="title">Index</span>(<span class="params"><span class="built_in">int</span> id</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> channel = GrpcChannel.ForAddress(<span class="string">&quot;https://localhost:5001&quot;</span>);</span><br><span class="line">            <span class="keyword">var</span> client = <span class="keyword">new</span> GreetService.GreetServiceClient(channel);</span><br><span class="line">            <span class="built_in">string</span> msg = <span class="built_in">string</span>.Empty;</span><br><span class="line">            <span class="keyword">switch</span> (id)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                    msg = <span class="keyword">await</span> SayHelloAsync(client);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                    msg = <span class="keyword">await</span> GetByNoAsync(client);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                    msg = <span class="keyword">await</span> GetAllAsync(client);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">                    msg = <span class="keyword">await</span> AddPhotoAsync(client);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">                    msg = <span class="keyword">await</span> SaveAsync(client);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">                    msg = <span class="keyword">await</span> SaveAllAsync(client);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                <span class="literal">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            ViewData[<span class="string">&quot;Message&quot;</span>] = msg;</span><br><span class="line">            <span class="keyword">return</span> View();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">async</span> Task&lt;<span class="built_in">string</span>&gt; <span class="title">SaveAllAsync</span>(<span class="params">GreetService.GreetServiceClient client</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> employees = <span class="keyword">new</span> List&lt;Employee&gt;()</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">new</span> Employee()&#123;Id=<span class="number">2</span>, FirstName =<span class="string">&quot;zhangsan&quot;</span>&#125;,</span><br><span class="line">                <span class="keyword">new</span> Employee()&#123;Id=<span class="number">3</span>, FirstName =<span class="string">&quot;lisi&quot;</span>&#125;,</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> cell = client.SaveAll();</span><br><span class="line">            <span class="keyword">var</span> requestStream = cell.RequestStream;</span><br><span class="line">            <span class="keyword">var</span> responseStream = cell.ResponseStream;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> result = <span class="keyword">new</span> List&lt;Employee&gt;();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> responseTask = Task.Run(<span class="keyword">async</span> () =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="keyword">await</span> responseStream.MoveNext())</span><br><span class="line">                &#123;</span><br><span class="line">                    result.Add(responseStream.Current.Employee);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> employee <span class="keyword">in</span> employees)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">await</span> requestStream.WriteAsync(<span class="keyword">new</span> EmployeeRequest()</span><br><span class="line">                &#123;</span><br><span class="line">                    Employee = employee</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">await</span> requestStream.CompleteAsync();</span><br><span class="line">            <span class="keyword">await</span> responseTask;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">string</span>.Join(<span class="string">&quot;,&quot;</span>, result.Select(p =&gt; p.Id).ToList());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">async</span> Task&lt;<span class="built_in">string</span>&gt; <span class="title">SaveAsync</span>(<span class="params">GreetService.GreetServiceClient client</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> cell = <span class="keyword">await</span> client.SaveAsync(<span class="keyword">new</span> EmployeeRequest()</span><br><span class="line">            &#123;</span><br><span class="line">                Employee = <span class="keyword">new</span> Employee</span><br><span class="line">                &#123;</span><br><span class="line">                    FirstName = <span class="string">&quot;zhangsan&quot;</span>,</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">return</span> cell.Employee.FirstName;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">async</span> Task&lt;<span class="built_in">string</span>&gt; <span class="title">AddPhotoAsync</span>(<span class="params">GreetService.GreetServiceClient client</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            FileStream fs = System.IO.File.OpenRead(<span class="string">&quot;test.png&quot;</span>);</span><br><span class="line">            <span class="keyword">using</span> <span class="keyword">var</span> cell = client.AddPhoto();</span><br><span class="line">            <span class="keyword">var</span> stream = cell.RequestStream;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">byte</span>[] buffer = <span class="keyword">new</span> <span class="built_in">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                <span class="built_in">int</span> numRead = <span class="keyword">await</span> fs.ReadAsync(buffer, <span class="number">0</span>, buffer.Length);</span><br><span class="line">                <span class="keyword">if</span> (numRead == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (numRead &lt; buffer.Length)</span><br><span class="line">                &#123;</span><br><span class="line">                    Array.Resize(<span class="keyword">ref</span> buffer, numRead);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">await</span> stream.WriteAsync(<span class="keyword">new</span> AddPhotoRequest()</span><br><span class="line">                &#123;</span><br><span class="line">                    Data = ByteString.CopyFrom(buffer)</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">await</span> stream.CompleteAsync();</span><br><span class="line">            <span class="keyword">var</span> response = <span class="keyword">await</span> cell.ResponseAsync;</span><br><span class="line">            <span class="keyword">return</span> response.IsOk.ToString();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">async</span> Task&lt;<span class="built_in">string</span>&gt; <span class="title">GetAllAsync</span>(<span class="params">GreetService.GreetServiceClient client</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">using</span> <span class="keyword">var</span> response = client.GetAll(<span class="keyword">new</span> GetAllRequest());</span><br><span class="line">            <span class="keyword">var</span> responseStream = response.ResponseStream;</span><br><span class="line">            List&lt;Employee&gt; list = <span class="keyword">new</span> List&lt;Employee&gt;();</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">await</span> responseStream.MoveNext())</span><br><span class="line">            &#123;</span><br><span class="line">                list.Add(responseStream.Current.Employee);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">string</span>.Join(<span class="string">&quot;,&quot;</span>, list.Select(p =&gt; p.Id).ToList());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">async</span> Task&lt;<span class="built_in">string</span>&gt; <span class="title">GetByNoAsync</span>(<span class="params">GreetService.GreetServiceClient client</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> response = <span class="keyword">await</span> client.GetByNoAsync(<span class="keyword">new</span> GetByNoRequest()</span><br><span class="line">            &#123;</span><br><span class="line">                No = <span class="number">1</span></span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">return</span> response.Employee.LastName;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">async</span> Task&lt;<span class="built_in">string</span>&gt; <span class="title">SayHelloAsync</span>(<span class="params">GreetService.GreetServiceClient client</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> response = <span class="keyword">await</span> client.SayHelloAsync(<span class="keyword">new</span> HelloRequest &#123; Name = <span class="string">&quot;World&quot;</span> &#125;);</span><br><span class="line">            <span class="keyword">return</span> response.Message;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主要代码如上!</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/04/16/%E3%80%90.Net%20Core%E3%80%91ASP.NET%20Core%203.x-gRPC%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/16/%E3%80%90.Net%20Core%E3%80%91ASP.NET%20Core%203.x-gRPC%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">【.Net Core】ASP.NET Core 3.x-gRPC简介</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-16 20:56:28" itemprop="dateCreated datePublished" datetime="2020-04-16T20:56:28+08:00">2020-04-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cgzl/p/12354204.html">https://www.cnblogs.com/cgzl/p/12354204.html</a></p>
+</blockquote>
+<h1 id="gRPC的结构"><a href="#gRPC的结构" class="headerlink" title="gRPC的结构"></a>gRPC的结构</h1><p><img src="/images/grpc-1.png" alt=""></p>
+<p>在我们搭建gRPC通信系统之前，首先需要知道gRPC的结构组成。</p>
+<p>首先，需要一个server（服务器），它用来接收和处理请求，然后返回响应。</p>
+<p>既然有server，那么肯定有client（客户端），client的作用就是向server发送请求，具体就是生成一个请求，然后把它发送到server，然后等待server的响应。</p>
+<p>但是它们不必是一对一的关系，在整个系统里，可以有多个server，也可以有多个client。根据实际情况，一个应用程序可能是gRPC的server，也可能是gRPC的client，也可能两者都是。</p>
+<p>gRPC里面server和client并不是直接通信的，gRPC可以使用protocol buffer定义的消息来生成代码。</p>
+<p>当client发送请求的时候，它会和server端生成的代码进行交互；同样在client端也有生成的代码，client端生成的代码负责提供一个隧道，这个隧道被用来吧client端生成的消息发送给server。</p>
+<p>因为server和client两端都有生成的代码，所以如何序列化和反序列化，以及如何进行来回的传输等细节，我们都可以不了解。</p>
+<p>但是为了让server和client端来回传输通信，我们还需要一个协议，传输协议就负责把消息来回的传递。所以它并不需要懂得这些消息的内容，生成的代码会负责理解这些消息，但是传输协议需要负责把消息从一端传递到另一端。</p>
+<p>目前，好像gRPC只能使用Protocol Buffer这一个传输协议。但是gRPC在设计的时候，它的传输层是可插拔的，所以如果我们想把Protocol Buffer使用某种JSON或XML的协议替换掉，是可行的。如果你有特定的需求使用Protocol Buffer无法实现的话，那么你也可以创建自己的传输协议。</p>
+<h1 id="设计步骤"><a href="#设计步骤" class="headerlink" title="设计步骤"></a>设计步骤</h1><p>总共应该分三步。设计原则是从里到外（看上面结构图）。</p>
+<p><img src="/images/grpc-2.png" alt=""></p>
+<p>所以：</p>
+<ol>
+<li><p>首先我们应该定义消息（message）。这些消息使用Protocol Buffer来进行定义</p>
+</li>
+<li><p>定义完消息，我们使用Proto-c编译器来生成server和client端的代码，它们会负责把消息在两端之间来回传递</p>
+</li>
+<li><p>现在，我们就可以写client和server了。</p>
+</li>
+</ol>
+<h1 id="gRPC-生命周期"><a href="#gRPC-生命周期" class="headerlink" title="gRPC 生命周期"></a>gRPC 生命周期</h1><p><img src="/images/grpc-3.png" alt=""></p>
+<p>gRPC或者RPC的生命周期可以参考上图。</p>
+<p>首先，需要创建一个隧道，该隧道会包装实际用来传输消息的线路协议。</p>
+<p>例如如果我们的server和client之间使用HTTP/2协议，那么这个隧道就会包装一个server和client之间的TCP连接。</p>
+<p>这些隧道的优点是，它们只需要创建一次。一旦隧道创建了，你就可以在你应用程序的生命周期之内持续的使该隧道来回发送消息。</p>
+<p>隧道建立好之后，就该创建client了。client也是可以复用的，不必没有个rpc调用都重建client。但是在调用之前，我们需要把client建立好。</p>
+<p>现在client进入隧道，这个client通常是提供给我们的，我们不需要自己实现任何代码。使用Proto-c编译消息定义生成的代码将会给我们提供client需要的一切。我们只需要提供隧道即可。</p>
+<p>client创建好之后，client就准备好给server发送请求了。这一步是必须的，gRPC无法让server端初始化请求发送给client端，请求都是client端初始化的。</p>
+<p>但是client初始化请求之后，server端是可以发送多个响应回来的，这个以后再说。这时，client可以随着请求发送一些metadata（元数据），这些metadata是关于请求的，但不是请求对象本身。</p>
+<p>请求被发送以后呢，server可以（但不是必须）把metadata返回。所以，你实际上可以在client和server之间进行这种“预约对话”。client可以发送一些metadata，然后server可以把一些metadata发送回来，这些都是发生在server开始处理请求之前。</p>
+<p>生命周期的最后一部分就是发送和接收消息。就以简单的情况为例，现在server就应该把响应发送回去了，因为client已经发送了请求，所以响应就是要返回。</p>
+<p>注意，关于metadata需要注意的是，gRPC内置的身份认证系统是用来做client和server的身份认证的。</p>
+<p>但是这个metadata也为你提供了检查实际用户身份的机制。所以，如果你需要认证或者授权实际用户，就需要在RPC请求这个级别来实现。也就是在这里。</p>
+<p>如果是client和server的身份认证，以后再写。。</p>
+<h1 id="身份认证"><a href="#身份认证" class="headerlink" title="身份认证"></a>身份认证</h1><p>这里指的不是用户的身份认证，而是指多个server和client之间，它们如何识别出来谁是谁，并且能安全的进行消息传输。</p>
+<p>在身份认证这方面，gRPC一共有4种身份认证的 机制：</p>
+<ul>
+<li>不采取任何措施的连接，也就是不安全的连接。</li>
+<li>TLS/SSL 连接。</li>
+<li>基于 Google Token 的身份认证。</li>
+<li>自定义的身份认证提供商。</li>
+</ul>
+<p>针对第一种不安全的连接，client和server默认将会采用HTTP/1，没有其他特殊的安全措施，也就是使用明文在网络上传输。所以尽量别用不安全连接，容易被截获。 但是不安全连接却不需要其他任何特殊的处理，不需要CA证书等等，所以适合于快速建立gRPC的情况，后期再添加其他安全措施也行。</p>
+<p>如果采用了TLS/SSL，那么想截获传输的消息就比较困难了，而且默认也是使用HTTP/2。HTTP/2的很多实现根本就不支持不安全连接，所以gRPC也不会尝试使用这些不安全连接，但是如果gRPC发现它是在一个安全的连接上面，它就会尝试把这些连接升级到HTTP/2，这时你的消息的传输速度就会变得更快，因为HTTP/2协议的效率更高。</p>
+<p>但是需要注意的是，client会对这些证书进行验证，所以不能因为这是一个安全连接，那么就啥也不用干。 client会去检查证书的授权来确保证书的真实性。所以如果你使用的是生成的证书，那么你还需要在client端做一些额外的工作来确保client能够识别出这些server证书的合理性。</p>
+<p>当使用基于 Google Token 的身份认证方式时，需要注意的是它需要安全的连接，所以你可以把这种认证方式想象为在SSL/TLS上面的一层。所以你需要有安全连接，在此之上，你才能使用基于Google Token的认证方式。</p>
+<p>最后一个是自定义身份认证，你可能想要的是OAuth 2.0这种认证协议，但是gRPC并没有自带OAuth 2.0协议，但是还是有很多用于不同语言的插件可以支持OAuth 2.0的。所以如果有需要的话，可以去官网查一下。</p>
+<p>你也可以自己实现一个身份认证协议，但是自己实现的肯定是和语言有关的，而且gRPC也会尽量配合这种语言。所以不是让你的认证协议像gRPC这样工作，而是让你尽量用该语言惯用的方式。所以使用C#开发一个身份认证提供商和使用Go语言可能会不太一样。这块的详细信息需要去官网查阅。</p>
+<h1 id="消息传输类型"><a href="#消息传输类型" class="headerlink" title="消息传输类型"></a>消息传输类型</h1><p>gRPC的消息传输类型有4种。</p>
+<ul>
+<li>第一种是一元的消息，就是简单的请求--响应。</li>
+<li>第二种是server streaming（流），server会把数据streaming回给client。</li>
+<li>第三种是client streaming，也就是client会把数据streaming给server。</li>
+<li>最后是双向streaming。</li>
+</ul>
+<h2 id="一元消息"><a href="#一元消息" class="headerlink" title="一元消息"></a>一元消息</h2><p><img src="/images/grpc-4.png" alt=""></p>
+<p>这里有一个server，一个client。gRPC从client发送请求到server开始，然后server做一些处理，生成一个响应并返回。所以在这次远程调用里，有一个请求，一个响应。</p>
+<p>这个Protocol Buffer的消息格式大约是这样：</p>
+<p>rpc 方法名(请求类型) returns(响应类型)</p>
+<p>在这里，即使请求的时候不需要带有数据（参数），你仍然需要传递一个空的请求类型的对象。所以在gRPC里就必须有请求类型和响应类型，因为gRPC不知道你带没带数据，而且未来你有可能需要带上 数据。</p>
+<h2 id="Server-Streaming"><a href="#Server-Streaming" class="headerlink" title="Server Streaming"></a>Server Streaming</h2><p><img src="/images/grpc-5.png" alt=""></p>
+<p>Server Streaming的请求和响应管道还是一样的，但不同的是，虽然一切也是始于client到server的一个请求，然后server处理完之后或者当server正在生成响应的时候，server会一次发送一部分结果回来，也就是把响应sreaming回来。</p>
+<p>一个常见的用例就是流式视频。你发送一个请求，想要看某种类型的动作片，然后server会把视频数据的一部分缓冲流发送回来，这样client就不需要等到整个视频一次性返回再看，一次返回一块即可。</p>
+<p>当使用这种远程调用的时候，我们只需要在响应类型前面加一个关键字stream即可：</p>
+<p>rpc 方法名(请求类型) returns(stream 响应类型)</p>
+<p>这样的话，server就相当于会返回一个数组的响应，但是一次只返回一个。</p>
+<h2 id="Client-Streaming"><a href="#Client-Streaming" class="headerlink" title="Client Streaming"></a>Client Streaming</h2><p><img src="/images/grpc-6.png" alt=""></p>
+<p>与Server streaming对应的就是Client streaming。</p>
+<p>常见的用例就是上传文件，你可能需要缓冲，这样的话就会把请求分为多块来执行，一次包含一部分数据。需要注意的时候，在发送期间，server会一直等待，直到整个请求都被接收到。在接收到整个请求之前，server不会做任何处理动作。最后当server接收到所有数据并处理完之后，server会发送一个响应返回给client。</p>
+<p>不难猜，client streaming的格式是这样的：</p>
+<p>rpc 方法名(stream 请求类型) returns(响应类型)</p>
+<p>这个远程调用就相当于，一个请求数据的数组，一次发送一个元素，最后所有请求处理完成后返回单个响应。</p>
+<h2 id="双向Streaming"><a href="#双向Streaming" class="headerlink" title="双向Streaming"></a>双向Streaming</h2><p><img src="/images/grpc-7.png" alt=""></p>
+<p>最后一种就是双向streaming。在这种方式下，client会发送一个初始的请求，也许接下来还会发送几个请求，与此同时server就开始把响应发送回来了，这时client可以继续发送额外的请求。所以整个过程非常的异步，而且没有什么预定义的结构来规定请求和响应如何构造。所以你也可以想到，在你的server和client之间，肯定是需要异步处理的。</p>
+<p>双向streaming的格式如下：</p>
+<p>rpc 方法名(stream 请求类型) returns((stream 响应类型)</p>
+<p>这也就意味着一个数组的数据将会被发送，一个数组的数据也将会被响应，但都是一次只发送一个数据。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/04/15/%E3%80%90CSharp%E3%80%91DataAnnotations%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/15/%E3%80%90CSharp%E3%80%91DataAnnotations%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/" class="post-title-link" itemprop="url">【CSharp】DataAnnotations常用属性</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-15 21:21:53" itemprop="dateCreated datePublished" datetime="2020-04-15T21:21:53+08:00">2020-04-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xszjk/articles/5517638.html">https://www.cnblogs.com/xszjk/articles/5517638.html</a></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">using System.ComponentModel.DataAnnotations;</span><br><span class="line">@Html.ValidationSummary(&quot;Errors have occurred:&quot;)//显示视图总的验证信息</span><br></pre></td></tr></table></figure>
+<p>通过为模型类增加数据描述的DataAnnotations，我们可以容易地为应用程序增加验证的功能。DataAnnotations允许我们描述希望应用在模型属性上的验证规则，ASP.NET MVC将会使用这些DataAnnotations，然后将适当的验证信息返回给用户。</p>
+<p>常用的DataAnnotations</p>
+<h3 id="Required"><a href="#Required" class="headerlink" title="Required"></a>Required</h3><p>属性值必须非空或者不能只是空格，如果允许全空格可以</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Required(AllowEmptyStrings = true)`]</span><br></pre></td></tr></table></figure>
+
+<h3 id="DisplayName"><a href="#DisplayName" class="headerlink" title="DisplayName"></a>DisplayName</h3><p>显示名–定义表单字段的提示名称</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[DisplayName(&quot;名称&quot;)]</span><br></pre></td></tr></table></figure>
+
+<h3 id="StringLength"><a href="#StringLength" class="headerlink" title="StringLength"></a>StringLength</h3><p>字符串长度不能超过给定的最大长度，也可以指定最小长度：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[StringLength(10, MinimumLength=2)]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Range"><a href="#Range" class="headerlink" title="Range"></a>Range</h3><p>范围–数字的可输入范围</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Range(10, 20)]</span><br></pre></td></tr></table></figure>
+<p>属性值必须在指定的数值范围内，可以使用数值类型的最大最小值比如int.MinValue、int.MaxValue</p>
+<h3 id="Bind"><a href="#Bind" class="headerlink" title="Bind"></a>Bind</h3><p>绑定–列出在将请求参数绑定到模型的时候，包含和不包含的字段</p>
+<h3 id="ScaffoldColumn"><a href="#ScaffoldColumn" class="headerlink" title="ScaffoldColumn"></a>ScaffoldColumn</h3><p>支架列-在编辑表单的时候，需要隐藏起来的的字符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ScaffoldColumn(true|false)]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Compare"><a href="#Compare" class="headerlink" title="Compare"></a>Compare</h3><p>比较-与制定的字段值进行比较具体见代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Compare(&quot;MyOtherProperty&quot;)]</span><br></pre></td></tr></table></figure>
+<p>两个属性必须相同值，比如我们要求用户重复输入两次邮件地址时有用</p>
+<h3 id="RegularExpre-ssion"><a href="#RegularExpre-ssion" class="headerlink" title="RegularExpre ssion"></a>RegularExpre ssion</h3><p>正则表达式匹配</p>
+<p>字符串值必须匹配正则表达式，默认大小写敏感，可以使用(?i）修饰符关闭大小写敏感，比如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[RegularExpre ssion(&quot;(?i)mypattern&quot;)]</span><br></pre></td></tr></table></figure>
+
+<h3 id="DataType"><a href="#DataType" class="headerlink" title="DataType"></a>DataType</h3><p>在前端显示的文本框类型</p>
+<h3 id="Remote"><a href="#Remote" class="headerlink" title="Remote"></a>Remote</h3><p>服务端验证</p>
+<p><strong>客户端验证</strong></p>
+<p>任何平台都可以靠js来实现客户端验证，但是我这里探讨的是MVC的数据验证。那MVC的客户端数据验证有什么不同呢？在View里添加一行代码：（注意要添加在Form前）@Html.EnableClientValidation();</p>
+<p>注意点：这里，其实是这个函数把Model验证转换成了javascript代码，对！它只能转换Model验证，BLL验证无法转换，因为BLL验证涉及到复杂的代码，不可能全部转换成javascript吧？并且BLL验证很多还需要和数据库交互。那如果想把BLL验证也做成”客户端”验证怎么办？（只有可能用ajax实现无刷新验证，而不是真正的客户端验证）</p>
+<p>关于Model层数据验证的一些验证规则与相关验证属性标签小集</p>
+<p>（1）常规验证（必填字段、字符串长度、正则表达式验证、范围验证、数值、日期等）</p>
+<p>1.必填字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Required]</span><br><span class="line">public string FirstName &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.字段长度至多n位：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[StringLength(160)]</span><br><span class="line">public string FirstName &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+<p>要求至少n位：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[StringLength(160, MinimumLength=3)]</span><br><span class="line">public string FirstName &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.正则验证</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[RegularExpre ssion(@&quot;[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]&#123;2,4&#125;&quot;)]</span><br><span class="line">public string Email &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.范围</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Range(35,44, UIHint(&quot;IntSlider&quot;))]//左右托动块</span><br><span class="line">public int Age &#123;get;set;&#125;</span><br></pre></td></tr></table></figure>
+<p>小数的情况：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Range(typeof(decimal),&quot;0.00&quot;,&quot;49.99&quot;)]</span><br><span class="line">public decimal Price&#123;get;set;&#125;</span><br></pre></td></tr></table></figure>
+<p>5.服务端参与的验证</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Remote(&quot;CheckUserName&quot;, &quot;Account&quot;, ErrorMessage = &quot;该姓名已存在&quot;)]</span><br><span class="line">public string UserName &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+<p>Remote异步请求验证，在[HttpGet]时获取指定Controller里面的指定方法验证，次方法必须是[HttpGet]标记的，返回类型为Json类型的JavaScript对象。</p>
+<p>然后在AccountController里指定一个CheckUserName方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public JsonResult CheckUserName(string username)</span><br><span class="line">&#123; </span><br><span class="line">    var result = Membership.FindUsersByName(username).Count == 0;</span><br><span class="line">    return Json(result, JsonRequestBehavior.AllowGet);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>6.比较</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[RegularExpre ssion(@&quot;[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]&#123;2,4&#125;&quot;)]</span><br><span class="line">public string Email &#123; get; set; &#125;</span><br><span class="line">[Compare(&quot;Email&quot;)]</span><br><span class="line">public string EmailConfirm &#123; get; set; &#125;</span><br><span class="line">public string EmailConfirm &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>7.自定义错误消息</p>
+<p>正则：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[RegularExpre ssion(@&quot;[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]&#123;2,4&#125;&quot;,ErrorMessage=&quot;Emaildoesn’tlooklikeavalidemailaddress.&quot;)]</span><br><span class="line">publicstringEmail&#123;get;set;&#125;</span><br></pre></td></tr></table></figure>
+<p>具体示例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line">[DisplayName(&quot;分组名称&quot;)]</span><br><span class="line">[Required(ErrorMessage=&quot;请输入账号&quot;)]</span><br><span class="line">[StringLength(50,ErrorMessage=&quot;请勿输入超过50个字&quot;)]</span><br><span class="line">public string Name &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;排序字段&quot;)]</span><br><span class="line">[DataType(DataType.Password)]</span><br><span class="line">[Required(ErrorMessage=&quot;请输入排序字段&quot;)]</span><br><span class="line">[RegularExpre ssion(@&quot;^([d]+)$&quot;,ErrorMessage=&quot;请输入正确的Email.&quot;)]</span><br><span class="line">public string Sequence &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;备注&quot;)]</span><br><span class="line">[DataTyle(DataType.MultilineText)]//数据显示为多文本</span><br><span class="line">[Required(AllowEmptyStrings=true,ErrorMessage=&quot;请输入中文姓名&quot;)]</span><br><span class="line">[StringLength(50,ErrorMessage=&quot;请勿输入超过50个字&quot;)]</span><br><span class="line">public string Describe &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;账号&quot;)]</span><br><span class="line">[Required(ErrorMessage=&quot;请输入账号&quot;)]</span><br><span class="line">[StringLength(50,ErrorMessage=&quot;请勿输入超过50个字&quot;)]</span><br><span class="line">public string Account&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;密码&quot;)]</span><br><span class="line">[DataType(DataType.Password)]</span><br><span class="line">[Required(ErrorMessage=&quot;请输入密码&quot;)]</span><br><span class="line">[StringLength(50,ErrorMessage=&quot;请勿输入超过50个字&quot;)]</span><br><span class="line">public string Password&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[Required]</span><br><span class="line">[DataType(DataType.Password)]</span><br><span class="line">[Display(Name=&quot;Currentpassword&quot;)]</span><br><span class="line">public string OldPassword&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[Required]</span><br><span class="line">[StringLength(100,ErrorMessage=&quot;The&#123;0&#125;mustbeatleast&#123;2&#125;characterslong.&quot;,MinimumLength=6)]</span><br><span class="line">[DataType(DataType.Password)]</span><br><span class="line">[Display(Name=&quot;Newpassword&quot;)]</span><br><span class="line">public string NewPassword&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[Display(Name=&quot;确认密码&quot;)]</span><br><span class="line">[Compare(&quot;LogPassword&quot;,ErrorMessage=&quot;密码必须一致&quot;)]</span><br><span class="line">public virtual string LogPasswordConfirm&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[Display(Name=&quot;Rememberme?&quot;)]</span><br><span class="line">public bool RememberMe&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;姓名&quot;)]</span><br><span class="line">[Required(ErrorMessage=&quot;请输入姓名&quot;)]</span><br><span class="line">[StringLength(50,ErrorMessage=&quot;请勿输入超过50个字&quot;)]</span><br><span class="line">public string ChName&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;昵称&quot;)]</span><br><span class="line">[Required(ErrorMessage=&quot;请输入昵称&quot;)]</span><br><span class="line">[StringLength(50,ErrorMessage=&quot;请勿输入超过50个字&quot;)]</span><br><span class="line">public string NickName&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[Display(Name=&quot;出生日期&quot;)]</span><br><span class="line">[Range(typeof(DateTime),&quot;2011-12-31&quot;,&quot;1950-1-1&quot;,ErrorMessage=&quot;&#123;0&#125;的范围是&#123;1&#125;到&#123;2&#125;&quot;)]</span><br><span class="line">[DisplayFormat(DataFormatString = &quot;&#123;0:yyyy-MM-dd&#125;&quot;, ApplyFormatInEditMode = true)]**//显示格式**</span><br><span class="line">public virtual DateTime? Birthday&#123;get;set;&#125;//表示值可为Null</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;年龄&quot;)]</span><br><span class="line">[Range(1,int.MaxValue,ErrorMessage=&quot;请输入大于等于1的数&quot;)]</span><br><span class="line">public int Age&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;Email&quot;)]</span><br><span class="line">[Required(ErrorMessage=&quot;请输入Email&quot;)]</span><br><span class="line">[StringLength(255,ErrorMessage=&quot;请勿输入超过255个字&quot;)]</span><br><span class="line">[RegularExpre ssion(@&quot;^([w-.]+)@(([[0-9]&#123;1,3&#125;.[0-9]&#123;1,3&#125;.[0-9]&#123;1,3&#125;.)|(([w-]+.)+))([a-zA-Z]&#123;2,4&#125;)$&quot;,ErrorMessage=&quot;请输入正确的Email.&quot;)]</span><br><span class="line">[DataType(DataType.EmailAddress)]</span><br><span class="line">public string Email&#123;get;set;&#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;电话号码&quot;)]</span><br><span class="line">[RegularExpre ssion(@&quot;^((0d&#123;2,5&#125;-)|(0d&#123;2,5&#125;))?d&#123;7,8&#125;(-d&#123;3,4&#125;)?$&quot;, ErrorMessage = &quot;电话格式有误。n有效格式为：n①本区7或8位号码[-3或4位分机号码,可选]n②(3~5位区号)7或8位号码[-3或4位分机号码,可选]n③3~5位区号-7或8位号码[-3或4位分机号码,可选]n示例：023-12345678;(023)1234567-1234&quot;)]</span><br><span class="line">public string Phone &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[Display(Name = &quot;身份证号码&quot;)]</span><br><span class="line">[RegularExpre ssion(@&quot;d&#123;17&#125;[d|X]|d&#123;15&#125;&quot;, ErrorMessage = &quot;&#123;0&#125;的格式不正确&quot;)]</span><br><span class="line">public virtual string IdentityNo &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;是否为管理员&quot;)]</span><br><span class="line">public bool IsAdmin &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;代表图示&quot;)]</span><br><span class="line">[Required(ErrorMessage = &quot;请选择代表图示&quot;)]</span><br><span class="line"></span><br><span class="line">[Range(1, 3, ErrorMessage = &quot;输入的值必须介于1到3之间&quot;)]</span><br><span class="line">public int AvatarIcon &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[Display(Name = &quot;逻辑删除标识&quot;)]</span><br><span class="line">public virtual int IsLogicDelete &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;验证码&quot;)]</span><br><span class="line">public string AuthCode &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;创建日期&quot;)]</span><br><span class="line">public DateTime CreateTime &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">[DisplayName(&quot;网址&quot;)]</span><br><span class="line">[RegularExpre ssion(@&quot;http(s)?://([w-]+.)+[w-]+(/[w- ./?%&amp;=]*)?&quot;, ErrorMessage = &quot;请输入合法的网址!示例：</span><br><span class="line">https://abc.a;http://www.abc.dd&quot;) ]</span><br><span class="line">public string Httpaddress &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>普通文本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Required(ErrorMessage=&quot;Your last name is required&quot;)]</span><br><span class="line">[StringLength(160, ErrorMessage=&quot;Your last name is too long&quot;)]</span><br><span class="line">public string LastName &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+<p>占位符：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Required(ErrorMessage=&quot;Your &#123;0&#125; is required.&quot;)]</span><br><span class="line">[StringLength(160, ErrorMessage=&quot;&#123;0&#125; is too long.&quot;)]</span><br><span class="line">public string LastName &#123; get; set; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>数据库约束验证</p>
+<p>如果不希望用户使用123456这样的过于简单的密码，可以使用check约束来实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE staffinfoes WITH NOCHECKADD CONSTRAINT chk_logPassword</span><br><span class="line">CHECK (logPassword NOT IN(&#x27;123&#x27;,&#x27;123123&#x27;,&#x27;123456&#x27;))</span><br></pre></td></tr></table></figure>
+<p>其中，staffinfoes是表名称，chk_logPassword是约束名称，logPassword是列名称</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/19/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/21/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

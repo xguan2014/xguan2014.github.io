@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/68/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/68/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/03/27/%E3%80%90.Net%E3%80%91%E5%AF%B9%E8%B1%A1%E6%98%A0%E5%B0%84%E7%BB%84%E4%BB%B6Tiny%20Mapper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/27/%E3%80%90.Net%E3%80%91%E5%AF%B9%E8%B1%A1%E6%98%A0%E5%B0%84%E7%BB%84%E4%BB%B6Tiny%20Mapper/" class="post-title-link" itemprop="url">【.Net】对象映射组件Tiny Mapper</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-27 22:08:03" itemprop="dateCreated datePublished" datetime="2018-03-27T22:08:03+08:00">2018-03-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>阅读目录</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_label0">1.Tiny Mapper基本介绍</a> </li>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_label1">2.Tiny Mapper 基本使用</a> </li>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_label2">3.Tiny Mapper 指定配置使用</a> </li>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_label3">4.Tiny Mapper复杂类型使用</a> </li>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_label4">5.资源</a> 好久没有写文章，工作甚忙，但每日还是关注.NET领域的开源项目。五一休息，放松了一下之后，今天就给大家介绍一个轻量级的对象映射工具Tiny Mapper：号称是.NET平台最快的对象映射组件。那就一起看看呢。</li>
+</ul>
+<p>.NET开源目录：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/Bolg_Category_For_DotNet_OpenSource.html">【目录】本博客其他.NET开源项目文章目录</a></p>
+<p>本文原文地址：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html">http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html</a> </p>
+<p>临时更新：感谢@ <a target="_blank" rel="noopener" href="http://www.cnblogs.com/guomingfeng/">郭明锋</a>的意见，为了避免新手误解，这里说明一下，Tiny Mapper的映射关系在Bind的时候，其实是将映射关系保存在一个静态的私有字典中，大家在使用的时候可以不需要每次都配置或者Bind。方法比较灵活，例如：你可以在实体类中封装一个方法，在方法内部进行映射关系的配置；你还可以将系统所有的配置映射关系放在一起，在使用前初始化一次就可以了。</p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_labelTop">回到目录</a></p>
+<h1 id="1-Tiny-Mapper基本介绍"><a href="#1-Tiny-Mapper基本介绍" class="headerlink" title="1.Tiny Mapper基本介绍"></a>1.Tiny Mapper基本介绍</h1><p>Tiny Mapper是一个.net平台开源的对象映射组件。说到.NET平台的对象映射，大名鼎鼎的可能就是AutoMapper。那先看看Tiny Mapper的特点</p>
+<h2 id="1-1-难以置信的快速"><a href="#1-1-难以置信的快速" class="headerlink" title="1.1 难以置信的快速"></a>1.1 难以置信的快速</h2><p>这是Tiny Mapper标榜最大的特点之一：快。那究竟有多快，我们看看官方的测试截图，由于时间紧张，我没有进行测试对比，有空试试。</p>
+<p><img src="/images/79603-20160502210205607-1198482293.png" alt=""></p>
+<h2 id="1-2-非常容易使用"><a href="#1-2-非常容易使用" class="headerlink" title="1.2 非常容易使用"></a>1.2 非常容易使用</h2><p>使用TinyMapper非常简单，它的设计简单，使用NuGet包，可以快速安装使用，DLL也才50K大小不到，所以非常轻量级。</p>
+<h2 id="1-3-开源"><a href="#1-3-开源" class="headerlink" title="1.3 开源"></a>1.3 开源</h2><p>TinyMapper是一个开源项目，所以你可以参与更新和自己修改代码。 </p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_labelTop">回到目录</a></p>
+<h1 id="2-Tiny-Mapper-基本使用"><a href="#2-Tiny-Mapper-基本使用" class="headerlink" title="2.Tiny Mapper 基本使用"></a>2.Tiny Mapper 基本使用</h1><p>首先，通过NuGet下载安装Tiny Mapper，如下图：</p>
+<p><img src="/images/79603-20160502210218716-1100143577.png" alt=""></p>
+<p>然后添加引用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">using Nelibur.ObjectMapper;</span><br><span class="line"></span><br><span class="line">using Nelibur.ObjectMapper.Bindings;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class Person</span><br><span class="line">&#123;</span><br><span class="line">    public String Id &#123; get; set; &#125;</span><br><span class="line">    public String Name &#123; get; set; &#125;</span><br><span class="line">    public Int32 Age &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class PersonDto</span><br><span class="line">&#123;</span><br><span class="line">    public String Id &#123; get; set; &#125;</span><br><span class="line">    public String Name &#123; get; set; &#125;</span><br><span class="line">    public Int32 Age &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来，我们准备2个要相互映射的类型，Person和PersonDto，结构分别如下：</p>
+<p>那我们在代码例如如何把其中一个类Person的对象映射为PersonDto呢？看看Tiny Mapper的使用，很简单就2行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;最简单的2个类型之间的映射&lt;/summary&gt;</span><br><span class="line">static void Test1()</span><br><span class="line">&#123;</span><br><span class="line">    TinyMapper.Bind&lt;Person,PersonDto&gt;();</span><br><span class="line">    //实例化一个Person对象</span><br><span class="line">    var person = new Person</span><br><span class="line">    &#123;</span><br><span class="line">        Id = Guid.NewGuid().ToString(),</span><br><span class="line">        Name = &quot;John&quot;,</span><br><span class="line">        Age = 22</span><br><span class="line">    &#125;;  </span><br><span class="line">    //映射</span><br><span class="line">    var personDto = TinyMapper.Map&lt;PersonDto&gt;(person);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行看看结果：</p>
+<h1 id="3-Tiny-Mapper-指定配置使用"><a href="#3-Tiny-Mapper-指定配置使用" class="headerlink" title="3.Tiny Mapper 指定配置使用"></a>3.Tiny Mapper 指定配置使用</h1><p>有时候对象的字段名称并不一样，而且可能要忽略某些字段，这个时候就要使用更加灵活的配置了。</p>
+<p>看例子，为了演示，我们特意修改2个类型的字段名称不一样.如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Person</span><br><span class="line">&#123;</span><br><span class="line">    public String Id &#123; get; set; &#125;</span><br><span class="line">    public String Name &#123; get; set; &#125;</span><br><span class="line">    public Int32 Age &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class PersonDto</span><br><span class="line">&#123;</span><br><span class="line">    public String Id &#123; get; set; &#125;</span><br><span class="line">    //注意这里的字段名称:UserName</span><br><span class="line">    public String UserName &#123; get; set; &#125;</span><br><span class="line">    public Int32 Age &#123; get; set; &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;使用配置项指定和忽略字段&lt;/summary&gt;</span><br><span class="line">static void Test2()</span><br><span class="line">&#123;</span><br><span class="line">    TinyMapper.Bind&lt;Person, PersonDto&gt;(config =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        config.Ignore(x =&gt; x.Id);//忽略ID字段</span><br><span class="line">        config.Bind(x =&gt; x.Name, y =&gt; y.UserName);//将源类型和目标类型的字段对应绑定起来</span><br><span class="line">        config.Bind(x =&gt; x.Age, y =&gt; y.Age);//将源类型和目标类型的字段对应绑定起来</span><br><span class="line">    &#125;);</span><br><span class="line">    var person = new Person</span><br><span class="line">    &#123;</span><br><span class="line">        Id = Guid.NewGuid().ToString(),</span><br><span class="line">        Name = &quot;John&quot;,</span><br><span class="line">        Age = 22</span><br><span class="line">    &#125;;</span><br><span class="line">    var personDto = TinyMapper.Map&lt;PersonDto&gt;(person);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看看效果如何？我们指定的Id字段忽略映射，以及将源对象的字段映射到目标对象的指定字段了: 映射代码和配置如下所示：</p>
+<p><img src="/images/79603-20160502210331091-1699905358.png" alt=""></p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_labelTop">回到目录</a></p>
+<h1 id="4-Tiny-Mapper复杂类型使用"><a href="#4-Tiny-Mapper复杂类型使用" class="headerlink" title="4.Tiny Mapper复杂类型使用"></a>4.Tiny Mapper复杂类型使用</h1><p>有时候对象的类型里面嵌套着对象，或者数组等等，其实这个时候的使用和上述完全一样，这里只是举个例子，大家看看而已：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class Person</span><br><span class="line">&#123;</span><br><span class="line">    public String Id &#123; get; set; &#125;</span><br><span class="line">    public String Name &#123; get; set; &#125;</span><br><span class="line">    public Int32 Age &#123; get; set; &#125;</span><br><span class="line">    public Address Address &#123; get; set; &#125;</span><br><span class="line">    public List&lt;String&gt; Emails &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class PersonDto</span><br><span class="line">&#123;</span><br><span class="line">    public String Id &#123; get; set; &#125;</span><br><span class="line">    public String UserName &#123; get; set; &#125;</span><br><span class="line">    public Int32 Age &#123; get; set; &#125;</span><br><span class="line">    public Address Address &#123; get; set; &#125;</span><br><span class="line">    public List&lt;String&gt; Emails &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public sealed class Address</span><br><span class="line">&#123;</span><br><span class="line">    public string Phone &#123; get; set; &#125;</span><br><span class="line">    public string Street &#123; get; set; &#125;</span><br><span class="line">    public string ZipCode &#123; get; set; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;更复杂对象的映射例子&lt;/summary&gt;</span><br><span class="line">static void Test3()</span><br><span class="line">&#123;</span><br><span class="line">    TinyMapper.Bind&lt;Person, PersonDto&gt;(config =&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        config.Ignore(x =&gt; x.Id);//忽略ID字段</span><br><span class="line">        //将源类型和目标类型的字段对应绑定起来</span><br><span class="line">        config.Bind(x =&gt; x.Name, y =&gt; y.UserName);</span><br><span class="line">        config.Bind(x =&gt; x.Age, y =&gt; y.Age);</span><br><span class="line">        config.Bind(x =&gt; x.Address, y =&gt; y.Address);</span><br><span class="line">        config.Bind(x =&gt; x.Emails, y =&gt; y.Emails);</span><br><span class="line">    &#125;);</span><br><span class="line">    var person = new Person</span><br><span class="line">    &#123;</span><br><span class="line">        Id = Guid.NewGuid().ToString(),</span><br><span class="line">        Name = &quot;John&quot;,</span><br><span class="line">        Age = 22,</span><br><span class="line">        Address = new Address() &#123; Phone = &quot;1880393&quot;, Street = &quot;Shanghai&quot;, ZipCode = &quot;121212&quot; &#125;,</span><br><span class="line">        Emails = new List&lt;string&gt;() &#123; &quot;aaa@bb.com&quot;, &quot;acx@cc.com&quot; &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    var personDto = TinyMapper.Map&lt;PersonDto&gt;(person);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果如下： 映射的代码和第3节类似：</p>
+<p><img src="/images/79603-20160502210339779-1813894770.png" alt=""> </p>
+<p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/asxinyu/p/dotnet_Opensource_project_TinyMapper.html#_labelTop">回到目录</a></p>
+<h1 id="5-资源"><a href="#5-资源" class="headerlink" title="5.资源"></a>5.资源</h1><p>Tiny Mapper官方网站：<a target="_blank" rel="noopener" href="http://tinymapper.net/">http://tinymapper.net/</a></p>
+<p>github项目地址：<a target="_blank" rel="noopener" href="https://github.com/TinyMapper/TinyMapper">https://github.com/TinyMapper/TinyMapper</a></p>
+<p>本文使用的代码下载：<a target="_blank" rel="noopener" href="http://files.cnblogs.com/files/asxinyu/TinyMapperDemo.rar">TinyMapperDemo.rar</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/03/27/%E3%80%90.Net%E3%80%91%E9%9A%8F%E6%9C%BA%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/27/%E3%80%90.Net%E3%80%91%E9%9A%8F%E6%9C%BA%E6%95%B0/" class="post-title-link" itemprop="url">【.Net】随机数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-27 21:48:58" itemprop="dateCreated datePublished" datetime="2018-03-27T21:48:58+08:00">2018-03-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>几乎所有编程语言中都提供了”生成一个随机数”的方法，也就是调用这个方法会生成一个数，我们事先也不知道它生成什么数。比如在.Net中编写下面的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Random rand = newRandom();</span><br><span class="line"></span><br><span class="line">Console.WriteLine(rand.Next());</span><br></pre></td></tr></table></figure>
+<p>运行后结果如下：</p>
+<p>Next()方法用来返回一个随机数。同样的代码你执行和我的结果很可能不一样，而且我多次运行的结果也很可能不一样，这就是随机数。</p>
+<p>一、陷阱</p>
+<p>看似很简单的东西，使用的时候有陷阱。我编写下面的代码想生成100个随机数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for(int i=0;i&lt;100;i++)</span><br><span class="line">&#123;</span><br><span class="line">    Random rand = new Random();</span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>太奇怪了，竟然生成的”随机数”有好多连续一样的，这算什么”随机数”呀。有人指点”把new Random()”放到for循环外面就可以了： <img src="/images/121103258593814.png" alt=""></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Random rand = newRandom();</span><br><span class="line">for(int i=0;i&lt;100;i++)</span><br><span class="line">&#123;            </span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p>确实可以了！ </p>
+<p>二、这是为什么呢？</p>
+<p>这要从计算机中”随机数”产生的原理说起了。我们知道，计算机是很严格的，在确定的输入条件下，产生的结果是唯一确定的，不会每次执行的结果不一样。那么怎么样用软件实现产生看似不确定的随机数呢？</p>
+<p>生成随机数的算法有很多种，最简单也是最常用的就是 “线性同余法”： 第n+1个数=(第n个数*29+37) % 1000，其中%是”求余数”运算符。很多像我一样的人见了公式都头疼，我用代码解释一下吧，MyRand是一个自定义的生成随机数的类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class MyRand</span><br><span class="line"> &#123;</span><br><span class="line">    private int seed;</span><br><span class="line">    public MyRand(int seed)</span><br><span class="line">   &#123;</span><br><span class="line"></span><br><span class="line">    this.seed = seed;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">  public int Next()</span><br><span class="line">   &#123;</span><br><span class="line">     int next = (seed * 29 + 37) % 1000;</span><br><span class="line">     seed = next;</span><br><span class="line">     return next;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MyRand rand = newMyRand(51);</span><br><span class="line">for (int i = 0; i &lt; 10; i++)</span><br><span class="line"> &#123;</span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>如下调用：</p>
+<p>执行结果如下：</p>
+<p><img src="/images/121103277182116.png" alt=""></p>
+<p>生成的数据是不是看起来”随机”了。简单解释一下这个代码：我们创建MyRand的一个对象，然后构造函数传递一个数51，这个数被赋值给seed，每次调用Next方法的时候根据(seed * 29 + 37) % 1000计算得到一个随机数，把这个随机数赋值给seed，然后把生成的随机数返回。这样下次再调用Next()的时候seed就不再是51，而是上次生成的随机数了，这样就看起来好像每一次生成的内容都很”随机”了。注意”%1000”取余预算的目的是保证生成的随机数不超过1000。 </p>
+<p>当然无论是你运行还是我每次运行，输出结果都是一样的随机数，因为根据给定的初始数据51，我们就可以依次推断下来下面生成的所有”随机数”是什么都可以算出来了。这个初始的数据51就被称为”随机数种子”，这一系列的516、1、66、951、616……数字被称为”随机数序列”。我们把51改成52，就会有这样的结果：</p>
+<p><img src="/images/121103284849515.png" alt=""></p>
+<p>三、楼主好人，跪求种子</p>
+<p>那么怎么可以使得每次运行程序的时候都生成不同的”随机数序列”呢？因为我们每次执行程序时候的时间很可能不一样，因此我们可以用当前时间做”随机数种子”</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MyRand rand = newMyRand(Environment.TickCount);</span><br><span class="line">for (int i = 0; i &lt; 10; i++)</span><br><span class="line"> &#123;</span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>Environment.TickCount为”系统启动后经过的微秒数”。这样每次程序运行的时候Environment.TickCount都不大可能一样（靠手动谁能一微秒内启动两次程序呢），所以每次生成的随机数就不一样了。</p>
+<p><img src="/images/121103308127660.png" alt=""></p>
+<p>当然如果我们把new MyRand(Environment.TickCount)放到for循环中： </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (int i = 0; i &lt; 100; i++)</span><br><span class="line"> &#123;</span><br><span class="line">    MyRand rand = newMyRand(Environment.TickCount);</span><br><span class="line">    Console.WriteLine(rand.Next());</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/121103310465432.png" alt=""></p>
+<p>运行结果又变成”很多是连续”的了，原理很简单：由于for循环体执行很快，所以每次循环的时候Environment.TickCount很可能还和上次一样（两行简单的代码运行用不了一毫秒那么长事件），由于这次的”随机数种子”和上次的”随机数种子”一样，这样Next()生成的第一个”随机数”就一样了。从”-320”变成”-856”是因为运行到”-856”的时候时间过了一毫秒。 </p>
+<p>四、各语言的实现</p>
+<p>我们看到.Net的Random类有一个int类型参数的构造函数：</p>
+<p>public Random(int Seed)</p>
+<p>就是和我们写的MyRand一样接受一个”随机数种子”。而我们之前调用的无参构造函数就是给Random(int Seed)传递Environment.TickCount类进行构造的，代码如下：</p>
+<p>public Random() : this(Environment.TickCount)<br>{<br> }</p>
+<p>这下我们终于明白最开始的疑惑了。 </p>
+<p>同样道理，在C/C++中生成10个随机数不应该如下调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int i;</span><br><span class="line">for(i=0;i&lt;10;i++)</span><br><span class="line">&#123;</span><br><span class="line">    srand( (unsigned)time( NULL ) );</span><br><span class="line">    printf(&quot;%d\n&quot;,rand());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而应该：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">srand( (unsigned)time( NULL ) ); //把当前时间设置为&quot;随机数种子&quot;</span><br><span class="line">int i;</span><br><span class="line">for(i=0;i&lt;10;i++)</span><br><span class="line">&#123;         </span><br><span class="line">    printf(&quot;%d\n&quot;,rand());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Java学习者可能会提出问题了，在Java低版本中，如下使用会像.Net、C/C++中一样产生相同的随机数： 五、”奇葩”的Java</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for(int i=0;i&lt;100;i++)</span><br><span class="line">&#123;</span><br><span class="line">    Random rand = new Random();</span><br><span class="line">    System.out.println(rand.nextInt());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为低版本Java中Rand类的无参构造函数的实现同样是用当前时间做种子：</p>
+<p>public Random() { this(System.currentTimeMillis()); } </p>
+<p>但是在高版本的Java中，比如Java1.8中，上面的”错误”代码执行却是没问题的：</p>
+<p><img src="/images/121103313599760.png" alt=""></p>
+<p>为什么呢？我们来看一下这个Random无参构造函数的实现代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public Random()</span><br><span class="line">&#123;</span><br><span class="line">  this(seedUniquifier() ^ System.nanoTime());</span><br><span class="line">&#125;</span><br><span class="line">private static long seedUniquifier() &#123;</span><br><span class="line">for (;;) &#123;</span><br><span class="line">long current = seedUniquifier.get();</span><br><span class="line">long next = current * 181783497276652981L;</span><br><span class="line">if (seedUniquifier.compareAndSet(current, next))</span><br><span class="line">return next;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">privatestaticfinal AtomicLong seedUniquifier  = new AtomicLong(8682522807148012L);</span><br></pre></td></tr></table></figure>
+<p>这里不再是使用当前时间来做”随机数种子”，而是使用System.nanoTime()这个纳秒级的时间量并且和采用原子量AtomicLong根据上次调用构造函数算出来的一个数做异或运算。关于这段代码的解释详细参考这篇文章《<a target="_blank" rel="noopener" href="http://t1174779123.iteye.com/blog/2037719">解密随机数生成器（2）——从java源码看线性同余算法</a>》</p>
+<p>最核心的地方就在于使用static变量AtomicLong来记录每次调用Random构造函数时使用的种子，下次再调用Random构造函数的时候避免和上次一样。</p>
+<p>六、高并发系统中的问题</p>
+<p>前面我们分析了，对于使用系统时间做”随机数种子”的随机数生成器，如果要产生多个随机数，那么一定要共享一个”随机数种子”才会避免生成的随机数短时间之内生成重复的随机数。但是在一些高并发的系统中一个不注意还会产生问题，比如一个网站在服务器端通过下面的方法生成验证码：</p>
+<p>Random rand = new Random();</p>
+<p>Int code = rand.Next();</p>
+<p>当网站并发量很大的时候，可能一个毫秒内会有很多个人请求验证码，这就会造成这几个人请求到的验证码是重复的，会给系统带来潜在的漏洞。</p>
+<p>再比如我今天看到的一篇文章《当随机不够随机：一个在线扑克游戏的教训》里面就提到了”由于随机数产生器的种子是基于服务器时钟的，黑客们只要将他们的程序与服务器时钟同步就能够将可能出现的乱序减少到只有 200,000 种。到那个时候一旦黑客知道 5 张牌，他就可以实时的对 200,000 种可能的乱序进行快速搜索，找到游戏中的那种。所以一旦黑客知道手中的两张牌和 3 张公用牌，就可以猜出转牌和河牌时会来什么牌，以及其他玩家的牌。” </p>
+<p>这种情况有如下几种解决方法：</p>
+<ol>
+<li>把Random对象作为一个全局实例（static）来使用。Java中Random是线程安全的（内部进行了加锁处理）；.Net中Random不是线程安全的，需要加锁处理。不过加锁会存在会造成处理速度慢的问题。而且由于初始的种子是确定的，所以攻击者存在着根据得到的若干随机数序列推测出”随机数种子”的可能性。</li>
+</ol>
+<ol start="3">
+<li>因为每次生成Guid的值都不样，网上有的文章说可以创建一个Guid计算它的HashCode或者MD5值的方式来做种子： new Random(Guid.NewGuid().GetHashCode()) 。但是我认为Guid的生成算法是确定的，在条件充足的情况下也是可以预测的，这样生成的随机数也有可预测的可能性。当然只是我的猜测，没经过理论的证明。</li>
+</ol>
+<ol start="5">
+<li><p>采用”真随机数发生器”，快看下一节分解！</p>
+<p>   七、真随机数发生器</p>
+</li>
+</ol>
+<p>根据我们之前的分析，我们知道这些所谓的随机数不是真的”随机”，只是看起来随机，因此被称为”伪随机算法”。在一些对随机要求高的场合会使用一些物理硬件采集物理噪声、宇宙射线、量子衰变等现实生活中的真正随机的物理参数来产生真正的随机数。</p>
+<p>当然也有聪明的人想到了不借助增加”随机数发生器”硬件的方法生成随机数。我们操作计算机时候鼠标的移动、敲击键盘的行为都是不可预测的，外界命令计算机什么时候要执行什么进程、处理什么文件、加载什么数据等也是不可预测的，因此导致的CPU运算速度、硬盘读写行为、内存占用情况的变化也是不可预测的。因此如果采集这些信息来作为随机数种子，那么生成的随机数就是不可预测的了。</p>
+<p>在Linux/Unix下可以使用”/dev/random”这个真随机数发生器，它的数据主来来自于硬件中断信息，不过产生随机数的速度比较慢。</p>
+<p>Windows下可以调用系统的CryptGenRandom()函数，它主要依据当前进程Id、当前线程Id、系统启动后的TickCount、当前时间、QueryPerformanceCounter返回的高性能计数器值、用户名、计算机名、CPU计数器的值等等来计算。和”/dev/random”一样CryptGenRandom()的生成速度也比较慢，而且消耗比较大的系统资源。</p>
+<p>当然.Net下也可以使用RNGCryptoServiceProvider 类（System.Security.Cryptography命名空间下）来生成真随机数，根据StackOverflow上一篇帖子介绍RNGCryptoServiceProvider 并不是对CryptGenRandom()函数的封装，但是和CryptGenRandom()原理类似。 </p>
+<p>八、总结</p>
+<p>有人可能会问：既然有”/dev/random” 、CryptGenRandom()这样的”真随机数发生器”，为什么还要提供、使用伪随机数这样的”假货”？因为前面提到了”/dev/random” 、CryptGenRandom()生成速度慢而且比较消耗性能。在对随机数的不可预测性要求低的场合，使用伪随机数算法即可，因为性能比较高。对于随机数的不可预测性要求高的场合就要使用真随机数发生器，真随机数发生器硬件设备需要考虑成本问题，而”/dev/random”、CryptGenRandom()则性能较差。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2018/03/25/%E3%80%90Centos%E3%80%91%E9%83%A8%E7%BD%B2%E6%B1%89%E5%8C%96%E7%89%88GitLab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/25/%E3%80%90Centos%E3%80%91%E9%83%A8%E7%BD%B2%E6%B1%89%E5%8C%96%E7%89%88GitLab/" class="post-title-link" itemprop="url">【CentOS】部署汉化版Gitlab</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-25 19:51:03" itemprop="dateCreated datePublished" datetime="2018-03-25T19:51:03+08:00">2018-03-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">Linux知识</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/straycats/p/7637373.html">https://www.cnblogs.com/straycats/p/7637373.html</a> </p>
+<p>实测可行！</p>
+<p>===============================================</p>
+<p>2017/11/12_第6次修改 ccb_warlock</p>
+<p>更新说明：</p>
+<p>2017/11/12：五中增加管理员账号的内容</p>
+<p>2017/11/8：修复3.6中命令错误的问题；</p>
+<p>2017/10/20：3.4中增加“途径2：从官方获取RPM包后上传到/root目录下”的内容；4.5中增加安装patch的命令；2.2中增加git clone老版本的命令；</p>
+<p>2017/10/18：在“环境准备”中增加硬件环境的描述；</p>
+<p>2017/10/9：增加3.5的内容；</p>
+<p>=============================================== </p>
+<p>作为公司层面使用gitlab，进行维护时一定要考虑升级、备份、迁移/恢复的事情，代码安全是研发部门的重心之一，故我也整理了下面的内容供维护人员参考。 </p>
+<p>升级：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/straycats/p/7707359.html">http://www.cnblogs.com/straycats/p/7707359.html</a><br>本地备份：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/straycats/p/7671204.html">http://www.cnblogs.com/straycats/p/7671204.html</a><br>远程备份：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/straycats/p/7672692.html">http://www.cnblogs.com/straycats/p/7672692.html</a><br>迁移/恢复：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/straycats/p/7702271.html">http://www.cnblogs.com/straycats/p/7702271.html</a></p>
+<p>gitlab接触了一段时间，觉得是一个很不错的开源产品（gitlab的社区版），值得我整理一篇部署教程作为记录。</p>
+<h2 id="安装全程选择的用户为root。"><a href="#安装全程选择的用户为root。" class="headerlink" title="安装全程选择的用户为root。"></a>安装全程选择的用户为root。</h2><p>一、环境准备<br>操作系统：centos7（minimal，<a target="_blank" rel="noopener" href="http://www.centos.org下载的包是CentOS-7-x86_64-Minimal-1708.iso）">www.centos.org下载的包是CentOS-7-x86_64-Minimal-1708.iso）</a><br>CPU：2核<br>内存：6G<br>说明：硬件根据我查到的资料(<a target="_blank" rel="noopener" href="http://www.cnblogs.com/gnool/p/6128546.html">http://www.cnblogs.com/gnool/p/6128546.html</a>)，结合使用人数的考虑，故选择了2核6G的配置，实际配置时需要根据gitlab使用人数的负载来决定硬件配置。</p>
+<p>1.1 更换阿里yum（个人习惯）</p>
+<p>步骤：</p>
+<p>1）下载wget </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y wget</span><br></pre></td></tr></table></figure>
+<p>2）备份默认的yum</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv /etc/yum.repos.d /etc/yum.repos.d.backup</span><br></pre></td></tr></table></figure>
+<p>3）设置新的yum目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /etc/yum.repos.d</span><br></pre></td></tr></table></figure>
+<p>4）下载阿里yum配置到该目录中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</span><br></pre></td></tr></table></figure>
+<p>5）重建缓存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+<p>6）升级所有包（改变软件设置和系统设置，系统版本内核都升级，故需要几分钟耐心等待）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update -y</span><br></pre></td></tr></table></figure>
+
+<p>1.2 安装vim（个人习惯）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y vim </span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>二、获取gitlab汉化包（要部署非汉化版，可以跳过这一块内容）<br>说明：gitlab中文社区版的项目，v7-v8.8是由Larry Li发起的“GitLab 中文社区版项目”（<a target="_blank" rel="noopener" href="https://gitlab.com/larryli/gitlab），从">https://gitlab.com/larryli/gitlab），从</a> v8.9 之后，@xhang 开始继续该汉化项目（<a target="_blank" rel="noopener" href="https://gitlab.com/xhang/gitlab）。">https://gitlab.com/xhang/gitlab）。</a></p>
+<p>2.1 安装git</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y git </span><br></pre></td></tr></table></figure>
+<p>2.2 克隆获取汉化版本库<br>下载最新的汉化包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitlab.com/xhang/gitlab.git </span><br></pre></td></tr></table></figure>
+<p>如果是要下载老版本的汉化包，需要加上老版本的分支，比如今天已经是10.0.4，我依旧想下载10.0.2，可以运行下面的语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitlab.com/xhang/gitlab.git -b v10.0.2-zh </span><br></pre></td></tr></table></figure>
+<p>2.3 查看该汉化补丁的版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat gitlab/VERSION </span><br></pre></td></tr></table></figure>
+<p>我安装的时候正好是国庆，最新的版本才刚出，所以汉化版为10.0.2，故我选择原版也安装10.0.2。<br><img src="/images/901201-20171008141753746-1168496902.png" alt=""></p>
+<hr>
+<p>三、部署社区版gitlab</p>
+<p>3.1 安装gitlab的依赖项</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y curl openssh-server openssh-clients postfix cronie policycoreutils-python</span><br></pre></td></tr></table></figure>
+<p>// 10.x以后开始依赖policycoreutils-python，我之前在使用9.x时还没有依赖该项。</p>
+<p>3.2 启动postfix，并设置为开机启动 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start postfix</span><br><span class="line">systemctl enable postfix </span><br></pre></td></tr></table></figure>
+<p>3.3 设置防火墙 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --add-service=http --permanent</span><br><span class="line">firewall-cmd --reload </span><br></pre></td></tr></table></figure>
+<p>3.4 获取gitlab的rpm包</p>
+<p>途径1：通过清华开源镜像站</p>
+<p>查看清华开源镜像站，有我需要的10.0.2的rpm包。</p>
+<p><img src="/images/901201-20171008142452840-154152191.png" alt=""><br>获取rpm包 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-10.0.2-ce.0.el7.x86_64.rpm </span><br></pre></td></tr></table></figure>
+<p>途径2：从官方获取RPM包后上传到/root目录下</p>
+<p>官方下载：<a target="_blank" rel="noopener" href="https://packages.gitlab.com/gitlab/gitlab-ce/">https://packages.gitlab.com/gitlab/gitlab-ce/</a></p>
+<p>因为要在centos7上安装版本10.0.2的gitlab，故找到gitlab-ce-10.0.2-ce.0.el7.x86_64.rpm下载到本地后，通过Bitvise SSH Client工具将rpm包上传到gitlab虚拟机的/root目录下。</p>
+<p>说明：从下载速度和方便程度来说，走清华的镜像站的方式更优，但是我2017/10/20想下载gitlab10.0.4时，发现清华的镜像站最新只有10.0.3，故在增补“途径2”获取最新的安装包。</p>
+<p>3.5 安装rpm包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -i gitlab-ce-10.0.2-ce.0.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<p><img src="/images/901201-20171008142634168-1176466712.png" alt=""><br>根据提示，继续执行指令配置gitlab。 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure </span><br></pre></td></tr></table></figure>
+<p>3.6 修改配置文件gitlab.rb</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/gitlab/gitlab.rb</span><br></pre></td></tr></table></figure>
+<p>将external_url变量的地址修改为gitlab所在centos的ip地址。（因为我这台centos是16.5，故配成图中的地址）。</p>
+<p><img src="/images/901201-20171009183831371-1529709149.png" alt=""></p>
+<p>因为修改了配置文件，故需要重新加载配置内容。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br><span class="line">gitlab-ctl restart </span><br></pre></td></tr></table></figure>
+<p>3.7 查看gitlab版本 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head -1 /opt/gitlab/version-manifest.txt </span><br></pre></td></tr></table></figure>
+<hr>
+<p>四、覆盖汉化包</p>
+<p>4.1 停止gitlab服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl stop </span><br></pre></td></tr></table></figure>
+<p>4.2 切换到gitlab汉化包所在的目录（即步骤二获取的汉化版gitlab） </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /root/gitlab </span><br></pre></td></tr></table></figure>
+<p>4.3 比较汉化标签和原标签，导出 patch 用的 diff 文件到/root下 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff v10.0.2 v10.0.2-zh &gt; ../10.0.2-zh.diff </span><br></pre></td></tr></table></figure>
+<p>4.4 回到/root目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd </span><br></pre></td></tr></table></figure>
+<p>4.5 将10.0.2-zh.diff作为补丁更新到gitlab中 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install patch -y</span><br><span class="line">patch -d /opt/gitlab/embedded/service/gitlab-rails -p1 &lt; 10.0.2-zh.diff </span><br></pre></td></tr></table></figure>
+<p>4.6 启动gitlab</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl start </span><br></pre></td></tr></table></figure>
+<p>4.7 重新配置gitlab </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure </span><br></pre></td></tr></table></figure>
+<hr>
+<p>五、设置管理员密码</p>
+<p>管理员账号登录的用户名：root</p>
+<p>（虽然登录后管理员的用户名为Administrator，但是实际登录的用户名是root）</p>
+<p>方法一：网页方式</p>
+<p>浏览器访问gitlab所在的ip，输入密码后点击 “Change your password”（如果进行汉化，点击“修改密码”）。</p>
+<p><img src="/images/901201-20171008160130871-391254302.png" alt=""></p>
+<p><img src="/images/901201-20171008160210778-2027065574.png" alt=""></p>
+<p>方法二：指令方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-rails console production</span><br></pre></td></tr></table></figure>
+<p>稍等一会后会出现</p>
+<p><img src="/images/901201-20171008160302559-34936248.png" alt=""></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">irb(main):001:0&gt; user = User.where(id: 1).first     // id为1的是超级管理员</span><br><span class="line">irb(main):002:0&gt;user.password = &#x27;yourpassword&#x27;      // 密码必须至少8个字符</span><br><span class="line">irb(main):003:0&gt;user.save!                          // 如没有问题 返回true</span><br><span class="line">exit                                                // 退出 </span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/67/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/67/">67</a><span class="page-number current">68</span><a class="page-number" href="/page/69/">69</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/69/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

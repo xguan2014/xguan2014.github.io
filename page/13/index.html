@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/13/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/13/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/08/08/%E3%80%90.Net%20Core%E3%80%91%E5%AE%9E%E7%8E%B0Redis%E5%8F%8AMemoryCache%E7%BC%93%E5%AD%98%E5%8A%A9%E6%89%8BCacheHelper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/08/%E3%80%90.Net%20Core%E3%80%91%E5%AE%9E%E7%8E%B0Redis%E5%8F%8AMemoryCache%E7%BC%93%E5%AD%98%E5%8A%A9%E6%89%8BCacheHelper/" class="post-title-link" itemprop="url">【.Net Core】实现Redis及MemoryCache缓存助手CacheHelper</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-08 10:08:11" itemprop="dateCreated datePublished" datetime="2020-08-08T10:08:11+08:00">2020-08-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/caijt/p/13455471.html">https://www.cnblogs.com/caijt/p/13455471.html</a></p>
+</blockquote>
+<p>一开始我是按<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/aspnet/core/performance/caching/distributed?view=aspnetcore-3.1">微软官网文档</a>那样配置的，然后发现这也太简单了，不止配置简单，连使用都这么简单，简单得有点过分。如下图所示，它是基于IDistributedCache接口注入的</p>
+<p><img src="images/648126-20200807211055727-899949258.png" alt=""></p>
+<p>这么简单，怎么玩，我连判断某个key值存不存在都没办法。</p>
+<p>当然了。绝对不是这么简单的。更高级的用法如下，要引入Microsoft.Extensions.Caching.StackExchangeRedis包</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ConnectionMultiplexer connection = ConnectionMultiplexer.Connect(<span class="string">&quot;127.0.0.1:6379&quot;</span>);</span><br><span class="line">IDatabase cache = connection.GetDatabase(<span class="number">0</span>);</span><br><span class="line">cache.HashSet(<span class="string">&quot;key&quot;</span>, <span class="string">&quot;hashKey&quot;</span>, <span class="string">&quot;value&quot;</span>);</span><br><span class="line">cache.SetAdd(<span class="string">&quot;key2&quot;</span>, <span class="string">&quot;value&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>那要怎么用在系统里呢，当然直接使用IDatabase也可以，但不够优雅，而且我还想通过配置文件，来决定是否启用Redis，如果不启用的话，就使用MemoryCache。非常好。想法有了。</p>
+<p>先定义一个接口ICacheHelper，这是用来注入的接口，我暂时只定义了string类型跟hash类型的缓存方法</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">ICacheHelper</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="built_in">bool</span> <span class="title">Exists</span>(<span class="params"><span class="built_in">string</span> key</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Set</span>&lt;<span class="title">T</span>&gt;(<span class="params"><span class="built_in">string</span> key, T <span class="keyword">value</span></span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">T <span class="title">Get</span>&lt;<span class="title">T</span>&gt;(<span class="params"><span class="built_in">string</span> key</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Delete</span>(<span class="params"><span class="built_in">string</span> key</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Expire</span>(<span class="params"><span class="built_in">string</span> key, DateTime dateTime</span>)</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Expire</span>(<span class="params"><span class="built_in">string</span> key, TimeSpan timeSpan</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">HashSet</span>(<span class="params"><span class="built_in">string</span> key, <span class="built_in">string</span> hashKey, <span class="built_in">object</span> hashValue</span>)</span>;</span><br><span class="line">    <span class="function">T <span class="title">HashGet</span>&lt;<span class="title">T</span>&gt;(<span class="params"><span class="built_in">string</span> key, <span class="built_in">string</span> hashKey</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="built_in">bool</span> <span class="title">HashExists</span>(<span class="params"><span class="built_in">string</span> key, <span class="built_in">string</span> hashKey</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">HashDelete</span>(<span class="params"><span class="built_in">string</span> key, <span class="built_in">string</span> hashKey</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后用Redis实现这个接口，RedisCacheHelper类</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> Redis助手</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RedisCacheHelper</span> : <span class="title">ICacheHelper</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> IDatabase _cache;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ConnectionMultiplexer _connection;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> <span class="built_in">string</span> _instance;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RedisCacheHelper</span>(<span class="params">RedisCacheOptions options, <span class="built_in">int</span> database = <span class="number">0</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _connection = ConnectionMultiplexer.Connect(options.Configuration);</span><br><span class="line">        _cache = _connection.GetDatabase(database);</span><br><span class="line">        _instance = options.InstanceName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">Exists</span>(<span class="params"><span class="built_in">string</span> key</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> _cache.KeyExists(_instance + key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Set</span>&lt;<span class="title">T</span>&gt;(<span class="params"><span class="built_in">string</span> key, T <span class="keyword">value</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _cache.StringSet(_instance + key, CommonHelper.ObjectToJsonString(<span class="keyword">value</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">Get</span>&lt;<span class="title">T</span>&gt;(<span class="params"><span class="built_in">string</span> key</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> CommonHelper.JsonStringToObject&lt;T&gt;(_cache.StringGet(_instance + key));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Delete</span>(<span class="params"><span class="built_in">string</span> key</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _cache.KeyDelete(_instance + key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Expire</span>(<span class="params"><span class="built_in">string</span> key, DateTime dateTime</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _cache.KeyExpire(_instance + key, dateTime);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Expire</span>(<span class="params"><span class="built_in">string</span> key, TimeSpan timeSpan</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _cache.KeyExpire(_instance + key, timeSpan);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">HashSet</span>(<span class="params"><span class="built_in">string</span> key, <span class="built_in">string</span> hashKey, <span class="built_in">object</span> hashValue</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> <span class="keyword">value</span> = CommonHelper.ObjectToJsonString(hashValue);</span><br><span class="line">        _cache.HashSet(_instance + key, hashKey, <span class="keyword">value</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">HashGet</span>&lt;<span class="title">T</span>&gt;(<span class="params"><span class="built_in">string</span> key, <span class="built_in">string</span> hashKey</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> <span class="keyword">value</span> = _cache.HashGet(_instance + key, hashKey);</span><br><span class="line">        <span class="keyword">return</span> CommonHelper.JsonStringToObject&lt;T&gt;(<span class="keyword">value</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">object</span> <span class="title">HashGet</span>(<span class="params"><span class="built_in">string</span> key, <span class="built_in">string</span> hashKey, Type type</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> <span class="keyword">value</span> = _cache.HashGet(_instance + key, hashKey);</span><br><span class="line">        <span class="keyword">return</span> CommonHelper.JsonStringToObject(<span class="keyword">value</span>, type);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">HashExists</span>(<span class="params"><span class="built_in">string</span> key, <span class="built_in">string</span> hashKey</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> _cache.HashExists(_instance + key, hashKey);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">HashDelete</span>(<span class="params"><span class="built_in">string</span> key, <span class="built_in">string</span> hashKey</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _cache.HashDelete(_instance + key, hashKey);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再用MemoryCache实现接口，MemoryCacheHelper类</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 缓存助手</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MemoryCacheHelper</span> : <span class="title">ICacheHelper</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> IMemoryCache _cache;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MemoryCacheHelper</span>(<span class="params">IMemoryCache cache</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _cache = cache;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">Exists</span>(<span class="params"><span class="built_in">string</span> key</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> _cache.TryGetValue(key, <span class="keyword">out</span> _);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">Get</span>&lt;<span class="title">T</span>&gt;(<span class="params"><span class="built_in">string</span> key</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> _cache.Get&lt;T&gt;(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Delete</span>(<span class="params"><span class="built_in">string</span> key</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _cache.Remove(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Set</span>&lt;<span class="title">T</span>&gt;(<span class="params"><span class="built_in">string</span> key, T <span class="keyword">value</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _cache.Set(key, <span class="keyword">value</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Expire</span>(<span class="params"><span class="built_in">string</span> key, DateTime dateTime</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> <span class="keyword">value</span> = _cache.Get(key);</span><br><span class="line">        _cache.Set(key, <span class="keyword">value</span>, dateTime);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Expire</span>(<span class="params"><span class="built_in">string</span> key, TimeSpan timeSpan</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> <span class="keyword">value</span> = _cache.Get(key);</span><br><span class="line">        _cache.Set(key, <span class="keyword">value</span>, timeSpan);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">HashSet</span>(<span class="params"><span class="built_in">string</span> key, <span class="built_in">string</span> hashKey, <span class="built_in">object</span> hashValue</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> hash = _cache.Get&lt;Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">object</span>&gt;&gt;(key);</span><br><span class="line">        <span class="keyword">if</span> (hash.ContainsKey(hashKey))</span><br><span class="line">        &#123;</span><br><span class="line">            hash[key] = hashValue;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            hash.Add(hashKey, hashValue);</span><br><span class="line">        &#125;</span><br><span class="line">        _cache.Set&lt;Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">object</span>&gt;&gt;(key, hash);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">HashGet</span>&lt;<span class="title">T</span>&gt;(<span class="params"><span class="built_in">string</span> key, <span class="built_in">string</span> hashKey</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> hash = _cache.Get&lt;Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">object</span>&gt;&gt;(key);</span><br><span class="line">        <span class="keyword">if</span> (hash.ContainsKey(hashKey))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> (T)hash[hashKey];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">default</span>(T);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">HashExists</span>(<span class="params"><span class="built_in">string</span> key, <span class="built_in">string</span> hashKey</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> hash = _cache.Get&lt;Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">object</span>&gt;&gt;(key);</span><br><span class="line">        <span class="keyword">return</span> hash.ContainsKey(hashKey);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">HashDelete</span>(<span class="params"><span class="built_in">string</span> key, <span class="built_in">string</span> hashKey</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> hash = _cache.Get&lt;Dictionary&lt;<span class="built_in">string</span>, <span class="built_in">object</span>&gt;&gt;(key);</span><br><span class="line">        <span class="keyword">if</span> (hash.ContainsKey(hashKey))</span><br><span class="line">        &#123;</span><br><span class="line">            hash.Remove(hashKey);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现类都有了，那现在就来实现根据配置值来决定是否使用Redis还是MemoryCache，先在appsettings.json里添加这个配置值，当Enable为false时，就不启用Redis，使用MemoryCache，Connection是Redis的连接字符串，InstanceName是缓存的前缀，Database是使用哪个数据库</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;Redis&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Enable&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Connection&quot;</span><span class="punctuation">:</span> <span class="string">&quot;127.0.0.1:6379&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;InstanceName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;LessSharp:&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Database&quot;</span><span class="punctuation">:</span> <span class="number">0</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>再定义一个选项类 RedisOption</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RedisOption</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">bool</span> Enable &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;        </span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Connection &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> InstanceName &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Database &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在Startup.cs类里的ConfigureServices里根据配置值进行注入</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> RedisConfiguration = Configuration.GetSection(<span class="string">&quot;Redis&quot;</span>);</span><br><span class="line">services.Configure&lt;RedisOption&gt;(RedisConfiguration);</span><br><span class="line">RedisOption redisOption = RedisConfiguration.Get&lt;RedisOption&gt;();</span><br><span class="line"><span class="keyword">if</span> (redisOption != <span class="literal">null</span> &amp;&amp; redisOption.Enable)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> options = <span class="keyword">new</span> RedisCacheOptions</span><br><span class="line">    &#123;</span><br><span class="line">        InstanceName = redisOption.InstanceName,</span><br><span class="line">        Configuration = redisOption.Connection</span><br><span class="line">     &#125;;</span><br><span class="line">     <span class="keyword">var</span> redis = <span class="keyword">new</span> RedisCacheHelper(options, redisOption.Database);</span><br><span class="line">     services.AddSingleton(redis);</span><br><span class="line">     services.AddSingleton&lt;ICacheHelper&gt;(redis);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">      services.AddMemoryCache();</span><br><span class="line">      services.AddScoped&lt;ICacheHelper, MemoryCacheHelper&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>OK，测试后完美</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/08/03/%E3%80%90%E5%B7%A5%E5%85%B7%E3%80%91%E5%9B%BD%E5%86%85%E5%BC%80%E6%BA%90%E9%95%9C%E5%83%8F%E7%AB%99%E7%82%B9%E6%B1%87%E6%80%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/03/%E3%80%90%E5%B7%A5%E5%85%B7%E3%80%91%E5%9B%BD%E5%86%85%E5%BC%80%E6%BA%90%E9%95%9C%E5%83%8F%E7%AB%99%E7%82%B9%E6%B1%87%E6%80%BB/" class="post-title-link" itemprop="url">【工具】国内开源镜像站点汇总</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-03 20:11:42" itemprop="dateCreated datePublished" datetime="2020-08-03T20:11:42+08:00">2020-08-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">常用工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="站点版"><a href="#站点版" class="headerlink" title="站点版"></a>站点版</h3><h4 id="企业站"><a href="#企业站" class="headerlink" title="企业站"></a><strong>企业站</strong></h4><ol>
+<li>搜狐：<a target="_blank" rel="noopener" href="http://mirrors.sohu.com/">http://mirrors.sohu.com/</a></li>
+<li>腾讯：<a target="_blank" rel="noopener" href="https://mirrors.cloud.tencent.com/">https://mirrors.cloud.tencent.com/</a></li>
+<li>网易：<a target="_blank" rel="noopener" href="http://mirrors.163.com/">http://mirrors.163.com/</a></li>
+<li>阿里：<a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/">http://mirrors.aliyun.com/</a></li>
+<li>华为：<a target="_blank" rel="noopener" href="https://mirrors.huaweicloud.com/">https://mirrors.huaweicloud.com/</a></li>
+</ol>
+<hr>
+<h4 id="教育站"><a href="#教育站" class="headerlink" title="教育站"></a><strong>教育站</strong></h4><ol>
+<li>上海交通大学：<a target="_blank" rel="noopener" href="http://ftp.sjtu.edu.cn/html/resources.xml">http://ftp.sjtu.edu.cn/html/resources.xml</a></li>
+<li>华中科技大学：<a target="_blank" rel="noopener" href="http://mirror.hust.edu.cn/">http://mirror.hust.edu.cn/</a></li>
+<li>清华大学：<a target="_blank" rel="noopener" href="http://mirrors.tuna.tsinghua.edu.cn/">http://mirrors.tuna.tsinghua.edu.cn/</a></li>
+<li>北京理工大学：<a target="_blank" rel="noopener" href="http://mirror.bit.edu.cn/web/">http://mirror.bit.edu.cn/web/</a></li>
+<li>兰州大学：<a target="_blank" rel="noopener" href="http://mirror.lzu.edu.cn/">http://mirror.lzu.edu.cn/</a></li>
+<li>中国科技大学：<a target="_blank" rel="noopener" href="http://mirrors.ustc.edu.cn/">http://mirrors.ustc.edu.cn/</a></li>
+<li>大连东软信息学院：<a target="_blank" rel="noopener" href="http://mirrors.neusoft.edu.cn/">http://mirrors.neusoft.edu.cn/</a></li>
+<li>东北大学：<a target="_blank" rel="noopener" href="http://mirror.neu.edu.cn/">http://mirror.neu.edu.cn/</a></li>
+<li>大连理工大学：<a target="_blank" rel="noopener" href="http://mirror.dlut.edu.cn/">http://mirror.dlut.edu.cn/</a></li>
+<li>哈尔滨工业大学：<a target="_blank" rel="noopener" href="http://run.hit.edu.cn/html/">http://run.hit.edu.cn/html/</a></li>
+<li>北京交通大学：<a target="_blank" rel="noopener" href="http://mirror.bjtu.edu.cn/cn/">http://mirror.bjtu.edu.cn/cn/</a></li>
+<li>中国地质大学：<a target="_blank" rel="noopener" href="http://mirrors.cug.edu.cn/">http://mirrors.cug.edu.cn/</a></li>
+<li>浙江大学：<a target="_blank" rel="noopener" href="http://mirrors.zju.edu.cn/">http://mirrors.zju.edu.cn/</a></li>
+<li>厦门大学：<a target="_blank" rel="noopener" href="http://mirrors.xmu.edu.cn/">http://mirrors.xmu.edu.cn/</a></li>
+<li>中山大学：<a target="_blank" rel="noopener" href="http://mirror.sysu.edu.cn/">http://mirror.sysu.edu.cn/</a></li>
+<li>重庆大学：<a target="_blank" rel="noopener" href="http://mirrors.cqu.edu.cn/">http://mirrors.cqu.edu.cn/</a></li>
+<li>北京化工大学：<a target="_blank" rel="noopener" href="http://ubuntu.buct.edu.cn/">http://ubuntu.buct.edu.cn/</a></li>
+<li>南阳理工学院：<a target="_blank" rel="noopener" href="http://mirror.nyist.edu.cn/">http://mirror.nyist.edu.cn/</a></li>
+<li>中国科学院：<a target="_blank" rel="noopener" href="http://www.opencas.org/mirrors/">http://www.opencas.org/mirrors/</a></li>
+<li>电子科技大学星辰工作室：<a target="_blank" rel="noopener" href="http://mirrors.stuhome.net/">http://mirrors.stuhome.net/</a></li>
+<li>西北农林科技大学：<a target="_blank" rel="noopener" href="http://mirrors.nwsuaf.edu.cn/">http://mirrors.nwsuaf.edu.cn/</a></li>
+</ol>
+<hr>
+<h4 id="其他站"><a href="#其他站" class="headerlink" title="其他站"></a><strong>其他站</strong></h4><ol>
+<li>首都在线科技股份有限公司（英文名CapitalOnlineDataService）：<a target="_blank" rel="noopener" href="http://mirrors.yun-idc.com/">http://mirrors.yun-idc.com/</a></li>
+<li>中国电信天翼云：<a target="_blank" rel="noopener" href="http://mirrors.ctyun.cn/">http://mirrors.ctyun.cn/</a></li>
+<li>常州贝特康姆软件技术有限公司：<a target="_blank" rel="noopener" href="http://centos.bitcomm.cn/">http://centos.bitcomm.cn/</a></li>
+<li>公云PubYun（母公司为贝特康姆）：<a target="_blank" rel="noopener" href="http://mirrors.pubyun.com/">http://mirrors.pubyun.com/</a></li>
+<li>中国互联网络信息中心：<a target="_blank" rel="noopener" href="http://mirrors.cnnic.cn/">http://mirrors.cnnic.cn/</a></li>
+<li>Fayea工作室：<a target="_blank" rel="noopener" href="http://apache.fayea.com/">http://apache.fayea.com/</a>  </li>
+</ol>
+<hr>
+<h3 id="软件版"><a href="#软件版" class="headerlink" title="软件版"></a>软件版</h3><h4 id="操作系统类"><a href="#操作系统类" class="headerlink" title="操作系统类"></a><strong>操作系统类</strong></h4><h5 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h5><ol>
+<li>阿里云：<a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/ubuntu-releases/">http://mirrors.aliyun.com/ubuntu-releases/</a></li>
+<li>网易：<a target="_blank" rel="noopener" href="http://mirrors.163.com/ubuntu-releases/">http://mirrors.163.com/ubuntu-releases/</a></li>
+<li>搜狐：<a target="_blank" rel="noopener" href="http://mirrors.sohu.com/ubuntu-releases/">http://mirrors.sohu.com/ubuntu-releases/</a></li>
+<li>首都在线科技股份有限公司：<a target="_blank" rel="noopener" href="http://mirrors.yun-idc.com/ubuntu-releases/">http://mirrors.yun-idc.com/ubuntu-releases/</a></li>
+</ol>
+<h5 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h5><ol>
+<li>网易：<a target="_blank" rel="noopener" href="http://mirrors.163.com/centos/">http://mirrors.163.com/centos/</a></li>
+<li>搜狐：<a target="_blank" rel="noopener" href="http://mirrors.sohu.com/centos/">http://mirrors.sohu.com/centos/</a></li>
+<li>阿里云：<a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/centos/">http://mirrors.aliyun.com/centos/</a></li>
+</ol>
+<h4 id="操作系统类-1"><a href="#操作系统类-1" class="headerlink" title="操作系统类"></a><strong>操作系统类</strong></h4><h5 id="Tomcat、Apache"><a href="#Tomcat、Apache" class="headerlink" title="Tomcat、Apache"></a>Tomcat、Apache</h5><ol>
+<li>中国互联网络信息中心：<a target="_blank" rel="noopener" href="http://mirrors.cnnic.cn/apache/">http://mirrors.cnnic.cn/apache/</a></li>
+<li>华中科技大学：<a target="_blank" rel="noopener" href="http://mirrors.hust.edu.cn/apache/">http://mirrors.hust.edu.cn/apache/</a></li>
+<li>北京理工大学：<a target="_blank" rel="noopener" href="http://mirror.bit.edu.cn/apache/">http://mirror.bit.edu.cn/apache/</a></li>
+</ol>
+<h5 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h5><ol>
+<li>北京理工大学：<a target="_blank" rel="noopener" href="http://mirror.bit.edu.cn/mysql/Downloads/">http://mirror.bit.edu.cn/mysql/Downloads/</a></li>
+<li>中国电信天翼云：<a target="_blank" rel="noopener" href="http://mirrors.ctyun.cn/Mysql/">http://mirrors.ctyun.cn/Mysql/</a></li>
+</ol>
+<h5 id="PostgreSQL"><a href="#PostgreSQL" class="headerlink" title="PostgreSQL"></a>PostgreSQL</h5><ol>
+<li>浙江大学：<a target="_blank" rel="noopener" href="http://mirrors.zju.edu.cn/postgresql/">http://mirrors.zju.edu.cn/postgresql/</a></li>
+</ol>
+<h5 id="MariaDB"><a href="#MariaDB" class="headerlink" title="MariaDB"></a>MariaDB</h5><ol>
+<li>中国电信天翼云：<a target="_blank" rel="noopener" href="http://mirrors.ctyun.cn/MariaDB/">http://mirrors.ctyun.cn/MariaDB/</a></li>
+</ol>
+<h5 id="VideoLAN"><a href="#VideoLAN" class="headerlink" title="VideoLAN"></a>VideoLAN</h5><ol>
+<li>大连东软信息学院：<a target="_blank" rel="noopener" href="http://mirrors.neusoft.edu.cn/videolan/">http://mirrors.neusoft.edu.cn/videolan/</a></li>
+<li>中国科技大学：<a target="_blank" rel="noopener" href="http://mirrors.ustc.edu.cn/videolan-ftp/">http://mirrors.ustc.edu.cn/videolan-ftp/</a></li>
+</ol>
+<h4 id="开发工具类"><a href="#开发工具类" class="headerlink" title="开发工具类"></a><strong>开发工具类</strong></h4><h5 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h5><ol>
+<li>中国科技大学：<a target="_blank" rel="noopener" href="http://mirrors.ustc.edu.cn/eclipse/">http://mirrors.ustc.edu.cn/eclipse/</a></li>
+<li>中国科学院：<a target="_blank" rel="noopener" href="http://mirrors.opencas.cn/eclipse/">http://mirrors.opencas.cn/eclipse/</a></li>
+<li>东北大学A：<a target="_blank" rel="noopener" href="http://ftp.neu.edu.cn/mirrors/eclipse/">http://ftp.neu.edu.cn/mirrors/eclipse/</a></li>
+<li>东北大学B：<a target="_blank" rel="noopener" href="http://mirror.neu.edu.cn/eclipse/">http://mirror.neu.edu.cn/eclipse/</a></li>
+</ol>
+<h5 id="安卓SDK"><a href="#安卓SDK" class="headerlink" title="安卓SDK"></a>安卓SDK</h5><ol>
+<li>中国科学院：<a target="_blank" rel="noopener" href="http://mirrors.opencas.ac.cn/android/repository/">http://mirrors.opencas.ac.cn/android/repository/</a></li>
+<li>南洋理工学院：<a target="_blank" rel="noopener" href="http://mirror.nyist.edu.cn/android/repository/">http://mirror.nyist.edu.cn/android/repository/</a></li>
+<li>中国科学院：<a target="_blank" rel="noopener" href="http://mirrors.opencas.cn/android/repository/">http://mirrors.opencas.cn/android/repository/</a></li>
+<li>大连东软信息学院：<a target="_blank" rel="noopener" href="http://mirrors.neusoft.edu.cn/android/repository/">http://mirrors.neusoft.edu.cn/android/repository/</a></li>
+</ol>
+<h3 id="官方镜像列表状态地址"><a href="#官方镜像列表状态地址" class="headerlink" title="官方镜像列表状态地址"></a>官方镜像列表状态地址</h3><ol>
+<li>CentOS：<a target="_blank" rel="noopener" href="http://mirror-status.centos.org/#cn">http://mirror-status.centos.org/#cn</a></li>
+<li>Archlinux：<a target="_blank" rel="noopener" href="https://www.archlinux.org/mirrors/status/">https://www.archlinux.org/mirrors/status/</a></li>
+<li>Ubuntu：<a target="_blank" rel="noopener" href="https://launchpad.net/ubuntu/+cdmirrors">https://launchpad.net/ubuntu/+cdmirrors</a></li>
+<li>Debian：<a target="_blank" rel="noopener" href="http://mirror.debian.org/status.html">http://mirror.debian.org/status.html</a></li>
+<li>FedoraLinux/FedoraEPEL：<a target="_blank" rel="noopener" href="https://admin.fedoraproject.org/mirrormanager/mirrors">https://admin.fedoraproject.org/mirrormanager/mirrors</a></li>
+<li>Apache：<a target="_blank" rel="noopener" href="http://www.apache.org/mirrors/#cn">http://www.apache.org/mirrors/#cn</a></li>
+<li>Cygwin：<a target="_blank" rel="noopener" href="https://www.cygwin.com/mirrors.html">https://www.cygwin.com/mirrors.html</a></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/08/01/%E3%80%90%E5%B7%A5%E5%85%B7%E3%80%91%E7%81%B5%E6%B4%BB%E8%A7%A3%E9%99%A4%E7%BD%91%E9%A1%B5%E6%93%8D%E4%BD%9C%E9%99%90%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/01/%E3%80%90%E5%B7%A5%E5%85%B7%E3%80%91%E7%81%B5%E6%B4%BB%E8%A7%A3%E9%99%A4%E7%BD%91%E9%A1%B5%E6%93%8D%E4%BD%9C%E9%99%90%E5%88%B6/" class="post-title-link" itemprop="url">【工具】灵活解除网页操作限制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-01 10:48:35" itemprop="dateCreated datePublished" datetime="2020-08-01T10:48:35+08:00">2020-08-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">常用工具</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.quchao.net/WEB-Disable.html">https://www.quchao.net/WEB-Disable.html</a></p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>下午帮客户分析某文学登陆业务中，发现有页面禁用了网页右键，非常影响调试，平时遇到这种情况通常都是<code>JS</code>即可，但是网上查阅了资料后发现用控制台调节更灵活一些，毕竟禁用 JS 可能出现一些错位现象，于是就有了下文。</p>
+<hr>
+<h2 id="实现禁止操作"><a href="#实现禁止操作" class="headerlink" title="实现禁止操作"></a>实现禁止操作</h2><p>既然我们要解除就要先看看禁止效果是如何失效的，以下代码放入网站<code>JS</code>里面引用即可实现效果。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 禁止右键菜单</span><br><span class="line">document.oncontextmenu = function()&#123; return false; &#125;;</span><br><span class="line">document.oncontextmenu= new Function(&quot;event.returnValue=false&quot;);</span><br><span class="line">// 禁止文字选择</span><br><span class="line">document.onselectstart = function()&#123; return false; &#125;;</span><br><span class="line">document.onselectstart = new Function(&quot;event.returnValue=false&quot;);</span><br><span class="line">// 禁止复制</span><br><span class="line">document.oncopy = function()&#123; return false; &#125;;</span><br><span class="line">document.oncopy = new Function(&quot;event.returnValue=false&quot;);</span><br><span class="line">// 禁止剪切</span><br><span class="line">document.oncut = function()&#123; return false; &#125;;</span><br><span class="line">document.oncopy = new Function(&quot;event.returnValue=false&quot;);</span><br><span class="line">// 禁止粘贴</span><br><span class="line">document.onpaste = function()&#123; return false; &#125;;</span><br><span class="line">document.onpaste = new Function(&quot;event.returnValue=false&quot;);</span><br><span class="line">// 禁止F12</span><br><span class="line">document.onkeydown = function () &#123;</span><br><span class="line">    if (window.event &amp;&amp; window.event.keyCode == 123) &#123;</span><br><span class="line">        event.keyCode = 0;</span><br><span class="line">        event.returnValue = true;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="解除禁止操作"><a href="#解除禁止操作" class="headerlink" title="解除禁止操作"></a>解除禁止操作</h2><p>通常直接按<code>F12</code>，如果此键被禁止可以通过<code>SHIFT + CTRL + I</code>打开，或者通过浏览器菜单里面的<code>“开发人员工具”</code>。<br>选择控制台，输入以下代码回车即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 开启右键菜单</span><br><span class="line">document.oncontextmenu = function()&#123; return true; &#125;;</span><br><span class="line">// 开启文字选择</span><br><span class="line">document.onselectstart = function()&#123; return true; &#125;;</span><br><span class="line">// 开启复制</span><br><span class="line">document.oncopy = function()&#123; return true; &#125;;</span><br><span class="line">// 开启剪切</span><br><span class="line">document.oncut = function()&#123; return true; &#125;;</span><br><span class="line">// 开启粘贴</span><br><span class="line">document.onpaste = function()&#123; return true; &#125;;</span><br><span class="line">// 开启F12键</span><br><span class="line">document.onkeydown = function () &#123;</span><br><span class="line">    if (window.event &amp;&amp; window.event.keyCode == 123) &#123;</span><br><span class="line">        event.keyCode = 0;</span><br><span class="line">        event.returnValue = true;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>细心的朋友可能发现<code>F12</code> 键盘的代码中含有<code>123</code>，其实这个是键盘的键盘码，同理可以换成其他按键（键盘码）进行禁止某键或者开启某个按键，最后附上一份键盘码便于使用。</p>
+<p>键盘码列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line">按键名（key）    按键码（keyCode）</span><br><span class="line">Escape【退出键】    27</span><br><span class="line">F1    112</span><br><span class="line">F2    113</span><br><span class="line">F3    114</span><br><span class="line">F4    115</span><br><span class="line">F5    116</span><br><span class="line">F6    117</span><br><span class="line">F7    118</span><br><span class="line">F8    119</span><br><span class="line">F9    120</span><br><span class="line">F10    121</span><br><span class="line">F11    122</span><br><span class="line">F12    123</span><br><span class="line">ScrollLock【滚动锁定键】    145</span><br><span class="line">Print【打印键,亦可截取整个屏幕,在画图、doc、ppt等粘贴】    42</span><br><span class="line">Pause【暂停键】    19</span><br><span class="line">`【反引号】    192</span><br><span class="line">~【波浪号】    192</span><br><span class="line">!    49</span><br><span class="line">@【艾特符，小老鼠，圈a，蜗牛】    50</span><br><span class="line">#【井号】    51</span><br><span class="line">$【美元符,中文状态下是人民币符】    52</span><br><span class="line">%    53</span><br><span class="line">^【 折音符】    54</span><br><span class="line">&amp;【and符,和,且】    55</span><br><span class="line">*【星号】    56</span><br><span class="line">(    57</span><br><span class="line">)    48</span><br><span class="line">-【减号,横杆】    173</span><br><span class="line">+    61</span><br><span class="line">1    49</span><br><span class="line">2    50</span><br><span class="line">3    51</span><br><span class="line">4    52</span><br><span class="line">5    53</span><br><span class="line">6    54</span><br><span class="line">7    55</span><br><span class="line">8    56</span><br><span class="line">9    57</span><br><span class="line">0   48</span><br><span class="line">_【下划线】    173</span><br><span class="line">=    61</span><br><span class="line">Backspace【← 回退键】    8</span><br><span class="line">Tab【制表键】    9</span><br><span class="line">CapsLock【⇪字母大写锁】    20</span><br><span class="line">Shift【⇧上档转换键或上档键】    16</span><br><span class="line">q    81</span><br><span class="line">w    87</span><br><span class="line">e    69</span><br><span class="line">r    82</span><br><span class="line">t    84</span><br><span class="line">y    89</span><br><span class="line">u    85</span><br><span class="line">i    73</span><br><span class="line">o    79</span><br><span class="line">p    80</span><br><span class="line">[    219</span><br><span class="line">]    221</span><br><span class="line">Q    81</span><br><span class="line">W    87</span><br><span class="line">E    69</span><br><span class="line">R    82</span><br><span class="line">T    84</span><br><span class="line">Y    89</span><br><span class="line">U    85</span><br><span class="line">I    73</span><br><span class="line">O    79</span><br><span class="line">P    80</span><br><span class="line">&#123;    219</span><br><span class="line">&#125;    221</span><br><span class="line">a    65</span><br><span class="line">s    83</span><br><span class="line">d    68</span><br><span class="line">f    70</span><br><span class="line">g    71</span><br><span class="line">h    72</span><br><span class="line">j    74</span><br><span class="line">k    75</span><br><span class="line">l    76</span><br><span class="line">;【分号】    59</span><br><span class="line">&#x27;【单引号】  222</span><br><span class="line">\【反斜杠】  220</span><br><span class="line">A    65</span><br><span class="line">S    83</span><br><span class="line">D    68</span><br><span class="line">F    70</span><br><span class="line">G    71</span><br><span class="line">H    72</span><br><span class="line">J    74</span><br><span class="line">K    75</span><br><span class="line">L    76</span><br><span class="line">:【冒号】    59</span><br><span class="line">&quot;【双引号】  222</span><br><span class="line">|【竖杠】    220</span><br><span class="line">z    90</span><br><span class="line">x    88</span><br><span class="line">c    67</span><br><span class="line">v    86</span><br><span class="line">b    66</span><br><span class="line">n    78</span><br><span class="line">m    77</span><br><span class="line">,【逗号】    188</span><br><span class="line">.【句号】    190</span><br><span class="line">/【斜杠】    191</span><br><span class="line">Z    90</span><br><span class="line">X    88</span><br><span class="line">C    67</span><br><span class="line">V    86</span><br><span class="line">B    66</span><br><span class="line">N    78</span><br><span class="line">M    77</span><br><span class="line">&lt;【小于号】    188</span><br><span class="line">&gt;【大于号】    190</span><br><span class="line">?    191</span><br><span class="line">Control【控制键】    17</span><br><span class="line">OS【window键】    91</span><br><span class="line">Alt【换挡键】    18</span><br><span class="line">【空格键】    32</span><br><span class="line">ContextMenu【上下文菜单键,等价于鼠标右键】    93</span><br><span class="line">Enter【↩回车键】    13</span><br><span class="line">Insert【插入键】    45</span><br><span class="line">Delete【删除键】    46</span><br><span class="line">Home【起始键】    36</span><br><span class="line">End【结束建】    35</span><br><span class="line">PageUp【上页键】    33</span><br><span class="line">PageDown【下页键】    34</span><br><span class="line">ArrowUp【↑上移键】    38</span><br><span class="line">ArrowRight【→右移键】    39</span><br><span class="line">ArrowDown【↓下移键】    40</span><br><span class="line">ArrowLeft【←左移键】    37</span><br><span class="line">以下是小键盘部分</span><br><span class="line">NumLock【数字锁定键】    144</span><br><span class="line">/    111</span><br><span class="line">*    106</span><br><span class="line">-    109</span><br><span class="line">+    107</span><br><span class="line">Enter    13</span><br><span class="line">0    96</span><br><span class="line">.【点】    110</span><br><span class="line">1    97</span><br><span class="line">2    98</span><br><span class="line">3    99</span><br><span class="line">4    100</span><br><span class="line">5    101</span><br><span class="line">6    102</span><br><span class="line">7    103</span><br><span class="line">8    104</span><br><span class="line">9    105</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

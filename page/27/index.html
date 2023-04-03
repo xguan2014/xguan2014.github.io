@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一份耕耘，一份收获">
+<meta property="og:type" content="website">
+<meta property="og:title" content="深度优先">
+<meta property="og:url" content="http://blog.bfsdfs.com/page/27/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="一份耕耘，一份收获">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="深度优先">
+<meta property="article:tag" content="管星">
+<meta property="article:tag" content="xguan2014">
+<meta property="article:tag" content=".Net Core">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="程序员">
+<meta property="article:tag" content=".Net博客">
+<meta property="article:tag" content="xguan">
+<meta property="article:tag" content="树莓派1">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/page/27/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/01/10/%E3%80%90.Net%20Core%E3%80%91NLog%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/10/%E3%80%90.Net%20Core%E3%80%91NLog%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">【.Net Core】NLog配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-10 22:16:38" itemprop="dateCreated datePublished" datetime="2020-01-10T22:16:38+08:00">2020-01-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><kbd>Nuget</kbd> 安装 <kbd>NLog.Extensions.Loggin</kbd></p>
+<p>项目目录下新建 nlog.config,内容如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span><br><span class="line">&lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;</span><br><span class="line">      xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;</span><br><span class="line">  &lt;targets&gt;</span><br><span class="line">    &lt;target name=&quot;logfile&quot; xsi:type=&quot;File&quot; fileName=&quot;logs/$&#123;shortdate&#125;.log&quot; /&gt;</span><br><span class="line">    &lt;target name=&quot;database&quot; xsi:type=&quot;Database&quot; dbProvider=&quot;MySql.Data.MySqlClient.MySqlConnection, MySql.Data&quot;&gt;</span><br><span class="line">      &lt;connectionString&gt;$&#123;var:connectionString&#125;&lt;/connectionString&gt;</span><br><span class="line">        &lt;commandText&gt;</span><br><span class="line">          insert into `nlog` (</span><br><span class="line">          `application`, `logged`, `level`, `message`,</span><br><span class="line">          `callsite`, `exception`,`stacktrace`</span><br><span class="line">          ) values (</span><br><span class="line">          @application, @logged, @level, @message,</span><br><span class="line">          @callsite, @exception,@stacktrace</span><br><span class="line">          );</span><br><span class="line">        &lt;/commandText&gt;</span><br><span class="line">        &lt;parameter name=&quot;@application&quot; layout=&quot;iPaaS_Auth_API&quot; /&gt;</span><br><span class="line">        &lt;parameter name=&quot;@logged&quot; layout=&quot;$&#123;date&#125;&quot; /&gt;</span><br><span class="line">        &lt;parameter name=&quot;@level&quot; layout=&quot;$&#123;level&#125;&quot; /&gt;</span><br><span class="line">        &lt;parameter name=&quot;@message&quot; layout=&quot;$&#123;message&#125;&quot; /&gt;</span><br><span class="line">        &lt;parameter name=&quot;@callSite&quot; layout=&quot;$&#123;callsite:filename=true&#125;&quot; /&gt;</span><br><span class="line">        &lt;parameter name=&quot;@exception&quot; layout=&quot;$&#123;exception:tostring&#125;&quot; /&gt;</span><br><span class="line">        &lt;parameter name=&quot;@stacktrace&quot; layout=&quot;$&#123;stacktrace&#125;&quot; /&gt;</span><br><span class="line">    &lt;/target&gt;</span><br><span class="line">  &lt;/targets&gt;</span><br><span class="line">  &lt;rules&gt;</span><br><span class="line">    &lt;logger name=&quot;*&quot; minlevel=&quot;Error&quot; writeTo=&quot;logfile&quot; /&gt;</span><br><span class="line">    &lt;logger name=&quot;*&quot; minlevel=&quot;Error&quot; writeTo=&quot;database&quot; /&gt;</span><br><span class="line">  &lt;/rules&gt;</span><br><span class="line">&lt;/nlog&gt;</span><br></pre></td></tr></table></figure>
+<p>右键设置文件属性：<br><img src="/images/nlog-1.png" alt=""></p>
+<p>在 Startup.cs 的 Configure 中添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#region Nlog记日志</span><br><span class="line"></span><br><span class="line">loggerFactory.AddNLog();</span><br><span class="line">NLog.LogManager.LoadConfiguration(&quot;nlog.config&quot;).GetCurrentClassLogger();</span><br><span class="line">NLog.LogManager.Configuration.Variables[&quot;connectionString&quot;] = Configuration.GetConnectionString(&quot;DefaultConnection&quot;);</span><br><span class="line">Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);  //避免日志中的中文输出乱码</span><br><span class="line"></span><br><span class="line">#endregion Nlog记日志</span><br></pre></td></tr></table></figure>
+
+<p>在 appsetting.json 中配置数据库连接字符串：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;Logging&quot;: &#123;</span><br><span class="line">    &quot;LogLevel&quot;: &#123;</span><br><span class="line">      &quot;Default&quot;: &quot;Warning&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;AllowedHosts&quot;: &quot;*&quot;,</span><br><span class="line">  &quot;ConnectionStrings&quot;: &#123;</span><br><span class="line">    &quot;DefaultConnection&quot;: &quot;server=***;uid=***;pwd=Htm4XW2rjEDJYD3y;port=3306;database=***;TreatTinyAsBoolean=false;Connection Timeout=180&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在数据库中创建nlog表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE IF EXISTS `nlog`;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `nlog` (</span><br><span class="line">  `id` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `application` varchar(50) DEFAULT NULL,</span><br><span class="line">  `logged` datetime(6) NOT NULL,</span><br><span class="line">  `level` varchar(50) DEFAULT NULL,</span><br><span class="line">  `message` varchar(2000) DEFAULT NULL,</span><br><span class="line">  `callsite` varchar(512) DEFAULT NULL,</span><br><span class="line">  `exception` longtext,</span><br><span class="line">  `stacktrace` longtext,</span><br><span class="line">  PRIMARY KEY (`id`) USING BTREE</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure>
+<p>还需要 <kbd>Nuget</kbd> 安装 <kbd>MySql.Data</kbd></p>
+<p>使用一下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class Program</span><br><span class="line">&#123;</span><br><span class="line">    private static Logger logger = LogManager.GetCurrentClassLogger();</span><br><span class="line"></span><br><span class="line">    public static void Main(string[] args)</span><br><span class="line">    &#123;</span><br><span class="line">        var builder = new ConfigurationBuilder()</span><br><span class="line">          .AddJsonFile(&quot;appsettings.json&quot;);</span><br><span class="line">        var configuration = builder.Build();</span><br><span class="line"></span><br><span class="line">        NLog.LogManager.LoadConfiguration(&quot;nlog.config&quot;).GetCurrentClassLogger();</span><br><span class="line">        NLog.LogManager.Configuration.Variables[&quot;connectionString&quot;] = configuration.GetConnectionString(&quot;DefaultConnection&quot;);</span><br><span class="line">        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);  //避免日志中的中文输出乱码</span><br><span class="line"></span><br><span class="line">        //最常见的记录信息，一般用于普通输出</span><br><span class="line">        logger.Trace(&quot;输出一条记录信息成功！&quot;);</span><br><span class="line">        //同样是记录信息，不过出现的频率要比Trace少一些，一般用来调试程序</span><br><span class="line">        logger.Debug(&quot;输出一条Debug信息成功！&quot;);</span><br><span class="line">        //信息类型的消息</span><br><span class="line">        logger.Info(&quot;输出一条消息类型信息成功！&quot;);</span><br><span class="line">        //警告信息，一般用于比较重要的场合</span><br><span class="line">        logger.Warn(&quot;输出一条警告信息成功&quot;);</span><br><span class="line">        //错误信息</span><br><span class="line">        logger.Error(&quot;输出一条错误信息成功！&quot;);</span><br><span class="line">        //致命异常信息。一般来讲，发生致命异常之后程序将无法继续执行。</span><br><span class="line">        logger.Fatal(&quot;输出一条致命信息成功！&quot;);</span><br><span class="line">        //CreateWebHostBuilder(args).Build().Run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>logs文件<br><img src="/images/nlog-2.png" alt=""></p>
+<p>数据库<br><img src="/images/nlog-3.png" alt=""></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/01/05/%E3%80%90.Net%20Core%E3%80%91%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%9A%E8%BF%87Signalr%E4%B8%8A%E4%BC%A0%E4%BC%A0%E6%84%9F%E5%99%A8%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/05/%E3%80%90.Net%20Core%E3%80%91%E6%A0%91%E8%8E%93%E6%B4%BE%E9%80%9A%E8%BF%87Signalr%E4%B8%8A%E4%BC%A0%E4%BC%A0%E6%84%9F%E5%99%A8%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">【.Net Core】树莓派通过Signalr上传传感器数据</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-05 19:13:18" itemprop="dateCreated datePublished" datetime="2020-01-05T19:13:18+08:00">2020-01-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>树莓派4B 采集传感器的温湿度 通过.Net Core 3.1的控制台程序将数据上传到服务器端，程序部署在docker中</p>
+<p>客户端代码：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Iot.Device.DHTxx;</span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.SignalR.Client;</span><br><span class="line"><span class="keyword">using</span> NLog;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">IotClient</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> HubConnection _connection;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">readonly</span> Logger logger = LogManager.GetLogger(<span class="string">&quot;IotClient&quot;</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> Guid DeviceGuid = Guid.Parse(<span class="string">&quot;886dae3f-1e08-41ce-9531-e2d326ee693b&quot;</span>);</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">async</span> Task <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            logger.Debug(<span class="string">&quot;启动客户端&quot;</span>);</span><br><span class="line"></span><br><span class="line">            _connection = <span class="keyword">new</span> HubConnectionBuilder()</span><br><span class="line">                .WithUrl(<span class="string">&quot;http://ip:port/iotHub&quot;</span>)</span><br><span class="line">                .WithAutomaticReconnect()</span><br><span class="line">                .Build();</span><br><span class="line"></span><br><span class="line">            _connection.On&lt;<span class="built_in">string</span>&gt;(<span class="string">&quot;IotClientRsult&quot;</span>, message =&gt; IotClientRsult(message));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">await</span> _connection.StartAsync();</span><br><span class="line">                logger.Info(<span class="string">$&quot;SignalR连接成功！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">            &#123;</span><br><span class="line">                logger.Fatal(<span class="string">$&quot;SignalR连接失败：<span class="subst">&#123;ex.Message&#125;</span>&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">using</span> Dht11 dht = <span class="keyword">new</span> Dht11(<span class="number">26</span>);</span><br><span class="line"></span><br><span class="line">            List&lt;Attribute&gt; attributes = <span class="keyword">new</span> List&lt;Attribute&gt;()</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">new</span> Attribute()&#123;Identifier =<span class="string">&quot;humidity&quot;</span>, Data =<span class="keyword">new</span> List&lt;Data&gt;()&#125;,</span><br><span class="line">                <span class="keyword">new</span> Attribute()&#123;Identifier =<span class="string">&quot;temperature&quot;</span>, Data =<span class="keyword">new</span> List&lt;Data&gt;()&#125;,</span><br><span class="line">            &#125;;</span><br><span class="line">            UploadData uploadData = <span class="keyword">new</span> UploadData()</span><br><span class="line">            &#123;</span><br><span class="line">                DeviceGuid = DeviceGuid,</span><br><span class="line">                Attributes = attributes,</span><br><span class="line">                Timestamp = DateTimeHelper.GetTimeStamp()</span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">try</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">var</span> humidityOrNan = dht.Humidity.ToString(<span class="string">&quot;0.0&quot;</span>);</span><br><span class="line">                    <span class="keyword">var</span> temperatureOrNan = dht.Temperature.Celsius.ToString(<span class="string">&quot;0.0&quot;</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (dht.IsLastReadSuccessful)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">var</span> temperature = <span class="built_in">decimal</span>.Parse(temperatureOrNan);</span><br><span class="line">                        <span class="keyword">var</span> humidity = <span class="built_in">decimal</span>.Parse(humidityOrNan);</span><br><span class="line"></span><br><span class="line">                        Console.WriteLine(<span class="string">$&quot;Temperature: <span class="subst">&#123;temperature&#125;</span> °C, Humidity: <span class="subst">&#123; humidity&#125;</span> % &quot;</span>);</span><br><span class="line">                        <span class="keyword">if</span> (_connection.State == HubConnectionState.Connected)</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="keyword">try</span></span><br><span class="line">                            &#123;</span><br><span class="line">                                uploadData.Timestamp = DateTimeHelper.GetTimeStamp();</span><br><span class="line">                                uploadData.Attributes[<span class="number">0</span>].Data.Clear();</span><br><span class="line">                                uploadData.Attributes[<span class="number">0</span>].Data.Add(<span class="keyword">new</span> Data</span><br><span class="line">                                &#123;</span><br><span class="line">                                    Value = humidity,</span><br><span class="line">                                    Timestamp = DateTimeHelper.GetTimeStamp(),</span><br><span class="line">                                &#125;);</span><br><span class="line">                                uploadData.Attributes[<span class="number">1</span>].Data.Clear();</span><br><span class="line">                                uploadData.Attributes[<span class="number">1</span>].Data.Add(<span class="keyword">new</span> Data</span><br><span class="line">                                &#123;</span><br><span class="line">                                    Value = temperature,</span><br><span class="line">                                    Timestamp = DateTimeHelper.GetTimeStamp(),</span><br><span class="line">                                &#125;);</span><br><span class="line">                                <span class="keyword">await</span> _connection.InvokeAsync(<span class="string">&quot;IotClientUpload&quot;</span>, uploadData);</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">                            &#123;</span><br><span class="line">                                logger.Fatal(<span class="string">$&quot;SignalR发送数据失败：<span class="subst">&#123;ex.Message&#125;</span>&quot;</span>);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">                &#123;</span><br><span class="line">                    logger.Fatal(<span class="string">$&quot;出现错误：<span class="subst">&#123;ex.Message&#125;</span> <span class="subst">&#123;ex.StackTrace&#125;</span>&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">await</span> Task.Delay(<span class="number">1000</span> * <span class="number">5</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">IotClientRsult</span>(<span class="params"><span class="built_in">string</span> message</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;DateTime.Now.ToString(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>)&#125;</span><span class="subst">&#123;message&#125;</span>&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>数据对象：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">UploadData</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;Attribute&gt; Attributes &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Timestamp &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> Guid DeviceGuid &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Attribute</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Identifier &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> List&lt;Data&gt; Data &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Data</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">decimal</span> Value &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Timestamp &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>服务器端，SignalR:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> demo.Database;</span><br><span class="line"><span class="keyword">using</span> demo.Entities;</span><br><span class="line"><span class="keyword">using</span> demo.SignalR.IotClient;</span><br><span class="line"><span class="keyword">using</span> Microsoft.AspNetCore.SignalR;</span><br><span class="line"><span class="keyword">using</span> Microsoft.Extensions.Logging;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">demo.SignalR</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">IotHub</span>: <span class="title">Hub</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> MyContext _myContext;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> ILoggerFactory _loggerFactory;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">IotHub</span>(<span class="params">MyContext myContext,</span></span></span><br><span class="line"><span class="params"><span class="function">            ILoggerFactory loggerFactory</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _myContext = myContext;</span><br><span class="line">            _loggerFactory = loggerFactory;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">IotClientUpload</span>(<span class="params">UploadData uploadData</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> logger = _loggerFactory.CreateLogger(<span class="keyword">typeof</span>(IotHub));</span><br><span class="line">            logger.LogError(Newtonsoft.Json.JsonConvert.SerializeObject(uploadData));</span><br><span class="line">            <span class="keyword">var</span> connectionId = Context.ConnectionId;</span><br><span class="line">            <span class="keyword">if</span> (uploadData <span class="keyword">is</span> <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">await</span> IotClientRsult(connectionId, <span class="string">$&quot;上传内容为空！&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (uploadData.Attributes != <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">foreach</span> (<span class="keyword">var</span> attribute <span class="keyword">in</span> uploadData.Attributes)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">foreach</span> (<span class="keyword">var</span> data <span class="keyword">in</span> attribute.Data)</span><br><span class="line">                    &#123;</span><br><span class="line">                        _myContext.IotData.Add(<span class="keyword">new</span> IotData()</span><br><span class="line">                        &#123;</span><br><span class="line">                            Guid = Guid.NewGuid(),</span><br><span class="line">                            Timestamp = data.Timestamp,</span><br><span class="line">                            Value = data.Value,</span><br><span class="line">                            Identifier = attribute.Identifier,</span><br><span class="line">                            DeviceGuid = uploadData.DeviceGuid</span><br><span class="line">                        &#125;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">int</span> count = <span class="keyword">await</span> _myContext.SaveChangesAsync();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">await</span> IotClientRsult(connectionId, <span class="string">$&quot;成功上传 <span class="subst">&#123;count&#125;</span> 条数据！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">IotClientRsult</span>(<span class="params"><span class="built_in">string</span> connectionId, <span class="built_in">string</span> message</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">await</span> Clients.Client(connectionId).SendAsync(<span class="string">&quot;IotClientRsult&quot;</span>, message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Dockerfile：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> mcr.microsoft.com/dotnet/core/aspnet:<span class="number">3.1</span>-buster-slim-arm32v7 AS base</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> LANG C.UTF-<span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 时区设置</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">ln</span> -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&#x27;Asia/Shanghai&#x27;</span> &gt;/etc/timezone</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;dotnet&quot;</span>, <span class="string">&quot;IotClient.dll&quot;</span>]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Build:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker build -t iot-client-image .</span><br><span class="line"></span><br><span class="line">docker run -d --name  iot-client -v /opt/netcore/IotClient:/app --privileged  iot-client-image </span><br></pre></td></tr></table></figure>
+<p>Docker访问Raspberry Pi GPIO引脚，需要加 –privileged 参数</p>
+<p>效果图：</p>
+<p><img src="/images/20200105191106342.png" alt=""><br><img src="/images/20200105191231610.png" alt=""></p>
+<p>后续再根据数据做异常预警 </p>
+<p>树莓派 安装 .Net Core 3.1:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.visualstudio.microsoft.com/download/pr/8c839c0e-a5ae-4254-8d8b-c012528fe601/c147e26bad68f97eacc287a71e01331d/aspnetcore-runtime-3.1.0-linux-arm.tar.gz</span><br><span class="line"></span><br><span class="line">wget https://download.visualstudio.microsoft.com/download/pr/67766a96-eb8c-4cd2-bca4-ea63d2cc115c/7bf13840aa2ed88793b7315d5e0d74e6/dotnet-sdk-3.1.100-linux-arm.tar.gz</span><br><span class="line"></span><br><span class="line">mkdir -p $HOME/pi/dotnet &amp;&amp; tar zxf dotnet-sdk-3.1.100-linux-arm.tar.gz -C $HOME/pi/dotnet</span><br><span class="line">tar zxf aspnetcore-runtime-3.1.0-linux-arm.tar.gz -C $HOME/pi/dotnet</span><br><span class="line"></span><br><span class="line">export DOTNET_ROOT=$HOME/pi/dotnet </span><br><span class="line">export PATH=$PATH:$HOME/pi/dotnet</span><br></pre></td></tr></table></figure>
+<p>临时变量永久生效：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure>
+<p>添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export DOTNET_ROOT=$HOME/pi/dotnet </span><br><span class="line">export PATH=$PATH:$HOME/pi/dotnet</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/01/04/%E3%80%90frp%E3%80%91%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/04/%E3%80%90frp%E3%80%91%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">【Frp】内网穿透相关配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-04 11:39:33" itemprop="dateCreated datePublished" datetime="2020-01-04T11:39:33+08:00">2020-01-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%B7%AF%E4%B8%8A/" itemprop="url" rel="index"><span itemprop="name">编程路上</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>frp下载：<a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/releases">https://github.com/fatedier/frp/releases</a></p>
+<h2 id="服务器端配置："><a href="#服务器端配置：" class="headerlink" title="服务器端配置："></a>服务器端配置：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 17000</span><br><span class="line">vhost_http_port = 8080</span><br><span class="line">#vhost_https_port = 8080</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># dashboard admin</span><br><span class="line">dashboard_port = 端口</span><br><span class="line">dashboard_user = 账号</span><br><span class="line">dashboard_pwd = 密码</span><br><span class="line"></span><br><span class="line">privilege_token = sgdf@dsfd.df</span><br><span class="line">#authentication_timeout = 60</span><br><span class="line">privilege_allow_ports = 10000-20000</span><br><span class="line"></span><br><span class="line">max_pool_count = 10</span><br><span class="line">subdomain_host = 你的域名.com</span><br><span class="line">log_file = ./frps.log</span><br><span class="line">log_level = info</span><br><span class="line">log_max_days = 7</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>服务端配置账号：</p>
+<p><img src="/images/20200104113139598.png" alt=""></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line"># token 和客户端配置的 accesstoken保持一致，不一致无法保持连接</span><br><span class="line">token=raspberrypi*密码</span><br><span class="line"># 服务截止日期</span><br><span class="line">expirydate=2020-10-01</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="客户端配置："><a href="#客户端配置：" class="headerlink" title="客户端配置："></a>客户端配置：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = 公网ip </span><br><span class="line">server_port = 17000</span><br><span class="line"></span><br><span class="line">privilege_token = 对应服务器的token</span><br><span class="line">pool_count = 2</span><br><span class="line">log_file = ./frpc.log</span><br><span class="line">log_level = info</span><br><span class="line">log_max_days = 10</span><br><span class="line"></span><br><span class="line">#访问用户，与服务端用户配置文件名一致</span><br><span class="line">user=raspberrypi</span><br><span class="line"># 与服务端用户配置文件中的token保持一致</span><br><span class="line">accesstoken=raspberrypi****</span><br><span class="line"></span><br><span class="line"># [项目名称]，保持唯一,其余参考官方配置文件</span><br><span class="line"># [pi] </span><br><span class="line"># type = http</span><br><span class="line"># local_port = 80</span><br><span class="line"># 域名前缀为xx,结合服务端的域名，完整的网址为xx.***.***.com</span><br><span class="line"># subdomain = pi</span><br><span class="line"># use_encryption = true</span><br><span class="line"># use_compression = true </span><br><span class="line"></span><br><span class="line">[ssh]</span><br><span class="line">type = tcp</span><br><span class="line">local_port = 22</span><br><span class="line">remote_port = 10022</span><br><span class="line">use_encryption = true</span><br><span class="line">use_compression = true</span><br><span class="line"></span><br><span class="line">[web1]</span><br><span class="line">type = tcp</span><br><span class="line">local_port = 80</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">remote_port = 10080</span><br><span class="line"></span><br><span class="line">[web2]</span><br><span class="line">type = tcp</span><br><span class="line">local_port = 8080</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">remote_port = 18080</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line">type = tcp</span><br><span class="line">local_port = 3306</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">remote_port = 13306</span><br><span class="line"></span><br><span class="line">[redis]</span><br><span class="line">type = tcp</span><br><span class="line">local_port = 6379</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">remote_port = 16379</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-Systemd-设置-frp-开机启动："><a href="#使用-Systemd-设置-frp-开机启动：" class="headerlink" title="使用 Systemd 设置 frp 开机启动："></a>使用 Systemd 设置 frp 开机启动：</h2><p>Systemd 配置文件在  <code>/lib/systemd/system/</code>  目录下，不同类型的文件使用不同的后缀，如：  <code>.service</code>   <code>.socket</code>   <code>.timer</code>  。</p>
+<p>常用命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">systemctl status frps.service       # 查看 frps 服务状态</span><br><span class="line">systemctl cat frps.service          # 查看 frps 服务配置</span><br><span class="line">sudo systemctl start frps.service   # 启动 frps 服务</span><br><span class="line">sudo systemctl stop frps.service    # 停止 frps 服务</span><br><span class="line">sudo systemctl daemon-reload        # 重新加载配置，修改 systemd 配置执行</span><br><span class="line">sudo systemctl enable frps.service  # 设置开机启动，根据 install 建立软链</span><br><span class="line">sudo systemctl disable frps.service # 取消开机启动，根据 install 移除软链</span><br><span class="line"></span><br><span class="line">man systemd.directives              # 查看帮助</span><br><span class="line">man systemd.service</span><br><span class="line">man systemd.unit</span><br></pre></td></tr></table></figure>
+
+<h2 id="frps-Systemd-配置文件"><a href="#frps-Systemd-配置文件" class="headerlink" title="frps Systemd 配置文件"></a>frps Systemd 配置文件</h2><p>创建  <code>/lib/systemd/system/frpc.service</code>  文件，配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=frps server daemon</span><br><span class="line">Documentation=https://github.com/fatedier/frp</span><br><span class="line">After=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/local/bin/frps -c /usr/local/etc/frps.ini</span><br><span class="line">Type=simple</span><br><span class="line">User=nobody</span><br><span class="line">Group=nogroup</span><br><span class="line">WorkingDirectory=/tmp</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=60s</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>[Unit]</code>  </li>
+<li><code>After</code>  在网络就绪后启动服务，关于网络就绪 <a target="_blank" rel="noopener" href="https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget">NetworkTarget</a>  </li>
+<li><code>[Service]</code>  </li>
+<li><code>ExecStart</code>  启动时执行的命令 </li>
+<li><code>Type</code>  simple 执行 ExecStart 指定的命令，启动主进程，还有很多其他类别 </li>
+<li><code>User</code>  执行命令的用户为 nobody </li>
+<li><code>Group</code>  执行命令的组为 nogroup </li>
+<li><code>WorkingDirectory</code>  命令的工作目录 </li>
+<li><code>Restart</code>  失败后尝试重启，失败是根据退出状态码进行判断的 </li>
+<li><code>RestartSec</code>  失败 60s 后尝试重启  </li>
+<li><code>[Install]</code>  </li>
+<li><code>WantedBy</code>  执行  <code>systemctl enable frps</code>  命令，会在  <code>/etc/systemd/system/multi-user.target.wants/frps.service</code>  目录下创建一个软链  添加或修改配置后需要执行  <code>sudo systemctl daemon-reload</code>  重新加载配置，执行  <code>sudo systemctl enable frps.service</code>  之后会开机启动。</li>
+</ul>
+<h2 id="fprc-配置文件"><a href="#fprc-配置文件" class="headerlink" title="fprc 配置文件"></a>fprc 配置文件</h2><p>创建  <code>/lib/systemd/system/frpc.service</code>  文件，配置和 frps 类似：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=frpc server daemon</span><br><span class="line">Documentation=https://github.com/fatedier/frp</span><br><span class="line">After=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/local/bin/frpc -c /usr/local/etc/frpc.ini</span><br><span class="line">Type=simple</span><br><span class="line">User=nobody</span><br><span class="line">Group=nogroup</span><br><span class="line">WorkingDirectory=/tmp</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartSec=60s</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>添加或修改配置后需要执行  <code>sudo systemctl daemon-reload</code>  重新加载配置，执行  <code>sudo systemctl enable frpc.service</code>  之后会开机启动。</p>
+<h2 id="frp后台运行和停止"><a href="#frp后台运行和停止" class="headerlink" title="frp后台运行和停止"></a>frp后台运行和停止</h2><p>centos<br>1.运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ./frps -c frps.ini &gt;/dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<p>或者客户端:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nohup ./frpc -c ./frpc.ini &gt;/dev/null 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>2.停止<br>先找到这个进程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ps -aux|grep frp| grep -v grep</span><br><span class="line">root      3600  0.1  0.1 110188  9484 pts/0    Sl   15:04   0:00 ./frpc -c ./frpc.ini</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>执行之后如果显示这样则成功了</p>
+<p>然后kill -9 进程号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 3600</span><br></pre></td></tr></table></figure>
+<p>转自：<a target="_blank" rel="noopener" href="https://notfound.cn/posts/systemd-frp/">https://notfound.cn/posts/systemd-frp/</a></p>
+<p>转自：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000017911165">https://segmentfault.com/a/1190000017911165</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><span class="space">&hellip;</span><a class="page-number" href="/page/107/">107</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+<meta name="keywords" content="深度优先,管星,xguan2014,.Net Core,C#,程序员,.Net博客,xguan,树莓派">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.bfsdfs.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":100},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="原文地址：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;bbgs-xc&#x2F;p&#x2F;12961204.html  简介Dockerfile是用来构建Docker镜像的构建文件，是由一系列命令和参数构成的脚本 构建三步: DockerFile文件 &#x3D;&#x3D;&gt; docker build &#x3D;&#x3D;&gt; docker run Dockerfile可参考官方Dockerfile文件 构建过程解析Dockerf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Docker】DockerFile解析">
+<meta property="og:url" content="http://blog.bfsdfs.com/2020/05/26/%E3%80%90Docker%E3%80%91DockerFile%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:site_name" content="深度优先">
+<meta property="og:description" content="原文地址：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;bbgs-xc&#x2F;p&#x2F;12961204.html  简介Dockerfile是用来构建Docker镜像的构建文件，是由一系列命令和参数构成的脚本 构建三步: DockerFile文件 &#x3D;&#x3D;&gt; docker build &#x3D;&#x3D;&gt; docker run Dockerfile可参考官方Dockerfile文件 构建过程解析Dockerf">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/1405595-20200525211046930-1889288240.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/1405595-20200525214017931-861605298.png">
+<meta property="og:image" content="http://blog.bfsdfs.com/images/1405595-20200525215749223-1013796983.png">
+<meta property="article:published_time" content="2020-05-26T14:39:45.000Z">
+<meta property="article:modified_time" content="2023-04-03T14:39:33.065Z">
+<meta property="article:author" content="Mr.Guan">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.bfsdfs.com/images/1405595-20200525211046930-1889288240.png">
+
+<link rel="canonical" href="http://blog.bfsdfs.com/2020/05/26/%E3%80%90Docker%E3%80%91DockerFile%E8%A7%A3%E6%9E%90/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【Docker】DockerFile解析 | 深度优先</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?7d4b9c409d6a4f7ccb3245af7b784a46";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">深度优先</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个家伙好懒，除了文章什么都没留下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="wrench fa-fw"></i>工具</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.bfsdfs.com/2020/05/26/%E3%80%90Docker%E3%80%91DockerFile%E8%A7%A3%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="Mr.Guan">
+      <meta itemprop="description" content="一份耕耘，一份收获">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="深度优先">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Docker】DockerFile解析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-26 22:39:45" itemprop="dateCreated datePublished" datetime="2020-05-26T22:39:45+08:00">2020-05-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">环境搭建</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/bbgs-xc/p/12961204.html">https://www.cnblogs.com/bbgs-xc/p/12961204.html</a></p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Dockerfile是用来构建Docker镜像的构建文件，是由一系列命令和参数构成的脚本</p>
+<p>构建三步: DockerFile文件 ==&gt; docker build ==&gt; docker run</p>
+<p>Dockerfile可参考官方Dockerfile文件</p>
+<h2 id="构建过程解析"><a href="#构建过程解析" class="headerlink" title="构建过程解析"></a>构建过程解析</h2><h3 id="Dockerfile内容基础知识："><a href="#Dockerfile内容基础知识：" class="headerlink" title="Dockerfile内容基础知识："></a>Dockerfile内容基础知识：</h3><p>a&gt;每条保留字指令都必须为大写字母且后面要跟随至少一个参数</p>
+<p>b&gt;指令按照从上到下，顺序执行</p>
+<p>c&gt;#表示注释</p>
+<p>d&gt;每条指令都会创建一个新的镜像层，并对镜像进行提交</p>
+<h3 id="Docker执行Dockerfile的大致流程："><a href="#Docker执行Dockerfile的大致流程：" class="headerlink" title="Docker执行Dockerfile的大致流程："></a>Docker执行Dockerfile的大致流程：</h3><p>a&gt;docker从基础镜像运行一个容器</p>
+<p>b&gt;执行一条指令并对容器作出修改</p>
+<p>c&gt;执行类似docker commit的操作提交一个新的镜像</p>
+<p>d&gt;docker再基于刚提交的镜像运行一个新容器</p>
+<p>e&gt;执行dockerfile中的下一条指令直到所有指令都执行完成</p>
+<h2 id="Dockerfile保留字指令："><a href="#Dockerfile保留字指令：" class="headerlink" title="Dockerfile保留字指令："></a>Dockerfile保留字指令：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">FROM：基础镜像,当前镜像是基于那个镜像的。</span><br><span class="line"></span><br><span class="line">MAINTAINER：作者  邮箱。</span><br><span class="line"></span><br><span class="line">RUN：容器构建时需要运行的命令。</span><br><span class="line"></span><br><span class="line">EXPOSE：暴露端口号 启动容器的时候还需使用 –p 指定端口。</span><br><span class="line"></span><br><span class="line">WORKDIR：指定在创建容器后,终端默认登录后进来的工作目录,一个落脚点,默认根目录，通常绝对路径，CMD ENTRYPOINT 都会在这个目录下执行。</span><br><span class="line"></span><br><span class="line">ENV：构建镜像的过程中设置环境变量, 构建和运行时都有效可以使用$引用。</span><br><span class="line"></span><br><span class="line">ADD：将宿主机目录下的文件拷贝到镜像且会自动处理URL和 解压tar 压缩包。</span><br><span class="line"></span><br><span class="line">COPY：拷贝文件和目录到镜像中，将从构建上下文目录中&lt;源路径&gt;的文件/复制到新的一层镜像内&lt;目标路径&gt;的位置。语法：COPY src dest  COPY [“src”, “desc”]。</span><br><span class="line"></span><br><span class="line">VOLUME：容器数据卷, 数据保存和持久化。</span><br><span class="line"></span><br><span class="line">USER：指定该镜像由什么用户运行  不指定由root 运行。</span><br><span class="line"></span><br><span class="line">CMD：指定容器启动时要运行默认的命令，Dockerfile中可以有多个cmd , 但只有最后一个生效。</span><br><span class="line"></span><br><span class="line">ENTERPOINT：指定容器启动时要运行的命令。在docker run 后面追加参数</span><br><span class="line">ONBUILD：触发器, 当构建一个被继承的dockerfile时运行命令, 父镜像在被子继承后的父镜像的onbuild 被触发。</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/1405595-20200525211046930-1889288240.png" alt=""></p>
+<h2 id="Dockerfile的案例总结"><a href="#Dockerfile的案例总结" class="headerlink" title="Dockerfile的案例总结"></a>Dockerfile的案例总结</h2><h3 id="自定义mycentos镜像（需要安装有vim和ifconfig命令）"><a href="#自定义mycentos镜像（需要安装有vim和ifconfig命令）" class="headerlink" title="自定义mycentos镜像（需要安装有vim和ifconfig命令）"></a>自定义mycentos镜像（需要安装有vim和ifconfig命令）</h3><p>a.定义Dockerfile文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">FROM centos</span><br><span class="line">#定义作者用邮箱</span><br><span class="line">MAINTAINER xc&lt;xxyy@163.com&gt;</span><br><span class="line">ENV DEFAULTDIR /usr/local</span><br><span class="line">#落脚点</span><br><span class="line">WORKDIR $DEFAULTDIR</span><br><span class="line">#安装vim和net-tools</span><br><span class="line">RUN yum -y install  vim</span><br><span class="line">RUN yum -y install  net-tools</span><br><span class="line">#容器暴露端口</span><br><span class="line">EXPOSE 80</span><br><span class="line">CMD /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>b.构建build</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#如果为当前路径下的Dockerfile文件可以省略-f</span><br><span class="line">docker build -f /mydocker/Dockerfile -t mycentos:1.0 .</span><br><span class="line">#查看构建历史</span><br><span class="line">docker history mycentos:1.0</span><br></pre></td></tr></table></figure>
+
+<p>c.运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d mycentos:1.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="CMD与ENTRYPOINT区别"><a href="#CMD与ENTRYPOINT区别" class="headerlink" title="CMD与ENTRYPOINT区别"></a>CMD与ENTRYPOINT区别</h3><p>a.Dockerfile</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM centos</span><br><span class="line">RUN yum install -y curl</span><br><span class="line">#CMD [ &quot;curl&quot;, &quot;-s&quot;, &quot;http://ip.cn&quot; ] </span><br><span class="line">ENTRYPOINT [ &quot;curl&quot;, &quot;-s&quot;, &quot;http://ip.cn&quot; ]</span><br></pre></td></tr></table></figure>
+
+<p>b.构建docker build  -t myip .</p>
+<p>c.运行:docker run myip -i (CMD命令构建报错,-i命令会覆盖curl -s命令；ENTRYPOINT命令会打出头信息)</p>
+<h3 id="自定义tomcat"><a href="#自定义tomcat" class="headerlink" title="自定义tomcat"></a>自定义tomcat</h3><p>a.当前目录下文件<br><img src="/images/1405595-20200525214017931-861605298.png" alt=""></p>
+<p>b.Dockerfile</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">FROM centos</span><br><span class="line">ENV MY_PATH /usr/local</span><br><span class="line">WORKDIR $MY_PATH</span><br><span class="line">COPY 1.txt $MY_PATH/contain.txt</span><br><span class="line">#添加jdk和tomcat</span><br><span class="line">ADD apache-tomcat-7.0.75.tar.gz $MY_PATH</span><br><span class="line">ADD jdk-8u121-linux-x64.tar.gz $MY_PATH</span><br><span class="line"></span><br><span class="line">RUN yum -y install vim</span><br><span class="line"></span><br><span class="line">ENV JAVA_HOME $MY_PATH/jdk1.8.0_121</span><br><span class="line">ENV TOMCAT_HOME $MY_PATH/apache-tomcat-7.0.75</span><br><span class="line">ENV PATH $PATH:$JAVA_HOME/bin:$TOMCAT_HOME/:$CATALINA_HOME/lib:$CATALINA_HOME/bin</span><br><span class="line"></span><br><span class="line">EXPOSE 8080</span><br><span class="line"></span><br><span class="line">CMD $TOMCAT_HOME/bin/startup.sh &amp;&amp; tail -F $TOMCAT_HOME/logs/catalina.out</span><br></pre></td></tr></table></figure>
+
+<p>c.构建</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t mytomcat .</span><br></pre></td></tr></table></figure>
+
+<p>d.启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8090:8080 --name myt -v /mydocker/mytomcat/test:/usr/local/apache-tomcat-7.0.75/webapps/test \</span><br><span class="line">-v /mydocker/mytomcat/logs/:/usr/local/apache-tomcat-7.0.75/logs --privileged=true mytomcat</span><br></pre></td></tr></table></figure>
+<p><img src="/images/1405595-20200525215749223-1013796983.png" alt=""></p>
+<p>则可以在宿主机上之间获取访问容器内日志同时test目录下的项目也可对应容器内项目的class文件</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Mr.Guan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://blog.bfsdfs.com/2020/05/26/%E3%80%90Docker%E3%80%91DockerFile%E8%A7%A3%E6%9E%90/" title="【Docker】DockerFile解析">http://blog.bfsdfs.com/2020/05/26/【Docker】DockerFile解析/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/25/%E3%80%90EF%E3%80%91%E6%8F%92%E5%85%A5%E8%87%AA%E5%A2%9EID%E4%B8%BB%E4%BB%8E%E8%A1%A8%E6%95%B0%E6%8D%AE/" rel="prev" title="【EF】插入自增ID主从表数据">
+      <i class="fa fa-chevron-left"></i> 【EF】插入自增ID主从表数据
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/28/%E3%80%90.Net%20Core%E3%80%91%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94%E4%BF%A1%E6%81%AF/" rel="next" title="【.Net Core】获取请求和响应信息">
+      【.Net Core】获取请求和响应信息 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E8%BF%87%E7%A8%8B%E8%A7%A3%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">构建过程解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dockerfile%E5%86%85%E5%AE%B9%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">Dockerfile内容基础知识：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E6%89%A7%E8%A1%8CDockerfile%E7%9A%84%E5%A4%A7%E8%87%B4%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">Docker执行Dockerfile的大致流程：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile%E4%BF%9D%E7%95%99%E5%AD%97%E6%8C%87%E4%BB%A4%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">Dockerfile保留字指令：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile%E7%9A%84%E6%A1%88%E4%BE%8B%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">Dockerfile的案例总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89mycentos%E9%95%9C%E5%83%8F%EF%BC%88%E9%9C%80%E8%A6%81%E5%AE%89%E8%A3%85%E6%9C%89vim%E5%92%8Cifconfig%E5%91%BD%E4%BB%A4%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">自定义mycentos镜像（需要安装有vim和ifconfig命令）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMD%E4%B8%8EENTRYPOINT%E5%8C%BA%E5%88%AB"><span class="nav-number">4.2.</span> <span class="nav-text">CMD与ENTRYPOINT区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89tomcat"><span class="nav-number">4.3.</span> <span class="nav-text">自定义tomcat</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mr.Guan"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">Mr.Guan</p>
+  <div class="site-description" itemprop="description">一份耕耘，一份收获</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">319</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xguan2014" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xguan2014" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xguan2014@gmail.com" title="E-Mail → mailto:xguan2014@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="hhttps://blog.csdn.net/qq_32688731" title="CSDN → hhttps:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32688731" rel="noopener" target="_blank"><i class="globe fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+
+  立足江湖：
+  <p id="site_time_ing" title="建站日期：2017-05-20 16:46:00"></p>
+  <script>
+    var starttime = "2017-05-20 16:46:00";
+    setInterval(function () { interval(starttime); }, 1000);
+    function interval(e) {
+        var date1 = new Date(e);  //开始时间
+        var date2 = new Date();    //结束时间
+        var date3 = date2.getTime() - date1.getTime()  //时间差的毫秒数
+
+        //计算出相差天数
+        var days = Math.floor(date3 / (24 * 3600 * 1000))
+
+        //计算出小时数
+        var leave1 = date3 % (24 * 3600 * 1000)    //计算天数后剩余的毫秒数
+        var hours = Math.floor(leave1 / (3600 * 1000))
+        hours = hours > 9 ? hours : '0' + hours
+
+        //计算相差分钟数
+        var leave2 = leave1 % (3600 * 1000)        //计算小时数后剩余的毫秒数
+        var minutes = Math.floor(leave2 / (60 * 1000))
+        minutes = minutes > 9 ? minutes : '0' + minutes
+
+        //计算相差秒数
+        var leave3 = leave2 % (60 * 1000)      //计算分钟数后剩余的毫秒数
+        var seconds = Math.round(leave3 / 1000)
+        seconds = seconds > 9 ? seconds : '0' + seconds
+
+        var countDays = document.getElementById("site_time_ing")
+        countDays.innerHTML = days + "天 " + hours + "小时 " + minutes + "分钟 " + seconds + " 秒"
+    }
+  </script>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="BbeiAn-info">
+    <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" rel="nofollow" >鄂ICP备17012779号-1</a> 
+	  <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011602000374" style="text-decoration:none;padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">公安备案号 42011602000374</a>
+</div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="bug"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Guan</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:58</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'd388b62cad048f1f754c',
+      clientSecret: '66257510e8644b4d04f8b5a5359e35688e1ea214',
+      repo        : 'xguan2014.github.io',
+      owner       : 'xguan2014',
+      admin       : ['xguan2014'],
+      id          : '1d052540507585377f87a20d06f24589',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
